@@ -22,11 +22,11 @@
 
 ## CRMDL context
 
-	$repo: <domain>
+	$repo:  <domain>
 	$owner: <some-body>
-	$tree: <branch> | <tag>
+	$tree:  <branch> | <tag>
 	$group: <some-group>
-	$name: some.namespace.name
+	$name:  <some>.<namespace>.<name>
 
 
 
