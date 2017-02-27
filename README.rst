@@ -3,7 +3,7 @@ Cross Reference Model Definition Language (CRMDL) Scheme
 
 CRMDL Syntax
 ------------
-.. code : yaml
+.. code-block:yaml
 
     include:
       <field>: <primitive type>
@@ -26,7 +26,7 @@ CRMDL Syntax
 CRMDL context
 -------------
 
-.. code: yaml
+.. code-block:yaml
 
 $repo: <domain>
 $owner: <some-body>
@@ -41,7 +41,8 @@ CRMDL Reference Syntax
 
 Local Reference
 ---------------
-.. code : yaml
+
+.. code-block:yaml
 
     syntax: name#field
    example: some.namespace.name#someField
@@ -55,7 +56,7 @@ Local Reference
 Cross-Tree Reference
 --------------------
 
-.. code : yaml
+.. code-block:yaml
 
     syntax: tree/name#field
    example: some-tree/some.namespace.name#someField
@@ -69,7 +70,7 @@ Cross-Tree Reference
 Cross-Group Reference
 ---------------------
 
-.. code : yaml
+.. code-block:yaml
 
     syntax: group/tree/name#field
    example: other-group/other-master/other.namespace.name#otherFiled
@@ -83,7 +84,7 @@ Cross-Group Reference
 Cross-Owner Reference
 ---------------------
 
-.. code : yaml
+.. code-block:yaml
 
     syntax: owner/group/tree/name#field
    example: other-owner/other-group/other-master/other.namespace.name#otherFiled
@@ -97,7 +98,7 @@ Cross-Owner Reference
 Cross-Repo Reference
 --------------------
 
-.. code : yaml
+.. code-block:yaml
 
     syntax: /repo/owner/group/tree/name#field
    example: /other-repo/other-owner/other-group/other-master/other.namespace.name#otherFiled
@@ -111,7 +112,7 @@ Cross-Repo Reference
 Maven Mapping Reference
 -----------------------
 
-.. code : yaml
+.. code-block:yaml
 
     syntax: mvn://repo/owner/group/name/tree#!field
   example1: mvn://repo1.maven.org/maven2/maven-group/maven-artifactId/maven-version#!some.package.class.field
