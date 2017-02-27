@@ -1,0 +1,16 @@
+include:
+  <field>: <primitive type>
+  <field-alias>: <cmrdl://>
+  <field-alias>:
+    from: <cmrdl://>
+    include:
+      - <field>
+      - <field-alias>
+  <field-alias>:
+    from: <cmrdl://>
+    exclude:
+      - <field>
+      - <field-alias>
+export:
+  - <field>
+  - <field-alias>

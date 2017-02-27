@@ -5,5 +5,9 @@ package wang.yanjiong.metamate.crmdl;
  */
 public class Decoder {
 
+    public static void main(String[] args) {
+
+    }
+
 
 }
