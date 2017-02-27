@@ -14,10 +14,10 @@
 	    from: <cmrdl://>
 	    exclude:
 	      - <field>
-	      - <field alias>
+	      - <field-alias>
 	export:
 	  - <field>
-	  - <field alias>
+	  - <field-alias>
 
 
 ## CRMDL context
