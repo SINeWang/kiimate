@@ -9,7 +9,7 @@
 	    from: <cmrdl://>
 	    include:
 	      - <field>
-	      - <field alias>
+	      - <field-alias>
 	  <field-alias>:
 	    from: <cmrdl://>
 	    exclude:
