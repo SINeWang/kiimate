@@ -1,10 +1,8 @@
-Cross Reference Model Definition Language (CRMDL) Scheme
-========================================================
+# Cross Reference Model Definition Language (CRMDL) Scheme
 
-CRMDL Syntax
-------------
-.. code-block:yaml
 
+## CRMDL Syntax
+    
     include:
       <field>: <primitive type>
       <field-alias>: <cmrdl://>
@@ -23,26 +21,21 @@ CRMDL Syntax
       - <field alias>
 
 
-CRMDL context
--------------
-
-.. code-block:yaml
-
-$repo: <domain>
-$owner: <some-body>
-$tree: <branch> | <tag>
-$group: <some-group>
-$name: some.namespace.name
+## CRMDL context
+    
+    
+    $repo: <domain>
+    $owner: <some-body>
+    $tree: <branch> | <tag>
+    $group: <some-group>
+    $name: some.namespace.name
 
 
 
-CRMDL Reference Syntax
-======================
+# CRMDL Reference Syntax
 
-Local Reference
----------------
 
-.. code-block:yaml
+## Local Reference
 
     syntax: name#field
    example: some.namespace.name#someField
@@ -53,10 +46,7 @@ Local Reference
             name    = some.name.space.name
             field   = someField
 
-Cross-Tree Reference
---------------------
-
-.. code-block:yaml
+## Cross-Tree Reference
 
     syntax: tree/name#field
    example: some-tree/some.namespace.name#someField
@@ -67,10 +57,7 @@ Cross-Tree Reference
             name    = some.name.space.name
             field   = someField
 
-Cross-Group Reference
----------------------
-
-.. code-block:yaml
+## Cross-Group Reference
 
     syntax: group/tree/name#field
    example: other-group/other-master/other.namespace.name#otherFiled
@@ -81,10 +68,7 @@ Cross-Group Reference
             name    = other.namespace.name
             field   = otherFiled
 
-Cross-Owner Reference
----------------------
-
-.. code-block:yaml
+## Cross-Owner Reference
 
     syntax: owner/group/tree/name#field
    example: other-owner/other-group/other-master/other.namespace.name#otherFiled
@@ -95,10 +79,7 @@ Cross-Owner Reference
             name    = other.namespace.name
             field   = otherFiled
 
-Cross-Repo Reference
---------------------
-
-.. code-block:yaml
+## Cross-Repo Reference
 
     syntax: /repo/owner/group/tree/name#field
    example: /other-repo/other-owner/other-group/other-master/other.namespace.name#otherFiled
@@ -109,10 +90,7 @@ Cross-Repo Reference
             name    = other.namespace.name
             field   = otherFiled
 
-Maven Mapping Reference
------------------------
-
-.. code-block:yaml
+## Maven Mapping Reference
 
     syntax: mvn://repo/owner/group/name/tree#!field
   example1: mvn://repo1.maven.org/maven2/maven-group/maven-artifactId/maven-version#!some.package.class.field
