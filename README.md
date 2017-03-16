@@ -17,7 +17,9 @@
 	      - <field-alias>
 	export:
 	  - <field>
-	  - <field-alias>
+      - <field-alias>
+	  - <field>?            # optional
+	  - <field-alias>?      # optional
 
 
 ## CRMDL context
