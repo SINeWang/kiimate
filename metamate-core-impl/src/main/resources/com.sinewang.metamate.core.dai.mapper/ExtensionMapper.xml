@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sinewang.rstrims.dai.mapper.DingDanMapper">
+
+    <resultMap id="Extension" type="wang.yanjiong.metamate.core.model.Extension">
+        <result column="id" property="id"/>
+        <result column="group" property="group"/>
+        <result column="name" property="name"/>
+        <result column="version" property="version"/>
+        <result column="visibility" property="visibility"/>
+        <result column="ds" property="dataStructure"/>
+    </resultMap>
+
+    <select id="selectExtensionById" resultMap="Extension">
+        SELECT mext.id, mext.group, mext.name, mext.version, mext.visibility, mext.ds
+        FROM mm_m_ext mext
+        WHERE mext.id = #{id}
+    </select>
+
+    <insert id="insertExtension">
+        INSERT INTO mm_m_ext
+        (id, group, name, version, visibility, ds)
+        VALUES
+        (#{id}, #{group}, #{name}, #{version}, #{visibility}, #{ds})
+    </insert>
+</mapper>

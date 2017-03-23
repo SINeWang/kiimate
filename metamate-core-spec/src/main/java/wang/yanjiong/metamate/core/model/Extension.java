@@ -5,7 +5,7 @@ package wang.yanjiong.metamate.core.model;
  */
 public class Extension {
 
-    private String extensionId;
+    private String id;
 
     private String group;
 
@@ -15,12 +15,14 @@ public class Extension {
 
     private String visibility;
 
-    public String getExtensionId() {
-        return extensionId;
+    private String dataStructure;
+
+    public String getId() {
+        return id;
     }
 
-    public void setExtensionId(String extensionId) {
-        this.extensionId = extensionId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getGroup() {
@@ -53,5 +55,13 @@ public class Extension {
 
     public void setVisibility(String visibility) {
         this.visibility = visibility;
+    }
+
+    public String getDataStructure() {
+        return dataStructure;
+    }
+
+    public void setDataStructure(String dataStructure) {
+        this.dataStructure = dataStructure;
     }
 }

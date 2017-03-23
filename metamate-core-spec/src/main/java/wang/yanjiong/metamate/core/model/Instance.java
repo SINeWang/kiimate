@@ -13,11 +13,13 @@ public class Instance {
 
     private String currentValue;
 
-    private String commitId;
+    private String currentReferenceId;
 
     private String intensionId;
 
-    private String previousCommitId;
+    private String currentCommit;
+
+    private String previousCommit;
 
     private Timestamp previousTimestamp;
 
@@ -45,6 +47,14 @@ public class Instance {
         this.currentValue = currentValue;
     }
 
+    public String getCurrentReferenceId() {
+        return currentReferenceId;
+    }
+
+    public void setCurrentReferenceId(String currentReferenceId) {
+        this.currentReferenceId = currentReferenceId;
+    }
+
     public String getIntensionId() {
         return intensionId;
     }
@@ -53,20 +63,20 @@ public class Instance {
         this.intensionId = intensionId;
     }
 
-    public String getCommitId() {
-        return commitId;
+    public String getCurrentCommit() {
+        return currentCommit;
     }
 
-    public void setCommitId(String commitId) {
-        this.commitId = commitId;
+    public void setCurrentCommit(String currentCommit) {
+        this.currentCommit = currentCommit;
     }
 
-    public String getPreviousCommitId() {
-        return previousCommitId;
+    public String getPreviousCommit() {
+        return previousCommit;
     }
 
-    public void setPreviousCommitId(String previousCommitId) {
-        this.previousCommitId = previousCommitId;
+    public void setPreviousCommit(String previousCommit) {
+        this.previousCommit = previousCommit;
     }
 
     public Timestamp getPreviousTimestamp() {

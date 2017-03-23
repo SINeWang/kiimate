@@ -1,16 +1,42 @@
+plugins {
+    id 'net.researchgate.release' version '2.4.0' apply false
+    id 'org.springframework.boot' version '1.5.2.RELEASE' apply false
+}
+
+group 'wang.yanjiong.metamate'
+
 allprojects {
-    group = 'wang.yanjiong.metamate'
-    version = '0.0.0'
+    version = '1.0.0-SNAPSNOT'
+    apply plugin: 'idea'
 }
 
-apply plugin: 'java'
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'net.researchgate.release'
 
-repositories {
-    jcenter()
-}
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
 
-dependencies {
-    compile 'org.slf4j:slf4j-api:1.7.21'
+    repositories {
+        maven {
+            url "http://nexus.euler.one/repository/maven-public/"
+        }
+    }
+    ext {
+        springBootVersion = '1.5.2.RELEASE'
+        mybatisSpringBootStarterVerison = "1.2.0"
+    }
+    dependencies {
+        compile("org.springframework.boot:spring-boot-devtools")
 
-    testCompile 'junit:junit:4.12'
+        compile("org.springframework.boot:spring-boot-starter-web") {
+            exclude module: "spring-boot-starter-tomcat"
+        }
+        compile("org.springframework.boot:spring-boot-starter-jetty")
+        compile("org.springframework.boot:spring-boot-starter-actuator")
+
+        testCompile("org.springframework.boot:spring-boot-starter-test")
+        testCompile("junit:junit")
+    }
 }

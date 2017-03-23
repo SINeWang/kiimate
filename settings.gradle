@@ -1,5 +1,6 @@
-include 'metamate-core'
-include 'metamate-crmdl'
-
 rootProject.name = 'metamate'
+
+include 'metamate-core-impl'
+include 'metamate-core-spec'
+include 'metamate-crmdl'
 
