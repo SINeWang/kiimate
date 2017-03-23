@@ -1,5 +1,4 @@
-include 'metamate-codegen'
-include 'metamate-store'
+include 'metamate-core'
 include 'metamate-crmdl'
 
 rootProject.name = 'metamate'

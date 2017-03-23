@@ -1,4 +1,4 @@
-package wang.yanjiong.metamate.crmdl;
+package wang.yanjiong.metamate.core.crmdl;
 
 import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;

@@ -1,4 +1,4 @@
-package wang.yanjiong.metamate.crmdl;
+package wang.yanjiong.metamate.core.crmdl;
 
 /**
  * Created by WangYanJiong on 2/27/17.
