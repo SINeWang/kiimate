@@ -1,7 +1,9 @@
 package com.sinewang.metamate.core.dai.mapper;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -17,21 +19,21 @@ import wang.yanjiong.metamate.core.model.Extension;
 @SpringBootTest
 @EnableAutoConfiguration
 @SpringBootConfiguration
+@MapperScan("com.sinewang.metamate.core.dai.mapper")
 public class ExtensionMapperTest {
 
     @Autowired
     private ExtensionMapper extensionMapper;
 
+
     @Test
     public void insertExtension() {
-
+        extensionMapper.insertExtension("12", "34", "56", "78", "90", "ab");
     }
 
     @Test
     public void selectExtensionById() {
-        Extension ext = extensionMapper.selectExtensionById("123");
-//        extensionMapper.insertExtension("12", "34", "56", "78", "90", "ab");
-        System.out.println(ext);
-        System.out.println(123);
+        Extension ext = extensionMapper.selectExtensionById("12");
+        Assert.assertNotNull(ext);
     }
 }

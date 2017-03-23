@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sinewang.rstrims.dai.mapper.DingDanMapper">
+<mapper namespace="com.sinewang.metamate.core.dai.mapper.ExtensionMapper">
 
     <resultMap id="Extension" type="wang.yanjiong.metamate.core.model.Extension">
         <result column="id" property="id"/>
@@ -21,8 +21,8 @@
 
     <insert id="insertExtension">
         INSERT INTO mm_m_ext
-        (id, group, name, version, visibility, ds)
+        (`id`, `group`, `name`, `version`, `visibility`, `ds`)
         VALUES
-        (#{id}, #{group}, #{name}, #{version}, #{visibility}, #{ds})
+        (#{id}, #{group}, #{name}, #{version}, #{visibility}, #{dataStructure})
     </insert>
 </mapper>

@@ -22,7 +22,7 @@ CREATE TABLE `mm_i_ins` (
 -- ----------------------------
 DROP TABLE IF EXISTS `mm_m_crf`;
 CREATE TABLE `mm_m_crf` (
-  `id` varchar(160) NOT NULL COMMENT 'id = hash(int_id, ref_id, exec_name, inc_name)',
+  `id` varchar(160) NOT NULL COMMENT 'id = hash(int_id, ref_id, exc_name, inc_name)',
   `int_id` varchar(160) NOT NULL,
   `ref_id` varchar(160) NOT NULL,
   `exc_name` varchar(32) DEFAULT NULL,

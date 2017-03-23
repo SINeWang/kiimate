@@ -1,9 +1,7 @@
 package com.sinewang.metamate.core.dai.mapper;
 
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import wang.yanjiong.metamate.core.model.Extension;
 
 /**

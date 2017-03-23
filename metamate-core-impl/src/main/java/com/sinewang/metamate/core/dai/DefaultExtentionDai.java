@@ -1,7 +1,6 @@
 package com.sinewang.metamate.core.dai;
 
 import com.sinewang.metamate.core.dai.mapper.ExtensionMapper;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.model.Extension;
@@ -10,7 +9,7 @@ import wang.yanjiong.metamate.core.model.Extension;
  * Created by WangYanJiong on 3/23/17.
  */
 
-@Mapper
+
 public class DefaultExtentionDai implements ExtensionDai {
 
     @Autowired
