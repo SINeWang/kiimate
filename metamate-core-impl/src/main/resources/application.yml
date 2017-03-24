@@ -5,5 +5,3 @@ spring:
     url: jdbc:mysql://localhost/metamate?autoReconnect=true
     username: root
     password: wave
-mybatis:
-  mapper-locations: classpath*:**/mapper/*.xml

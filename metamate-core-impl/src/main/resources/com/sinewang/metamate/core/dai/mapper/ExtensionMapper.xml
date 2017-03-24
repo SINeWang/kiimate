@@ -25,4 +25,9 @@
         VALUES
         (#{id}, #{group}, #{name}, #{version}, #{visibility}, #{dataStructure})
     </insert>
+
+    <delete id="deleteExtensionById">
+        DELETE FROM mm_m_ext
+        WHERE id = ${id}
+    </delete>
 </mapper>

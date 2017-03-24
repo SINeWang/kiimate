@@ -2,6 +2,7 @@ package com.sinewang.metamate.core.dai.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.context.annotation.Bean;
 import wang.yanjiong.metamate.core.model.Extension;
 
 /**
@@ -18,6 +19,9 @@ public interface ExtensionMapper {
                          @Param("dataStructure") String dataStructure);
 
     Extension selectExtensionById(@Param("id") String id);
+
+
+    void deleteExtensionById(@Param("id") String id);
 
 
 }

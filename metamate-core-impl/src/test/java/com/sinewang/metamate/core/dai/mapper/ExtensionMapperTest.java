@@ -5,30 +5,33 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
+import org.springframework.test.context.BootstrapWith;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wang.yanjiong.metamate.core.model.Extension;
 
 /**
  * Created by WangYanJiong on 3/23/17.
  */
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@RunWith(SpringJUnit4ClassRunner.class)
+@BootstrapWith(SpringBootTestContextBootstrapper.class)
 @EnableAutoConfiguration
-@SpringBootConfiguration
-@MapperScan("com.sinewang.metamate.core.dai.mapper")
 public class ExtensionMapperTest {
 
     @Autowired
     private ExtensionMapper extensionMapper;
 
-
     @Test
     public void insertExtension() {
-        extensionMapper.insertExtension("12", "34", "56", "78", "90", "ab");
+        String id = "12";
+        extensionMapper.deleteExtensionById(id);
+
+        extensionMapper.insertExtension(id, "34", "56", "78", "90", "ab");
+        Extension ext = extensionMapper.selectExtensionById(id);
+        Assert.assertNotNull(ext);
     }
 
     @Test
