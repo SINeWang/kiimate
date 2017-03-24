@@ -31,6 +31,7 @@ subprojects {
     dependencies {
         compile("org.springframework.boot:spring-boot-devtools")
         compile("org.apache.commons:commons-lang3:3.5")
+        compile("commons-codec:commons-codec:1.10")
 
         compile("org.springframework.boot:spring-boot-starter")
 

@@ -1,10 +1,15 @@
-package wang.yanjiong.metamate.core.api.form;
+package wang.yanjiong.metamate.core.api;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
 
 /**
  * Created by WangYanJiong on 3/24/17.
  */
-public class CreateExtensionForm {
+public class CreateExtensionForm implements Serializable{
 
+    @JsonProperty("group")
     private String group;
 
     private String name;

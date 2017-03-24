@@ -1,5 +1,6 @@
 package com.sinewang.metamate.core;
 
+import com.sinewang.metamate.core.api.DefaultCreateExtensionApiTest;
 import com.sinewang.metamate.core.dai.DefaultExtensionDaiTest;
 import com.sinewang.metamate.core.dai.mapper.ExtensionMapperTest;
 import org.junit.runner.RunWith;
@@ -13,7 +14,8 @@ import org.springframework.test.context.BootstrapWith;
 
 @Suite.SuiteClasses({
         DefaultExtensionDaiTest.class,
-        ExtensionMapperTest.class}
+        ExtensionMapperTest.class,
+        DefaultCreateExtensionApiTest.class}
 )
 @RunWith(Suite.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
