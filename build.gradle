@@ -26,9 +26,11 @@ subprojects {
     ext {
         springBootVersion = '1.5.2.RELEASE'
         mybatisSpringBootStarterVerison = "1.2.0"
+        mysqlConnectorVersion = '5.1.41'
     }
     dependencies {
         compile("org.springframework.boot:spring-boot-devtools")
+        compile("org.apache.commons:commons-lang3:3.5")
 
         compile("org.springframework.boot:spring-boot-starter")
 
@@ -47,9 +49,6 @@ subprojects {
             maven {
                 url "http://nexus.euler.one/repository/maven-public/"
             }
-        }
-        dependencies {
-            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         }
     }
 }
