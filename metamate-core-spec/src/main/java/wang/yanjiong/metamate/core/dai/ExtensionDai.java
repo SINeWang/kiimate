@@ -7,6 +7,9 @@ import wang.yanjiong.metamate.core.model.Extension;
  */
 public interface ExtensionDai {
 
-    Extension getExtensionById(String id);
+    Extension selectExtensionById(String id);
+
+    void insertExtension(Extension extension);
+
 
 }

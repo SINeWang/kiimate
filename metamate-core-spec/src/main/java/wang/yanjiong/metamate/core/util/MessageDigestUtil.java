@@ -2,6 +2,7 @@ package wang.yanjiong.metamate.core.util;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
+import wang.yanjiong.metamate.core.model.Extension;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -34,4 +35,6 @@ public class MessageDigestUtil {
         }
         return Hex.encodeHexString(digist);
     }
+
+
 }

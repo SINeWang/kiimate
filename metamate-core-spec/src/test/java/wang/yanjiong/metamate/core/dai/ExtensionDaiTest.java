@@ -21,17 +21,17 @@ public class ExtensionDaiTest {
 
     @Test(expected = NullPointerException.class)
     public void testNull() {
-        extensionDai.getExtensionById(null);
+        extensionDai.selectExtensionById(null);
     }
 
     @Test(expected = NullPointerException.class)
     public void testEmpty() {
-        extensionDai.getExtensionById("");
+        extensionDai.selectExtensionById("");
     }
 
     @Test
     public void testExist() {
-        Extension extension = extensionDai.getExtensionById("12");
+        Extension extension = extensionDai.selectExtensionById("12");
         Assert.assertNotNull(extension);
     }
 }
