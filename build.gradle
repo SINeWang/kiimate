@@ -6,7 +6,6 @@ plugins {
 group 'wang.yanjiong.metamate'
 
 allprojects {
-    version = '1.0.0-SNAPSNOT'
     apply plugin: 'idea'
 }
 

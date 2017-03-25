@@ -19,7 +19,6 @@ public class DefaultCreateExtensionApi implements CreateExtensionApi {
     @Autowired
     private ExtensionDai extensionDai;
 
-
     @Override
     public CreateExtensionReceipt createExtensionViaFormUrlEncoded(CreateExtensionForm extensionForm) {
         CreateExtensionReceipt receipt = new CreateExtensionReceipt();
