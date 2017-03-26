@@ -1,17 +1,16 @@
-package wang.yanjiong.metamate.core.util;
+package com.sinewang.metamate.core.util;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
-import wang.yanjiong.metamate.core.model.Extension;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by WangYanJiong on 3/24/17.
+ * Created by WangYanJiong on 26/03/2017.
  */
-public class MessageDigestUtil {
+public class HashUtil {
 
     public static String hashHex(String... messages) {
         byte[] digist = null;
@@ -31,10 +30,9 @@ public class MessageDigestUtil {
             } catch (UnsupportedEncodingException e) {
                 //ignore;
             }
-            digist = md.digest();
         }
+        digist = md.digest();
         return Hex.encodeHexString(digist);
     }
-
 
 }

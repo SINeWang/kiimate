@@ -2,7 +2,7 @@ package com.sinewang.metamate.core.dai.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import wang.yanjiong.metamate.core.model.Extension;
+import wang.yanjiong.metamate.core.dai.ExtensionDai;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -17,7 +17,7 @@ public interface ExtensionMapper {
                          @Param("visibility") String visibility,
                          @Param("dataStructure") String dataStructure);
 
-    Extension selectExtensionById(@Param("id") String id);
+    ExtensionDai.Extension selectExtensionById(@Param("id") String id);
 
 
     void deleteExtensionById(@Param("id") String id);

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import wang.yanjiong.metamate.core.model.Extension;
+import wang.yanjiong.metamate.core.dai.ExtensionDai;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -26,13 +26,13 @@ public class ExtensionMapperTest {
         extensionMapper.deleteExtensionById(id);
 
         extensionMapper.insertExtension(id, "34", "56", "78", "90", "ab");
-        Extension ext = extensionMapper.selectExtensionById(id);
+        ExtensionDai.Extension ext = extensionMapper.selectExtensionById(id);
         Assert.assertNotNull(ext);
     }
 
     @Test
     public void selectExtensionById() {
-        Extension ext = extensionMapper.selectExtensionById("12");
+        ExtensionDai.Extension ext = extensionMapper.selectExtensionById("12");
         Assert.assertNotNull(ext);
     }
 }

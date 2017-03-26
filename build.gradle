@@ -31,11 +31,13 @@ subprojects {
         compileOnly "org.projectlombok:lombok:1.16.16"
 
         compile("org.springframework.boot:spring-boot-devtools")
+        compile("org.springframework:spring-tx:4.3.7.RELEASE")
+
         compile("org.apache.commons:commons-lang3:3.5")
+
         compile("commons-codec:commons-codec:1.10")
 
         compile("org.springframework.boot:spring-boot-starter")
-
         compile("org.springframework.boot:spring-boot-starter-web") {
             exclude module: "spring-boot-starter-tomcat"
         }

@@ -3,7 +3,8 @@ package wang.yanjiong.metamate.core.api;
 import lombok.Data;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import wang.yanjiong.metamate.core.model.Extension;
+import wang.yanjiong.metamate.core.model.Request;
+import wang.yanjiong.metamate.core.model.Response;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -13,14 +14,13 @@ import wang.yanjiong.metamate.core.model.Extension;
 public interface CreateExtensionApi {
 
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    Response<Extension> createExtensionViaFormUrlEncoded(@ModelAttribute Request request);
+    Receipt createExtensionViaFormUrlEncoded(@ModelAttribute Form form);
 
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    Response<Extension> createExtensionViaJson(@RequestBody Request request);
-
+    Receipt createExtensionViaJson(@RequestBody Form form);
 
     @Data
-    class Request extends wang.yanjiong.metamate.core.model.Form {
+    class Form extends Request {
 
         private String group;
 
@@ -34,6 +34,22 @@ public interface CreateExtensionApi {
     }
 
     @Data
-    class Response<Extension> extends wang.yanjiong.metamate.core.model.Receipt<Extension> {
+    class Receipt<Extension> extends Response<Extension> {
+    }
+
+    @Data
+    class Extension {
+
+        private String id;
+
+        private String group;
+
+        private String name;
+
+        private String version;
+
+        private String visibility;
+
+        private String dataStructure;
     }
 }

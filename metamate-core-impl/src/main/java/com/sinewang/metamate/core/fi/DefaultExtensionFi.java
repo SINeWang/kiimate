@@ -1,12 +1,11 @@
 package com.sinewang.metamate.core.fi;
 
+import com.sinewang.metamate.core.util.HashUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import wang.yanjiong.metamate.core.api.CreateExtensionApi;
 import wang.yanjiong.metamate.core.fi.ExtensionFi;
 import wang.yanjiong.metamate.core.model.Context;
-import wang.yanjiong.metamate.core.model.Extension;
-import wang.yanjiong.metamate.core.util.MessageDigestUtil;
 
 import java.util.UUID;
 
@@ -17,20 +16,20 @@ import java.util.UUID;
 public class DefaultExtensionFi implements ExtensionFi {
 
     @Override
-    public Extension accept(CreateExtensionApi.Request request) {
+    public CreateExtensionApi.Extension accept(CreateExtensionApi.Form form) {
         Context context = new Context();
         context.setProcessId(UUID.randomUUID().toString());
-        request.setContext(context);
+        form.setContext(context);
 
-        Extension extension = new Extension();
-        BeanUtils.copyProperties(request, extension);
+        CreateExtensionApi.Extension extension = new CreateExtensionApi.Extension();
+        BeanUtils.copyProperties(form, extension);
         String id = hashExtension(extension);
         extension.setId(id);
         return extension;
     }
 
-    private String hashExtension(Extension extension) {
-        return MessageDigestUtil.hashHex(
+    private String hashExtension(CreateExtensionApi.Extension extension) {
+        return HashUtil.hashHex(
                 extension.getGroup(),
                 extension.getName(),
                 extension.getVersion(),

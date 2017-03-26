@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
-import wang.yanjiong.metamate.core.model.Extension;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -18,7 +17,7 @@ public class DefaultExtensionDai implements ExtensionDai {
     private ExtensionMapper extensionMapper;
 
     @Override
-    public wang.yanjiong.metamate.core.model.Extension selectExtensionById(String id) {
+    public Extension selectExtensionById(String id) {
         if (StringUtils.isEmpty(id)) {
             throw new NullPointerException("id is EMPTY");
         }

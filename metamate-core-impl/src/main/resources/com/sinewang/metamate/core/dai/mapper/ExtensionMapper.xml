@@ -4,7 +4,7 @@
 
 <mapper namespace="com.sinewang.metamate.core.dai.mapper.ExtensionMapper">
 
-    <resultMap id="Extension" type="wang.yanjiong.metamate.core.model.Extension">
+    <resultMap id="Extension" type="wang.yanjiong.metamate.core.dai.ExtensionDai$Extension">
         <result column="id" property="id"/>
         <result column="group" property="group"/>
         <result column="name" property="name"/>

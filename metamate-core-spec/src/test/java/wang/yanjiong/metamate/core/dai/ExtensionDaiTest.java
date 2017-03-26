@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import wang.yanjiong.metamate.core.model.Extension;
 
 /**
  * Created by WangYanJiong on 3/24/17.
@@ -31,7 +30,7 @@ public class ExtensionDaiTest {
 
     @Test
     public void testExist() {
-        Extension extension = extensionDai.selectExtensionById("12");
+        ExtensionDai.Extension extension = extensionDai.selectExtensionById("12");
         Assert.assertNotNull(extension);
     }
 }

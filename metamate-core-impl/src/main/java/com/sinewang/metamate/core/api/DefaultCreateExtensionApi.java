@@ -1,13 +1,12 @@
 package com.sinewang.metamate.core.api;
 
+import com.sinewang.metamate.core.util.DataUtil;
+import com.sinewang.metamate.core.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.CreateExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.fi.ExtensionFi;
-import wang.yanjiong.metamate.core.model.Extension;
-
-import java.util.UUID;
 
 /**
  * Created by WangYanJiong on 3/24/17.
@@ -23,25 +22,19 @@ public class DefaultCreateExtensionApi implements CreateExtensionApi {
     private ExtensionFi extensionFi;
 
     @Override
-    public Response<Extension> createExtensionViaFormUrlEncoded(Request request) {
+    public Receipt<Extension> createExtensionViaFormUrlEncoded(Form form) {
 
-        Extension extension = extensionFi.accept(request);
+        Extension extension = extensionFi.accept(form);
 
-        extensionDai.insertExtension(extension);
+        ExtensionDai.Extension extension1 = DataUtil.clone(extension, ExtensionDai.Extension.class);
 
-        Response<Extension> response = new Response<>();
+        extensionDai.insertExtension(extension1);
 
-        response.setContext(request.getContext());
-
-        request.getContext().setResponseId(UUID.randomUUID().toString());
-
-        response.setData(extension);
-
-        return response;
+        return ResponseUtil.buildReceipt(form, Receipt.class, extension);
     }
 
     @Override
-    public Response createExtensionViaJson(Request request) {
+    public Receipt createExtensionViaJson(Form form) {
         return null;
     }
 }
