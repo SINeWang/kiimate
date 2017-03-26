@@ -31,7 +31,7 @@ public class DefaultExtensionDai implements ExtensionDai {
     }
 
     @Override
-    public void insertExtension(Extension extension) {
+    public void insertExtension(Extension extension) throws ExtensionDuplicated {
 
         try {
             extensionMapper.insertExtension(
@@ -43,7 +43,8 @@ public class DefaultExtensionDai implements ExtensionDai {
                     extension.getStructure()
             );
         } catch (DuplicateKeyException duplicated) {
-            logger.error("Duplicated", duplicated);
+            logger.error("Duplicated-Key:{}", extension.getId());
+            throw new ExtensionDuplicated(extension.getId(), duplicated);
         }
     }
 }

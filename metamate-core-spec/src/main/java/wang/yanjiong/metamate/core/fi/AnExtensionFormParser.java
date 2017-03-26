@@ -6,9 +6,9 @@ import wang.yanjiong.metamate.core.api.CreateExtensionApi;
 /**
  * Created by WangYanJiong on 3/23/17.
  */
-public interface ExtensionFi {
+public interface AnExtensionFormParser {
 
-    Extension accept(CreateExtensionApi.Form form);
+    Extension parse(CreateExtensionApi.Form form);
 
     enum DataStructures {
         STRING,

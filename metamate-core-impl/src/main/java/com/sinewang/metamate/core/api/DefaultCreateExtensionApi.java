@@ -1,14 +1,14 @@
 package com.sinewang.metamate.core.api;
 
-import wang.yanjiong.magnet.util.DataUtil;
-import wang.yanjiong.magnet.xi.boundary.util.ResponseUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+import wang.yanjiong.magnet.xi.boundary.util.ResponseUtil;
 import wang.yanjiong.metamate.core.api.CreateExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
+import wang.yanjiong.metamate.core.fi.AnExtensionFormParser;
 import wang.yanjiong.metamate.core.fi.AnStructureValidator;
 import wang.yanjiong.metamate.core.fi.AnVisibilityValidator;
-import wang.yanjiong.metamate.core.fi.ExtensionFi;
 
 /**
  * Created by WangYanJiong on 3/24/17.
@@ -21,7 +21,7 @@ public class DefaultCreateExtensionApi implements CreateExtensionApi {
     private ExtensionDai extensionDai;
 
     @Autowired
-    private ExtensionFi extensionFi;
+    private AnExtensionFormParser extensionFormParser;
 
     @Autowired
     private AnStructureValidator structureValidator;
@@ -32,17 +32,23 @@ public class DefaultCreateExtensionApi implements CreateExtensionApi {
     @Override
     public Receipt createExtensionViaFormUrlEncoded(Form form) {
 
-        ExtensionFi.Extension extension = extensionFi.accept(form);
+        AnExtensionFormParser.Extension extension = extensionFormParser.parse(form);
 
         boolean isValidStructure = structureValidator.isValid(extension.getStructure());
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
 
-        ExtensionDai.Extension daiRecord = DataUtil.clone(extension, ExtensionDai.Extension.class);
+        ExtensionDai.Extension daiRecord = new ExtensionDai.Extension();
+        BeanUtils.copyProperties(extension, daiRecord);
 
-        extensionDai.insertExtension(daiRecord);
+        try {
+            extensionDai.insertExtension(daiRecord);
+            return ResponseUtil.accepted(form, Receipt.class, extension);
+        } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
+            return ResponseUtil.rejected(form, Receipt.class, extension);
+        }
 
-        return ResponseUtil.build(form, Receipt.class, extension);
+
     }
 
     @Override

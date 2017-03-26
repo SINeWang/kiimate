@@ -11,7 +11,7 @@ public interface ExtensionDai {
     Extension selectExtensionById(String id);
 
     @Transactional
-    void insertExtension(Extension extension);
+    void insertExtension(Extension extension) throws ExtensionDuplicated;
 
     @Data
     class Extension {
@@ -28,6 +28,12 @@ public interface ExtensionDai {
 
         private String structure;
 
+    }
+
+    class ExtensionDuplicated extends Exception {
+        public ExtensionDuplicated(String message, Throwable e) {
+            super(message, e);
+        }
     }
 
 
