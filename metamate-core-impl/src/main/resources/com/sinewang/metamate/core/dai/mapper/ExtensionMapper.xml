@@ -16,14 +16,14 @@
     <select id="selectExtensionById" resultMap="Extension">
         SELECT mext.id, mext.group, mext.name, mext.version, mext.visibility, mext.structure
         FROM mm_m_ext mext
-        WHERE mext.id = #{id}
+        WHERE mext.id = #{id}gi
     </select>
 
     <insert id="insertExtension">
         INSERT INTO mm_m_ext
         (`id`, `group`, `name`, `version`, `visibility`, `structure`)
         VALUES
-        (#{id}, #{group}, #{name}, #{version}, #{visibility}, #{dataStructure})
+        (#{id}, #{group}, #{name}, #{version}, #{visibility}, #{structure})
     </insert>
 
     <delete id="deleteExtensionById">
