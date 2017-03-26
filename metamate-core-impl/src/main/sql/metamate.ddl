@@ -40,7 +40,7 @@ CREATE TABLE `mm_m_ext` (
   `name` varchar(32) NOT NULL,
   `version` varchar(32) NOT NULL,
   `visibility` varchar(16) NOT NULL COMMENT 'the visibility of scope',
-  `ds` varchar(16) DEFAULT NULL,
+  `structure` varchar(16) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='extension of concept';
 

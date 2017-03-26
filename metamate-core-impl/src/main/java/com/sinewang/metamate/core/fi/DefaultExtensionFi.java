@@ -34,7 +34,7 @@ public class DefaultExtensionFi implements ExtensionFi {
                 extension.getName(),
                 extension.getVersion(),
                 extension.getVisibility(),
-                extension.getDataStructure()
+                extension.getStructure()
         );
     }
 

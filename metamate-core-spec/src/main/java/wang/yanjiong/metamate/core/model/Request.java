@@ -7,7 +7,7 @@ import lombok.Data;
  */
 
 @Data
-public class Request<T> {
+public class Request {
 
     private Context context;
 }

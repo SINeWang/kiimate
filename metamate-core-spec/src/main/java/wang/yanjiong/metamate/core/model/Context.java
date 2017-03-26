@@ -10,6 +10,10 @@ import java.util.List;
 @Data
 public class Context {
 
+    String providerId;
+
+    String consumerId;
+
     String processId;
 
     String requestId;

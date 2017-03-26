@@ -28,7 +28,7 @@ public class DefaultCreateExtensionApi implements CreateExtensionApi {
 
         ExtensionDai.Extension daiRecord = DataUtil.clone(extension, ExtensionDai.Extension.class);
 
-//        extensionDai.insertExtension(daiRecord);
+        extensionDai.insertExtension(daiRecord);
 
         return ResponseUtil.build(form, Receipt.class, extension);
     }

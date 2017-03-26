@@ -12,16 +12,17 @@ import java.util.UUID;
  */
 public class ResponseUtil {
 
-    public static <U, V extends Response<U>> V build(Request form, V response, U data) {
+    public static <U, V extends Response> V build(Request form, V response, U data) {
         Context context = new Context();
         BeanUtils.copyProperties(context, form.getContext());
         context.setResponseId(UUID.randomUUID().toString());
         response.setContext(context);
-        response.setData(data);
+
+        BeanUtils.copyProperties(data, response);
         return response;
     }
 
-    public static <U, V extends Response<U>> V build(Request form, Class<V> responseClass, U data) {
+    public static <U, V extends Response> V build(Request form, Class<V> responseClass, U data) {
         V response = null;
         try {
             response = responseClass.newInstance();
@@ -30,11 +31,6 @@ public class ResponseUtil {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        Context context = new Context();
-        BeanUtils.copyProperties(context, form.getContext());
-        context.setResponseId(UUID.randomUUID().toString());
-        response.setContext(context);
-        response.setData(data);
-        return response;
+        return build(form, response, data);
     }
 }

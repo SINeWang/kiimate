@@ -10,18 +10,18 @@
         <result column="name" property="name"/>
         <result column="version" property="version"/>
         <result column="visibility" property="visibility"/>
-        <result column="ds" property="dataStructure"/>
+        <result column="structure" property="structure"/>
     </resultMap>
 
     <select id="selectExtensionById" resultMap="Extension">
-        SELECT mext.id, mext.group, mext.name, mext.version, mext.visibility, mext.ds
+        SELECT mext.id, mext.group, mext.name, mext.version, mext.visibility, mext.structure
         FROM mm_m_ext mext
         WHERE mext.id = #{id}
     </select>
 
     <insert id="insertExtension">
         INSERT INTO mm_m_ext
-        (`id`, `group`, `name`, `version`, `visibility`, `ds`)
+        (`id`, `group`, `name`, `version`, `visibility`, `structure`)
         VALUES
         (#{id}, #{group}, #{name}, #{version}, #{visibility}, #{dataStructure})
     </insert>

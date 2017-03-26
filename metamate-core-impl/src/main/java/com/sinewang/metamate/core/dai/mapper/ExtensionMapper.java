@@ -15,7 +15,7 @@ public interface ExtensionMapper {
                          @Param("name") String name,
                          @Param("version") String version,
                          @Param("visibility") String visibility,
-                         @Param("dataStructure") String dataStructure);
+                         @Param("structure") String structure);
 
     ExtensionDai.Extension selectExtensionById(@Param("id") String id);
 

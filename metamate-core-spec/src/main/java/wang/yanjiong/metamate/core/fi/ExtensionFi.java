@@ -10,6 +10,15 @@ public interface ExtensionFi {
 
     Extension accept(CreateExtensionApi.Form form);
 
+    enum DataStructures {
+        STRING,
+        NATURE_BASE0,
+        NATURE_BASE1,
+        REAL,
+        FLOAT,
+        TIMESTAMP
+    }
+
     @Data
     class Extension {
 
@@ -23,8 +32,6 @@ public interface ExtensionFi {
 
         private String visibility;
 
-        private String dataStructure;
+        private String structure;
     }
-
-
 }

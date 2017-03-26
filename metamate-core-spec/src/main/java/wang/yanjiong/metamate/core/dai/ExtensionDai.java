@@ -26,7 +26,7 @@ public interface ExtensionDai {
 
         private String visibility;
 
-        private String dataStructure;
+        private String structure;
 
     }
 

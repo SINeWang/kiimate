@@ -19,6 +19,15 @@ public interface CreateExtensionApi {
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     Receipt createExtensionViaJson(@RequestBody Form form);
 
+    enum DataStructures {
+        STRING,
+        NATURE_BASE0,
+        NATURE_BASE1,
+        REAL,
+        FLOAT,
+        TIMESTAMP
+    }
+
     @Data
     class Form extends Request {
 

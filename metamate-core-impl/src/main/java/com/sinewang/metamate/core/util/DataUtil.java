@@ -10,7 +10,7 @@ public class DataUtil {
     public static <T> T clone(Object src, Class<T> klass) {
         T instance = null;
         try {
-            instance = (T) klass.newInstance();
+            instance = klass.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
