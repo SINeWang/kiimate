@@ -22,15 +22,15 @@ public class DefaultCreateExtensionApi implements CreateExtensionApi {
     private ExtensionFi extensionFi;
 
     @Override
-    public Receipt<Extension> createExtensionViaFormUrlEncoded(Form form) {
+    public Receipt createExtensionViaFormUrlEncoded(Form form) {
 
-        Extension extension = extensionFi.accept(form);
+        ExtensionFi.Extension extension = extensionFi.accept(form);
 
-        ExtensionDai.Extension extension1 = DataUtil.clone(extension, ExtensionDai.Extension.class);
+        ExtensionDai.Extension daiRecord = DataUtil.clone(extension, ExtensionDai.Extension.class);
 
-        extensionDai.insertExtension(extension1);
+//        extensionDai.insertExtension(daiRecord);
 
-        return ResponseUtil.buildReceipt(form, Receipt.class, extension);
+        return ResponseUtil.build(form, Receipt.class, extension);
     }
 
     @Override

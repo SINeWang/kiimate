@@ -16,19 +16,19 @@ import java.util.UUID;
 public class DefaultExtensionFi implements ExtensionFi {
 
     @Override
-    public CreateExtensionApi.Extension accept(CreateExtensionApi.Form form) {
+    public Extension accept(CreateExtensionApi.Form form) {
         Context context = new Context();
         context.setProcessId(UUID.randomUUID().toString());
         form.setContext(context);
 
-        CreateExtensionApi.Extension extension = new CreateExtensionApi.Extension();
+        Extension extension = new Extension();
         BeanUtils.copyProperties(form, extension);
         String id = hashExtension(extension);
         extension.setId(id);
         return extension;
     }
 
-    private String hashExtension(CreateExtensionApi.Extension extension) {
+    private String hashExtension(Extension extension) {
         return HashUtil.hashHex(
                 extension.getGroup(),
                 extension.getName(),

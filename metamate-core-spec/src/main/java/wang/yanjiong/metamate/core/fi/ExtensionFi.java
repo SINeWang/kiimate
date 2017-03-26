@@ -1,5 +1,6 @@
 package wang.yanjiong.metamate.core.fi;
 
+import lombok.Data;
 import wang.yanjiong.metamate.core.api.CreateExtensionApi;
 
 /**
@@ -7,7 +8,23 @@ import wang.yanjiong.metamate.core.api.CreateExtensionApi;
  */
 public interface ExtensionFi {
 
-    CreateExtensionApi.Extension accept(CreateExtensionApi.Form form);
+    Extension accept(CreateExtensionApi.Form form);
+
+    @Data
+    class Extension {
+
+        private String id;
+
+        private String group;
+
+        private String name;
+
+        private String version;
+
+        private String visibility;
+
+        private String dataStructure;
+    }
 
 
 }

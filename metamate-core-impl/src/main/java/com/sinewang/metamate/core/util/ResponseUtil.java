@@ -12,7 +12,7 @@ import java.util.UUID;
  */
 public class ResponseUtil {
 
-    public static <U, V extends Response<U>> V buildReceipt(Request form, V response, U data) {
+    public static <U, V extends Response<U>> V build(Request form, V response, U data) {
         Context context = new Context();
         BeanUtils.copyProperties(context, form.getContext());
         context.setResponseId(UUID.randomUUID().toString());
@@ -21,7 +21,7 @@ public class ResponseUtil {
         return response;
     }
 
-    public static <U, V extends Response<U>> V buildReceipt(Request form, Class<V> responseClass, U data) {
+    public static <U, V extends Response<U>> V build(Request form, Class<V> responseClass, U data) {
         V response = null;
         try {
             response = responseClass.newInstance();

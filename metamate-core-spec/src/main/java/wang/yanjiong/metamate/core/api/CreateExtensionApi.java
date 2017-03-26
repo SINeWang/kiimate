@@ -34,11 +34,7 @@ public interface CreateExtensionApi {
     }
 
     @Data
-    class Receipt<Extension> extends Response<Extension> {
-    }
-
-    @Data
-    class Extension {
+    class Receipt extends Response {
 
         private String id;
 
@@ -51,5 +47,8 @@ public interface CreateExtensionApi {
         private String visibility;
 
         private String dataStructure;
+
     }
+
+
 }
