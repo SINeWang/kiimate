@@ -3,8 +3,8 @@ package wang.yanjiong.metamate.core.api;
 import lombok.Data;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import wang.yanjiong.metamate.core.model.Request;
-import wang.yanjiong.metamate.core.model.Response;
+import wang.yanjiong.magnet.xi.boundary.Request;
+import wang.yanjiong.magnet.xi.boundary.Response;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -19,14 +19,6 @@ public interface CreateExtensionApi {
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     Receipt createExtensionViaJson(@RequestBody Form form);
 
-    enum DataStructures {
-        STRING,
-        NATURE_BASE0,
-        NATURE_BASE1,
-        REAL,
-        FLOAT,
-        TIMESTAMP
-    }
 
     @Data
     class Form extends Request {
@@ -39,7 +31,7 @@ public interface CreateExtensionApi {
 
         private String visibility;
 
-        private String dataStructure;
+        private String structure;
     }
 
     @Data
@@ -55,9 +47,8 @@ public interface CreateExtensionApi {
 
         private String visibility;
 
-        private String dataStructure;
+        private String structure;
 
     }
-
 
 }

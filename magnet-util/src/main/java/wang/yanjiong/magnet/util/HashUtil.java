@@ -1,4 +1,4 @@
-package com.sinewang.metamate.core.util;
+package wang.yanjiong.magnet.util;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
 public class HashUtil {
 
     public static String hashHex(String... messages) {
-        byte[] digist = null;
+        byte[] digest;
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("SHA-256");
@@ -31,8 +31,8 @@ public class HashUtil {
                 //ignore;
             }
         }
-        digist = md.digest();
-        return Hex.encodeHexString(digist);
+        digest = md.digest();
+        return Hex.encodeHexString(digest);
     }
 
 }

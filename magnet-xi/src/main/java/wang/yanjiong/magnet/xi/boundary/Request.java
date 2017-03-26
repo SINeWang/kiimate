@@ -1,4 +1,4 @@
-package wang.yanjiong.metamate.core.model;
+package wang.yanjiong.magnet.xi.boundary;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import lombok.Data;
  */
 
 @Data
-public class Response {
+public class Request {
 
     private Context context;
 }

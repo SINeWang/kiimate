@@ -1,4 +1,4 @@
-package com.sinewang.metamate.core.util;
+package wang.yanjiong.magnet.util;
 
 import org.springframework.beans.BeanUtils;
 

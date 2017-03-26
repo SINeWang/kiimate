@@ -1,11 +1,11 @@
 package com.sinewang.metamate.core.fi;
 
-import com.sinewang.metamate.core.util.HashUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import wang.yanjiong.magnet.util.HashUtil;
+import wang.yanjiong.magnet.xi.boundary.Context;
 import wang.yanjiong.metamate.core.api.CreateExtensionApi;
 import wang.yanjiong.metamate.core.fi.ExtensionFi;
-import wang.yanjiong.metamate.core.model.Context;
 
 import java.util.UUID;
 

@@ -3,4 +3,6 @@ rootProject.name = 'metamate'
 include 'metamate-core-impl'
 include 'metamate-core-spec'
 include 'metamate-crmdl'
+include 'magnet-xi'
+include 'magnet-util'
 

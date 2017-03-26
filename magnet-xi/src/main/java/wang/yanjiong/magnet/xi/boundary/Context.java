@@ -1,4 +1,4 @@
-package wang.yanjiong.metamate.core.model;
+package wang.yanjiong.magnet.xi.boundary;
 
 import lombok.Data;
 
@@ -25,4 +25,5 @@ public class Context {
     List<String> forwardIds;
 
     List<String> replyIds;
+
 }
