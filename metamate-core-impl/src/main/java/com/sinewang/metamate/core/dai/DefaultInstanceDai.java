@@ -41,4 +41,9 @@ public class DefaultInstanceDai implements InstanceDai {
             );
         }
     }
+
+    @Override
+    public List<Instance> selectLatestInstancesByOwnerIdExtId(String extId, String ownerId) {
+        return instanceMapper.selectLatestInstancesByOwnerIdExtId(extId, ownerId);
+    }
 }

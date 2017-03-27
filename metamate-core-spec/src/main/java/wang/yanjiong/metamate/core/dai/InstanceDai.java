@@ -13,6 +13,9 @@ public interface InstanceDai {
     @Transactional
     void insertInstances(List<Instance> instances) throws InstanceDuplicated;
 
+
+    List<Instance> selectLatestInstancesByOwnerIdExtId(String extId, String ownerId);
+
     @Data
     class Instance {
 

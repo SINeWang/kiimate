@@ -25,8 +25,8 @@ public interface InstanceMapper {
                         @Param("operatorId") String operatorId,
                         @Param("beginTime") Date beginTime);
 
-    List<InstanceDai.Instance> selectInstancesByOwnerIdExtId(@Param("ownerId") String ownerId,
-                                                             @Param("extId") String extId);
+    List<InstanceDai.Instance> selectLatestInstancesByOwnerIdExtId(@Param("extId") String extId,
+                                                             @Param("ownerId") String ownerId);
 
 
     InstanceDai.Instance selectLatestInstanceByIntIdOwnerId(@Param("intId") String intId,

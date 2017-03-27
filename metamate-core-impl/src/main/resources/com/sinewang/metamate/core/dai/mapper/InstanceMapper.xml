@@ -15,10 +15,10 @@
         <result column="operator_id" property="operatorId"/>
     </resultMap>
 
-    <select id="selectInstancesByOwnerIdExtId" resultMap="Instance">
+    <select id="selectLatestInstancesByOwnerIdExtId" resultMap="Instance">
         SELECT mins.id, mins.int_id, mins.ext_id, mins.owner_id, mins.field, mins.value, mins.value_ref_id, mins.operator_id
         FROM mm_i_ins mins
-        WHERE mins.owner_id = #{ownerId} AND mins.ext_id = #{extId}
+        WHERE mins.owner_id = #{ownerId} AND mins.ext_id = #{extId} AND mins.end_time IS NULL
     </select>
 
     <select id="selectLatestInstanceByIntIdOwnerId" resultMap="Instance">
