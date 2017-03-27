@@ -10,8 +10,8 @@ public interface AnStructureValidator {
 
     enum Structure {
         STRING,
-        NATURE_BASE0,
-        NATURE_BASE1,
+        NATURE,
+        BOOL,
         REAL,
         FLOAT,
         TIMESTAMP

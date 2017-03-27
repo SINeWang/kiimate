@@ -10,10 +10,12 @@ public interface AnExtensionFormParser {
 
     Extension parse(CreateExtensionApi.Form form);
 
+    String hashId(String group, String name, String version);
+
     enum DataStructures {
+        COMPLEX,
         STRING,
-        NATURE_BASE0,
-        NATURE_BASE1,
+        NATURE,
         REAL,
         FLOAT,
         TIMESTAMP

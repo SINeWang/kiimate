@@ -28,14 +28,20 @@ public class DefaultExtensionFormParser implements AnExtensionFormParser {
         return extension;
     }
 
-    private String hashExtension(Extension extension) {
+    @Override
+    public String hashId(String group, String name, String version) {
         return HashUtil.hashHex(
-                extension.getGroup(),
-                extension.getName(),
-                extension.getVersion(),
-                extension.getVisibility(),
-                extension.getStructure()
+                group, name, version
         );
     }
+
+    private String hashExtension(Extension extension) {
+        return hashId(
+                extension.getGroup(),
+                extension.getName(),
+                extension.getVersion()
+        );
+    }
+
 
 }
