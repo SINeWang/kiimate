@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.magnet.xi.boundary.util.ResponseUtil;
 import wang.yanjiong.metamate.core.api.CreateExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
-import wang.yanjiong.metamate.core.fi.AnExtensionFormParser;
+import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fi.AnStructureValidator;
 import wang.yanjiong.metamate.core.fi.AnVisibilityValidator;
 
@@ -21,7 +21,7 @@ public class DefaultCreateExtensionApi implements CreateExtensionApi {
     private ExtensionDai extensionDai;
 
     @Autowired
-    private AnExtensionFormParser extensionFormParser;
+    private AnExtensionExtractor extensionFormParser;
 
     @Autowired
     private AnStructureValidator structureValidator;
@@ -32,7 +32,7 @@ public class DefaultCreateExtensionApi implements CreateExtensionApi {
     @Override
     public Receipt createExtensionViaFormUrlEncoded(Form form) {
 
-        AnExtensionFormParser.Extension extension = extensionFormParser.parse(form);
+        AnExtensionExtractor.Extension extension = extensionFormParser.parse(form);
 
         boolean isValidStructure = structureValidator.isValid(extension.getStructure());
 

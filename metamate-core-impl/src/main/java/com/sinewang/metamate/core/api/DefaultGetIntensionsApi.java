@@ -8,7 +8,7 @@ import wang.yanjiong.magnet.xi.boundary.Context;
 import wang.yanjiong.magnet.xi.boundary.Summary;
 import wang.yanjiong.metamate.core.api.GetIntensionsApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
-import wang.yanjiong.metamate.core.fi.AnExtensionFormParser;
+import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +26,7 @@ public class DefaultGetIntensionsApi implements GetIntensionsApi {
     private IntensionDai intensionDai;
 
     @Autowired
-    private AnExtensionFormParser anExtensionFormParser;
+    private AnExtensionExtractor anExtensionExtractor;
 
 
     @Override
@@ -66,7 +66,7 @@ public class DefaultGetIntensionsApi implements GetIntensionsApi {
                                                     @PathVariable("name") String name,
                                                     @PathVariable("version") String version) {
 
-        String extId = anExtensionFormParser.hashId(group, name, version);
+        String extId = anExtensionExtractor.hashId(group, name, version);
         return readIntensionsByExiId(extId);
     }
 }

@@ -6,7 +6,7 @@ import wang.yanjiong.metamate.core.api.CreateIntensionApi;
 /**
  * Created by WangYanJiong on 3/23/17.
  */
-public interface AnIntensionFormParser {
+public interface AnIntensionExtractor {
 
     Intension parse(CreateIntensionApi.Form form);
 

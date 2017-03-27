@@ -8,9 +8,9 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 3/23/17.
  */
-public interface AnInstanceFormParser {
+public interface AnInstanceExtractor {
 
-    List<Instance> parse(String group, String name, String version, String ownerId, String operatorId, Map<String, String[]> map);
+    List<Instance> extract(String group, String name, String version, String ownerId, String operatorId, Map<String, String[]> map);
 
     @Data
     class Instance {
@@ -27,7 +27,7 @@ public interface AnInstanceFormParser {
 
         private String field;
 
-        private String value;
+        private String[] values;
 
     }
 }

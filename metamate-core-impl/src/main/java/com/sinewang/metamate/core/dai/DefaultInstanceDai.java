@@ -1,10 +1,13 @@
 package com.sinewang.metamate.core.dai;
 
 import com.sinewang.metamate.core.dai.mapper.InstanceMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import wang.yanjiong.magnet.util.HashUtil;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -18,48 +21,116 @@ public class DefaultInstanceDai implements InstanceDai {
     private InstanceMapper instanceMapper;
 
     @Override
-    public void insertInstances(List<Instance> instances) throws InstanceDuplicated {
+    public void insertInstances(List<Instances> instancesList) throws InstanceDuplicated {
         Date beginTime = new Date();
-        for (Instance instance : instances) {
-            Instance latestInstance = instanceMapper.selectLatestInstanceByIntIdOwnerId(
-                    instance.getIntId(),
-                    instance.getOwnerId());
+        for (Instances instances : instancesList) {
+            String[] values = instances.getValues();
 
-            if (latestInstance != null) {
-                if (!latestInstance.getId().equals(instance.getId())) {
-                    instanceMapper.updateInstanceEndTimeById(latestInstance.getId(), beginTime);
-                    instanceMapper.insertInstance(
-                            instance.getId(),
-                            instance.getExtId(),
-                            instance.getIntId(),
-                            instance.getOwnerId(),
-                            instance.getField(),
-                            instance.getValue(),
-                            instance.getValueRefId(),
-                            instance.getOperatorId(),
-                            beginTime
-                    );
-                } else {
-                    return;
+            {
+                if (values == null || values.length == 0) {
+                    instanceMapper.updateInstanceEndTimeByOwnerIdIntId(instances.getOwnerId(), instances.getIntId(), beginTime);
+                    continue;
                 }
-            } else {
-                instanceMapper.insertInstance(
-                        instance.getId(),
-                        instance.getExtId(),
-                        instance.getIntId(),
-                        instance.getOwnerId(),
-                        instance.getField(),
-                        instance.getValue(),
-                        instance.getValueRefId(),
-                        instance.getOperatorId(),
-                        beginTime
-                );
+            }
+
+            {
+                if (values.length == 1) {
+                    boolean refresh = false;
+                    if (values[0] == null) {
+                        instanceMapper.updateInstanceEndTimeByOwnerIdIntId(instances.getOwnerId(), instances.getIntId(), beginTime);
+                        continue;
+                    } else {
+                        List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceByIntIdOwnerId(instances.getIntId(), instances.getOwnerId());
+                        if (latestInstanceList.size() == 1) {
+                            Instance latestInstance = latestInstanceList.get(0);
+                            if (latestInstance.getValue().equals(values[0])) {
+                                continue;
+                            } else {
+                                refresh = true;
+                            }
+                        } else if (latestInstanceList.size() > 1) {
+                            refresh = true;
+                        }
+                    }
+                    if (refresh) {
+                        instanceMapper.updateInstanceEndTimeByOwnerIdIntId(instances.getOwnerId(), instances.getIntId(), beginTime);
+                        Instance instance = new Instance();
+                        BeanUtils.copyProperties(instances, instance);
+                        instance.setValue(values[0]);
+                        insertInstance(instance, beginTime);
+                    }
+                    continue;
+                }
+            }
+
+            {
+
+                List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceByIntIdOwnerId(instances.getIntId(), instances.getOwnerId());
+                boolean refresh = false;
+                if (values.length != latestInstanceList.size()) {
+                    refresh = true;
+                } else {
+                    Arrays.sort(values);
+                    String[] latestValues = new String[values.length];
+                    for (int i = 0; i < latestValues.length; i++) {
+                        latestValues[i] = latestInstanceList.get(i).getValue();
+                    }
+                    Arrays.sort(latestValues);
+
+                    for (int i = 0; i < latestValues.length; i++) {
+                        if (values[i] == null && latestValues[i] != null) {
+                            refresh = true;
+                            break;
+                        }
+                        if (values[i] != null && latestValues[i] == null) {
+                            refresh = true;
+                            break;
+                        }
+                        if (values[i] == null && latestValues[i] == null) {
+                            continue;
+                        }
+                        if (values[i].equals(latestValues[i])) {
+                            refresh = true;
+                            break;
+                        }
+                    }
+
+                }
+                if (!refresh) {
+                    continue;
+                }
+                instanceMapper.updateInstanceEndTimeByOwnerIdIntId(instances.getOwnerId(), instances.getIntId(), beginTime);
+                Arrays.sort(values);
+                String valueSetHash = HashUtil.hashHex(values);
+                for (String value : values) {
+                    Instance instance = new Instance();
+                    BeanUtils.copyProperties(instances, instance, "id");
+                    instance.setValueSetId(valueSetHash);
+                    instance.setValue(value);
+                    String id = HashUtil.hashHex(instances.getId(), value);
+                    instance.setId(id);
+                    insertInstance(instance, beginTime);
+                }
             }
         }
     }
 
     @Override
-    public List<Instance> selectLatestInstancesByOwnerIdExtId(String extId, String ownerId) {
+    public List<Instance> selectLatestInstanceByOwnerIdExtId(String extId, String ownerId) {
         return instanceMapper.selectLatestInstancesByOwnerIdExtId(extId, ownerId);
+    }
+
+    private void insertInstance(Instance instance, Date beginTime) {
+        instanceMapper.insertInstance(
+                instance.getId(),
+                instance.getExtId(),
+                instance.getIntId(),
+                instance.getOwnerId(),
+                instance.getField(),
+                instance.getValue(),
+                instance.getValueSetId(),
+                instance.getValueRefId(),
+                instance.getOperatorId(),
+                beginTime);
     }
 }

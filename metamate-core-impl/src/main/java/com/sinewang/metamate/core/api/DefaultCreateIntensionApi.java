@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.magnet.xi.boundary.util.ResponseUtil;
 import wang.yanjiong.metamate.core.api.CreateIntensionApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
-import wang.yanjiong.metamate.core.fi.AnIntensionFormParser;
+import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,12 +22,12 @@ public class DefaultCreateIntensionApi implements CreateIntensionApi {
     private IntensionDai intensionDai;
 
     @Autowired
-    private AnIntensionFormParser anIntensionFormParser;
+    private AnIntensionExtractor anIntensionExtractor;
 
     @Override
     public Receipt createIntensionViaFormUrlEncoded(Form form, HttpServletRequest request) {
 
-        AnIntensionFormParser.Intension intension = anIntensionFormParser.parse(form);
+        AnIntensionExtractor.Intension intension = anIntensionExtractor.parse(form);
 
         IntensionDai.Intension daiRecord = new IntensionDai.Intension();
         BeanUtils.copyProperties(intension, daiRecord);

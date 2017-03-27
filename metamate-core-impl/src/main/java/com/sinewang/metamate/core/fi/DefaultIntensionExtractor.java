@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import wang.yanjiong.magnet.util.HashUtil;
 import wang.yanjiong.magnet.xi.boundary.Context;
 import wang.yanjiong.metamate.core.api.CreateIntensionApi;
-import wang.yanjiong.metamate.core.fi.AnIntensionFormParser;
+import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 
 import java.util.UUID;
 
@@ -13,7 +13,7 @@ import java.util.UUID;
  * Created by WangYanJiong on 25/03/2017.
  */
 @Service
-public class DefaultIntensionFormParser implements AnIntensionFormParser {
+public class DefaultIntensionExtractor implements AnIntensionExtractor {
 
     @Override
     public Intension parse(CreateIntensionApi.Form form) {

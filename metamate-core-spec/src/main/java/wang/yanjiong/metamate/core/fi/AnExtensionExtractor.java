@@ -6,7 +6,7 @@ import wang.yanjiong.metamate.core.api.CreateExtensionApi;
 /**
  * Created by WangYanJiong on 3/23/17.
  */
-public interface AnExtensionFormParser {
+public interface AnExtensionExtractor {
 
     Extension parse(CreateExtensionApi.Form form);
 

@@ -11,8 +11,8 @@ import wang.yanjiong.magnet.xi.boundary.Context;
 import wang.yanjiong.magnet.xi.boundary.Summary;
 import wang.yanjiong.metamate.core.api.CreateInstanceApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
-import wang.yanjiong.metamate.core.fi.AnExtensionFormParser;
-import wang.yanjiong.metamate.core.fi.AnInstanceFormParser;
+import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
+import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -32,11 +32,11 @@ public class DefaultCreateInstanceApi implements CreateInstanceApi {
     private InstanceDai instanceDai;
 
     @Autowired
-    private AnInstanceFormParser instanceFormParser;
+    private AnInstanceExtractor instanceExtractor;
 
 
     @Autowired
-    private AnExtensionFormParser extensionFormParser;
+    private AnExtensionExtractor extensionExtractor;
 
     @Override
     public Receipt createInstanceViaFormUrlEncoded(@PathVariable("group") String group,
@@ -46,14 +46,14 @@ public class DefaultCreateInstanceApi implements CreateInstanceApi {
                                                    @RequestHeader("X-MM-Operator-Id") String operatorId,
                                                    HttpServletRequest request) {
 
-        String extId = extensionFormParser.hashId(group, name, version);
+        String extId = extensionExtractor.hashId(group, name, version);
 
-        List<AnInstanceFormParser.Instance> instances = instanceFormParser.parse(group, name, version, ownerId, operatorId, request.getParameterMap());
+        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(group, name, version, ownerId, operatorId, request.getParameterMap());
 
-        List<InstanceDai.Instance> instances1 = new ArrayList<>();
+        List<InstanceDai.Instances> instances1 = new ArrayList<>();
 
-        for (AnInstanceFormParser.Instance instance : instances) {
-            InstanceDai.Instance instance1 = new InstanceDai.Instance();
+        for (AnInstanceExtractor.Instance instance : instances) {
+            InstanceDai.Instances instance1 = new InstanceDai.Instances();
             BeanUtils.copyProperties(instance, instance1);
             instances1.add(instance1);
         }
@@ -64,7 +64,7 @@ public class DefaultCreateInstanceApi implements CreateInstanceApi {
             instanceDuplicated.printStackTrace();
         }
 
-        List<InstanceDai.Instance> instances2 = instanceDai.selectLatestInstancesByOwnerIdExtId(extId, ownerId);
+        List<InstanceDai.Instance> instances2 = instanceDai.selectLatestInstanceByOwnerIdExtId(extId, ownerId);
 
         Receipt receipt = new Receipt();
         List<Instance> instances3 = new ArrayList<>();

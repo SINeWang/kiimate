@@ -8,7 +8,7 @@ import wang.yanjiong.magnet.xi.boundary.Context;
 import wang.yanjiong.magnet.xi.boundary.Summary;
 import wang.yanjiong.metamate.core.api.GetInstanceApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
-import wang.yanjiong.metamate.core.fi.AnExtensionFormParser;
+import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 
 import java.util.*;
 
@@ -23,7 +23,7 @@ public class DefaultGetInstancesApi implements GetInstanceApi {
     private InstanceDai instanceDai;
 
     @Autowired
-    private AnExtensionFormParser extensionFormParser;
+    private AnExtensionExtractor extensionFormParser;
 
 
     @Override
@@ -33,8 +33,7 @@ public class DefaultGetInstancesApi implements GetInstanceApi {
                                                            @RequestHeader("X-MM-Owner-Id") String ownerId,
                                                            @RequestHeader("X-MM-Operator-Id") String operatorId) {
         String extId = extensionFormParser.hashId(group, name, version);
-        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstancesByOwnerIdExtId(extId, ownerId);
-
+        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceByOwnerIdExtId(extId, ownerId);
 
         Receipt receipt = new Receipt();
         Summary summary = new Summary();

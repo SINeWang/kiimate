@@ -11,15 +11,15 @@ import java.util.List;
 public interface InstanceDai {
 
     @Transactional
-    void insertInstances(List<Instance> instances) throws InstanceDuplicated;
+    void insertInstances(List<Instances> instances) throws InstanceDuplicated;
 
 
-    List<Instance> selectLatestInstancesByOwnerIdExtId(String extId, String ownerId);
+    List<Instance> selectLatestInstanceByOwnerIdExtId(String extId, String ownerId);
 
     @Data
     class Instance {
 
-        private String id;
+        private String id; // id = hashHex(instances.id, value)
 
         private String extId;
 
@@ -30,6 +30,31 @@ public interface InstanceDai {
         private String field;
 
         private String value;
+
+        private String valueSetId;
+
+        private String valueRefId;
+
+        private String operatorId;
+
+    }
+
+    @Data
+    class Instances {
+
+        private String id; // id = hashHex(hashHex(extId, fieldId), ownerId)
+
+        private String extId;
+
+        private String intId;
+
+        private String ownerId;
+
+        private String field;
+
+        private String[] values;
+
+        private String valueSetId;
 
         private String valueRefId;
 

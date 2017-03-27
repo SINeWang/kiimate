@@ -21,18 +21,20 @@ public interface InstanceMapper {
                         @Param("ownerId") String ownerId,
                         @Param("field") String field,
                         @Param("value") String value,
+                        @Param("valueSetId") String valueSetId,
                         @Param("valueRefId") String valueRefId,
                         @Param("operatorId") String operatorId,
                         @Param("beginTime") Date beginTime);
 
     List<InstanceDai.Instance> selectLatestInstancesByOwnerIdExtId(@Param("extId") String extId,
-                                                             @Param("ownerId") String ownerId);
+                                                                   @Param("ownerId") String ownerId);
 
 
-    InstanceDai.Instance selectLatestInstanceByIntIdOwnerId(@Param("intId") String intId,
-                                                            @Param("ownerId") String ownerId);
+    List<InstanceDai.Instance> selectLatestInstanceByIntIdOwnerId(@Param("intId") String intId,
+                                                                  @Param("ownerId") String ownerId);
 
-    void updateInstanceEndTimeById(@Param("id") String id,
-                                   @Param("endTime") Date endTime);
+    void updateInstanceEndTimeByOwnerIdIntId(@Param("ownerId") String ownerId,
+                                             @Param("intId") String intId,
+                                             @Param("endTime") Date endTime);
 
 }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import wang.yanjiong.magnet.util.HashUtil;
 import wang.yanjiong.magnet.xi.boundary.Context;
 import wang.yanjiong.metamate.core.api.CreateExtensionApi;
-import wang.yanjiong.metamate.core.fi.AnExtensionFormParser;
+import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 
 import java.util.UUID;
 
@@ -13,7 +13,7 @@ import java.util.UUID;
  * Created by WangYanJiong on 25/03/2017.
  */
 @Service
-public class DefaultExtensionFormParser implements AnExtensionFormParser {
+public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
     @Override
     public Extension parse(CreateExtensionApi.Form form) {
