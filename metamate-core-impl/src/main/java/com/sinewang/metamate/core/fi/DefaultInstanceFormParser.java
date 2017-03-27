@@ -29,16 +29,20 @@ public class DefaultInstanceFormParser implements AnInstanceFormParser {
         List<Instance> instances = new ArrayList<>();
         for (String field : map.keySet()) {
             String intId = anIntensionFormParser.hashId(extId, field);
-            String insId = HashUtil.hashHex(intId, ownerId);
-            Instance instance = new Instance();
-            instance.setExtId(extId);
-            instance.setField(field);
-            instance.setValue(map.get(field));
-            instance.setId(insId);
-            instance.setIntId(intId);
-            instance.setOwnerId(ownerId);
-            instance.setOperatorId(operatorId);
-            instances.add(instance);
+            String[] values = map.get(field);
+            for(String value: values){
+                String insId = HashUtil.hashHex(intId, ownerId, value);
+                Instance instance = new Instance();
+                instance.setExtId(extId);
+                instance.setField(field);
+                instance.setValue(value);
+                instance.setId(insId);
+                instance.setIntId(intId);
+                instance.setOwnerId(ownerId);
+                instance.setOperatorId(operatorId);
+                instances.add(instance);
+            }
+
         }
         return instances;
     }

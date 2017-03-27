@@ -26,19 +26,35 @@ public class DefaultInstanceDai implements InstanceDai {
                     instance.getOwnerId());
 
             if (latestInstance != null) {
-                instanceMapper.updateInstanceEndTimeById(latestInstance.getId(), beginTime);
+                if (!latestInstance.getId().equals(instance.getId())) {
+                    instanceMapper.updateInstanceEndTimeById(latestInstance.getId(), beginTime);
+                    instanceMapper.insertInstance(
+                            instance.getId(),
+                            instance.getExtId(),
+                            instance.getIntId(),
+                            instance.getOwnerId(),
+                            instance.getField(),
+                            instance.getValue(),
+                            instance.getValueRefId(),
+                            instance.getOperatorId(),
+                            beginTime
+                    );
+                } else {
+                    return;
+                }
+            } else {
+                instanceMapper.insertInstance(
+                        instance.getId(),
+                        instance.getExtId(),
+                        instance.getIntId(),
+                        instance.getOwnerId(),
+                        instance.getField(),
+                        instance.getValue(),
+                        instance.getValueRefId(),
+                        instance.getOperatorId(),
+                        beginTime
+                );
             }
-            instanceMapper.insertInstance(
-                    instance.getId(),
-                    instance.getExtId(),
-                    instance.getIntId(),
-                    instance.getOwnerId(),
-                    instance.getField(),
-                    instance.getValue(),
-                    instance.getValueRefId(),
-                    instance.getOperatorId(),
-                    beginTime
-            );
         }
     }
 

@@ -27,7 +27,7 @@ public interface AnInstanceFormParser {
 
         private String field;
 
-        private String[] value;
+        private String value;
 
     }
 }

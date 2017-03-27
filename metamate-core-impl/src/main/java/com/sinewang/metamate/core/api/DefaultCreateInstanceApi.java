@@ -55,12 +55,7 @@ public class DefaultCreateInstanceApi implements CreateInstanceApi {
         for (AnInstanceFormParser.Instance instance : instances) {
             InstanceDai.Instance instance1 = new InstanceDai.Instance();
             BeanUtils.copyProperties(instance, instance1);
-
-            if (instance.getValue().length == 1) {
-                instance1.setValue(instance.getValue()[0]);
-                instances1.add(instance1);
-            }
-
+            instances1.add(instance1);
         }
 
         try {
