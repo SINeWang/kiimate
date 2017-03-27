@@ -32,8 +32,6 @@ public class DefaultIntensionFormParser implements AnIntensionFormParser {
         return HashUtil.hashHex(
                 intension.getExtId(),
                 intension.getName(),
-                intension.getVisibility(),
-                intension.getStructure(),
                 String.valueOf(intension.isSingle())
         );
     }
