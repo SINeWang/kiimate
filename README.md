@@ -38,7 +38,7 @@
 ## Local Reference
 
     syntax:  name#field
-    example: some.namespace.name#someField
+    example: some.namespace/name#someField
         repo    = $repo
         owner   = $owner
         group   = $group
@@ -49,7 +49,7 @@
 ## Cross-Tree Reference
 
     syntax:  tree/name#field
-    example: some-tree/some.namespace.name#someField
+    example: some-tree/some.namespace/name#someField
         repo    = $repo
         owner   = $owner
         group   = $group
@@ -60,7 +60,7 @@
 ## Cross-Group Reference
 
     syntax:  group/tree/name#field
-    example: other-group/other-master/other.namespace.name#otherFiled
+    example: other-group/other-master/other.namespace/name#otherFiled
         repo    = $repo
         owner   = $owner
         group   = other-group
@@ -71,7 +71,7 @@
 ## Cross-Owner Reference
 
     syntax:  owner/group/tree/name#field
-    example: other-owner/other-group/other-master/other.namespace.name#otherFiled
+    example: other-owner/other-group/other-master/other.namespace/name#otherFiled
         repo    = $repo
         owner   = other-owner
         group   = other-group
@@ -82,7 +82,7 @@
 ## Cross-Repo Reference
 
     syntax:  /repo/owner/group/tree/name#field
-    example: /other-repo/other-owner/other-group/other-master/other.namespace.name#otherFiled
+    example: /other-repo/other-owner/other-group/other-master/other.namespace/name#otherFiled
         repo    = other-repo
         owner   = other-owner
         group   = other-group
