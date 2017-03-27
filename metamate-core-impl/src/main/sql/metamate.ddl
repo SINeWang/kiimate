@@ -35,7 +35,7 @@ CREATE TABLE `mm_m_crf` (
 -- ----------------------------
 DROP TABLE IF EXISTS `mm_m_ext`;
 CREATE TABLE `mm_m_ext` (
-  `id` varchar(160) NOT NULL COMMENT 'id = hash(group, name, version)',
+  `id` varchar(160) NOT NULL COMMENT 'id = hash(group, field, version)',
   `group` varchar(32) NOT NULL,
   `name` varchar(32) NOT NULL,
   `version` varchar(32) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE `mm_m_int` (
   `id` varchar(160) NOT NULL COMMENT 'int_id = hash(ext_id, ref_id)',
   `ext_id` varchar(160) NOT NULL,
   `ref_id` varchar(160) NOT NULL,
-  `rename` varchar(32) NOT NULL DEFAULT '' COMMENT 'the alias name of ref_id ',
+  `rename` varchar(32) NOT NULL DEFAULT '' COMMENT 'the alias field of ref_id ',
   `is_single` tinyint(1) NOT NULL,
   `visibility` varchar(16) NOT NULL COMMENT 'the visibility of scope',
   PRIMARY KEY (`id`)

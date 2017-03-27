@@ -38,7 +38,7 @@ public interface GetIntensionsApi {
 
         private String id;
 
-        private String name;
+        private String field;
 
         private boolean single;
 

@@ -28,7 +28,7 @@ public interface CreateIntensionApi {
 
         private String extId;
 
-        private String name;
+        private String field;
 
         private boolean single;
 
@@ -44,7 +44,7 @@ public interface CreateIntensionApi {
 
         private String extId;
 
-        private String name;
+        private String field;
 
         private boolean single;
 

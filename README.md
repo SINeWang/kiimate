@@ -28,7 +28,7 @@
 	$owner: <some-body>
 	$tree:  <branch> | <tag>
 	$group: <some-group>
-	$name:  <some>.<namespace>.<name>
+	$field:  <some>.<namespace>.<field>
 
 
 
@@ -37,73 +37,73 @@
 
 ## Local Reference
 
-    syntax:  name#field
-    example: some.namespace/name#someField
+    syntax:  field#field
+    example: some.namespace/field#someField
         repo    = $repo
         owner   = $owner
         group   = $group
         tree    = $tree
-        name    = some.name.space.name
+        field    = some.field.space.field
         field   = someField
 
 ## Cross-Tree Reference
 
-    syntax:  tree/name#field
-    example: some-tree/some.namespace/name#someField
+    syntax:  tree/field#field
+    example: some-tree/some.namespace/field#someField
         repo    = $repo
         owner   = $owner
         group   = $group
         tree    = some-tree
-        name    = some.name.space.name
+        field    = some.field.space.field
         field   = someField
 
 ## Cross-Group Reference
 
-    syntax:  group/tree/name#field
-    example: other-group/other-master/other.namespace/name#otherFiled
+    syntax:  group/tree/field#field
+    example: other-group/other-master/other.namespace/field#otherFiled
         repo    = $repo
         owner   = $owner
         group   = other-group
         tree    = other-master
-        name    = other.namespace.name
+        field    = other.namespace.field
         field   = otherFiled
 
 ## Cross-Owner Reference
 
-    syntax:  owner/group/tree/name#field
-    example: other-owner/other-group/other-master/other.namespace/name#otherFiled
+    syntax:  owner/group/tree/field#field
+    example: other-owner/other-group/other-master/other.namespace/field#otherFiled
         repo    = $repo
         owner   = other-owner
         group   = other-group
         tree    = other-master
-        name    = other.namespace.name
+        field    = other.namespace.field
         field   = otherFiled
 
 ## Cross-Repo Reference
 
-    syntax:  /repo/owner/group/tree/name#field
-    example: /other-repo/other-owner/other-group/other-master/other.namespace/name#otherFiled
+    syntax:  /repo/owner/group/tree/field#field
+    example: /other-repo/other-owner/other-group/other-master/other.namespace/field#otherFiled
         repo    = other-repo
         owner   = other-owner
         group   = other-group
         tree    = other-master
-        name    = other.namespace.name
+        field    = other.namespace.field
         field   = otherFiled
 
 ## Maven Mapping Reference
 
-    syntax:   mvn://repo/owner/group/name/tree#!field
+    syntax:   mvn://repo/owner/group/field/tree#!field
     example1: mvn://repo1.maven.org/maven2/maven-group/maven-artifactId/maven-version#!some.package.class.field
         repo    = repo1.maven.org
         owner   = maven2
         group   = maven-groupId
         tree    = maven-version
-        name    = maven-artifactId
+        field    = maven-artifactId
         field   = some.package.class.field
     example2: mvn://repo.spring.io/release/maven-group/maven-artifactId/maven-version#!some.package.class.field
         repo    = repo1.maven.org
         owner   = maven2
         group   = maven-groupId
         tree    = maven-version
-        name    = maven-artifactId
+        field    = maven-artifactId
         field   = some.package.class.field

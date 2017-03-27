@@ -7,7 +7,7 @@
     <resultMap id="Intension" type="wang.yanjiong.metamate.core.dai.IntensionDai$Intension">
         <result column="id" property="id"/>
         <result column="ext_id" property="extId"/>
-        <result column="name" property="name"/>
+        <result column="field" property="field"/>
         <result column="is_single" property="single"/>
         <result column="structure" property="structure"/>
         <result column="visibility" property="visibility"/>
@@ -16,16 +16,16 @@
     </resultMap>
 
     <select id="selectIntensionsByExtId" resultMap="Intension">
-        SELECT mint.id, mint.ext_id, mint.name, mint.is_single, mint.structure, mint.visibility
+        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.visibility
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
     </select>
 
     <insert id="insertIntension">
         INSERT INTO mm_m_int
-        (`id`, `ext_id`, `name`, `is_single`, `structure`, `visibility`, `begin_time`)
+        (`id`, `ext_id`, `field`, `is_single`, `structure`, `visibility`, `begin_time`)
         VALUES
-        (#{id}, #{extId}, #{name}, #{single}, #{structure}, #{visibility}, #{beginTime})
+        (#{id}, #{extId}, #{field}, #{single}, #{structure}, #{visibility}, #{beginTime})
     </insert>
 
 

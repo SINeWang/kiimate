@@ -31,7 +31,7 @@ public class DefaultIntensionDai implements IntensionDai {
             intensionMapper.insertIntension(
                     intension.getId(),
                     intension.getExtId(),
-                    intension.getName(),
+                    intension.getField(),
                     intension.isSingle(),
                     intension.getStructure(),
                     intension.getVisibility(),

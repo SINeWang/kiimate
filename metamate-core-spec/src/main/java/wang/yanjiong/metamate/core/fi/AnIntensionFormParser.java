@@ -10,6 +10,8 @@ public interface AnIntensionFormParser {
 
     Intension parse(CreateIntensionApi.Form form);
 
+    String hashId(String extId, String field);
+
     @Data
     class Intension {
 
@@ -17,7 +19,7 @@ public interface AnIntensionFormParser {
 
         private String extId;
 
-        private String name;
+        private String field;
 
         private String visibility;
 

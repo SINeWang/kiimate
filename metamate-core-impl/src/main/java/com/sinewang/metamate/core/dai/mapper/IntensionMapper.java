@@ -17,7 +17,7 @@ public interface IntensionMapper {
 
     void insertIntension(@Param("id") String id,
                          @Param("extId") String extId,
-                         @Param("name") String rename,
+                         @Param("field") String field,
                          @Param("single") boolean single,
                          @Param("structure") String structure,
                          @Param("visibility") String visibility,

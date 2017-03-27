@@ -23,17 +23,13 @@ public class DefaultIntensionFormParser implements AnIntensionFormParser {
 
         Intension intension = new Intension();
         BeanUtils.copyProperties(form, intension);
-        String id = hashIntension(intension);
+        String id = hashId(intension.getExtId(), intension.getField());
         intension.setId(id);
         return intension;
     }
 
-    private String hashIntension(Intension intension) {
-        return HashUtil.hashHex(
-                intension.getExtId(),
-                intension.getName(),
-                String.valueOf(intension.isSingle())
-        );
+    public String hashId(String extId, String field) {
+        return HashUtil.hashHex(extId, field);
     }
 
 }
