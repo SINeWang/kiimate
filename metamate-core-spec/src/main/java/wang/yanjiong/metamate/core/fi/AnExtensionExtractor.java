@@ -8,7 +8,7 @@ import wang.yanjiong.metamate.core.api.CreateExtensionApi;
  */
 public interface AnExtensionExtractor {
 
-    Extension parse(CreateExtensionApi.Form form);
+    Extension extract(CreateExtensionApi.Form form) throws MissingParamException;
 
     String hashId(String group, String name, String version);
 
@@ -36,4 +36,11 @@ public interface AnExtensionExtractor {
 
         private String structure;
     }
+
+    class MissingParamException extends Exception {
+        public MissingParamException(String message) {
+            super(message);
+        }
+    }
+
 }

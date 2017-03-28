@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 
+import java.util.Date;
+
 /**
  * Created by WangYanJiong on 3/23/17.
  */
@@ -15,12 +17,14 @@ public interface ExtensionMapper {
                          @Param("name") String name,
                          @Param("version") String version,
                          @Param("visibility") String visibility,
-                         @Param("structure") String structure);
+                         @Param("structure") String structure,
+                         @Param("beginTime") Date beginTime);
 
     ExtensionDai.Extension selectExtensionById(@Param("id") String id);
 
-
     void deleteExtensionById(@Param("id") String id);
 
+    void updateEndTimeExtensionById(@Param("id") String id,
+                                    @Param("endTime") Date endTime);
 
 }

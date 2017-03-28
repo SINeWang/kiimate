@@ -21,7 +21,7 @@ public class DefaultCreateExtensionApi implements CreateExtensionApi {
     private ExtensionDai extensionDai;
 
     @Autowired
-    private AnExtensionExtractor extensionFormParser;
+    private AnExtensionExtractor extensionExtractor;
 
     @Autowired
     private AnStructureValidator structureValidator;
@@ -32,11 +32,22 @@ public class DefaultCreateExtensionApi implements CreateExtensionApi {
     @Override
     public Receipt createExtensionViaFormUrlEncoded(Form form) {
 
-        AnExtensionExtractor.Extension extension = extensionFormParser.parse(form);
+        AnExtensionExtractor.Extension extension = null;
+        try {
+            extension = extensionExtractor.extract(form);
+        } catch (AnExtensionExtractor.MissingParamException e) {
+            return ResponseUtil.rejected(form, Receipt.class, e.getMessage());
+        }
 
         boolean isValidStructure = structureValidator.isValid(extension.getStructure());
+        if (!isValidStructure) {
+            return ResponseUtil.rejected(form, Receipt.class, extension);
+        }
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
+        if (!isValidVisibility) {
+            return ResponseUtil.rejected(form, Receipt.class, extension);
+        }
 
         ExtensionDai.Extension daiRecord = new ExtensionDai.Extension();
         BeanUtils.copyProperties(extension, daiRecord);

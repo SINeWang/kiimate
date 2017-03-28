@@ -9,6 +9,8 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 
+import java.util.Date;
+
 /**
  * Created by WangYanJiong on 3/23/17.
  */
@@ -31,7 +33,18 @@ public class DefaultExtensionDai implements ExtensionDai {
     }
 
     @Override
+    public void deleteExtensionById(String id) {
+        extensionMapper.deleteExtensionById(id);
+    }
+
+    @Override
     public void insertExtension(Extension extension) throws ExtensionDuplicated {
+        Date now = new Date();
+        Extension lastExtension = extensionMapper.selectExtensionById(extension.getId());
+
+        if (lastExtension != null) {
+            extensionMapper.updateEndTimeExtensionById(extension.getId(), now);
+        }
 
         try {
             extensionMapper.insertExtension(
@@ -40,7 +53,8 @@ public class DefaultExtensionDai implements ExtensionDai {
                     extension.getName(),
                     extension.getVersion(),
                     extension.getVisibility(),
-                    extension.getStructure()
+                    extension.getStructure(),
+                    now
             );
         } catch (DuplicateKeyException duplicated) {
             logger.error("Duplicated-Key:{}", extension.getId());

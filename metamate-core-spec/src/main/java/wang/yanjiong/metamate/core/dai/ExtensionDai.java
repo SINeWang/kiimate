@@ -10,6 +10,8 @@ public interface ExtensionDai {
 
     Extension selectExtensionById(String id);
 
+    void deleteExtensionById(String id);
+
     @Transactional
     void insertExtension(Extension extension) throws ExtensionDuplicated;
 

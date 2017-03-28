@@ -16,18 +16,24 @@
     <select id="selectExtensionById" resultMap="Extension">
         SELECT mext.id, mext.group, mext.name, mext.version, mext.visibility, mext.structure
         FROM mm_m_ext mext
-        WHERE mext.id = #{id}gi
+        WHERE mext.id = #{id} AND mext.end_time IS NULL
     </select>
 
     <insert id="insertExtension">
         INSERT INTO mm_m_ext
-        (`id`, `group`, `name`, `version`, `visibility`, `structure`)
+        (`id`, `group`, `name`, `version`, `visibility`, `structure`, `begin_time`)
         VALUES
-        (#{id}, #{group}, #{name}, #{version}, #{visibility}, #{structure})
+        (#{id}, #{group}, #{name}, #{version}, #{visibility}, #{structure}, #{beginTime})
     </insert>
+
+    <update id="updateEndTimeExtensionById">
+        UPDATE mm_m_ext
+        SET end_time = #{endTime}
+        WHERE id = #{id}
+    </update>
 
     <delete id="deleteExtensionById">
         DELETE FROM mm_m_ext
-        WHERE id = ${id}
+        WHERE id = #{id}
     </delete>
 </mapper>

@@ -6,6 +6,8 @@ import wang.yanjiong.magnet.xi.boundary.Request;
 import wang.yanjiong.magnet.xi.boundary.Response;
 import wang.yanjiong.magnet.xi.boundary.Summary;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 
@@ -40,13 +42,14 @@ public class ResponseUtil {
         return build(form, response, data);
     }
 
-    public static <U, V extends Response> V rejected(Request form, Class<V> responseClass, U data) {
+    public static <U, V extends Response> V rejected(Request form, Class<V> responseClass, U data, String... reasons) {
         V response = null;
         try {
             response = responseClass.newInstance();
             Summary summary = new Summary();
             summary.setStatus(Summary.Status.REJECTED);
             summary.setTime(new Date());
+            summary.setReasons(Arrays.asList(reasons));
             response.setSummary(summary);
         } catch (InstantiationException e) {
             e.printStackTrace();

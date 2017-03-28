@@ -16,15 +16,34 @@ import java.util.UUID;
 public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
     @Override
-    public Extension parse(CreateExtensionApi.Form form) {
+    public Extension extract(CreateExtensionApi.Form form) throws MissingParamException {
         Context context = new Context();
         context.setProcessId(UUID.randomUUID().toString());
         form.setContext(context);
+
+
+        if (form.getGroup() == null || form.getGroup().isEmpty()) {
+            throw new MissingParamException("group is NULL or EMPTY");
+        }
+        if (form.getName() == null || form.getName().isEmpty()) {
+            throw new MissingParamException("name is NULL or EMPTY");
+        }
+        if (form.getVersion() == null || form.getVersion().isEmpty()) {
+            throw new MissingParamException("version is NULL or EMPTY");
+        }
+        if (form.getStructure() == null || form.getStructure().isEmpty()) {
+            throw new MissingParamException("structure is NULL or EMPTY");
+        }
+        if (form.getVisibility() == null || form.getVisibility().isEmpty()) {
+            throw new MissingParamException("visibility is NULL or EMPTY");
+        }
 
         Extension extension = new Extension();
         BeanUtils.copyProperties(form, extension);
         String id = hashExtension(extension);
         extension.setId(id);
+
+
         return extension;
     }
 

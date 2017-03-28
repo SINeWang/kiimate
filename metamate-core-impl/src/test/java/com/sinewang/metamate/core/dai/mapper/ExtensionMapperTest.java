@@ -9,6 +9,8 @@ import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 
+import java.util.Date;
+
 /**
  * Created by WangYanJiong on 3/23/17.
  */
@@ -25,7 +27,7 @@ public class ExtensionMapperTest {
         String id = "12";
         extensionMapper.deleteExtensionById(id);
 
-        extensionMapper.insertExtension(id, "34", "56", "78", "90", "ab");
+        extensionMapper.insertExtension(id, "34", "56", "78", "90", "ab", new Date());
         ExtensionDai.Extension ext = extensionMapper.selectExtensionById(id);
         Assert.assertNotNull(ext);
     }

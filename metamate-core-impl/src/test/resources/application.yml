@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://home.sinewang.com/metamate?autoReconnect=true
-    url: jdbc:mysql://localhost/metamate?autoReconnect=true
+    url: jdbc:mysql://home.sinewang.com/metamate?autoReconnect=true
+#    url: jdbc:mysql://localhost/metamate?autoReconnect=true
     username: root
     password: wave
