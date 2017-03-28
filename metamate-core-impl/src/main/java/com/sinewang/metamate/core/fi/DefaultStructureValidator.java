@@ -14,7 +14,8 @@ public class DefaultStructureValidator implements AnStructureValidator {
     @Override
     public boolean isValid(String structure) {
         try {
-            Structure.valueOf(structure);
+            String upperCase = structure.toUpperCase();
+            Structure.valueOf(upperCase);
             return true;
         } catch (IllegalArgumentException exception) {
             return false;

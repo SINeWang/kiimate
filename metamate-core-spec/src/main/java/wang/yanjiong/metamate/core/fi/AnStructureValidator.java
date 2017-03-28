@@ -14,6 +14,7 @@ public interface AnStructureValidator {
         BOOL,
         REAL,
         FLOAT,
+        COMPLEX,
         TIMESTAMP
     }
 

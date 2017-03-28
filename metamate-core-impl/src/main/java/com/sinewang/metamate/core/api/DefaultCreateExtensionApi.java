@@ -58,12 +58,10 @@ public class DefaultCreateExtensionApi implements CreateExtensionApi {
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             return ResponseUtil.rejected(form, Receipt.class, extension);
         }
-
-
     }
 
-    @Override
-    public Receipt createExtensionViaJson(Form form) {
-        return null;
-    }
+//    @Override
+//    public Receipt createExtensionViaJson(Form form) {
+//        return null;
+//    }
 }

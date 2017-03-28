@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wang.yanjiong.magnet.xi.boundary.Summary;
+import wang.yanjiong.metamate.core.dai.ExtensionDai;
 
 /**
  * Created by WangYanJiong on 3/24/17.
@@ -19,13 +20,16 @@ public class CreateExtensionAPITest {
     @Autowired
     private CreateExtensionApi createExtensionApi;
 
+    @Autowired
+    private ExtensionDai extensionDai;
+
     @Test
     public void testGroupOnly() {
         CreateExtensionApi.Form form = new CreateExtensionApi.Form();
         form.setGroup("testGroup");
         CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
-        Assert.assertEquals(receipt.getSummary().getStatus(), Summary.Status.REJECTED);
+        Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
@@ -34,7 +38,7 @@ public class CreateExtensionAPITest {
         form.setName("testName");
         CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
-        Assert.assertEquals(receipt.getSummary().getStatus(), Summary.Status.REJECTED);
+        Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
@@ -43,7 +47,7 @@ public class CreateExtensionAPITest {
         form.setVersion("testVersion");
         CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
-        Assert.assertEquals(receipt.getSummary().getStatus(), Summary.Status.REJECTED);
+        Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
@@ -52,7 +56,7 @@ public class CreateExtensionAPITest {
         form.setVisibility("testVisibility");
         CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
-        Assert.assertEquals(receipt.getSummary().getStatus(), Summary.Status.REJECTED);
+        Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
@@ -61,6 +65,58 @@ public class CreateExtensionAPITest {
         form.setStructure("testStructure");
         CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
-        Assert.assertEquals(receipt.getSummary().getStatus(), Summary.Status.REJECTED);
+        Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
+    }
+
+
+    @Test
+    public void testInvalidStructure() {
+        CreateExtensionApi.Form form = new CreateExtensionApi.Form();
+        form.setGroup("testGroup");
+        form.setName("testName");
+        form.setVersion("testVersion");
+        form.setVisibility("protected");
+        form.setStructure("testStructure");
+        CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
+        Assert.assertNotNull(receipt);
+        Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
+    }
+
+    @Test
+    public void testInvalidVisibility() {
+        CreateExtensionApi.Form form = new CreateExtensionApi.Form();
+        form.setGroup("testGroup");
+        form.setName("testName");
+        form.setVersion("testVersion");
+        form.setVisibility("testVisibility");
+        form.setStructure("complex");
+        CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
+        Assert.assertNotNull(receipt);
+        Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
+    }
+
+    @Test
+    public void testSave() {
+        String group = "testGroup";
+        String name = "testName";
+        String version = "testVersion";
+
+        CreateExtensionApi.Form form = new CreateExtensionApi.Form();
+        form.setGroup(group);
+        form.setName(name);
+        form.setVersion(version);
+        form.setVisibility("protected");
+        form.setStructure("complex");
+        CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
+        Assert.assertNotNull(receipt);
+        Assert.assertEquals(Summary.Status.ACCEPTED, receipt.getSummary().getStatus());
+        String id = receipt.getId();
+        Assert.assertNotNull(id);
+
+
+        ExtensionDai.Extension extension = extensionDai.selectExtensionById(id);
+        Assert.assertEquals(group, extension.getGroup());
+        Assert.assertEquals(name, extension.getName());
+        Assert.assertEquals(version, extension.getVersion());
     }
 }

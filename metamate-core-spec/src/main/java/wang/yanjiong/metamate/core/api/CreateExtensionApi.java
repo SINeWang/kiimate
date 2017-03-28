@@ -16,8 +16,8 @@ public interface CreateExtensionApi {
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     Receipt createExtensionViaFormUrlEncoded(@ModelAttribute Form form);
 
-    @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    Receipt createExtensionViaJson(@RequestBody Form form);
+//    @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//    Receipt createExtensionViaJson(@RequestBody Form form);
 
 
     @Data

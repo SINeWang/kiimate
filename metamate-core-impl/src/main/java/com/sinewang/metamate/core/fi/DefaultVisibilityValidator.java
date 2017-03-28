@@ -12,7 +12,8 @@ public class DefaultVisibilityValidator implements AnVisibilityValidator {
     @Override
     public boolean isValid(String visibility) {
         try {
-            Visibility.valueOf(visibility);
+            String upperCase = visibility.toUpperCase();
+            Visibility.valueOf(upperCase);
             return true;
         } catch (IllegalArgumentException exception) {
             return false;
