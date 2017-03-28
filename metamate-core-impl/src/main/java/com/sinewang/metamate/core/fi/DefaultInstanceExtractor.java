@@ -27,9 +27,10 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     public List<Instance> extract(String group, String name, String version, String ownerId, String operatorId, Map<String, String[]> map) {
         String extId = anExtensionExtractor.hashId(group, name, version);
         List<Instance> instances = new ArrayList<>();
+
         for (String field : map.keySet()) {
             String intId = anIntensionExtractor.hashId(extId, field);
-            String[] values = map.get(field);
+            String[] values = cleanUpValues(map.get(field));
             String id = HashUtil.hashHex(intId, ownerId);
             Instance instance = new Instance();
             instance.setExtId(extId);
@@ -42,6 +43,27 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
             instances.add(instance);
         }
         return instances;
+    }
+
+    private String[] cleanUpValues(String[] values) {
+        if (values.length == 0) {
+            return null;
+        }
+        List<String> valueList = new ArrayList<>();
+        boolean empty = false;
+        for (String value : values) {
+            if (value == null) {
+                continue;
+            } else if (value.trim().length() == 0) {
+                empty = true;
+                continue;
+            }
+            valueList.add(value);
+        }
+        if (empty && valueList.size() == 0) {
+            valueList.add("");
+        }
+        return valueList.toArray(new String[]{});
     }
 
 

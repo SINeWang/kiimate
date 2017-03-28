@@ -25,35 +25,36 @@ public class DefaultInstanceDai implements InstanceDai {
         Date beginTime = new Date();
         for (Instances instances : instancesList) {
             String[] values = instances.getValues();
-
-            {
-                if (values == null || values.length == 0) {
-                    instanceMapper.updateInstanceEndTimeByOwnerIdIntId(instances.getOwnerId(), instances.getIntId(), beginTime);
-                    continue;
-                }
-            }
-
             {
                 if (values.length == 1) {
-                    boolean refresh = false;
-                    if (values[0] == null) {
+                    if (values[0].isEmpty()) {
                         instanceMapper.updateInstanceEndTimeByOwnerIdIntId(instances.getOwnerId(), instances.getIntId(), beginTime);
                         continue;
-                    } else {
-                        List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceByIntIdOwnerId(instances.getIntId(), instances.getOwnerId());
-                        if (latestInstanceList.size() == 1) {
-                            Instance latestInstance = latestInstanceList.get(0);
-                            if (latestInstance.getValue().equals(values[0])) {
-                                continue;
-                            } else {
-                                refresh = true;
-                            }
-                        } else if (latestInstanceList.size() > 1) {
-                            refresh = true;
-                        }
                     }
+                    boolean refresh = false;
+                    boolean insert = false;
+
+                    List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceByIntIdOwnerId(instances.getIntId(), instances.getOwnerId());
+                    if (latestInstanceList.size() == 0) {
+                        insert = true;
+                    } else if (latestInstanceList.size() == 1) {
+                        Instance latestInstance = latestInstanceList.get(0);
+                        if (latestInstance.getValue().equals(values[0])) {
+                            continue;
+                        } else {
+                            refresh = true;
+                            insert = true;
+                        }
+                    } else if (latestInstanceList.size() > 1) {
+                        refresh = true;
+                        insert = true;
+                    }
+
+
                     if (refresh) {
                         instanceMapper.updateInstanceEndTimeByOwnerIdIntId(instances.getOwnerId(), instances.getIntId(), beginTime);
+                    }
+                    if (insert) {
                         Instance instance = new Instance();
                         BeanUtils.copyProperties(instances, instance);
                         instance.setValue(values[0]);
@@ -70,6 +71,7 @@ public class DefaultInstanceDai implements InstanceDai {
                 if (values.length != latestInstanceList.size()) {
                     refresh = true;
                 } else {
+
                     Arrays.sort(values);
                     String[] latestValues = new String[values.length];
                     for (int i = 0; i < latestValues.length; i++) {
@@ -89,7 +91,7 @@ public class DefaultInstanceDai implements InstanceDai {
                         if (values[i] == null && latestValues[i] == null) {
                             continue;
                         }
-                        if (values[i].equals(latestValues[i])) {
+                        if (!values[i].equals(latestValues[i])) {
                             refresh = true;
                             break;
                         }
@@ -121,6 +123,9 @@ public class DefaultInstanceDai implements InstanceDai {
     }
 
     private void insertInstance(Instance instance, Date beginTime) {
+        if (instance.getValue().isEmpty()) {
+            return;
+        }
         instanceMapper.insertInstance(
                 instance.getId(),
                 instance.getExtId(),
