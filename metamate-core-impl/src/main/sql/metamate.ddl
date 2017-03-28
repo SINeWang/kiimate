@@ -22,16 +22,16 @@ CREATE TABLE `mm_i_ins` (
 -- ----------------------------
 --  Table structure for `mm_i_ver`
 -- ----------------------------
-DROP TABLE IF EXISTS `mm_i_ver`;
-CREATE TABLE `mm_i_ver` (
-  `version` varchar(32) NOT NULL,
+DROP TABLE IF EXISTS `mm_i_tag`;
+CREATE TABLE `mm_i_tag` (
+  `tag_id` varchar(160) NOT NULL,
   `owner_id` varchar(32) NOT NULL,
   `ext_id` varchar(160) NOT NULL,
   `visibility` varchar(16) NOT NULL,
   `operator_id` varchar(32) NOT NULL,
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`version`,`owner_id`,`ext_id`)
+  PRIMARY KEY (`tag_id`,`owner_id`,`ext_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
