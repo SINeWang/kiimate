@@ -80,16 +80,9 @@ public class DefaultInstanceDai implements InstanceDai {
                     Arrays.sort(latestValues);
 
                     for (int i = 0; i < latestValues.length; i++) {
-                        if (values[i] == null && latestValues[i] != null) {
+                        if (latestValues[i] == null) {
                             refresh = true;
                             break;
-                        }
-                        if (values[i] != null && latestValues[i] == null) {
-                            refresh = true;
-                            break;
-                        }
-                        if (values[i] == null && latestValues[i] == null) {
-                            continue;
                         }
                         if (!values[i].equals(latestValues[i])) {
                             refresh = true;
