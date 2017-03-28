@@ -21,7 +21,7 @@ public interface InstanceMapper {
                         @Param("ownerId") String ownerId,
                         @Param("field") String field,
                         @Param("value") String value,
-                        @Param("valueSetId") String valueSetId,
+                        @Param("valueSetHash") String valueSetHash,
                         @Param("valueRefId") String valueRefId,
                         @Param("operatorId") String operatorId,
                         @Param("beginTime") Date beginTime);
