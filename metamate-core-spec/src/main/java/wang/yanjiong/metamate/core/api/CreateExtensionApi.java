@@ -27,7 +27,7 @@ public interface CreateExtensionApi {
 
         private String name;
 
-        private String version;
+        private String tree;
 
         private String visibility;
 
@@ -43,7 +43,7 @@ public interface CreateExtensionApi {
 
         private String name;
 
-        private String version;
+        private String tree;
 
         private String visibility;
 

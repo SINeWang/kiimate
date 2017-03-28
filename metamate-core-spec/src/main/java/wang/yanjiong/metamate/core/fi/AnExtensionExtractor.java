@@ -10,7 +10,7 @@ public interface AnExtensionExtractor {
 
     Extension extract(CreateExtensionApi.Form form) throws MissingParamException;
 
-    String hashId(String group, String name, String version);
+    String hashId(String group, String name, String tree);
 
     enum DataStructures {
         COMPLEX,

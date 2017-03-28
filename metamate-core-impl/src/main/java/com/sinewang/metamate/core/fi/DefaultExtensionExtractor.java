@@ -28,7 +28,7 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         if (form.getName() == null || form.getName().isEmpty()) {
             throw new MissingParamException("name is NULL or EMPTY");
         }
-        if (form.getVersion() == null || form.getVersion().isEmpty()) {
+        if (form.getTree() == null || form.getTree().isEmpty()) {
             throw new MissingParamException("version is NULL or EMPTY");
         }
         if (form.getStructure() == null || form.getStructure().isEmpty()) {

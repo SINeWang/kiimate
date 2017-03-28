@@ -44,7 +44,7 @@ public class CreateExtensionAPITest {
     @Test
     public void testVersionOnly() {
         CreateExtensionApi.Form form = new CreateExtensionApi.Form();
-        form.setVersion("testVersion");
+        form.setTree("testTree");
         CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
@@ -74,7 +74,7 @@ public class CreateExtensionAPITest {
         CreateExtensionApi.Form form = new CreateExtensionApi.Form();
         form.setGroup("testGroup");
         form.setName("testName");
-        form.setVersion("testVersion");
+        form.setTree("testTree");
         form.setVisibility("protected");
         form.setStructure("testStructure");
         CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
@@ -87,7 +87,7 @@ public class CreateExtensionAPITest {
         CreateExtensionApi.Form form = new CreateExtensionApi.Form();
         form.setGroup("testGroup");
         form.setName("testName");
-        form.setVersion("testVersion");
+        form.setTree("testTree");
         form.setVisibility("testVisibility");
         form.setStructure("complex");
         CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
@@ -99,12 +99,12 @@ public class CreateExtensionAPITest {
     public void testSave() {
         String group = "testGroup";
         String name = "testName";
-        String version = "testVersion";
+        String tree = "testTree";
 
         CreateExtensionApi.Form form = new CreateExtensionApi.Form();
         form.setGroup(group);
         form.setName(name);
-        form.setVersion(version);
+        form.setTree(tree);
         form.setVisibility("protected");
         form.setStructure("complex");
         CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
@@ -117,6 +117,6 @@ public class CreateExtensionAPITest {
         ExtensionDai.Extension extension = extensionDai.selectExtensionById(id);
         Assert.assertEquals(group, extension.getGroup());
         Assert.assertEquals(name, extension.getName());
-        Assert.assertEquals(version, extension.getVersion());
+        Assert.assertEquals(tree, extension.getTree());
     }
 }

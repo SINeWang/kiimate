@@ -41,14 +41,14 @@ public class DefaultCreateInstanceApi implements CreateInstanceApi {
     @Override
     public Receipt createInstanceViaFormUrlEncoded(@PathVariable("group") String group,
                                                    @PathVariable("name") String name,
-                                                   @PathVariable("version") String version,
+                                                   @PathVariable("tree") String tree,
                                                    @RequestHeader("X-MM-Owner-Id") String ownerId,
                                                    @RequestHeader("X-MM-Operator-Id") String operatorId,
                                                    HttpServletRequest request) {
 
-        String extId = extensionExtractor.hashId(group, name, version);
+        String extId = extensionExtractor.hashId(group, name, tree);
 
-        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(group, name, version, ownerId, operatorId, request.getParameterMap());
+        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(group, name, tree, ownerId, operatorId, request.getParameterMap());
 
         List<InstanceDai.Instances> instances1 = new ArrayList<>();
 

@@ -53,10 +53,10 @@ CREATE TABLE `mm_m_crf` (
 -- ----------------------------
 DROP TABLE IF EXISTS `mm_m_ext`;
 CREATE TABLE `mm_m_ext` (
-  `id` varchar(160) NOT NULL COMMENT 'id = hash(group, name, version)',
+  `id` varchar(160) NOT NULL COMMENT 'id = hash(group, name, tree)',
   `group` varchar(32) NOT NULL,
   `name` varchar(32) NOT NULL,
-  `version` varchar(32) NOT NULL,
+  `tree` varchar(32) NOT NULL,
   `visibility` varchar(16) NOT NULL COMMENT 'the visibility of scope',
   `structure` varchar(16) DEFAULT NULL,
   `begin_time` datetime NOT NULL,

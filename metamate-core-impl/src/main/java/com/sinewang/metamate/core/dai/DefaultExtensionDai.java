@@ -51,7 +51,7 @@ public class DefaultExtensionDai implements ExtensionDai {
                     extension.getId(),
                     extension.getGroup(),
                     extension.getName(),
-                    extension.getVersion(),
+                    extension.getTree(),
                     extension.getVisibility(),
                     extension.getStructure(),
                     now

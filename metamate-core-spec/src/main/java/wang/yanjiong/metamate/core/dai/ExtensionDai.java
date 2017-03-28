@@ -24,7 +24,7 @@ public interface ExtensionDai {
 
         private String name;
 
-        private String version;
+        private String tree;
 
         private String visibility;
 

@@ -20,7 +20,7 @@ public class ExtensionDaiTest {
     String testId = "testId";
     String testGroup = "testGroup";
     String testName = "testName";
-    String testVersion = "testVersion";
+    String testTree = "testTree";
     String testStructure = "testStructure";
     String testVisibility = "testVisibility";
     @Autowired
@@ -48,7 +48,7 @@ public class ExtensionDaiTest {
         ExtensionDai.Extension extension = new ExtensionDai.Extension();
         extension.setGroup(testGroup);
         extension.setName(testName);
-        extension.setVersion(testVersion);
+        extension.setTree(testTree);
         extension.setStructure(testStructure);
         extension.setVisibility(testVisibility);
         extension.setId(testId);
@@ -63,7 +63,7 @@ public class ExtensionDaiTest {
         Assert.assertEquals(dbExtension.getId(), testId);
         Assert.assertEquals(dbExtension.getGroup(), testGroup);
         Assert.assertEquals(dbExtension.getName(), testName);
-        Assert.assertEquals(dbExtension.getVersion(), testVersion);
+        Assert.assertEquals(dbExtension.getTree(), testTree);
         Assert.assertEquals(dbExtension.getVisibility(), testVisibility);
         Assert.assertEquals(dbExtension.getStructure(), testStructure);
     }
@@ -73,7 +73,7 @@ public class ExtensionDaiTest {
         ExtensionDai.Extension extension = new ExtensionDai.Extension();
         extension.setGroup(testGroup);
         extension.setName(testName);
-        extension.setVersion(testVersion);
+        extension.setTree(testTree);
         extension.setStructure(testStructure);
         extension.setVisibility(testVisibility);
         extension.setId(testId);
