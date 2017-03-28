@@ -70,8 +70,8 @@ public class DefaultInstanceDai implements InstanceDai {
                 boolean refresh = false;
                 if (values.length != latestInstanceList.size()) {
                     refresh = true;
+                    Arrays.sort(values);
                 } else {
-
                     Arrays.sort(values);
                     String[] latestValues = new String[values.length];
                     for (int i = 0; i < latestValues.length; i++) {
@@ -95,7 +95,6 @@ public class DefaultInstanceDai implements InstanceDai {
                     continue;
                 }
                 instanceMapper.updateInstanceEndTimeByOwnerIdIntId(instances.getOwnerId(), instances.getIntId(), beginTime);
-                Arrays.sort(values);
                 String valueSetHash = HashUtil.hashHex(values);
                 for (String value : values) {
                     Instance instance = new Instance();
