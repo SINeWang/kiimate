@@ -99,7 +99,7 @@ public class DefaultInstanceDai implements InstanceDai {
                 for (String value : values) {
                     Instance instance = new Instance();
                     BeanUtils.copyProperties(instances, instance, "id");
-                    instance.setValueSetId(valueSetHash);
+                    instance.setValueSetHash(valueSetHash);
                     instance.setValue(value);
                     String id = HashUtil.hashHex(instances.getId(), value);
                     instance.setId(id);
@@ -125,7 +125,7 @@ public class DefaultInstanceDai implements InstanceDai {
                 instance.getOwnerId(),
                 instance.getField(),
                 instance.getValue(),
-                instance.getValueSetId(),
+                instance.getValueSetHash(),
                 instance.getValueRefId(),
                 instance.getOperatorId(),
                 beginTime);

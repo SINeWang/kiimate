@@ -77,7 +77,11 @@ public class ExtensionDaiTest {
         extension.setStructure(testStructure);
         extension.setVisibility(testVisibility);
         extension.setId(testId);
-        extensionDai.insertExtension(extension);
+        try {
+            extensionDai.insertExtension(extension);
+        } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
+            extensionDuplicated.printStackTrace();
+        }
     }
 
     @After

@@ -12,6 +12,7 @@ CREATE TABLE `mm_i_ins` (
   `owner_id` varchar(32) NOT NULL,
   `field` varchar(32) NOT NULL,
   `value` varchar(255) DEFAULT NULL,
+  `value_set_hash` varchar(160) DEFAULT NULL,
   `value_ref_id` varchar(160) DEFAULT NULL,
   `operator_id` varchar(32) NOT NULL,
   `begin_time` datetime NOT NULL,
@@ -20,7 +21,7 @@ CREATE TABLE `mm_i_ins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `mm_i_ver`
+--  Table structure for `mm_i_tag`
 -- ----------------------------
 DROP TABLE IF EXISTS `mm_i_tag`;
 CREATE TABLE `mm_i_tag` (

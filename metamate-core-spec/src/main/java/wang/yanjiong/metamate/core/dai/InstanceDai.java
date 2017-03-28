@@ -31,7 +31,7 @@ public interface InstanceDai {
 
         private String value;
 
-        private String valueSetId;
+        private String valueSetHash;
 
         private String valueRefId;
 
@@ -54,7 +54,7 @@ public interface InstanceDai {
 
         private String[] values;
 
-        private String valueSetId;
+        private String valueSetHash;
 
         private String valueRefId;
 

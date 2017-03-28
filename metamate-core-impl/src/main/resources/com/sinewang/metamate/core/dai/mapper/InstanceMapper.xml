@@ -11,7 +11,7 @@
         <result column="owner_id" property="ownerId"/>
         <result column="field" property="field"/>
         <result column="value" property="value"/>
-        <result column="value_set_id" property="valueSetId"/>
+        <result column="value_set_hash" property="valueSetHash"/>
         <result column="value_ref_id" property="valueRefId"/>
         <result column="operator_id" property="operatorId"/>
     </resultMap>
@@ -36,9 +36,9 @@
 
     <insert id="insertInstance">
         INSERT INTO mm_i_ins
-        (`id`, `ext_id`, `int_id`, `owner_id`, `field`, `value`, `value_set_id`, `value_ref_id`, `operator_id`, `begin_time`)
+        (`id`, `ext_id`, `int_id`, `owner_id`, `field`, `value`, `value_set_hash`, `value_ref_id`, `operator_id`, `begin_time`)
         VALUES
-        (#{id},#{extId}, #{intId}, #{ownerId}, #{field}, #{value}, #{valueSetId}, #{valueRefId}, #{operatorId}, #{beginTime})
+        (#{id},#{extId}, #{intId}, #{ownerId}, #{field}, #{value}, #{valueSetHash}, #{valueRefId}, #{operatorId}, #{beginTime})
     </insert>
 
 

@@ -1,7 +1,18 @@
 spring:
+  profiles: common
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost/metamate?autoReconnect=true
+    username: root
+    password: wave
+---
+spring:
+  profiles: home
+  datasource:
     url: jdbc:mysql://home.sinewang.com/metamate?autoReconnect=true
-#    url: jdbc:mysql://localhost/metamate?autoReconnect=true
     username: root
     password: wave
