@@ -1,4 +1,27 @@
 dependencies {
     compile("commons-codec:commons-codec:1.10")
+
+    compile "org.springframework:spring-beans:4.3.7.RELEASE"
 }
 
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+
+            credentials {
+                username 'developer'
+                password 'developer'
+            }
+            // url to the releases maven repository
+            url "http://nexus.sinewang.com/repository/maven-snapshots/"
+        }
+    }
+}

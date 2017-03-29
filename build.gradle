@@ -11,7 +11,7 @@ allprojects {
 
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'org.springframework.boot'
+    apply plugin: "maven"
     apply plugin: 'net.researchgate.release'
 
     sourceCompatibility = 1.7
@@ -22,18 +22,25 @@ subprojects {
             url "http://nexus.euler.one/repository/maven-public/"
         }
     }
+    dependencies {
+        testCompile("junit:junit:4.11")
+    }
+}
+
+configure(subprojects.findAll { it.name.startsWith("metamate-") }) {
+
     ext {
         springBootVersion = '1.5.2.RELEASE'
         mybatisSpringBootStarterVerison = "1.2.0"
         mysqlConnectorVersion = '5.1.41'
     }
+
     dependencies {
         compileOnly "org.projectlombok:lombok:1.16.16"
 
         compile("org.springframework.boot:spring-boot-devtools")
         compile("org.springframework:spring-tx:4.3.7.RELEASE")
 
-        compile("org.apache.commons:commons-lang3:3.5")
 
         compile("commons-codec:commons-codec:1.10")
 
@@ -45,7 +52,6 @@ subprojects {
         compile("org.springframework.boot:spring-boot-starter-actuator")
 
         testCompile("org.springframework.boot:spring-boot-starter-test")
-        testCompile("junit:junit")
     }
 
     buildscript {
@@ -56,3 +62,4 @@ subprojects {
         }
     }
 }
+

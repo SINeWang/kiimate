@@ -1,4 +1,7 @@
 dependencies {
     compile project(":magnet-util")
+
+    compileOnly "org.projectlombok:lombok:1.16.16"
+
 }
 

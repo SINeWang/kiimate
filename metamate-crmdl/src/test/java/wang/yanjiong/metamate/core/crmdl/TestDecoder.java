@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -14,7 +13,7 @@ import java.util.Map;
 public class TestDecoder {
 
     @Test
-    public void hello(){
+    public void hello() {
         File file = new File(getClass().getClassLoader().getResource("crmdl.yml").getFile());
         InputStream in = null;
         try {
@@ -25,7 +24,7 @@ public class TestDecoder {
 
         Yaml yaml = new Yaml();
 
-        Map<String, Object> map= (Map)yaml.load(in);
+        Map<String, Object> map = (Map) yaml.load(in);
         System.out.println(map);
 
         try {

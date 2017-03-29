@@ -6,6 +6,8 @@ buildscript {
     }
 }
 
+apply plugin: 'org.springframework.boot'
+
 dependencies {
     compile("org.springframework.boot:spring-boot-devtools")
 
