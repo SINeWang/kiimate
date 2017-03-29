@@ -13,10 +13,10 @@ import java.util.Map;
 @RequestMapping("/v1")
 public interface GetInstanceApi {
 
-    @RequestMapping(value = "/instance/{group}/{name}/{version}", method = RequestMethod.GET)
+    @RequestMapping(value = "/instance/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     Receipt readInstanceByGroupNameVersionWithOwner(@PathVariable("group") String group,
                                                     @PathVariable("name") String name,
-                                                    @PathVariable("version") String version,
+                                                    @PathVariable("tree") String tree,
                                                     @RequestHeader("X-MM-Owner-Id") String ownerId,
                                                     @RequestHeader("X-MM-Operator-Id") String operatorId);
 

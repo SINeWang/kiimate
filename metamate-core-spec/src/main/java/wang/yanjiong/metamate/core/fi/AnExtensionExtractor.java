@@ -30,7 +30,7 @@ public interface AnExtensionExtractor {
 
         private String name;
 
-        private String version;
+        private String tree;
 
         private String visibility;
 

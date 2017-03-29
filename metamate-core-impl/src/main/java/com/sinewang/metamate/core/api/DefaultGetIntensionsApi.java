@@ -64,9 +64,9 @@ public class DefaultGetIntensionsApi implements GetIntensionsApi {
     @Override
     public Receipt readIntensionsByGroupNameVersion(@PathVariable("group") String group,
                                                     @PathVariable("name") String name,
-                                                    @PathVariable("version") String version) {
+                                                    @PathVariable("tree") String tree) {
 
-        String extId = anExtensionExtractor.hashId(group, name, version);
+        String extId = anExtensionExtractor.hashId(group, name, tree);
         return readIntensionsByExiId(extId);
     }
 }

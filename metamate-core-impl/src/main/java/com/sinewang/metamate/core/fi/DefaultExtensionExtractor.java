@@ -58,7 +58,7 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         return hashId(
                 extension.getGroup(),
                 extension.getName(),
-                extension.getVersion()
+                extension.getTree()
         );
     }
 

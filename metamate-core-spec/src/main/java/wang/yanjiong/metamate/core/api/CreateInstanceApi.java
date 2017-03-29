@@ -17,11 +17,11 @@ import java.util.List;
 public interface CreateInstanceApi {
 
 
-    @RequestMapping(value = "/instance/{group}/{name}/{version}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     Receipt createInstanceViaFormUrlEncoded(
             @PathVariable("group") String group,
             @PathVariable("name") String name,
-            @PathVariable("version") String version,
+            @PathVariable("tree") String tree,
             @RequestHeader("X-MM-Owner-Id") String ownerId,
             @RequestHeader("X-MM-Operator-Id") String operatorId,
             HttpServletRequest request);

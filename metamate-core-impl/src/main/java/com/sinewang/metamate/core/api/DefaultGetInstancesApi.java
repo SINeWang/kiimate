@@ -29,10 +29,10 @@ public class DefaultGetInstancesApi implements GetInstanceApi {
     @Override
     public Receipt readInstanceByGroupNameVersionWithOwner(@PathVariable("group") String group,
                                                            @PathVariable("name") String name,
-                                                           @PathVariable("version") String version,
+                                                           @PathVariable("tree") String tree,
                                                            @RequestHeader("X-MM-Owner-Id") String ownerId,
                                                            @RequestHeader("X-MM-Operator-Id") String operatorId) {
-        String extId = extensionFormParser.hashId(group, name, version);
+        String extId = extensionFormParser.hashId(group, name, tree);
         List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceByOwnerIdExtId(extId, ownerId);
 
         Receipt receipt = new Receipt();

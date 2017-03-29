@@ -19,10 +19,10 @@ public interface GetIntensionsApi {
     @RequestMapping(value = "/intensions/{extId}", method = RequestMethod.GET)
     Receipt readIntensionsByExiId(@PathVariable("extId") String extId);
 
-    @RequestMapping(value = "/intensions/{group}/{name}/{version}", method = RequestMethod.GET)
+    @RequestMapping(value = "/intensions/{group}/{name}/{tree.+}", method = RequestMethod.GET)
     Receipt readIntensionsByGroupNameVersion(@PathVariable("group") String group,
                                       @PathVariable("name") String name,
-                                      @PathVariable("version") String version);
+                                      @PathVariable("tree") String tree);
 
 
     @Data
