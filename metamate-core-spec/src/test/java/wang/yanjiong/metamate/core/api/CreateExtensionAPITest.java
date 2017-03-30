@@ -4,17 +4,22 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wang.yanjiong.magnet.xi.boundary.Summary;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
+import wang.yanjiong.metamate.core.dai.ExtensionDaiTest;
 
 /**
  * Created by WangYanJiong on 3/24/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
+@ComponentScan(basePackages = {"com.sinewang.metamate.core"})
+@SpringBootTest(classes = {CreateExtensionAPITest.class})
 public class CreateExtensionAPITest {
 
     @Autowired

@@ -15,7 +15,7 @@ public interface ExtensionMapper {
     void insertExtension(@Param("id") String id,
                          @Param("group") String group,
                          @Param("name") String name,
-                         @Param("version") String version,
+                         @Param("tree") String tree,
                          @Param("visibility") String visibility,
                          @Param("structure") String structure,
                          @Param("beginTime") Date beginTime);
