@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.magnet.xi.boundary.Response;
 
@@ -21,6 +22,7 @@ public interface GetInstanceApi {
                                                     @RequestHeader("X-MM-Operator-Id") String operatorId);
 
     @Data
+    @EqualsAndHashCode(callSuper=false)
     class Receipt extends Response {
 
         String ownerId;

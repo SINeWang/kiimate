@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.magnet.xi.boundary.Request;
@@ -21,6 +22,7 @@ public interface CreateExtensionApi {
 
 
     @Data
+    @EqualsAndHashCode(callSuper=false)
     class Form extends Request {
 
         private String group;
@@ -35,6 +37,7 @@ public interface CreateExtensionApi {
     }
 
     @Data
+    @EqualsAndHashCode(callSuper=false)
     class Receipt extends Response {
 
         private String id;

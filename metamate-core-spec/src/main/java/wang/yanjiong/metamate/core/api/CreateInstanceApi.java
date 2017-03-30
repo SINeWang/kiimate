@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.magnet.xi.boundary.Response;
@@ -27,12 +28,14 @@ public interface CreateInstanceApi {
             HttpServletRequest request);
 
     @Data
+    @EqualsAndHashCode(callSuper=false)
     class Receipt extends Response {
 
         private List<Instance> instances;
     }
 
     @Data
+    @EqualsAndHashCode(callSuper=false)
     class Instance {
 
         private String id;

@@ -23,11 +23,12 @@ subprojects {
         }
     }
     dependencies {
+        compileOnly "org.projectlombok:lombok:1.16.16"
         testCompile("junit:junit:4.11")
     }
 }
 
-configure(subprojects.findAll { it.name.startsWith("metamate-") }) {
+configure(subprojects.findAll { it.name.startsWith("metamate") && it.name.endsWith("impl") }) {
 
     ext {
         springBootVersion = '1.5.2.RELEASE'
@@ -36,7 +37,6 @@ configure(subprojects.findAll { it.name.startsWith("metamate-") }) {
     }
 
     dependencies {
-        compileOnly "org.projectlombok:lombok:1.16.16"
 
         compile("org.springframework.boot:spring-boot-devtools")
         compile("org.springframework:spring-tx:4.3.7.RELEASE")
@@ -63,3 +63,33 @@ configure(subprojects.findAll { it.name.startsWith("metamate-") }) {
     }
 }
 
+configure(subprojects.findAll { it.name.startsWith("metamate") && it.name.endsWith("spec") }) {
+
+    ext {
+        springBootVersion = '1.5.2.RELEASE'
+        mybatisSpringBootStarterVerison = "1.2.0"
+        mysqlConnectorVersion = '5.1.41'
+    }
+
+    dependencies {
+        compile "javax.servlet:javax.servlet-api:3.1.0"
+        compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
+        compile("org.springframework:spring-tx:4.3.7.RELEASE")
+
+
+        compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+        compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
+            exclude module: "spring-boot-starter-tomcat"
+        }
+
+        testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    }
+
+    buildscript {
+        repositories {
+            maven {
+                url "http://nexus.euler.one/repository/maven-public/"
+            }
+        }
+    }
+}

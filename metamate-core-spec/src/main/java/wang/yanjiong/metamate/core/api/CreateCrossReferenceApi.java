@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Created by WangYanJiong on 26/03/2017.
@@ -8,6 +9,7 @@ import lombok.Data;
 public interface CreateCrossReferenceApi {
 
     @Data
+    @EqualsAndHashCode(callSuper=false)
     class CrossReference {
 
         private String id;
