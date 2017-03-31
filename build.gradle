@@ -26,6 +26,10 @@ subprojects {
         compileOnly "org.projectlombok:lombok:1.16.16"
         testCompile("junit:junit:4.11")
     }
+
+    release {
+        tagTemplate = '$name-$version'
+    }
 }
 
 configure(subprojects.findAll { it.name.startsWith("metamate") && it.name.endsWith("impl") }) {
