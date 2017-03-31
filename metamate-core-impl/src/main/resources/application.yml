@@ -4,6 +4,9 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
 server:
   port: 9090
+logging:
+  level:
+    com.sinewang.metamate.core.dai.mapper: DEBUG
 ---
 spring:
   profiles: dev
