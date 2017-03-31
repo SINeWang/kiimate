@@ -24,7 +24,7 @@ subprojects {
     }
     dependencies {
         compileOnly "org.projectlombok:lombok:1.16.16"
-        testCompile("junit:junit:4.11")
+        testCompile("junit:junit:4.12")
     }
 
     release {
@@ -52,8 +52,9 @@ configure(subprojects.findAll { it.name.startsWith("metamate") && it.name.endsWi
         compile("org.springframework.boot:spring-boot-starter-web") {
             exclude module: "spring-boot-starter-tomcat"
         }
-        compile("org.springframework.boot:spring-boot-starter-jetty")
-        compile("org.springframework.boot:spring-boot-starter-actuator")
+        compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
+        compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+        compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
 
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
