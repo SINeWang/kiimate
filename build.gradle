@@ -8,13 +8,13 @@ group 'wang.yanjiong.metamate'
 
 allprojects {
     apply plugin: 'idea'
+    apply plugin: 'nebula.dependency-lock'
 }
 
 subprojects {
     apply plugin: 'java'
     apply plugin: "maven"
     apply plugin: 'net.researchgate.release'
-    apply plugin: 'nebula.dependency-lock'
 
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
