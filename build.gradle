@@ -1,4 +1,5 @@
 plugins {
+    id 'nebula.dependency-lock' version '4.9.4'
     id 'net.researchgate.release' version '2.4.0' apply false
     id 'org.springframework.boot' version '1.5.2.RELEASE' apply false
 }
@@ -13,8 +14,6 @@ subprojects {
     apply plugin: 'java'
     apply plugin: "maven"
     apply plugin: 'net.researchgate.release'
-    apply plugin: "nebula.dependency-lock"
-
 
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
