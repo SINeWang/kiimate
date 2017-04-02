@@ -1,14 +1,14 @@
 package wang.yanjiong.metamate.core.fi;
 
 import lombok.Data;
-import wang.yanjiong.metamate.core.api.CreateIntensionApi;
+import wang.yanjiong.metamate.core.api.DeclareIntensionApi;
 
 /**
  * Created by WangYanJiong on 3/23/17.
  */
 public interface AnIntensionExtractor {
 
-    Intension parse(CreateIntensionApi.Form form);
+    Intension parse(DeclareIntensionApi.Form form);
 
     String hashId(String extId, String field);
 

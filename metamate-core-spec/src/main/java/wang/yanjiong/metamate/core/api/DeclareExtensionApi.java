@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/v1")
-public interface CreateExtensionApi {
+public interface DeclareExtensionApi {
 
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    Receipt createExtensionViaFormUrlEncoded(@ModelAttribute Form form);
+    Receipt declareExtensionViaFormUrlEncoded(@ModelAttribute Form form);
 
     @Data
     @EqualsAndHashCode(callSuper = false)

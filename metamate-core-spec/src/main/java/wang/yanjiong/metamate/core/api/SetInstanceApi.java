@@ -16,11 +16,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1")
-public interface CreateInstanceApi {
+public interface SetInstanceApi {
 
 
     @RequestMapping(value = "/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    Receipt createInstanceViaFormUrlEncoded(
+    Receipt saveInstanceViaFormUrlEncoded(
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree,

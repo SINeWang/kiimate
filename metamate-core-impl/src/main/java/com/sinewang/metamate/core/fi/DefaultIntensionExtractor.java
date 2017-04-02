@@ -4,7 +4,7 @@ import one.kii.summer.bound.Context;
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import wang.yanjiong.metamate.core.api.CreateIntensionApi;
+import wang.yanjiong.metamate.core.api.DeclareIntensionApi;
 import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 
 import java.util.UUID;
@@ -16,7 +16,7 @@ import java.util.UUID;
 public class DefaultIntensionExtractor implements AnIntensionExtractor {
 
     @Override
-    public Intension parse(CreateIntensionApi.Form form) {
+    public Intension parse(DeclareIntensionApi.Form form) {
         Context context = new Context();
         context.setProcessId(UUID.randomUUID().toString());
         form.setContext(context);

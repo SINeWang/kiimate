@@ -4,7 +4,7 @@ import one.kii.summer.bound.Context;
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import wang.yanjiong.metamate.core.api.CreateExtensionApi;
+import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 
 import java.util.UUID;
@@ -16,7 +16,7 @@ import java.util.UUID;
 public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
     @Override
-    public Extension extract(CreateExtensionApi.Form form) throws MissingParamException {
+    public Extension extract(DeclareExtensionApi.Form form) throws MissingParamException {
         Context context = new Context();
         context.setProcessId(UUID.randomUUID().toString());
         form.setContext(context);

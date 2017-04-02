@@ -18,56 +18,56 @@ import wang.yanjiong.metamate.core.dai.ExtensionDai;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.metamate.core")
-@SpringBootTest(classes = {CreateExtensionAPITest.class})
-public class CreateExtensionAPITest {
+@SpringBootTest(classes = {DeclareExtensionAPITest.class})
+public class DeclareExtensionAPITest {
 
     @Autowired
-    private CreateExtensionApi createExtensionApi;
+    private DeclareExtensionApi declareExtensionApi;
 
     @Autowired
     private ExtensionDai extensionDai;
 
     @Test
     public void testGroupOnly() {
-        CreateExtensionApi.Form form = new CreateExtensionApi.Form();
+        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setGroup("testGroup");
-        CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
+        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
     public void testNameOnly() {
-        CreateExtensionApi.Form form = new CreateExtensionApi.Form();
+        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setName("testName");
-        CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
+        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
     public void testVersionOnly() {
-        CreateExtensionApi.Form form = new CreateExtensionApi.Form();
+        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setTree("testTree");
-        CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
+        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
     public void testVisibilityOnly() {
-        CreateExtensionApi.Form form = new CreateExtensionApi.Form();
+        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setVisibility("testVisibility");
-        CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
+        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
     public void testStructureOnly() {
-        CreateExtensionApi.Form form = new CreateExtensionApi.Form();
+        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setStructure("testStructure");
-        CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
+        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
@@ -75,26 +75,26 @@ public class CreateExtensionAPITest {
 
     @Test
     public void testInvalidStructure() {
-        CreateExtensionApi.Form form = new CreateExtensionApi.Form();
+        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setGroup("testGroup");
         form.setName("testName");
         form.setTree("testTree");
         form.setVisibility("protected");
         form.setStructure("testStructure");
-        CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
+        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
     public void testInvalidVisibility() {
-        CreateExtensionApi.Form form = new CreateExtensionApi.Form();
+        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setGroup("testGroup");
         form.setName("testName");
         form.setTree("testTree");
         form.setVisibility("testVisibility");
         form.setStructure("complex");
-        CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
+        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
@@ -105,13 +105,13 @@ public class CreateExtensionAPITest {
         String name = "testName";
         String tree = "testTree";
 
-        CreateExtensionApi.Form form = new CreateExtensionApi.Form();
+        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setGroup(group);
         form.setName(name);
         form.setTree(tree);
         form.setVisibility("protected");
         form.setStructure("complex");
-        CreateExtensionApi.Receipt receipt = createExtensionApi.createExtensionViaFormUrlEncoded(form);
+        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.ACCEPTED, receipt.getSummary().getStatus());
         String id = receipt.getId();
@@ -122,5 +122,7 @@ public class CreateExtensionAPITest {
         Assert.assertEquals(group, extension.getGroup());
         Assert.assertEquals(name, extension.getName());
         Assert.assertEquals(tree, extension.getTree());
+
+        extensionDai.deleteExtensionById(id);
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-import wang.yanjiong.metamate.core.api.CreateInstanceApi;
+import wang.yanjiong.metamate.core.api.SetInstanceApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
@@ -24,9 +24,9 @@ import java.util.UUID;
  * Created by WangYanJiong on 3/27/17.
  */
 @RestController
-public class DefaultCreateInstanceApi implements CreateInstanceApi {
+public class DefaultSetInstanceApi implements SetInstanceApi {
 
-    private static final Logger logger = LoggerFactory.getLogger(DefaultCreateInstanceApi.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultSetInstanceApi.class);
 
     @Autowired
     private InstanceDai instanceDai;
@@ -39,12 +39,12 @@ public class DefaultCreateInstanceApi implements CreateInstanceApi {
     private AnExtensionExtractor extensionExtractor;
 
     @Override
-    public Receipt createInstanceViaFormUrlEncoded(@PathVariable("group") String group,
-                                                   @PathVariable("name") String name,
-                                                   @PathVariable("tree") String tree,
-                                                   @RequestHeader("X-MM-Owner-Id") String ownerId,
-                                                   @RequestHeader("X-MM-Operator-Id") String operatorId,
-                                                   HttpServletRequest request) {
+    public Receipt saveInstanceViaFormUrlEncoded(@PathVariable("group") String group,
+                                                 @PathVariable("name") String name,
+                                                 @PathVariable("tree") String tree,
+                                                 @RequestHeader("X-MM-Owner-Id") String ownerId,
+                                                 @RequestHeader("X-MM-Operator-Id") String operatorId,
+                                                 HttpServletRequest request) {
 
         String extId = extensionExtractor.hashId(group, name, tree);
 

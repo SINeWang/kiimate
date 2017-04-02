@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/v1")
-public interface CreateIntensionApi {
+public interface DeclareIntensionApi {
 
 
     @RequestMapping(value = "/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

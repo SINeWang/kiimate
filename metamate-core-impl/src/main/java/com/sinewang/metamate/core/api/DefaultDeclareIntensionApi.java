@@ -4,7 +4,7 @@ import one.kii.summer.bound.factory.ResponseFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-import wang.yanjiong.metamate.core.api.CreateIntensionApi;
+import wang.yanjiong.metamate.core.api.DeclareIntensionApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 @RestController
-public class DefaultCreateIntensionApi implements CreateIntensionApi {
+public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
 
 
     @Autowired
@@ -34,9 +34,9 @@ public class DefaultCreateIntensionApi implements CreateIntensionApi {
 
         try {
             intensionDai.insertIntension(daiRecord);
-            return ResponseFactory.accepted(form, CreateIntensionApi.Receipt.class, intension);
+            return ResponseFactory.accepted(form, DeclareIntensionApi.Receipt.class, intension);
         } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
-            return ResponseFactory.rejected(form, CreateIntensionApi.Receipt.class, intension);
+            return ResponseFactory.rejected(form, DeclareIntensionApi.Receipt.class, intension);
         }
     }
 }
