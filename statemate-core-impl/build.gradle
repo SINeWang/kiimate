@@ -1,0 +1,6 @@
+dependencies {
+    compile project(":statemate-core-spec")
+
+    compile "one.kii.summer:summer-erest:1.0.1-SNAPSHOT"
+}
+
