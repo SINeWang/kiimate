@@ -2,6 +2,5 @@ rootProject.name = 'one.kii.metamate'
 
 include 'metamate-core-impl'
 include 'metamate-core-spec'
-include 'metamate-crmdl'
 include 'metamate-core-test'
 
