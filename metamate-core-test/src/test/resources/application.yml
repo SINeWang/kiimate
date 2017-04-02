@@ -4,3 +4,8 @@ spring:
     url: jdbc:mysql://home.sinewang.com/metamate?autoReconnect=true
     username: root
     password: wave
+server:
+  port: 9090
+logging:
+  level:
+    com.sinewang.metamate.core.dai.mapper: DEBUG

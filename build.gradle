@@ -1,33 +1,56 @@
+buildscript {
+    dependencies {
+        classpath 'org.hibernate.build.gradle:gradle-maven-publish-auth:2.0.1'
+    }
+    repositories {
+        maven {
+            url "http://nexus.sinewang.com/repository/maven-public/"
+        }
+    }
+}
+
 plugins {
     id 'nebula.dependency-lock' version '4.9.4' apply false
-    id 'net.researchgate.release' version '2.4.0' apply false
+    id 'net.researchgate.release' version '2.6.0' apply false
     id 'org.springframework.boot' version '1.5.2.RELEASE' apply false
 }
 
 group 'one.kii.metamate'
 
-allprojects {
-    apply plugin: 'idea'
+
+ext {
+    springBootVersion = '1.5.2.RELEASE'
+    springFrameworkVersion = '4.3.7.RELEASE'
+    lombokVersion = '1.16.16'
+    junitVersion = '4.12'
+    mybatisSpringBootStarterVerison = "1.2.0"
+    mysqlConnectorVersion = '5.1.41'
+    summerVersion = '1.0.1-SNAPSHOT'
+    servletApiVersion = '3.1.0'
 }
 
 subprojects {
     apply plugin: 'java'
     apply plugin: "maven"
-    apply plugin: 'net.researchgate.release'
+    apply plugin: 'maven-publish'
+    apply plugin: 'maven-publish-auth'
+
     apply plugin: 'nebula.dependency-lock'
+    apply plugin: 'net.researchgate.release'
 
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
+
+
+    dependencies {
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        testCompile "junit:junit:${junitVersion}"
+    }
 
     repositories {
         maven {
             url "http://nexus.sinewang.com/repository/maven-public/"
         }
-        mavenLocal()
-    }
-    dependencies {
-        compileOnly "org.projectlombok:lombok:1.16.16"
-        testCompile("junit:junit:4.12")
     }
 
     release {
@@ -35,73 +58,80 @@ subprojects {
     }
 }
 
-configure(subprojects.findAll { it.name.startsWith("metamate") && it.name.endsWith("impl") }) {
 
-    ext {
-        springBootVersion = '1.5.2.RELEASE'
-        mybatisSpringBootStarterVerison = "1.2.0"
-        mysqlConnectorVersion = '5.1.41'
-    }
+configure(subprojects.findAll { it.name.endsWith("spec") }) {
 
     dependencies {
 
-        compile("org.springframework.boot:spring-boot-devtools")
-        compile("org.springframework:spring-tx:4.3.7.RELEASE")
+        compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
 
+        compile("one.kii.summer:summer-bound:${summerVersion}")
+
+        compile("org.springframework:spring-tx:${springFrameworkVersion}")
+        compile("org.springframework:spring-web:${springFrameworkVersion}")
+
+        compile "javax.servlet:javax.servlet-api:${servletApiVersion}"
+
+        testCompile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
+        testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+
+    }
+}
+
+
+configure(subprojects.findAll { it.name.endsWith("impl") }) {
+
+    buildscript {
+        dependencies {
+            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        }
+        repositories {
+            maven {
+                url "http://nexus.sinewang.com/repository/maven-public/"
+            }
+        }
+    }
+    apply plugin: 'org.springframework.boot'
+
+    dependencies {
+
+        compile("one.kii.summer:summer-beans:${summerVersion}")
+        compile("one.kii.summer:summer-codec:${summerVersion}")
+
+        compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
+
+        compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
 
         compile("commons-codec:commons-codec:1.10")
 
-        compile("org.springframework.boot:spring-boot-starter")
-        compile("org.springframework.boot:spring-boot-starter-web") {
+        compile("org.springframework.boot:spring-boot-starter:${springBootVersion}") {}
+        compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
             exclude module: "spring-boot-starter-tomcat"
         }
         compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
         compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
         compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
 
-        testCompile("org.springframework.boot:spring-boot-starter-test")
-    }
+        compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVerison}")
 
-    buildscript {
-        repositories {
-            maven {
-                url "http://nexus.euler.one/repository/maven-public/"
-            }
-        }
+        testCompile("org.springframework.boot:spring-boot-starter-test")
     }
 }
 
-configure(subprojects.findAll { it.name.startsWith("metamate") && it.name.endsWith("spec") }) {
+configure(subprojects.findAll { it.name.endsWith("test") }) {
 
-    ext {
-        springBootVersion = '1.5.2.RELEASE'
-        mybatisSpringBootStarterVerison = "1.2.0"
-        mysqlConnectorVersion = '5.1.41'
-    }
+    apply plugin: 'org.springframework.boot'
 
     dependencies {
-        compile "javax.servlet:javax.servlet-api:3.1.0"
-        compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
-        compile("org.springframework:spring-tx:4.3.7.RELEASE")
 
-        compile("one.kii.summer:summer-beans:1.0.1-SNAPSHOT")
-        compile("one.kii.summer:summer-codec:1.0.1-SNAPSHOT")
-        compile("one.kii.summer:summer-bound:1.0.1-SNAPSHOT")
+        compile("org.springframework.boot:spring-boot-devtools")
 
+        compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVerison}")
+        compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
 
-        compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
-        compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
-            exclude module: "spring-boot-starter-tomcat"
-        }
-
+        testCompile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
+        testCompile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
         testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
-    }
 
-    buildscript {
-        repositories {
-            maven {
-                url "http://nexus.euler.one/repository/maven-public/"
-            }
-        }
     }
 }

@@ -1,23 +1,4 @@
-group 'com.sinewang.metamate'
-
-buildscript {
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
-
-apply plugin: 'org.springframework.boot'
-
 dependencies {
-    compile("org.springframework.boot:spring-boot-devtools")
-
-    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVerison}")
-    compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
-
     compile project(":metamate-core-spec")
-
-    testCompile project(":metamate-core-spec").sourceSets.test.output
-
-
 }
 
