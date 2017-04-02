@@ -1,9 +1,9 @@
 package com.sinewang.metamate.core.fi;
 
+import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import wang.yanjiong.magnet.util.HashUtil;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
 import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
@@ -32,9 +32,9 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
         for (String field : map.keySet()) {
             String intId = anIntensionExtractor.hashId(extId, field);
             String[] values = cleanUpValues(map.get(field));
-            String id = HashUtil.hashHex(intId, ownerId);
+            String id = HashTools.hashHex(intId, ownerId);
             String[] both = StringUtils.mergeStringArrays(new String[]{id}, values);
-            id = HashUtil.hashHex(both);
+            id = HashTools.hashHex(both);
             Instance instance = new Instance();
             instance.setExtId(extId);
             instance.setField(field);

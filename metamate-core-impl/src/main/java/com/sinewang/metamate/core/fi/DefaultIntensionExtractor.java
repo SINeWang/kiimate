@@ -1,9 +1,9 @@
 package com.sinewang.metamate.core.fi;
 
+import one.kii.summer.bound.Context;
+import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import wang.yanjiong.magnet.util.HashUtil;
-import wang.yanjiong.magnet.xi.boundary.Context;
 import wang.yanjiong.metamate.core.api.CreateIntensionApi;
 import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 
@@ -29,7 +29,7 @@ public class DefaultIntensionExtractor implements AnIntensionExtractor {
     }
 
     public String hashId(String extId, String field) {
-        return HashUtil.hashHex(extId, field);
+        return HashTools.hashHex(extId, field);
     }
 
 }

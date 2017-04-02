@@ -2,8 +2,8 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import one.kii.summer.bound.Response;
 import org.springframework.web.bind.annotation.*;
-import wang.yanjiong.magnet.xi.boundary.Response;
 
 import java.util.Map;
 

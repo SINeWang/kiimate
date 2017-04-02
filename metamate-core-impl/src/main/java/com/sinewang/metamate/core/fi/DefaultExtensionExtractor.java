@@ -1,9 +1,9 @@
 package com.sinewang.metamate.core.fi;
 
+import one.kii.summer.bound.Context;
+import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import wang.yanjiong.magnet.util.HashUtil;
-import wang.yanjiong.magnet.xi.boundary.Context;
 import wang.yanjiong.metamate.core.api.CreateExtensionApi;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 
@@ -49,7 +49,7 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
     @Override
     public String hashId(String group, String name, String version) {
-        return HashUtil.hashHex(
+        return HashTools.hashHex(
                 group, name, version
         );
     }

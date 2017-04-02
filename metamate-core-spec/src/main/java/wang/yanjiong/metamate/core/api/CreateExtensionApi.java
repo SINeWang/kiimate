@@ -2,10 +2,13 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import one.kii.summer.bound.Request;
+import one.kii.summer.bound.Response;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-import wang.yanjiong.magnet.xi.boundary.Request;
-import wang.yanjiong.magnet.xi.boundary.Response;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -17,12 +20,8 @@ public interface CreateExtensionApi {
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     Receipt createExtensionViaFormUrlEncoded(@ModelAttribute Form form);
 
-//    @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    Receipt createExtensionViaJson(@RequestBody Form form);
-
-
     @Data
-    @EqualsAndHashCode(callSuper=false)
+    @EqualsAndHashCode(callSuper = false)
     class Form extends Request {
 
         private String group;
@@ -37,7 +36,7 @@ public interface CreateExtensionApi {
     }
 
     @Data
-    @EqualsAndHashCode(callSuper=false)
+    @EqualsAndHashCode(callSuper = false)
     class Receipt extends Response {
 
         private String id;

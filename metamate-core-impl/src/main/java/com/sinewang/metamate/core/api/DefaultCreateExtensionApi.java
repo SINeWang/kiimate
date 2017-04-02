@@ -1,9 +1,9 @@
 package com.sinewang.metamate.core.api;
 
+import one.kii.summer.bound.factory.ResponseFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-import wang.yanjiong.magnet.xi.boundary.util.ResponseUtil;
 import wang.yanjiong.metamate.core.api.CreateExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
@@ -36,17 +36,17 @@ public class DefaultCreateExtensionApi implements CreateExtensionApi {
         try {
             extension = extensionExtractor.extract(form);
         } catch (AnExtensionExtractor.MissingParamException e) {
-            return ResponseUtil.rejected(form, Receipt.class, e.getMessage());
+            return ResponseFactory.rejected(form, Receipt.class, e.getMessage());
         }
 
         boolean isValidStructure = structureValidator.isValid(extension.getStructure());
         if (!isValidStructure) {
-            return ResponseUtil.rejected(form, Receipt.class, extension);
+            return ResponseFactory.rejected(form, Receipt.class, extension);
         }
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
         if (!isValidVisibility) {
-            return ResponseUtil.rejected(form, Receipt.class, extension);
+            return ResponseFactory.rejected(form, Receipt.class, extension);
         }
 
         ExtensionDai.Extension daiRecord = new ExtensionDai.Extension();
@@ -54,14 +54,11 @@ public class DefaultCreateExtensionApi implements CreateExtensionApi {
 
         try {
             extensionDai.insertExtension(daiRecord);
-            return ResponseUtil.accepted(form, Receipt.class, extension);
+            return ResponseFactory.accepted(form, Receipt.class, extension);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
-            return ResponseUtil.rejected(form, Receipt.class, extension);
+            return ResponseFactory.rejected(form, Receipt.class, extension);
         }
     }
 
-//    @Override
-//    public Receipt createExtensionViaJson(Form form) {
-//        return null;
-//    }
+
 }

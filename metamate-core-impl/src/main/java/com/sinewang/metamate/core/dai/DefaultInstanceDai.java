@@ -1,10 +1,10 @@
 package com.sinewang.metamate.core.dai;
 
 import com.sinewang.metamate.core.dai.mapper.InstanceMapper;
+import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import wang.yanjiong.magnet.util.HashUtil;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 
 import java.util.Arrays;
@@ -95,13 +95,13 @@ public class DefaultInstanceDai implements InstanceDai {
                     continue;
                 }
                 instanceMapper.updateInstanceEndTimeByOwnerIdIntId(instances.getOwnerId(), instances.getIntId(), beginTime);
-                String valueSetHash = HashUtil.hashHex(values);
+                String valueSetHash = HashTools.hashHex(values);
                 for (String value : values) {
                     Instance instance = new Instance();
                     BeanUtils.copyProperties(instances, instance, "id");
                     instance.setValueSetHash(valueSetHash);
                     instance.setValue(value);
-                    String id = HashUtil.hashHex(instances.getId(), value);
+                    String id = HashTools.hashHex(instances.getId(), value);
                     instance.setId(id);
                     insertInstance(instance, beginTime);
                 }

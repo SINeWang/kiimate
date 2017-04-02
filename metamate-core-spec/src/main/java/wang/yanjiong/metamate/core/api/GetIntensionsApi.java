@@ -2,11 +2,11 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import one.kii.summer.bound.Response;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import wang.yanjiong.magnet.xi.boundary.Response;
 
 import java.util.List;
 
@@ -22,12 +22,12 @@ public interface GetIntensionsApi {
 
     @RequestMapping(value = "/intensions/{group}/{name}/{tree.+}", method = RequestMethod.GET)
     Receipt readIntensionsByGroupNameVersion(@PathVariable("group") String group,
-                                      @PathVariable("name") String name,
-                                      @PathVariable("tree") String tree);
+                                             @PathVariable("name") String name,
+                                             @PathVariable("tree") String tree);
 
 
     @Data
-    @EqualsAndHashCode(callSuper=false)
+    @EqualsAndHashCode(callSuper = false)
     class Receipt extends Response {
 
         private String extId;
@@ -36,7 +36,7 @@ public interface GetIntensionsApi {
     }
 
     @Data
-    @EqualsAndHashCode(callSuper=false)
+    @EqualsAndHashCode(callSuper = false)
     class Intension {
 
         private String id;

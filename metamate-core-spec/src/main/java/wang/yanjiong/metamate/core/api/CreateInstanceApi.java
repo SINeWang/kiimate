@@ -2,12 +2,13 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import one.kii.summer.bound.Response;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import wang.yanjiong.magnet.xi.boundary.Response;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
 
 /**
  * Created by WangYanJiong on 26/03/2017.
@@ -28,14 +29,14 @@ public interface CreateInstanceApi {
             HttpServletRequest request);
 
     @Data
-    @EqualsAndHashCode(callSuper=false)
+    @EqualsAndHashCode(callSuper = false)
     class Receipt extends Response {
 
         private List<Instance> instances;
     }
 
     @Data
-    @EqualsAndHashCode(callSuper=false)
+    @EqualsAndHashCode(callSuper = false)
     class Instance {
 
         private String id;
