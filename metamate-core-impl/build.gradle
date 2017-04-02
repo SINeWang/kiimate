@@ -15,7 +15,6 @@ dependencies {
     compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
 
     compile project(":metamate-core-spec")
-    compile project(":magnet-xi")
 
     testCompile project(":metamate-core-spec").sourceSets.test.output
 

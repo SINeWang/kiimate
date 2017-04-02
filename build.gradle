@@ -4,7 +4,7 @@ plugins {
     id 'org.springframework.boot' version '1.5.2.RELEASE' apply false
 }
 
-group 'wang.yanjiong.metamate'
+group 'one.kii.metamate'
 
 allprojects {
     apply plugin: 'idea'
@@ -21,20 +21,18 @@ subprojects {
 
     repositories {
         maven {
-            url "http://nexus.euler.one/repository/maven-public/"
+            url "http://nexus.sinewang.com/repository/maven-public/"
         }
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+        mavenLocal()
     }
     dependencies {
         compileOnly "org.projectlombok:lombok:1.16.16"
         testCompile("junit:junit:4.12")
     }
 
-//    release {
-//        tagTemplate = '$name-$version'
-//    }
+    release {
+        tagTemplate = '$name-$version'
+    }
 }
 
 configure(subprojects.findAll { it.name.startsWith("metamate") && it.name.endsWith("impl") }) {
@@ -85,6 +83,10 @@ configure(subprojects.findAll { it.name.startsWith("metamate") && it.name.endsWi
         compile "javax.servlet:javax.servlet-api:3.1.0"
         compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
         compile("org.springframework:spring-tx:4.3.7.RELEASE")
+
+        compile("one.kii.summer:summer-beans:1.0.1-SNAPSHOT")
+        compile("one.kii.summer:summer-codec:1.0.1-SNAPSHOT")
+        compile("one.kii.summer:summer-bound:1.0.1-SNAPSHOT")
 
 
         compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")

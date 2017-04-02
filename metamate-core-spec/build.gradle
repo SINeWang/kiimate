@@ -1,6 +1,4 @@
 dependencies {
-    compile project(":magnet-xi")
-    compile project(":magnet-util")
 
     testCompile project(":metamate-core-impl")
 
