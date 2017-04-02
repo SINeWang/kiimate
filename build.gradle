@@ -51,6 +51,7 @@ subprojects {
         maven {
             url "http://nexus.sinewang.com/repository/maven-public/"
         }
+        mavenLocal()
     }
 
     release {
@@ -65,7 +66,10 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
 
         compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
 
-        compile("one.kii.summer:summer-bound:${summerVersion}")
+        compile group: "one.kii.summer", name: "summer-annot", version: "${summerVersion}", changing: true
+        compile group: "one.kii.summer", name: "summer-bound", version: "${summerVersion}", changing: true
+        compile group: "one.kii.summer", name: "summer-annot", version: "${summerVersion}", changing: true
+
 
         compile("org.springframework:spring-tx:${springFrameworkVersion}")
         compile("org.springframework:spring-web:${springFrameworkVersion}")
@@ -94,9 +98,6 @@ configure(subprojects.findAll { it.name.endsWith("impl") }) {
     apply plugin: 'org.springframework.boot'
 
     dependencies {
-
-        compile("one.kii.summer:summer-beans:${summerVersion}")
-        compile("one.kii.summer:summer-codec:${summerVersion}")
 
         compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
 
@@ -129,12 +130,17 @@ configure(subprojects.findAll { it.name.endsWith("test") }) {
         compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVerison}")
         compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
 
-        testCompile("one.kii.summer:summer-bound:${summerVersion}")
-        testCompile("one.kii.summer:summer-beans:${summerVersion}")
-        testCompile("one.kii.summer:summer-codec:${summerVersion}")
+        testCompile group: "one.kii.summer", name: "summer-bound", version: "${summerVersion}", changing: true
+        testCompile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
+        testCompile group: "one.kii.summer", name: "summer-codec", version: "${summerVersion}", changing: true
+
         testCompile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
         testCompile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
         testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 
     }
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }

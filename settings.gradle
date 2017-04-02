@@ -3,4 +3,7 @@ rootProject.name = 'one.kii.metamate'
 include 'metamate-core-impl'
 include 'metamate-core-spec'
 include 'metamate-core-test'
+include 'statemate-core-spec'
+include 'statemate-core-impl'
+include 'statemate-core-test'
 
