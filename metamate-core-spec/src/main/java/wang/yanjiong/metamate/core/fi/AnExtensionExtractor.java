@@ -1,14 +1,14 @@
 package wang.yanjiong.metamate.core.fi;
 
 import lombok.Data;
-import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
+import wang.yanjiong.metamate.core.api.SetExtensionApi;
 
 /**
  * Created by WangYanJiong on 3/23/17.
  */
 public interface AnExtensionExtractor {
 
-    Extension extract(DeclareExtensionApi.Form form) throws MissingParamException;
+    Extension extract(SetExtensionApi.Form form) throws MissingParamException;
 
     String hashId(String group, String name, String tree);
 

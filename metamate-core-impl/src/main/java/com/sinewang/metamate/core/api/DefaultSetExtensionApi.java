@@ -4,7 +4,7 @@ import one.kii.summer.bound.factory.ResponseFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
-import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
+import wang.yanjiong.metamate.core.api.SetExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fi.AnStructureValidator;
@@ -14,7 +14,7 @@ import wang.yanjiong.metamate.core.fi.AnVisibilityValidator;
  * Created by WangYanJiong on 3/24/17.
  */
 @RestController
-public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
+public class DefaultSetExtensionApi implements SetExtensionApi {
 
 
     @Autowired

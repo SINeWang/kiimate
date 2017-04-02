@@ -10,50 +10,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
- * Created by WangYanJiong on 26/03/2017.
+ * Created by WangYanJiong on 3/23/17.
  */
 @RestController
 @RequestMapping("/v1")
-public interface DeclareIntensionApi {
+public interface SetExtensionApi {
 
-
-    @RequestMapping(value = "/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    Receipt createIntensionViaFormUrlEncoded(@ModelAttribute Form form, HttpServletRequest request);
-
+    @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    Receipt declareExtensionViaFormUrlEncoded(@ModelAttribute Form form);
 
     @Data
-    @EqualsAndHashCode(callSuper=false)
+    @EqualsAndHashCode(callSuper = false)
     class Form extends Request {
 
-        private String extId;
+        private String group;
 
-        private String field;
+        private String name;
 
-        private boolean single;
-
-        private String structure;
+        private String tree;
 
         private String visibility;
+
+        private String structure;
     }
 
     @Data
-    @EqualsAndHashCode(callSuper=false)
+    @EqualsAndHashCode(callSuper = false)
     class Receipt extends Response {
 
         private String id;
 
-        private String extId;
+        private String group;
 
-        private String field;
+        private String name;
 
-        private boolean single;
-
-        private String structure;
+        private String tree;
 
         private String visibility;
+
+        private String structure;
 
     }
 

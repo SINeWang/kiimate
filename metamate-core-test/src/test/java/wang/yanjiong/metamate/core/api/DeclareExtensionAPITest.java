@@ -22,52 +22,52 @@ import wang.yanjiong.metamate.core.dai.ExtensionDai;
 public class DeclareExtensionAPITest {
 
     @Autowired
-    private DeclareExtensionApi declareExtensionApi;
+    private SetExtensionApi setExtensionApi;
 
     @Autowired
     private ExtensionDai extensionDai;
 
     @Test
     public void testGroupOnly() {
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
+        SetExtensionApi.Form form = new SetExtensionApi.Form();
         form.setGroup("testGroup");
-        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
+        SetExtensionApi.Receipt receipt = setExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
     public void testNameOnly() {
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
+        SetExtensionApi.Form form = new SetExtensionApi.Form();
         form.setName("testName");
-        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
+        SetExtensionApi.Receipt receipt = setExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
     public void testVersionOnly() {
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
+        SetExtensionApi.Form form = new SetExtensionApi.Form();
         form.setTree("testTree");
-        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
+        SetExtensionApi.Receipt receipt = setExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
     public void testVisibilityOnly() {
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
+        SetExtensionApi.Form form = new SetExtensionApi.Form();
         form.setVisibility("testVisibility");
-        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
+        SetExtensionApi.Receipt receipt = setExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
     public void testStructureOnly() {
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
+        SetExtensionApi.Form form = new SetExtensionApi.Form();
         form.setStructure("testStructure");
-        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
+        SetExtensionApi.Receipt receipt = setExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
@@ -75,26 +75,26 @@ public class DeclareExtensionAPITest {
 
     @Test
     public void testInvalidStructure() {
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
+        SetExtensionApi.Form form = new SetExtensionApi.Form();
         form.setGroup("testGroup");
         form.setName("testName");
         form.setTree("testTree");
         form.setVisibility("protected");
         form.setStructure("testStructure");
-        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
+        SetExtensionApi.Receipt receipt = setExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
     @Test
     public void testInvalidVisibility() {
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
+        SetExtensionApi.Form form = new SetExtensionApi.Form();
         form.setGroup("testGroup");
         form.setName("testName");
         form.setTree("testTree");
         form.setVisibility("testVisibility");
         form.setStructure("complex");
-        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
+        SetExtensionApi.Receipt receipt = setExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
@@ -105,13 +105,13 @@ public class DeclareExtensionAPITest {
         String name = "testName";
         String tree = "testTree";
 
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
+        SetExtensionApi.Form form = new SetExtensionApi.Form();
         form.setGroup(group);
         form.setName(name);
         form.setTree(tree);
         form.setVisibility("protected");
         form.setStructure("complex");
-        DeclareExtensionApi.Receipt receipt = declareExtensionApi.declareExtensionViaFormUrlEncoded(form);
+        SetExtensionApi.Receipt receipt = setExtensionApi.declareExtensionViaFormUrlEncoded(form);
         Assert.assertNotNull(receipt);
         Assert.assertEquals(Summary.Status.ACCEPTED, receipt.getSummary().getStatus());
         String id = receipt.getId();
