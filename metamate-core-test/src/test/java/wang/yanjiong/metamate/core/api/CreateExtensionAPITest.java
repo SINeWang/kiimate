@@ -73,7 +73,7 @@ public class CreateExtensionAPITest {
     }
 
 
-//    @Test
+    @Test
     public void testInvalidStructure() {
         CreateExtensionApi.Form form = new CreateExtensionApi.Form();
         form.setGroup("testGroup");
@@ -86,7 +86,7 @@ public class CreateExtensionAPITest {
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
-//    @Test
+    @Test
     public void testInvalidVisibility() {
         CreateExtensionApi.Form form = new CreateExtensionApi.Form();
         form.setGroup("testGroup");
@@ -99,7 +99,7 @@ public class CreateExtensionAPITest {
         Assert.assertEquals(Summary.Status.REJECTED, receipt.getSummary().getStatus());
     }
 
-//    @Test
+    @Test
     public void testSave() {
         String group = "testGroup";
         String name = "testName";

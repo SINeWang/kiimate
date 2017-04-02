@@ -129,6 +129,9 @@ configure(subprojects.findAll { it.name.endsWith("test") }) {
         compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVerison}")
         compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
 
+        testCompile("one.kii.summer:summer-bound:${summerVersion}")
+        testCompile("one.kii.summer:summer-beans:${summerVersion}")
+        testCompile("one.kii.summer:summer-codec:${summerVersion}")
         testCompile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
         testCompile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
         testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
