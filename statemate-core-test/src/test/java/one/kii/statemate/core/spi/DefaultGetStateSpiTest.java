@@ -39,5 +39,5 @@ public class DefaultGetStateSpiTest {
         Assert.assertNotNull(state);
 
 
-    }gi
+    }
 }
