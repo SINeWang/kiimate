@@ -2,11 +2,14 @@ package com.sinewang.statemate.core.spi;
 
 import one.kii.summer.bound.Receipt;
 import one.kii.summer.erest.GetWithOAuth2AccessToken;
+import org.springframework.stereotype.Component;
 import wang.yanjiong.statemate.core.spi.GetStateSpi;
 
 /**
  * Created by WangYanJiong on 02/04/2017.
  */
+
+@Component
 public class DefaultGetStateSpi implements GetStateSpi {
 
     @Override
