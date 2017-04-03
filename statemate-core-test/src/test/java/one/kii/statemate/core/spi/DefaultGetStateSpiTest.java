@@ -1,16 +1,17 @@
 package one.kii.statemate.core.spi;
 
-import one.kii.summer.annot.SummerSpi;
 import one.kii.summer.bound.Receipt;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wang.yanjiong.statemate.core.spi.GetStateSpi;
@@ -21,11 +22,8 @@ import wang.yanjiong.statemate.core.spi.GetStateSpi;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
-@Configuration
-@ComponentScan(basePackages = "com.sinewang", includeFilters = @ComponentScan.Filter(
-        classes = SummerSpi.class,
-        type = FilterType.ANNOTATION
-))
+@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
+@ComponentScan(basePackages = "com.sinewang")
 @SpringBootTest(classes = {DefaultGetStateSpiTest.class})
 public class DefaultGetStateSpiTest {
 
@@ -41,5 +39,5 @@ public class DefaultGetStateSpiTest {
         Assert.assertNotNull(state);
 
 
-    }
+    }gi
 }

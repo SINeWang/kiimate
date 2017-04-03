@@ -1,6 +1,7 @@
 buildscript {
     dependencies {
         classpath 'org.hibernate.build.gradle:gradle-maven-publish-auth:2.0.1'
+        classpath 'com.netflix.nebula:gradle-dependency-lock-plugin:4.+'
     }
     repositories {
         maven {
@@ -68,7 +69,6 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
 
         compile group: "one.kii.summer", name: "summer-annot", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-bound", version: "${summerVersion}", changing: true
-        compile group: "one.kii.summer", name: "summer-annot", version: "${summerVersion}", changing: true
 
 
         compile("org.springframework:spring-tx:${springFrameworkVersion}")
@@ -81,7 +81,6 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
 
     }
 }
-
 
 configure(subprojects.findAll { it.name.endsWith("impl") }) {
 
@@ -98,6 +97,12 @@ configure(subprojects.findAll { it.name.endsWith("impl") }) {
     apply plugin: 'org.springframework.boot'
 
     dependencies {
+
+        compile group: "one.kii.summer", name: "summer-bound", version: "${summerVersion}", changing: true
+        compile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
+        compile group: "one.kii.summer", name: "summer-codec", version: "${summerVersion}", changing: true
+        compile group: "one.kii.summer", name: "summer-erest", version: "${summerVersion}", changing: true
+
 
         compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
 
@@ -127,12 +132,14 @@ configure(subprojects.findAll { it.name.endsWith("test") }) {
 
         compile("org.springframework.boot:spring-boot-devtools")
 
-        compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVerison}")
-        compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
-
         testCompile group: "one.kii.summer", name: "summer-bound", version: "${summerVersion}", changing: true
         testCompile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
         testCompile group: "one.kii.summer", name: "summer-codec", version: "${summerVersion}", changing: true
+        testCompile group: "one.kii.summer", name: "summer-erest", version: "${summerVersion}", changing: true
+
+
+        compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVerison}")
+        compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
 
         testCompile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
         testCompile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
