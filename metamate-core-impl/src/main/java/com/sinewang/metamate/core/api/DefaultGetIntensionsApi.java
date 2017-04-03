@@ -1,8 +1,8 @@
 package com.sinewang.metamate.core.api;
 
+import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.bound.Context;
 import one.kii.summer.bound.Summary;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +10,6 @@ import wang.yanjiong.metamate.core.api.GetIntensionsApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -35,13 +34,8 @@ public class DefaultGetIntensionsApi implements GetIntensionsApi {
 
         Receipt receipt = new Receipt();
 
-        List<GetIntensionsApi.Intension> intensions1 = new ArrayList<>();
+        List<GetIntensionsApi.Intension> intensions1 = DataTools.copy(intensions, GetIntensionsApi.Intension.class);
 
-        for (IntensionDai.Intension intension : intensions) {
-            GetIntensionsApi.Intension intension1 = new GetIntensionsApi.Intension();
-            BeanUtils.copyProperties(intension, intension1);
-            intensions1.add(intension1);
-        }
 
         Summary summary = new Summary();
         summary.setStatus(Summary.Status.ACCEPTED);

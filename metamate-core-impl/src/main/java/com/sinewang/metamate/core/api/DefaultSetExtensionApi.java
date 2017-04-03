@@ -1,5 +1,6 @@
 package com.sinewang.metamate.core.api;
 
+import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.bound.factory.ResponseFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,11 @@ public class DefaultSetExtensionApi implements SetExtensionApi {
     private AnVisibilityValidator visibilityValidator;
 
     @Override
-    public Receipt declareExtensionViaFormUrlEncoded(Form form) {
+    public Receipt declareExtensionViaFormUrlEncoded(Form form,
+                                                     String ownerId,
+                                                     String operatorId) {
 
-        AnExtensionExtractor.Extension extension = null;
+        AnExtensionExtractor.Extension extension;
         try {
             extension = extensionExtractor.extract(form);
         } catch (AnExtensionExtractor.MissingParamException e) {
@@ -49,11 +52,10 @@ public class DefaultSetExtensionApi implements SetExtensionApi {
             return ResponseFactory.rejected(form, Receipt.class, extension);
         }
 
-        ExtensionDai.Extension daiRecord = new ExtensionDai.Extension();
-        BeanUtils.copyProperties(extension, daiRecord);
+        ExtensionDai.Extension daiExtension = DataTools.copy(extension, ExtensionDai.Extension.class);
 
         try {
-            extensionDai.insertExtension(daiRecord);
+            extensionDai.insertExtension(daiExtension);
             return ResponseFactory.accepted(form, Receipt.class, extension);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             return ResponseFactory.rejected(form, Receipt.class, extension);

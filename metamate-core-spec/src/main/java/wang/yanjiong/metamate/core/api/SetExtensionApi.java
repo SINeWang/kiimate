@@ -5,10 +5,7 @@ import lombok.EqualsAndHashCode;
 import one.kii.summer.bound.Request;
 import one.kii.summer.bound.Response;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -18,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 public interface SetExtensionApi {
 
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    Receipt declareExtensionViaFormUrlEncoded(@ModelAttribute Form form);
+    Receipt declareExtensionViaFormUrlEncoded(@ModelAttribute Form form,
+                                              @RequestHeader("X-MM-Owner-Id") String ownerId,
+                                              @RequestHeader("X-MM-Operator-Id") String operatorId);
 
     @Data
     @EqualsAndHashCode(callSuper = false)

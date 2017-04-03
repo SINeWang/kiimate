@@ -1,7 +1,7 @@
 package com.sinewang.metamate.core.api;
 
+import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.bound.factory.ResponseFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.SetIntensionApi;
@@ -29,8 +29,7 @@ public class DefaultSetIntensionApi implements SetIntensionApi {
 
         AnIntensionExtractor.Intension intension = anIntensionExtractor.parse(form);
 
-        IntensionDai.Intension daiRecord = new IntensionDai.Intension();
-        BeanUtils.copyProperties(intension, daiRecord);
+        IntensionDai.Intension daiRecord = DataTools.copy(intension, IntensionDai.Intension.class);
 
         try {
             intensionDai.insertIntension(daiRecord);

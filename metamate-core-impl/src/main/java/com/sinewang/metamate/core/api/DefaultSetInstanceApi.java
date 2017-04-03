@@ -1,10 +1,10 @@
 package com.sinewang.metamate.core.api;
 
+import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.bound.Context;
 import one.kii.summer.bound.Summary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -50,18 +50,12 @@ public class DefaultSetInstanceApi implements SetInstanceApi {
 
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(group, name, tree, ownerId, operatorId, request.getParameterMap());
 
-        List<InstanceDai.Instances> instances1 = new ArrayList<>();
-
-        for (AnInstanceExtractor.Instance instance : instances) {
-            InstanceDai.Instances instance1 = new InstanceDai.Instances();
-            BeanUtils.copyProperties(instance, instance1);
-            instances1.add(instance1);
-        }
+        List<InstanceDai.Instances> instances1 = DataTools.copy(instances, InstanceDai.Instances.class);
 
         try {
             instanceDai.insertInstances(instances1);
         } catch (InstanceDai.InstanceDuplicated instanceDuplicated) {
-            instanceDuplicated.printStackTrace();
+            logger.error("instanceDuplicated", instanceDuplicated);
         }
 
         List<InstanceDai.Instance> instances2 = instanceDai.selectLatestInstanceByOwnerIdExtId(extId, ownerId);
@@ -70,8 +64,7 @@ public class DefaultSetInstanceApi implements SetInstanceApi {
         List<Instance> instances3 = new ArrayList<>();
 
         for (InstanceDai.Instance instance2 : instances2) {
-            Instance instance3 = new Instance();
-            BeanUtils.copyProperties(instance2, instance3);
+            Instance instance3 = DataTools.copy(instance2, Instance.class);
             instance3.setValue(new String[]{instance2.getValue()});
             instances3.add(instance3);
         }
