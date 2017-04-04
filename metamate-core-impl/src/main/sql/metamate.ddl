@@ -57,6 +57,7 @@ CREATE TABLE `mm_m_ext` (
   `group` varchar(32) NOT NULL,
   `name` varchar(32) NOT NULL,
   `tree` varchar(32) NOT NULL,
+  `owner_id` varchar(160) NOT NULL,
   `visibility` varchar(16) NOT NULL COMMENT 'the visibility of scope',
   `structure` varchar(16) DEFAULT NULL,
   `begin_time` datetime NOT NULL,
