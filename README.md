@@ -12,11 +12,11 @@ Kii Mate: be the best **Mate** of **Knowledge Integration & Innovation**.
 
 ### Properties URL
 
-`kiimate://<example.com>/props/{group}/{name}/[{tree}]?[tag=<tag>]`
+* `kiimate://<example.com>/props/{group}/{name}/[{tree}]?[tag=<tag>]`
 
 ### Entities URL
 
-`kiimate://<example.com>/entities/{group}/{name}/[{tree}]?[tag=<tag>]`
+* `kiimate://<example.com>/entities/{group}/{name}/[{tree}]?[tag=<tag>]`
 
 
 ## Basic Knowledge
