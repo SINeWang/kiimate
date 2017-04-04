@@ -3,6 +3,7 @@ package com.sinewang.metamate.core.api;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.bound.factory.ResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.SetIntensionApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
@@ -25,7 +26,7 @@ public class DefaultSetIntensionApi implements SetIntensionApi {
     private AnIntensionExtractor anIntensionExtractor;
 
     @Override
-    public Receipt createIntensionViaFormUrlEncoded(Form form, HttpServletRequest request) {
+    public ResponseEntity<Receipt> createIntensionViaFormUrlEncoded(Form form, HttpServletRequest request) {
 
         AnIntensionExtractor.Intension intension = anIntensionExtractor.parse(form);
 
@@ -33,9 +34,10 @@ public class DefaultSetIntensionApi implements SetIntensionApi {
 
         try {
             intensionDai.insertIntension(daiRecord);
-            return ResponseFactory.accepted(form, SetIntensionApi.Receipt.class, intension);
+            Receipt receipt = DataTools.copy(daiRecord, Receipt.class);
+            return ResponseFactory.accepted(receipt);
         } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
-            return ResponseFactory.rejected(form, SetIntensionApi.Receipt.class, intension);
+            return ResponseFactory.badRequest(extensionDuplicated.getMessage());
         }
     }
 }

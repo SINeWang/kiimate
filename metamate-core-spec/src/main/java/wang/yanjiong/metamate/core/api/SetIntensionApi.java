@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import one.kii.summer.bound.Request;
 import one.kii.summer.bound.Response;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,11 +22,11 @@ public interface SetIntensionApi {
 
 
     @RequestMapping(value = "/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    Receipt createIntensionViaFormUrlEncoded(@ModelAttribute Form form, HttpServletRequest request);
+    ResponseEntity<Receipt> createIntensionViaFormUrlEncoded(@ModelAttribute Form form, HttpServletRequest request);
 
 
     @Data
-    @EqualsAndHashCode(callSuper=false)
+    @EqualsAndHashCode(callSuper = false)
     class Form extends Request {
 
         private String extId;
@@ -40,7 +41,7 @@ public interface SetIntensionApi {
     }
 
     @Data
-    @EqualsAndHashCode(callSuper=false)
+    @EqualsAndHashCode(callSuper = false)
     class Receipt extends Response {
 
         private String id;
