@@ -16,8 +16,6 @@ public interface InstanceDai {
 
     List<Instance> selectLatestInstanceByOwnerIdExtId(String extId, String ownerId);
 
-    List<String> selectLatestInstancesByOwnerIds(String extId);
-
 
     @Data
     class Instance {

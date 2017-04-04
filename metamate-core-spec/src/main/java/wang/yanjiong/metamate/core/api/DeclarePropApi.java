@@ -6,10 +6,7 @@ import one.kii.summer.bound.Request;
 import one.kii.summer.bound.Response;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,7 +19,9 @@ public interface DeclarePropApi {
 
 
     @RequestMapping(value = "/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<PropReceipt> declarePropViaFormUrlEncoded(@ModelAttribute PropForm propForm, HttpServletRequest request);
+    ResponseEntity<PropReceipt> declarePropViaFormUrlEncoded(@ModelAttribute PropForm propForm,
+                                                             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
+                                                             HttpServletRequest request);
 
 
     @Data

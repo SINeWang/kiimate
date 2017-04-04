@@ -114,10 +114,6 @@ public class DefaultInstanceDai implements InstanceDai {
         return instanceMapper.selectLatestInstancesByOwnerIdExtId(extId, ownerId);
     }
 
-    @Override
-    public List<String> selectLatestInstancesByOwnerIds(String extId) {
-        return instanceMapper.selectLatestInstancesByOwnerIds(extId);
-    }
 
     private void insertInstance(Instance instance, Date beginTime) {
         if (instance.getValue().isEmpty()) {

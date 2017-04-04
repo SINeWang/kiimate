@@ -26,7 +26,7 @@ public class DefaultDeclarePropApi implements DeclarePropApi {
     private AnIntensionExtractor anIntensionExtractor;
 
     @Override
-    public ResponseEntity<PropReceipt> declarePropViaFormUrlEncoded(PropForm propForm, HttpServletRequest request) {
+    public ResponseEntity<PropReceipt> declarePropViaFormUrlEncoded(PropForm propForm, String ownerId, HttpServletRequest request) {
 
         AnIntensionExtractor.Intension intension = anIntensionExtractor.parse(propForm);
 
@@ -35,7 +35,7 @@ public class DefaultDeclarePropApi implements DeclarePropApi {
         try {
             intensionDai.insertIntension(daiRecord);
             PropReceipt propReceipt = DataTools.copy(daiRecord, PropReceipt.class);
-            return ResponseFactory.accepted(propReceipt);
+            return ResponseFactory.accepted(propReceipt, ownerId);
         } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
             return ResponseFactory.badRequest(extensionDuplicated.getMessage());
         }
