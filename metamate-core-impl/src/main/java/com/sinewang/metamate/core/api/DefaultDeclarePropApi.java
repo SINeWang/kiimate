@@ -4,6 +4,8 @@ import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.bound.factory.ResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.DeclarePropApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
@@ -26,7 +28,11 @@ public class DefaultDeclarePropApi implements DeclarePropApi {
     private AnIntensionExtractor anIntensionExtractor;
 
     @Override
-    public ResponseEntity<PropReceipt> declarePropViaFormUrlEncoded(PropForm propForm, String ownerId, HttpServletRequest request) {
+    public ResponseEntity<PropReceipt> declarePropViaFormUrlEncoded(
+            @ModelAttribute PropForm propForm,
+            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
+            @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
+            HttpServletRequest request) {
 
         AnIntensionExtractor.Intension intension = anIntensionExtractor.parse(propForm);
 

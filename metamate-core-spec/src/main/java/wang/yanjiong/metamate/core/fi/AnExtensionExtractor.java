@@ -8,9 +8,9 @@ import wang.yanjiong.metamate.core.api.DeclareNameApi;
  */
 public interface AnExtensionExtractor {
 
-    Extension extract(DeclareNameApi.NameForm nameForm) throws MissingParamException;
+    Extension extract(DeclareNameApi.NameForm nameForm, String ownerId) throws MissingParamException;
 
-    String hashId(String group, String name, String tree);
+    String hashId(String ownerId, String group, String name, String tree);
 
     enum DataStructures {
         COMPLEX,
@@ -25,6 +25,8 @@ public interface AnExtensionExtractor {
     class Extension {
 
         private String id;
+
+        private String ownerId;
 
         private String group;
 

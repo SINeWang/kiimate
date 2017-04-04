@@ -5,6 +5,8 @@ import one.kii.summer.bound.factory.ResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.DeclareNameApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
@@ -32,13 +34,14 @@ public class DefaultDeclareNameApi implements DeclareNameApi {
     private AnVisibilityValidator visibilityValidator;
 
     @Override
-    public ResponseEntity<NameReceipt> declareByFormUrlEncoded(NameForm nameForm,
-                                                               String ownerId,
-                                                               String operatorId) {
+    public ResponseEntity<NameReceipt> declareByFormUrlEncoded(
+            @ModelAttribute NameForm nameForm,
+            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
+            @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId) {
 
         AnExtensionExtractor.Extension extension;
         try {
-            extension = extensionExtractor.extract(nameForm);
+            extension = extensionExtractor.extract(nameForm, ownerId);
         } catch (AnExtensionExtractor.MissingParamException e) {
             return ResponseFactory.badRequest(e.getMessage());
         }

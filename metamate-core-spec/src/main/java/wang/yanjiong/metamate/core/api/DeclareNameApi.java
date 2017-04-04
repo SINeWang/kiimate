@@ -2,8 +2,6 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.bound.Request;
-import one.kii.summer.bound.Response;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +15,12 @@ public interface DeclareNameApi {
 
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<NameReceipt> declareByFormUrlEncoded(@ModelAttribute NameForm nameForm,
-                                                        @RequestHeader("X-MM-Owner-Id") String ownerId,
-                                                        @RequestHeader("X-MM-Operator-Id") String operatorId);
+                                                        @RequestHeader("X-SUMMER-OwnerId") String ownerId,
+                                                        @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId);
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class NameForm extends Request {
+    class NameForm {
 
         private String group;
 
@@ -37,7 +35,7 @@ public interface DeclareNameApi {
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class NameReceipt extends Response {
+    class NameReceipt {
 
         private String id;
 

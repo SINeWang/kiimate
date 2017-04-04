@@ -1,13 +1,11 @@
 package com.sinewang.metamate.core.fi;
 
-import one.kii.summer.bound.Context;
+import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import wang.yanjiong.metamate.core.api.DeclareNameApi;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
-
-import java.util.UUID;
 
 /**
  * Created by WangYanJiong on 25/03/2017.
@@ -16,11 +14,7 @@ import java.util.UUID;
 public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
     @Override
-    public Extension extract(DeclareNameApi.NameForm nameForm) throws MissingParamException {
-        Context context = new Context();
-        context.setProcessId(UUID.randomUUID().toString());
-        nameForm.setContext(context);
-
+    public Extension extract(DeclareNameApi.NameForm nameForm, String ownerId) throws MissingParamException {
 
         if (nameForm.getGroup() == null || nameForm.getGroup().isEmpty()) {
             throw new MissingParamException("group is NULL or EMPTY");
@@ -38,27 +32,26 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
             throw new MissingParamException("visibility is NULL or EMPTY");
         }
 
-        Extension extension = new Extension();
+
+        Extension extension = DataTools.copy(nameForm, Extension.class);
         BeanUtils.copyProperties(nameForm, extension);
+        extension.setOwnerId(ownerId);
         String id = hashExtension(extension);
         extension.setId(id);
-
-
         return extension;
     }
 
     @Override
-    public String hashId(String group, String name, String version) {
+    public String hashId(String ownerId, String group, String name, String tree) {
         return HashTools.hashHex(
-                group, name, version
+                ownerId,
+                group, name, tree
         );
     }
 
     private String hashExtension(Extension extension) {
         return hashId(
-                extension.getGroup(),
-                extension.getName(),
-                extension.getTree()
+                extension.getOwnerId(), extension.getGroup(), extension.getName(), extension.getTree()
         );
     }
 

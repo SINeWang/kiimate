@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
@@ -30,12 +29,14 @@ public class ExtensionMapperTest {
     @Test
     public void testCRUD() {
         String id = "12";
+
+        String ownerId = "testOwnerId";
         extensionMapper.deleteExtensionById(id);
 
         ExtensionDai.Extension ext = extensionMapper.selectExtensionById("12");
         Assert.assertNull(ext);
 
-        extensionMapper.insertExtension(id, "12", "56", "78", "90", "ab", new Date());
+        extensionMapper.insertExtension(id, ownerId, "12", "56", "78", "90", "ab", new Date());
         ExtensionDai.Extension ext1 = extensionMapper.selectExtensionById(id);
         Assert.assertNotNull(ext1);
 

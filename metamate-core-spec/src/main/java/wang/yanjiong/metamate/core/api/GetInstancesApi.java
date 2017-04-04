@@ -15,8 +15,9 @@ import java.util.Map;
 public interface GetInstancesApi {
 
     @RequestMapping(value = "/instances/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    ResponseEntity<Map<String, String>> readInstancesByGroupNameVersion(
+    ResponseEntity<Instance> readInstancesByGroupNameVersion(
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
+            @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree,

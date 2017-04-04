@@ -26,6 +26,8 @@ public interface ExtensionDai {
 
         private String tree;
 
+        private String ownerId;
+
         private String visibility;
 
         private String structure;

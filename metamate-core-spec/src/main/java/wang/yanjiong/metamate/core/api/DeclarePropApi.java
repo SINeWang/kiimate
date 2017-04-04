@@ -21,6 +21,7 @@ public interface DeclarePropApi {
     @RequestMapping(value = "/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<PropReceipt> declarePropViaFormUrlEncoded(@ModelAttribute PropForm propForm,
                                                              @RequestHeader("X-SUMMER-OwnerId") String ownerId,
+                                                             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
                                                              HttpServletRequest request);
 
 

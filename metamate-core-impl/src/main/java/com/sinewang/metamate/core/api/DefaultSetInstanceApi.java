@@ -46,9 +46,9 @@ public class DefaultSetInstanceApi implements SetInstanceApi {
                                                  @RequestHeader("X-MM-Operator-Id") String operatorId,
                                                  HttpServletRequest request) {
 
-        String extId = extensionExtractor.hashId(group, name, tree);
+        String extId = extensionExtractor.hashId(ownerId, group, name, tree);
 
-        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(group, name, tree, ownerId, operatorId, request.getParameterMap());
+        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(ownerId, group, name, tree, ownerId, operatorId, request.getParameterMap());
 
         List<InstanceDai.Instances> instances1 = DataTools.copy(instances, InstanceDai.Instances.class);
 

@@ -13,6 +13,7 @@ import java.util.Date;
 public interface ExtensionMapper {
 
     void insertExtension(@Param("id") String id,
+                         @Param("ownerId") String ownerId,
                          @Param("group") String group,
                          @Param("name") String name,
                          @Param("tree") String tree,

@@ -49,6 +49,7 @@ public class DefaultExtensionDai implements ExtensionDai {
         try {
             extensionMapper.insertExtension(
                     extension.getId(),
+                    extension.getOwnerId(),
                     extension.getGroup(),
                     extension.getName(),
                     extension.getTree(),

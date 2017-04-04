@@ -5,6 +5,7 @@ import one.kii.summer.bound.Context;
 import one.kii.summer.bound.Summary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.GetIntensionsApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
@@ -56,11 +57,14 @@ public class DefaultGetIntensionsApi implements GetIntensionsApi {
     }
 
     @Override
-    public Receipt readIntensionsByGroupNameVersion(@PathVariable("group") String group,
-                                                    @PathVariable("name") String name,
-                                                    @PathVariable("tree") String tree) {
+    public Receipt readIntensionsByGroupNameVersion(
+            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
+            @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
+            @PathVariable("group") String group,
+            @PathVariable("name") String name,
+            @PathVariable("tree") String tree) {
 
-        String extId = anExtensionExtractor.hashId(group, name, tree);
+        String extId = anExtensionExtractor.hashId(ownerId, group, name, tree);
         return readIntensionsByExiId(extId);
     }
 }
