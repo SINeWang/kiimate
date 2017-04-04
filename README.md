@@ -1,6 +1,5 @@
-# KiiMate
+# KiiMate, be the best **Mate** of **Knowledge Integration & Innovation**
 
-Kii Mate: be the best **Mate** of **Knowledge Integration & Innovation**.
 
 * Sharing and Managing your Knowledge like `Git` with RESTful API
 
