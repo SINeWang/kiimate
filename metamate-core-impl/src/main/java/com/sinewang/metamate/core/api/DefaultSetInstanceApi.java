@@ -1,11 +1,11 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.bound.Context;
-import one.kii.summer.bound.Summary;
+import one.kii.summer.bound.factory.ResponseFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +16,7 @@ import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by WangYanJiong on 3/27/17.
@@ -39,12 +37,12 @@ public class DefaultSetInstanceApi implements SetInstanceApi {
     private AnExtensionExtractor extensionExtractor;
 
     @Override
-    public Receipt saveInstanceViaFormUrlEncoded(@PathVariable("group") String group,
-                                                 @PathVariable("name") String name,
-                                                 @PathVariable("tree") String tree,
-                                                 @RequestHeader("X-MM-Owner-Id") String ownerId,
-                                                 @RequestHeader("X-MM-Operator-Id") String operatorId,
-                                                 HttpServletRequest request) {
+    public ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(@PathVariable("group") String group,
+                                                                        @PathVariable("name") String name,
+                                                                        @PathVariable("tree") String tree,
+                                                                        @RequestHeader("X-SUMMER-OwnerId") String ownerId,
+                                                                        @RequestHeader("X-SUMMER-OperatorId") String operatorId,
+                                                                        HttpServletRequest request) {
 
         String extId = extensionExtractor.hashId(ownerId, group, name, tree);
 
@@ -60,7 +58,6 @@ public class DefaultSetInstanceApi implements SetInstanceApi {
 
         List<InstanceDai.Instance> instances2 = instanceDai.selectLatestInstanceByOwnerIdExtId(extId, ownerId);
 
-        Receipt receipt = new Receipt();
         List<Instance> instances3 = new ArrayList<>();
 
         for (InstanceDai.Instance instance2 : instances2) {
@@ -68,18 +65,6 @@ public class DefaultSetInstanceApi implements SetInstanceApi {
             instance3.setValue(new String[]{instance2.getValue()});
             instances3.add(instance3);
         }
-        receipt.setInstances(instances3);
-
-        Summary summary = new Summary();
-        summary.setStatus(Summary.Status.ACCEPTED);
-        summary.setTime(new Date());
-
-        Context context = new Context();
-
-        context.setProcessId(UUID.randomUUID().toString());
-
-        receipt.setContext(context);
-        receipt.setSummary(summary);
-        return receipt;
+        return ResponseFactory.accepted(instances3, ownerId);
     }
 }

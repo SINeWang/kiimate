@@ -29,7 +29,7 @@ public class DefaultGetInstancesApi implements GetInstancesApi {
 
 
     @Override
-    public ResponseEntity<Instance> readInstancesByGroupNameVersion(
+    public ResponseEntity<Map<String, String>> readInstancesByGroupNameVersion(
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
             @PathVariable("group") String group,
@@ -40,12 +40,9 @@ public class DefaultGetInstancesApi implements GetInstancesApi {
         String extId = extensionFormParser.hashId(ownerId, group, name, tree);
         List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceByOwnerIdExtId(extId, ownerId);
         Map<String, String> map = new HashMap<>();
-        Instance instance = new Instance();
         for (InstanceDai.Instance daiInstance : instances) {
             map.put(daiInstance.getField(), daiInstance.getValue());
         }
-        instance.setInstance(map);
-
-        return ResponseFactory.accepted(instance, ownerId);
+        return ResponseFactory.accepted(map, ownerId);
     }
 }

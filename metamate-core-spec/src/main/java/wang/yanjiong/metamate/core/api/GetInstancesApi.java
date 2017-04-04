@@ -1,7 +1,5 @@
 package wang.yanjiong.metamate.core.api;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +13,7 @@ import java.util.Map;
 public interface GetInstancesApi {
 
     @RequestMapping(value = "/instances/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    ResponseEntity<Instance> readInstancesByGroupNameVersion(
+    ResponseEntity<Map<String, String>> readInstancesByGroupNameVersion(
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
             @PathVariable("group") String group,
@@ -23,10 +21,5 @@ public interface GetInstancesApi {
             @PathVariable("tree") String tree,
             @RequestParam("tag") String tag);
 
-    @Data
-    @EqualsAndHashCode(callSuper = false)
-    class Instance {
-        Map<String, String> instance;
-    }
 
 }

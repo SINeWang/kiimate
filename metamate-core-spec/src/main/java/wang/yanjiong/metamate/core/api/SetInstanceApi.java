@@ -2,8 +2,8 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.bound.Response;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,20 +20,13 @@ public interface SetInstanceApi {
 
 
     @RequestMapping(value = "/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    Receipt saveInstanceViaFormUrlEncoded(
+    ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree,
-            @RequestHeader("X-MM-Owner-Id") String ownerId,
-            @RequestHeader("X-MM-Operator-Id") String operatorId,
+            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
+            @RequestHeader("X-SUMMER-OperatorId") String operatorId,
             HttpServletRequest request);
-
-    @Data
-    @EqualsAndHashCode(callSuper = false)
-    class Receipt extends Response {
-
-        private List<Instance> instances;
-    }
 
     @Data
     @EqualsAndHashCode(callSuper = false)

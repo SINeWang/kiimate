@@ -3,6 +3,7 @@ package wang.yanjiong.metamate.core.api;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import one.kii.summer.bound.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,11 +15,8 @@ import java.util.List;
 @RequestMapping("/v1")
 public interface GetIntensionsApi {
 
-    @RequestMapping(value = "/intensions/{extId}", method = RequestMethod.GET)
-    Receipt readIntensionsByExiId(@PathVariable("extId") String extId);
-
     @RequestMapping(value = "/intensions/{group}/{name}/{tree.+}", method = RequestMethod.GET)
-    Receipt readIntensionsByGroupNameVersion(
+    ResponseEntity<Extension> readIntensionsByGroupNameVersion(
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
             @PathVariable("group") String group,
@@ -28,7 +26,7 @@ public interface GetIntensionsApi {
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class Receipt extends Response {
+    class Extension extends Response {
 
         private String extId;
 
