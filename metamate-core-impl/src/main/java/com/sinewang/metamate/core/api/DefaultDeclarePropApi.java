@@ -5,7 +5,7 @@ import one.kii.summer.bound.factory.ResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import wang.yanjiong.metamate.core.api.SetIntensionApi;
+import wang.yanjiong.metamate.core.api.DeclarePropApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 @RestController
-public class DefaultSetIntensionApi implements SetIntensionApi {
+public class DefaultDeclarePropApi implements DeclarePropApi {
 
 
     @Autowired
@@ -26,16 +26,16 @@ public class DefaultSetIntensionApi implements SetIntensionApi {
     private AnIntensionExtractor anIntensionExtractor;
 
     @Override
-    public ResponseEntity<Receipt> createIntensionViaFormUrlEncoded(Form form, HttpServletRequest request) {
+    public ResponseEntity<PropReceipt> declarePropViaFormUrlEncoded(PropForm propForm, HttpServletRequest request) {
 
-        AnIntensionExtractor.Intension intension = anIntensionExtractor.parse(form);
+        AnIntensionExtractor.Intension intension = anIntensionExtractor.parse(propForm);
 
         IntensionDai.Intension daiRecord = DataTools.copy(intension, IntensionDai.Intension.class);
 
         try {
             intensionDai.insertIntension(daiRecord);
-            Receipt receipt = DataTools.copy(daiRecord, Receipt.class);
-            return ResponseFactory.accepted(receipt);
+            PropReceipt propReceipt = DataTools.copy(daiRecord, PropReceipt.class);
+            return ResponseFactory.accepted(propReceipt);
         } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
             return ResponseFactory.badRequest(extensionDuplicated.getMessage());
         }

@@ -18,16 +18,16 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/v1")
-public interface SetIntensionApi {
+public interface DeclarePropApi {
 
 
     @RequestMapping(value = "/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<Receipt> createIntensionViaFormUrlEncoded(@ModelAttribute Form form, HttpServletRequest request);
+    ResponseEntity<PropReceipt> declarePropViaFormUrlEncoded(@ModelAttribute PropForm propForm, HttpServletRequest request);
 
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class Form extends Request {
+    class PropForm extends Request {
 
         private String extId;
 
@@ -42,7 +42,7 @@ public interface SetIntensionApi {
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class Receipt extends Response {
+    class PropReceipt extends Response {
 
         private String id;
 

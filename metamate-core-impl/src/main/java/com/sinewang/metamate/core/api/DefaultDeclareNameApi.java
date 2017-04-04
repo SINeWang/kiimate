@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import wang.yanjiong.metamate.core.api.SetExtensionApi;
+import wang.yanjiong.metamate.core.api.DeclareNameApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fi.AnStructureValidator;
@@ -16,7 +16,7 @@ import wang.yanjiong.metamate.core.fi.AnVisibilityValidator;
  * Created by WangYanJiong on 3/24/17.
  */
 @RestController
-public class DefaultSetExtensionApi implements SetExtensionApi {
+public class DefaultDeclareNameApi implements DeclareNameApi {
 
 
     @Autowired
@@ -32,20 +32,20 @@ public class DefaultSetExtensionApi implements SetExtensionApi {
     private AnVisibilityValidator visibilityValidator;
 
     @Override
-    public ResponseEntity<Receipt> declareExtensionViaFormUrlEncoded(Form form,
-                                                                     String ownerId,
-                                                                     String operatorId) {
+    public ResponseEntity<NameReceipt> declareByFormUrlEncoded(NameForm nameForm,
+                                                               String ownerId,
+                                                               String operatorId) {
 
         AnExtensionExtractor.Extension extension;
         try {
-            extension = extensionExtractor.extract(form);
+            extension = extensionExtractor.extract(nameForm);
         } catch (AnExtensionExtractor.MissingParamException e) {
             return ResponseFactory.badRequest(e.getMessage());
         }
 
         boolean isValidStructure = structureValidator.isValid(extension.getStructure());
         if (!isValidStructure) {
-            return ResponseFactory.badRequest("invalid Structrue");
+            return ResponseFactory.badRequest("invalid Structure");
         }
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
@@ -57,8 +57,8 @@ public class DefaultSetExtensionApi implements SetExtensionApi {
 
         try {
             extensionDai.insertExtension(daiExtension);
-            Receipt receipt = DataTools.copy(daiExtension, Receipt.class);
-            return new ResponseEntity<>(receipt, HttpStatus.ACCEPTED);
+            NameReceipt nameReceipt = DataTools.copy(daiExtension, NameReceipt.class);
+            return new ResponseEntity<>(nameReceipt, HttpStatus.ACCEPTED);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             return ResponseFactory.badRequest(extensionDuplicated.getMessage());
         }

@@ -23,7 +23,7 @@ import wang.yanjiong.metamate.core.dai.ExtensionDai;
 public class DeclareExtensionApiTest {
 
     @Autowired
-    private SetExtensionApi setExtensionApi;
+    private DeclareNameApi declareNameApi;
 
     @Autowired
     private ExtensionDai extensionDai;
@@ -34,88 +34,88 @@ public class DeclareExtensionApiTest {
 
     @Test
     public void testGroupOnly() {
-        SetExtensionApi.Form form = new SetExtensionApi.Form();
-        form.setGroup("testGroup");
-        ResponseEntity<SetExtensionApi.Receipt> response = setExtensionApi.declareExtensionViaFormUrlEncoded(form, ownerId, operatorId);
-        SetExtensionApi.Receipt receipt = response.getBody();
+        DeclareNameApi.NameForm nameForm = new DeclareNameApi.NameForm();
+        nameForm.setGroup("testGroup");
+        ResponseEntity<DeclareNameApi.NameReceipt> response = declareNameApi.declareByFormUrlEncoded(nameForm, ownerId, operatorId);
+        DeclareNameApi.NameReceipt nameReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(receipt);
+        Assert.assertNull(nameReceipt);
     }
 
     @Test
     public void testNameOnly() {
-        SetExtensionApi.Form form = new SetExtensionApi.Form();
-        form.setName("testName");
-        ResponseEntity<SetExtensionApi.Receipt> response = setExtensionApi.declareExtensionViaFormUrlEncoded(form, ownerId, operatorId);
-        SetExtensionApi.Receipt receipt = response.getBody();
+        DeclareNameApi.NameForm nameForm = new DeclareNameApi.NameForm();
+        nameForm.setName("testName");
+        ResponseEntity<DeclareNameApi.NameReceipt> response = declareNameApi.declareByFormUrlEncoded(nameForm, ownerId, operatorId);
+        DeclareNameApi.NameReceipt nameReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(receipt);
+        Assert.assertNull(nameReceipt);
     }
 
     @Test
     public void testVersionOnly() {
-        SetExtensionApi.Form form = new SetExtensionApi.Form();
-        form.setTree("testTree");
-        ResponseEntity<SetExtensionApi.Receipt> response = setExtensionApi.declareExtensionViaFormUrlEncoded(form, ownerId, operatorId);
-        SetExtensionApi.Receipt receipt = response.getBody();
+        DeclareNameApi.NameForm nameForm = new DeclareNameApi.NameForm();
+        nameForm.setTree("testTree");
+        ResponseEntity<DeclareNameApi.NameReceipt> response = declareNameApi.declareByFormUrlEncoded(nameForm, ownerId, operatorId);
+        DeclareNameApi.NameReceipt nameReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(receipt);
+        Assert.assertNull(nameReceipt);
     }
 
     @Test
     public void testVisibilityOnly() {
-        SetExtensionApi.Form form = new SetExtensionApi.Form();
-        form.setVisibility("testVisibility");
-        ResponseEntity<SetExtensionApi.Receipt> response = setExtensionApi.declareExtensionViaFormUrlEncoded(form, ownerId, operatorId);
-        SetExtensionApi.Receipt receipt = response.getBody();
+        DeclareNameApi.NameForm nameForm = new DeclareNameApi.NameForm();
+        nameForm.setVisibility("testVisibility");
+        ResponseEntity<DeclareNameApi.NameReceipt> response = declareNameApi.declareByFormUrlEncoded(nameForm, ownerId, operatorId);
+        DeclareNameApi.NameReceipt nameReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(receipt);
+        Assert.assertNull(nameReceipt);
     }
 
     @Test
     public void testStructureOnly() {
-        SetExtensionApi.Form form = new SetExtensionApi.Form();
-        form.setStructure("testStructure");
-        ResponseEntity<SetExtensionApi.Receipt> response = setExtensionApi.declareExtensionViaFormUrlEncoded(form, ownerId, operatorId);
-        SetExtensionApi.Receipt receipt = response.getBody();
+        DeclareNameApi.NameForm nameForm = new DeclareNameApi.NameForm();
+        nameForm.setStructure("testStructure");
+        ResponseEntity<DeclareNameApi.NameReceipt> response = declareNameApi.declareByFormUrlEncoded(nameForm, ownerId, operatorId);
+        DeclareNameApi.NameReceipt nameReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(receipt);
+        Assert.assertNull(nameReceipt);
     }
 
 
     @Test
     public void testInvalidStructure() {
-        SetExtensionApi.Form form = new SetExtensionApi.Form();
-        form.setGroup("testGroup");
-        form.setName("testName");
-        form.setTree("testTree");
-        form.setVisibility("protected");
-        form.setStructure("testStructure");
-        ResponseEntity<SetExtensionApi.Receipt> response = setExtensionApi.declareExtensionViaFormUrlEncoded(form, ownerId, operatorId);
-        SetExtensionApi.Receipt receipt = response.getBody();
+        DeclareNameApi.NameForm nameForm = new DeclareNameApi.NameForm();
+        nameForm.setGroup("testGroup");
+        nameForm.setName("testName");
+        nameForm.setTree("testTree");
+        nameForm.setVisibility("protected");
+        nameForm.setStructure("testStructure");
+        ResponseEntity<DeclareNameApi.NameReceipt> response = declareNameApi.declareByFormUrlEncoded(nameForm, ownerId, operatorId);
+        DeclareNameApi.NameReceipt nameReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(receipt);
+        Assert.assertNull(nameReceipt);
     }
 
     @Test
     public void testInvalidVisibility() {
-        SetExtensionApi.Form form = new SetExtensionApi.Form();
-        form.setGroup("testGroup");
-        form.setName("testName");
-        form.setTree("testTree");
-        form.setVisibility("testVisibility");
-        form.setStructure("complex");
-        ResponseEntity<SetExtensionApi.Receipt> response = setExtensionApi.declareExtensionViaFormUrlEncoded(form, ownerId, operatorId);
-        SetExtensionApi.Receipt receipt = response.getBody();
+        DeclareNameApi.NameForm nameForm = new DeclareNameApi.NameForm();
+        nameForm.setGroup("testGroup");
+        nameForm.setName("testName");
+        nameForm.setTree("testTree");
+        nameForm.setVisibility("testVisibility");
+        nameForm.setStructure("complex");
+        ResponseEntity<DeclareNameApi.NameReceipt> response = declareNameApi.declareByFormUrlEncoded(nameForm, ownerId, operatorId);
+        DeclareNameApi.NameReceipt nameReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(receipt);
+        Assert.assertNull(nameReceipt);
     }
 
     @Test
@@ -124,18 +124,18 @@ public class DeclareExtensionApiTest {
         String name = "testName";
         String tree = "testTree";
 
-        SetExtensionApi.Form form = new SetExtensionApi.Form();
-        form.setGroup(group);
-        form.setName(name);
-        form.setTree(tree);
-        form.setVisibility("protected");
-        form.setStructure("complex");
-        ResponseEntity<SetExtensionApi.Receipt> response = setExtensionApi.declareExtensionViaFormUrlEncoded(form, ownerId, operatorId);
-        SetExtensionApi.Receipt receipt = response.getBody();
+        DeclareNameApi.NameForm nameForm = new DeclareNameApi.NameForm();
+        nameForm.setGroup(group);
+        nameForm.setName(name);
+        nameForm.setTree(tree);
+        nameForm.setVisibility("protected");
+        nameForm.setStructure("complex");
+        ResponseEntity<DeclareNameApi.NameReceipt> response = declareNameApi.declareByFormUrlEncoded(nameForm, ownerId, operatorId);
+        DeclareNameApi.NameReceipt nameReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.ACCEPTED.value(), httpStatus.value());
-        Assert.assertNotNull(receipt);
-        String id = receipt.getId();
+        Assert.assertNotNull(nameReceipt);
+        String id = nameReceipt.getId();
         Assert.assertNotNull(id);
 
 

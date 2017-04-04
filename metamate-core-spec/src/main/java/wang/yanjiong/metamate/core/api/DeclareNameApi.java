@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/v1")
-public interface SetExtensionApi {
+public interface DeclareNameApi {
 
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    <T> ResponseEntity<T> declareExtensionViaFormUrlEncoded(@ModelAttribute Form form,
-                                                            @RequestHeader("X-MM-Owner-Id") String ownerId,
-                                                            @RequestHeader("X-MM-Operator-Id") String operatorId);
+    ResponseEntity<NameReceipt> declareByFormUrlEncoded(@ModelAttribute NameForm nameForm,
+                                                        @RequestHeader("X-MM-Owner-Id") String ownerId,
+                                                        @RequestHeader("X-MM-Operator-Id") String operatorId);
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class Form extends Request {
+    class NameForm extends Request {
 
         private String group;
 
@@ -37,7 +37,7 @@ public interface SetExtensionApi {
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class Receipt extends Response {
+    class NameReceipt extends Response {
 
         private String id;
 
