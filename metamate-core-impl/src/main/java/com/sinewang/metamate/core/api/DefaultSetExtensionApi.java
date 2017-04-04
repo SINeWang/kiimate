@@ -2,8 +2,9 @@ package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.bound.factory.ResponseFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.SetExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
@@ -31,34 +32,35 @@ public class DefaultSetExtensionApi implements SetExtensionApi {
     private AnVisibilityValidator visibilityValidator;
 
     @Override
-    public Receipt declareExtensionViaFormUrlEncoded(Form form,
-                                                     String ownerId,
-                                                     String operatorId) {
+    public ResponseEntity<Receipt> declareExtensionViaFormUrlEncoded(Form form,
+                                                                     String ownerId,
+                                                                     String operatorId) {
 
         AnExtensionExtractor.Extension extension;
         try {
             extension = extensionExtractor.extract(form);
         } catch (AnExtensionExtractor.MissingParamException e) {
-            return ResponseFactory.rejected(form, Receipt.class, e.getMessage());
+            return ResponseFactory.badRequest(e.getMessage());
         }
 
         boolean isValidStructure = structureValidator.isValid(extension.getStructure());
         if (!isValidStructure) {
-            return ResponseFactory.rejected(form, Receipt.class, extension);
+            return ResponseFactory.badRequest("invalid Structrue");
         }
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
         if (!isValidVisibility) {
-            return ResponseFactory.rejected(form, Receipt.class, extension);
+            return ResponseFactory.badRequest("invalid visibility");
         }
 
         ExtensionDai.Extension daiExtension = DataTools.copy(extension, ExtensionDai.Extension.class);
 
         try {
             extensionDai.insertExtension(daiExtension);
-            return ResponseFactory.accepted(form, Receipt.class, extension);
+            Receipt receipt = DataTools.copy(daiExtension, Receipt.class);
+            return new ResponseEntity<>(receipt, HttpStatus.ACCEPTED);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
-            return ResponseFactory.rejected(form, Receipt.class, extension);
+            return ResponseFactory.badRequest(extensionDuplicated.getMessage());
         }
     }
 
