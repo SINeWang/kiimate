@@ -34,6 +34,8 @@
 
 * RESTful API
 
+* Depends on [Summer](https://github.com/sinewang/summer)
+
 ## See Also
 
 [Cross Reference Model Definition Language](crmdl.md)
