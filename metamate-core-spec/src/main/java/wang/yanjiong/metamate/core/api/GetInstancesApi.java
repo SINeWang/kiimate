@@ -15,11 +15,12 @@ import java.util.Map;
 public interface GetInstancesApi {
 
     @RequestMapping(value = "/instances/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    ResponseEntity<Instance> readInstancesByGroupNameVersion(
+    ResponseEntity<Map<String, String>> readInstancesByGroupNameVersion(
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
-            @PathVariable("tree") String tree);
+            @PathVariable("tree") String tree,
+            @RequestParam("tag") String tag);
 
     @Data
     @EqualsAndHashCode(callSuper = false)
