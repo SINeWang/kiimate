@@ -17,32 +17,31 @@ import java.util.List;
 @RequestMapping("/v1")
 public interface ReleaseModelApi {
 
-
     @RequestMapping(value = "/release/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<DeclareExtensionApi.ExtensionReceipt> declareByFormUrlEncoded(
-            @ModelAttribute DeclareExtensionApi.ExtensionForm extensionForm,
+    ResponseEntity<ReleaseReceipt> release(
+            @ModelAttribute ReleaseForm snapshotModelForm,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader("X-SUMMER-OperatorId") String operatorId);
+            @RequestHeader("X-SUMMER-OperatorId") String operatorId,
+            @PathVariable("group") String group,
+            @PathVariable("name") String name,
+            @PathVariable("tree") String tree);
 
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class SnapshotModelForm {
+    class ReleaseForm {
 
         private String version;
 
-        private String visibility;
     }
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class SnapshotModelReceipt {
+    class ReleaseReceipt {
 
         List<Intension> intensions;
 
         private String version;
-
-        private String visibility;
 
         private Date createdAt;
 

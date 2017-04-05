@@ -1,6 +1,7 @@
 package com.sinewang.metamate.core.fi;
 
 import org.springframework.stereotype.Component;
+import wang.yanjiong.metamate.core.api.ReleaseModelApi;
 import wang.yanjiong.metamate.core.api.SnapshotModelApi;
 import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
 import wang.yanjiong.metamate.core.fi.AnPublicationValidator;
@@ -24,7 +25,7 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
     }
 
     @Override
-    public Publication extractRelease(SnapshotModelApi.SnapshotModelForm form, String ownerId, String extId, String operatorId) throws MissingParamException {
+    public Publication extractRelease(ReleaseModelApi.ReleaseForm form, String ownerId, String extId, String operatorId) throws MissingParamException {
         Publication publication = new Publication();
         publication.setExtId(extId);
         publication.setOperatorId(operatorId);

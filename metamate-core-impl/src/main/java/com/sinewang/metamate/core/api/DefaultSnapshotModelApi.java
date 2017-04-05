@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import wang.yanjiong.metamate.core.api.ReleaseModelApi;
 import wang.yanjiong.metamate.core.api.SnapshotModelApi;
 import wang.yanjiong.metamate.core.dai.PublicationDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;

@@ -26,8 +26,7 @@ public interface SnapshotModelApi {
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree);
-
-
+    
     @Data
     @EqualsAndHashCode(callSuper = false)
     class SnapshotModelForm {

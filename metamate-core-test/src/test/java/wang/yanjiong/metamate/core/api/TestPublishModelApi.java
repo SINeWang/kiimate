@@ -19,16 +19,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.metamate.core")
 @SpringBootTest(classes = {TestDeclareExtensionApi.class})
-public class TestSnapshotModelApi {
+public class TestPublishModelApi {
 
     @Autowired
-    private SnapshotModelApi snapshotModelApi;
+    private ReleaseModelApi releaseModelApi;
 
     @Test
     public void test() {
-        SnapshotModelApi.SnapshotModelForm form = new SnapshotModelApi.SnapshotModelForm();
+        ReleaseModelApi.ReleaseForm form = new ReleaseModelApi.ReleaseForm();
         form.setVersion("1.0.0");
-        ResponseEntity<SnapshotModelApi.SnapshotModelReceipt> response = snapshotModelApi.snapshot(
+        ResponseEntity<ReleaseModelApi.ReleaseReceipt> response = releaseModelApi.snapshot(
                 form,
                 "wangyj",
                 "testOperatorId",
@@ -37,7 +37,7 @@ public class TestSnapshotModelApi {
                 "master"
 
         );
-        SnapshotModelApi.SnapshotModelReceipt receipt = response.getBody();
+        ReleaseModelApi.ReleaseReceipt receipt = response.getBody();
         Assert.assertNotNull(receipt);
     }
 }
