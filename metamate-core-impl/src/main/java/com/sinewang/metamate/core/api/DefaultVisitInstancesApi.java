@@ -11,9 +11,9 @@ import wang.yanjiong.metamate.core.api.VisitInstancesApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Created by WangYanJiong on 3/31/17.

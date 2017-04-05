@@ -1,0 +1,88 @@
+@startuml
+
+
+ModelTag "1" --|>  "1" ModelExtension
+ModelTag "1" --|>  "n" ModelIntension
+
+Instance "1" --|>  "1" ModelTag
+
+Instance "1" --|>  "n" InstanceTag
+
+
+ModelExtension "1" o--right--|> "n" ModelIntension
+
+class ModelExtension {
+    String id // ext_id
+    String owner_id // extension's owner
+    String group
+    String name
+    String tree
+    Structure structure
+    Visibility visibility
+    DateTime begin_time
+    DateTime end_time
+}
+
+class ModelIntension {
+    String id // int_id
+    String ext_id
+    String field
+    Boolean single
+    Structure structure
+    Visibility visibility
+    DateTime begin_time
+    DateTime end_time
+}
+
+class ModelTag {
+    String id // m_tag_id
+    String owner_id
+    String ext_id
+    String[] int_id
+    String name // tag_name
+    Visibility visibility
+    DateTime created_at
+}
+
+
+enum Visibility {
+    PRIVATE
+    PROTECTED
+    PUBLIC
+}
+
+
+enum Structure {
+    STRING
+    NATURE
+    BOOL
+    REAL
+    FLOAT
+    COMPLEX
+    DATETIME
+}
+
+class Instance {
+    String id // i_id
+    String owner_id // instance's owner
+    String m_tag_id
+    String field
+    String value
+    String value_set_hash
+    String value_ref_id
+    DateTime begin_time
+    DateTime end_time
+}
+
+class InstanceTag {
+    String id // i_tag_id
+    String owner_id // instance's owner
+    String[] i_id
+    DateTime created_at
+    Visibility visibility
+}
+
+@enduml
+
+
+
