@@ -25,8 +25,13 @@ public class DefaultIntensionDai implements IntensionDai {
 
     @Override
     public void insertIntension(Intension intension) throws IntensionDuplicated {
-        Date beginTime = new Date();
+        Intension oldIntension = intensionMapper.selectLatestIntensionsByExtIdField(intension.getExtId(), intension.getField());
 
+        Date now = new Date();
+
+        if (oldIntension != null) {
+            intensionMapper.updateLatestIntensionEndTimeById(oldIntension.getId(), now);
+        }
         try {
             intensionMapper.insertIntension(
                     intension.getId(),
@@ -34,8 +39,9 @@ public class DefaultIntensionDai implements IntensionDai {
                     intension.getField(),
                     intension.isSingle(),
                     intension.getStructure(),
+                    intension.getRefExtId(),
                     intension.getVisibility(),
-                    beginTime
+                    now
             );
         } catch (DuplicateKeyException duplicated) {
             logger.error("Duplicated-Key:{}", intension.getId());

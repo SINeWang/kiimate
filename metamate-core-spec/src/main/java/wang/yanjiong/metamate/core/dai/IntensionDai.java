@@ -29,8 +29,9 @@ public interface IntensionDai {
 
         private String structure;
 
-        private String visibility;
+        private String refExtId;
 
+        private String visibility;
 
     }
 

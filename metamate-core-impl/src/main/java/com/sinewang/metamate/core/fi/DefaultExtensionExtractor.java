@@ -34,8 +34,8 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
 
         Extension extension = DataTools.copy(extensionForm, Extension.class);
-        BeanUtils.copyProperties(extensionForm, extension);
         extension.setOwnerId(ownerId);
+        BeanUtils.copyProperties(extensionForm, extension);
         String id = hashExtension(extension);
         extension.setId(id);
         return extension;

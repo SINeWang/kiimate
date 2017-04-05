@@ -20,8 +20,14 @@ public interface IntensionMapper {
                          @Param("field") String field,
                          @Param("single") boolean single,
                          @Param("structure") String structure,
+                         @Param("refExtId") String refExtId,
                          @Param("visibility") String visibility,
                          @Param("beginTime") Date beginTime);
 
     List<IntensionDai.Intension> selectIntensionsByExtId(@Param("extId") String extId);
+
+    IntensionDai.Intension selectLatestIntensionsByExtIdField(@Param("extId") String extId, @Param("field") String field);
+
+    void updateLatestIntensionEndTimeById(@Param("id") String id, @Param("endTime") Date endTime);
+
 }

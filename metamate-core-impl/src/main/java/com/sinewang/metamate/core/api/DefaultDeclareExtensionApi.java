@@ -4,10 +4,9 @@ import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.bound.factory.ResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
@@ -18,6 +17,7 @@ import wang.yanjiong.metamate.core.fi.AnVisibilityValidator;
  * Created by WangYanJiong on 3/24/17.
  */
 @RestController
+@RequestMapping("/v1")
 public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
 
 
@@ -34,6 +34,7 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     private AnVisibilityValidator visibilityValidator;
 
     @Override
+    @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<ExtensionReceipt> declareByFormUrlEncoded(
             @ModelAttribute ExtensionForm extensionForm,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,

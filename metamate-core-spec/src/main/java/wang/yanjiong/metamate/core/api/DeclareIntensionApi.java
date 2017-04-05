@@ -16,9 +16,19 @@ import javax.servlet.http.HttpServletRequest;
 public interface DeclareIntensionApi {
 
 
-    @RequestMapping(value = "/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<PropReceipt> declarePropViaFormUrlEncoded(
-            @ModelAttribute PropForm propForm,
+    @RequestMapping(value = "{ownerId}/intension/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    ResponseEntity<IntensionReceipt> declarePropViaFormUrlEncoded1(
+            @ModelAttribute IntensionForm1 intensionForm,
+            @PathVariable("group") String group,
+            @PathVariable("name") String name,
+            @PathVariable("tree") String tree,
+            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
+            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId,
+            HttpServletRequest request);
+
+    @RequestMapping(value = "{ownerId}/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    ResponseEntity<IntensionReceipt> declarePropViaFormUrlEncoded2(
+            @ModelAttribute IntensionForm2 intensionForm,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId,
             HttpServletRequest request);
@@ -26,9 +36,7 @@ public interface DeclareIntensionApi {
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class PropForm {
-
-        private String extId;
+    class IntensionForm1 {
 
         private String field;
 
@@ -36,12 +44,22 @@ public interface DeclareIntensionApi {
 
         private String structure;
 
+        private String refExtId;
+
         private String visibility;
     }
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class PropReceipt {
+    class IntensionForm2 extends IntensionForm1 {
+
+        private String extId;
+
+    }
+
+    @Data
+    @EqualsAndHashCode(callSuper = false)
+    class IntensionReceipt {
 
         private String id;
 
@@ -52,6 +70,8 @@ public interface DeclareIntensionApi {
         private boolean single;
 
         private String structure;
+
+        private String refExtId;
 
         private String visibility;
 
