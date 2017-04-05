@@ -25,6 +25,8 @@ public interface AnIntensionExtractor {
 
         private String structure;
 
+
+
         private boolean single;
     }
 }
