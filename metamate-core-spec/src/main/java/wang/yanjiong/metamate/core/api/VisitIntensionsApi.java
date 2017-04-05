@@ -12,7 +12,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/v1")
-public interface GetIntensionsApi {
+public interface VisitIntensionsApi {
 
     @RequestMapping(value = "/intensions/{group}/{name}/{tree.+}", method = RequestMethod.GET)
     ResponseEntity<Extension> readIntensionsByGroupNameVersion(

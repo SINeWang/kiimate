@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-import wang.yanjiong.metamate.core.api.GetIntensionsApi;
+import wang.yanjiong.metamate.core.api.VisitIntensionsApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 
@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @RestController
-public class DefaultGetIntensionsApi implements GetIntensionsApi {
+public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
     @Autowired
     private IntensionDai intensionDai;

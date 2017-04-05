@@ -10,7 +10,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/v1")
-public interface GetInstancesApi {
+public interface VisitInstancesApi {
 
     @RequestMapping(value = "/instances/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     ResponseEntity<Map<String, String>> readInstancesByGroupNameVersion(
@@ -19,7 +19,7 @@ public interface GetInstancesApi {
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree,
-            @RequestParam("tag") String tag);
+            @RequestParam(value = "tag", defaultValue = "LATEST") String tag);
 
 
 }

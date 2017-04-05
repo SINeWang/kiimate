@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import wang.yanjiong.metamate.core.api.GetInstancesApi;
+import wang.yanjiong.metamate.core.api.VisitInstancesApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 
@@ -19,7 +19,7 @@ import java.util.Map;
  * Created by WangYanJiong on 3/31/17.
  */
 @RestController
-public class DefaultGetInstancesApi implements GetInstancesApi {
+public class DefaultVisitInstancesApi implements VisitInstancesApi {
 
     @Autowired
     private InstanceDai instanceDai;

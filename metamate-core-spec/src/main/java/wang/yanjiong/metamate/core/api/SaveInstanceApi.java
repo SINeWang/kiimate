@@ -16,16 +16,18 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1")
-public interface SetInstanceApi {
+public interface SaveInstanceApi {
 
 
     @RequestMapping(value = "/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
+            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
+            @RequestHeader("X-SUMMER-OperatorId") String operatorId,
+            @RequestHeader("X-SUMMER-RequestId") String requestId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree,
-            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader("X-SUMMER-OperatorId") String operatorId,
+            @RequestParam(value = "tag", required = false, defaultValue = "LATEST") String tag,
             HttpServletRequest request);
 
     @Data
