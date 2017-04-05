@@ -53,7 +53,7 @@ CREATE TABLE `mm_m_crf` (
 -- ----------------------------
 DROP TABLE IF EXISTS `mm_m_ext`;
 CREATE TABLE `mm_m_ext` (
-  `id` varchar(160) NOT NULL COMMENT 'id = hash(group, name, tree)',
+  `id` varchar(160) NOT NULL COMMENT 'id = hash(owner_id, group, name, tree)',
   `group` varchar(32) NOT NULL,
   `name` varchar(32) NOT NULL,
   `tree` varchar(32) NOT NULL,
