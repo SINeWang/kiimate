@@ -19,17 +19,17 @@ public interface SnapshotModelApi {
 
 
     @RequestMapping(value = "/snapshot/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<SnapshotModelReceipt> snapshot(
-            @ModelAttribute SnapshotModelForm snapshotModelForm,
+    ResponseEntity<Receipt> snapshot(
+            @ModelAttribute Form form,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader("X-SUMMER-OperatorId") String operatorId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree);
-    
+
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class SnapshotModelForm {
+    class Form {
 
         private String version;
 
@@ -37,7 +37,7 @@ public interface SnapshotModelApi {
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class SnapshotModelReceipt {
+    class Receipt {
 
         List<Intension> intensions;
 

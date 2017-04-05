@@ -14,7 +14,7 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
 
 
     @Override
-    public Publication extractSnapshot(SnapshotModelApi.SnapshotModelForm form, String ownerId, String extId, String operatorId) throws MissingParamException {
+    public Publication extractSnapshot(SnapshotModelApi.Form form, String ownerId, String extId, String operatorId) throws MissingParamException {
         Publication publication = new Publication();
         publication.setExtId(extId);
         publication.setOperatorId(operatorId);

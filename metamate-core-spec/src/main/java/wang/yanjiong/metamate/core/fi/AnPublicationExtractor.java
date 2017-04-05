@@ -9,7 +9,7 @@ import wang.yanjiong.metamate.core.api.SnapshotModelApi;
  */
 public interface AnPublicationExtractor {
 
-    Publication extractSnapshot(SnapshotModelApi.SnapshotModelForm form,
+    Publication extractSnapshot(SnapshotModelApi.Form form,
                                 String ownerId,
                                 String extId,
                                 String operatorId) throws MissingParamException;

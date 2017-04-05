@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import wang.yanjiong.metamate.core.api.ReleaseModelApi;
 import wang.yanjiong.metamate.core.api.SnapshotModelApi;
 import wang.yanjiong.metamate.core.dai.PublicationDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
@@ -32,8 +31,8 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
     private AnExtensionExtractor extensionExtractor;
 
     @RequestMapping(value = "/snapshot/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<SnapshotModelReceipt> snapshot(
-            @ModelAttribute SnapshotModelForm snapshotModelForm,
+    public ResponseEntity<Receipt> snapshot(
+            @ModelAttribute Form form,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader("X-SUMMER-OperatorId") String operatorId,
             @PathVariable("group") String group,
@@ -43,7 +42,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
         AnPublicationExtractor.Publication extratorPublication;
         try {
             String extId = extensionExtractor.hashId(ownerId, group, name, tree);
-            extratorPublication = publicationExtractor.extractSnapshot(snapshotModelForm, ownerId, extId, operatorId);
+            extratorPublication = publicationExtractor.extractSnapshot(form, ownerId, extId, operatorId);
         } catch (AnPublicationExtractor.MissingParamException e) {
             return ResponseFactory.badRequest(e.getMessage());
         }
@@ -54,7 +53,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
         daiPublication.setPublication(AnPublicationValidator.Publication.SNAPSHOT.name());
         publicationDai.savePublication(daiPublication);
 
-        SnapshotModelReceipt receipt = new SnapshotModelReceipt();
+        Receipt receipt = new Receipt();
 
 
         return ResponseFactory.accepted(receipt, ownerId);

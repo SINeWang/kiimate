@@ -22,13 +22,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class TestPublishModelApi {
 
     @Autowired
-    private ReleaseModelApi releaseModelApi;
+    private SnapshotModelApi snapshotModelApi;
 
     @Test
     public void test() {
-        ReleaseModelApi.ReleaseForm form = new ReleaseModelApi.ReleaseForm();
+        SnapshotModelApi.Form form = new SnapshotModelApi.Form();
         form.setVersion("1.0.0");
-        ResponseEntity<ReleaseModelApi.ReleaseReceipt> response = releaseModelApi.snapshot(
+        ResponseEntity<SnapshotModelApi.Receipt> response = snapshotModelApi.snapshot(
                 form,
                 "wangyj",
                 "testOperatorId",
@@ -37,7 +37,7 @@ public class TestPublishModelApi {
                 "master"
 
         );
-        ReleaseModelApi.ReleaseReceipt receipt = response.getBody();
+        SnapshotModelApi.Receipt receipt = response.getBody();
         Assert.assertNotNull(receipt);
     }
 }
