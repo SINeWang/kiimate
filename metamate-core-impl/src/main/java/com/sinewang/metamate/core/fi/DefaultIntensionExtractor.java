@@ -3,7 +3,7 @@ package com.sinewang.metamate.core.fi;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.stereotype.Service;
-import wang.yanjiong.metamate.core.api.DeclarePropApi;
+import wang.yanjiong.metamate.core.api.DeclareIntensionApi;
 import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 
 /**
@@ -13,7 +13,7 @@ import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 public class DefaultIntensionExtractor implements AnIntensionExtractor {
 
     @Override
-    public Intension parse(DeclarePropApi.PropForm propForm) {
+    public Intension parse(DeclareIntensionApi.PropForm propForm) {
         Intension intension = DataTools.copy(propForm, Intension.class);
         String id = hashId(intension.getExtId(), intension.getField());
         intension.setId(id);

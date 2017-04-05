@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-import wang.yanjiong.metamate.core.api.DeclarePropApi;
+import wang.yanjiong.metamate.core.api.DeclareIntensionApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 @RestController
-public class DefaultDeclarePropApi implements DeclarePropApi {
+public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
 
 
     @Autowired

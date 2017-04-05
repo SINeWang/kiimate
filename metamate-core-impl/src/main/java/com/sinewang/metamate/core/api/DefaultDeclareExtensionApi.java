@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-import wang.yanjiong.metamate.core.api.DeclareNameApi;
+import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fi.AnStructureValidator;
@@ -18,7 +18,7 @@ import wang.yanjiong.metamate.core.fi.AnVisibilityValidator;
  * Created by WangYanJiong on 3/24/17.
  */
 @RestController
-public class DefaultDeclareNameApi implements DeclareNameApi {
+public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
 
 
     @Autowired
@@ -34,14 +34,14 @@ public class DefaultDeclareNameApi implements DeclareNameApi {
     private AnVisibilityValidator visibilityValidator;
 
     @Override
-    public ResponseEntity<NameReceipt> declareByFormUrlEncoded(
-            @ModelAttribute NameForm nameForm,
+    public ResponseEntity<ExtensionReceipt> declareByFormUrlEncoded(
+            @ModelAttribute ExtensionForm extensionForm,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId) {
 
         AnExtensionExtractor.Extension extension;
         try {
-            extension = extensionExtractor.extract(nameForm, ownerId);
+            extension = extensionExtractor.extract(extensionForm, ownerId);
         } catch (AnExtensionExtractor.MissingParamException e) {
             return ResponseFactory.badRequest(e.getMessage());
         }
@@ -60,8 +60,8 @@ public class DefaultDeclareNameApi implements DeclareNameApi {
 
         try {
             extensionDai.insertExtension(daiExtension);
-            NameReceipt nameReceipt = DataTools.copy(daiExtension, NameReceipt.class);
-            return new ResponseEntity<>(nameReceipt, HttpStatus.ACCEPTED);
+            ExtensionReceipt extensionReceipt = DataTools.copy(daiExtension, ExtensionReceipt.class);
+            return new ResponseEntity<>(extensionReceipt, HttpStatus.ACCEPTED);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             return ResponseFactory.badRequest(extensionDuplicated.getMessage());
         }

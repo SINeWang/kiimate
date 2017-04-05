@@ -4,7 +4,7 @@ import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import wang.yanjiong.metamate.core.api.DeclareNameApi;
+import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 
 /**
@@ -14,27 +14,27 @@ import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
     @Override
-    public Extension extract(DeclareNameApi.NameForm nameForm, String ownerId) throws MissingParamException {
+    public Extension extract(DeclareExtensionApi.ExtensionForm extensionForm, String ownerId) throws MissingParamException {
 
-        if (nameForm.getGroup() == null || nameForm.getGroup().isEmpty()) {
+        if (extensionForm.getGroup() == null || extensionForm.getGroup().isEmpty()) {
             throw new MissingParamException("group is NULL or EMPTY");
         }
-        if (nameForm.getName() == null || nameForm.getName().isEmpty()) {
+        if (extensionForm.getName() == null || extensionForm.getName().isEmpty()) {
             throw new MissingParamException("name is NULL or EMPTY");
         }
-        if (nameForm.getTree() == null || nameForm.getTree().isEmpty()) {
+        if (extensionForm.getTree() == null || extensionForm.getTree().isEmpty()) {
             throw new MissingParamException("version is NULL or EMPTY");
         }
-        if (nameForm.getStructure() == null || nameForm.getStructure().isEmpty()) {
+        if (extensionForm.getStructure() == null || extensionForm.getStructure().isEmpty()) {
             throw new MissingParamException("structure is NULL or EMPTY");
         }
-        if (nameForm.getVisibility() == null || nameForm.getVisibility().isEmpty()) {
+        if (extensionForm.getVisibility() == null || extensionForm.getVisibility().isEmpty()) {
             throw new MissingParamException("visibility is NULL or EMPTY");
         }
 
 
-        Extension extension = DataTools.copy(nameForm, Extension.class);
-        BeanUtils.copyProperties(nameForm, extension);
+        Extension extension = DataTools.copy(extensionForm, Extension.class);
+        BeanUtils.copyProperties(extensionForm, extension);
         extension.setOwnerId(ownerId);
         String id = hashExtension(extension);
         extension.setId(id);
