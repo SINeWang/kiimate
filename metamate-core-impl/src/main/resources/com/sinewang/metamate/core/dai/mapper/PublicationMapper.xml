@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sinewang.metamate.core.dai.mapper.PublicationMapper">
+
+    <resultMap id="Publication" type="wang.yanjiong.metamate.core.dai.PublicationDai$Publication">
+        <result column="id" property="id"/>
+        <result column="owner_id" property="ownerId"/>
+        <result column="ext_id" property="extId"/>
+        <result column="int_id" property="intId"/>
+        <result column="version" property="version"/>
+        <result column="pub" property="publication"/>
+        <result column="operator_id" property="operatorId"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <insert id="insertPublication">
+        INSERT INTO mm_m_pub
+        (id, owner_id, ext_id, int_id, version, pub, operator_id, created_at)
+        VALUES
+        (#{id}, #{owner_id}, #{ext_id}, #{int_id}, #{version}, #{pub}, #{operatorId}, #{createdAt})
+    </insert>
+
+    <select id="selectPublicationByExtIdPubVersion" resultMap="Publication">
+        SELECT id, owner_id, ext_id, int_id, version, pub, operator_id, created_at
+        FROM  mm_m_pub
+        WHERE ext_id = #{ext_id} AND pub = #{publication} AND version = #{version}
+    </select>
+</mapper>

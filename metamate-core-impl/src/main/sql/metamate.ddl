@@ -78,7 +78,7 @@ CREATE TABLE `mm_m_int` (
   `is_single` tinyint(1) NOT NULL,
   `visibility` varchar(16) NOT NULL COMMENT 'the visibility of scope',
   `structure` varchar(16) DEFAULT NULL,
-  `ref_ext_id` varchar(160) NOT NULL,
+  `ref_ext_id` varchar(160),
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`,`begin_time`)
@@ -98,6 +98,22 @@ CREATE TABLE `mm_m_crf` (
   `end_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='cross-reference of intension';
+
+-- ----------------------------
+--  Table structure for `mm_m_pub`
+-- ----------------------------
+DROP TABLE IF EXISTS `mm_m_pub`;
+CREATE TABLE `mm_m_pub` (
+  `id` varchar(160) NOT NULL COMMENT 'hash(owner_id, ext_id, int_id, version, pub)',
+  `owner_id` varchar(160) NOT NULL,
+  `ext_id` varchar(160) NOT NULL,
+  `int_id` varchar(160) NOT NULL,
+  `version` varchar(32) NOT NULL,
+  `pub` varchar(32) NOT NULL,
+  `operator_id` varchar(160) NOT NULL,
+  `created_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='model publication';
 
 
 SET FOREIGN_KEY_CHECKS = 1;

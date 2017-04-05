@@ -1,10 +1,10 @@
 @startuml
 
 
-ModelTag "1" --|>  "1" ModelExtension
-ModelTag "1" --|>  "n" ModelIntension
+ModelPublication "1" --|>  "1" ModelExtension
+ModelPublication "1" --|>  "n" ModelIntension
 
-Instance "1" --|>  "1" ModelTag
+Instance "1" --|>  "1" ModelPublication
 
 Instance "1" --|>  "n" InstanceTag
 
@@ -34,23 +34,16 @@ class ModelIntension {
     DateTime end_time
 }
 
-class ModelTag {
+class ModelPublication {
     String id // m_tag_id
     String owner_id
     String ext_id
     String[] int_id
-    String name // tag_name
+    String version
+    Publication publication
     Visibility visibility
     DateTime created_at
 }
-
-
-enum Visibility {
-    PRIVATE
-    PROTECTED
-    PUBLIC
-}
-
 
 enum Structure {
     STRING
@@ -60,6 +53,17 @@ enum Structure {
     FLOAT
     COMPLEX
     DATETIME
+}
+
+enum Publication {
+    SNAPSHOT
+    RELEASE
+}
+
+enum Visibility {
+    PRIVATE
+    PROTECTED
+    PUBLIC
 }
 
 class Instance {
@@ -78,6 +82,7 @@ class InstanceTag {
     String id // i_tag_id
     String owner_id // instance's owner
     String[] i_id
+    Publication publication
     DateTime created_at
     Visibility visibility
 }

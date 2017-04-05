@@ -24,7 +24,7 @@ public interface IntensionMapper {
                          @Param("visibility") String visibility,
                          @Param("beginTime") Date beginTime);
 
-    List<IntensionDai.Intension> selectIntensionsByExtId(@Param("extId") String extId);
+    List<IntensionDai.Intension> selectLatestIntensionsByExtId(@Param("extId") String extId);
 
     IntensionDai.Intension selectLatestIntensionsByExtIdField(@Param("extId") String extId, @Param("field") String field);
 

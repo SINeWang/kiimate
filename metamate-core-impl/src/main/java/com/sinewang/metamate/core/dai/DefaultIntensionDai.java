@@ -51,7 +51,7 @@ public class DefaultIntensionDai implements IntensionDai {
 
     @Override
     public List<Intension> selectIntensionsByExtId(String extId) {
-        List<Intension> intensions = intensionMapper.selectIntensionsByExtId(extId);
+        List<Intension> intensions = intensionMapper.selectLatestIntensionsByExtId(extId);
         return intensions;
     }
 

@@ -19,8 +19,8 @@ import wang.yanjiong.metamate.core.dai.ExtensionDai;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.metamate.core")
-@SpringBootTest(classes = {DeclareExtensionApiTest.class})
-public class DeclareExtensionApiTest {
+@SpringBootTest(classes = {TestDeclareExtensionApi.class})
+public class TestDeclareExtensionApi {
 
     @Autowired
     private DeclareExtensionApi declareExtensionApi;

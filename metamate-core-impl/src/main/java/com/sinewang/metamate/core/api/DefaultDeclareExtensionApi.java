@@ -49,7 +49,7 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
 
         boolean isValidStructure = structureValidator.isValid(extension.getStructure());
         if (!isValidStructure) {
-            return ResponseFactory.badRequest("invalid Structure");
+            return ResponseFactory.badRequest("invalid Publication");
         }
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
