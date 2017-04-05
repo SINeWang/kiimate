@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/v1")
-public interface DeclareIntensionApi {
+public interface DeclareModelReferencesApi {
 
 
-    @RequestMapping(value = "/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/references/model", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<PropReceipt> declarePropViaFormUrlEncoded(
             @ModelAttribute PropForm propForm,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
@@ -30,7 +30,7 @@ public interface DeclareIntensionApi {
 
         private String extId;
 
-        private String field;
+        private String intId;
 
         private boolean single;
 

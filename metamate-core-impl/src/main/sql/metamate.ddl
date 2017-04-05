@@ -60,6 +60,21 @@ CREATE TABLE `mm_m_crf` (
   `ref_id` varchar(160) NOT NULL,
   `exc_name` varchar(32) DEFAULT NULL,
   `inc_name` varchar(32) DEFAULT NULL,
+  `begin_time` datetime NOT NULL,
+  `end_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`begin_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='cross-reference of intension';
+
+-- ----------------------------
+--  Table structure for `mm_m_crf`
+-- ----------------------------
+DROP TABLE IF EXISTS `mm_m_crf`;
+CREATE TABLE `mm_m_crf` (
+  `id` varchar(160) NOT NULL COMMENT 'id = hash(int_id, ref_id, exc_name, inc_name)',
+  `int_id` varchar(160) NOT NULL,
+  `ref_id` varchar(160) NOT NULL,
+  `exc_name` varchar(32) DEFAULT NULL,
+  `inc_name` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='cross-reference of intension';
 

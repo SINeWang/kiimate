@@ -31,7 +31,7 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
     public ResponseEntity<PropReceipt> declarePropViaFormUrlEncoded(
             @ModelAttribute PropForm propForm,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
+            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId,
             HttpServletRequest request) {
 
         AnIntensionExtractor.Intension intension = anIntensionExtractor.parse(propForm);
