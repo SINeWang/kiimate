@@ -3,11 +3,6 @@ buildscript {
         classpath 'org.hibernate.build.gradle:gradle-maven-publish-auth:2.0.1'
         classpath 'com.netflix.nebula:gradle-dependency-lock-plugin:4.+'
     }
-//    repositories {
-//        maven {
-//            url "http://nexus.sinewang.com/repository/maven-public/"
-//        }
-//    }
 }
 
 plugins {
@@ -47,13 +42,6 @@ subprojects {
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
         testCompile "junit:junit:${junitVersion}"
     }
-
-//    repositories {
-//        maven {
-//            url "http://nexus.sinewang.com/repository/maven-public/"
-//        }
-//        mavenLocal()
-//    }
 
     release {
         tagTemplate = '$name-$version'
