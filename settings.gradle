@@ -1,4 +1,4 @@
-rootProject.name = 'one.kii.metamate'
+rootProject.name = 'metamate'
 
 include 'metamate-core-impl'
 include 'metamate-core-spec'

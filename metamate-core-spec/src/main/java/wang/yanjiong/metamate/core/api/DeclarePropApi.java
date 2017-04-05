@@ -2,8 +2,6 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.bound.Request;
-import one.kii.summer.bound.Response;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +25,7 @@ public interface DeclarePropApi {
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class PropForm extends Request {
+    class PropForm {
 
         private String extId;
 
@@ -42,7 +40,7 @@ public interface DeclarePropApi {
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class PropReceipt extends Response {
+    class PropReceipt {
 
         private String id;
 

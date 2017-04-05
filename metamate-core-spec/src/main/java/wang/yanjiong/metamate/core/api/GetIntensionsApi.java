@@ -2,7 +2,6 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.bound.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +25,7 @@ public interface GetIntensionsApi {
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class Extension extends Response {
+    class Extension {
 
         private String extId;
 
