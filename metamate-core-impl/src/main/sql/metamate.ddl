@@ -36,6 +36,21 @@ CREATE TABLE `mm_i_tag` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+--  Table structure for `mm_m_tag`
+-- ----------------------------
+DROP TABLE IF EXISTS `mm_m_tag`;
+CREATE TABLE `mm_m_tag` (
+  `id` varchar(160) NOT NULL COMMENT 'id = hash(owner_id, ext_id, int_id, name)',
+  `owner_id` varchar(160) NOT NULL,
+  `ext_id` varchar(160) NOT NULL,
+  `int_id` varchar(160) NOT NULL,
+  `name` varchar(64) NOT NULL COMMENT 'tag_name',
+  `visibility` varchar(16) NOT NULL,
+  `created_at` datetime NOT NULL,
+  UNIQUE KEY `mm_m_tag_id_uindex` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='model_tag';
+
+-- ----------------------------
 --  Table structure for `mm_m_crf`
 -- ----------------------------
 DROP TABLE IF EXISTS `mm_m_crf`;
