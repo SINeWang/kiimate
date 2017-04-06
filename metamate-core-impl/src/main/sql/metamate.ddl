@@ -103,7 +103,7 @@ CREATE TABLE `mm_m_crf` (
 DROP TABLE IF EXISTS `mm_m_pub`;
 CREATE TABLE `mm_m_pub` (
   `id` varchar(160) NOT NULL COMMENT 'hash(owner_id, ext_id, int_id, version, pub)',
-  `owner_id` varchar(160) NOT NULL,
+  `provider_id` varchar(160) NOT NULL,
   `ext_id` varchar(160) NOT NULL,
   `int_id` varchar(160) NOT NULL,
   `version` varchar(32) NOT NULL,

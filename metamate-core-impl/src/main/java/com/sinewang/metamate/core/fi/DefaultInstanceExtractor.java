@@ -25,13 +25,13 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     private AnIntensionExtractor anIntensionExtractor;
 
     @Override
-    public List<Instance> extract(String ownerId, String group, String name, String tree, String operatorId, Map<String, String[]> map) {
+    public List<Instance> extract(String ownerId, String group, String name, String tree, String operatorId, Map<String, List<String>> map) {
         String extId = anExtensionExtractor.hashId(ownerId, group, name, tree);
         List<Instance> instances = new ArrayList<>();
 
         for (String field : map.keySet()) {
             String intId = anIntensionExtractor.hashId(extId, field);
-            String[] values = cleanUpValues(map.get(field));
+            String[] values = cleanUpValues(map.get(field).toArray(new String[0]));
             String id = HashTools.hashHex(intId, ownerId);
             String[] both = StringUtils.mergeStringArrays(new String[]{id}, values);
             id = HashTools.hashHex(both);

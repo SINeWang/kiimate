@@ -50,6 +50,8 @@ public class TestSnapshotModelApi {
     @Autowired
     private PublicationMapper publicationMapper;
 
+    private String providerId = "testProviderId";
+
     private String ownerId = "testOwnerId";
 
     private String group = "testGroup";
@@ -70,6 +72,13 @@ public class TestSnapshotModelApi {
     private String version = "1.0.0";
     @Before
     public void before() {
+        this.extId = extensionExtractor.hashId(ownerId, group, name, tree);
+
+        publicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
+        extensionDai.deleteExtensionById(extId);
+        intensionDai.deleteIntensionsByExitId(extId);
+
+
 
         ExtensionDai.Extension extension = new ExtensionDai.Extension();
 
@@ -83,7 +92,6 @@ public class TestSnapshotModelApi {
 
         extension.setVisibility(visibility);
 
-        this.extId = extensionExtractor.hashId(ownerId, group, name, tree);
 
         extension.setId(extId);
 
@@ -94,6 +102,8 @@ public class TestSnapshotModelApi {
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             extensionDuplicated.printStackTrace();
         }
+
+
 
         IntensionDai.Intension intension = new IntensionDai.Intension();
 
@@ -118,10 +128,11 @@ public class TestSnapshotModelApi {
     public void test() {
         SnapshotModelApi.Form form = new SnapshotModelApi.Form();
         form.setVersion(version);
-        publicationMapper.deletePublicationByExtIdPubVersion(extId, "SNAPSHOT", version);
+        publicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
 
         ResponseEntity<SnapshotModelApi.Receipt> response = snapshotModelApi.snapshot(
                 form,
+                providerId,
                 ownerId,
                 operatorId,
                 group,
@@ -132,13 +143,14 @@ public class TestSnapshotModelApi {
         Assert.assertNotNull(receipt);
         Assert.assertEquals(version, receipt.getVersion());
         Assert.assertEquals(fields.length, intensions.size());
-
+        Assert.assertEquals(ownerId, receipt.getOwnerId());
+        Assert.assertEquals(providerId, receipt.getProviderId());
     }
 
     @After
     public void after() {
         extensionDai.deleteExtensionById(extId);
         intensionDai.deleteIntensionsByExitId(extId);
-        publicationMapper.deletePublicationByExtIdPubVersion(extId, "SNAPSHOT", version);
+        publicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
     }
 }

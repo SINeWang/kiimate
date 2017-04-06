@@ -6,12 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigurationExcludeFilter;
-import org.springframework.boot.context.TypeExcludeFilter;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,8 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.metamate.core")
-@SpringBootTest(classes = {ExtensionDaiTest.class})
-public class ExtensionDaiTest {
+@SpringBootTest(classes = {TestExtensionDai.class})
+public class TestExtensionDai {
 
     String testId = "testId";
     String testOwnerId = "testOwnerId";

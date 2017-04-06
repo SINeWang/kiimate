@@ -15,7 +15,7 @@ public interface PublicationMapper {
 
     void insertPublication(
             @Param("id") String id,
-            @Param("ownerId") String ownerId,
+            @Param("providerId") String providerId,
             @Param("extId") String extId,
             @Param("intId") String intId,
             @Param("version") String version,
@@ -23,12 +23,14 @@ public interface PublicationMapper {
             @Param("operatorId") String operatorId,
             @Param("createdAt") Date createdAt);
 
-    List<PublicationDai.Publication> selectPublicationByExtIdPubVersion(
+    List<PublicationDai.Publication> selectPublicationByProviderIdExtIdPubVersion(
+            @Param("providerId") String providerId,
             @Param("extId") String extId,
             @Param("publication") String publication,
             @Param("version") String version);
 
-    void deletePublicationByExtIdPubVersion(
+    void deletePublicationByProviderIdExtIdPubVersion(
+            @Param("providerId") String providerId,
             @Param("extId") String extId,
             @Param("publication") String publication,
             @Param("version") String version);

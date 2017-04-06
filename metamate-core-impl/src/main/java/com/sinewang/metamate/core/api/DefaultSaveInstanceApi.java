@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +16,6 @@ import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,14 +45,14 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("version") String version,
-            HttpServletRequest request) {
+            @RequestParam MultiValueMap<String, String> map) {
 
         String extId = extensionExtractor.hashId(ownerId, group, name, version);
 
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(
                 ownerId,
                 group, name, version,
-                operatorId, request.getParameterMap());
+                operatorId, map);
 
         List<InstanceDai.Instances> instances1 = DataTools.copy(instances, InstanceDai.Instances.class);
 

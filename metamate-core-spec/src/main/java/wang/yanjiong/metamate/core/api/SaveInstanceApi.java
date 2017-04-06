@@ -4,9 +4,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -27,7 +27,7 @@ public interface SaveInstanceApi {
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("version") String version,
-            HttpServletRequest request);
+            @RequestParam MultiValueMap<String, String> map);
 
     @Data
     @EqualsAndHashCode(callSuper = false)

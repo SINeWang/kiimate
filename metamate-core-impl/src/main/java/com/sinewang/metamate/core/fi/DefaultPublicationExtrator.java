@@ -16,11 +16,11 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
 
 
     @Override
-    public Publication extractSnapshot(SnapshotModelApi.Form form, String ownerId, String extId, String operatorId) throws MissingParamException {
+    public Publication extractSnapshot(SnapshotModelApi.Form form, String providerId, String extId, String operatorId) throws MissingParamException {
         Publication publication = new Publication();
         publication.setExtId(extId);
         publication.setOperatorId(operatorId);
-        publication.setOwnerId(ownerId);
+        publication.setProviderId(providerId);
         publication.setVersion(form.getVersion());
         publication.setPublication(AnPublicationValidator.Publication.SNAPSHOT.name());
         publication.setCreatedAt(new Date());
@@ -28,11 +28,11 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
     }
 
     @Override
-    public Publication extractRelease(ReleaseModelApi.ReleaseForm form, String ownerId, String extId, String operatorId) throws MissingParamException {
+    public Publication extractRelease(ReleaseModelApi.ReleaseForm form, String providerId, String extId, String operatorId) throws MissingParamException {
         Publication publication = new Publication();
         publication.setExtId(extId);
         publication.setOperatorId(operatorId);
-        publication.setOwnerId(ownerId);
+        publication.setProviderId(providerId);
         publication.setVersion(form.getVersion());
         publication.setPublication(AnPublicationValidator.Publication.RELEASE.name());
         publication.setCreatedAt(new Date());

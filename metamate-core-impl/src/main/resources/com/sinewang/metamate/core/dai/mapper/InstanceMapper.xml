@@ -22,7 +22,7 @@
         FROM mm_i_ins mins, mm_m_pub mpub, mm_m_int mint
         WHERE mins.m_pub_id = mpub.id
         AND mint.id = mpub.int_id
-        AND mins.owner_id = #{ownerId} AND mins.ext_id = #{extId} AND mins.end_time IS NULL
+        AND mins.owner_id = #{ownerId} AND mpub.ext_id = #{extId} AND mins.end_time IS NULL
     </select>
 
     <select id="selectLatestInstancesByOwnerIds" resultType="string">

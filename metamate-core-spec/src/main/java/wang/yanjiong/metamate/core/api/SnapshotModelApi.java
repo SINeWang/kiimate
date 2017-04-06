@@ -21,6 +21,7 @@ public interface SnapshotModelApi {
     @RequestMapping(value = "/snapshot/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> snapshot(
             @ModelAttribute Form form,
+            @RequestHeader("X-SUMMER-ProviderId") String providerId,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader("X-SUMMER-OperatorId") String operatorId,
             @PathVariable("group") String group,
@@ -40,6 +41,10 @@ public interface SnapshotModelApi {
     class Receipt {
 
         List<Intension> intensions;
+
+        private String providerId;
+
+        private String ownerId;
 
         private String version;
 

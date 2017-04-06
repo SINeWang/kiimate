@@ -17,7 +17,7 @@ public interface PublicationDai {
     @Data
     class Publication {
         String id;
-        String ownerId;
+        String providerId;
         String extId;
         String intId;
         String version;

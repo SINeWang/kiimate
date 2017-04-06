@@ -15,7 +15,6 @@ import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
 import wang.yanjiong.metamate.core.fi.AnPublicationValidator;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,6 +41,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
     @RequestMapping(value = "/snapshot/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> snapshot(
             @ModelAttribute Form form,
+            @RequestHeader("X-SUMMER-ProviderId") String providerId,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader("X-SUMMER-OperatorId") String operatorId,
             @PathVariable("group") String group,
@@ -52,7 +52,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
         String extId = extensionExtractor.hashId(ownerId, group, name, tree);
         try {
-            snapshot = publicationExtractor.extractSnapshot(form, ownerId, extId, operatorId);
+            snapshot = publicationExtractor.extractSnapshot(form, providerId, extId, operatorId);
         } catch (AnPublicationExtractor.MissingParamException e) {
             return ResponseFactory.badRequest(e.getMessage());
         }
@@ -62,7 +62,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
         for (IntensionDai.Intension intension : intensions) {
 
             String id = HashTools.hashHex(
-                    ownerId,
+                    providerId,
                     extId,
                     intension.getId(),
                     snapshot.getVersion(),
@@ -87,7 +87,11 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
         receipt.setIntensions(snapshotIntensions);
 
-        return ResponseFactory.accepted(receipt, ownerId);
+        receipt.setProviderId(providerId);
+
+        receipt.setOwnerId(ownerId);
+
+        return ResponseFactory.accepted(receipt, providerId);
 
     }
 }

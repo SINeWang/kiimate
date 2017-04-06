@@ -12,19 +12,19 @@ import java.util.Date;
 public interface AnPublicationExtractor {
 
     Publication extractSnapshot(SnapshotModelApi.Form form,
-                                String ownerId,
+                                String providerId,
                                 String extId,
                                 String operatorId) throws MissingParamException;
 
     Publication extractRelease(ReleaseModelApi.ReleaseForm form,
-                               String ownerId,
+                               String providerId,
                                String extId,
                                String operatorId) throws MissingParamException;
 
     @Data
     class Publication {
 
-        private String ownerId;
+        private String providerId;
 
         private String extId;
 

@@ -21,7 +21,7 @@ public class DefaultPublicationDai implements PublicationDai {
         for (Publication publication : publications) {
             publicationMapper.insertPublication(
                     publication.getId(),
-                    publication.getOwnerId(),
+                    publication.getProviderId(),
                     publication.getExtId(),
                     publication.getIntId(),
                     publication.getVersion(),
