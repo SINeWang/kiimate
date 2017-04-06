@@ -25,6 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class ExtensionDaiTest {
 
     String testId = "testId";
+    String testOwnerId = "testOwnerId";
     String testGroup = "testGroup";
     String testName = "testName";
     String testTree = "testTree";
@@ -54,6 +55,7 @@ public class ExtensionDaiTest {
 
         ExtensionDai.Extension extension = new ExtensionDai.Extension();
         extension.setGroup(testGroup);
+        extension.setOwnerId(testOwnerId);
         extension.setName(testName);
         extension.setTree(testTree);
         extension.setStructure(testStructure);
@@ -68,6 +70,7 @@ public class ExtensionDaiTest {
         ExtensionDai.Extension dbExtension = extensionDai.selectExtensionById(testId);
 
         Assert.assertEquals(dbExtension.getId(), testId);
+        Assert.assertEquals(dbExtension.getOwnerId(), testOwnerId);
         Assert.assertEquals(dbExtension.getGroup(), testGroup);
         Assert.assertEquals(dbExtension.getName(), testName);
         Assert.assertEquals(dbExtension.getTree(), testTree);
@@ -79,6 +82,7 @@ public class ExtensionDaiTest {
     public void testSecondInsert() {
         ExtensionDai.Extension extension = new ExtensionDai.Extension();
         extension.setGroup(testGroup);
+        extension.setOwnerId(testOwnerId);
         extension.setName(testName);
         extension.setTree(testTree);
         extension.setStructure(testStructure);

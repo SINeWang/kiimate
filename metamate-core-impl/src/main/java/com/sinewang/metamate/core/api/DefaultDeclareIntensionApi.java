@@ -34,8 +34,7 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
             @PathVariable("name") String name,
             @PathVariable("tree") String tree,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId,
-            HttpServletRequest request) {
+            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId) {
         AnIntensionExtractor.Intension intension = anIntensionExtractor.parseForm1(ownerId, group, name, tree, intensionForm);
 
         return getIntensionReceiptResponseEntity(ownerId, intension);
@@ -45,8 +44,7 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
     public ResponseEntity<IntensionReceipt> declarePropViaFormUrlEncoded2(
             @ModelAttribute IntensionForm2 intensionForm,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId,
-            HttpServletRequest request) {
+            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId) {
 
         AnIntensionExtractor.Intension intension = anIntensionExtractor.parseForm2(intensionForm);
 

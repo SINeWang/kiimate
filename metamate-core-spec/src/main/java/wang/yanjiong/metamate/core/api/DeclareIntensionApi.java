@@ -23,15 +23,13 @@ public interface DeclareIntensionApi {
             @PathVariable("name") String name,
             @PathVariable("tree") String tree,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId,
-            HttpServletRequest request);
+            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId);
 
     @RequestMapping(value = "{ownerId}/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<IntensionReceipt> declarePropViaFormUrlEncoded2(
             @ModelAttribute IntensionForm2 intensionForm,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId,
-            HttpServletRequest request);
+            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId);
 
 
     @Data

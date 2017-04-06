@@ -30,7 +30,7 @@ import java.util.List;
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.metamate.core")
 @SpringBootTest(classes = {TestDeclareExtensionApi.class})
-public class TestPublishModelApi {
+public class TestSnapshotModelApi {
 
     @Autowired
     private SnapshotModelApi snapshotModelApi;
@@ -130,6 +130,7 @@ public class TestPublishModelApi {
         SnapshotModelApi.Receipt receipt = response.getBody();
         List<SnapshotModelApi.Intension> intensions =  receipt.getIntensions();
         Assert.assertNotNull(receipt);
+        Assert.assertEquals(version, receipt.getVersion());
         Assert.assertEquals(fields.length, intensions.size());
 
     }
