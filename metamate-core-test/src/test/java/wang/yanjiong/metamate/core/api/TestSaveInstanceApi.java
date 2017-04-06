@@ -152,16 +152,6 @@ public class TestSaveInstanceApi {
         ).getBody();
 
         Assert.assertEquals(3, instances.size());
-        for (SaveInstanceApi.Instance instance : instances) {
-            if (instance.getField().equals(keyA)) {
-                String[] v = instance.getValue();
-                Arrays.sort(v);
-                Assert.assertArrayEquals(valueOfA, v);
-            } else if (instance.getField().equals(keyB)) {
-                String v = instance.getValue()[0];
-                Assert.assertEquals(valueOfB, v);
-            }
-        }
 
 
         Map<String, Object> instancesMap = visitInstancesApi.readInstancesByGroupNameVersion(
