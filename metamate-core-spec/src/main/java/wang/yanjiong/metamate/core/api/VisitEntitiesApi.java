@@ -16,6 +16,7 @@ public interface VisitEntitiesApi {
     @RequestMapping(value = "/{ownerId}/entities/{group}/{name}/{version:.+}", method = RequestMethod.GET)
     ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
+            @RequestHeader("X-MM-ExtId") String extId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
