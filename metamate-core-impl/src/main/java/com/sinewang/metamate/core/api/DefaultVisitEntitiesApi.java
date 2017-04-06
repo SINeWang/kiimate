@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.VisitEntitiesApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
+import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 import wang.yanjiong.metamate.core.fi.AnStructureValidator;
 
 import java.util.HashMap;
@@ -27,23 +28,29 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
     @Autowired
     private ExtensionDai extensionDai;
 
+    @Autowired
+    private ModelSubscriptionDai modelSubscriptionDai;
+
     @Override
     @RequestMapping(value = "/{ownerId}/entities/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
-            @RequestHeader("X-MM-ExtId") String extId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
 
+        ModelSubscriptionDai.ModelSubscription subscription = modelSubscriptionDai.getLatestSubscriptionBySubscriberIdGroupNameTree(
+                ownerId, group, name, tree);
+
+        String extId = subscription.getExtId();
         Map<String, Object> map = visitInstance(ownerId, extId);
 
         return ResponseFactory.accepted(map, ownerId);
     }
 
     private Map<String, Object> visitInstance(String ownerId, String extId) {
-        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceByOwnerIdExtId(extId, ownerId);
+        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceByOwnerIdExtId(ownerId, extId);
 
         Map<String, Object> map = new HashMap<>();
 

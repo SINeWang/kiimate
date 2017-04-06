@@ -18,6 +18,8 @@ public interface ModelSubscriptionDai {
     class ModelSubscription {
         private String id;
 
+        private String pubExtId;
+
         private String providerId;
 
         private String extId;

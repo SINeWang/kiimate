@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.SubscribeModelApi;
+import wang.yanjiong.metamate.core.dai.IntensionDai;
+import wang.yanjiong.metamate.core.dai.ModelPublicationDai;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
+import wang.yanjiong.metamate.core.fi.AnStructureValidator;
 import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
+
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 4/6/17.
@@ -23,6 +28,12 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
+
+    @Autowired
+    private ModelPublicationDai modelPublicationDai;
+
+    @Autowired
+    private IntensionDai intensionDai;
 
     @Override
     public ResponseEntity<Receipt> subscribe(
@@ -38,6 +49,21 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
                 form, providerId, extId, publication, version, subscriberId, operatorId);
 
         ModelSubscriptionDai.ModelSubscription subscription = DataTools.copy(modelSubscription, ModelSubscriptionDai.ModelSubscription.class);
+
+//        List<IntensionDai.Intension> intensions = modelPublicationDai.savePublications();
+//
+//        for (IntensionDai.Intension intension : intensions) {
+//            if (intension.getStructure().equals(AnStructureValidator.Structure.IMPORT.name())) {
+//                ModelSubscriptionDai.ModelSubscription subSubcription = new ModelSubscriptionDai.ModelSubscription();
+//                subSubcription.setExtId(intension.getExtId());
+//                subSubcription.setOperatorId(operatorId);
+//                subSubcription.setProviderId();
+//                subSubcription.setSubscriberId(subscriberId);
+//                subSubcription.setPublication();
+//                subSubcription.setGroup();
+//
+//            }
+//        }
 
         modelSubscriptionDai.save(subscription);
 

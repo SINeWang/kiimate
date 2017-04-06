@@ -15,6 +15,7 @@ public interface ModelPublicationMapper {
 
     void insertPublication(
             @Param("id") String id,
+            @Param("pubExtId") String pubExtId,
             @Param("providerId") String providerId,
             @Param("extId") String extId,
             @Param("intId") String intId,
@@ -24,14 +25,13 @@ public interface ModelPublicationMapper {
             @Param("createdAt") Date createdAt);
 
     List<ModelPublicationDai.Publication> selectPublicationByProviderIdExtIdPubVersion(
-            @Param("providerId") String providerId,
-            @Param("extId") String extId,
-            @Param("publication") String publication,
-            @Param("version") String version);
+            @Param("pubExtId") String pubExtId);
 
     void deletePublicationByProviderIdExtIdPubVersion(
             @Param("providerId") String providerId,
             @Param("extId") String extId,
             @Param("publication") String publication,
             @Param("version") String version);
+
+    void deletePublicationByProviderId(@Param("providerId") String providerId);
 }

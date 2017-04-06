@@ -41,9 +41,13 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
     }
 
     @Override
-    public String hashId(String providerId, String extId, String intId, String version, String publication) {
-        return HashTools.hashHex(providerId, extId, intId, version, publication);
+    public String hashId(String pubExitId, String intId) {
+        return HashTools.hashHex(pubExitId, intId);
     }
 
+    @Override
+    public String hashPubExtId(String providerId, String extId, String publication, String version) {
+        return HashTools.hashHex(providerId, extId, publication, version);
+    }
 
 }

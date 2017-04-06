@@ -137,14 +137,19 @@ public class TestSnapshotModelApi {
         form.setVersion(version);
         modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
 
-        ResponseEntity<SnapshotModelApi.Receipt> response = snapshotModelApi.snapshot(
-                form,
-                providerId,
-                ownerId,
-                operatorId,
-                group,
-                name,
-                tree);
+        ResponseEntity<SnapshotModelApi.Receipt> response = null;
+        try {
+            response = snapshotModelApi.snapshot(
+                    form,
+                    providerId,
+                    ownerId,
+                    operatorId,
+                    group,
+                    name,
+                    tree);
+        } catch (SnapshotModelApi.RefereceExtensionHasNotBeenPublished refereceExtensionHasNotBeenPublished) {
+            refereceExtensionHasNotBeenPublished.printStackTrace();
+        }
         SnapshotModelApi.Receipt receipt = response.getBody();
         List<SnapshotModelApi.Intension> intensions = receipt.getIntensions();
         Assert.assertNotNull(receipt);

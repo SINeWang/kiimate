@@ -6,6 +6,7 @@
 
     <resultMap id="Publication" type="wang.yanjiong.metamate.core.dai.ModelPublicationDai$Publication">
         <result column="id" property="id"/>
+        <result column="pub_ext_id" property="pubExtId"/>
         <result column="provider_id" property="providerId"/>
         <result column="ext_id" property="extId"/>
         <result column="int_id" property="intId"/>
@@ -17,20 +18,26 @@
 
     <insert id="insertPublication">
         INSERT INTO mm_m_pub
-        (id, provider_id, ext_id, int_id, version, pub, operator_id, created_at)
+        (id, pub_ext_id, provider_id, ext_id, int_id, version, pub, operator_id, created_at)
         VALUES
         (#{id}, #{providerId}, #{extId}, #{intId}, #{version}, #{publication}, #{operatorId}, #{createdAt})
     </insert>
 
     <select id="selectPublicationByProviderIdExtIdPubVersion" resultMap="Publication">
-        SELECT id, provider_id, ext_id, int_id, version, pub, operator_id, created_at
+        SELECT id, pub_ext_id, provider_id, ext_id, int_id, version, pub, operator_id, created_at
         FROM  mm_m_pub
-        WHERE provider_id = #{providerId} AND ext_id = #{extId} AND pub = #{publication} AND version = #{version}
+        WHERE pub_ext_id = #{pubExtId}
     </select>
 
     <delete id="deletePublicationByProviderIdExtIdPubVersion">
         DELETE
         FROM  mm_m_pub
         WHERE provider_id = #{providerId} AND ext_id = #{extId} AND pub = #{publication} AND version = #{version}
+    </delete>
+
+    <delete id="deletePublicationByProviderId">
+        DELETE
+        FROM  mm_m_pub
+        WHERE provider_id = #{providerId}
     </delete>
 </mapper>

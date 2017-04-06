@@ -51,5 +51,10 @@
         (#{id}, #{ownerId}, #{pubId}, #{value}, #{valueSetHash}, #{valueRefId}, #{operatorId}, #{beginTime})
     </insert>
 
+    <delete id="deleteInstanceByOwnerId">
+        DELETE FROM
+        mm_i_ins
+        WHERE owner_id = #{ownerId}
+    </delete>
 
 </mapper>

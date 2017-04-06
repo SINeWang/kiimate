@@ -13,12 +13,11 @@ import java.util.Map;
 @RequestMapping("/v1")
 public interface VisitEntitiesApi {
 
-    @RequestMapping(value = "/{ownerId}/entities/{group}/{name}/{version:.+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{ownerId}/entities/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
-            @RequestHeader("X-MM-ExtId") String extId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
-            @PathVariable("version") String version);
+            @PathVariable("tree") String tree);
 }

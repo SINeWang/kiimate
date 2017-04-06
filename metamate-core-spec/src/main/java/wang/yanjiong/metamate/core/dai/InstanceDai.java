@@ -14,7 +14,7 @@ public interface InstanceDai {
     void insertInstances(List<Instances> instances) throws InstanceDuplicated;
 
 
-    List<Instance> selectLatestInstanceByOwnerIdExtId(String extId, String ownerId);
+    List<Instance> selectLatestInstanceByOwnerIdExtId(String ownerId, String extId);
 
 
     @Data

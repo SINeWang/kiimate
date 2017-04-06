@@ -21,6 +21,7 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
         for (Publication publication : publications) {
             modelPublicationMapper.insertPublication(
                     publication.getId(),
+                    publication.getPubExtId(),
                     publication.getProviderId(),
                     publication.getExtId(),
                     publication.getIntId(),
@@ -30,5 +31,10 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
                     publication.getCreatedAt()
             );
         }
+    }
+
+    @Override
+    public List<Publication> getPublicationByProviderIdExtId(String pubExtId) {
+        return modelPublicationMapper.selectPublicationByProviderIdExtIdPubVersion(pubExtId);
     }
 }

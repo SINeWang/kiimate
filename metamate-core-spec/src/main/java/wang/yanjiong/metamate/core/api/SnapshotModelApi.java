@@ -26,7 +26,7 @@ public interface SnapshotModelApi {
             @RequestHeader("X-SUMMER-OperatorId") String operatorId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
-            @PathVariable("tree") String tree);
+            @PathVariable("tree") String tree) throws RefereceExtensionHasNotBeenPublished;
 
     @Data
     @EqualsAndHashCode(callSuper = false)
@@ -59,6 +59,13 @@ public interface SnapshotModelApi {
         String field;
 
         boolean single;
+    }
+
+    class RefereceExtensionHasNotBeenPublished extends Exception {
+
+        public RefereceExtensionHasNotBeenPublished(String message) {
+            super(message);
+        }
     }
 
 }

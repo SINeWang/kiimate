@@ -14,9 +14,12 @@ public interface ModelPublicationDai {
     @Transactional
     void savePublications(List<Publication> publication);
 
+    List<Publication> getPublicationByProviderIdExtId(String pubExtId);
+
     @Data
     class Publication {
         String id;
+        String pubExtId;
         String providerId;
         String extId;
         String intId;

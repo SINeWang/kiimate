@@ -1,5 +1,6 @@
 package wang.yanjiong.metamate.core.api;
 
+import com.sinewang.metamate.core.dai.mapper.InstanceMapper;
 import com.sinewang.metamate.core.dai.mapper.IntensionMapper;
 import com.sinewang.metamate.core.dai.mapper.ModelPublicationMapper;
 import com.sinewang.metamate.core.dai.mapper.ModelSubscriptionMapper;
@@ -47,6 +48,9 @@ public class TestSaveInstanceApi {
 
     @Autowired
     private IntensionMapper intensionMapper;
+
+    @Autowired
+    private InstanceMapper instanceMapper;
 
     @Autowired
     private AnSubscribeModelExtractor subscribeModelExtractor;
@@ -100,10 +104,10 @@ public class TestSaveInstanceApi {
 
         for (int i = 0; i < fields.length; i++) {
             String intId = intensionExtractor.hashId(extId, fields[i]);
-            String publicationId = publicationExtractor.hashId(
-                    providerId, extId, intId, version, publication);
+            String pubExtId = publicationExtractor.hashPubExtId(providerId, extId, publication, version);
+            String publicationId = publicationExtractor.hashId(pubExtId, intId);
             modelPublicationMapper.insertPublication(
-                    publicationId, providerId, extId, intId, version, publication, operatorId, new Date());
+                    publicationId, pubExtId, providerId, extId, intId, version, publication, operatorId, new Date());
 
             intId = intensionExtractor.hashId(extId, fields[i]);
             intensionMapper.insertIntension(
@@ -173,8 +177,14 @@ public class TestSaveInstanceApi {
 
     @After
     public void after() {
-
         modelSubscriptionMapper.deleteById(subId);
+
+        instanceMapper.deleteInstanceByOwnerId(ownerId);
+
+        intensionMapper.deleteIntensionsByExtId(extId);
+
+        modelPublicationMapper.deletePublicationByProviderId(providerId);
+
     }
 
 }
