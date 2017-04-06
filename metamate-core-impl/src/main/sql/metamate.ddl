@@ -54,9 +54,9 @@ CREATE TABLE `mm_m_tag` (
 DROP TABLE IF EXISTS `mm_m_ext`;
 CREATE TABLE `mm_m_ext` (
   `id` varchar(160) NOT NULL COMMENT 'id = hash(owner_id, group, name, tree)',
-  `group` varchar(32) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `tree` varchar(32) NOT NULL,
+  `group` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `tree` varchar(64) NOT NULL,
   `owner_id` varchar(160) NOT NULL,
   `visibility` varchar(16) NOT NULL COMMENT 'the visibility of scope',
   `structure` varchar(16) DEFAULT NULL,
@@ -72,7 +72,7 @@ DROP TABLE IF EXISTS `mm_m_int`;
 CREATE TABLE `mm_m_int` (
   `id` varchar(160) NOT NULL COMMENT 'int_id = hash(ext_id, ref_id)',
   `ext_id` varchar(160) NOT NULL,
-  `field` varchar(32) NOT NULL DEFAULT '' COMMENT 'the alias name of ref_id ',
+  `field` varchar(64) NOT NULL DEFAULT '' COMMENT 'the alias name of ref_id ',
   `is_single` tinyint(1) NOT NULL,
   `visibility` varchar(16) NOT NULL COMMENT 'the visibility of scope',
   `structure` varchar(16) DEFAULT NULL,
@@ -88,10 +88,10 @@ CREATE TABLE `mm_m_int` (
 -- ----------------------------
 DROP TABLE IF EXISTS `mm_m_crf`;
 CREATE TABLE `mm_m_crf` (
-  `id` varchar(160) NOT NULL COMMENT 'id = hash(int_id, exc_name, inc_name)',
+  `id` varchar(160) NOT NULL COMMENT 'id = hash(int_id, exc_field, inc_field)',
   `int_id` varchar(160) NOT NULL,
-  `exc_name` varchar(32) DEFAULT NULL,
-  `inc_name` varchar(32) DEFAULT NULL,
+  `exc_field` varchar(64) DEFAULT NULL,
+  `inc_field` varchar(64) DEFAULT NULL,
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -106,12 +106,30 @@ CREATE TABLE `mm_m_pub` (
   `provider_id` varchar(160) NOT NULL,
   `ext_id` varchar(160) NOT NULL,
   `int_id` varchar(160) NOT NULL,
-  `version` varchar(32) NOT NULL,
-  `pub` varchar(32) NOT NULL,
+  `version` varchar(64) NOT NULL,
+  `pub` varchar(64) NOT NULL,
   `operator_id` varchar(160) NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='model publication';
 
+-- ----------------------------
+--  Table structure for `mm_m_sub`
+-- ----------------------------
+DROP TABLE IF EXISTS `mm_m_sub`;
+CREATE TABLE `mm_m_sub` (
+  `id` varchar(160) NOT NULL COMMENT 'hash(provider_id, ext_id, pub, version, subscriber_id)',
+  `provider_id` varchar(160) NOT NULL,
+  `ext_id` varchar(160) NOT NULL,
+  `pub` varchar(255) DEFAULT NULL,
+  `version` varchar(64) NOT NULL,
+  `subscriber_id` varchar(160) NOT NULL,
+  `group` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `tree` varchar(64) NOT NULL,
+  `begin_time` datetime NOT NULL,
+  `end_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`begin_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='model subscribe';
 
 SET FOREIGN_KEY_CHECKS = 1;
