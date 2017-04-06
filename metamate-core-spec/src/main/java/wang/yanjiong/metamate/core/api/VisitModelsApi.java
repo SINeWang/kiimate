@@ -14,8 +14,8 @@ import java.util.Map;
 public interface VisitModelsApi {
 
     @RequestMapping(value = "/models/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
-            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
+    ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+            @RequestHeader("X-SUMMER-ProviderId") String providerId,
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,

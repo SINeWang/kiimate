@@ -4,7 +4,6 @@ import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
 import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 
@@ -19,14 +18,10 @@ import java.util.Map;
 public class DefaultInstanceExtractor implements AnInstanceExtractor {
 
     @Autowired
-    private AnExtensionExtractor anExtensionExtractor;
-
-    @Autowired
     private AnIntensionExtractor anIntensionExtractor;
 
     @Override
-    public List<Instance> extract(String ownerId, String group, String name, String tree, String operatorId, Map<String, List<String>> map) {
-        String extId = anExtensionExtractor.hashId(ownerId, group, name, tree);
+    public List<Instance> extract(String ownerId, String providerId, String extId, String operatorId, Map<String, List<String>> map) {
         List<Instance> instances = new ArrayList<>();
 
         for (String field : map.keySet()) {

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 05/04/2017.
  */
-public interface PublicationDai {
+public interface ModelPublicationDai {
 
     @Transactional
     void savePublications(List<Publication> publication);

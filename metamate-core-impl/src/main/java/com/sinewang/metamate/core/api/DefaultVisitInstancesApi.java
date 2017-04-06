@@ -11,9 +11,9 @@ import wang.yanjiong.metamate.core.api.VisitInstancesApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 /**
  * Created by WangYanJiong on 3/31/17.
@@ -29,7 +29,7 @@ public class DefaultVisitInstancesApi implements VisitInstancesApi {
 
 
     @Override
-    public ResponseEntity<Map<String, String>> readInstancesByGroupNameVersion(
+    public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
             @PathVariable("group") String group,
@@ -39,7 +39,7 @@ public class DefaultVisitInstancesApi implements VisitInstancesApi {
 
         String extId = extensionFormParser.hashId(ownerId, group, name, tree);
         List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceByOwnerIdExtId(extId, ownerId);
-        Map<String, String> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         for (InstanceDai.Instance daiInstance : instances) {
             map.put(daiInstance.getField(), daiInstance.getValue());
         }

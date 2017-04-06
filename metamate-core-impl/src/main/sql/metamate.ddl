@@ -127,6 +127,7 @@ CREATE TABLE `mm_m_sub` (
   `group` varchar(64) NOT NULL,
   `name` varchar(64) NOT NULL,
   `tree` varchar(64) NOT NULL,
+  `operator_id` varchar(64) NOT NULL,
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`,`begin_time`)

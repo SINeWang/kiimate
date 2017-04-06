@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.SaveInstanceApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
-import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
 
 import java.util.ArrayList;
@@ -33,26 +32,17 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
     @Autowired
     private AnInstanceExtractor instanceExtractor;
 
-
-    @Autowired
-    private AnExtensionExtractor extensionExtractor;
-
     @Override
     public ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader("X-SUMMER-OperatorId") String operatorId,
             @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @PathVariable("group") String group,
-            @PathVariable("name") String name,
-            @PathVariable("version") String version,
+            @PathVariable("providerId") String providerId,
+            @PathVariable("extId") String extId,
             @RequestParam MultiValueMap<String, String> map) {
 
-        String extId = extensionExtractor.hashId(ownerId, group, name, version);
-
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(
-                ownerId,
-                group, name, version,
-                operatorId, map);
+                ownerId, providerId, extId, operatorId, map);
 
         List<InstanceDai.Instances> instances1 = DataTools.copy(instances, InstanceDai.Instances.class);
 

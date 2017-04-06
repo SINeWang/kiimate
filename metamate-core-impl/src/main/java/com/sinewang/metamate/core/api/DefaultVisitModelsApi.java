@@ -33,19 +33,18 @@ public class DefaultVisitModelsApi implements VisitModelsApi {
     private AnExtensionExtractor extensionExtractor;
 
     @Override
-    @RequestMapping(value = "/{ownerId}/models/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
+    @RequestMapping(value = "/{providerId}/models/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
-            @PathVariable("ownerId") String ownerId,
+            @PathVariable("providerId") String providerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree,
             @RequestParam(value = "tag", defaultValue = "LATEST") String tag) {
 
-        String extId = extensionExtractor.hashId(ownerId, group, name, tree);
+        String extId = extensionExtractor.hashId(providerId, group, name, tree);
 
-
-        return ResponseFactory.accepted(restoreModel(extId), ownerId);
+        return ResponseFactory.accepted(restoreModel(extId), providerId);
     }
 
     private Map<String, Object> restoreModel(String extId) {

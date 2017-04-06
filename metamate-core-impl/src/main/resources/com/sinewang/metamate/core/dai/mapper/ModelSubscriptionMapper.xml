@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sinewang.metamate.core.dai.mapper.ModelSubscriptionMapper">
+
+    <resultMap id="Subscription" type="wang.yanjiong.metamate.core.dai.ModelSubscriptionDai$ModelSubscription">
+        <result column="id" property="id"/>
+        <result column="provider_id" property="providerId"/>
+        <result column="ext_id" property="extId"/>
+        <result column="pub" property="publication"/>
+        <result column="version" property="version"/>
+        <result column="subscriber_id" property="subscriberId"/>
+        <result column="group" property="group"/>
+        <result column="name" property="name"/>
+        <result column="tree" property="tree"/>
+        <result column="operator_id" property="operatorId"/>
+    </resultMap>
+
+    <insert id="insertSubscription">
+        INSERT INTO mm_m_sub
+        (id, provider_id, ext_id, pub, version, subscriber_id, group, name, tree, operator_id, begin_time)
+        VALUES
+        (#{id}, #{providerId}, #{extId}, #{publication}, #{version}, #{subscriberId}, #{group}, #{name}, #{tree}, #{operatorId}, #{beginTime})
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM
+        mm_m_sub
+        WHERE id = #{id}
+    </delete>
+</mapper>

@@ -2,7 +2,7 @@ package com.sinewang.metamate.core.dai.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import wang.yanjiong.metamate.core.dai.PublicationDai;
+import wang.yanjiong.metamate.core.dai.ModelPublicationDai;
 
 import java.util.Date;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  * Created by WangYanJiong on 05/04/2017.
  */
 @Mapper
-public interface PublicationMapper {
+public interface ModelPublicationMapper {
 
     void insertPublication(
             @Param("id") String id,
@@ -23,7 +23,7 @@ public interface PublicationMapper {
             @Param("operatorId") String operatorId,
             @Param("createdAt") Date createdAt);
 
-    List<PublicationDai.Publication> selectPublicationByProviderIdExtIdPubVersion(
+    List<ModelPublicationDai.Publication> selectPublicationByProviderIdExtIdPubVersion(
             @Param("providerId") String providerId,
             @Param("extId") String extId,
             @Param("publication") String publication,

@@ -30,6 +30,9 @@ public class TestDeclareIntensionApi {
     private DeclareIntensionApi declareIntensionApi;
 
     @Autowired
+    private VisitIntensionsApi visitIntensionsApi;
+
+    @Autowired
     private AnExtensionExtractor extensionExtractor;
 
     @Autowired
@@ -53,12 +56,14 @@ public class TestDeclareIntensionApi {
 
     private String field = "testField";
 
+    private String visitorId = "testVisitorId";
+
     private boolean single = true;
 
     private String extId;
 
     @Before
-    public void before(){
+    public void before() {
         extId = extensionExtractor.hashId(ownerId, group, name, tree);
     }
 
@@ -70,7 +75,7 @@ public class TestDeclareIntensionApi {
         form1.setSingle(single);
         form1.setField(field);
         form1.setRefExtId(refExtId);
-        ResponseEntity<DeclareIntensionApi.IntensionReceipt> response =  declareIntensionApi.declarePropViaFormUrlEncoded1(
+        ResponseEntity<DeclareIntensionApi.IntensionReceipt> response = declareIntensionApi.declarePropViaFormUrlEncoded1(
                 form1,
                 group,
                 name,
@@ -80,7 +85,7 @@ public class TestDeclareIntensionApi {
 
         );
         String id = intensionExtractor.hashId(extId, field);
-        DeclareIntensionApi.IntensionReceipt receipt =  response.getBody();
+        DeclareIntensionApi.IntensionReceipt receipt = response.getBody();
         Assert.assertEquals(single, receipt.isSingle());
         Assert.assertEquals(visibility, receipt.getVisibility());
         Assert.assertEquals(structure, receipt.getStructure());
@@ -89,5 +94,24 @@ public class TestDeclareIntensionApi {
         Assert.assertEquals(field, receipt.getField());
         Assert.assertEquals(id, receipt.getId());
 
+        ResponseEntity<VisitIntensionsApi.Extension> extsionResponse = visitIntensionsApi.readIntensionsByGroupNameVersion(
+                ownerId,
+                visitorId,
+                group,
+                name,
+                tree);
+
+        VisitIntensionsApi.Extension extension = extsionResponse.getBody();
+        Assert.assertNotNull(extension);
+
+        Assert.assertEquals(extId, extension.getExtId());
+        Assert.assertEquals(1, extension.getIntensions().size());
+        VisitIntensionsApi.Intension intension = extension.getIntensions().get(0);
+
+        Assert.assertEquals(single, intension.isSingle());
+        Assert.assertEquals(visibility, intension.getVisibility());
+        Assert.assertEquals(structure, intension.getStructure());
+        Assert.assertEquals(field, intension.getField());
+        Assert.assertEquals(refExtId, intension.getRefExtId());
     }
 }

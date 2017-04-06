@@ -1,6 +1,6 @@
 package wang.yanjiong.metamate.core.api;
 
-import com.sinewang.metamate.core.dai.mapper.PublicationMapper;
+import com.sinewang.metamate.core.dai.mapper.ModelPublicationMapper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,6 +21,7 @@ import wang.yanjiong.metamate.core.fi.AnStructureValidator;
 import wang.yanjiong.metamate.core.fi.AnVisibilityValidator;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 05/04/2017.
@@ -36,6 +37,9 @@ public class TestSnapshotModelApi {
     private SnapshotModelApi snapshotModelApi;
 
     @Autowired
+    private VisitModelsApi visitModelsApi;
+
+    @Autowired
     private ExtensionDai extensionDai;
 
     @Autowired
@@ -48,7 +52,7 @@ public class TestSnapshotModelApi {
     private AnIntensionExtractor intensionExtractor;
 
     @Autowired
-    private PublicationMapper publicationMapper;
+    private ModelPublicationMapper modelPublicationMapper;
 
     private String providerId = "testProviderId";
 
@@ -60,6 +64,10 @@ public class TestSnapshotModelApi {
 
     private String tree = "testTree";
 
+    private String visitorId = "testVisitorId";
+
+    private String tag = "testTag";
+
     private String visibility = AnVisibilityValidator.Visibility.PUBLIC.name();
 
     private String operatorId = "operatorId";
@@ -70,14 +78,14 @@ public class TestSnapshotModelApi {
 
 
     private String version = "1.0.0";
+
     @Before
     public void before() {
         this.extId = extensionExtractor.hashId(ownerId, group, name, tree);
 
-        publicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
+        modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
         extensionDai.deleteExtensionById(extId);
         intensionDai.deleteIntensionsByExitId(extId);
-
 
 
         ExtensionDai.Extension extension = new ExtensionDai.Extension();
@@ -104,7 +112,6 @@ public class TestSnapshotModelApi {
         }
 
 
-
         IntensionDai.Intension intension = new IntensionDai.Intension();
 
         for (String field : fields) {
@@ -128,7 +135,7 @@ public class TestSnapshotModelApi {
     public void test() {
         SnapshotModelApi.Form form = new SnapshotModelApi.Form();
         form.setVersion(version);
-        publicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
+        modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
 
         ResponseEntity<SnapshotModelApi.Receipt> response = snapshotModelApi.snapshot(
                 form,
@@ -139,18 +146,29 @@ public class TestSnapshotModelApi {
                 name,
                 tree);
         SnapshotModelApi.Receipt receipt = response.getBody();
-        List<SnapshotModelApi.Intension> intensions =  receipt.getIntensions();
+        List<SnapshotModelApi.Intension> intensions = receipt.getIntensions();
         Assert.assertNotNull(receipt);
         Assert.assertEquals(version, receipt.getVersion());
         Assert.assertEquals(fields.length, intensions.size());
         Assert.assertEquals(ownerId, receipt.getOwnerId());
         Assert.assertEquals(providerId, receipt.getProviderId());
+
+        Map<String, Object> map = visitModelsApi.readIntensionsByGroupNameVersion(
+                ownerId,
+                visitorId,
+                group,
+                name,
+                tree,
+                tag
+        ).getBody();
+
+        Assert.assertNotNull(map);
     }
 
     @After
     public void after() {
         extensionDai.deleteExtensionById(extId);
         intensionDai.deleteIntensionsByExitId(extId);
-        publicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
+        modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
     }
 }

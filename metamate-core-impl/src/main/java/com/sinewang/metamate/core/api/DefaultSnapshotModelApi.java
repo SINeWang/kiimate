@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.SnapshotModelApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
-import wang.yanjiong.metamate.core.dai.PublicationDai;
+import wang.yanjiong.metamate.core.dai.ModelPublicationDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
 import wang.yanjiong.metamate.core.fi.AnPublicationValidator;
@@ -27,7 +27,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
 
     @Autowired
-    private PublicationDai publicationDai;
+    private ModelPublicationDai modelPublicationDai;
 
     @Autowired
     private AnPublicationExtractor publicationExtractor;
@@ -57,7 +57,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
             return ResponseFactory.badRequest(e.getMessage());
         }
 
-        List<PublicationDai.Publication> publications = new ArrayList<>();
+        List<ModelPublicationDai.Publication> publications = new ArrayList<>();
         List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
         for (IntensionDai.Intension intension : intensions) {
 
@@ -68,14 +68,14 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
                     snapshot.getVersion(),
                     snapshot.getPublication());
 
-            PublicationDai.Publication daiPublication = DataTools.copy(snapshot, PublicationDai.Publication.class);
+            ModelPublicationDai.Publication daiPublication = DataTools.copy(snapshot, ModelPublicationDai.Publication.class);
             daiPublication.setPublication(AnPublicationValidator.Publication.SNAPSHOT.name());
             daiPublication.setIntId(intension.getId());
             daiPublication.setId(id);
             daiPublication.setCreatedAt(snapshot.getCreatedAt());
             publications.add(daiPublication);
         }
-        publicationDai.savePublications(publications);
+        modelPublicationDai.savePublications(publications);
 
         Receipt receipt = new Receipt();
 

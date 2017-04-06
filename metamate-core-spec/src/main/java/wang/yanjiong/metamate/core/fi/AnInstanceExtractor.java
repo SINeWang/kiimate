@@ -10,7 +10,8 @@ import java.util.Map;
  */
 public interface AnInstanceExtractor {
 
-    List<Instance> extract(String ownerId, String group, String name, String tree, String operatorId, Map<String, List<String>> map);
+    List<Instance> extract(String ownerId, String providerId, String extId, String operatorId, Map<String, List<String>> map);
+
 
     @Data
     class Instance {
