@@ -19,6 +19,5 @@ public interface VisitEntitiesApi {
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
-            @PathVariable("version") String version,
-            @RequestParam(value = "tag", defaultValue = "LATEST") String tag);
+            @PathVariable("version") String version);
 }

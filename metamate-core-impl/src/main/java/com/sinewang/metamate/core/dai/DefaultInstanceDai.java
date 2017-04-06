@@ -121,10 +121,8 @@ public class DefaultInstanceDai implements InstanceDai {
         }
         instanceMapper.insertInstance(
                 instance.getId(),
-                instance.getExtId(),
-                instance.getIntId(),
                 instance.getOwnerId(),
-                instance.getField(),
+                instance.getPubId(),
                 instance.getValue(),
                 instance.getValueSetHash(),
                 instance.getValueRefId(),
