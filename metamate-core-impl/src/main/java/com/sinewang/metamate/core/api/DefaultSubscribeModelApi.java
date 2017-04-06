@@ -35,7 +35,7 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
             @PathVariable("version") String version) {
 
         AnSubscribeModelExtractor.ModelSubscription modelSubscription = subscribeModelExtractor.extract(
-                form, providerId, extId, publication, version, subscriberId);
+                form, providerId, extId, publication, version, subscriberId, operatorId);
 
         ModelSubscriptionDai.ModelSubscription subscription = DataTools.copy(modelSubscription, ModelSubscriptionDai.ModelSubscription.class);
 

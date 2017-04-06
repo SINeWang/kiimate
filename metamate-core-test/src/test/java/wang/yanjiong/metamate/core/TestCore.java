@@ -5,10 +5,7 @@ import org.junit.runners.Suite;
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
-import wang.yanjiong.metamate.core.api.TestDeclareExtensionApi;
-import wang.yanjiong.metamate.core.api.TestDeclareIntensionApi;
-import wang.yanjiong.metamate.core.api.TestSaveInstanceApi;
-import wang.yanjiong.metamate.core.api.TestSnapshotModelApi;
+import wang.yanjiong.metamate.core.api.*;
 import wang.yanjiong.metamate.core.dai.TestExtensionDai;
 
 /**
@@ -23,7 +20,8 @@ import wang.yanjiong.metamate.core.dai.TestExtensionDai;
         TestDeclareIntensionApi.class,
         TestExtensionDai.class,
         TestSaveInstanceApi.class,
-        TestSnapshotModelApi.class
+        TestSnapshotModelApi.class,
+        TestSubscribeModelApi.class
 })
 public class TestCore {
 }

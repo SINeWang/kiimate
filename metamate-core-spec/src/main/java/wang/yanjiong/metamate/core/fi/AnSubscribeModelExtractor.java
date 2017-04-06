@@ -6,9 +6,12 @@ import wang.yanjiong.metamate.core.api.SubscribeModelApi;
 /**
  * Created by WangYanJiong on 4/6/17.
  */
+
 public interface AnSubscribeModelExtractor {
 
-    ModelSubscription extract(SubscribeModelApi.Form form, String providerId, String extId, String publication, String version, String subscriberId);
+    String hashId(String providerId, String extId, String publication, String version, String subscriberId);
+
+    ModelSubscription extract(SubscribeModelApi.Form form, String providerId, String extId, String publication, String version, String subscriberId, String operatorId);
 
 
     @Data
@@ -22,5 +25,6 @@ public interface AnSubscribeModelExtractor {
         private String group;
         private String name;
         private String tree;
+        private String operatorId;
     }
 }

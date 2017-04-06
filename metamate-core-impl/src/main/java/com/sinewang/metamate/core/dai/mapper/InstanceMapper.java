@@ -27,8 +27,6 @@ public interface InstanceMapper {
     List<InstanceDai.Instance> selectLatestInstancesByOwnerIdExtId(@Param("extId") String extId,
                                                                    @Param("ownerId") String ownerId);
 
-    List<String> selectLatestInstancesByOwnerIds(@Param("extId") String extId);
-
     List<InstanceDai.Instance> selectLatestInstanceByIntIdOwnerId(@Param("intId") String intId,
                                                                   @Param("ownerId") String ownerId);
 

@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.SaveInstanceApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
+import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
+import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
+import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,19 +35,39 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
     @Autowired
     private AnInstanceExtractor instanceExtractor;
 
+    @Autowired
+    private AnPublicationExtractor publicationExtractor;
+
+    @Autowired
+    private AnIntensionExtractor intensionExtractor;
+
+    @Autowired
+    private ModelSubscriptionDai modelSubscriptionDai;
+
     @Override
     public ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader("X-SUMMER-OperatorId") String operatorId,
             @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @PathVariable("providerId") String providerId,
-            @PathVariable("extId") String extId,
+            @PathVariable("group") String group,
+            @PathVariable("name") String name,
+            @PathVariable("tree") String tree,
             @RequestParam MultiValueMap<String, String> map) {
 
+        ModelSubscriptionDai.ModelSubscription subscription = modelSubscriptionDai.getLatestSubscriptionBySubscriberIdGroupNameTree(ownerId, group, name, tree);
+
+        String extId = subscription.getExtId();
+
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(
-                ownerId, providerId, extId, operatorId, map);
+                ownerId, subscription.getProviderId(), extId, operatorId, map);
 
         List<InstanceDai.Instances> instances1 = DataTools.copy(instances, InstanceDai.Instances.class);
+
+        for (InstanceDai.Instances instances2 : instances1) {
+            String modelPubId = publicationExtractor.hashId(
+                    subscription.getProviderId(), extId, instances2.getIntId(), subscription.getVersion(), subscription.getPublication());
+            instances2.setPubId(modelPubId);
+        }
 
         try {
             instanceDai.insertInstances(instances1);

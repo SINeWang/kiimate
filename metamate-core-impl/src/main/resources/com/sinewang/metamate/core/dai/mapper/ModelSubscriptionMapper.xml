@@ -19,7 +19,7 @@
 
     <insert id="insertSubscription">
         INSERT INTO mm_m_sub
-        (id, provider_id, ext_id, pub, version, subscriber_id, group, name, tree, operator_id, begin_time)
+        (id, provider_id, ext_id, pub, version, subscriber_id, `group`, `name`, `tree`, operator_id, begin_time)
         VALUES
         (#{id}, #{providerId}, #{extId}, #{publication}, #{version}, #{subscriberId}, #{group}, #{name}, #{tree}, #{operatorId}, #{beginTime})
     </insert>
@@ -29,4 +29,10 @@
         mm_m_sub
         WHERE id = #{id}
     </delete>
+
+    <select id="selectLatestSubscriptionBySubscriberIdGroupNameTree" resultMap="Subscription">
+        SELECT msub.id, msub.provider_id, msub.ext_id, msub.pub, msub.version, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.operator_id
+        FROM  mm_m_sub msub
+        WHERE msub.subscriber_id = #{subscriberId} AND msub.group = #{group} AND msub.name = #{name} AND msub.tree = #{tree}
+    </select>
 </mapper>

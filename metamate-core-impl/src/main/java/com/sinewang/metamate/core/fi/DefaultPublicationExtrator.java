@@ -1,5 +1,6 @@
 package com.sinewang.metamate.core.fi;
 
+import one.kii.summer.codec.utils.HashTools;
 import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.ReleaseModelApi;
 import wang.yanjiong.metamate.core.api.SnapshotModelApi;
@@ -38,5 +39,11 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
         publication.setCreatedAt(new Date());
         return publication;
     }
+
+    @Override
+    public String hashId(String providerId, String extId, String intId, String version, String publication) {
+        return HashTools.hashHex(providerId, extId, intId, version, publication);
+    }
+
 
 }

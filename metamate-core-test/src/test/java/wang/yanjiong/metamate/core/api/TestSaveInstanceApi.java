@@ -1,6 +1,11 @@
 package wang.yanjiong.metamate.core.api;
 
+import com.sinewang.metamate.core.dai.mapper.IntensionMapper;
+import com.sinewang.metamate.core.dai.mapper.ModelPublicationMapper;
+import com.sinewang.metamate.core.dai.mapper.ModelSubscriptionMapper;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +16,10 @@ import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import wang.yanjiong.metamate.core.fi.*;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +39,24 @@ public class TestSaveInstanceApi {
     @Autowired
     private VisitInstancesApi visitInstancesApi;
 
+    @Autowired
+    private ModelSubscriptionMapper modelSubscriptionMapper;
+
+    @Autowired
+    private ModelPublicationMapper modelPublicationMapper;
+
+    @Autowired
+    private IntensionMapper intensionMapper;
+
+    @Autowired
+    private AnSubscribeModelExtractor subscribeModelExtractor;
+
+    @Autowired
+    private AnPublicationExtractor publicationExtractor;
+
+    @Autowired
+    private AnIntensionExtractor intensionExtractor;
+
     private String ownerId = "testOwnerId";
 
     private String operatorId = "testOperatorId";
@@ -44,7 +69,58 @@ public class TestSaveInstanceApi {
 
     private String visitorId = "testVisitorId";
 
-    private String tree = "testTree";
+    private String group = "testSubGroup";
+
+    private String name = "testSubName";
+
+    private String tree = "testSubTree";
+
+    private String publication = "SNAPSHOT";
+
+    private String version = "testSubVersion";
+
+    private String subscriberId = ownerId;
+
+    private String subId;
+
+    private String[] fields = {"testFieldA", "testFieldB"};
+
+    private boolean[] singles = {true, false};
+
+    private String structure = AnStructureValidator.Structure.STRING.name();
+
+    private String visibility = AnVisibilityValidator.Visibility.PUBLIC.name();
+
+    @Before
+    public void before() {
+        modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, publication, version);
+
+        SnapshotModelApi.Form form = new SnapshotModelApi.Form();
+        form.setVersion(version);
+
+        for (int i = 0; i < fields.length; i++) {
+            String intId = intensionExtractor.hashId(extId, fields[i]);
+            String publicationId = publicationExtractor.hashId(
+                    providerId, extId, intId, version, publication);
+            modelPublicationMapper.insertPublication(
+                    publicationId, providerId, extId, intId, version, publication, operatorId, new Date());
+
+            intId = intensionExtractor.hashId(extId, fields[i]);
+            intensionMapper.insertIntension(
+                    intId, extId, fields[i], singles[i], structure, null, visibility, new Date());
+
+        }
+
+
+        subId = subscribeModelExtractor.hashId(
+                providerId, extId, publication, version, subscriberId
+        );
+
+        modelSubscriptionMapper.insertSubscription(
+                subId, providerId, extId, publication, version, subscriberId, group, name, tree, operatorId, new Date()
+        );
+
+    }
 
 
     @Test
@@ -56,9 +132,9 @@ public class TestSaveInstanceApi {
 
         String valueOfB = "d";
 
-        String keyA = "a";
+        String keyA = fields[0];
 
-        String keyB = "b";
+        String keyB = fields[1];
 
         Arrays.sort(valueOfA);
 
@@ -68,13 +144,14 @@ public class TestSaveInstanceApi {
                 ownerId,
                 operatorId,
                 requestId,
-                providerId,
-                extId
+                group,
+                name,
+                tree
                 , map
 
         ).getBody();
 
-        Assert.assertEquals(4, instances.size());
+        Assert.assertEquals(3, instances.size());
         for (SaveInstanceApi.Instance instance : instances) {
             if (instance.getField().equals(keyA)) {
                 String[] v = instance.getValue();
@@ -90,7 +167,7 @@ public class TestSaveInstanceApi {
         Map<String, Object> instancesMap = visitInstancesApi.readInstancesByGroupNameVersion(
                 ownerId,
                 visitorId,
-                null
+                group, name, tree
         ).getBody();
 
         for (String key : instancesMap.keySet()) {
@@ -102,6 +179,12 @@ public class TestSaveInstanceApi {
             }
         }
 
+    }
+
+    @After
+    public void after() {
+
+        modelSubscriptionMapper.deleteById(subId);
     }
 
 }

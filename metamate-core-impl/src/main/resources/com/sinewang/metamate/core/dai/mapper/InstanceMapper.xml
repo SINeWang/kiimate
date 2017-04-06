@@ -23,12 +23,7 @@
         WHERE mins.m_pub_id = mpub.id
         AND mint.id = mpub.int_id
         AND mins.owner_id = #{ownerId} AND mpub.ext_id = #{extId} AND mins.end_time IS NULL
-    </select>
-
-    <select id="selectLatestInstancesByOwnerIds" resultType="string">
-        SELECT DISTINCT (owner_id)
-        FROM mm_i_ins mins
-        WHERE mins.ext_id = #{extId} AND mins.end_time IS NULL
+        GROUP BY mpub.ext_id, mpub.int_id, mins.value, mins.value_set_hash
     </select>
 
     <select id="selectLatestInstanceByIntIdOwnerId" resultMap="Instance">
@@ -37,6 +32,7 @@
         WHERE mins.m_pub_id = mpub.id
         AND mint.id = mpub.int_id
         AND mins.owner_id = #{ownerId} AND mint.id = #{intId} AND mins.end_time IS NULL
+        GROUP BY mpub.ext_id, mpub.int_id, mins.value, mins.value_set_hash
     </select>
 
 

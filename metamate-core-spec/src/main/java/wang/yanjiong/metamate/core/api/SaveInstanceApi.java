@@ -19,13 +19,14 @@ import java.util.List;
 public interface SaveInstanceApi {
 
 
-    @RequestMapping(value = "/instance/{providerId}/{group}/{name}/{version:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader("X-SUMMER-OperatorId") String operatorId,
             @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @PathVariable("providerId") String providerId,
-            @PathVariable("extId") String extId,
+            @PathVariable("group") String group,
+            @PathVariable("name") String name,
+            @PathVariable("tree") String tree,
             @RequestParam MultiValueMap<String, String> map);
 
     @Data

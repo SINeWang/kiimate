@@ -2,10 +2,9 @@ package com.sinewang.metamate.core.dai.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import wang.yanjiong.metamate.core.dai.ModelPublicationDai;
+import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by WangYanJiong on 05/04/2017.
@@ -27,5 +26,12 @@ public interface ModelSubscriptionMapper {
             @Param("beginTime") Date beginTime);
 
     void deleteById(@Param("id") String id);
+
+    ModelSubscriptionDai.ModelSubscription selectLatestSubscriptionBySubscriberIdGroupNameTree(
+            @Param("subscriberId") String subscriberId,
+            @Param("group") String group,
+            @Param("name") String name,
+            @Param("tree") String tree);
+
 
 }

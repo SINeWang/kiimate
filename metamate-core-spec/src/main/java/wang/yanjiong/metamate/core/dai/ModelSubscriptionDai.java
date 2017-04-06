@@ -10,6 +10,8 @@ public interface ModelSubscriptionDai {
 
     void save(ModelSubscription modelSubscription);
 
+    ModelSubscription getLatestSubscriptionBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree);
+
     void deleteById(String id);
 
     @Data

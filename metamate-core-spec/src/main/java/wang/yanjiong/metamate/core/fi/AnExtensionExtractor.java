@@ -12,15 +12,6 @@ public interface AnExtensionExtractor {
 
     String hashId(String ownerId, String group, String name, String tree);
 
-    enum DataStructures {
-        COMPLEX,
-        STRING,
-        NATURE,
-        REAL,
-        FLOAT,
-        TIMESTAMP
-    }
-
     @Data
     class Extension {
 

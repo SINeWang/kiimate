@@ -61,7 +61,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
         List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
         for (IntensionDai.Intension intension : intensions) {
 
-            String id = HashTools.hashHex(
+            String id = publicationExtractor.hashId(
                     providerId,
                     extId,
                     intension.getId(),

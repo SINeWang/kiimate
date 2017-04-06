@@ -16,8 +16,9 @@ public interface VisitInstancesApi {
     ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
-
-            @RequestParam(value = "tag", defaultValue = "LATEST") String tag);
+            @PathVariable("group") String group,
+            @PathVariable("name") String name,
+            @PathVariable("tree") String tree);
 
 
 }

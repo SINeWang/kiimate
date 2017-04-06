@@ -38,6 +38,13 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
+    public ModelSubscription getLatestSubscriptionBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree) {
+        return modelSubscriptionMapper.selectLatestSubscriptionBySubscriberIdGroupNameTree(
+                subscriberId, group, name, tree
+        );
+    }
+
+    @Override
     public void deleteById(String id) {
         modelSubscriptionMapper.deleteById(id);
     }

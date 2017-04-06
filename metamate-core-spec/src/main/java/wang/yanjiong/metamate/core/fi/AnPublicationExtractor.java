@@ -21,6 +21,8 @@ public interface AnPublicationExtractor {
                                String extId,
                                String operatorId) throws MissingParamException;
 
+    String hashId(String providerId, String extId, String intId, String version, String publication);
+
     @Data
     class Publication {
 
