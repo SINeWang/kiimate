@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
+import wang.yanjiong.metamate.core.fi.AnStructureValidator;
+import wang.yanjiong.metamate.core.fi.AnVisibilityValidator;
 
 /**
  * Created by WangYanJiong on 3/24/17.
@@ -110,7 +112,7 @@ public class TestDeclareExtensionApi {
         extensionForm.setName("testName");
         extensionForm.setTree("testTree");
         extensionForm.setVisibility("testVisibility");
-        extensionForm.setStructure("complex");
+        extensionForm.setStructure(AnStructureValidator.Structure.IMPORT.name());
         ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(extensionForm, ownerId, operatorId);
         DeclareExtensionApi.ExtensionReceipt extensionReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
@@ -128,8 +130,8 @@ public class TestDeclareExtensionApi {
         extensionForm.setGroup(group);
         extensionForm.setName(name);
         extensionForm.setTree(tree);
-        extensionForm.setVisibility("protected");
-        extensionForm.setStructure("complex");
+        extensionForm.setVisibility(AnVisibilityValidator.Visibility.PROTECTED.name());
+        extensionForm.setStructure(AnStructureValidator.Structure.IMPORT.name());
         ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(extensionForm, ownerId, operatorId);
         DeclareExtensionApi.ExtensionReceipt extensionReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();

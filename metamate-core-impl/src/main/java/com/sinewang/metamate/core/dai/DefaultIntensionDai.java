@@ -55,5 +55,10 @@ public class DefaultIntensionDai implements IntensionDai {
         return intensions;
     }
 
+    @Override
+    public void deleteIntensionsByExitId(String extId) {
+        intensionMapper.deleteIntensionsByExtId(extId);
+    }
+
 
 }

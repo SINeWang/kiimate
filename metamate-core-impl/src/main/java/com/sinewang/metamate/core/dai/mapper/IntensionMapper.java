@@ -30,4 +30,6 @@ public interface IntensionMapper {
 
     void updateLatestIntensionEndTimeById(@Param("id") String id, @Param("endTime") Date endTime);
 
+    void deleteIntensionsByExtId(@Param("extId") String extId);
+
 }

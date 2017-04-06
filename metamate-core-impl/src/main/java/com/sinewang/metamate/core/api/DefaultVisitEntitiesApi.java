@@ -51,7 +51,7 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
 
             ExtensionDai.Extension extension = extensionDai.selectExtensionById(instance.getExtId());
 
-            if (extension.getStructure().equals(AnStructureValidator.Structure.COMPLEX.name())) {
+            if (extension.getStructure().toUpperCase().equals(AnStructureValidator.Structure.IMPORT.name())) {
                 map.put(instance.getField(), visitInstance(ownerId, extId));
             } else {
                 map.put(instance.getField(), instance.getValue());

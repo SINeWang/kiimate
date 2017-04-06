@@ -6,6 +6,8 @@ import wang.yanjiong.metamate.core.api.SnapshotModelApi;
 import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
 import wang.yanjiong.metamate.core.fi.AnPublicationValidator;
 
+import java.util.Date;
+
 /**
  * Created by WangYanJiong on 05/04/2017.
  */
@@ -21,6 +23,7 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
         publication.setOwnerId(ownerId);
         publication.setVersion(form.getVersion());
         publication.setPublication(AnPublicationValidator.Publication.SNAPSHOT.name());
+        publication.setCreatedAt(new Date());
         return publication;
     }
 
@@ -32,6 +35,7 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
         publication.setOwnerId(ownerId);
         publication.setVersion(form.getVersion());
         publication.setPublication(AnPublicationValidator.Publication.RELEASE.name());
+        publication.setCreatedAt(new Date());
         return publication;
     }
 

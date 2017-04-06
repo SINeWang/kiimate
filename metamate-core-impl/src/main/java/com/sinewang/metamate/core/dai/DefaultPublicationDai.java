@@ -1,14 +1,10 @@
 package com.sinewang.metamate.core.dai;
 
-import com.sinewang.metamate.core.dai.mapper.IntensionMapper;
 import com.sinewang.metamate.core.dai.mapper.PublicationMapper;
-import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.dai.PublicationDai;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,30 +16,18 @@ public class DefaultPublicationDai implements PublicationDai {
     @Autowired
     private PublicationMapper publicationMapper;
 
-    @Autowired
-    private IntensionMapper intensionMapper;
-
     @Override
-    public void savePublication(Publication publication) {
-        Date now = new Date();
-        List<IntensionDai.Intension> intensions = intensionMapper.selectLatestIntensionsByExtId(publication.getExtId());
-        for (IntensionDai.Intension intension : intensions) {
-            String id = HashTools.hashHex(
-                    publication.getOwnerId(),
-                    publication.getExtId(),
-                    intension.getId(),
-                    publication.getVersion(),
-                    publication.getPublication());
-
+    public void savePublications(List<Publication> publications) {
+        for (Publication publication : publications) {
             publicationMapper.insertPublication(
-                    id,
+                    publication.getId(),
                     publication.getOwnerId(),
                     publication.getExtId(),
-                    intension.getId(),
+                    publication.getIntId(),
                     publication.getVersion(),
                     publication.getPublication(),
                     publication.getOperatorId(),
-                    now
+                    publication.getCreatedAt()
             );
         }
     }

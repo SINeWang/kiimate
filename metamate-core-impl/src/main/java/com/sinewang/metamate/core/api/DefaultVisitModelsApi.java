@@ -55,7 +55,7 @@ public class DefaultVisitModelsApi implements VisitModelsApi {
         Map<String, Object> model = new HashMap<>();
         List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
         for (IntensionDai.Intension intension : intensions) {
-            if (AnStructureValidator.Structure.COMPLEX.name().equals(intension.getStructure().toUpperCase())) {
+            if (AnStructureValidator.Structure.IMPORT.name().equals(intension.getStructure().toUpperCase())) {
                 String refExtId = intension.getRefExtId();
                 model.put(intension.getField(), restoreModel(refExtId));
             } else {

@@ -42,5 +42,10 @@
         (#{id}, #{extId}, #{field}, #{single}, #{structure}, #{refExtId}, #{visibility}, #{beginTime})
     </insert>
 
+    <delete id="deleteIntensionsByExtId">
+        DELETE FROM mm_m_int
+        WHERE ext_id = #{extId}
+    </delete>
+
 
 </mapper>

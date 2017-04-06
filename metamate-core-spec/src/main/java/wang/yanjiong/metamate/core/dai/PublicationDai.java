@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 05/04/2017.
@@ -11,7 +12,7 @@ import java.util.Date;
 public interface PublicationDai {
 
     @Transactional
-    void savePublication(Publication publication);
+    void savePublications(List<Publication> publication);
 
     @Data
     class Publication {

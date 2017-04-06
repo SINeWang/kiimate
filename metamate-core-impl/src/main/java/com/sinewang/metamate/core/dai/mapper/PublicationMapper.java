@@ -15,15 +15,20 @@ public interface PublicationMapper {
 
     void insertPublication(
             @Param("id") String id,
-            @Param("owner_id") String ownerId,
-            @Param("ext_id") String extId,
-            @Param("int_id") String intId,
+            @Param("ownerId") String ownerId,
+            @Param("extId") String extId,
+            @Param("intId") String intId,
             @Param("version") String version,
-            @Param("pub") String publication,
+            @Param("publication") String publication,
             @Param("operatorId") String operatorId,
-            @Param("created_at") Date createdAt);
+            @Param("createdAt") Date createdAt);
 
     List<PublicationDai.Publication> selectPublicationByExtIdPubVersion(
+            @Param("extId") String extId,
+            @Param("publication") String publication,
+            @Param("version") String version);
+
+    void deletePublicationByExtIdPubVersion(
             @Param("extId") String extId,
             @Param("publication") String publication,
             @Param("version") String version);

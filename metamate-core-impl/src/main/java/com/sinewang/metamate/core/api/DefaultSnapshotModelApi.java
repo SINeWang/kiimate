@@ -2,15 +2,21 @@ package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.bound.factory.ResponseFactory;
+import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.SnapshotModelApi;
+import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.dai.PublicationDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
 import wang.yanjiong.metamate.core.fi.AnPublicationValidator;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 05/04/2017.
@@ -28,6 +34,9 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
     private AnPublicationExtractor publicationExtractor;
 
     @Autowired
+    private IntensionDai intensionDai;
+
+    @Autowired
     private AnExtensionExtractor extensionExtractor;
 
     @RequestMapping(value = "/snapshot/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -39,22 +48,44 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
 
-        AnPublicationExtractor.Publication extratorPublication;
+        AnPublicationExtractor.Publication snapshot;
+
+        String extId = extensionExtractor.hashId(ownerId, group, name, tree);
         try {
-            String extId = extensionExtractor.hashId(ownerId, group, name, tree);
-            extratorPublication = publicationExtractor.extractSnapshot(form, ownerId, extId, operatorId);
+            snapshot = publicationExtractor.extractSnapshot(form, ownerId, extId, operatorId);
         } catch (AnPublicationExtractor.MissingParamException e) {
             return ResponseFactory.badRequest(e.getMessage());
         }
 
+        List<PublicationDai.Publication> publications = new ArrayList<>();
+        List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
+        for (IntensionDai.Intension intension : intensions) {
 
-        PublicationDai.Publication daiPublication = DataTools.copy(extratorPublication, PublicationDai.Publication.class);
+            String id = HashTools.hashHex(
+                    ownerId,
+                    extId,
+                    intension.getId(),
+                    snapshot.getVersion(),
+                    snapshot.getPublication());
 
-        daiPublication.setPublication(AnPublicationValidator.Publication.SNAPSHOT.name());
-        publicationDai.savePublication(daiPublication);
+            PublicationDai.Publication daiPublication = DataTools.copy(snapshot, PublicationDai.Publication.class);
+            daiPublication.setPublication(AnPublicationValidator.Publication.SNAPSHOT.name());
+            daiPublication.setIntId(intension.getId());
+            daiPublication.setId(id);
+            daiPublication.setCreatedAt(snapshot.getCreatedAt());
+            publications.add(daiPublication);
+        }
+        publicationDai.savePublications(publications);
 
         Receipt receipt = new Receipt();
 
+        receipt.setVersion(snapshot.getVersion());
+
+        receipt.setCreatedAt(snapshot.getCreatedAt());
+
+        List<Intension> snapshotIntensions = DataTools.copy(intensions, Intension.class);
+
+        receipt.setIntensions(snapshotIntensions);
 
         return ResponseFactory.accepted(receipt, ownerId);
 

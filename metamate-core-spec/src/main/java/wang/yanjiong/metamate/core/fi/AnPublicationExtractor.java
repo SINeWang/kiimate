@@ -4,6 +4,8 @@ import lombok.Data;
 import wang.yanjiong.metamate.core.api.ReleaseModelApi;
 import wang.yanjiong.metamate.core.api.SnapshotModelApi;
 
+import java.util.Date;
+
 /**
  * Created by WangYanJiong on 3/23/17.
  */
@@ -31,6 +33,8 @@ public interface AnPublicationExtractor {
         private String publication;
 
         private String operatorId;
+
+        private Date createdAt;
 
     }
 
