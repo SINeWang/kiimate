@@ -25,9 +25,6 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         if (extensionForm.getTree() == null || extensionForm.getTree().isEmpty()) {
             throw new MissingParamException("version is NULL or EMPTY");
         }
-        if (extensionForm.getStructure() == null || extensionForm.getStructure().isEmpty()) {
-            throw new MissingParamException("structure is NULL or EMPTY");
-        }
         if (extensionForm.getVisibility() == null || extensionForm.getVisibility().isEmpty()) {
             throw new MissingParamException("visibility is NULL or EMPTY");
         }

@@ -30,8 +30,6 @@ public interface DeclareExtensionApi {
         private String tree;
 
         private String visibility;
-
-        private String structure;
     }
 
     @Data
@@ -47,9 +45,6 @@ public interface DeclareExtensionApi {
         private String tree;
 
         private String visibility;
-
-        private String structure;
-
     }
 
 }

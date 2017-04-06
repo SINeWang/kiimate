@@ -30,8 +30,6 @@ public interface ExtensionDai {
 
         private String visibility;
 
-        private String structure;
-
     }
 
     class ExtensionDuplicated extends Exception {

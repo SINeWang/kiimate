@@ -103,8 +103,6 @@ public class TestSnapshotModelApi {
 
         extension.setId(extId);
 
-        extension.setStructure(AnStructureValidator.Structure.IMPORT.name());
-
         try {
             extensionDai.insertExtension(extension);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {

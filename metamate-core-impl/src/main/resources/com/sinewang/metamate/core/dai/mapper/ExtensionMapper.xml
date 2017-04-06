@@ -11,20 +11,19 @@
         <result column="tree" property="tree"/>
         <result column="owner_id" property="ownerId"/>
         <result column="visibility" property="visibility"/>
-        <result column="structure" property="structure"/>
     </resultMap>
 
     <select id="selectExtensionById" resultMap="Extension">
-        SELECT mext.id, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.structure
+        SELECT mext.id, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility
         FROM mm_m_ext mext
         WHERE mext.id = #{id} AND mext.end_time IS NULL
     </select>
 
     <insert id="insertExtension">
         INSERT INTO mm_m_ext
-        (`id`, `group`, `name`, `tree`, `owner_id`, `visibility`, `structure`, `begin_time`)
+        (`id`, `group`, `name`, `tree`, `owner_id`, `visibility`, `begin_time`)
         VALUES
-        (#{id}, #{group}, #{name}, #{tree}, #{ownerId}, #{visibility}, #{structure}, #{beginTime})
+        (#{id}, #{group}, #{name}, #{tree}, #{ownerId}, #{visibility}, #{beginTime})
     </insert>
 
     <update id="updateEndTimeExtensionById">

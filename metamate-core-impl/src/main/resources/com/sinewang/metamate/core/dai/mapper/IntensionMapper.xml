@@ -21,14 +21,21 @@
         AND mint.end_time IS NULL
     </select>
 
-    <select id="selectLatestIntensionsByExtIdField" resultMap="Intension">
+    <select id="selectLatestIntensionByExtIdField" resultMap="Intension">
         SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_ext_id, mint.visibility
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
         AND mint.end_time IS NULL
     </select>
-    
+
+    <select id="selectLatestIntensionByIntId" resultMap="Intension">
+        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_ext_id, mint.visibility
+        FROM mm_m_int mint
+        WHERE mint.int_id = #{intId}
+        AND mint.end_time IS NULL
+    </select>
+
     <update id="updateLatestIntensionEndTimeById">
         UPDATE mm_m_int mint
         SET mint.end_time = #{endTime}

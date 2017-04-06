@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.VisitEntitiesApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
+import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 import wang.yanjiong.metamate.core.fi.AnStructureValidator;
 
@@ -26,7 +27,7 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
     private InstanceDai instanceDai;
 
     @Autowired
-    private ExtensionDai extensionDai;
+    private IntensionDai intensionDai;
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
@@ -56,9 +57,9 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
 
         for (InstanceDai.Instance instance : instances) {
 
-            ExtensionDai.Extension extension = extensionDai.selectExtensionById(instance.getExtId());
+            IntensionDai.Intension intension = intensionDai.selectIntensionByIntId(instance.getIntId());
 
-            if (extension.getStructure().toUpperCase().equals(AnStructureValidator.Structure.IMPORT.name())) {
+            if (intension.getStructure().toUpperCase().equals(AnStructureValidator.Structure.IMPORT.name())) {
                 map.put(instance.getField(), visitInstance(ownerId, extId));
             } else {
                 map.put(instance.getField(), instance.getValue());

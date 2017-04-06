@@ -55,7 +55,6 @@ public class TestExtensionDai {
         extension.setOwnerId(testOwnerId);
         extension.setName(testName);
         extension.setTree(testTree);
-        extension.setStructure(testStructure);
         extension.setVisibility(testVisibility);
         extension.setId(testId);
         try {
@@ -72,7 +71,6 @@ public class TestExtensionDai {
         Assert.assertEquals(dbExtension.getName(), testName);
         Assert.assertEquals(dbExtension.getTree(), testTree);
         Assert.assertEquals(dbExtension.getVisibility(), testVisibility);
-        Assert.assertEquals(dbExtension.getStructure(), testStructure);
     }
 
     @Test()
@@ -82,7 +80,6 @@ public class TestExtensionDai {
         extension.setOwnerId(testOwnerId);
         extension.setName(testName);
         extension.setTree(testTree);
-        extension.setStructure(testStructure);
         extension.setVisibility(testVisibility);
         extension.setId(testId);
         try {

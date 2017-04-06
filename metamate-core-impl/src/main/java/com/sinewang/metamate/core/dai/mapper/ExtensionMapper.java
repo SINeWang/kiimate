@@ -18,7 +18,6 @@ public interface ExtensionMapper {
                          @Param("name") String name,
                          @Param("tree") String tree,
                          @Param("visibility") String visibility,
-                         @Param("structure") String structure,
                          @Param("beginTime") Date beginTime);
 
     ExtensionDai.Extension selectExtensionById(@Param("id") String id);

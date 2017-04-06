@@ -49,12 +49,12 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
 
         boolean isValidStructure = structureValidator.isValid(extension.getStructure());
         if (!isValidStructure) {
-            return ResponseFactory.badRequest("invalid Publication");
+            return ResponseFactory.badRequest("invalid Structure, given [" + extension.getStructure() + "]");
         }
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
         if (!isValidVisibility) {
-            return ResponseFactory.badRequest("invalid visibility");
+            return ResponseFactory.badRequest("invalid Visibility, given [" + extension.getVisibility() + "]");
         }
 
         ExtensionDai.Extension daiExtension = DataTools.copy(extension, ExtensionDai.Extension.class);

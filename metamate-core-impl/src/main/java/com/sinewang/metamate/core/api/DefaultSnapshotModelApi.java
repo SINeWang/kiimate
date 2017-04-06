@@ -74,19 +74,6 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
             if (intension.getStructure().equals(AnStructureValidator.Structure.IMPORT.name())) {
 
-
-//                List<ModelPublicationDai.Publication> subPublications =  modelPublicationDai.getPublicationByProviderIdExtId(intension.getRefExtId());
-//
-//                ModelPublicationDai.Publication subpub = new ModelPublicationDai.Publication();
-//                subpub.setCreatedAt(snapshot.getCreatedAt());
-//                subpub.setExtId(intension.getRefExtId());
-//                subpub.setId();
-//                subpub.setIntId(intension.getId());
-//                subpub.setOperatorId(operatorId);
-//                subpub.setProviderId(providerId);
-//                subpub.setPublication();
-//                subpub.setVersion();
-
             }
         }
 

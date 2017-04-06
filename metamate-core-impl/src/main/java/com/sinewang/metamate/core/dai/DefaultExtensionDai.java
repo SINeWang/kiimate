@@ -54,7 +54,6 @@ public class DefaultExtensionDai implements ExtensionDai {
                     extension.getName(),
                     extension.getTree(),
                     extension.getVisibility(),
-                    extension.getStructure(),
                     now
             );
         } catch (DuplicateKeyException duplicated) {

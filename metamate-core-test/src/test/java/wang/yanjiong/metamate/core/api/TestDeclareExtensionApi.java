@@ -78,17 +78,6 @@ public class TestDeclareExtensionApi {
         Assert.assertNull(extensionReceipt);
     }
 
-    @Test
-    public void testStructureOnly() {
-        DeclareExtensionApi.ExtensionForm extensionForm = new DeclareExtensionApi.ExtensionForm();
-        extensionForm.setStructure("testStructure");
-        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(extensionForm, ownerId, operatorId);
-        DeclareExtensionApi.ExtensionReceipt extensionReceipt = response.getBody();
-        HttpStatus httpStatus = response.getStatusCode();
-        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(extensionReceipt);
-    }
-
 
     @Test
     public void testInvalidStructure() {
@@ -97,7 +86,6 @@ public class TestDeclareExtensionApi {
         extensionForm.setName("testName");
         extensionForm.setTree("testTree");
         extensionForm.setVisibility("protected");
-        extensionForm.setStructure("testStructure");
         ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(extensionForm, ownerId, operatorId);
         DeclareExtensionApi.ExtensionReceipt extensionReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
@@ -112,7 +100,6 @@ public class TestDeclareExtensionApi {
         extensionForm.setName("testName");
         extensionForm.setTree("testTree");
         extensionForm.setVisibility("testVisibility");
-        extensionForm.setStructure(AnStructureValidator.Structure.IMPORT.name());
         ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(extensionForm, ownerId, operatorId);
         DeclareExtensionApi.ExtensionReceipt extensionReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
@@ -131,7 +118,6 @@ public class TestDeclareExtensionApi {
         extensionForm.setName(name);
         extensionForm.setTree(tree);
         extensionForm.setVisibility(AnVisibilityValidator.Visibility.PROTECTED.name());
-        extensionForm.setStructure(AnStructureValidator.Structure.IMPORT.name());
         ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(extensionForm, ownerId, operatorId);
         DeclareExtensionApi.ExtensionReceipt extensionReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();

@@ -36,7 +36,7 @@ public class ExtensionMapperTest {
         ExtensionDai.Extension ext = extensionMapper.selectExtensionById("12");
         Assert.assertNull(ext);
 
-        extensionMapper.insertExtension(id, ownerId, "12", "56", "78", "90", "ab", new Date());
+        extensionMapper.insertExtension(id, ownerId, "12", "56", "78", "90", new Date());
         ExtensionDai.Extension ext1 = extensionMapper.selectExtensionById(id);
         Assert.assertNotNull(ext1);
 

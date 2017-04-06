@@ -25,7 +25,7 @@ public class DefaultIntensionDai implements IntensionDai {
 
     @Override
     public void insertIntension(Intension intension) throws IntensionDuplicated {
-        Intension oldIntension = intensionMapper.selectLatestIntensionsByExtIdField(intension.getExtId(), intension.getField());
+        Intension oldIntension = intensionMapper.selectLatestIntensionByExtIdField(intension.getExtId(), intension.getField());
 
         Date now = new Date();
 
@@ -51,8 +51,12 @@ public class DefaultIntensionDai implements IntensionDai {
 
     @Override
     public List<Intension> selectIntensionsByExtId(String extId) {
-        List<Intension> intensions = intensionMapper.selectLatestIntensionsByExtId(extId);
-        return intensions;
+        return intensionMapper.selectLatestIntensionsByExtId(extId);
+    }
+
+    @Override
+    public Intension selectIntensionByIntId(String intId) {
+        return intensionMapper.selectLatestIntensionByIntId(intId);
     }
 
     @Override
