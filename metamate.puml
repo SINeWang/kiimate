@@ -35,7 +35,7 @@ class ModelIntension {
 }
 
 class ModelPublication {
-    String id // m_tag_id
+    String id // m_pub_id
     String owner_id
     String ext_id
     String[] int_id

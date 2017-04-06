@@ -22,11 +22,13 @@ public interface InstanceDai {
 
         private String id; // id = hashHex(instances.id, value)
 
+        private String ownerId;
+
+        private String pubId;
+
         private String extId;
 
         private String intId;
-
-        private String ownerId;
 
         private String field;
 
@@ -45,11 +47,13 @@ public interface InstanceDai {
 
         private String id; // id = hashHex(hashHex(extId, fieldId), ownerId)
 
+        private String ownerId;
+
+        private String pubId;
+
         private String extId;
 
         private String intId;
-
-        private String ownerId;
 
         private String field;
 

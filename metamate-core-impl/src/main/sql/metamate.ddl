@@ -7,10 +7,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `mm_i_ins`;
 CREATE TABLE `mm_i_ins` (
   `id` varchar(160) NOT NULL,
-  `ext_id` varchar(160) NOT NULL,
-  `int_id` varchar(160) NOT NULL,
   `owner_id` varchar(160) NOT NULL,
-  `field` varchar(32) NOT NULL,
+  `m_pub_id` varchar(160) NOT NULL,
   `value` varchar(255) DEFAULT NULL,
   `value_set_hash` varchar(160) DEFAULT NULL,
   `value_ref_id` varchar(160) DEFAULT NULL,

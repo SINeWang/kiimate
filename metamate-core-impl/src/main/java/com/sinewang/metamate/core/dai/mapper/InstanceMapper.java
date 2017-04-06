@@ -16,10 +16,8 @@ public interface InstanceMapper {
 
 
     void insertInstance(@Param("id") String id,
-                        @Param("extId") String extId,
-                        @Param("intId") String intId,
                         @Param("ownerId") String ownerId,
-                        @Param("field") String field,
+                        @Param("pubId") String pubId,
                         @Param("value") String value,
                         @Param("valueSetHash") String valueSetHash,
                         @Param("valueRefId") String valueRefId,

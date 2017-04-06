@@ -44,15 +44,14 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
-            @PathVariable("tree") String tree,
-            @RequestParam(value = "tag", required = false, defaultValue = "LATEST") String tag,
+            @PathVariable("version") String version,
             HttpServletRequest request) {
 
-        String extId = extensionExtractor.hashId(ownerId, group, name, tree);
+        String extId = extensionExtractor.hashId(ownerId, group, name, version);
 
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(
                 ownerId,
-                group, name, tree,
+                group, name, version,
                 operatorId, request.getParameterMap());
 
         List<InstanceDai.Instances> instances1 = DataTools.copy(instances, InstanceDai.Instances.class);
