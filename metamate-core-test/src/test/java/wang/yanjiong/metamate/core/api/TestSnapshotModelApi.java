@@ -133,17 +133,16 @@ public class TestSnapshotModelApi {
     public void test() {
         SnapshotModelApi.Form form = new SnapshotModelApi.Form();
         form.setVersion(version);
+        form.setProviderId(providerId);
         modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
 
         ResponseEntity<SnapshotModelApi.Receipt> response = null;
         try {
             response = snapshotModelApi.snapshot(
                     form,
-                    providerId,
                     ownerId,
                     operatorId,
-                    group,
-                    tree);
+                    group);
         } catch (SnapshotModelApi.RefereceExtensionHasNotBeenPublished refereceExtensionHasNotBeenPublished) {
             refereceExtensionHasNotBeenPublished.printStackTrace();
         }

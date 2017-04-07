@@ -3,12 +3,16 @@ package wang.yanjiong.metamate.core.dai;
 import lombok.Data;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by WangYanJiong on 3/23/17.
  */
 public interface ExtensionDai {
 
     Extension selectExtensionById(String id);
+
+    List<Extension> selectExtensionsByOwnerGroup(String ownerId, String group);
 
     void deleteExtensionById(String id);
 

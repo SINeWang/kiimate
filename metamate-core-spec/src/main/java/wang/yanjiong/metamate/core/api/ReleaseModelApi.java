@@ -31,6 +31,8 @@ public interface ReleaseModelApi {
     @EqualsAndHashCode(callSuper = false)
     class ReleaseForm {
 
+        private String providerId;
+
         private String version;
 
     }

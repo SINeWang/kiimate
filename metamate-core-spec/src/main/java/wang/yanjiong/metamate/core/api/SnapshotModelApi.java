@@ -17,21 +17,23 @@ import java.util.List;
 @RequestMapping("/v1")
 public interface SnapshotModelApi {
 
-    String ROOT_NAME = "ROOT";
+    String ROOT_NAME = "root";
+
+    String TREE_MASTER = "master";
 
 
-    @RequestMapping(value = "/snapshot/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/snapshot/{group}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> snapshot(
             @ModelAttribute Form form,
-            @RequestHeader("X-SUMMER-ProviderId") String providerId,
-            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader("X-SUMMER-OperatorId") String operatorId,
-            @PathVariable("group") String group,
-            @PathVariable("tree") String tree) throws RefereceExtensionHasNotBeenPublished;
+            @RequestHeader("X-MM-OperatorId") String operatorId,
+            @PathVariable("ownerId") String ownerId,
+            @PathVariable("group") String group) throws RefereceExtensionHasNotBeenPublished;
 
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Form {
+
+        private String providerId;
 
         private String version;
 

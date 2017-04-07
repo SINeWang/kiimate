@@ -5,12 +5,10 @@ import one.kii.summer.bound.factory.ResponseFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.SaveInstanceApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
@@ -45,6 +43,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
+    @RequestMapping(value = "/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OwnerId") String ownerId,
@@ -84,5 +83,18 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             apiInstances.add(apiInstance);
         }
         return ResponseFactory.accepted(apiInstances, ownerId);
+    }
+
+    @Override
+    @RequestMapping(value = "/instance/{group}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
+            @RequestHeader("X-SUMMER-RequestId") String requestId,
+            @RequestHeader("X-MM-OwnerId") String ownerId,
+            @RequestHeader("X-MM-OperatorId") String operatorId,
+            @PathVariable("group") String group,
+            @RequestParam MultiValueMap<String, String> map) {
+
+        return saveInstanceViaFormUrlEncoded(requestId, ownerId, operatorId, group, NAME_ROOT, TREE_MASTER, map);
+
     }
 }

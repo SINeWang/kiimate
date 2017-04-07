@@ -1,6 +1,6 @@
-package com.sinewang.statemate.core.api;
+package com.sinewang.statemate.core.spi;
 
-import one.kii.statemate.core.api.CreateModelApi;
+import one.kii.statemate.core.spi.CreateModelSpi;
 import one.kii.statemate.core.spi.CreateExtensionSpi;
 import one.kii.statemate.core.spi.CreateIntensionSpi;
 import org.slf4j.Logger;
@@ -18,9 +18,9 @@ import java.util.Map;
  * Created by WangYanJiong on 4/7/17.
  */
 @Component
-public class DefaultCreateModel implements CreateModelApi {
+public class DefaultCreateModelSpi implements CreateModelSpi {
 
-    private static Logger logger = LoggerFactory.getLogger(DefaultCreateModel.class);
+    private static Logger logger = LoggerFactory.getLogger(DefaultCreateModelSpi.class);
 
     @Autowired
     private CreateExtensionSpi createExtensionSpi;
@@ -91,5 +91,10 @@ public class DefaultCreateModel implements CreateModelApi {
     @Override
     public <T> Receipt createModel(String group, Class<T> klass) {
         return createModel(group, NAME_ROOT, klass);
+    }
+
+    @Override
+    public <T> Receipt createModel(Class<T> klass) {
+        return createModel(klass.getPackage().getName(), NAME_ROOT, klass);
     }
 }

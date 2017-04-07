@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -28,8 +29,12 @@ public class DefaultExtensionDai implements ExtensionDai {
         if (StringUtils.isEmpty(id)) {
             throw new NullPointerException("id is EMPTY");
         }
-        Extension extension = extensionMapper.selectExtensionById(id);
-        return extension;
+        return extensionMapper.selectExtensionById(id);
+    }
+
+    @Override
+    public List<Extension> selectExtensionsByOwnerGroup(String ownerId, String group) {
+        return extensionMapper.selectExtensionsByOwnerGroup(ownerId, group);
     }
 
     @Override

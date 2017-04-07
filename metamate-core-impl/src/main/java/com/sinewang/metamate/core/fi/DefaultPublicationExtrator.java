@@ -17,26 +17,28 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
 
 
     @Override
-    public Publication extractSnapshot(SnapshotModelApi.Form form, String providerId, String extId, String operatorId) throws MissingParamException {
+    public Publication extractSnapshot(SnapshotModelApi.Form form, String extId, String operatorId, Date date) throws MissingParamException {
         Publication publication = new Publication();
+        publication.setPubExtId(hashPubExtId(form.getProviderId(), extId, "SNAPSHOT", form.getVersion()));
         publication.setExtId(extId);
         publication.setOperatorId(operatorId);
-        publication.setProviderId(providerId);
+        publication.setProviderId(form.getProviderId());
         publication.setVersion(form.getVersion());
         publication.setPublication(AnPublicationValidator.Publication.SNAPSHOT.name());
-        publication.setCreatedAt(new Date());
+        publication.setCreatedAt(date);
         return publication;
     }
 
     @Override
-    public Publication extractRelease(ReleaseModelApi.ReleaseForm form, String providerId, String extId, String operatorId) throws MissingParamException {
+    public Publication extractRelease(ReleaseModelApi.ReleaseForm form, String extId, String operatorId, Date date) throws MissingParamException {
         Publication publication = new Publication();
+        publication.setPubExtId(hashPubExtId(form.getProviderId(), extId, "RELEASE", form.getVersion()));
         publication.setExtId(extId);
         publication.setOperatorId(operatorId);
-        publication.setProviderId(providerId);
+        publication.setProviderId(form.getProviderId());
         publication.setVersion(form.getVersion());
         publication.setPublication(AnPublicationValidator.Publication.RELEASE.name());
-        publication.setCreatedAt(new Date());
+        publication.setCreatedAt(date);
         return publication;
     }
 

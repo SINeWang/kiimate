@@ -39,7 +39,7 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @ModelAttribute ExtensionForm extensionForm,
             @RequestHeader("X-MM-OwnerId") String ownerId,
-            @RequestHeader(value = "X-MM-VisitorId", required = false) String visitorId) {
+            @RequestHeader(value = "X-MM-OperatorId", required = false) String visitorId) {
 
         AnExtensionExtractor.Extension extension;
         try {

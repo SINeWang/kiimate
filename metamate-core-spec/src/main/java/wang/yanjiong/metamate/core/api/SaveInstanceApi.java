@@ -18,6 +18,9 @@ import java.util.List;
 @RequestMapping("/v1")
 public interface SaveInstanceApi {
 
+    String NAME_ROOT = "root";
+
+    String TREE_MASTER = "master";
 
     @RequestMapping(value = "/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
@@ -27,6 +30,14 @@ public interface SaveInstanceApi {
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree,
+            @RequestParam MultiValueMap<String, String> map);
+
+    @RequestMapping(value = "/instance/{group}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
+            @RequestHeader("X-SUMMER-RequestId") String requestId,
+            @RequestHeader("X-MM-OwnerId") String ownerId,
+            @RequestHeader("X-MM-OperatorId") String operatorId,
+            @PathVariable("group") String group,
             @RequestParam MultiValueMap<String, String> map);
 
     @Data

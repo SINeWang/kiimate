@@ -1,9 +1,9 @@
-package one.kii.statemate.core.api;
+package one.kii.statemate.core.spi;
 
 /**
  * Created by WangYanJiong on 4/7/17.
  */
-public interface ReadModelApi {
+public interface ReadModelSpi {
 
     String NAME_ROOT = "root";
 

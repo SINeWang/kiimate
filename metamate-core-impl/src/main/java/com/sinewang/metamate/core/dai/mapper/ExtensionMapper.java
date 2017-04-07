@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -21,6 +22,8 @@ public interface ExtensionMapper {
                          @Param("beginTime") Date beginTime);
 
     ExtensionDai.Extension selectExtensionById(@Param("id") String id);
+
+    List<ExtensionDai.Extension> selectExtensionsByOwnerGroup(@Param("ownerId") String ownerId, @Param("group") String group);
 
     void deleteExtensionById(@Param("id") String id);
 

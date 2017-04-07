@@ -20,7 +20,7 @@
         INSERT INTO mm_m_pub
         (id, pub_ext_id, provider_id, ext_id, int_id, version, pub, operator_id, created_at)
         VALUES
-        (#{id}, #{providerId}, #{extId}, #{intId}, #{version}, #{publication}, #{operatorId}, #{createdAt})
+        (#{id}, #{pubExtId}, #{providerId}, #{extId}, #{intId}, #{version}, #{publication}, #{operatorId}, #{createdAt})
     </insert>
 
     <select id="selectPublicationByProviderIdExtIdPubVersion" resultMap="Publication">

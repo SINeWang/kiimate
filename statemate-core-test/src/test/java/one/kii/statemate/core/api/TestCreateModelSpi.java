@@ -1,5 +1,6 @@
 package one.kii.statemate.core.api;
 
+import one.kii.statemate.core.spi.CreateModelSpi;
 import one.kii.statemate.core.spi.ReadExtensionSpi;
 import org.junit.Assert;
 import org.junit.Test;
@@ -15,8 +16,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.List;
-
 
 /**
  * Created by WangYanJiong on 4/7/17.
@@ -25,12 +24,12 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.statemate")
-@SpringBootTest(classes = {TestCreateModel.class})
+@SpringBootTest(classes = {TestCreateModelSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class TestCreateModel {
+public class TestCreateModelSpi {
 
     @Autowired
-    private CreateModelApi createModelApi;
+    private CreateModelSpi createModelSpi;
 
     @Autowired
     private ReadExtensionSpi readExtensionSpi;
@@ -40,7 +39,7 @@ public class TestCreateModel {
 
     @Test
     public void test() {
-        CreateModelApi.Receipt receipt = createModelApi.createModel(group, SpringBootConfiguration.class);
+        CreateModelSpi.Receipt receipt = createModelSpi.createModel(group, SpringBootConfiguration.class);
 
         Assert.assertNotNull(receipt);
 
