@@ -116,12 +116,13 @@ public class TestSaveInstanceApi {
         }
 
 
-        subId = subscribeModelExtractor.hashId(
-                providerId, extId, publication, version, subscriberId
-        );
+        String pubExtId = publicationExtractor.hashPubExtId(providerId, extId, publication, version);
+
+        subId = subscribeModelExtractor.hashId(pubExtId, subscriberId);
 
         modelSubscriptionMapper.insertSubscription(
-                subId, providerId, extId, publication, version, subscriberId, group, name, tree, operatorId, new Date()
+
+                subId, pubExtId, subscriberId, group, name, tree, operatorId, new Date()
         );
 
     }

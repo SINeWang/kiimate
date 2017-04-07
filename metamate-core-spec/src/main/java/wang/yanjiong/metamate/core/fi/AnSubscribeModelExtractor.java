@@ -9,7 +9,7 @@ import wang.yanjiong.metamate.core.api.SubscribeModelApi;
 
 public interface AnSubscribeModelExtractor {
 
-    String hashId(String providerId, String extId, String publication, String version, String subscriberId);
+    String hashId(String pubExtId, String subscriberId);
 
     ModelSubscription extract(SubscribeModelApi.Form form, String providerId, String extId, String publication, String version, String subscriberId, String operatorId);
 

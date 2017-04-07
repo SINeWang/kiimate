@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1")
 public interface SubscribeModelApi {
 
-    @RequestMapping(value = "/subscribe/{providerId}/{extId}/{publication}/{version}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/subscribe/{pubExtId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> subscribe(
             @ModelAttribute Form form,
             @RequestHeader("X-SUMMER-SubscriberId") String subscriberId,
@@ -36,13 +36,7 @@ public interface SubscribeModelApi {
 
         private String id;
 
-        private String providerId;
-
-        private String extId;
-
-        private String publication;
-
-        private String version;
+        private String pubExtId;
 
         private String subscriberId;
 

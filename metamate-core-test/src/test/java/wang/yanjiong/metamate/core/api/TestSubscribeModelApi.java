@@ -48,13 +48,16 @@ public class TestSubscribeModelApi {
 
     private String extId = "testExtId";
 
+    private String pubExtId = "testPubExtId";
+
     private String publication = "SNAPSHOT";
 
     @Test
     public void test() {
         SubscribeModelApi.Form form = new SubscribeModelApi.Form();
 
-        String id = subscribeModelExtractor.hashId(providerId, extId, publication, version, subscriberId);
+
+        String id = subscribeModelExtractor.hashId(pubExtId, subscriberId);
         modelSubscriptionMapper.deleteById(id);
 
 
@@ -71,18 +74,13 @@ public class TestSubscribeModelApi {
                 version
         ).getBody();
 
-        Assert.assertEquals(extId, receipt.getExtId());
+        Assert.assertEquals(pubExtId, receipt.getPubExtId());
         Assert.assertEquals(group, receipt.getGroup());
         Assert.assertEquals(id, receipt.getId());
         Assert.assertEquals(name, receipt.getName());
         Assert.assertEquals(tree, receipt.getTree());
         Assert.assertEquals(subscriberId, receipt.getSubscriberId());
-        Assert.assertEquals(providerId, receipt.getProviderId());
         Assert.assertEquals(operatorId, receipt.getOperatorId());
-
-        Assert.assertEquals(version, receipt.getVersion());
-
-        Assert.assertEquals(publication, receipt.getPublication());
 
         modelSubscriptionMapper.deleteById(id);
 

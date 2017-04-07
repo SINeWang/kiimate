@@ -52,7 +52,7 @@ class ModelPublication {
 }
 
 class ModelSubscription {
-    String id // m_pub_id
+    String id // m_sub_id
     String pub_ext_id
     String subscriber_id
     String group

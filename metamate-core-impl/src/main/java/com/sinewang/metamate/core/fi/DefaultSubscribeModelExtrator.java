@@ -1,8 +1,10 @@
 package com.sinewang.metamate.core.fi;
 
 import one.kii.summer.codec.utils.HashTools;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.SubscribeModelApi;
+import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
 import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
 
 /**
@@ -12,12 +14,13 @@ import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
 @Component
 public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor {
 
-    public String hashId(String providerId, String extId, String publication, String version, String subscriberId) {
-        return HashTools.hashHex(
-                providerId, extId, publication, version, subscriberId
-        );
-    }
+    @Autowired
+    private AnPublicationExtractor publicationExtractor;
 
+    @Override
+    public String hashId(String pubExtId, String subscriberId) {
+        return HashTools.hashHex(pubExtId, subscriberId);
+    }
 
     @Override
     public ModelSubscription extract(SubscribeModelApi.Form form, String providerId, String extId, String publication, String version, String subscriberId, String operatorId) {
@@ -36,7 +39,9 @@ public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor 
 
         subscription.setOperatorId(operatorId);
 
-        String id = hashId(providerId, extId, publication, version, subscriberId);
+        String pubExtId = publicationExtractor.hashPubExtId(providerId, extId, publication, version);
+
+        String id = hashId(pubExtId, subscriberId);
 
         subscription.setId(id);
         return subscription;
