@@ -1,6 +1,6 @@
 package com.sinewang.metamate.core.api;
 
-import one.kii.summer.bound.factory.ResponseFactory;
+import one.kii.summer.erest.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,7 +41,7 @@ public class DefaultVisitInstancesApi implements VisitInstancesApi {
         for (InstanceDai.Instance daiInstance : instances) {
             map.put(daiInstance.getField(), daiInstance.getValue());
         }
-        return ResponseFactory.accepted(map, ownerId);
+        return Response.accepted(map, ownerId);
     }
 
 }

@@ -1,11 +1,10 @@
 package com.sinewang.metamate.core.api;
 
-import one.kii.summer.bound.factory.ResponseFactory;
+import one.kii.summer.erest.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.VisitEntitiesApi;
-import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
@@ -47,7 +46,7 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
         String extId = subscription.getExtId();
         Map<String, Object> map = visitInstance(ownerId, extId);
 
-        return ResponseFactory.accepted(map, ownerId);
+        return Response.accepted(map, ownerId);
     }
 
     private Map<String, Object> visitInstance(String ownerId, String extId) {

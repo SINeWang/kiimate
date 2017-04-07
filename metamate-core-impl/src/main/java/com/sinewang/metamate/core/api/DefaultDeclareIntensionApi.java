@@ -1,11 +1,13 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.bound.factory.ResponseFactory;
+import one.kii.summer.erest.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.DeclareIntensionApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
@@ -44,9 +46,9 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
         try {
             intensionDai.insertIntension(daiRecord);
             IntensionReceipt intensionReceipt = DataTools.copy(daiRecord, IntensionReceipt.class);
-            return ResponseFactory.accepted(intensionReceipt, ownerId);
+            return Response.accepted(intensionReceipt, ownerId);
         } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
-            return ResponseFactory.badRequest(extensionDuplicated.getMessage());
+            return Response.badRequest(extensionDuplicated.getMessage());
         }
     }
 

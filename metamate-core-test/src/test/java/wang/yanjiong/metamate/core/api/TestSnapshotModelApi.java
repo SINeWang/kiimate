@@ -66,8 +66,6 @@ public class TestSnapshotModelApi {
 
     private String visitorId = "testVisitorId";
 
-    private String tag = "testTag";
-
     private String visibility = AnVisibilityValidator.Visibility.PUBLIC.name();
 
     private String operatorId = "operatorId";

@@ -1,7 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.bound.factory.ResponseFactory;
+import one.kii.summer.erest.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -61,7 +61,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
             try {
                 snapshot = publicationExtractor.extractSnapshot(form, extId, operatorId, date);
             } catch (AnPublicationExtractor.MissingParamException e) {
-                return ResponseFactory.badRequest(e.getMessage());
+                return Response.badRequest(e.getMessage());
             }
 
             List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
@@ -99,7 +99,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
         receipt.setOwnerId(ownerId);
 
-        return ResponseFactory.accepted(receipt, form.getProviderId());
+        return Response.accepted(receipt, form.getProviderId());
 
     }
 

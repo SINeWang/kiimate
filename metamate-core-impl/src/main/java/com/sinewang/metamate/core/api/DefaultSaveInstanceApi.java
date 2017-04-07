@@ -1,7 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.bound.factory.ResponseFactory;
+import one.kii.summer.erest.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +82,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             apiInstance.setValue(new String[]{dbInstance.getValue()});
             apiInstances.add(apiInstance);
         }
-        return ResponseFactory.accepted(apiInstances, ownerId);
+        return Response.accepted(apiInstances, ownerId);
     }
 
     @Override

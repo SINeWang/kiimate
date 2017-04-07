@@ -1,7 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import com.google.common.base.CaseFormat;
-import one.kii.summer.bound.factory.ResponseFactory;
+import one.kii.summer.erest.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +9,6 @@ import wang.yanjiong.metamate.core.api.VisitExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
-import wang.yanjiong.metamate.core.fi.AnStructureValidator;
 
 import java.util.*;
 
@@ -42,7 +41,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         tree = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, tree);
 
         String extId = extensionExtractor.hashId(ownerId, group, name, tree);
-        return ResponseFactory.accepted(restoreModel(extId), ownerId);
+        return Response.accepted(restoreModel(extId), ownerId);
     }
 
     private List toArray(Object o) {
@@ -85,7 +84,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         group = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, group);
 
         String extId = extensionExtractor.hashId(ownerId, group, NAME_ROOT, TREE_MASTER);
-        return ResponseFactory.accepted(restoreModel(extId), ownerId);
+        return Response.accepted(restoreModel(extId), ownerId);
     }
 
     @Override
@@ -99,6 +98,6 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name);
 
         String extId = extensionExtractor.hashId(ownerId, group, name, TREE_MASTER);
-        return ResponseFactory.accepted(restoreModel(extId), ownerId);
+        return Response.accepted(restoreModel(extId), ownerId);
     }
 }

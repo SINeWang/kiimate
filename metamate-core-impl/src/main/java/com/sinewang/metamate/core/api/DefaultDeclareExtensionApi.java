@@ -1,7 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.bound.factory.ResponseFactory;
+import one.kii.summer.erest.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,13 +45,13 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
         try {
             extension = extensionExtractor.extract(extensionForm, ownerId);
         } catch (AnExtensionExtractor.MissingParamException e) {
-            return ResponseFactory.badRequest(e.getMessage());
+            return Response.badRequest(e.getMessage());
         }
 
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
         if (!isValidVisibility) {
-            return ResponseFactory.badRequest("invalid Visibility, given [" + extension.getVisibility() + "]");
+            return Response.badRequest("invalid Visibility, given [" + extension.getVisibility() + "]");
         }
 
         ExtensionDai.Extension daiExtension = DataTools.copy(extension, ExtensionDai.Extension.class);
@@ -61,7 +61,7 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
             ExtensionReceipt extensionReceipt = DataTools.copy(daiExtension, ExtensionReceipt.class);
             return new ResponseEntity<>(extensionReceipt, HttpStatus.ACCEPTED);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
-            return ResponseFactory.badRequest(extensionDuplicated.getMessage());
+            return Response.badRequest(extensionDuplicated.getMessage());
         }
     }
 

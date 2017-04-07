@@ -1,7 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.bound.factory.ResponseFactory;
+import one.kii.summer.erest.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,10 +12,7 @@ import wang.yanjiong.metamate.core.api.SubscribeModelApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.dai.ModelPublicationDai;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
-import wang.yanjiong.metamate.core.fi.AnStructureValidator;
 import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
-
-import java.util.List;
 
 /**
  * Created by WangYanJiong on 4/6/17.
@@ -69,7 +66,7 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
 
         Receipt receipt = DataTools.copy(subscription, Receipt.class);
 
-        return ResponseFactory.accepted(receipt, subscriberId);
+        return Response.accepted(receipt, subscriberId);
     }
 
 
