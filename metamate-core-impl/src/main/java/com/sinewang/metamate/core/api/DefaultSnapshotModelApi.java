@@ -37,6 +37,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
     @Autowired
     private AnExtensionExtractor extensionExtractor;
 
+
     @RequestMapping(value = "/snapshot/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> snapshot(
             @ModelAttribute Form form,
@@ -44,12 +45,11 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader("X-SUMMER-OperatorId") String operatorId,
             @PathVariable("group") String group,
-            @PathVariable("name") String name,
             @PathVariable("tree") String tree) throws RefereceExtensionHasNotBeenPublished {
 
         AnPublicationExtractor.Publication snapshot;
 
-        String extId = extensionExtractor.hashId(ownerId, group, name, tree);
+        String extId = extensionExtractor.hashId(ownerId, group, ROOT_NAME, tree);
         try {
             snapshot = publicationExtractor.extractSnapshot(form, providerId, extId, operatorId);
         } catch (AnPublicationExtractor.MissingParamException e) {
@@ -97,4 +97,5 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
         return ResponseFactory.accepted(receipt, providerId);
 
     }
+
 }

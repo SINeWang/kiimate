@@ -37,7 +37,7 @@ public class TestSnapshotModelApi {
     private SnapshotModelApi snapshotModelApi;
 
     @Autowired
-    private VisitModelsApi visitModelsApi;
+    private VisitExtensionApi visitExtensionApi;
 
     @Autowired
     private ExtensionDai extensionDai;
@@ -143,7 +143,6 @@ public class TestSnapshotModelApi {
                     ownerId,
                     operatorId,
                     group,
-                    name,
                     tree);
         } catch (SnapshotModelApi.RefereceExtensionHasNotBeenPublished refereceExtensionHasNotBeenPublished) {
             refereceExtensionHasNotBeenPublished.printStackTrace();
@@ -156,13 +155,12 @@ public class TestSnapshotModelApi {
         Assert.assertEquals(ownerId, receipt.getOwnerId());
         Assert.assertEquals(providerId, receipt.getProviderId());
 
-        Map<String, Object> map = visitModelsApi.readIntensionsByGroupNameVersion(
-                ownerId,
+        Map<String, Object> map = visitExtensionApi.readIntensionsByGroupNameVersion(
                 visitorId,
+                ownerId,
                 group,
                 name,
-                tree,
-                tag
+                tree
         ).getBody();
 
         Assert.assertNotNull(map);

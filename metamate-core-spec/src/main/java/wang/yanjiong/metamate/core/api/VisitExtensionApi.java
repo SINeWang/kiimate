@@ -11,14 +11,13 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/v1")
-public interface VisitModelsApi {
+public interface VisitExtensionApi {
 
-    @RequestMapping(value = "/models/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{ownerId}/extension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
-            @RequestHeader("X-SUMMER-ProviderId") String providerId,
-            @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
+            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
-            @PathVariable("tree") String tree,
-            @RequestParam(value = "tag", defaultValue = "LATEST") String tag);
+            @PathVariable("tree") String tree);
 }

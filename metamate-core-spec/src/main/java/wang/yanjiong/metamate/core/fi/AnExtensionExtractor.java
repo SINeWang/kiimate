@@ -26,8 +26,6 @@ public interface AnExtensionExtractor {
         private String tree;
 
         private String visibility;
-
-        private String structure;
     }
 
     class MissingParamException extends Exception {

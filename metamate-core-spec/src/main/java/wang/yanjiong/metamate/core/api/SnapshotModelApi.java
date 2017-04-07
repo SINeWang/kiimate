@@ -17,6 +17,8 @@ import java.util.List;
 @RequestMapping("/v1")
 public interface SnapshotModelApi {
 
+    String ROOT_NAME = "ROOT";
+
 
     @RequestMapping(value = "/snapshot/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> snapshot(
@@ -25,7 +27,6 @@ public interface SnapshotModelApi {
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader("X-SUMMER-OperatorId") String operatorId,
             @PathVariable("group") String group,
-            @PathVariable("name") String name,
             @PathVariable("tree") String tree) throws RefereceExtensionHasNotBeenPublished;
 
     @Data

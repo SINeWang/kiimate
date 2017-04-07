@@ -37,8 +37,8 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<ExtensionReceipt> declareByFormUrlEncoded(
             @ModelAttribute ExtensionForm extensionForm,
-            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId) {
+            @RequestHeader("X-MM-OwnerId") String ownerId,
+            @RequestHeader(value = "X-MM-VisitorId", required = false) String visitorId) {
 
         AnExtensionExtractor.Extension extension;
         try {
@@ -47,10 +47,6 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
             return ResponseFactory.badRequest(e.getMessage());
         }
 
-        boolean isValidStructure = structureValidator.isValid(extension.getStructure());
-        if (!isValidStructure) {
-            return ResponseFactory.badRequest("invalid Structure, given [" + extension.getStructure() + "]");
-        }
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
         if (!isValidVisibility) {

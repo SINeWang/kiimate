@@ -1,14 +1,11 @@
 package wang.yanjiong.metamate.core.api;
 
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
@@ -67,51 +64,51 @@ public class TestDeclareIntensionApi {
         extId = extensionExtractor.hashId(ownerId, group, name, tree);
     }
 
-    @Test
-    public void testForm1() {
-        DeclareIntensionApi.IntensionForm1 form1 = new DeclareIntensionApi.IntensionForm1();
-        form1.setStructure(structure);
-        form1.setVisibility(visibility);
-        form1.setSingle(single);
-        form1.setField(field);
-        form1.setRefExtId(refExtId);
-        ResponseEntity<DeclareIntensionApi.IntensionReceipt> response = declareIntensionApi.declarePropViaFormUrlEncoded1(
-                form1,
-                group,
-                name,
-                tree,
-                ownerId,
-                operatorId
-
-        );
-        String id = intensionExtractor.hashId(extId, field);
-        DeclareIntensionApi.IntensionReceipt receipt = response.getBody();
-        Assert.assertEquals(single, receipt.isSingle());
-        Assert.assertEquals(visibility, receipt.getVisibility());
-        Assert.assertEquals(structure, receipt.getStructure());
-        Assert.assertEquals(extId, receipt.getExtId());
-        Assert.assertEquals(refExtId, receipt.getRefExtId());
-        Assert.assertEquals(field, receipt.getField());
-        Assert.assertEquals(id, receipt.getId());
-
-        ResponseEntity<VisitIntensionsApi.Extension> extsionResponse = visitIntensionsApi.readIntensionsByGroupNameVersion(
-                ownerId,
-                visitorId,
-                group,
-                name,
-                tree);
-
-        VisitIntensionsApi.Extension extension = extsionResponse.getBody();
-        Assert.assertNotNull(extension);
-
-        Assert.assertEquals(extId, extension.getExtId());
-        Assert.assertEquals(1, extension.getIntensions().size());
-        VisitIntensionsApi.Intension intension = extension.getIntensions().get(0);
-
-        Assert.assertEquals(single, intension.isSingle());
-        Assert.assertEquals(visibility, intension.getVisibility());
-        Assert.assertEquals(structure, intension.getStructure());
-        Assert.assertEquals(field, intension.getField());
-        Assert.assertEquals(refExtId, intension.getRefExtId());
-    }
+//    @Test
+//    public void testForm1() {
+//        DeclareIntensionApi.IntensionForm1 form1 = new DeclareIntensionApi.IntensionForm1();
+//        form1.setStructure(structure);
+//        form1.setVisibility(visibility);
+//        form1.setSingle(single);
+//        form1.setField(field);
+//        form1.setRefExtId(refExtId);
+//        ResponseEntity<DeclareIntensionApi.IntensionReceipt> response = declareIntensionApi.declarePropViaFormUrlEncoded1(
+//                form1,
+//                group,
+//                name,
+//                tree,
+//                ownerId,
+//                operatorId
+//
+//        );
+//        String id = intensionExtractor.hashId(extId, field);
+//        DeclareIntensionApi.IntensionReceipt receipt = response.getBody();
+//        Assert.assertEquals(single, receipt.isSingle());
+//        Assert.assertEquals(visibility, receipt.getVisibility());
+//        Assert.assertEquals(structure, receipt.getStructure());
+//        Assert.assertEquals(extId, receipt.getExtId());
+//        Assert.assertEquals(refExtId, receipt.getRefExtId());
+//        Assert.assertEquals(field, receipt.getField());
+//        Assert.assertEquals(id, receipt.getId());
+//
+//        ResponseEntity<VisitIntensionsApi.Extension> extsionResponse = visitIntensionsApi.readIntensionsByGroupNameVersion(
+//                ownerId,
+//                visitorId,
+//                group,
+//                name,
+//                tree);
+//
+//        VisitIntensionsApi.Extension extension = extsionResponse.getBody();
+//        Assert.assertNotNull(extension);
+//
+//        Assert.assertEquals(extId, extension.getExtId());
+//        Assert.assertEquals(1, extension.getIntensions().size());
+//        VisitIntensionsApi.Intension intension = extension.getIntensions().get(0);
+//
+//        Assert.assertEquals(single, intension.isSingle());
+//        Assert.assertEquals(visibility, intension.getVisibility());
+//        Assert.assertEquals(structure, intension.getStructure());
+//        Assert.assertEquals(field, intension.getField());
+//        Assert.assertEquals(refExtId, intension.getRefExtId());
+//    }
 }

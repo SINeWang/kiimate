@@ -4,7 +4,7 @@ import one.kii.summer.bound.factory.ResponseFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import wang.yanjiong.metamate.core.api.VisitModelsApi;
+import wang.yanjiong.metamate.core.api.VisitExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
@@ -20,11 +20,10 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/v1")
-public class DefaultVisitModelsApi implements VisitModelsApi {
+public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
     @Autowired
     private ExtensionDai extensionDai;
-
 
     @Autowired
     private IntensionDai intensionDai;
@@ -33,18 +32,17 @@ public class DefaultVisitModelsApi implements VisitModelsApi {
     private AnExtensionExtractor extensionExtractor;
 
     @Override
-    @RequestMapping(value = "/{providerId}/models/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{ownerId}/extension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
-            @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
-            @PathVariable("providerId") String providerId,
+            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
-            @PathVariable("tree") String tree,
-            @RequestParam(value = "tag", defaultValue = "LATEST") String tag) {
+            @PathVariable("tree") String tree) {
 
-        String extId = extensionExtractor.hashId(providerId, group, name, tree);
+        String extId = extensionExtractor.hashId(ownerId, group, name, tree);
 
-        return ResponseFactory.accepted(restoreModel(extId), providerId);
+        return ResponseFactory.accepted(restoreModel(extId), ownerId);
     }
 
     private Map<String, Object> restoreModel(String extId) {

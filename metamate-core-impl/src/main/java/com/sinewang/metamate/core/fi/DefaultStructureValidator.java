@@ -13,6 +13,9 @@ public class DefaultStructureValidator implements AnStructureValidator {
 
     @Override
     public boolean isValid(String structure) {
+        if(structure == null){
+            return false;
+        }
         try {
             String upperCase = structure.toUpperCase();
             Structure.valueOf(upperCase);

@@ -10,8 +10,6 @@ import wang.yanjiong.metamate.core.api.DeclareIntensionApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
  * Created by WangYanJiong on 3/27/17.
  */
@@ -27,26 +25,14 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
     @Autowired
     private AnIntensionExtractor anIntensionExtractor;
 
-    @RequestMapping(value = "/intension/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<IntensionReceipt> declarePropViaFormUrlEncoded1(
-            @ModelAttribute IntensionForm1 intensionForm,
-            @PathVariable("group") String group,
-            @PathVariable("name") String name,
-            @PathVariable("tree") String tree,
-            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId) {
-        AnIntensionExtractor.Intension intension = anIntensionExtractor.parseForm1(ownerId, group, name, tree, intensionForm);
-
-        return getIntensionReceiptResponseEntity(ownerId, intension);
-    }
 
     @Override
     public ResponseEntity<IntensionReceipt> declarePropViaFormUrlEncoded2(
-            @ModelAttribute IntensionForm2 intensionForm,
-            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId) {
+            @ModelAttribute IntensionForm intensionForm,
+            @RequestHeader("X-MM-OwnerId") String ownerId,
+            @RequestHeader(value = "X-MM-OperatorId", required = false) String operatorId) {
 
-        AnIntensionExtractor.Intension intension = anIntensionExtractor.parseForm2(intensionForm);
+        AnIntensionExtractor.Intension intension = anIntensionExtractor.parseForm(intensionForm);
 
         return getIntensionReceiptResponseEntity(ownerId, intension);
     }

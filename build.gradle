@@ -23,6 +23,7 @@ ext {
     mysqlConnectorVersion = '5.1.41'
     summerVersion = '1.0.1-SNAPSHOT'
     servletApiVersion = '3.1.0'
+    jacksondatabindVersion = '2.8.7'
 }
 
 subprojects {
@@ -46,6 +47,8 @@ subprojects {
     release {
         tagTemplate = '$name-$version'
     }
+
+    group 'one.kii.metamate'
 }
 
 
@@ -132,6 +135,8 @@ configure(subprojects.findAll { it.name.endsWith("test") }) {
         testCompile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
         testCompile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
         testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+
+        testCompile("com.fasterxml.jackson.core:jackson-databind:${jacksondatabindVersion}")
 
     }
 }
