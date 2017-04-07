@@ -64,7 +64,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
         map.put("extId", toList(form.getExtId()));
         map.put("field", toList(form.getField()));
         map.put("single", toList(String.valueOf(form.isSingle())));
-        map.put("structure", toList("IMPORT"));
+        map.put("structure", toList(form.getStructure()));
         map.put("refExtId", toList(form.getRefExtId()));
         map.put("visibility", toList(VISIBILITY_PUBLIC));
         IntensionReceipt receipt = erest.doPost(url, httpHeaders, map, IntensionReceipt.class);

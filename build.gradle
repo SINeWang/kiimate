@@ -24,6 +24,7 @@ ext {
     summerVersion = '1.0.1-SNAPSHOT'
     servletApiVersion = '3.1.0'
     jacksondatabindVersion = '2.8.7'
+    guavaVersion = '21.0'
 }
 
 subprojects {
@@ -94,6 +95,7 @@ configure(subprojects.findAll { it.name.endsWith("impl") }) {
         compile group: "one.kii.summer", name: "summer-codec", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-erest", version: "${summerVersion}", changing: true
 
+        compile "com.google.guava:guava:${guavaVersion}"
 
         compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
 

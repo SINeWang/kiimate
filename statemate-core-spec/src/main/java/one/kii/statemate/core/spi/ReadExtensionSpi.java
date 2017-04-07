@@ -7,7 +7,7 @@ import lombok.Data;
  */
 public interface ReadExtensionSpi {
 
-    String NAME_ROOT = "ROOT";
+    String NAME_ROOT = "root";
 
     String readMasterExtension(GroupForm form);
 

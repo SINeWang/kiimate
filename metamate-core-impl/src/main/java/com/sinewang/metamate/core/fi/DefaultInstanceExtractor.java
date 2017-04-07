@@ -1,5 +1,6 @@
 package com.sinewang.metamate.core.fi;
 
+import com.google.common.base.CaseFormat;
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
         List<Instance> instances = new ArrayList<>();
 
         for (String field : map.keySet()) {
+            field = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, field);
+
             String intId = anIntensionExtractor.hashId(extId, field);
             String[] values = cleanUpValues(map.get(field).toArray(new String[0]));
             String id = HashTools.hashHex(intId, ownerId);

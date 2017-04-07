@@ -1,5 +1,6 @@
 package com.sinewang.metamate.core.fi;
 
+import com.google.common.base.CaseFormat;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.BeanUtils;
@@ -28,7 +29,9 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         if (extensionForm.getVisibility() == null || extensionForm.getVisibility().isEmpty()) {
             throw new MissingParamException("visibility is NULL or EMPTY");
         }
-
+        extensionForm.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extensionForm.getGroup()));
+        extensionForm.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extensionForm.getName()));
+        extensionForm.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extensionForm.getTree()));
 
         Extension extension = DataTools.copy(extensionForm, Extension.class);
         extension.setOwnerId(ownerId);
@@ -40,6 +43,10 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
     @Override
     public String hashId(String ownerId, String group, String name, String tree) {
+        group = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, group);
+        name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name);
+        tree = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, tree);
+
         return HashTools.hashHex(
                 ownerId,
                 group, name, tree

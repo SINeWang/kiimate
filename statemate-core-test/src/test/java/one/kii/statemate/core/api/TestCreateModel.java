@@ -15,6 +15,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
 
 /**
  * Created by WangYanJiong on 4/7/17.
@@ -30,7 +32,6 @@ public class TestCreateModel {
     @Autowired
     private CreateModelApi createModelApi;
 
-
     @Autowired
     private ReadExtensionSpi readExtensionSpi;
 
@@ -43,22 +44,24 @@ public class TestCreateModel {
 
         Assert.assertNotNull(receipt);
 
-        ReadExtensionSpi.GroupForm form =  new ReadExtensionSpi.GroupForm();
+        ReadExtensionSpi.GroupForm form = new ReadExtensionSpi.GroupForm();
 
         form.setGroup(group);
 
-        String extensionJson =  readExtensionSpi.readMasterExtension(form);
+        String extensionJson = readExtensionSpi.readMasterExtension(form);
 
         Assert.assertNotNull(extensionJson);
     }
 
     class SpringBootConfiguration {
 
-        DataSource dataSource;
+        DataSource datasource;
 
         Server server;
 
         Logging logging;
+
+        A a;
 
     }
 
@@ -71,15 +74,27 @@ public class TestCreateModel {
         String username;
 
         String password;
-
     }
 
     class Server {
-        int port;
+        int[] port;
+        String portString;
     }
 
     class Logging {
         String level;
+    }
+
+    class A {
+        B b;
+    }
+
+    class B {
+        String[] arraysofc;
+    }
+
+    class D{
+        B[] bs;
     }
 
 

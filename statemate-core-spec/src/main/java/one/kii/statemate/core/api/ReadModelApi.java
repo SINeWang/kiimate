@@ -5,7 +5,7 @@ package one.kii.statemate.core.api;
  */
 public interface ReadModelApi {
 
-    String NAME_ROOT = "ROOT";
+    String NAME_ROOT = "root";
 
     String readModel(String group);
 }

@@ -1,5 +1,6 @@
 package com.sinewang.metamate.core.fi;
 
+import com.google.common.base.CaseFormat;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class DefaultIntensionExtractor implements AnIntensionExtractor {
 
     @Override
     public Intension parseForm(DeclareIntensionApi.IntensionForm intensionForm) {
+
+        intensionForm.setField(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, intensionForm.getField()));
+
         Intension intension = DataTools.copy(intensionForm, Intension.class);
         String id = hashId(intension.getExtId(), intension.getField());
         intension.setId(id);

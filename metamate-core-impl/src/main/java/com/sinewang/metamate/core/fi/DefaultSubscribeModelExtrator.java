@@ -1,5 +1,6 @@
 package com.sinewang.metamate.core.fi;
 
+import com.google.common.base.CaseFormat;
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,9 @@ public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor 
 
     @Override
     public ModelSubscription extract(SubscribeModelApi.Form form, String providerId, String extId, String publication, String version, String subscriberId, String operatorId) {
+        form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
+        form.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getName()));
+        form.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getTree()));
 
         ModelSubscription subscription = new ModelSubscription();
 

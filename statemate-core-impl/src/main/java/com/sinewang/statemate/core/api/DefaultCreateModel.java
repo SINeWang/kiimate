@@ -29,6 +29,9 @@ public class DefaultCreateModel implements CreateModelApi {
     private CreateIntensionSpi createIntensionSpi;
 
     private <T> Receipt createModel(String group, String name, Class<T> klass) {
+        if (String.class.getName().equals(klass.getName()) || klass.isPrimitive()) {
+            throw new IllegalArgumentException("Class is ILLEGAL:" + klass.getName());
+        }
         logger.debug("[begin] group:[{}] createModel:[{}]", klass.getName());
         logger.debug("[before] createExtensionSpi.createMasterPublicExtension:group=[{}],name=[{}]", group, name);
         CreateExtensionSpi.ExtensionForm extForm = new CreateExtensionSpi.ExtensionForm();
@@ -51,25 +54,30 @@ public class DefaultCreateModel implements CreateModelApi {
                 continue;
             }
             Class type = field.getType();
+            boolean single = type.getComponentType() == null;
+            if (!single) {
+                type = type.getComponentType();
+            }
             if (String.class.getName().equals(type.getName()) || type.isPrimitive()) {
                 CreateIntensionSpi.PrimitiveIntensionForm form = new CreateIntensionSpi.PrimitiveIntensionForm();
+                form.setSingle(single);
                 form.setField(fieldName);
-                form.setSingle(type.isArray());
-                form.setStructure(type.getSimpleName().toUpperCase());
+                form.setStructure(type.getSimpleName());
                 form.setExtId(extId);
                 String intId = createIntensionSpi.createPublicPrimitiveIntension(form);
                 ints.add(intId);
             } else {
                 Receipt receipt = createModel(group, fieldName, type);
                 CreateIntensionSpi.ImportIntensionForm form = new CreateIntensionSpi.ImportIntensionForm();
+                form.setSingle(single);
                 form.setField(fieldName);
-                form.setSingle(type.isArray());
-                form.setStructure(type.getSimpleName());
                 form.setRefExtId(receipt.getExtId());
                 form.setExtId(extId);
+                form.setStructure(type.getSimpleName());
                 String intId = createIntensionSpi.createPublicImportIntension(form);
                 refs.put(intId, receipt);
             }
+
         }
         Receipt receipt = new Receipt();
         receipt.setExtId(extId);

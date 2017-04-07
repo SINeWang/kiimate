@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public interface CreateModelApi {
 
-    String NAME_ROOT = "ROOT";
+    String NAME_ROOT = "root";
 
     <T> Receipt createModel(String group, Class<T> klass);
 
