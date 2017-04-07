@@ -28,6 +28,7 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
 
     @Override
     public ResponseEntity<IntensionReceipt> declarePropViaFormUrlEncoded2(
+            @RequestHeader("X-SUMMER-RequestId") String requestId,
             @ModelAttribute IntensionForm intensionForm,
             @RequestHeader("X-MM-OwnerId") String ownerId,
             @RequestHeader(value = "X-MM-OperatorId", required = false) String operatorId) {

@@ -16,6 +16,7 @@ public interface DeclareIntensionApi {
 
     @RequestMapping(value = "/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<IntensionReceipt> declarePropViaFormUrlEncoded2(
+            @RequestHeader("X-SUMMER-RequestId") String requestId,
             @ModelAttribute IntensionForm intensionForm,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId);

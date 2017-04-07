@@ -46,9 +46,9 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
 
     @Override
     public ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
-            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader("X-SUMMER-OperatorId") String operatorId,
             @RequestHeader("X-SUMMER-RequestId") String requestId,
+            @RequestHeader("X-MM-OwnerId") String ownerId,
+            @RequestHeader("X-MM-OperatorId") String operatorId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree,
