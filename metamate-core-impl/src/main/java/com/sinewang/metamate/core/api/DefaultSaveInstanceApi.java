@@ -59,14 +59,12 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
         String extId = subscription.getExtId();
 
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(
-                ownerId, subscription.getProviderId(), extId, operatorId, map);
+                ownerId, extId, operatorId, map);
 
         List<InstanceDai.Instances> instances1 = DataTools.copy(instances, InstanceDai.Instances.class);
 
-        String pubRefId = publicationExtractor.hashPubExtId(subscription.getProviderId(), extId, subscription.getPublication(), subscription.getVersion());
-
         for (InstanceDai.Instances instances2 : instances1) {
-            String modelPubId = publicationExtractor.hashId(pubRefId, instances2.getIntId());
+            String modelPubId = publicationExtractor.hashId(subscription.getPubExtId(), instances2.getIntId());
             instances2.setPubId(modelPubId);
         }
 

@@ -24,10 +24,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
         Date now = new Date();
         modelSubscriptionMapper.insertSubscription(
                 modelSubscription.getId(),
-                modelSubscription.getProviderId(),
-                modelSubscription.getExtId(),
-                modelSubscription.getPublication(),
-                modelSubscription.getVersion(),
+                modelSubscription.getPubExtId(),
                 modelSubscription.getSubscriberId(),
                 modelSubscription.getGroup(),
                 modelSubscription.getName(),

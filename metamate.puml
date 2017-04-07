@@ -1,12 +1,14 @@
 @startuml
 
 
+ModelSubscription "1" --|>  "n" ModelPublication
+
 ModelPublication "1" --|>  "1" ModelExtension
 ModelPublication "1" --|>  "n" ModelIntension
 
-Instance "1" --|>  "1" ModelPublication
+Instance "1" --|>  "1" ModelSubscription
 
-Instance "1" --|>  "n" InstanceTag
+'Instance "1" --|>  "n" InstanceTag
 
 
 ModelExtension "1" o--right--|> "n" ModelIntension
@@ -17,8 +19,8 @@ class ModelExtension {
     String group
     String name
     String tree
-    Structure structure
     Visibility visibility
+    String operator_id
     DateTime begin_time
     DateTime end_time
 }
@@ -29,20 +31,35 @@ class ModelIntension {
     String field
     Boolean single
     Structure structure
+    String ref_ext_id
     Visibility visibility
+    String operator_id
     DateTime begin_time
     DateTime end_time
 }
 
 class ModelPublication {
     String id // m_pub_id
-    String owner_id
+    String pub_ext_id
+    String provider_id
     String ext_id
     String[] int_id
     String version
     Publication publication
     Visibility visibility
+    String operator_id
     DateTime created_at
+}
+
+class ModelSubscription {
+    String id // m_pub_id
+    String pub_ext_id
+    String subscriber_id
+    String group
+    String name
+    String tree
+    DateTime begin_time
+    DateTime end_time
 }
 
 enum Structure {
@@ -69,7 +86,8 @@ enum Visibility {
 class Instance {
     String id // i_id
     String owner_id // instance's owner
-    String m_tag_id
+    String pub_ext_id
+    String intId
     String field
     String value
     String value_set_hash
@@ -78,14 +96,14 @@ class Instance {
     DateTime end_time
 }
 
-class InstanceTag {
-    String id // i_tag_id
-    String owner_id // instance's owner
-    String[] i_id
-    Publication publication
-    DateTime created_at
-    Visibility visibility
-}
+'class InstanceTag {
+'    String id // i_tag_id
+'    String owner_id // instance's owner
+'    String[] i_id
+'    Publication publication
+'    DateTime created_at
+'    Visibility visibility
+'}
 
 @enduml
 

@@ -14,10 +14,7 @@ public interface ModelSubscriptionMapper {
 
     void insertSubscription(
             @Param("id") String id,
-            @Param("providerId") String providerId,
-            @Param("extId") String extId,
-            @Param("publication") String publication,
-            @Param("version") String version,
+            @Param("pubExtId") String pubExtId,
             @Param("subscriberId") String subscriberId,
             @Param("group") String group,
             @Param("name") String name,

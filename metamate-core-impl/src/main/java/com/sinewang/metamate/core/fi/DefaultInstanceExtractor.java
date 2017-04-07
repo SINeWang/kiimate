@@ -21,7 +21,7 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     private AnIntensionExtractor anIntensionExtractor;
 
     @Override
-    public List<Instance> extract(String ownerId, String providerId, String extId, String operatorId, Map<String, List<String>> map) {
+    public List<Instance> extract(String ownerId,  String extId, String operatorId, Map<String, List<String>> map) {
         List<Instance> instances = new ArrayList<>();
 
         for (String field : map.keySet()) {

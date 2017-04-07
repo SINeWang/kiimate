@@ -20,14 +20,6 @@ public interface ModelSubscriptionDai {
 
         private String pubExtId;
 
-        private String providerId;
-
-        private String extId;
-
-        private String publication;
-
-        private String version;
-
         private String subscriberId;
 
         private String group;
@@ -37,5 +29,8 @@ public interface ModelSubscriptionDai {
         private String tree;
 
         private String operatorId;
+
+        // join fields
+        private String extId;
     }
 }
