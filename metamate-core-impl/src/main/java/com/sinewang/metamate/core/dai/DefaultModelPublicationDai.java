@@ -34,7 +34,12 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     }
 
     @Override
-    public List<Publication> getPublicationByProviderIdExtId(String pubExtId) {
-        return modelPublicationMapper.selectPublicationByProviderIdExtIdPubVersion(pubExtId);
+    public List<Publication> getPublicationsByProviderIdExtId(String pubExtId) {
+        return modelPublicationMapper.selectPublicationsByProviderIdExtIdPubVersion(pubExtId);
+    }
+
+    @Override
+    public List<Publication> getPublicationsByPubSetHash(String pubSetHash){
+        return modelPublicationMapper.selectPublicationByPubSetHash(pubSetHash);
     }
 }

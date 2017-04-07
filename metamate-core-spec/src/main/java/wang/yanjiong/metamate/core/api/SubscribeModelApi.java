@@ -5,6 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by WangYanJiong on 4/6/17.
  */
@@ -13,39 +15,36 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1")
 public interface SubscribeModelApi {
 
-    @RequestMapping(value = "/subscribe/{pubExtId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/subscribe/{pubSetHash}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> subscribe(
-            @ModelAttribute Form form,
-            @RequestHeader("X-SUMMER-SubscriberId") String subscriberId,
-            @RequestHeader("X-SUMMER-OperatorId") String operatorId,
-            @PathVariable("providerId") String providerId,
-            @PathVariable("extId") String extId,
-            @PathVariable("publication") String publication,
-            @PathVariable("version") String version);
+            @RequestHeader("X-SUMMER-RequestId") String requestId,
+            @RequestHeader("X-MM-SubscriberId") String subscriberId,
+            @RequestHeader("X-MM-OperatorId") String operatorId,
+            @PathVariable("pubSetHash") String pubSetHash,
+            @ModelAttribute Form form);
 
     @Data
     class Form {
         private String group;
-        private String name;
-        private String tree;
     }
 
 
     @Data
     class Receipt {
 
+        String pubSetHash;
+
+        List<ModelSubscription> subscriptions;
+    }
+
+    @Data
+    class ModelSubscription {
         private String id;
-
         private String pubExtId;
-
         private String subscriberId;
-
         private String group;
-
         private String name;
-
         private String tree;
-
         private String operatorId;
     }
 }

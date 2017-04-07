@@ -67,6 +67,8 @@ public class TestSaveInstanceApi {
 
     private String providerId = "testProviderId";
 
+    private String pubSubHash = "testPubSubHash";
+
     private String extId = "testExtId";
 
     private String requestId = "testRequestId";
@@ -122,7 +124,7 @@ public class TestSaveInstanceApi {
 
         modelSubscriptionMapper.insertSubscription(
 
-                subId, pubExtId, subscriberId, group, name, tree, operatorId, new Date()
+                subId, pubSubHash, pubExtId, subscriberId, group, name, tree, operatorId, new Date()
         );
 
     }
@@ -159,6 +161,7 @@ public class TestSaveInstanceApi {
 
 
         Map<String, Object> instancesMap = visitInstancesApi.readInstancesByGroupNameVersion(
+                requestId,
                 ownerId,
                 visitorId,
                 group, name, tree

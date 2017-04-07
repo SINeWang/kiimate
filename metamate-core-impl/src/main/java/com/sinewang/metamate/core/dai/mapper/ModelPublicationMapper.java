@@ -24,8 +24,11 @@ public interface ModelPublicationMapper {
             @Param("operatorId") String operatorId,
             @Param("createdAt") Date createdAt);
 
-    List<ModelPublicationDai.Publication> selectPublicationByProviderIdExtIdPubVersion(
+    List<ModelPublicationDai.Publication> selectPublicationsByProviderIdExtIdPubVersion(
             @Param("pubExtId") String pubExtId);
+
+    List<ModelPublicationDai.Publication> selectPublicationByPubSetHash(
+            @Param("pubSetHash") String pubSetHash);
 
     void deletePublicationByProviderIdExtIdPubVersion(
             @Param("providerId") String providerId,

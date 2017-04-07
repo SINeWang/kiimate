@@ -36,20 +36,15 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
             @RequestHeader(value = "X-MM-OperatorId", required = false) String operatorId) {
 
         AnIntensionExtractor.Intension intension = anIntensionExtractor.parseForm(intensionForm);
-
-        return getIntensionReceiptResponseEntity(ownerId, intension);
-    }
-
-
-    private ResponseEntity<IntensionReceipt> getIntensionReceiptResponseEntity(String ownerId, AnIntensionExtractor.Intension intension) {
         IntensionDai.Intension daiRecord = DataTools.copy(intension, IntensionDai.Intension.class);
         try {
             intensionDai.insertIntension(daiRecord);
             IntensionReceipt intensionReceipt = DataTools.copy(daiRecord, IntensionReceipt.class);
-            return Response.accepted(intensionReceipt, ownerId);
+            return Response.accepted(requestId, intensionReceipt, ownerId);
         } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
-            return Response.badRequest(extensionDuplicated.getMessage());
+            return Response.badRequest(requestId, extensionDuplicated.getMessage());
         }
+
     }
 
 }

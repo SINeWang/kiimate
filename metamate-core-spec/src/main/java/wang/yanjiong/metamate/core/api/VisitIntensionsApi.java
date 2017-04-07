@@ -16,6 +16,7 @@ public interface VisitIntensionsApi {
 
     @RequestMapping(value = "/intensions/{group}/{name}/{tree.+}", method = RequestMethod.GET)
     ResponseEntity<Extension> readIntensionsByGroupNameVersion(
+            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
             @PathVariable("group") String group,

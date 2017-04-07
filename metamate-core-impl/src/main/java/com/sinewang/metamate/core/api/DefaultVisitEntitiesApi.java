@@ -34,7 +34,8 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
     @Override
     @RequestMapping(value = "/{ownerId}/entities/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
-            @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
+            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
+            @RequestHeader("X-MM-VisitorId") String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
@@ -46,7 +47,7 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
         String extId = subscription.getExtId();
         Map<String, Object> map = visitInstance(ownerId, extId);
 
-        return Response.accepted(map, ownerId);
+        return Response.accepted(requestId, map, ownerId);
     }
 
     private Map<String, Object> visitInstance(String ownerId, String extId) {

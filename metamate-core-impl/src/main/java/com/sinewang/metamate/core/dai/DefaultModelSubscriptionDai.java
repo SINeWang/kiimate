@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 4/6/17.
@@ -20,19 +21,23 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
 
 
     @Override
-    public void save(ModelSubscription modelSubscription) {
+    public void save(List<ModelSubscription> modelSubscriptions) {
         Date now = new Date();
-        modelSubscriptionMapper.insertSubscription(
-                modelSubscription.getId(),
-                modelSubscription.getPubExtId(),
-                modelSubscription.getSubscriberId(),
-                modelSubscription.getGroup(),
-                modelSubscription.getName(),
-                modelSubscription.getTree(),
-                modelSubscription.getOperatorId(),
-                now
-        );
+        for (ModelSubscription modelSubscription : modelSubscriptions) {
+            modelSubscriptionMapper.insertSubscription(
+                    modelSubscription.getId(),
+                    modelSubscription.getPubSetHash(),
+                    modelSubscription.getPubExtId(),
+                    modelSubscription.getSubscriberId(),
+                    modelSubscription.getGroup(),
+                    modelSubscription.getName(),
+                    modelSubscription.getTree(),
+                    modelSubscription.getOperatorId(),
+                    now
+            );
+        }
     }
+
 
     @Override
     public ModelSubscription getLatestSubscriptionBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree) {

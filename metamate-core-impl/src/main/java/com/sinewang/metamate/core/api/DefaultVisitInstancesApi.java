@@ -29,6 +29,7 @@ public class DefaultVisitInstancesApi implements VisitInstancesApi {
 
     @Override
     public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
+            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
             @PathVariable("group") String group,
@@ -41,7 +42,7 @@ public class DefaultVisitInstancesApi implements VisitInstancesApi {
         for (InstanceDai.Instance daiInstance : instances) {
             map.put(daiInstance.getField(), daiInstance.getValue());
         }
-        return Response.accepted(map, ownerId);
+        return Response.accepted(requestId, map, ownerId);
     }
 
 }

@@ -3,16 +3,16 @@ package com.sinewang.metamate.core.api;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.erest.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.SubscribeModelApi;
-import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.dai.ModelPublicationDai;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 4/6/17.
@@ -29,44 +29,36 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
     @Autowired
     private ModelPublicationDai modelPublicationDai;
 
-    @Autowired
-    private IntensionDai intensionDai;
-
     @Override
+    @RequestMapping(value = "/subscribe/{pubSetHash}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> subscribe(
-            @ModelAttribute Form form,
-            @RequestHeader("X-SUMMER-SubscriberId") String subscriberId,
-            @RequestHeader("X-SUMMER-OperatorId") String operatorId,
-            @PathVariable("providerId") String providerId,
-            @PathVariable("extId") String extId,
-            @PathVariable("publication") String publication,
-            @PathVariable("version") String version) {
+            @RequestHeader("X-SUMMER-RequestId") String requestId,
+            @RequestHeader("X-MM-SubscriberId") String subscriberId,
+            @RequestHeader("X-MM-OperatorId") String operatorId,
+            @PathVariable("pubSetHash") String pubSetHash,
+            @ModelAttribute Form form) {
 
-        AnSubscribeModelExtractor.ModelSubscription modelSubscription = subscribeModelExtractor.extract(
-                form, providerId, extId, publication, version, subscriberId, operatorId);
+        List<ModelPublicationDai.Publication> publicationList = modelPublicationDai.getPublicationsByPubSetHash(pubSetHash);
 
-        ModelSubscriptionDai.ModelSubscription subscription = DataTools.copy(modelSubscription, ModelSubscriptionDai.ModelSubscription.class);
+        List<ModelSubscriptionDai.ModelSubscription> modelSubscriptions = new ArrayList<>();
+        for (ModelPublicationDai.Publication publication : publicationList) {
+            AnSubscribeModelExtractor.ModelSubscription modelSubscription = subscribeModelExtractor.extract(
+                    form, pubSetHash, publication.getPubExtId(), subscriberId, operatorId);
+            ModelSubscriptionDai.ModelSubscription subscription = DataTools.copy(modelSubscription, ModelSubscriptionDai.ModelSubscription.class);
+            modelSubscriptions.add(subscription);
+        }
 
-//        List<IntensionDai.Intension> intensions = modelPublicationDai.savePublications();
-//
-//        for (IntensionDai.Intension intension : intensions) {
-//            if (intension.getStructure().equals(AnStructureValidator.Structure.IMPORT.name())) {
-//                ModelSubscriptionDai.ModelSubscription subSubcription = new ModelSubscriptionDai.ModelSubscription();
-//                subSubcription.setExtId(intension.getExtId());
-//                subSubcription.setOperatorId(operatorId);
-//                subSubcription.setProviderId();
-//                subSubcription.setSubscriberId(subscriberId);
-//                subSubcription.setPublication();
-//                subSubcription.setGroup();
-//
-//            }
-//        }
+        modelSubscriptionDai.save(modelSubscriptions);
 
-        modelSubscriptionDai.save(subscription);
+        List<ModelSubscription> subscriptions = DataTools.copy(modelSubscriptions, ModelSubscription.class);
 
-        Receipt receipt = DataTools.copy(subscription, Receipt.class);
+        Receipt receipt = new Receipt();
 
-        return Response.accepted(receipt, subscriberId);
+        receipt.setSubscriptions(subscriptions);
+
+        receipt.setPubSetHash(pubSetHash);
+
+        return Response.accepted(requestId, receipt, subscriberId);
     }
 
 

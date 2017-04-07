@@ -29,6 +29,7 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
     @Override
     public ResponseEntity<Extension> readIntensionsByGroupNameVersion(
+            @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
             @PathVariable("group") String group,
@@ -44,6 +45,6 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
         List<Intension> intensions = DataTools.copy(list, Intension.class);
 
         extension.setIntensions(intensions);
-        return Response.accepted(extension, ownerId);
+        return Response.accepted(requestId, extension, ownerId);
     }
 }

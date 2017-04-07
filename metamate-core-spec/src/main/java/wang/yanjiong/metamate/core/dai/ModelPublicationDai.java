@@ -14,11 +14,14 @@ public interface ModelPublicationDai {
     @Transactional
     void savePublications(List<Publication> publication);
 
-    List<Publication> getPublicationByProviderIdExtId(String pubExtId);
+    List<Publication> getPublicationsByProviderIdExtId(String pubExtId);
+
+    List<Publication> getPublicationsByPubSetHash(String pubSetHash);
 
     @Data
     class Publication {
         String id;
+        String pubSetHash;
         String pubExtId;
         String providerId;
         String extId;

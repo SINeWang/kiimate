@@ -1,6 +1,9 @@
 package wang.yanjiong.metamate.core.dai;
 
 import lombok.Data;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 4/6/17.
@@ -8,7 +11,8 @@ import lombok.Data;
 public interface ModelSubscriptionDai {
 
 
-    void save(ModelSubscription modelSubscription);
+    @Transactional
+    void save(List<ModelSubscription> modelSubscriptions);
 
     ModelSubscription getLatestSubscriptionBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree);
 
@@ -17,6 +21,8 @@ public interface ModelSubscriptionDai {
     @Data
     class ModelSubscription {
         private String id;
+
+        private String pubSetHash;
 
         private String pubExtId;
 

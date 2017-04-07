@@ -31,6 +31,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     @Override
     @RequestMapping(value = "/{ownerId}/extension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
             @RequestHeader("X-MM-VisitorId") String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
@@ -41,7 +42,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         tree = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, tree);
 
         String extId = extensionExtractor.hashId(ownerId, group, name, tree);
-        return Response.accepted(restoreModel(extId), ownerId);
+        return Response.accepted(requestId, restoreModel(extId), ownerId);
     }
 
     private List toArray(Object o) {
@@ -78,18 +79,20 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     @Override
     @RequestMapping(value = "/{ownerId}/extension/{group}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
             @RequestHeader("X-MM-VisitorId") String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group) {
         group = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, group);
 
         String extId = extensionExtractor.hashId(ownerId, group, NAME_ROOT, TREE_MASTER);
-        return Response.accepted(restoreModel(extId), ownerId);
+        return Response.accepted(requestId,restoreModel(extId), ownerId);
     }
 
     @Override
     @RequestMapping(value = "/{ownerId}/extension/{group}/{name}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
             @RequestHeader("X-MM-VisitorId") String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
@@ -98,6 +101,6 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name);
 
         String extId = extensionExtractor.hashId(ownerId, group, name, TREE_MASTER);
-        return Response.accepted(restoreModel(extId), ownerId);
+        return Response.accepted(requestId, restoreModel(extId), ownerId);
     }
 }

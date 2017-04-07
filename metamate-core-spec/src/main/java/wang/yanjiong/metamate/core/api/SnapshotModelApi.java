@@ -17,17 +17,20 @@ import java.util.List;
 @RequestMapping("/v1")
 public interface SnapshotModelApi {
 
-    String ROOT_NAME = "root";
+    String NAME_ROOT = "root";
 
     String TREE_MASTER = "master";
+
+    String PUBLICATION_SNAPSHOT = "SNAPSHOT";
 
 
     @RequestMapping(value = "/snapshot/{group}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> snapshot(
-            @ModelAttribute Form form,
+            @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
             @PathVariable("ownerId") String ownerId,
-            @PathVariable("group") String group) throws RefereceExtensionHasNotBeenPublished;
+            @PathVariable("group") String group,
+            @ModelAttribute Form form) throws RefereceExtensionHasNotBeenPublished;
 
     @Data
     @EqualsAndHashCode(callSuper = false)
@@ -42,6 +45,8 @@ public interface SnapshotModelApi {
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Receipt {
+
+        private String pubSetHash;
 
         List<Intension> intensions;
 

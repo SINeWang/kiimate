@@ -9,18 +9,20 @@ import wang.yanjiong.metamate.core.api.SubscribeModelApi;
 
 public interface AnSubscribeModelExtractor {
 
+    String NAME_ROOT = "root";
+
+    String TREE_MASTER = "master";
+
     String hashId(String pubExtId, String subscriberId);
 
-    ModelSubscription extract(SubscribeModelApi.Form form, String providerId, String extId, String publication, String version, String subscriberId, String operatorId);
+    ModelSubscription extract(SubscribeModelApi.Form form, String pubSetHash, String pubExtId, String subscriberId, String operatorId);
 
 
     @Data
     class ModelSubscription {
         private String id;
-        private String providerId;
-        private String extId;
-        private String publication;
-        private String version;
+        private String pubSetHash;
+        private String pubExtId;
         private String subscriberId;
         private String group;
         private String name;

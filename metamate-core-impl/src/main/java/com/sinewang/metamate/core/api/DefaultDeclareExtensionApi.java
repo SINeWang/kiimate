@@ -45,13 +45,13 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
         try {
             extension = extensionExtractor.extract(extensionForm, ownerId);
         } catch (AnExtensionExtractor.MissingParamException e) {
-            return Response.badRequest(e.getMessage());
+            return Response.badRequest(requestId, e.getMessage());
         }
 
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
         if (!isValidVisibility) {
-            return Response.badRequest("invalid Visibility, given [" + extension.getVisibility() + "]");
+            return Response.badRequest(requestId, "invalid Visibility, given [" + extension.getVisibility() + "]");
         }
 
         ExtensionDai.Extension daiExtension = DataTools.copy(extension, ExtensionDai.Extension.class);
@@ -61,7 +61,7 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
             ExtensionReceipt extensionReceipt = DataTools.copy(daiExtension, ExtensionReceipt.class);
             return new ResponseEntity<>(extensionReceipt, HttpStatus.ACCEPTED);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
-            return Response.badRequest(extensionDuplicated.getMessage());
+            return Response.badRequest(requestId, extensionDuplicated.getMessage());
         }
     }
 

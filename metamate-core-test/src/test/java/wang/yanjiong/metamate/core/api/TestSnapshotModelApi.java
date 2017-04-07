@@ -77,6 +77,8 @@ public class TestSnapshotModelApi {
 
     private String version = "1.0.0";
 
+    private String requestId = "testRequestId";
+
     @Before
     public void before() {
         this.extId = extensionExtractor.hashId(ownerId, group, name, tree);
@@ -137,10 +139,11 @@ public class TestSnapshotModelApi {
         ResponseEntity<SnapshotModelApi.Receipt> response = null;
         try {
             response = snapshotModelApi.snapshot(
-                    form,
+                    requestId,
                     ownerId,
                     operatorId,
-                    group);
+                    group,
+                    form);
         } catch (SnapshotModelApi.RefereceExtensionHasNotBeenPublished refereceExtensionHasNotBeenPublished) {
             refereceExtensionHasNotBeenPublished.printStackTrace();
         }

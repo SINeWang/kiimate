@@ -15,6 +15,7 @@ import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
 @Component
 public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor {
 
+
     @Autowired
     private AnPublicationExtractor publicationExtractor;
 
@@ -24,26 +25,17 @@ public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor 
     }
 
     @Override
-    public ModelSubscription extract(SubscribeModelApi.Form form, String providerId, String extId, String publication, String version, String subscriberId, String operatorId) {
+    public ModelSubscription extract(SubscribeModelApi.Form form, String pubSetHash, String pubExtId, String subscriberId, String operatorId) {
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
-        form.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getName()));
-        form.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getTree()));
 
         ModelSubscription subscription = new ModelSubscription();
-
-        subscription.setExtId(extId);
+        subscription.setPubSetHash(pubSetHash);
         subscription.setGroup(form.getGroup());
-        subscription.setName(form.getName());
-        subscription.setTree(form.getTree());
-
+        subscription.setName(NAME_ROOT);
+        subscription.setTree(TREE_MASTER);
+        subscription.setPubExtId(pubExtId);
         subscription.setSubscriberId(subscriberId);
-        subscription.setProviderId(providerId);
-        subscription.setPublication(publication);
-        subscription.setVersion(version);
-
         subscription.setOperatorId(operatorId);
-
-        String pubExtId = publicationExtractor.hashPubExtId(providerId, extId, publication, version);
 
         String id = hashId(pubExtId, subscriberId);
 

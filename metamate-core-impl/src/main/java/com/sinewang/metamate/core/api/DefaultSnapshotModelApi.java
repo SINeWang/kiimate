@@ -1,6 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.codec.utils.HashTools;
 import one.kii.summer.erest.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
 import wang.yanjiong.metamate.core.fi.AnPublicationValidator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -44,10 +46,11 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
     @RequestMapping(value = "{ownerId}/snapshot/{group}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> snapshot(
-            @ModelAttribute Form form,
+            @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
             @PathVariable("ownerId") String ownerId,
-            @PathVariable("group") String group) throws RefereceExtensionHasNotBeenPublished {
+            @PathVariable("group") String group,
+            @ModelAttribute Form form) throws RefereceExtensionHasNotBeenPublished {
 
 
         List<ExtensionDai.Extension> extensions = extensionDai.selectExtensionsByOwnerGroup(ownerId, group);
@@ -55,13 +58,14 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
         List<IntensionDai.Intension> allIntensions = new ArrayList<>();
 
         Date date = new Date();
+        List<String> ids = new ArrayList<>();
         for (ExtensionDai.Extension extension : extensions) {
             AnPublicationExtractor.Publication snapshot;
             String extId = extensionExtractor.hashId(ownerId, group, extension.getName(), TREE_MASTER);
             try {
                 snapshot = publicationExtractor.extractSnapshot(form, extId, operatorId, date);
             } catch (AnPublicationExtractor.MissingParamException e) {
-                return Response.badRequest(e.getMessage());
+                return Response.badRequest(requestId, e.getMessage());
             }
 
             List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
@@ -72,7 +76,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
             for (IntensionDai.Intension intension : intensions) {
 
                 String id = publicationExtractor.hashId(pubExtId, intension.getId());
-
+                ids.add(id);
                 ModelPublicationDai.Publication daiPublication = DataTools.copy(snapshot, ModelPublicationDai.Publication.class);
                 daiPublication.setPublication(AnPublicationValidator.Publication.SNAPSHOT.name());
                 daiPublication.setIntId(intension.getId());
@@ -81,7 +85,12 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
                 publications.add(daiPublication);
             }
         }
-
+        String[] idArray = ids.toArray(new String[0]);
+        Arrays.sort(idArray);
+        String pubSetHash =  HashTools.hashHex(idArray);
+        for (ModelPublicationDai.Publication publication : publications){
+            publication.setPubSetHash(pubSetHash);
+        }
 
         modelPublicationDai.savePublications(publications);
 
@@ -99,7 +108,9 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
         receipt.setOwnerId(ownerId);
 
-        return Response.accepted(receipt, form.getProviderId());
+        receipt.setPubSetHash(pubSetHash);
+
+        return Response.accepted(requestId, receipt, form.getProviderId());
 
     }
 

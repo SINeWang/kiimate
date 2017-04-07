@@ -1,7 +1,6 @@
 package wang.yanjiong.metamate.core.api;
 
 import com.sinewang.metamate.core.dai.mapper.ModelSubscriptionMapper;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +51,10 @@ public class TestSubscribeModelApi {
 
     private String publication = "SNAPSHOT";
 
+    private String requestId = "testRequestId";
+
+    private String rootPubExtId = "testRootPubExtId";
+
     @Test
     public void test() {
         SubscribeModelApi.Form form = new SubscribeModelApi.Form();
@@ -62,25 +65,13 @@ public class TestSubscribeModelApi {
 
 
         form.setGroup(group);
-        form.setName(name);
-        form.setTree(tree);
         SubscribeModelApi.Receipt receipt = subscribeModelApi.subscribe(
-                form,
+                requestId,
                 subscriberId,
                 operatorId,
-                providerId,
-                extId,
-                publication,
-                version
+                rootPubExtId,
+                form
         ).getBody();
-
-        Assert.assertEquals(pubExtId, receipt.getPubExtId());
-        Assert.assertEquals(group, receipt.getGroup());
-        Assert.assertEquals(id, receipt.getId());
-        Assert.assertEquals(name, receipt.getName());
-        Assert.assertEquals(tree, receipt.getTree());
-        Assert.assertEquals(subscriberId, receipt.getSubscriberId());
-        Assert.assertEquals(operatorId, receipt.getOperatorId());
 
         modelSubscriptionMapper.deleteById(id);
 

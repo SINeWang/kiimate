@@ -104,6 +104,7 @@ CREATE TABLE `mm_m_crf` (
 DROP TABLE IF EXISTS `mm_m_pub`;
 CREATE TABLE `mm_m_pub` (
   `id` varchar(160) NOT NULL COMMENT 'hash(pub_ext_id, int_id)',
+  `pub_set_hash` varchar(160) DEFAULT NULL COMMENT ' hash all pubs id(sorted) at once',
   `pub_ext_id` varchar(160) NOT NULL COMMENT 'hash(provider_id, ext_id, pub, version)',
   `provider_id` varchar(160) NOT NULL,
   `ext_id` varchar(160) NOT NULL,

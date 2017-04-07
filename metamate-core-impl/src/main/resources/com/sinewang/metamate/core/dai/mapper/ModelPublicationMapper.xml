@@ -6,6 +6,7 @@
 
     <resultMap id="Publication" type="wang.yanjiong.metamate.core.dai.ModelPublicationDai$Publication">
         <result column="id" property="id"/>
+        <result column="pub_set_hash" property="pubSetHash"/>
         <result column="pub_ext_id" property="pubExtId"/>
         <result column="provider_id" property="providerId"/>
         <result column="ext_id" property="extId"/>
@@ -18,15 +19,21 @@
 
     <insert id="insertPublication">
         INSERT INTO mm_m_pub
-        (id, pub_ext_id, provider_id, ext_id, int_id, version, pub, operator_id, created_at)
+        (id, pub_set_hash, pub_ext_id, provider_id, ext_id, int_id, version, pub, operator_id, created_at)
         VALUES
         (#{id}, #{pubExtId}, #{providerId}, #{extId}, #{intId}, #{version}, #{publication}, #{operatorId}, #{createdAt})
     </insert>
 
-    <select id="selectPublicationByProviderIdExtIdPubVersion" resultMap="Publication">
-        SELECT id, pub_ext_id, provider_id, ext_id, int_id, version, pub, operator_id, created_at
+    <select id="selectPublicationsByProviderIdExtIdPubVersion" resultMap="Publication">
+        SELECT id, pub_set_hash, pub_ext_id, provider_id, ext_id, int_id, version, pub, operator_id, created_at
         FROM  mm_m_pub
         WHERE pub_ext_id = #{pubExtId}
+    </select>
+
+    <select id="selectPublicationByPubSetHash" resultMap="Publication">
+        SELECT mpub.id, mpub.pub_set_hash, mpub.pub_ext_id, mpub.provider_id, mpub.ext_id, mpub.int_id, mpub.version, mpub.pub, mpub.operator_id, mpub.created_at
+        FROM  mm_m_pub mpub
+        WHERE mpub.pub_set_hash = #{pubSetHash}
     </select>
 
     <delete id="deletePublicationByProviderIdExtIdPubVersion">

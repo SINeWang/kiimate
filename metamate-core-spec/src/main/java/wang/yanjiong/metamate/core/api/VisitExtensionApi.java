@@ -19,6 +19,7 @@ public interface VisitExtensionApi {
 
     @RequestMapping(value = "/{ownerId}/extension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
             @RequestHeader("X-MM-VisitorId") String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
@@ -27,6 +28,7 @@ public interface VisitExtensionApi {
 
     @RequestMapping(value = "/{ownerId}/extension/{group}/{name}", method = RequestMethod.GET)
     ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
             @RequestHeader("X-MM-VisitorId") String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
@@ -34,6 +36,7 @@ public interface VisitExtensionApi {
 
     @RequestMapping(value = "/{ownerId}/extension/{group}", method = RequestMethod.GET)
     ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
             @RequestHeader("X-MM-VisitorId") String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group);
