@@ -43,17 +43,17 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
-    @RequestMapping(value = "/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/{ownerId}/instance/{group}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-OwnerId") String ownerId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
+            @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
-            @PathVariable("name") String name,
             @PathVariable("tree") String tree,
             @RequestParam MultiValueMap<String, String> map) {
 
-        ModelSubscriptionDai.ModelSubscription subscription = modelSubscriptionDai.getLatestSubscriptionBySubscriberIdGroupNameTree(ownerId, group, name, tree);
+        ModelSubscriptionDai.ModelSubscription subscription = modelSubscriptionDai.getLatestSubscriptionBySubscriberIdGroupNameTree(
+                ownerId, group, "root", tree);
 
         String extId = subscription.getExtId();
 
@@ -94,7 +94,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             @PathVariable("group") String group,
             @RequestParam MultiValueMap<String, String> map) {
 
-        return saveInstanceViaFormUrlEncoded(requestId, ownerId, operatorId, group, NAME_ROOT, TREE_MASTER, map);
+        return saveInstanceViaFormUrlEncoded(requestId, ownerId, operatorId, group, TREE_MASTER, map);
 
     }
 }

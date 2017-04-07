@@ -1,8 +1,6 @@
 package one.kii.statemate.core.api;
 
-import one.kii.statemate.core.spi.CreateModelSpi;
-import one.kii.statemate.core.spi.ReadExtensionSpi;
-import org.junit.Assert;
+import one.kii.statemate.core.spi.SaveStateSpi;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 /**
  * Created by WangYanJiong on 4/7/17.
  */
@@ -24,62 +21,46 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.statemate")
-@SpringBootTest(classes = {TestCreateModelSpi.class})
+@SpringBootTest(classes = {TestSaveStateSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class TestCreateModelSpi {
+public class TestSaveStateSpi {
+
+    private ThisIsASpringBootConfiguration conf = new ThisIsASpringBootConfiguration();
 
     @Autowired
-    private CreateModelSpi createModelSpi;
-
-    @Autowired
-    private ReadExtensionSpi readExtensionSpi;
-
-    private String group = "SpringBootBasicConfig";
-
+    private SaveStateSpi saveStateSpi;
 
     @Test
     public void test() {
-        CreateModelSpi.Receipt receipt = createModelSpi.createModel(group, ThisIsASpringBootConfiguration.class);
+        saveStateSpi.save("spring-boot-basic-config", conf);
+    }
 
-        Assert.assertNotNull(receipt);
+    class DataSource {
 
-        ReadExtensionSpi.GroupForm form = new ReadExtensionSpi.GroupForm();
+        public String driverClassName = "mysql";
 
-        form.setGroup(group);
+        public String url = "url";
 
-        String extensionJson = readExtensionSpi.readMasterExtension(form);
+        public String username = "name";
 
-        Assert.assertNotNull(extensionJson);
+        public String password = "passwd";
+    }
+
+    class Server {
+        public int port = 23424;
+    }
+
+    class Logging {
+        public String level = "debug";
     }
 
     class ThisIsASpringBootConfiguration {
 
-        public DataSource datasource;
+        public DataSource datasource = new DataSource();
 
-        public Server server;
+        public Server server = new Server();
 
-        public Logging logging;
+        public Logging logging = new Logging();
 
     }
-
-    static class DataSource {
-
-        public String driverClassName;
-
-        public String url;
-
-        public String username;
-
-        public String password;
-    }
-
-    static class Server {
-        public int port;
-    }
-
-    static class Logging {
-        public String level;
-    }
-
-
 }

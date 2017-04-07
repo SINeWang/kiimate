@@ -146,11 +146,10 @@ public class TestSaveInstanceApi {
         map.put(keyA, Arrays.asList(valueOfA));
         map.put(keyB, Arrays.asList(valueOfB));
         List<SaveInstanceApi.Instance> instances = saveInstanceApi.saveInstanceViaFormUrlEncoded(
-                ownerId,
-                operatorId,
                 requestId,
+                operatorId,
+                ownerId,
                 group,
-                name,
                 tree
                 , map
 
