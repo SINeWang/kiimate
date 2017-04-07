@@ -34,11 +34,13 @@ public class TestDeclareExtensionApi {
 
     private String operatorId = "testOperatorId";
 
+    private String requestId = "requestId";
+
     @Test
     public void testGroupOnly() {
         DeclareExtensionApi.ExtensionForm extensionForm = new DeclareExtensionApi.ExtensionForm();
         extensionForm.setGroup("testGroup");
-        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(extensionForm, ownerId, operatorId);
+        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(requestId, extensionForm, ownerId, operatorId);
         DeclareExtensionApi.ExtensionReceipt extensionReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
@@ -49,7 +51,7 @@ public class TestDeclareExtensionApi {
     public void testNameOnly() {
         DeclareExtensionApi.ExtensionForm extensionForm = new DeclareExtensionApi.ExtensionForm();
         extensionForm.setName("testName");
-        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(extensionForm, ownerId, operatorId);
+        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(requestId, extensionForm, ownerId, operatorId);
         DeclareExtensionApi.ExtensionReceipt extensionReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
@@ -60,7 +62,7 @@ public class TestDeclareExtensionApi {
     public void testVersionOnly() {
         DeclareExtensionApi.ExtensionForm extensionForm = new DeclareExtensionApi.ExtensionForm();
         extensionForm.setTree("testTree");
-        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(extensionForm, ownerId, operatorId);
+        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(requestId, extensionForm, ownerId, operatorId);
         DeclareExtensionApi.ExtensionReceipt extensionReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
@@ -71,7 +73,7 @@ public class TestDeclareExtensionApi {
     public void testVisibilityOnly() {
         DeclareExtensionApi.ExtensionForm extensionForm = new DeclareExtensionApi.ExtensionForm();
         extensionForm.setVisibility("testVisibility");
-        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(extensionForm, ownerId, operatorId);
+        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(requestId, extensionForm, ownerId, operatorId);
         DeclareExtensionApi.ExtensionReceipt extensionReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
@@ -86,7 +88,7 @@ public class TestDeclareExtensionApi {
         extensionForm.setName("testName");
         extensionForm.setTree("testTree");
         extensionForm.setVisibility("protected");
-        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(extensionForm, ownerId, operatorId);
+        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(requestId, extensionForm, ownerId, operatorId);
         DeclareExtensionApi.ExtensionReceipt extensionReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
@@ -100,7 +102,7 @@ public class TestDeclareExtensionApi {
         extensionForm.setName("testName");
         extensionForm.setTree("testTree");
         extensionForm.setVisibility("testVisibility");
-        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(extensionForm, ownerId, operatorId);
+        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(requestId, extensionForm, ownerId, operatorId);
         DeclareExtensionApi.ExtensionReceipt extensionReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
@@ -118,7 +120,7 @@ public class TestDeclareExtensionApi {
         extensionForm.setName(name);
         extensionForm.setTree(tree);
         extensionForm.setVisibility(AnVisibilityValidator.Visibility.PROTECTED.name());
-        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(extensionForm, ownerId, operatorId);
+        ResponseEntity<DeclareExtensionApi.ExtensionReceipt> response = declareExtensionApi.declareByFormUrlEncoded(requestId, extensionForm, ownerId, operatorId);
         DeclareExtensionApi.ExtensionReceipt extensionReceipt = response.getBody();
         HttpStatus httpStatus = response.getStatusCode();
         Assert.assertEquals(HttpStatus.ACCEPTED.value(), httpStatus.value());
