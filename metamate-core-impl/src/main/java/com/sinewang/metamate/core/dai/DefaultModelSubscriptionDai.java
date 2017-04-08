@@ -39,7 +39,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
 
 
     @Override
-    public ModelSubscription getLatestSubscriptionBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree) {
+    public String getLatestRootExtIdBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree) {
         return modelSubscriptionMapper.selectLatestSubscriptionBySubscriberIdGroupNameTree(
                 subscriberId, group, name, tree
         );

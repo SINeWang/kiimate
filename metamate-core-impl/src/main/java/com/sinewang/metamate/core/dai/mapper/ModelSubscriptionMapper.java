@@ -2,7 +2,6 @@ package com.sinewang.metamate.core.dai.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 
 import java.util.Date;
 
@@ -24,7 +23,7 @@ public interface ModelSubscriptionMapper {
 
     void deleteById(@Param("id") String id);
 
-    ModelSubscriptionDai.ModelSubscription selectLatestSubscriptionBySubscriberIdGroupNameTree(
+    String selectLatestSubscriptionBySubscriberIdGroupNameTree(
             @Param("subscriberId") String subscriberId,
             @Param("group") String group,
             @Param("name") String name,

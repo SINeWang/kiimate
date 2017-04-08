@@ -41,10 +41,10 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
 
-        ModelSubscriptionDai.ModelSubscription subscription = modelSubscriptionDai.getLatestSubscriptionBySubscriberIdGroupNameTree(
+        String extId  = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(
                 ownerId, group, name, tree);
 
-        String extId = subscription.getExtId();
+
         Map<String, Object> map = visitInstance(ownerId, extId);
 
         return Response.accepted(requestId, map, ownerId);

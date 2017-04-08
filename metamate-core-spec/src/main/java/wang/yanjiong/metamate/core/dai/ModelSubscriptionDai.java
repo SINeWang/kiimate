@@ -14,7 +14,7 @@ public interface ModelSubscriptionDai {
     @Transactional
     void save(List<ModelSubscription> modelSubscriptions);
 
-    ModelSubscription getLatestSubscriptionBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree);
+    String getLatestRootExtIdBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree);
 
     void deleteById(String id);
 
@@ -34,7 +34,5 @@ public interface ModelSubscriptionDai {
 
         private String operatorId;
 
-        // join fields
-        private String extId;
     }
 }

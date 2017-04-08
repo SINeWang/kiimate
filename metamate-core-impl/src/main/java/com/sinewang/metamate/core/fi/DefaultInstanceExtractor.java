@@ -5,6 +5,7 @@ import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
 import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 
@@ -22,19 +23,21 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     private AnIntensionExtractor anIntensionExtractor;
 
     @Override
-    public List<Instance> extract(String ownerId,  String extId, String operatorId, Map<String, List<String>> map) {
+    public List<Instance> extract(String ownerId, String operatorId, Map<String, List<String>> map, Map<String, IntensionDai.Intension> fieldDict) {
         List<Instance> instances = new ArrayList<>();
 
         for (String field : map.keySet()) {
             field = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, field);
+            IntensionDai.Intension intension = fieldDict.get(field);
 
-            String intId = anIntensionExtractor.hashId(extId, field);
+            String intId = intension.getId();
+
             String[] values = cleanUpValues(map.get(field).toArray(new String[0]));
             String id = HashTools.hashHex(intId, ownerId);
             String[] both = StringUtils.mergeStringArrays(new String[]{id}, values);
             id = HashTools.hashHex(both);
             Instance instance = new Instance();
-            instance.setExtId(extId);
+            instance.setExtId(intension.getExtId());
             instance.setField(field);
             instance.setValues(values);
             instance.setId(id);

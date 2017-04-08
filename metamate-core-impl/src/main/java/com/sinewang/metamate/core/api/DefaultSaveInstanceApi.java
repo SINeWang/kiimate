@@ -11,13 +11,17 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.SaveInstanceApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
+import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
 import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
+import wang.yanjiong.metamate.core.fi.AnModelRestorer;
 import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 3/27/17.
@@ -31,6 +35,9 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
     private InstanceDai instanceDai;
 
     @Autowired
+    private IntensionDai intensionDai;
+
+    @Autowired
     private AnInstanceExtractor instanceExtractor;
 
     @Autowired
@@ -42,6 +49,9 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
 
+    @Autowired
+    private AnModelRestorer modelRestorer;
+
     @Override
     @RequestMapping(value = "/{ownerId}/instance/{group}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
@@ -52,20 +62,15 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             @PathVariable("tree") String tree,
             @RequestParam MultiValueMap<String, String> map) {
 
-        ModelSubscriptionDai.ModelSubscription subscription = modelSubscriptionDai.getLatestSubscriptionBySubscriberIdGroupNameTree(
-                ownerId, group, "root", tree);
+        String rootExtId = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(ownerId, group, NAME_ROOT, tree);
 
-        String extId = subscription.getExtId();
+        Map<String, IntensionDai.Intension> dict = new HashMap<>();
+        modelRestorer.restoreAsFieldDict(rootExtId, dict);
 
-        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(
-                ownerId, extId, operatorId, map);
+
+        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(ownerId, operatorId, map, dict);
 
         List<InstanceDai.Instances> instances1 = DataTools.copy(instances, InstanceDai.Instances.class);
-
-        for (InstanceDai.Instances instances2 : instances1) {
-            String modelPubId = publicationExtractor.hashId(subscription.getPubExtId(), instances2.getIntId());
-            instances2.setPubId(modelPubId);
-        }
 
         try {
             instanceDai.insertInstances(instances1);
@@ -73,7 +78,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             logger.error("instanceDuplicated", instanceDuplicated);
         }
 
-        List<InstanceDai.Instance> dbInstances = instanceDai.selectLatestInstanceByOwnerIdExtId(extId, ownerId);
+        List<InstanceDai.Instance> dbInstances = instanceDai.selectLatestInstanceByOwnerIdExtId(rootExtId, ownerId);
 
         List<Instance> apiInstances = new ArrayList<>();
 

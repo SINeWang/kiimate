@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.fi;
 
 import lombok.Data;
+import wang.yanjiong.metamate.core.dai.IntensionDai;
 
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,7 @@ import java.util.Map;
  */
 public interface AnInstanceExtractor {
 
-    List<Instance> extract(String ownerId, String extId, String operatorId, Map<String, List<String>> map);
+    List<Instance> extract(String ownerId, String operatorId, Map<String, List<String>> values, Map<String, IntensionDai.Intension> dict);
 
 
     @Data

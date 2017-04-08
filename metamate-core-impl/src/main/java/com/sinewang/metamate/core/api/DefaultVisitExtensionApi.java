@@ -9,8 +9,9 @@ import wang.yanjiong.metamate.core.api.VisitExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
+import wang.yanjiong.metamate.core.fi.AnModelRestorer;
 
-import java.util.*;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 4/5/17.
@@ -28,6 +29,9 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     @Autowired
     private AnExtensionExtractor extensionExtractor;
 
+    @Autowired
+    private AnModelRestorer modelRestorer;
+
     @Override
     @RequestMapping(value = "/{ownerId}/extension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
@@ -42,39 +46,10 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         tree = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, tree);
 
         String extId = extensionExtractor.hashId(ownerId, group, name, tree);
-        return Response.accepted(requestId, restoreModel(extId), ownerId);
+
+        return Response.accepted(requestId, modelRestorer.fullRestoreAsMap(extId), ownerId);
     }
 
-    private List toArray(Object o) {
-        List list = new ArrayList();
-        list.add(o);
-        return list;
-    }
-
-    private Map<String, Object> restoreModel(String extId) {
-        if (extId == null) {
-            return Collections.emptyMap();
-        }
-        Map<String, Object> model = new HashMap<>();
-        List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
-        for (IntensionDai.Intension intension : intensions) {
-            String refExtId = intension.getRefExtId();
-            if (refExtId != null) {
-                if (intension.isSingle()) {
-                    model.put(intension.getField(), restoreModel(refExtId));
-                } else {
-                    model.put(intension.getField(), toArray(restoreModel(refExtId)));
-                }
-            } else {
-                if (intension.isSingle()) {
-                    model.put(intension.getField(), intension.getStructure());
-                } else {
-                    model.put(intension.getField(), toArray(intension.getStructure()));
-                }
-            }
-        }
-        return model;
-    }
 
     @Override
     @RequestMapping(value = "/{ownerId}/extension/{group}", method = RequestMethod.GET)
@@ -86,7 +61,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         group = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, group);
 
         String extId = extensionExtractor.hashId(ownerId, group, NAME_ROOT, TREE_MASTER);
-        return Response.accepted(requestId,restoreModel(extId), ownerId);
+        return Response.accepted(requestId, modelRestorer.fullRestoreAsMap(extId), ownerId);
     }
 
     @Override
@@ -101,6 +76,6 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name);
 
         String extId = extensionExtractor.hashId(ownerId, group, name, TREE_MASTER);
-        return Response.accepted(requestId, restoreModel(extId), ownerId);
+        return Response.accepted(requestId, modelRestorer.fullRestoreAsMap(extId), ownerId);
     }
 }
