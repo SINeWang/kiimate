@@ -24,8 +24,6 @@ public interface ModelSubscriptionDai {
 
         private String pubSetHash;
 
-        private String pubExtId;
-
         private String subscriberId;
 
         private String group;

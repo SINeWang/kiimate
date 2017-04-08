@@ -122,7 +122,7 @@ CREATE TABLE `mm_m_pub` (
 DROP TABLE IF EXISTS `mm_m_sub`;
 CREATE TABLE `mm_m_sub` (
   `id` varchar(160) NOT NULL COMMENT 'hash(pub_ext_id, subscriber_id)',
-  `pub_ext_id` varchar(160) NOT NULL COMMENT 'hash(provider_id, ext_id, pub, version)',
+  `pub_set_hash` varchar(160) NOT NULL COMMENT 'hash(provider_id, ext_id, pub, version)',
   `subscriber_id` varchar(160) NOT NULL,
   `group` varchar(64) NOT NULL,
   `name` varchar(64) NOT NULL,
