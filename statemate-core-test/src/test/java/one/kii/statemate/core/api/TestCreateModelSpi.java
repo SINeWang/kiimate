@@ -54,7 +54,7 @@ public class TestCreateModelSpi {
 
     class ThisIsASpringBootConfiguration {
 
-        public DataSource datasource;
+        public Spring spring;
 
         public Server server;
 
@@ -62,7 +62,17 @@ public class TestCreateModelSpi {
 
     }
 
-    static class DataSource {
+    class Spring {
+        DataSource datasource;
+        Profiles profiles;
+    }
+
+    class Profiles{
+        String active;
+    }
+
+
+    class DataSource {
 
         public String driverClassName;
 
@@ -73,11 +83,11 @@ public class TestCreateModelSpi {
         public String password;
     }
 
-    static class Server {
+    class Server {
         public int port;
     }
 
-    static class Logging {
+    class Logging {
         public String level;
     }
 

@@ -47,16 +47,11 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name);
         tree = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, tree);
 
-        return HashTools.hashHex(
-                ownerId,
-                group, name, tree
-        );
+        return HashTools.hashHex(ownerId, group, name, tree);
     }
 
     private String hashExtension(Extension extension) {
-        return hashId(
-                extension.getOwnerId(), extension.getGroup(), extension.getName(), extension.getTree()
-        );
+        return hashId(extension.getOwnerId(), extension.getGroup(), extension.getName(), extension.getTree());
     }
 
 
