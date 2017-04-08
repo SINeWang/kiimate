@@ -28,9 +28,6 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     private AnExtensionExtractor extensionExtractor;
 
     @Autowired
-    private AnStructureValidator structureValidator;
-
-    @Autowired
     private AnVisibilityValidator visibilityValidator;
 
     @Override

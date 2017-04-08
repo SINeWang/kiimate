@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.VisitExtensionApi;
-import wang.yanjiong.metamate.core.dai.ExtensionDai;
-import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fi.AnModelRestorer;
 
@@ -19,12 +17,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/v1")
 public class DefaultVisitExtensionApi implements VisitExtensionApi {
-
-    @Autowired
-    private ExtensionDai extensionDai;
-
-    @Autowired
-    private IntensionDai intensionDai;
 
     @Autowired
     private AnExtensionExtractor extensionExtractor;

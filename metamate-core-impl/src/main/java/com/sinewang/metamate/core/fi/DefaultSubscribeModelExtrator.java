@@ -2,10 +2,8 @@ package com.sinewang.metamate.core.fi;
 
 import com.google.common.base.CaseFormat;
 import one.kii.summer.codec.utils.HashTools;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.SubscribeModelApi;
-import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
 import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
 
 /**
@@ -15,9 +13,6 @@ import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
 @Component
 public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor {
 
-
-    @Autowired
-    private AnPublicationExtractor publicationExtractor;
 
     @Override
     public String hashId(String pubExtId, String subscriberId) {

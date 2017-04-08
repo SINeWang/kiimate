@@ -35,16 +35,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
     private InstanceDai instanceDai;
 
     @Autowired
-    private IntensionDai intensionDai;
-
-    @Autowired
     private AnInstanceExtractor instanceExtractor;
-
-    @Autowired
-    private AnPublicationExtractor publicationExtractor;
-
-    @Autowired
-    private AnIntensionExtractor intensionExtractor;
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;

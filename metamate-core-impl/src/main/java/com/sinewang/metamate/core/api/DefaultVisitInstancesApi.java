@@ -30,8 +30,8 @@ public class DefaultVisitInstancesApi implements VisitInstancesApi {
     @Override
     public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
             @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
-            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
+            @RequestHeader("X-MM-OwnerId") String ownerId,
+            @RequestHeader(value = "X-MM-VisitorId", required = false) String visitorId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {

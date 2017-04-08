@@ -2,12 +2,10 @@ package com.sinewang.metamate.core.fi;
 
 import com.google.common.base.CaseFormat;
 import one.kii.summer.codec.utils.HashTools;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
-import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +17,6 @@ import java.util.Map;
 @Service
 public class DefaultInstanceExtractor implements AnInstanceExtractor {
 
-    @Autowired
-    private AnIntensionExtractor anIntensionExtractor;
 
     @Override
     public List<Instance> extract(String ownerId, String operatorId, Map<String, List<String>> map, Map<String, IntensionDai.Intension> fieldDict) {
