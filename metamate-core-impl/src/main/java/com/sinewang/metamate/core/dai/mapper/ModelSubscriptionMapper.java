@@ -15,7 +15,6 @@ public interface ModelSubscriptionMapper {
     void insertSubscription(
             @Param("id") String id,
             @Param("pubSetHash") String pubSetHash,
-            @Param("pubExtId") String pubExtId,
             @Param("subscriberId") String subscriberId,
             @Param("group") String group,
             @Param("name") String name,

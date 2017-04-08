@@ -27,7 +27,6 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
             modelSubscriptionMapper.insertSubscription(
                     modelSubscription.getId(),
                     modelSubscription.getPubSetHash(),
-                    modelSubscription.getPubExtId(),
                     modelSubscription.getSubscriberId(),
                     modelSubscription.getGroup(),
                     modelSubscription.getName(),

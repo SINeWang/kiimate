@@ -55,7 +55,6 @@ class ModelPublication {
 class ModelSubscription {
     String id // m_sub_id
     String pub_set_hash
-    String pub_ext_id
     String subscriber_id
     String group
     String name
