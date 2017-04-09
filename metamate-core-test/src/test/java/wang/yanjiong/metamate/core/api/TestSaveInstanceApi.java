@@ -155,7 +155,7 @@ public class TestSaveInstanceApi {
                 tree
                 , map
 
-        ).getBody();
+        ).getBody().getInstances();
 
         Assert.assertEquals(3, instances.size());
 

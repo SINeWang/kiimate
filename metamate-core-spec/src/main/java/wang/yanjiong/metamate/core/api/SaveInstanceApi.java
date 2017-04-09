@@ -23,7 +23,7 @@ public interface SaveInstanceApi {
     String TREE_MASTER = "master";
 
     @RequestMapping(value = "/{ownerId}/instance/{group}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
+    ResponseEntity<Receipt> saveInstanceViaFormUrlEncoded(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
             @PathVariable("ownerId") String ownerId,
@@ -32,12 +32,23 @@ public interface SaveInstanceApi {
             @RequestParam MultiValueMap<String, String> map);
 
     @RequestMapping(value = "/{ownerId}/instance/{group}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
+    ResponseEntity<Receipt> saveInstanceViaFormUrlEncoded(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @RequestParam MultiValueMap<String, String> map);
+
+    @Data
+    class Receipt {
+        String group;
+
+        String name;
+
+        String tree;
+
+        List<Instance> instances;
+    }
 
     @Data
     @EqualsAndHashCode(callSuper = false)

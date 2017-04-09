@@ -1,7 +1,7 @@
 package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.CreateExtensionSpi;
-import one.kii.summer.erest.ErestPostFormUrlEncoded;
+import one.kii.summer.erest.ErestPostForm;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -37,7 +37,7 @@ public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
     public String createMasterPublicExtension(ExtensionForm form) {
         String url = baseUrl + URI;
 
-        ErestPostFormUrlEncoded erest = new ErestPostFormUrlEncoded();
+        ErestPostForm erest = new ErestPostForm();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("X-MM-OwnerId", ownerId);
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();

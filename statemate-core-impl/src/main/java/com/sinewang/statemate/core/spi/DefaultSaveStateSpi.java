@@ -1,7 +1,7 @@
 package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.SaveStateSpi;
-import one.kii.summer.erest.ErestPostFormUrlEncoded;
+import one.kii.summer.erest.ErestPostForm;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
@@ -89,10 +89,11 @@ public class DefaultSaveStateSpi implements SaveStateSpi {
 
     private void saveInstance(String group, MultiValueMap<String, String> map) {
         String url = baseUrl + URI;
-        ErestPostFormUrlEncoded erestPost = new ErestPostFormUrlEncoded();
+        ErestPostForm erestPost = new ErestPostForm();
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("X-MM-OperatorId", operatorId);
+
 
         erestPost.doPost(url, httpHeaders, map, Receipt.class, ownerId, group, TREE);
     }

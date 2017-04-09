@@ -14,9 +14,7 @@ import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
-import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
 import wang.yanjiong.metamate.core.fi.AnModelRestorer;
-import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +43,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
 
     @Override
     @RequestMapping(value = "/{ownerId}/instance/{group}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
+    public ResponseEntity<Receipt> saveInstanceViaFormUrlEncoded(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
             @PathVariable("ownerId") String ownerId,
@@ -54,6 +52,14 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             @RequestParam MultiValueMap<String, String> map) {
 
         String rootExtId = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(ownerId, group, NAME_ROOT, tree);
+
+        if (rootExtId == null) {
+            Receipt receipt = new Receipt();
+            receipt.setGroup(group);
+            receipt.setName(NAME_ROOT);
+            receipt.setTree(tree);
+            return Response.notFound(requestId, receipt);
+        }
 
         Map<String, IntensionDai.Intension> dict = new HashMap<>();
         modelRestorer.restoreAsFieldDict(rootExtId, dict);
@@ -78,12 +84,18 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             apiInstance.setValue(new String[]{dbInstance.getValue()});
             apiInstances.add(apiInstance);
         }
-        return Response.accepted(requestId, apiInstances, ownerId);
+
+        Receipt receipt = new Receipt();
+        receipt.setGroup(group);
+        receipt.setName(NAME_ROOT);
+        receipt.setTree(tree);
+        receipt.setInstances(apiInstances);
+        return Response.accepted(requestId, receipt, ownerId);
     }
 
     @Override
     @RequestMapping(value = "/instance/{group}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<List<Instance>> saveInstanceViaFormUrlEncoded(
+    public ResponseEntity<Receipt> saveInstanceViaFormUrlEncoded(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OwnerId") String ownerId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
