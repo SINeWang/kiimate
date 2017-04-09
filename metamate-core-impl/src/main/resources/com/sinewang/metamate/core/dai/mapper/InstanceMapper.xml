@@ -27,14 +27,14 @@
     <select id="selectLatestInstanceBySubIdIntId" resultMap="Instance">
         SELECT mins.id, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set_hash, mins.value_ref_id, mins.operator_id
         FROM mm_i_ins mins
-        WHERE mins.sub_id = #{subId} AND mins.int_id = #{extId}
+        WHERE mins.sub_id = #{subId} AND mins.int_id = #{intId}
         AND mins.end_time IS NULL
     </select>
 
     <update id="updateInstanceEndTimeBySubIdIntId">
         UPDATE mm_i_ins mins
         SET mins.end_time = #{endTime}
-        WHERE #{subId} AND mins.int_id = #{extId} AND mins.end_time IS NULL
+        WHERE mins.sub_id = #{subId} AND mins.int_id = #{intId} AND mins.end_time IS NULL
     </update>
 
     <insert id="insertInstance">
