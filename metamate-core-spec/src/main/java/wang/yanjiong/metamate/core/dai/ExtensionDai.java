@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.dai;
 
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -37,8 +38,12 @@ public interface ExtensionDai {
     }
 
     class ExtensionDuplicated extends Exception {
-        public ExtensionDuplicated(String message, Throwable e) {
-            super(message, e);
+
+        @Getter
+        private String extId;
+
+        public ExtensionDuplicated(String extId) {
+            this.extId = extId;
         }
     }
 

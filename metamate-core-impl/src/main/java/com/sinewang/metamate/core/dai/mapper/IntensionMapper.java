@@ -24,11 +24,10 @@ public interface IntensionMapper {
                          @Param("visibility") String visibility,
                          @Param("beginTime") Date beginTime);
 
+
     List<IntensionDai.Intension> selectLatestIntensionsByExtId(@Param("extId") String extId);
 
     IntensionDai.Intension selectLatestIntensionByExtIdField(@Param("extId") String extId, @Param("field") String field);
-
-    IntensionDai.Intension selectLatestIntensionByIntId(@Param("intId") String intId);
 
     void updateLatestIntensionEndTimeById(@Param("id") String id, @Param("endTime") Date endTime);
 

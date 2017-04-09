@@ -18,8 +18,8 @@ import java.util.List;
 public interface ReleaseModelApi {
 
     @RequestMapping(value = "/release/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<ReleaseReceipt> release(
-            @ModelAttribute ReleaseForm snapshotModelForm,
+    ResponseEntity<Receipt> release(
+            @ModelAttribute Form snapshotModelForm,
             @RequestHeader("X-SUMMER-OwnerId") String ownerId,
             @RequestHeader("X-SUMMER-OperatorId") String operatorId,
             @PathVariable("group") String group,
@@ -29,7 +29,7 @@ public interface ReleaseModelApi {
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class ReleaseForm {
+    class Form {
 
         private String providerId;
 
@@ -39,7 +39,7 @@ public interface ReleaseModelApi {
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class ReleaseReceipt {
+    class Receipt {
 
         List<Intension> intensions;
 

@@ -14,6 +14,8 @@ import java.util.List;
 @RequestMapping("/v1")
 public interface VisitIntensionsApi {
 
+    String VISIBILITY_PUBLIC = "public";
+
     @RequestMapping(value = "/intensions/{group}/{name}/{tree.+}", method = RequestMethod.GET)
     ResponseEntity<Extension> readIntensionsByGroupNameVersion(
             @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,

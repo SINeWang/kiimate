@@ -48,7 +48,7 @@ public class DefaultExtensionDai implements ExtensionDai {
         Extension lastExtension = extensionMapper.selectExtensionById(extension.getId());
 
         if (lastExtension != null) {
-            extensionMapper.updateEndTimeExtensionById(extension.getId(), now);
+            throw new ExtensionDuplicated(extension.getId());
         }
 
         try {
@@ -63,7 +63,6 @@ public class DefaultExtensionDai implements ExtensionDai {
             );
         } catch (DuplicateKeyException duplicated) {
             logger.error("Duplicated-Key:{}", extension.getId());
-            throw new ExtensionDuplicated(extension.getId(), duplicated);
         }
     }
 }

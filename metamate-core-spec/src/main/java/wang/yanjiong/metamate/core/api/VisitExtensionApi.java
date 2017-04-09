@@ -17,6 +17,8 @@ public interface VisitExtensionApi {
 
     String TREE_MASTER = "master";
 
+    String VISIBILITY_PUBLIC = "public";
+
     @RequestMapping(value = "/{ownerId}/extension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
             @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,

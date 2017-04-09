@@ -8,9 +8,9 @@ import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
  */
 public interface AnExtensionExtractor {
 
-    Extension extract(DeclareExtensionApi.ExtensionForm extensionForm, String ownerId) throws MissingParamException;
+    Extension extract(DeclareExtensionApi.Form form, String ownerId) throws MissingParamException;
 
-    String hashId(String ownerId, String group, String name, String tree);
+    String hashId(String ownerId, String group, String name, String tree, String visibility);
 
     @Data
     class Extension {

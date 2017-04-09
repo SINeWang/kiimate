@@ -49,17 +49,17 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
 
         Map<String, InstanceDai.Instance> dict = dict(instances);
 
-        Map<String, Object> result = visitheritInstance(rootExtId, dict);
+        Map<String, Object> result = visitHierarchyInstance(rootExtId, dict);
 
         return Response.accepted(requestId, result, ownerId);
     }
 
-    private void visitflatInstance(String extId, Map<String, Object> result, Map<String, InstanceDai.Instance> dict) {
+    private void visitFlatInstance(String extId, Map<String, Object> result, Map<String, InstanceDai.Instance> dict) {
         List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
 
         for (IntensionDai.Intension intension : intensions) {
             if (intension.getRefExtId() != null) {
-                visitflatInstance(intension.getRefExtId(), result, dict);
+                visitFlatInstance(intension.getRefExtId(), result, dict);
             } else {
                 InstanceDai.Instance instance = dict.get(intension.getField());
                 if (instance != null) {
@@ -69,12 +69,12 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
         }
     }
 
-    private Map<String, Object> visitheritInstance(String extId, Map<String, InstanceDai.Instance> dict) {
+    private Map<String, Object> visitHierarchyInstance(String extId, Map<String, InstanceDai.Instance> dict) {
         List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Intension intension : intensions) {
             if (intension.getRefExtId() != null) {
-                Map<String, Object> child = visitheritInstance(intension.getRefExtId(), dict);
+                Map<String, Object> child = visitHierarchyInstance(intension.getRefExtId(), dict);
                 if (!child.isEmpty()) {
                     result.put(intension.getField(), child);
                 }
@@ -90,7 +90,6 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
         }
         return result;
     }
-
 
     private Map<String, InstanceDai.Instance> dict(List<InstanceDai.Instance> instances) {
         Map<String, InstanceDai.Instance> dict = new HashMap<>();

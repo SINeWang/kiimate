@@ -27,6 +27,9 @@ public interface ModelPublicationMapper {
     List<ModelPublicationDai.Publication> selectPublicationByPubSetHash(
             @Param("pubSetHash") String pubSetHash);
 
+    int countPublicationByPubSetHash(
+            @Param("pubSetHash") String pubSetHash);
+
     void deletePublicationByProviderIdExtIdPubVersion(
             @Param("providerId") String providerId,
             @Param("extId") String extId,

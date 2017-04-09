@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.*;
 public interface DeclareExtensionApi {
 
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<ExtensionReceipt> declareByFormUrlEncoded(
+    ResponseEntity<Receipt> declareByFormUrlEncoded(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @ModelAttribute ExtensionForm extensionForm,
+            @ModelAttribute Form form,
             @RequestHeader("X-MM-OwnerId") String ownerId,
             @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId);
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class ExtensionForm {
+    class Form {
 
         private String group;
 
@@ -35,7 +35,7 @@ public interface DeclareExtensionApi {
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class ExtensionReceipt {
+    class Receipt {
 
         private String id;
 

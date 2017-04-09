@@ -79,9 +79,10 @@ public class TestSnapshotModelApi {
 
     private String requestId = "testRequestId";
 
+
     @Before
     public void before() {
-        this.extId = extensionExtractor.hashId(ownerId, group, name, tree);
+        this.extId = extensionExtractor.hashId(ownerId, group, name, tree, visibility);
 
         modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
         extensionDai.deleteExtensionById(extId);

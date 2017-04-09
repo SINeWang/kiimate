@@ -61,7 +61,7 @@ public class TestDeclareIntensionApi {
 
     @Before
     public void before() {
-        extId = extensionExtractor.hashId(ownerId, group, name, tree);
+        extId = extensionExtractor.hashId(ownerId, group, name, tree, visibility);
     }
 
 //    @Test
@@ -72,7 +72,7 @@ public class TestDeclareIntensionApi {
 //        form1.setSingle(single);
 //        form1.setField(field);
 //        form1.setRefExtId(refExtId);
-//        ResponseEntity<DeclareIntensionApi.IntensionReceipt> response = declareIntensionApi.declarePropViaFormUrlEncoded1(
+//        ResponseEntity<DeclareIntensionApi.Receipt> response = declareIntensionApi.declarePropViaFormUrlEncoded1(
 //                form1,
 //                group,
 //                name,
@@ -82,7 +82,7 @@ public class TestDeclareIntensionApi {
 //
 //        );
 //        String id = intensionExtractor.hashId(extId, field);
-//        DeclareIntensionApi.IntensionReceipt receipt = response.getBody();
+//        DeclareIntensionApi.Receipt receipt = response.getBody();
 //        Assert.assertEquals(single, receipt.isSingle());
 //        Assert.assertEquals(visibility, receipt.getVisibility());
 //        Assert.assertEquals(structure, receipt.getStructure());

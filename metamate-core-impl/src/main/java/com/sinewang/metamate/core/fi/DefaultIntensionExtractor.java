@@ -15,11 +15,11 @@ public class DefaultIntensionExtractor implements AnIntensionExtractor {
 
 
     @Override
-    public Intension parseForm(DeclareIntensionApi.IntensionForm intensionForm) {
+    public Intension parseForm(DeclareIntensionApi.Form form) {
 
-        intensionForm.setField(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, intensionForm.getField()));
+        form.setField(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getField()));
 
-        Intension intension = DataTools.copy(intensionForm, Intension.class);
+        Intension intension = DataTools.copy(form, Intension.class);
         String id = hashId(intension.getExtId(), intension.getField());
         intension.setId(id);
         return intension;

@@ -32,10 +32,10 @@
         (#{id}, #{group}, #{name}, #{tree}, #{ownerId}, #{visibility}, #{beginTime})
     </insert>
 
-    <update id="updateEndTimeExtensionById">
+    <update id="updateEndTimeExtensionByOwnerIdGroup">
         UPDATE mm_m_ext
         SET end_time = #{endTime}
-        WHERE id = #{id}
+        WHERE owner_id = #{ownerId} AND `group` = #{group}
     </update>
 
     <delete id="deleteExtensionById">

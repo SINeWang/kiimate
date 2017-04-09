@@ -17,11 +17,9 @@ import java.util.List;
 @RequestMapping("/v1")
 public interface SnapshotModelApi {
 
-    String NAME_ROOT = "root";
-
     String TREE_MASTER = "master";
 
-    String PUBLICATION_SNAPSHOT = "SNAPSHOT";
+    String VISIBILITY_PUBLIC = "public";
 
 
     @RequestMapping(value = "/snapshot/{group}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -46,10 +44,8 @@ public interface SnapshotModelApi {
     @EqualsAndHashCode(callSuper = false)
     class Receipt {
 
-        private String pubSetHash;
-
         List<Intension> intensions;
-
+        private String pubSetHash;
         private String providerId;
 
         private String ownerId;

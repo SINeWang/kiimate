@@ -8,7 +8,7 @@ import wang.yanjiong.metamate.core.api.DeclareIntensionApi;
  */
 public interface AnIntensionExtractor {
 
-    Intension parseForm(DeclareIntensionApi.IntensionForm intensionForm);
+    Intension parseForm(DeclareIntensionApi.Form form);
 
     String hashId(String extId, String field);
 

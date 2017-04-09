@@ -61,7 +61,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
         List<String> ids = new ArrayList<>();
         for (ExtensionDai.Extension extension : extensions) {
             AnPublicationExtractor.Publication snapshot;
-            String extId = extensionExtractor.hashId(ownerId, group, extension.getName(), TREE_MASTER);
+            String extId = extensionExtractor.hashId(ownerId, group, extension.getName(), TREE_MASTER, VISIBILITY_PUBLIC);
             try {
                 snapshot = publicationExtractor.extractSnapshot(form, extId, operatorId, date);
             } catch (AnPublicationExtractor.MissingParamException e) {
@@ -81,18 +81,22 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
                 daiPublication.setPublication(AnPublicationValidator.Publication.SNAPSHOT.name());
                 daiPublication.setIntId(intension.getId());
                 daiPublication.setId(id);
-                daiPublication.setCreatedAt(snapshot.getCreatedAt());
+                daiPublication.setBeginTime(snapshot.getCreatedAt());
                 publications.add(daiPublication);
             }
         }
         String[] idArray = ids.toArray(new String[0]);
         Arrays.sort(idArray);
-        String pubSetHash =  HashTools.hashHex(idArray);
-        for (ModelPublicationDai.Publication publication : publications){
-            publication.setPubSetHash(pubSetHash);
-        }
+        String pubSetHash = HashTools.hashHex(idArray);
 
-        modelPublicationDai.savePublications(publications);
+        try {
+            modelPublicationDai.savePublications(pubSetHash, publications);
+        } catch (ModelPublicationDai.DuplicatedPublication duplicatedPublication) {
+            Receipt receipt = DataTools.copy(duplicatedPublication, Receipt.class);
+            receipt.setVersion(form.getVersion());
+            receipt.setOwnerId(ownerId);
+            return Response.conflict(requestId, receipt);
+        }
 
         Receipt receipt = new Receipt();
 
@@ -110,7 +114,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
         receipt.setPubSetHash(pubSetHash);
 
-        return Response.accepted(requestId, receipt, form.getProviderId());
+        return Response.accepted(requestId, receipt, ownerId);
 
     }
 

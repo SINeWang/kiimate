@@ -16,7 +16,7 @@ public interface AnPublicationExtractor {
                                 String operatorId,
                                 Date date) throws MissingParamException;
 
-    Publication extractRelease(ReleaseModelApi.ReleaseForm form,
+    Publication extractRelease(ReleaseModelApi.Form form,
                                String extId,
                                String operatorId,
                                Date date) throws MissingParamException;

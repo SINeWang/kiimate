@@ -15,43 +15,43 @@ import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
     @Override
-    public Extension extract(DeclareExtensionApi.ExtensionForm extensionForm, String ownerId) throws MissingParamException {
+    public Extension extract(DeclareExtensionApi.Form form, String ownerId) throws MissingParamException {
 
-        if (extensionForm.getGroup() == null || extensionForm.getGroup().isEmpty()) {
+        if (form.getGroup() == null || form.getGroup().isEmpty()) {
             throw new MissingParamException("group is NULL or EMPTY");
         }
-        if (extensionForm.getName() == null || extensionForm.getName().isEmpty()) {
+        if (form.getName() == null || form.getName().isEmpty()) {
             throw new MissingParamException("name is NULL or EMPTY");
         }
-        if (extensionForm.getTree() == null || extensionForm.getTree().isEmpty()) {
+        if (form.getTree() == null || form.getTree().isEmpty()) {
             throw new MissingParamException("version is NULL or EMPTY");
         }
-        if (extensionForm.getVisibility() == null || extensionForm.getVisibility().isEmpty()) {
+        if (form.getVisibility() == null || form.getVisibility().isEmpty()) {
             throw new MissingParamException("visibility is NULL or EMPTY");
         }
-        extensionForm.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extensionForm.getGroup()));
-        extensionForm.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extensionForm.getName()));
-        extensionForm.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extensionForm.getTree()));
+        form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
+        form.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getName()));
+        form.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getTree()));
 
-        Extension extension = DataTools.copy(extensionForm, Extension.class);
+        Extension extension = DataTools.copy(form, Extension.class);
         extension.setOwnerId(ownerId);
-        BeanUtils.copyProperties(extensionForm, extension);
+        BeanUtils.copyProperties(form, extension);
         String id = hashExtension(extension);
         extension.setId(id);
         return extension;
     }
 
     @Override
-    public String hashId(String ownerId, String group, String name, String tree) {
+    public String hashId(String ownerId, String group, String name, String tree, String visibility) {
         group = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, group);
         name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name);
         tree = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, tree);
 
-        return HashTools.hashHex(ownerId, group, name, tree);
+        return HashTools.hashHex(ownerId, group, name, tree, visibility);
     }
 
     private String hashExtension(Extension extension) {
-        return hashId(extension.getOwnerId(), extension.getGroup(), extension.getName(), extension.getTree());
+        return hashId(extension.getOwnerId(), extension.getGroup(), extension.getName(), extension.getTree(), extension.getVisibility());
     }
 
 

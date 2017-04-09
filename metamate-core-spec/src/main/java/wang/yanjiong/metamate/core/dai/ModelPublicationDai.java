@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.dai;
 
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -12,7 +13,7 @@ import java.util.List;
 public interface ModelPublicationDai {
 
     @Transactional
-    void savePublications(List<Publication> publication);
+    void savePublications(String pubSetHash, List<Publication> publication) throws DuplicatedPublication;
 
     List<Publication> getPublicationsByPubSetHash(String pubSetHash);
 
@@ -26,6 +27,16 @@ public interface ModelPublicationDai {
         String version;
         String publication;
         String operatorId;
-        Date createdAt;
+        Date beginTime;
+    }
+
+    class DuplicatedPublication extends Exception {
+
+        @Getter
+        private String pubSetHash;
+
+        public DuplicatedPublication(String pubSetHash) {
+            this.pubSetHash = pubSetHash;
+        }
     }
 }

@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.dai;
 
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -15,8 +16,6 @@ public interface IntensionDai {
     void insertIntension(Intension intension) throws IntensionDuplicated;
 
     List<Intension> selectIntensionsByExtId(String extId);
-
-    Intension selectIntensionByIntId(String intId);
 
     void deleteIntensionsByExitId(String extId);
 
@@ -40,8 +39,12 @@ public interface IntensionDai {
     }
 
     class IntensionDuplicated extends Exception {
-        public IntensionDuplicated(String message, Throwable e) {
-            super(message, e);
+
+        @Getter
+        private String intId;
+
+        public IntensionDuplicated(String intId) {
+            this.intId = intId;
         }
     }
 }

@@ -36,11 +36,14 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
 
         ModelSubscriptionDai.ModelSubscription subscription = DataTools.copy(modelSubscription, ModelSubscriptionDai.ModelSubscription.class);
 
-        modelSubscriptionDai.save(subscription);
-
-        Receipt receipt = DataTools.copy(modelSubscription, Receipt.class);
-
-        return Response.accepted(requestId, receipt, subscriberId);
+        try {
+            modelSubscriptionDai.save(subscription);
+            Receipt receipt = DataTools.copy(modelSubscription, Receipt.class);
+            return Response.accepted(requestId, receipt, subscriberId);
+        } catch (ModelSubscriptionDai.DuplicatedSubscription duplicatedSubscription) {
+            Receipt receipt = DataTools.copy(duplicatedSubscription, Receipt.class);
+            return Response.conflict(requestId, receipt);
+        }
     }
 
 

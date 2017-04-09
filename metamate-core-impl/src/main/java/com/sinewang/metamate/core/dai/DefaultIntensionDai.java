@@ -30,7 +30,7 @@ public class DefaultIntensionDai implements IntensionDai {
         Date now = new Date();
 
         if (oldIntension != null) {
-            intensionMapper.updateLatestIntensionEndTimeById(oldIntension.getId(), now);
+            throw new IntensionDai.IntensionDuplicated(intension.getId());
         }
         try {
             intensionMapper.insertIntension(
@@ -45,18 +45,13 @@ public class DefaultIntensionDai implements IntensionDai {
             );
         } catch (DuplicateKeyException duplicated) {
             logger.error("Duplicated-Key:{}", intension.getId());
-            throw new IntensionDai.IntensionDuplicated(intension.getId(), duplicated);
+            throw new IntensionDai.IntensionDuplicated(intension.getId());
         }
     }
 
     @Override
     public List<Intension> selectIntensionsByExtId(String extId) {
         return intensionMapper.selectLatestIntensionsByExtId(extId);
-    }
-
-    @Override
-    public Intension selectIntensionByIntId(String intId) {
-        return intensionMapper.selectLatestIntensionByIntId(intId);
     }
 
     @Override

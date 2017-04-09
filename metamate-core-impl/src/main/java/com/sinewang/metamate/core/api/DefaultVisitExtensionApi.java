@@ -37,7 +37,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name);
         tree = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, tree);
 
-        String extId = extensionExtractor.hashId(ownerId, group, name, tree);
+        String extId = extensionExtractor.hashId(ownerId, group, name, tree, VISIBILITY_PUBLIC);
 
         return Response.accepted(requestId, modelRestorer.fullRestoreAsMap(extId), ownerId);
     }
@@ -52,7 +52,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
             @PathVariable("group") String group) {
         group = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, group);
 
-        String extId = extensionExtractor.hashId(ownerId, group, NAME_ROOT, TREE_MASTER);
+        String extId = extensionExtractor.hashId(ownerId, group, NAME_ROOT, TREE_MASTER, VISIBILITY_PUBLIC);
         return Response.accepted(requestId, modelRestorer.fullRestoreAsMap(extId), ownerId);
     }
 
@@ -67,7 +67,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         group = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, group);
         name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name);
 
-        String extId = extensionExtractor.hashId(ownerId, group, name, TREE_MASTER);
+        String extId = extensionExtractor.hashId(ownerId, group, name, TREE_MASTER, VISIBILITY_PUBLIC);
         return Response.accepted(requestId, modelRestorer.fullRestoreAsMap(extId), ownerId);
     }
 }

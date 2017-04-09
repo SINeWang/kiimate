@@ -27,7 +27,9 @@ public interface ExtensionMapper {
 
     void deleteExtensionById(@Param("id") String id);
 
-    void updateEndTimeExtensionById(@Param("id") String id,
-                                    @Param("endTime") Date endTime);
+    void updateEndTimeExtensionByOwnerIdGroup(
+            @Param("ownerId") String ownerId,
+            @Param("group") String group,
+            @Param("endTime") Date endTime);
 
 }

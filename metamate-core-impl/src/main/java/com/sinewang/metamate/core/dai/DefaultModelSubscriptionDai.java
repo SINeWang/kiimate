@@ -20,9 +20,22 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
 
 
     @Override
-    public void save(ModelSubscription modelSubscription) {
+    public void save(ModelSubscription modelSubscription) throws DuplicatedSubscription {
+        int count = modelSubscriptionMapper.countLatestSubscription(
+                modelSubscription.getSubSetHash(),
+                modelSubscription.getSubscriberId(),
+                modelSubscription.getGroup(),
+                modelSubscription.getName()
+        );
+        if (count > 0) {
+            throw new DuplicatedSubscription(
+                    modelSubscription.getSubSetHash(),
+                    modelSubscription.getSubscriberId(),
+                    modelSubscription.getGroup(),
+                    modelSubscription.getName()
+            );
+        }
         Date now = new Date();
-
         modelSubscriptionMapper.insertSubscription(
                 modelSubscription.getId(),
                 modelSubscription.getSubSetHash(),
@@ -49,11 +62,5 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
                 subscriberId, group, name, tree
         );
     }
-
-    @Override
-    public void deleteById(String id) {
-        modelSubscriptionMapper.deleteById(id);
-    }
-
 
 }

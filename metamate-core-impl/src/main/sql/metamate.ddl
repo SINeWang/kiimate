@@ -77,7 +77,8 @@ CREATE TABLE `mm_m_pub` (
   `version` varchar(64) NOT NULL,
   `pub` varchar(64) NOT NULL,
   `operator_id` varchar(160) NOT NULL,
-  `created_at` datetime NOT NULL,
+  `begin_time` datetime NOT NULL,
+  `end_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='model publication';
 

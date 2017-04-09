@@ -29,20 +29,21 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
 
 
     @Override
-    public ResponseEntity<IntensionReceipt> declarePropViaFormUrlEncoded2(
+    public ResponseEntity<Receipt> declarePropViaFormUrlEncoded2(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @ModelAttribute IntensionForm intensionForm,
+            @ModelAttribute Form form,
             @RequestHeader("X-MM-OwnerId") String ownerId,
             @RequestHeader(value = "X-MM-OperatorId", required = false) String operatorId) {
 
-        AnIntensionExtractor.Intension intension = anIntensionExtractor.parseForm(intensionForm);
+        AnIntensionExtractor.Intension intension = anIntensionExtractor.parseForm(form);
         IntensionDai.Intension daiRecord = DataTools.copy(intension, IntensionDai.Intension.class);
         try {
             intensionDai.insertIntension(daiRecord);
-            IntensionReceipt intensionReceipt = DataTools.copy(daiRecord, IntensionReceipt.class);
-            return Response.accepted(requestId, intensionReceipt, ownerId);
+            Receipt receipt = DataTools.copy(daiRecord, Receipt.class);
+            return Response.accepted(requestId, receipt, ownerId);
         } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
-            return Response.badRequest(requestId, extensionDuplicated.getMessage());
+            Receipt receipt = DataTools.copy(daiRecord, Receipt.class);
+            return Response.accepted(requestId, receipt, ownerId);
         }
 
     }

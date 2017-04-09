@@ -36,7 +36,7 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
 
-        String extId = anExtensionExtractor.hashId(ownerId, group, name, tree);
+        String extId = anExtensionExtractor.hashId(ownerId, group, name, tree, VISIBILITY_PUBLIC);
         Extension extension = new Extension();
         extension.setExtId(extId);
 

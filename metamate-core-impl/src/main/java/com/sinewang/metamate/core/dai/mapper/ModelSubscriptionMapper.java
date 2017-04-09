@@ -11,6 +11,12 @@ import java.util.Date;
 @Mapper
 public interface ModelSubscriptionMapper {
 
+    int countLatestSubscription(
+            @Param("subSetHash") String subSetHash,
+            @Param("subscriberId") String subscriberId,
+            @Param("group") String group,
+            @Param("name") String name);
+
     void insertSubscription(
             @Param("id") String id,
             @Param("subSetHash") String subSetHash,
