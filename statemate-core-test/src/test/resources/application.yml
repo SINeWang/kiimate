@@ -7,3 +7,5 @@ metamate:
   owner-id: wangyj
   base-url: http://localhost:9090/v1
   visitor-id: wangyj
+  subscriber-id: wangyj
+  operator-id: wangyj

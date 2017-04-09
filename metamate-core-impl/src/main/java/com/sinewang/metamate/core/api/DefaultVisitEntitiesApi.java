@@ -51,7 +51,7 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
     }
 
     private Map<String, Object> visitInstance(String ownerId, String extId) {
-        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceByOwnerIdExtId(ownerId, extId);
+        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceByOwnerIdSubId(ownerId, extId);
 
         Map<String, Object> map = new HashMap<>();
 

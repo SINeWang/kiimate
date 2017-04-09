@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by WangYanJiong on 4/6/17.
@@ -21,26 +20,32 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
 
 
     @Override
-    public void save(List<ModelSubscription> modelSubscriptions) {
+    public void save(ModelSubscription modelSubscription) {
         Date now = new Date();
-        for (ModelSubscription modelSubscription : modelSubscriptions) {
-            modelSubscriptionMapper.insertSubscription(
-                    modelSubscription.getId(),
-                    modelSubscription.getPubSetHash(),
-                    modelSubscription.getSubscriberId(),
-                    modelSubscription.getGroup(),
-                    modelSubscription.getName(),
-                    modelSubscription.getTree(),
-                    modelSubscription.getOperatorId(),
-                    now
-            );
-        }
-    }
 
+        modelSubscriptionMapper.insertSubscription(
+                modelSubscription.getId(),
+                modelSubscription.getSubSetHash(),
+                modelSubscription.getSubscriberId(),
+                modelSubscription.getGroup(),
+                modelSubscription.getName(),
+                modelSubscription.getTree(),
+                modelSubscription.getOperatorId(),
+                now
+        );
+
+    }
 
     @Override
     public String getLatestRootExtIdBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree) {
         return modelSubscriptionMapper.selectLatestSubscriptionBySubscriberIdGroupNameTree(
+                subscriberId, group, name, tree
+        );
+    }
+
+    @Override
+    public String getLatestSubIdBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree) {
+        return modelSubscriptionMapper.selectLatestSubIdSubscriberIdGroupNameTree(
                 subscriberId, group, name, tree
         );
     }

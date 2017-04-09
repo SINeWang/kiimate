@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.api;
 
 import com.sinewang.metamate.core.dai.mapper.ModelSubscriptionMapper;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,34 +34,28 @@ public class TestSubscribeModelApi {
 
     private String group = "testSubGroup";
 
-    private String name = "testSubName";
-
-    private String tree = "testSubTree";
-
     private String subscriberId = "testSubscriberId";
-
-    private String providerId = "testProviderId";
 
     private String operatorId = "testOperatorId";
 
-    private String version = "testVersion";
-
-    private String extId = "testExtId";
-
-    private String pubExtId = "testPubExtId";
-
-    private String publication = "SNAPSHOT";
-
     private String requestId = "testRequestId";
 
-    private String rootPubExtId = "testRootPubExtId";
+    private String pubSetHash = "testPubSetHash";
+
+    private String name = "testSubName";
+
+    private String tree = "testSubTree";
 
     @Test
     public void test() {
         SubscribeModelApi.Form form = new SubscribeModelApi.Form();
 
+        form.setGroup("testGroup");
 
-        String id = subscribeModelExtractor.hashId(pubExtId, subscriberId);
+        form.setPubSetHash(pubSetHash);
+
+
+        String id = subscribeModelExtractor.hashId(subscriberId, pubSetHash, group, name, tree);
         modelSubscriptionMapper.deleteById(id);
 
 
@@ -69,9 +64,10 @@ public class TestSubscribeModelApi {
                 requestId,
                 subscriberId,
                 operatorId,
-                rootPubExtId,
                 form
         ).getBody();
+
+        Assert.assertEquals(receipt.getSubSetHash(), pubSetHash);
 
         modelSubscriptionMapper.deleteById(id);
 

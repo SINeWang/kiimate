@@ -21,7 +21,7 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
         for (Publication publication : publications) {
             modelPublicationMapper.insertPublication(
                     publication.getId(),
-                    publication.getPubExtId(),
+                    publication.getPubSetHash(),
                     publication.getProviderId(),
                     publication.getExtId(),
                     publication.getIntId(),
@@ -32,11 +32,11 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
             );
         }
     }
-
-    @Override
-    public List<Publication> getPublicationsByProviderIdExtId(String pubExtId) {
-        return modelPublicationMapper.selectPublicationsByProviderIdExtIdPubVersion(pubExtId);
-    }
+//
+//    @Override
+//    public List<Publication> getPublicationsByProviderIdExtId(String pubExtId) {
+//        return modelPublicationMapper.selectPublicationsByProviderIdExtIdPubVersion(pubExtId);
+//    }
 
     @Override
     public List<Publication> getPublicationsByPubSetHash(String pubSetHash){

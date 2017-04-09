@@ -1,6 +1,5 @@
-package one.kii.statemate.core.api;
+package one.kii.statemate.core.spi;
 
-import one.kii.statemate.core.spi.SaveStateSpi;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class TestSaveStateSpi {
 
     @Test
     public void test() {
-        saveStateSpi.save("spring-boot-basic-config", conf);
+        saveStateSpi.save("test-sub-group", conf);
     }
 
     class DataSource {

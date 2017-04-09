@@ -53,14 +53,13 @@ public class DefaultModelRestorer implements AnModelRestorer {
         if (extId == null) {
             return;
         }
-        Map<String, IntensionDai.Intension> model = new HashMap<>();
         List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
         for (IntensionDai.Intension intension : intensions) {
             String refExtId = intension.getRefExtId();
             if (refExtId != null) {
                 restoreAsFieldDict(refExtId, map);
             } else {
-                model.put(intension.getField(), intension);
+                map.put(intension.getField(), intension);
             }
         }
     }

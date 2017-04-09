@@ -109,7 +109,7 @@ public class TestSaveInstanceApi {
             String pubExtId = publicationExtractor.hashPubExtId(providerId, extId, publication, version);
             String publicationId = publicationExtractor.hashId(pubExtId, intId);
             modelPublicationMapper.insertPublication(
-                    publicationId, pubExtId, providerId, extId, intId, version, publication, operatorId, new Date());
+                    publicationId, pubSetHash, providerId, extId, intId, version, publication, operatorId, new Date());
 
             intId = intensionExtractor.hashId(extId, fields[i]);
             intensionMapper.insertIntension(
@@ -120,7 +120,7 @@ public class TestSaveInstanceApi {
 
         String pubExtId = publicationExtractor.hashPubExtId(providerId, extId, publication, version);
 
-        subId = subscribeModelExtractor.hashId(pubExtId, subscriberId);
+        subId = subscribeModelExtractor.hashId(subscriberId, pubSetHash, group, name, tree);
 
         modelSubscriptionMapper.insertSubscription(
 
@@ -147,7 +147,7 @@ public class TestSaveInstanceApi {
 
         map.put(keyA, Arrays.asList(valueOfA));
         map.put(keyB, Arrays.asList(valueOfB));
-        List<SaveInstanceApi.Instance> instances = saveInstanceApi.saveInstanceViaFormUrlEncoded(
+        List<SaveInstanceApi.Instance> instances = saveInstanceApi.saveInstance(
                 requestId,
                 operatorId,
                 ownerId,
@@ -182,7 +182,7 @@ public class TestSaveInstanceApi {
     public void after() {
         modelSubscriptionMapper.deleteById(subId);
 
-        instanceMapper.deleteInstanceByOwnerId(ownerId);
+        instanceMapper.deleteInstanceByOwnerId(ownerId, subId);
 
         intensionMapper.deleteIntensionsByExtId(extId);
 

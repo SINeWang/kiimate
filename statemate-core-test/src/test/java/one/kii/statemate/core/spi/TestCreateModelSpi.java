@@ -1,7 +1,5 @@
-package one.kii.statemate.core.api;
+package one.kii.statemate.core.spi;
 
-import one.kii.statemate.core.spi.CreateModelSpi;
-import one.kii.statemate.core.spi.ReadExtensionSpi;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +32,7 @@ public class TestCreateModelSpi {
     @Autowired
     private ReadExtensionSpi readExtensionSpi;
 
-    private String group = "SpringBootBasicConfig";
+    private String group = "testGroup";
 
 
     @Test

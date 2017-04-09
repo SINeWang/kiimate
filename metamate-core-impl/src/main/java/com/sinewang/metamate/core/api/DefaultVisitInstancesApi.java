@@ -37,7 +37,7 @@ public class DefaultVisitInstancesApi implements VisitInstancesApi {
             @PathVariable("tree") String tree) {
 
         String extId = extensionFormParser.hashId(ownerId, group, name, tree);
-        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceByOwnerIdExtId(extId, ownerId);
+        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceByOwnerIdSubId(extId, ownerId);
         Map<String, Object> map = new HashMap<>();
         for (InstanceDai.Instance daiInstance : instances) {
             map.put(daiInstance.getField(), daiInstance.getValue());

@@ -1,8 +1,8 @@
 package com.sinewang.statemate.core.spi;
 
-import one.kii.statemate.core.spi.CreateModelSpi;
 import one.kii.statemate.core.spi.CreateExtensionSpi;
 import one.kii.statemate.core.spi.CreateIntensionSpi;
+import one.kii.statemate.core.spi.CreateModelSpi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,8 +93,4 @@ public class DefaultCreateModelSpi implements CreateModelSpi {
         return createModel(group, NAME_ROOT, klass);
     }
 
-    @Override
-    public <T> Receipt createModel(Class<T> klass) {
-        return createModel(klass.getPackage().getName(), NAME_ROOT, klass);
-    }
 }

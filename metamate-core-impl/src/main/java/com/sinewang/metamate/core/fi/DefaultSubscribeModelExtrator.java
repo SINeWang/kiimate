@@ -15,24 +15,23 @@ public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor 
 
 
     @Override
-    public String hashId(String pubExtId, String subscriberId) {
-        return HashTools.hashHex(pubExtId, subscriberId);
+    public String hashId(String subscriberId, String pubSetHash, String group, String name, String tree) {
+        return HashTools.hashHex(subscriberId, pubSetHash, group, name, tree);
     }
 
     @Override
-    public ModelSubscription extract(SubscribeModelApi.Form form, String pubSetHash, String pubExtId, String subscriberId, String operatorId) {
+    public ModelSubscription extract(SubscribeModelApi.Form form, String subscriberId, String operatorId, String name, String tree) {
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
 
         ModelSubscription subscription = new ModelSubscription();
-        subscription.setPubSetHash(pubSetHash);
+        subscription.setSubSetHash(form.getPubSetHash());
         subscription.setGroup(form.getGroup());
         subscription.setName(NAME_ROOT);
         subscription.setTree(TREE_MASTER);
-        subscription.setPubExtId(pubExtId);
         subscription.setSubscriberId(subscriberId);
         subscription.setOperatorId(operatorId);
 
-        String id = hashId(pubExtId, subscriberId);
+        String id = hashId(subscriberId, form.getPubSetHash(), form.getGroup(), name, tree);
 
         subscription.setId(id);
         return subscription;

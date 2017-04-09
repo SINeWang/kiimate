@@ -43,7 +43,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
 
     @Override
     @RequestMapping(value = "/{ownerId}/instance/{group}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<Receipt> saveInstanceViaFormUrlEncoded(
+    public ResponseEntity<Receipt> saveInstance(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
             @PathVariable("ownerId") String ownerId,
@@ -64,8 +64,9 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
         Map<String, IntensionDai.Intension> dict = new HashMap<>();
         modelRestorer.restoreAsFieldDict(rootExtId, dict);
 
+        String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(ownerId, group, NAME_ROOT, tree);
 
-        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(ownerId, operatorId, map, dict);
+        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(ownerId, subId, operatorId, map, dict);
 
         List<InstanceDai.Instances> instances1 = DataTools.copy(instances, InstanceDai.Instances.class);
 
@@ -75,7 +76,8 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             logger.error("instanceDuplicated", instanceDuplicated);
         }
 
-        List<InstanceDai.Instance> dbInstances = instanceDai.selectLatestInstanceByOwnerIdExtId(rootExtId, ownerId);
+
+        List<InstanceDai.Instance> dbInstances = instanceDai.selectLatestInstanceByOwnerIdSubId(ownerId, subId);
 
         List<Instance> apiInstances = new ArrayList<>();
 
@@ -95,14 +97,14 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
 
     @Override
     @RequestMapping(value = "/instance/{group}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<Receipt> saveInstanceViaFormUrlEncoded(
+    public ResponseEntity<Receipt> saveInstance(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OwnerId") String ownerId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
             @PathVariable("group") String group,
             @RequestParam MultiValueMap<String, String> map) {
 
-        return saveInstanceViaFormUrlEncoded(requestId, ownerId, operatorId, group, TREE_MASTER, map);
+        return saveInstance(requestId, ownerId, operatorId, group, TREE_MASTER, map);
 
     }
 }

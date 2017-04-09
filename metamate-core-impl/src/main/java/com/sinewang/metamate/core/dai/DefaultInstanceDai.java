@@ -28,13 +28,20 @@ public class DefaultInstanceDai implements InstanceDai {
             {
                 if (values.length == 1) {
                     if (values[0].isEmpty()) {
-                        instanceMapper.updateInstanceEndTimeByOwnerIdIntId(instances.getOwnerId(), instances.getIntId(), beginTime);
+                        instanceMapper.updateInstanceEndTimeBySubIdIntId(
+                                instances.getSubId(),
+                                instances.getExtId(),
+                                instances.getIntId(),
+                                beginTime);
                         continue;
                     }
                     boolean refresh = false;
                     boolean insert = false;
 
-                    List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceByIntIdOwnerId(instances.getIntId(), instances.getOwnerId());
+                    List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceBySubIdExtIdIntId(
+                            instances.getSubId(),
+                            instances.getExtId(),
+                            instances.getIntId());
                     if (latestInstanceList.size() == 0) {
                         insert = true;
                     } else if (latestInstanceList.size() == 1) {
@@ -52,7 +59,10 @@ public class DefaultInstanceDai implements InstanceDai {
 
 
                     if (refresh) {
-                        instanceMapper.updateInstanceEndTimeByOwnerIdIntId(instances.getOwnerId(), instances.getIntId(), beginTime);
+                        instanceMapper.updateInstanceEndTimeBySubIdIntId(
+                                instances.getSubId(),
+                                instances.getExtId(),
+                                instances.getIntId(), beginTime);
                     }
                     if (insert) {
                         Instance instance = new Instance();
@@ -66,7 +76,10 @@ public class DefaultInstanceDai implements InstanceDai {
 
             {
 
-                List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceByIntIdOwnerId(instances.getIntId(), instances.getOwnerId());
+                List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceBySubIdExtIdIntId(
+                        instances.getSubId(),
+                        instances.getExtId(),
+                        instances.getIntId());
                 boolean refresh = false;
                 if (values.length != latestInstanceList.size()) {
                     refresh = true;
@@ -94,7 +107,11 @@ public class DefaultInstanceDai implements InstanceDai {
                 if (!refresh) {
                     continue;
                 }
-                instanceMapper.updateInstanceEndTimeByOwnerIdIntId(instances.getOwnerId(), instances.getIntId(), beginTime);
+                instanceMapper.updateInstanceEndTimeBySubIdIntId(
+                        instances.getSubId(),
+                        instances.getExtId(),
+                        instances.getIntId(),
+                        beginTime);
                 String valueSetHash = HashTools.hashHex(values);
                 for (String value : values) {
                     Instance instance = new Instance();
@@ -110,8 +127,8 @@ public class DefaultInstanceDai implements InstanceDai {
     }
 
     @Override
-    public List<Instance> selectLatestInstanceByOwnerIdExtId(String ownerId, String extId) {
-        return instanceMapper.selectLatestInstancesByOwnerIdExtId(ownerId, extId);
+    public List<Instance> selectLatestInstanceByOwnerIdSubId(String ownerId, String subId) {
+        return instanceMapper.selectLatestInstancesBySubId(ownerId, subId);
     }
 
 
@@ -122,7 +139,10 @@ public class DefaultInstanceDai implements InstanceDai {
         instanceMapper.insertInstance(
                 instance.getId(),
                 instance.getOwnerId(),
-                instance.getPubId(),
+                instance.getSubId(),
+                instance.getExtId(),
+                instance.getIntId(),
+                instance.getField(),
                 instance.getValue(),
                 instance.getValueSetHash(),
                 instance.getValueRefId(),

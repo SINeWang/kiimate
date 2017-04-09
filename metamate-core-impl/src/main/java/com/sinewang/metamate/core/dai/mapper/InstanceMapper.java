@@ -17,23 +17,29 @@ public interface InstanceMapper {
 
     void insertInstance(@Param("id") String id,
                         @Param("ownerId") String ownerId,
-                        @Param("pubId") String pubId,
+                        @Param("subId") String subId,
+                        @Param("extId") String extId,
+                        @Param("intId") String intId,
+                        @Param("field") String field,
                         @Param("value") String value,
                         @Param("valueSetHash") String valueSetHash,
                         @Param("valueRefId") String valueRefId,
                         @Param("operatorId") String operatorId,
                         @Param("beginTime") Date beginTime);
 
-    List<InstanceDai.Instance> selectLatestInstancesByOwnerIdExtId(@Param("ownerId") String ownerId,
-                                                                   @Param("extId") String extId);
+    List<InstanceDai.Instance> selectLatestInstancesBySubId(@Param("ownerId") String ownerId,
+                                                            @Param("subId") String subId);
 
-    List<InstanceDai.Instance> selectLatestInstanceByIntIdOwnerId(@Param("intId") String intId,
-                                                                  @Param("ownerId") String ownerId);
+    List<InstanceDai.Instance> selectLatestInstanceBySubIdExtIdIntId(@Param("subId") String subId,
+                                                                     @Param("extId") String extId,
+                                                                     @Param("intId") String intId);
 
-    void updateInstanceEndTimeByOwnerIdIntId(@Param("ownerId") String ownerId,
-                                             @Param("intId") String intId,
-                                             @Param("endTime") Date endTime);
+    void updateInstanceEndTimeBySubIdIntId(@Param("subId") String subId,
+                                           @Param("extId") String extId,
+                                           @Param("intId") String intId,
+                                           @Param("endTime") Date endTime);
 
-    void deleteInstanceByOwnerId(@Param("ownerId") String ownerId);
+    void deleteInstanceByOwnerId(@Param("ownerId") String ownerId,
+                                 @Param("subId") String subId);
 
 }

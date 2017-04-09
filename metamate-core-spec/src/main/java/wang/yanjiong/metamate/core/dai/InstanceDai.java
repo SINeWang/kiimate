@@ -13,8 +13,7 @@ public interface InstanceDai {
     @Transactional
     void insertInstances(List<Instances> instances) throws InstanceDuplicated;
 
-
-    List<Instance> selectLatestInstanceByOwnerIdExtId(String ownerId, String extId);
+    List<Instance> selectLatestInstanceByOwnerIdSubId(String ownerId, String subId);
 
 
     @Data
@@ -24,7 +23,7 @@ public interface InstanceDai {
 
         private String ownerId;
 
-        private String pubId;
+        private String subId;
 
         private String extId;
 
@@ -49,7 +48,7 @@ public interface InstanceDai {
 
         private String ownerId;
 
-        private String pubId;
+        private String subId;
 
         private String extId;
 

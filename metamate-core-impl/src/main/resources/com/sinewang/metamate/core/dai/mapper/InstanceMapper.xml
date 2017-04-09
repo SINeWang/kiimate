@@ -7,7 +7,7 @@
     <resultMap id="Instance" type="wang.yanjiong.metamate.core.dai.InstanceDai$Instance">
         <result column="id" property="id"/>
         <result column="owner_id" property="ownerId"/>
-        <result column="m_pub_id" property="pubId"/>
+        <result column="sub_id" property="subId"/>
         <result column="ext_id" property="extId"/>
         <result column="int_id" property="intId"/>
         <result column="field" property="field"/>
@@ -17,38 +17,31 @@
         <result column="operator_id" property="operatorId"/>
     </resultMap>
 
-    <select id="selectLatestInstancesByOwnerIdExtId" resultMap="Instance">
-        SELECT mins.id, mpub.int_id, mpub.ext_id, mins.owner_id, mint.field, mins.value, mins.value_ref_id, mins.operator_id
-        FROM mm_i_ins mins, mm_m_pub mpub, mm_m_int mint
-        WHERE mins.m_pub_id = mpub.id
-        AND mint.id = mpub.int_id
-        AND mins.owner_id = #{ownerId} AND mpub.ext_id = #{extId} AND mins.end_time IS NULL
-        GROUP BY mpub.ext_id, mpub.int_id, mins.value, mins.value_set_hash
+    <select id="selectLatestInstancesBySubId" resultMap="Instance">
+        SELECT mins.id, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set_hash, mins.value_ref_id, mins.operator_id
+        FROM mm_i_ins mins
+        WHERE mins.sub_id = #{subId}
+        AND mins.end_time is NULL
     </select>
 
-    <select id="selectLatestInstanceByIntIdOwnerId" resultMap="Instance">
-        SELECT mins.id, mpub.int_id, mpub.ext_id, mins.owner_id, mint.field, mins.value, mins.value_ref_id, mins.operator_id
-        FROM mm_i_ins mins, mm_m_pub mpub, mm_m_int mint
-        WHERE mins.m_pub_id = mpub.id
-        AND mint.id = mpub.int_id
-        AND mins.owner_id = #{ownerId} AND mint.id = #{intId} AND mins.end_time IS NULL
-        GROUP BY mpub.ext_id, mpub.int_id, mins.value, mins.value_set_hash
+    <select id="selectLatestInstanceBySubIdExtIdIntId" resultMap="Instance">
+        SELECT mins.id, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set_hash, mins.value_ref_id, mins.operator_id
+        FROM mm_i_ins mins
+        WHERE mins.sub_id = #{subId} AND mins.ext_id = #{extId} AND mins.int_id = #{intId}
+        AND mins.end_time IS NULL
     </select>
 
-
-    <update id="updateInstanceEndTimeByOwnerIdIntId">
+    <update id="updateInstanceEndTimeBySubIdIntId">
         UPDATE mm_i_ins mins
-        LEFT JOIN  mm_m_pub mpub
-        ON mins.m_pub_id = mpub.id
-        AND mins.owner_id = #{ownerId} AND mpub.int_id = #{intId} AND mins.end_time IS NULL
         SET mins.end_time = #{endTime}
+        WHERE #{subId} AND mins.int_id = #{intId} AND mins.end_time IS NULL
     </update>
 
     <insert id="insertInstance">
         INSERT INTO mm_i_ins
-        (`id`, `owner_id`, `m_pub_id`, `value`, `value_set_hash`, `value_ref_id`, `operator_id`, `begin_time`)
+        (`id`, `owner_id`, `sub_id`, `ext_id`, `int_id`, `field`,  `value`, `value_set_hash`, `value_ref_id`, `operator_id`, `begin_time`)
         VALUES
-        (#{id}, #{ownerId}, #{pubId}, #{value}, #{valueSetHash}, #{valueRefId}, #{operatorId}, #{beginTime})
+        (#{id}, #{ownerId}, #{subId}, #{extId}, #{intId}, #{field}, #{value}, #{valueSetHash}, #{valueRefId}, #{operatorId}, #{beginTime})
     </insert>
 
     <delete id="deleteInstanceByOwnerId">

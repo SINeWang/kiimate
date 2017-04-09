@@ -13,7 +13,7 @@ public interface ModelSubscriptionMapper {
 
     void insertSubscription(
             @Param("id") String id,
-            @Param("pubSetHash") String pubSetHash,
+            @Param("subSetHash") String subSetHash,
             @Param("subscriberId") String subscriberId,
             @Param("group") String group,
             @Param("name") String name,
@@ -24,6 +24,12 @@ public interface ModelSubscriptionMapper {
     void deleteById(@Param("id") String id);
 
     String selectLatestSubscriptionBySubscriberIdGroupNameTree(
+            @Param("subscriberId") String subscriberId,
+            @Param("group") String group,
+            @Param("name") String name,
+            @Param("tree") String tree);
+
+    String selectLatestSubIdSubscriberIdGroupNameTree(
             @Param("subscriberId") String subscriberId,
             @Param("group") String group,
             @Param("name") String name,

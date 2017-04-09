@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public interface AnInstanceExtractor {
 
-    List<Instance> extract(String ownerId, String operatorId, Map<String, List<String>> values, Map<String, IntensionDai.Intension> dict);
+    List<Instance> extract(String ownerId, String subId, String operatorId, Map<String, List<String>> values, Map<String, IntensionDai.Intension> dict);
 
 
     @Data
@@ -19,11 +19,13 @@ public interface AnInstanceExtractor {
 
         private String id;
 
-        private String extId;
+        private String ownerId;
+
+        private String subId;
 
         private String intId;
 
-        private String ownerId;
+        private String extId;
 
         private String operatorId;
 

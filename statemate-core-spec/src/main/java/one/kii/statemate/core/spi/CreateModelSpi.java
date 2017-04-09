@@ -14,8 +14,6 @@ public interface CreateModelSpi {
 
     <T> Receipt createModel(String group, Class<T> klass);
 
-    <T> Receipt createModel(Class<T> klass);
-
     @Data
     class Receipt {
 

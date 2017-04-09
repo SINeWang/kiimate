@@ -13,16 +13,14 @@ public interface AnSubscribeModelExtractor {
 
     String TREE_MASTER = "master";
 
-    String hashId(String pubExtId, String subscriberId);
+    String hashId(String subscriberId, String pubSetHash, String group, String name, String tree);
 
-    ModelSubscription extract(SubscribeModelApi.Form form, String pubSetHash, String pubExtId, String subscriberId, String operatorId);
-
+    ModelSubscription extract(SubscribeModelApi.Form form, String subscriberId, String operatorId, String name, String tree);
 
     @Data
     class ModelSubscription {
         private String id;
-        private String pubSetHash;
-        private String pubExtId;
+        private String subSetHash;
         private String subscriberId;
         private String group;
         private String name;
