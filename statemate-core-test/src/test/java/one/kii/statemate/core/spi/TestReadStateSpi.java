@@ -28,11 +28,15 @@ public class TestReadStateSpi {
     @Autowired
     private ReadStateSpi readStateSpi;
 
+    private String group = "test-sub-group";
+
+    private String name = "root";
+
     @Test
     public void test() {
 
 
-        ReadStateSpi.State<MyState> state = readStateSpi.getLatestState("testOwnerId", "testGroup", "testName", MyState.class);
+        ReadStateSpi.State<MyState> state = readStateSpi.getLatestState("wangyj", group, name, MyState.class);
 
         MyState myState = state.getBody();
 

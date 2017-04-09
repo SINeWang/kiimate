@@ -13,7 +13,7 @@ public interface InstanceDai {
     @Transactional
     void insertInstances(List<Instances> instances) throws InstanceDuplicated;
 
-    List<Instance> selectLatestInstanceByOwnerIdSubId(String ownerId, String subId);
+    List<Instance> selectLatestInstanceBySubId(String subId);
 
 
     @Data

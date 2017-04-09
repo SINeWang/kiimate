@@ -24,10 +24,10 @@
         AND mins.end_time is NULL
     </select>
 
-    <select id="selectLatestInstanceBySubIdExtIdIntId" resultMap="Instance">
+    <select id="selectLatestInstanceBySubIdIntId" resultMap="Instance">
         SELECT mins.id, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set_hash, mins.value_ref_id, mins.operator_id
         FROM mm_i_ins mins
-        WHERE mins.sub_id = #{subId} AND mins.ext_id = #{extId} AND mins.int_id = #{intId}
+        WHERE mins.sub_id = #{subId} AND mins.int_id = #{intId}
         AND mins.end_time IS NULL
     </select>
 

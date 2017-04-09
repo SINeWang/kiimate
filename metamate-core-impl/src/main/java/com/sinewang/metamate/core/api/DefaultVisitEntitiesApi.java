@@ -8,7 +8,6 @@ import wang.yanjiong.metamate.core.api.VisitEntitiesApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
-import wang.yanjiong.metamate.core.fi.AnStructureValidator;
 
 import java.util.HashMap;
 import java.util.List;
@@ -41,32 +40,64 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
 
-        String extId  = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(
+        String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(ownerId, group, name, tree);
+
+        String rootExtId = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(
                 ownerId, group, name, tree);
 
+        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(subId);
 
-        Map<String, Object> map = visitInstance(ownerId, extId);
+        Map<String, InstanceDai.Instance> dict = dict(instances);
 
-        return Response.accepted(requestId, map, ownerId);
+        Map<String, Object> result = visitheritInstance(rootExtId, dict);
+
+        return Response.accepted(requestId, result, ownerId);
     }
 
-    private Map<String, Object> visitInstance(String ownerId, String extId) {
-        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceByOwnerIdSubId(ownerId, extId);
+    private void visitflatInstance(String extId, Map<String, Object> result, Map<String, InstanceDai.Instance> dict) {
+        List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
 
-        Map<String, Object> map = new HashMap<>();
-
-        for (InstanceDai.Instance instance : instances) {
-
-            IntensionDai.Intension intension = intensionDai.selectIntensionByIntId(instance.getIntId());
-
-            if (intension.getStructure().toUpperCase().equals(AnStructureValidator.Structure.IMPORT.name())) {
-                map.put(instance.getField(), visitInstance(ownerId, extId));
+        for (IntensionDai.Intension intension : intensions) {
+            if (intension.getRefExtId() != null) {
+                visitflatInstance(intension.getRefExtId(), result, dict);
             } else {
-                map.put(instance.getField(), instance.getValue());
+                InstanceDai.Instance instance = dict.get(intension.getField());
+                if (instance != null) {
+                    result.put(intension.getField(), dict.get(intension.getField()).getValue());
+                }
             }
         }
-        return map;
+    }
 
+    private Map<String, Object> visitheritInstance(String extId, Map<String, InstanceDai.Instance> dict) {
+        List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
+        Map<String, Object> result = new HashMap<>();
+        for (IntensionDai.Intension intension : intensions) {
+            if (intension.getRefExtId() != null) {
+                Map<String, Object> child = visitheritInstance(intension.getRefExtId(), dict);
+                if (!child.isEmpty()) {
+                    result.put(intension.getField(), child);
+                }
+            } else {
+                InstanceDai.Instance instance = dict.get(intension.getField());
+                if (instance != null) {
+                    Object value = dict.get(intension.getField()).getValue();
+                    if (value != null) {
+                        result.put(intension.getField(), value);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+
+    private Map<String, InstanceDai.Instance> dict(List<InstanceDai.Instance> instances) {
+        Map<String, InstanceDai.Instance> dict = new HashMap<>();
+        for (InstanceDai.Instance instance : instances) {
+            dict.put(instance.getField(), instance);
+        }
+        return dict;
     }
 
 

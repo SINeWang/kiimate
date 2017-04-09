@@ -27,15 +27,12 @@ public interface InstanceMapper {
                         @Param("operatorId") String operatorId,
                         @Param("beginTime") Date beginTime);
 
-    List<InstanceDai.Instance> selectLatestInstancesBySubId(@Param("ownerId") String ownerId,
-                                                            @Param("subId") String subId);
+    List<InstanceDai.Instance> selectLatestInstancesBySubId(@Param("subId") String subId);
 
-    List<InstanceDai.Instance> selectLatestInstanceBySubIdExtIdIntId(@Param("subId") String subId,
-                                                                     @Param("extId") String extId,
-                                                                     @Param("intId") String intId);
+    List<InstanceDai.Instance> selectLatestInstanceBySubIdIntId(@Param("subId") String subId,
+                                                                @Param("intId") String intId);
 
     void updateInstanceEndTimeBySubIdIntId(@Param("subId") String subId,
-                                           @Param("extId") String extId,
                                            @Param("intId") String intId,
                                            @Param("endTime") Date endTime);
 

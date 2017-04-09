@@ -77,7 +77,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
         }
 
 
-        List<InstanceDai.Instance> dbInstances = instanceDai.selectLatestInstanceByOwnerIdSubId(ownerId, subId);
+        List<InstanceDai.Instance> dbInstances = instanceDai.selectLatestInstanceBySubId(subId);
 
         List<Instance> apiInstances = new ArrayList<>();
 

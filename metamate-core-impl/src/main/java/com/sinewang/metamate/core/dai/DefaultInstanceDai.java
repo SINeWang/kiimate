@@ -22,7 +22,7 @@ public class DefaultInstanceDai implements InstanceDai {
 
     @Override
     public void insertInstances(List<Instances> instancesList) throws InstanceDuplicated {
-        Date beginTime = new Date();
+        Date now = new Date();
         for (Instances instances : instancesList) {
             String[] values = instances.getValues();
             {
@@ -30,17 +30,15 @@ public class DefaultInstanceDai implements InstanceDai {
                     if (values[0].isEmpty()) {
                         instanceMapper.updateInstanceEndTimeBySubIdIntId(
                                 instances.getSubId(),
-                                instances.getExtId(),
                                 instances.getIntId(),
-                                beginTime);
+                                now);
                         continue;
                     }
                     boolean refresh = false;
                     boolean insert = false;
 
-                    List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceBySubIdExtIdIntId(
+                    List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceBySubIdIntId(
                             instances.getSubId(),
-                            instances.getExtId(),
                             instances.getIntId());
                     if (latestInstanceList.size() == 0) {
                         insert = true;
@@ -61,14 +59,14 @@ public class DefaultInstanceDai implements InstanceDai {
                     if (refresh) {
                         instanceMapper.updateInstanceEndTimeBySubIdIntId(
                                 instances.getSubId(),
-                                instances.getExtId(),
-                                instances.getIntId(), beginTime);
+                                instances.getIntId(),
+                                now);
                     }
                     if (insert) {
                         Instance instance = new Instance();
                         BeanUtils.copyProperties(instances, instance);
                         instance.setValue(values[0]);
-                        insertInstance(instance, beginTime);
+                        insertInstance(instance, now);
                     }
                     continue;
                 }
@@ -76,9 +74,8 @@ public class DefaultInstanceDai implements InstanceDai {
 
             {
 
-                List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceBySubIdExtIdIntId(
+                List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceBySubIdIntId(
                         instances.getSubId(),
-                        instances.getExtId(),
                         instances.getIntId());
                 boolean refresh = false;
                 if (values.length != latestInstanceList.size()) {
@@ -109,9 +106,8 @@ public class DefaultInstanceDai implements InstanceDai {
                 }
                 instanceMapper.updateInstanceEndTimeBySubIdIntId(
                         instances.getSubId(),
-                        instances.getExtId(),
                         instances.getIntId(),
-                        beginTime);
+                        now);
                 String valueSetHash = HashTools.hashHex(values);
                 for (String value : values) {
                     Instance instance = new Instance();
@@ -120,15 +116,15 @@ public class DefaultInstanceDai implements InstanceDai {
                     instance.setValue(value);
                     String id = HashTools.hashHex(instances.getId(), value);
                     instance.setId(id);
-                    insertInstance(instance, beginTime);
+                    insertInstance(instance, now);
                 }
             }
         }
     }
 
     @Override
-    public List<Instance> selectLatestInstanceByOwnerIdSubId(String ownerId, String subId) {
-        return instanceMapper.selectLatestInstancesBySubId(ownerId, subId);
+    public List<Instance> selectLatestInstanceBySubId(String subId) {
+        return instanceMapper.selectLatestInstancesBySubId(subId);
     }
 
 

@@ -14,8 +14,6 @@ public interface ReadStateSpi {
 
     <T> State<T> getLatestState(String ownerId, String group, String name, Class<T> state);
 
-    <T> State<T> getState(String ownerId, String group, String name, String tag, Class<T> state);
-
     @Data
     class State<T> {
 

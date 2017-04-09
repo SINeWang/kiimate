@@ -38,7 +38,7 @@ public class TestSaveInstanceApi {
     private SaveInstanceApi saveInstanceApi;
 
     @Autowired
-    private VisitInstancesApi visitInstancesApi;
+    private VisitEntitiesApi visitEntitiesApi;
 
     @Autowired
     private ModelSubscriptionMapper modelSubscriptionMapper;
@@ -160,10 +160,9 @@ public class TestSaveInstanceApi {
         Assert.assertEquals(3, instances.size());
 
 
-        Map<String, Object> instancesMap = visitInstancesApi.readInstancesByGroupNameVersion(
-                requestId,
+        Map<String, Object> instancesMap = visitEntitiesApi.readInstancesByGroupNameVersion(
+                requestId, visitorId,
                 ownerId,
-                visitorId,
                 group, name, tree
         ).getBody();
 
