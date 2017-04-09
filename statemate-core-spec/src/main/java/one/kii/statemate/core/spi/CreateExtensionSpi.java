@@ -7,11 +7,10 @@ import lombok.Data;
  */
 public interface CreateExtensionSpi {
 
-    String createMasterPublicExtension(ExtensionForm form);
-
+    Receipt createMasterPublicExtension(Form form);
 
     @Data
-    class ExtensionForm {
+    class Form {
 
         private String group;
 
@@ -20,7 +19,7 @@ public interface CreateExtensionSpi {
     }
 
     @Data
-    class ExtensionReceipt {
+    class Receipt {
 
         private String id;
 

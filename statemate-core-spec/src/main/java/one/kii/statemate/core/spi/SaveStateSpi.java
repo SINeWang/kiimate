@@ -8,7 +8,13 @@ import lombok.Data;
 public interface SaveStateSpi {
 
 
-    <T> void save(String group, T object);
+    <T> void save(Form<T> form);
+
+    @Data
+    class Form<T> {
+        String group;
+        T object;
+    }
 
     @Data
     class Receipt {

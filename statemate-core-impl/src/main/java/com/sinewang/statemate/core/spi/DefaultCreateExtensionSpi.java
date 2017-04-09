@@ -34,7 +34,7 @@ public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
     }
 
     @Override
-    public String createMasterPublicExtension(ExtensionForm form) {
+    public Receipt createMasterPublicExtension(Form form) {
         String url = baseUrl + URI;
 
         ErestPostForm erest = new ErestPostForm();
@@ -45,8 +45,8 @@ public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
         map.put("name", toList(form.getName()));
         map.put("tree", toList(TREE));
         map.put("visibility", toList(VISIBILITY_PUBLIC));
-        ExtensionReceipt receipt = erest.doPost(url, httpHeaders, map, ExtensionReceipt.class);
-        return receipt.getId();
+        return erest.doPost(url, httpHeaders, map, Receipt.class);
+
     }
 
     private List<String> toList(String string) {

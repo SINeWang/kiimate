@@ -20,9 +20,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.statemate")
-@SpringBootTest(classes = {TestSaveStateSpi.class})
+@SpringBootTest(classes = {TestSaveReceiptSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class TestSaveStateSpi {
+public class TestSaveReceiptSpi {
 
     private ThisIsASpringBootConfiguration conf = new ThisIsASpringBootConfiguration();
 
@@ -31,7 +31,10 @@ public class TestSaveStateSpi {
 
     @Test
     public void test() {
-        saveStateSpi.save("test-sub-group", conf);
+        SaveStateSpi.Form form = new SaveStateSpi.Form();
+        form.setGroup("test-sub-group");
+        form.setObject(conf);
+        saveStateSpi.save(form);
     }
 
     class DataSource {

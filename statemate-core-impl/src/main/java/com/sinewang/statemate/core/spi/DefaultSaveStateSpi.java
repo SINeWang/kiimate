@@ -45,10 +45,11 @@ public class DefaultSaveStateSpi implements SaveStateSpi {
 
 
     @Override
-    public <T> void save(String group, T object) {
+    public <T> void save(Form<T> form) {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        extractAsMap(object, map);
-        saveInstance(group, map);
+
+        extractAsMap(form.getObject(), map);
+        saveInstance(form.getGroup(), map);
     }
 
     private <T> void extractAsMap(T object, MultiValueMap<String, String> map) {

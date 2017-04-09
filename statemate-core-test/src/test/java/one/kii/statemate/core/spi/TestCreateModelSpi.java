@@ -37,15 +37,18 @@ public class TestCreateModelSpi {
 
     @Test
     public void test() {
-        CreateModelSpi.Receipt receipt = createModelSpi.createModel(group, ThisIsASpringBootConfiguration.class);
+        CreateModelSpi.Form form = new CreateModelSpi.Form();
+        form.setGroup(group);
+        form.setKlass(ThisIsASpringBootConfiguration.class);
+        CreateModelSpi.Receipt receipt = createModelSpi.createModel(form);
 
         Assert.assertNotNull(receipt);
 
-        ReadExtensionSpi.GroupForm form = new ReadExtensionSpi.GroupForm();
+        ReadExtensionSpi.GroupForm form2 = new ReadExtensionSpi.GroupForm();
 
-        form.setGroup(group);
+        form2.setGroup(group);
 
-        String extensionJson = readExtensionSpi.readMasterExtension(form);
+        String extensionJson = readExtensionSpi.readMasterExtension(form2);
 
         Assert.assertNotNull(extensionJson);
     }
@@ -65,7 +68,7 @@ public class TestCreateModelSpi {
         Profiles profiles;
     }
 
-    class Profiles{
+    class Profiles {
         String active;
     }
 

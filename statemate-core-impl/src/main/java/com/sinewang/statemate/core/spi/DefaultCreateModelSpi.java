@@ -34,14 +34,14 @@ public class DefaultCreateModelSpi implements CreateModelSpi {
         }
         logger.debug("[begin] group:[{}] createModel:[{}]", klass.getName());
         logger.debug("[before] createExtensionSpi.createMasterPublicExtension:group=[{}],name=[{}]", group, name);
-        CreateExtensionSpi.ExtensionForm extForm = new CreateExtensionSpi.ExtensionForm();
+        CreateExtensionSpi.Form extForm = new CreateExtensionSpi.Form();
         extForm.setGroup(group);
         if (name.equals(NAME_ROOT)) {
             extForm.setName(NAME_ROOT);
         } else {
             extForm.setName(name);
         }
-        String extId = createExtensionSpi.createMasterPublicExtension(extForm);
+        String extId = createExtensionSpi.createMasterPublicExtension(extForm).getId();
         logger.debug("[after] createExtensionSpi.createMasterPublicExtension:extId=[{}]", extId);
 
         Map<String, Receipt> refs = new HashMap<>();
@@ -89,8 +89,8 @@ public class DefaultCreateModelSpi implements CreateModelSpi {
 
 
     @Override
-    public <T> Receipt createModel(String group, Class<T> klass) {
-        return createModel(group, NAME_ROOT, klass);
+    public <T> Receipt createModel(Form<T> form) {
+        return createModel(form.getGroup(), NAME_ROOT, form.getKlass());
     }
 
 }
