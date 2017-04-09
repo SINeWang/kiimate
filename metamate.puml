@@ -39,9 +39,8 @@ class ModelIntension {
 }
 
 class ModelPublication {
-    String id // m_pub_id
+    String id // pub_id
     String pub_set_hash
-    String pub_ext_id
     String provider_id
     String ext_id
     String[] int_id
@@ -53,7 +52,7 @@ class ModelPublication {
 }
 
 class ModelSubscription {
-    String id // m_sub_id
+    String id // sub_id
     String pub_set_hash
     String subscriber_id
     String group
@@ -87,8 +86,9 @@ enum Visibility {
 class Instance {
     String id // i_id
     String owner_id // instance's owner
-    String pub_ext_id
-    String intId
+    String sub_id
+    String ext_id
+    String int_id
     String field
     String value
     String value_set_hash
