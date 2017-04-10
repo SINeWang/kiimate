@@ -38,21 +38,6 @@ allprojects {
 
 subprojects {
 
-    release {
-        failOnCommitNeeded = false
-        failOnPublishNeeded = true
-        failOnSnapshotDependencies = true
-        failOnUnversionedFiles = true
-        failOnUpdateNeeded = true
-        revertOnFail = true
-
-        git {
-            pushToRemote = 'origin'
-            pushToCurrentBranch = true
-        }
-    }
-
-
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
 
