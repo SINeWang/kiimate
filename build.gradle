@@ -80,11 +80,6 @@ configure(subprojects.findAll { it.name.endsWith("impl") }) {
         dependencies {
             classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         }
-        repositories {
-            maven {
-                url "http://nexus.sinewang.com/repository/maven-public/"
-            }
-        }
     }
     apply plugin: 'org.springframework.boot'
 

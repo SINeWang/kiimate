@@ -9,7 +9,7 @@
         <result column="pub_set_hash" property="pubSetHash"/>
         <result column="provider_id" property="providerId"/>
         <result column="ext_id" property="extId"/>
-        <result column="int_id" property="extId"/>
+        <result column="int_id" property="intId"/>
         <result column="version" property="version"/>
         <result column="pub" property="publication"/>
         <result column="operator_id" property="operatorId"/>
@@ -20,7 +20,7 @@
         INSERT INTO mm_m_pub
         (id, pub_set_hash, provider_id, ext_id, int_id, version, pub, operator_id, begin_time)
         VALUES
-        (#{id}, #{pubSetHash}, #{providerId}, #{extId}, #{extId}, #{version}, #{publication}, #{operatorId}, #{createdAt})
+        (#{id}, #{pubSetHash}, #{providerId}, #{extId}, #{intId}, #{version}, #{publication}, #{operatorId}, #{createdAt})
     </insert>
 
     <select id="selectPublicationsByProviderIdExtIdPubVersion" resultMap="Publication">

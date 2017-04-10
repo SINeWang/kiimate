@@ -23,32 +23,19 @@ public class DefaultSaveStateSpi implements SaveStateSpi {
 
     private static String TREE = "master";
 
-    private String ownerId;
-
-    private String visitorId;
-
     private String baseUrl;
 
     private String operatorId;
-
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
-    }
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
     }
 
-    public void setVisitorId(String visitorId) {
-        this.visitorId = visitorId;
-    }
-
-
     @Override
     public <T> void save(Form<T> form) {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         extractAsMap(form.getObject(), map);
-        saveInstance(form.getGroup(), form.getName(), map);
+        saveInstance(form.getOwnerId(), form.getGroup(), form.getName(), map);
     }
 
     private <T> void extractAsMap(T object, MultiValueMap<String, String> map) {
@@ -95,7 +82,7 @@ public class DefaultSaveStateSpi implements SaveStateSpi {
         }
     }
 
-    private void saveInstance(String group, String name, MultiValueMap<String, String> map) {
+    private void saveInstance(String ownerId, String group, String name, MultiValueMap<String, String> map) {
         String url = baseUrl + URI;
         ErestPostForm erestPost = new ErestPostForm();
 

@@ -12,6 +12,7 @@ public interface SaveStateSpi {
 
     @Data
     class Form<T> {
+        String ownerId;
         String group;
         String name;
         T object;

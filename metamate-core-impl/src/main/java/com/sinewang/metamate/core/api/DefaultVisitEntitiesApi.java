@@ -32,6 +32,16 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
+    @RequestMapping(value = "/{ownerId}/entities/{group}", method = RequestMethod.GET)
+    public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
+            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
+            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @PathVariable("ownerId") String ownerId,
+            @PathVariable("group") String group){
+        return readInstancesByGroupNameVersion(requestId, visitorId, ownerId, group, NAME_DEFAULT, TREE_MASTER);
+    }
+
+    @Override
     @RequestMapping(value = "/{ownerId}/entities/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
             @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,

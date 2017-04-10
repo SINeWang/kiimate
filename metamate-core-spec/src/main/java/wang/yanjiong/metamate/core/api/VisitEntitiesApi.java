@@ -13,6 +13,10 @@ import java.util.Map;
 @RequestMapping("/v1")
 public interface VisitEntitiesApi {
 
+    String NAME_DEFAULT = "default";
+
+    String TREE_MASTER = "master";
+
     @RequestMapping(value = "/{ownerId}/entities/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
@@ -21,4 +25,11 @@ public interface VisitEntitiesApi {
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree);
+
+    @RequestMapping(value = "/{ownerId}/entities/{group:.+}", method = RequestMethod.GET)
+    ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
+            @RequestHeader("X-SUMMER-RequestId") String requestId,
+            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @PathVariable("ownerId") String ownerId,
+            @PathVariable("group") String group);
 }
