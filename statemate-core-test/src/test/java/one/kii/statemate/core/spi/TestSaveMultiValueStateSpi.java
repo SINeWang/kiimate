@@ -70,7 +70,7 @@ public class TestSaveMultiValueStateSpi {
     }
 
     class Server {
-        public int[] port = new int[]{8080, 9090};
+        public int[] port = new int[]{8080, 9091};
     }
 
     class Logging {
