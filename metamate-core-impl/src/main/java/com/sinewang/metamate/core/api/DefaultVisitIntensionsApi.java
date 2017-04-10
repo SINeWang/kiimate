@@ -4,9 +4,7 @@ import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.erest.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.VisitIntensionsApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
@@ -18,6 +16,7 @@ import java.util.List;
  */
 
 @RestController
+@RequestMapping("/v1")
 public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
     @Autowired
@@ -28,10 +27,11 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
 
     @Override
+    @RequestMapping(value = "/{ownerId}/intension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     public ResponseEntity<Extension> readIntensionsByGroupNameVersion(
-            @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-OwnerId") String ownerId,
-            @RequestHeader(value = "X-MM-VisitorId", required = false) String visitorId,
+            @RequestHeader(value = "X-git MM-RequestId", required = false) String requestId,
+            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {

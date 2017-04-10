@@ -16,11 +16,11 @@ public interface VisitIntensionsApi {
 
     String VISIBILITY_PUBLIC = "public";
 
-    @RequestMapping(value = "/intensions/{group}/{name}/{tree.+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{ownerId}/intension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     ResponseEntity<Extension> readIntensionsByGroupNameVersion(
-            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
-            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId,
+            @RequestHeader(value = "X-MM-RequestId", required = false) String requestId,
+            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree);
