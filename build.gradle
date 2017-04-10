@@ -11,19 +11,6 @@ plugins {
     id 'org.springframework.boot' version '1.5.2.RELEASE' apply false
 }
 
-release {
-    failOnCommitNeeded = false
-    failOnPublishNeeded = true
-    failOnSnapshotDependencies = true
-    failOnUnversionedFiles = true
-    failOnUpdateNeeded = true
-    revertOnFail = true
-
-    git {
-        pushToRemote = 'origin'
-        pushToCurrentBranch = true
-    }
-}
 
 group 'one.kii.metamate'
 
@@ -50,6 +37,22 @@ allprojects {
 }
 
 subprojects {
+
+    release {
+        failOnCommitNeeded = false
+        failOnPublishNeeded = true
+        failOnSnapshotDependencies = true
+        failOnUnversionedFiles = true
+        failOnUpdateNeeded = true
+        revertOnFail = true
+
+        git {
+            pushToRemote = 'origin'
+            pushToCurrentBranch = true
+        }
+    }
+
+
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
 
