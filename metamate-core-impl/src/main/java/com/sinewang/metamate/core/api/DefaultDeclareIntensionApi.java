@@ -40,10 +40,10 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
         try {
             intensionDai.insertIntension(daiRecord);
             Receipt receipt = DataTools.copy(daiRecord, Receipt.class);
-            return Response.accepted(requestId, receipt, ownerId);
+            return Response.created(requestId, receipt);
         } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
             Receipt receipt = DataTools.copy(daiRecord, Receipt.class);
-            return Response.accepted(requestId, receipt, ownerId);
+            return Response.created(requestId, receipt);
         }
 
     }

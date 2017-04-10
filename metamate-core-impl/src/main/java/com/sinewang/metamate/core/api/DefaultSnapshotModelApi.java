@@ -114,7 +114,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
         receipt.setPubSetHash(pubSetHash);
 
-        return Response.accepted(requestId, receipt, ownerId);
+        return Response.created(requestId, receipt);
 
     }
 

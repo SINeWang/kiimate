@@ -51,7 +51,7 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
 
         Map<String, Object> result = visitHierarchyInstance(rootExtId, dict);
 
-        return Response.accepted(requestId, result, ownerId);
+        return Response.ok(requestId, result);
     }
 
     private void visitFlatInstance(String extId, Map<String, Object> result, Map<String, InstanceDai.Instance> dict) {

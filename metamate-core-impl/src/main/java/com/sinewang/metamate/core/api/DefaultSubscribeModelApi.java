@@ -27,19 +27,18 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
     @RequestMapping(value = "/subscribe", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> subscribe(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-SubscriberId") String subscriberId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
             @ModelAttribute Form form) {
 
         AnSubscribeModelExtractor.ModelSubscription modelSubscription = subscribeModelExtractor.extract(
-                form, subscriberId, operatorId, NAME_DEFAULT, TREE_MASTER);
+                form, operatorId, TREE_MASTER);
 
         ModelSubscriptionDai.ModelSubscription subscription = DataTools.copy(modelSubscription, ModelSubscriptionDai.ModelSubscription.class);
 
         try {
             modelSubscriptionDai.save(subscription);
             Receipt receipt = DataTools.copy(modelSubscription, Receipt.class);
-            return Response.accepted(requestId, receipt, subscriberId);
+            return Response.created(requestId, receipt);
         } catch (ModelSubscriptionDai.DuplicatedSubscription duplicatedSubscription) {
             Receipt receipt = DataTools.copy(duplicatedSubscription, Receipt.class);
             return Response.conflict(requestId, receipt);

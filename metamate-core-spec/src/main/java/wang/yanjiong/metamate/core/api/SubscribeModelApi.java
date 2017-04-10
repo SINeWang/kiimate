@@ -13,21 +13,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1")
 public interface SubscribeModelApi {
 
-    String NAME_DEFAULT = "default";
-
     String TREE_MASTER = "master";
 
     @RequestMapping(value = "/subscribe/{pubSetHash}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> subscribe(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-SubscriberId") String subscriberId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
             @ModelAttribute Form form);
 
     @Data
     class Form {
+        private String subscriberId;
         private String pubSetHash;
         private String group;
+        private String name;
     }
 
 

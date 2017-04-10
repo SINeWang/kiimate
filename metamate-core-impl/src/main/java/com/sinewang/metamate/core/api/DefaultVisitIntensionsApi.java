@@ -45,6 +45,6 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
         List<Intension> intensions = DataTools.copy(list, Intension.class);
 
         extension.setIntensions(intensions);
-        return Response.accepted(requestId, extension, ownerId);
+        return Response.ok(requestId, extension);
     }
 }

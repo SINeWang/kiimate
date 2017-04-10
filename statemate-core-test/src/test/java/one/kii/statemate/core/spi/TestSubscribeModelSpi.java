@@ -32,7 +32,9 @@ public class TestSubscribeModelSpi {
     @Test
     public void test(){
         SubscribeModelSpi.Form form  = new SubscribeModelSpi.Form();
+        form.setSubscriberId("testSubscriberId");
         form.setGroup("testSubGroup");
+        form.setName("testSubName");
         form.setPubSetHash("5c3c9d5c8cef9b2a6764423e3022f761b104ca5800d783a1e98cb4af67f670c1");
         SubscribeModelSpi.Receipt receipt =  subscribeModelSpi.subscribe(form);
         Assert.assertNotNull(receipt);

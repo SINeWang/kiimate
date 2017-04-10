@@ -20,18 +20,18 @@ public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor 
     }
 
     @Override
-    public ModelSubscription extract(SubscribeModelApi.Form form, String subscriberId, String operatorId, String name, String tree) {
+    public ModelSubscription extract(SubscribeModelApi.Form form, String operatorId, String tree) {
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
 
         ModelSubscription subscription = new ModelSubscription();
         subscription.setSubSetHash(form.getPubSetHash());
         subscription.setGroup(form.getGroup());
-        subscription.setName(NAME_ROOT);
+        subscription.setName(form.getName());
+        subscription.setSubscriberId(form.getSubscriberId());
         subscription.setTree(TREE_MASTER);
-        subscription.setSubscriberId(subscriberId);
         subscription.setOperatorId(operatorId);
 
-        String id = hashId(subscriberId, form.getPubSetHash(), form.getGroup(), name, tree);
+        String id = hashId(form.getSubscriberId(), form.getPubSetHash(), form.getGroup(), form.getName(), tree);
 
         subscription.setId(id);
         return subscription;

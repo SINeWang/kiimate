@@ -54,10 +54,10 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
         try {
             extensionDai.insertExtension(daiExtension);
             Receipt receipt = DataTools.copy(daiExtension, Receipt.class);
-            return Response.accepted(requestId, receipt, ownerId);
+            return Response.created(requestId, receipt);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             Receipt receipt = DataTools.copy(daiExtension, Receipt.class);
-            return Response.accepted(requestId, receipt, ownerId);
+            return Response.created(requestId, receipt);
         }
     }
 

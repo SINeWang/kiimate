@@ -11,7 +11,9 @@ public interface SubscribeModelSpi {
 
     @Data
     class Form {
+        String subscriberId;
         String group;
+        String name;
         String pubSetHash;
     }
 

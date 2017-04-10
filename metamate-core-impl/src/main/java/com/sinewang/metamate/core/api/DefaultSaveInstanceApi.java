@@ -92,7 +92,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
         receipt.setName(NAME_ROOT);
         receipt.setTree(tree);
         receipt.setInstances(apiInstances);
-        return Response.accepted(requestId, receipt, ownerId);
+        return Response.created(requestId, receipt);
     }
 
     @Override

@@ -59,10 +59,11 @@ public class TestSubscribeModelApi {
         modelSubscriptionMapper.deleteById(id);
 
 
+        form.setSubscriberId(subscriberId);
         form.setGroup(group);
+        form.setName(name);
         SubscribeModelApi.Receipt receipt = subscribeModelApi.subscribe(
                 requestId,
-                subscriberId,
                 operatorId,
                 form
         ).getBody();
