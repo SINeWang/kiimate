@@ -41,7 +41,7 @@
         INSERT INTO mm_i_ins
         (`id`, `owner_id`, `sub_id`, `ext_id`, `int_id`, `field`,  `value`, `value_set_hash`, `value_ref_id`, `operator_id`, `begin_time`)
         VALUES
-        (#{id}, #{ownerId}, #{subId}, #{extId}, #{extId}, #{field}, #{value}, #{valueSetHash}, #{valueRefId}, #{operatorId}, #{beginTime})
+        (#{id}, #{ownerId}, #{subId}, #{extId}, #{intId}, #{field}, #{value}, #{valueSetHash}, #{valueRefId}, #{operatorId}, #{beginTime})
     </insert>
 
     <delete id="deleteInstanceByOwnerId">

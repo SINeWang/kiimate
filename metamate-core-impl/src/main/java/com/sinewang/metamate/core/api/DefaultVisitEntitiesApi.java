@@ -9,6 +9,7 @@ import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,57 +48,85 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
 
         List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(subId);
 
-        Map<String, InstanceDai.Instance> dict = dict(instances);
+        Map<String, List<InstanceDai.Instance>> dict = dict(instances);
 
         Map<String, Object> result = visitHierarchyInstance(rootExtId, dict);
 
         return Response.ok(requestId, result);
     }
 
-    private void visitFlatInstance(String extId, Map<String, Object> result, Map<String, InstanceDai.Instance> dict) {
-        List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
-
-        for (IntensionDai.Intension intension : intensions) {
-            if (intension.getRefExtId() != null) {
-                visitFlatInstance(intension.getRefExtId(), result, dict);
-            } else {
-                InstanceDai.Instance instance = dict.get(intension.getField());
-                if (instance != null) {
-                    result.put(intension.getField(), dict.get(intension.getField()).getValue());
-                }
-            }
-        }
-    }
-
-    private Map<String, Object> visitHierarchyInstance(String extId, Map<String, InstanceDai.Instance> dict) {
+    private Map<String, Object> visitHierarchyInstance(String extId, Map<String, List<InstanceDai.Instance>> dict) {
         List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Intension intension : intensions) {
-            if (intension.getRefExtId() != null) {
-                Map<String, Object> child = visitHierarchyInstance(intension.getRefExtId(), dict);
-                if (!child.isEmpty()) {
-                    result.put(intension.getField(), child);
-                }
-            } else {
-                InstanceDai.Instance instance = dict.get(intension.getField());
-                if (instance != null) {
-                    Object value = dict.get(intension.getField()).getValue();
-                    if (value != null) {
-                        result.put(intension.getField(), value);
+            if (intension.isSingle()) {
+                if (intension.getRefExtId() != null) {
+                    Map<String, Object> child = visitHierarchyInstance(intension.getRefExtId(), dict);
+                    if (!child.isEmpty()) {
+                        result.put(intension.getField(), child);
+                    }
+                } else {
+                    List<InstanceDai.Instance> instances = dict.get(intension.getField());
+                    if (instances != null && !instances.isEmpty()) {
+                        Object value = dict.get(intension.getField()).get(0).getValue();
+                        if (value != null) {
+                            result.put(intension.getField(), value);
+                        }
                     }
                 }
+            } else {
+                if (intension.getRefExtId() != null) {
+                    Map<String, Object> child = visitHierarchyInstance(intension.getRefExtId(), dict);
+                    if (!child.isEmpty()) {
+                        List values = (List) result.get(intension.getField());
+                        if (values == null) {
+                            values = new ArrayList<>();
+                            values.add(child);
+                            result.put(intension.getField(), values);
+                        } else {
+                            values.add(child);
+                        }
+                    }
+                } else {
+                    List<InstanceDai.Instance> instances = dict.get(intension.getField());
+                    if (instances != null && !instances.isEmpty()) {
+                        for (InstanceDai.Instance instance : instances) {
+                            if (instance.getValue() != null) {
+                                List values = (List) result.get(intension.getField());
+                                if (values == null) {
+                                    values = new ArrayList<>();
+                                    values.add(instance.getValue());
+                                    result.put(intension.getField(), values);
+                                } else {
+                                    values.add(instance.getValue());
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
         }
         return result;
     }
 
-    private Map<String, InstanceDai.Instance> dict(List<InstanceDai.Instance> instances) {
-        Map<String, InstanceDai.Instance> dict = new HashMap<>();
+    private Map<String, List<InstanceDai.Instance>> dict(List<InstanceDai.Instance> instances) {
+        Map<String, List<InstanceDai.Instance>> dict = new HashMap<>();
         for (InstanceDai.Instance instance : instances) {
-            dict.put(instance.getField(), instance);
+            if (instance.getValueSetHash() == null) {
+                List<InstanceDai.Instance> values = new ArrayList<>();
+                values.add(instance);
+                dict.put(instance.getField(), values);
+            } else {
+                List<InstanceDai.Instance> values = dict.get(instance.getField());
+                if (values == null) {
+                    values = new ArrayList<>();
+                    dict.put(instance.getField(), values);
+                }
+                values.add(instance);
+            }
         }
         return dict;
     }
-
 
 }

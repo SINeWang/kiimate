@@ -66,6 +66,9 @@ public class DefaultSaveStateSpi implements SaveStateSpi {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
+            if (value == null) {
+                continue;
+            }
             boolean single = type.getComponentType() == null;
             if (!single) {
                 type = type.getComponentType();
@@ -75,9 +78,14 @@ public class DefaultSaveStateSpi implements SaveStateSpi {
                 if (single) {
                     list.add(String.valueOf(value));
                 } else {
-                    Object[] values = (Object[]) value;
-                    for (Object v : values) {
-                        list.add(String.valueOf(v));
+                    if (value instanceof int[]) {
+                        for (int v : (int[]) value) {
+                            list.add(String.valueOf(v));
+                        }
+                    } else {
+                        for (Object v : (Object[]) value) {
+                            list.add(String.valueOf(v));
+                        }
                     }
                 }
                 map.put(fieldName, list);

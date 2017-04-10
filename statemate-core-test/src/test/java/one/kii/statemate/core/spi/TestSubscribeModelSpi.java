@@ -32,10 +32,10 @@ public class TestSubscribeModelSpi {
     @Test
     public void test(){
         SubscribeModelSpi.Form form  = new SubscribeModelSpi.Form();
-        form.setSubscriberId("testSubscriberId");
-        form.setGroup("testSubGroup");
-        form.setName("testSubName");
-        form.setPubSetHash("5c3c9d5c8cef9b2a6764423e3022f761b104ca5800d783a1e98cb4af67f670c1");
+        form.setSubscriberId("wangyj");
+        form.setGroup("testSubMultiValueGroup");
+        form.setName("default");
+        form.setPubSetHash("1ef3725c9ddc304a6489d35918637f85fb45415c85857f9e48d0385585e710db");
         SubscribeModelSpi.Receipt receipt =  subscribeModelSpi.subscribe(form);
         Assert.assertNotNull(receipt);
     }
