@@ -11,6 +11,20 @@ plugins {
     id 'org.springframework.boot' version '1.5.2.RELEASE' apply false
 }
 
+release {
+    failOnCommitNeeded = false
+    failOnPublishNeeded = true
+    failOnSnapshotDependencies = true
+    failOnUnversionedFiles = true
+    failOnUpdateNeeded = true
+    revertOnFail = true
+
+    git {
+        pushToRemote = 'origin'
+        pushToCurrentBranch = true
+    }
+}
+
 group 'one.kii.metamate'
 
 
@@ -21,21 +35,21 @@ ext {
     junitVersion = '4.12'
     mybatisSpringBootStarterVerison = "1.2.0"
     mysqlConnectorVersion = '5.1.41'
-    summerVersion = '1.0.1-SNAPSHOT'
+    summerVersion = '0.1.1'
     servletApiVersion = '3.1.0'
     jacksondatabindVersion = '2.8.7'
     guavaVersion = '21.0'
 }
 
-subprojects {
+allprojects {
     apply plugin: 'java'
     apply plugin: "maven"
     apply plugin: 'maven-publish'
     apply plugin: 'maven-publish-auth'
-
     apply plugin: 'nebula.dependency-lock'
-    apply plugin: 'net.researchgate.release'
+}
 
+subprojects {
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
 
@@ -60,7 +74,6 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
         compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
 
         compile group: "one.kii.summer", name: "summer-annot", version: "${summerVersion}", changing: true
-        compile group: "one.kii.summer", name: "summer-bound", version: "${summerVersion}", changing: true
 
 
         compile("org.springframework:spring-tx:${springFrameworkVersion}")
@@ -85,7 +98,6 @@ configure(subprojects.findAll { it.name.endsWith("impl") }) {
 
     dependencies {
 
-        compile group: "one.kii.summer", name: "summer-bound", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-codec", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-erest", version: "${summerVersion}", changing: true
@@ -120,7 +132,6 @@ configure(subprojects.findAll { it.name.endsWith("test") }) {
 
         compile("org.springframework.boot:spring-boot-devtools")
 
-        testCompile group: "one.kii.summer", name: "summer-bound", version: "${summerVersion}", changing: true
         testCompile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
         testCompile group: "one.kii.summer", name: "summer-codec", version: "${summerVersion}", changing: true
         testCompile group: "one.kii.summer", name: "summer-erest", version: "${summerVersion}", changing: true
