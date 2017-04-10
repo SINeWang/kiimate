@@ -11,7 +11,6 @@ plugins {
     id 'org.springframework.boot' version '1.5.2.RELEASE' apply false
 }
 
-
 group 'one.kii.metamate'
 
 
@@ -28,15 +27,14 @@ ext {
     guavaVersion = '21.0'
 }
 
-allprojects {
+subprojects {
     apply plugin: 'java'
     apply plugin: "maven"
     apply plugin: 'maven-publish'
     apply plugin: 'maven-publish-auth'
-    apply plugin: 'nebula.dependency-lock'
-}
 
-subprojects {
+    apply plugin: 'nebula.dependency-lock'
+    apply plugin: 'net.researchgate.release'
 
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
