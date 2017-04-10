@@ -22,12 +22,8 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
     private static String TREE = "master";
     private static String VISIBILITY_PUBLIC = "public";
     private static String URI = "/intension";
-    private String ownerId;
-    private String baseUrl;
 
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
-    }
+    private String baseUrl;
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
@@ -40,7 +36,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
 
         ErestPostForm erest = new ErestPostForm();
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("X-MM-OwnerId", ownerId);
+        httpHeaders.set("X-MM-OwnerId", form.getOwnerId());
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.put("extId", toList(form.getExtId()));
@@ -58,7 +54,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
 
         ErestPostForm erest = new ErestPostForm();
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("X-MM-OwnerId", ownerId);
+        httpHeaders.set("X-MM-OwnerId", form.getOwnerId());
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.put("extId", toList(form.getExtId()));

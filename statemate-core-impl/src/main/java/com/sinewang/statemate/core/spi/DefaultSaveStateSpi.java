@@ -31,6 +31,10 @@ public class DefaultSaveStateSpi implements SaveStateSpi {
         this.baseUrl = baseUrl;
     }
 
+    public void setOperatorId(String operatorId) {
+        this.operatorId = operatorId;
+    }
+
     @Override
     public <T> void save(Form<T> form) {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();

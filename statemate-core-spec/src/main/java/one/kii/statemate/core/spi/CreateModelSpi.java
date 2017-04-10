@@ -16,6 +16,7 @@ public interface CreateModelSpi {
 
     @Data
     class Form<T> {
+        String ownerId;
         String group;
         Class<T> klass;
     }

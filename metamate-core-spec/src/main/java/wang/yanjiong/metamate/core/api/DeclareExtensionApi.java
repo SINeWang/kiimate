@@ -16,9 +16,9 @@ public interface DeclareExtensionApi {
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> declareByFormUrlEncoded(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @ModelAttribute Form form,
             @RequestHeader("X-MM-OwnerId") String ownerId,
-            @RequestHeader(value = "X-SUMMER-VisitorId", required = false) String visitorId);
+            @RequestHeader("X-MM-OperatorId") String operatorId,
+            @ModelAttribute Form form);
 
     @Data
     @EqualsAndHashCode(callSuper = false)

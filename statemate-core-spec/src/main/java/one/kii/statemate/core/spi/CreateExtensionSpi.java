@@ -12,6 +12,8 @@ public interface CreateExtensionSpi {
     @Data
     class Form {
 
+        private String ownerId;
+
         private String group;
 
         private String name;

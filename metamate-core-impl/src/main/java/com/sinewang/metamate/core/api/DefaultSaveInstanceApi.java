@@ -97,7 +97,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
     }
 
     @Override
-    @RequestMapping(value = "/instance/{group}/{name}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/instance/{group}/{name:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> saveInstance(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OwnerId") String ownerId,

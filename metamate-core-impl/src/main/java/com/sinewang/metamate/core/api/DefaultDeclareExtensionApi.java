@@ -32,9 +32,9 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> declareByFormUrlEncoded(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @ModelAttribute Form form,
             @RequestHeader("X-MM-OwnerId") String ownerId,
-            @RequestHeader(value = "X-MM-OperatorId", required = false) String visitorId) {
+            @RequestHeader("X-MM-OperatorId") String operatorId,
+            @ModelAttribute Form form) {
 
         AnExtensionExtractor.Extension extension;
         try {

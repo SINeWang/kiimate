@@ -16,6 +16,8 @@ public interface CreateIntensionSpi {
     @EqualsAndHashCode(callSuper = false)
     class PrimitiveIntensionForm {
 
+        private String ownerId;
+
         private String extId;
 
         private String field;

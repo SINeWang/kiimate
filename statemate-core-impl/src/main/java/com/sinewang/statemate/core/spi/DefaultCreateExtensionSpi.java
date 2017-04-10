@@ -22,12 +22,7 @@ public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
     private static String URI = "/extension";
     private static String TREE = "master";
     private static String VISIBILITY_PUBLIC = "public";
-    private String ownerId;
     private String baseUrl;
-
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
-    }
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
@@ -39,7 +34,8 @@ public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
 
         ErestPostForm erest = new ErestPostForm();
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("X-MM-OwnerId", ownerId);
+        httpHeaders.set("X-MM-OwnerId", form.getOwnerId());
+        httpHeaders.set("X-MM-OperatorId", form.getOwnerId());
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.put("group", toList(form.getGroup()));
         map.put("name", toList(form.getName()));

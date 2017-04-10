@@ -28,7 +28,7 @@ public class DefaultCreateModelSpi implements CreateModelSpi {
     @Autowired
     private CreateIntensionSpi createIntensionSpi;
 
-    private <T> Receipt createModel(String group, String name, Class<T> klass) {
+    private <T> Receipt createModel(String ownerId, String group, String name, Class<T> klass) {
         if (String.class.getName().equals(klass.getName()) || klass.isPrimitive()) {
             throw new IllegalArgumentException("Class is ILLEGAL:" + klass.getName());
         }
@@ -41,6 +41,7 @@ public class DefaultCreateModelSpi implements CreateModelSpi {
         } else {
             extForm.setName(name);
         }
+        extForm.setOwnerId(ownerId);
         String extId = createExtensionSpi.createMasterPublicExtension(extForm).getId();
         logger.debug("[after] createExtensionSpi.createMasterPublicExtension:extId=[{}]", extId);
 
@@ -64,15 +65,17 @@ public class DefaultCreateModelSpi implements CreateModelSpi {
                 form.setField(fieldName);
                 form.setStructure(type.getSimpleName());
                 form.setExtId(extId);
+                form.setOwnerId(ownerId);
                 String intId = createIntensionSpi.createPublicPrimitiveIntension(form);
                 ints.add(intId);
             } else {
-                Receipt receipt = createModel(group, fieldName, type);
+                Receipt receipt = createModel(ownerId, group, fieldName, type);
                 CreateIntensionSpi.ImportIntensionForm form = new CreateIntensionSpi.ImportIntensionForm();
                 form.setSingle(single);
                 form.setField(fieldName);
                 form.setRefExtId(receipt.getExtId());
                 form.setExtId(extId);
+                form.setOwnerId(ownerId);
                 form.setStructure(type.getSimpleName());
                 String intId = createIntensionSpi.createPublicImportIntension(form);
                 refs.put(intId, receipt);
@@ -90,7 +93,7 @@ public class DefaultCreateModelSpi implements CreateModelSpi {
 
     @Override
     public <T> Receipt createModel(Form<T> form) {
-        return createModel(form.getGroup(), NAME_ROOT, form.getKlass());
+        return createModel(form.getOwnerId(), form.getGroup(), NAME_ROOT, form.getKlass());
     }
 
 }
