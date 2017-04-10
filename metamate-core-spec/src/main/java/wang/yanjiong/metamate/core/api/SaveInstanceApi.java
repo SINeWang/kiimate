@@ -18,25 +18,25 @@ import java.util.List;
 @RequestMapping("/v1")
 public interface SaveInstanceApi {
 
-    String NAME_ROOT = "root";
-
     String TREE_MASTER = "master";
 
-    @RequestMapping(value = "/{ownerId}/instance/{group}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/{ownerId}/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> saveInstance(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
+            @PathVariable("name") String name,
             @PathVariable("tree") String tree,
             @RequestParam MultiValueMap<String, String> map);
 
-    @RequestMapping(value = "/{ownerId}/instance/{group}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/{ownerId}/instance/{group}/{name", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> saveInstance(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
+            @PathVariable("name") String name,
             @RequestParam MultiValueMap<String, String> map);
 
     @Data

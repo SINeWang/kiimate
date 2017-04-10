@@ -19,7 +19,7 @@ import java.util.List;
 @Component
 public class DefaultSaveStateSpi implements SaveStateSpi {
 
-    private static String URI = "/{ownerId}/instance/{group}/{tree}";
+    private static String URI = "/{ownerId}/instance/{group}/{name}/{tree}";
 
     private static String TREE = "master";
 
@@ -47,9 +47,8 @@ public class DefaultSaveStateSpi implements SaveStateSpi {
     @Override
     public <T> void save(Form<T> form) {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-
         extractAsMap(form.getObject(), map);
-        saveInstance(form.getGroup(), map);
+        saveInstance(form.getGroup(), form.getName(), map);
     }
 
     private <T> void extractAsMap(T object, MultiValueMap<String, String> map) {
@@ -88,7 +87,7 @@ public class DefaultSaveStateSpi implements SaveStateSpi {
         }
     }
 
-    private void saveInstance(String group, MultiValueMap<String, String> map) {
+    private void saveInstance(String group, String name, MultiValueMap<String, String> map) {
         String url = baseUrl + URI;
         ErestPostForm erestPost = new ErestPostForm();
 
@@ -96,6 +95,6 @@ public class DefaultSaveStateSpi implements SaveStateSpi {
         httpHeaders.set("X-MM-OperatorId", operatorId);
 
 
-        erestPost.doPost(url, httpHeaders, map, Receipt.class, ownerId, group, TREE);
+        erestPost.doPost(url, httpHeaders, map, Receipt.class, ownerId, group, name, TREE);
     }
 }

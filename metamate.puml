@@ -43,12 +43,13 @@ class ModelPublication {
     String pub_set_hash
     String provider_id
     String ext_id
-    String[] int_id
+    String int_id
     String version
     Publication publication
     Visibility visibility
     String operator_id
-    DateTime created_at
+    DateTime begin_time
+    DateTime end_time
 }
 
 class ModelSubscription {
@@ -60,16 +61,6 @@ class ModelSubscription {
     String tree
     DateTime begin_time
     DateTime end_time
-}
-
-enum Structure {
-    STRING
-    NATURE
-    BOOL
-    REAL
-    FLOAT
-    COMPLEX
-    DATETIME
 }
 
 enum Publication {

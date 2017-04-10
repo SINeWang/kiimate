@@ -33,6 +33,7 @@ public class TestSaveStateSpi {
     public void test() {
         SaveStateSpi.Form form = new SaveStateSpi.Form();
         form.setGroup("test-sub-group");
+        form.setName("default");
         form.setObject(conf);
         saveStateSpi.save(form);
     }

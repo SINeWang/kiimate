@@ -42,21 +42,22 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    @RequestMapping(value = "/{ownerId}/instance/{group}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/{ownerId}/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> saveInstance(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
+            @PathVariable("name") String name,
             @PathVariable("tree") String tree,
             @RequestParam MultiValueMap<String, String> map) {
 
-        String rootExtId = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(ownerId, group, NAME_ROOT, tree);
+        String rootExtId = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(ownerId, group, name, tree);
 
         if (rootExtId == null) {
             Receipt receipt = new Receipt();
             receipt.setGroup(group);
-            receipt.setName(NAME_ROOT);
+            receipt.setName(name);
             receipt.setTree(tree);
             return Response.notFound(requestId, receipt);
         }
@@ -64,7 +65,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
         Map<String, IntensionDai.Intension> dict = new HashMap<>();
         modelRestorer.restoreAsFieldDict(rootExtId, dict);
 
-        String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(ownerId, group, NAME_ROOT, tree);
+        String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(ownerId, group, name, tree);
 
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(ownerId, subId, operatorId, map, dict);
 
@@ -89,19 +90,20 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
 
         Receipt receipt = new Receipt();
         receipt.setGroup(group);
-        receipt.setName(NAME_ROOT);
+        receipt.setName(name);
         receipt.setTree(tree);
         receipt.setInstances(apiInstances);
         return Response.created(requestId, receipt);
     }
 
     @Override
-    @RequestMapping(value = "/instance/{group}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/instance/{group}/{name}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> saveInstance(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OwnerId") String ownerId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
             @PathVariable("group") String group,
+            @PathVariable("name") String name,
             @RequestParam MultiValueMap<String, String> map) {
 
         return saveInstance(requestId, ownerId, operatorId, group, TREE_MASTER, map);
