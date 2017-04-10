@@ -46,7 +46,7 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
             instance.setSubId(subId);
             instance.setExtId(intension.getExtId());
             instance.setIntId(intId);
-            instance.setField(field);
+            instance.setField(dictField);
             instance.setValues(values);
             instance.setOperatorId(operatorId);
             instances.add(instance);
