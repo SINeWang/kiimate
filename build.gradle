@@ -32,17 +32,18 @@ scmVersion {
     }
 }
 
+allprojects {
+    project.version = scmVersion.version
+    apply plugin: 'maven-publish-auth'
+
+}
+
 subprojects {
-    apply plugin: 'java'
-    apply plugin: "maven"
 
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
-
-
-    dependencies {
-        compileOnly "org.projectlombok:lombok:${lombokVersion}"
-        testCompile "junit:junit:${junitVersion}"
+    buildscript {
+        dependencies {
+            classpath 'org.hibernate.build.gradle:gradle-maven-publish-auth:2.0.1'
+        }
     }
 
     publishing {
@@ -52,6 +53,17 @@ subprojects {
             }
         }
     }
+    apply plugin: 'java'
+    apply plugin: "maven"
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
+    dependencies {
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
+        testCompile "junit:junit:${junitVersion}"
+    }
+
 }
 
 
