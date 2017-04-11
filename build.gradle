@@ -7,9 +7,10 @@ buildscript {
 plugins {
     id 'pl.allegro.tech.build.axion-release' version '1.5.0'
     id 'org.springframework.boot' version '1.5.2.RELEASE' apply false
+    id 'idea'
 }
 
-group 'one.kii.metamate'
+group 'one.kii.kiimate'
 
 
 ext {
@@ -34,9 +35,6 @@ scmVersion {
 subprojects {
     apply plugin: 'java'
     apply plugin: "maven"
-    apply plugin: 'maven-publish'
-    apply plugin: 'maven-publish-auth'
-
 
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
@@ -47,7 +45,13 @@ subprojects {
         testCompile "junit:junit:${junitVersion}"
     }
 
-    group 'one.kii.kiimate'
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+    }
 }
 
 
