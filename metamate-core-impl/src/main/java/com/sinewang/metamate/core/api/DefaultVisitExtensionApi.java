@@ -1,7 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import com.google.common.base.CaseFormat;
-import one.kii.summer.erest.Response;
+import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +39,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
         String extId = extensionExtractor.hashId(ownerId, group, name, tree, VISIBILITY_PUBLIC);
 
-        return Response.ok(requestId, modelRestorer.fullRestoreAsMap(extId));
+        return ErestResponse.ok(requestId, modelRestorer.fullRestoreAsMap(extId));
     }
 
 
@@ -53,7 +53,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         group = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, group);
 
         String extId = extensionExtractor.hashId(ownerId, group, NAME_ROOT, TREE_MASTER, VISIBILITY_PUBLIC);
-        return Response.ok(requestId, modelRestorer.fullRestoreAsMap(extId));
+        return ErestResponse.ok(requestId, modelRestorer.fullRestoreAsMap(extId));
     }
 
     @Override
@@ -68,6 +68,6 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name);
 
         String extId = extensionExtractor.hashId(ownerId, group, name, TREE_MASTER, VISIBILITY_PUBLIC);
-        return Response.ok(requestId, modelRestorer.fullRestoreAsMap(extId));
+        return ErestResponse.ok(requestId, modelRestorer.fullRestoreAsMap(extId));
     }
 }

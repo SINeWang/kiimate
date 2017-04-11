@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public interface DeclareIntensionApi {
 
 
-    @RequestMapping(value = "/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/{ownerId}/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> declarePropViaFormUrlEncoded2(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @ModelAttribute Form form,
-            @RequestHeader("X-SUMMER-OwnerId") String ownerId,
-            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId);
+            @RequestHeader(value = "X-SUMMER-OperatorId", required = false) String operatorId,
+            @PathVariable("ownerId") String ownerId,
+            @ModelAttribute Form form);
 
     @Data
     @EqualsAndHashCode(callSuper = false)

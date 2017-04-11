@@ -15,15 +15,15 @@ public interface SubscribeModelApi {
 
     String TREE_MASTER = "master";
 
-    @RequestMapping(value = "/subscribe/{pubSetHash}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/{subscriberId}/subscribe", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> subscribe(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
+            @PathVariable("subscriberId") String subscriberId,
             @ModelAttribute Form form);
 
     @Data
     class Form {
-        private String subscriberId;
         private String pubSetHash;
         private String group;
         private String name;

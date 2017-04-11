@@ -1,7 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.erest.Response;
+import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +45,6 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
         List<Intension> intensions = DataTools.copy(list, Intension.class);
 
         extension.setIntensions(intensions);
-        return Response.ok(requestId, extension);
+        return ErestResponse.ok(requestId, extension);
     }
 }

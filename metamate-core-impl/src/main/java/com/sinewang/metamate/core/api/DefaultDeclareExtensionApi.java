@@ -1,7 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.erest.Response;
+import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,24 +29,24 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     private AnVisibilityValidator visibilityValidator;
 
     @Override
-    @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/{ownerId}/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> declareByFormUrlEncoded(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-OwnerId") String ownerId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
+            @PathVariable("ownerId") String ownerId,
             @ModelAttribute Form form) {
 
         AnExtensionExtractor.Extension extension;
         try {
             extension = extensionExtractor.extract(form, ownerId);
         } catch (AnExtensionExtractor.MissingParamException e) {
-            return Response.badRequest(requestId, e.getMessage());
+            return ErestResponse.badRequest(requestId, e.getMessage());
         }
 
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
         if (!isValidVisibility) {
-            return Response.badRequest(requestId, "invalid Visibility, given [" + extension.getVisibility() + "]");
+            return ErestResponse.badRequest(requestId, "invalid Visibility, given [" + extension.getVisibility() + "]");
         }
 
         ExtensionDai.Extension daiExtension = DataTools.copy(extension, ExtensionDai.Extension.class);
@@ -54,10 +54,10 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
         try {
             extensionDai.insertExtension(daiExtension);
             Receipt receipt = DataTools.copy(daiExtension, Receipt.class);
-            return Response.created(requestId, receipt);
+            return ErestResponse.created(requestId, receipt);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             Receipt receipt = DataTools.copy(daiExtension, Receipt.class);
-            return Response.created(requestId, receipt);
+            return ErestResponse.created(requestId, receipt);
         }
     }
 

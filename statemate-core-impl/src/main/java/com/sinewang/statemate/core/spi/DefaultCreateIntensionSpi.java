@@ -1,9 +1,8 @@
 package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.CreateIntensionSpi;
-import one.kii.summer.erest.ErestPostForm;
+import one.kii.summer.erest.ErestPost;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -21,7 +20,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
 
     private static String TREE = "master";
     private static String VISIBILITY_PUBLIC = "public";
-    private static String URI = "/intension";
+    private static String URI = "/{ownerId}/intension";
 
     private String baseUrl;
 
@@ -33,10 +32,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
     public String createPublicPrimitiveIntension(PrimitiveIntensionForm form) {
         String url = baseUrl + URI;
 
-
-        ErestPostForm erest = new ErestPostForm();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("X-MM-OwnerId", form.getOwnerId());
+        ErestPost erest = new ErestPost(form.getOwnerId());
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.put("extId", toList(form.getExtId()));
@@ -44,7 +40,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
         map.put("single", toList(String.valueOf(form.isSingle())));
         map.put("structure", toList(form.getStructure()));
         map.put("visibility", toList(VISIBILITY_PUBLIC));
-        IntensionReceipt receipt = erest.doPost(url, httpHeaders, map, IntensionReceipt.class);
+        IntensionReceipt receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
         return receipt.getId();
     }
 
@@ -52,9 +48,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
     public String createPublicImportIntension(ImportIntensionForm form) {
         String url = baseUrl + URI;
 
-        ErestPostForm erest = new ErestPostForm();
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("X-MM-OwnerId", form.getOwnerId());
+        ErestPost erest = new ErestPost(form.getOwnerId());
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.put("extId", toList(form.getExtId()));
@@ -63,7 +57,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
         map.put("structure", toList(form.getStructure()));
         map.put("refExtId", toList(form.getRefExtId()));
         map.put("visibility", toList(VISIBILITY_PUBLIC));
-        IntensionReceipt receipt = erest.doPost(url, httpHeaders, map, IntensionReceipt.class);
+        IntensionReceipt receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
         return receipt.getExtId();
     }
 

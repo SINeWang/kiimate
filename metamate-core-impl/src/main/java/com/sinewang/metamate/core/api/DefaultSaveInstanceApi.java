@@ -1,7 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.erest.Response;
+import one.kii.summer.erest.ErestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             receipt.setGroup(group);
             receipt.setName(name);
             receipt.setTree(tree);
-            return Response.notFound(requestId, receipt);
+            return ErestResponse.notFound(requestId, receipt);
         }
 
         Map<String, IntensionDai.Intension> dict = new HashMap<>();
@@ -93,7 +93,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
         receipt.setName(name);
         receipt.setTree(tree);
         receipt.setInstances(apiInstances);
-        return Response.created(requestId, receipt);
+        return ErestResponse.created(requestId, receipt);
     }
 
     @Override

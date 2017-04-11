@@ -1,6 +1,6 @@
 package com.sinewang.metamate.core.api;
 
-import one.kii.summer.erest.Response;
+import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +37,7 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
             @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
             @RequestHeader("X-MM-VisitorId") String visitorId,
             @PathVariable("ownerId") String ownerId,
-            @PathVariable("group") String group){
+            @PathVariable("group") String group) {
         return readInstancesByGroupNameVersion(requestId, visitorId, ownerId, group, NAME_DEFAULT, TREE_MASTER);
     }
 
@@ -62,7 +62,7 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
 
         Map<String, Object> result = visitHierarchyInstance(rootExtId, dict);
 
-        return Response.ok(requestId, result);
+        return ErestResponse.ok(requestId, result);
     }
 
     private Map<String, Object> visitHierarchyInstance(String extId, Map<String, List<InstanceDai.Instance>> dict) {

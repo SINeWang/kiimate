@@ -1,9 +1,8 @@
 package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.ReadExtensionSpi;
-import one.kii.summer.erest.ErestGet;
+import one.kii.summer.erest.ErestGetBasic;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 /**
@@ -36,12 +35,8 @@ public class DefaultReadExtensionSpi implements ReadExtensionSpi {
     public String readMasterExtension(GroupForm form) {
         String url = baseUrl + URI;
 
-        ErestGet erestGet = new ErestGet();
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("X-MM-VisitorId", visitorId);
-
-        return erestGet.doGet(url, httpHeaders, String.class, ownerId, form.getGroup(), NAME_ROOT, TREE);
+        ErestGetBasic erest = new ErestGetBasic(visitorId);
+        return erest.execute(url, String.class, ownerId, form.getGroup(), NAME_ROOT, TREE);
 
     }
 
@@ -49,12 +44,9 @@ public class DefaultReadExtensionSpi implements ReadExtensionSpi {
     public String readMasterExtension(GroupNameForm form) {
         String url = baseUrl + URI;
 
-        ErestGet erestGet = new ErestGet();
+        ErestGetBasic erest = new ErestGetBasic(visitorId);
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("X-MM-VisitorId", visitorId);
-
-        return erestGet.doGet(url, httpHeaders, String.class, ownerId, form.getGroup(), form.getName(), TREE);
+        return erest.execute(url, String.class, ownerId, form.getGroup(), form.getName(), TREE);
 
     }
 }

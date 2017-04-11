@@ -2,7 +2,7 @@ package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
-import one.kii.summer.erest.Response;
+import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +65,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
             try {
                 snapshot = publicationExtractor.extractSnapshot(form, extId, operatorId, date);
             } catch (AnPublicationExtractor.MissingParamException e) {
-                return Response.badRequest(requestId, e.getMessage());
+                return ErestResponse.badRequest(requestId, e.getMessage());
             }
 
             List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
@@ -95,7 +95,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
             Receipt receipt = DataTools.copy(duplicatedPublication, Receipt.class);
             receipt.setVersion(form.getVersion());
             receipt.setOwnerId(ownerId);
-            return Response.conflict(requestId, receipt);
+            return ErestResponse.conflict(requestId, receipt);
         }
 
         Receipt receipt = new Receipt();
@@ -114,7 +114,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
         receipt.setPubSetHash(pubSetHash);
 
-        return Response.created(requestId, receipt);
+        return ErestResponse.created(requestId, receipt);
 
     }
 

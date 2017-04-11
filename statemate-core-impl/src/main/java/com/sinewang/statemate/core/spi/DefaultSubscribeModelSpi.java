@@ -1,9 +1,8 @@
 package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.SubscribeModelSpi;
-import one.kii.summer.erest.ErestPostForm;
+import one.kii.summer.erest.ErestPost;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class DefaultSubscribeModelSpi implements SubscribeModelSpi {
 
 
-    private static String URI = "/subscribe";
+    private static String URI = "/{subscriberId}/subscribe";
 
     private String baseUrl;
 
@@ -38,12 +37,8 @@ public class DefaultSubscribeModelSpi implements SubscribeModelSpi {
     public Receipt subscribe(Form form) {
         String url = baseUrl + URI;
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("X-MM-SubscriberId", subscriberId);
-        headers.set("X-MM-OperatorId", operatorId);
+        ErestPost erest = new ErestPost(operatorId);
 
-        ErestPostForm erest = new ErestPostForm();
-
-        return erest.doPost(url, headers, form, Receipt.class);
+        return erest.execute(url, form, Receipt.class, form.getSubscriberId());
     }
 }

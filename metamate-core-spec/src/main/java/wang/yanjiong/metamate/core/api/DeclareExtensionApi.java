@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1")
 public interface DeclareExtensionApi {
 
-    @RequestMapping(value = "/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/{ownerId}/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> declareByFormUrlEncoded(
             @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-OwnerId") String ownerId,
             @RequestHeader("X-MM-OperatorId") String operatorId,
+            @PathVariable("ownerId") String ownerId,
             @ModelAttribute Form form);
 
     @Data

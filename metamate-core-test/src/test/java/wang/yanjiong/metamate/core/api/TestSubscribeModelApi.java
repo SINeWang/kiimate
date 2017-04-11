@@ -58,13 +58,12 @@ public class TestSubscribeModelApi {
         String id = subscribeModelExtractor.hashId(subscriberId, pubSetHash, group, name, tree);
         modelSubscriptionMapper.deleteById(id);
 
-
-        form.setSubscriberId(subscriberId);
         form.setGroup(group);
         form.setName(name);
         SubscribeModelApi.Receipt receipt = subscribeModelApi.subscribe(
                 requestId,
                 operatorId,
+                subscriberId,
                 form
         ).getBody();
 
