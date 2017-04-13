@@ -1,6 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.context.exception.Conflict;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +27,19 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
     private AnIntensionExtractor anIntensionExtractor;
 
     @Override
-    public ResponseEntity<Receipt> declarePropViaFormUrlEncoded2(
+    public Receipt declareIntension(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable("ownerId") String ownerId,
-            @ModelAttribute Form form) {
+            @ModelAttribute Form form) throws Conflict {
 
         AnIntensionExtractor.Intension intension = anIntensionExtractor.parseForm(form);
         IntensionDai.Intension daiRecord = DataTools.copy(intension, IntensionDai.Intension.class);
         try {
             intensionDai.insertIntension(daiRecord);
-            Receipt receipt = DataTools.copy(daiRecord, Receipt.class);
-            return ErestResponse.created(requestId, receipt);
+            return  DataTools.copy(daiRecord, Receipt.class);
         } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
-            Receipt receipt = DataTools.copy(daiRecord, Receipt.class);
-            return ErestResponse.created(requestId, receipt);
+            throw new Conflict(daiRecord.getId());
         }
 
     }

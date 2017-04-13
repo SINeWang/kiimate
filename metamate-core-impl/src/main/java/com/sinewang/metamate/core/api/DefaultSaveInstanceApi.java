@@ -1,15 +1,13 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.erest.ErestHeaders;
+import one.kii.summer.context.exception.NotFound;
 import one.kii.summer.erest.ErestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.SaveInstanceApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
@@ -43,15 +41,14 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    @RequestMapping(value = "/{ownerId}/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<Receipt> saveInstance(
-            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
-            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
-            @PathVariable("ownerId") String ownerId,
-            @PathVariable("group") String group,
-            @PathVariable("name") String name,
-            @PathVariable("tree") String tree,
-            @RequestParam MultiValueMap<String, String> map) {
+    public Receipt saveInstance(
+            String requestId,
+            String operatorId,
+            String ownerId,
+            String group,
+            String name,
+            String tree,
+            MultiValueMap<String, String> map) throws NotFound {
 
         String rootExtId = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(ownerId, group, name, tree);
 
@@ -60,7 +57,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             receipt.setGroup(group);
             receipt.setName(name);
             receipt.setTree(tree);
-            return ErestResponse.notFound(requestId, receipt);
+            throw new NotFound(rootExtId);
         }
 
         Map<String, IntensionDai.Intension> dict = new HashMap<>();
@@ -94,7 +91,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
         receipt.setName(name);
         receipt.setTree(tree);
         receipt.setInstances(apiInstances);
-        return ErestResponse.created(requestId, receipt);
+        return receipt;
     }
 
 }

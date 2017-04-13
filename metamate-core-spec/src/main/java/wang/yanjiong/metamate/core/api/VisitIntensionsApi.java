@@ -2,9 +2,9 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.erest.ErestHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -17,14 +17,13 @@ public interface VisitIntensionsApi {
 
     String VISIBILITY_PUBLIC = "public";
 
-    @RequestMapping(value = "/{ownerId}/intension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     ResponseEntity<Extension> readIntensionsByGroupNameVersion(
-            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
-            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable("ownerId") String ownerId,
-            @PathVariable("group") String group,
-            @PathVariable("name") String name,
-            @PathVariable("tree") String tree);
+            String requestId,
+            String visitorId,
+            String ownerId,
+            String group,
+            String name,
+            String tree);
 
 
     @Data

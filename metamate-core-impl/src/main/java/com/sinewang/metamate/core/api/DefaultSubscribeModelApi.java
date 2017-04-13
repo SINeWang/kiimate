@@ -1,12 +1,9 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.SubscribeModelApi;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
@@ -14,7 +11,7 @@ import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
 /**
  * Created by WangYanJiong on 4/6/17.
  */
-@RestController
+
 public class DefaultSubscribeModelApi implements SubscribeModelApi {
 
     @Autowired
@@ -23,14 +20,12 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
 
-
     @Override
-    @RequestMapping(value = "/{subscriberId}/subscribe", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> subscribe(
-            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
-            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
-            @PathVariable("subscriberId") String subscriberId,
-            @ModelAttribute Form form) {
+            String requestId,
+            String operatorId,
+            String subscriberId,
+            Form form) {
 
         AnSubscribeModelExtractor.ModelSubscription modelSubscription = subscribeModelExtractor.extract(
                 form, subscriberId, operatorId, TREE_MASTER);
@@ -43,7 +38,7 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
             return ErestResponse.created(requestId, receipt);
         } catch (ModelSubscriptionDai.DuplicatedSubscription duplicatedSubscription) {
             Receipt receipt = DataTools.copy(duplicatedSubscription, Receipt.class);
-            return ErestResponse.conflict(requestId, receipt);
+            return ErestResponse.conflict(requestId, receipt.getId());
         }
     }
 

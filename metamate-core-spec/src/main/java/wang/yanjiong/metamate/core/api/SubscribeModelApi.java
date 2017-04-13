@@ -1,29 +1,26 @@
 package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
-import one.kii.summer.erest.ErestHeaders;
-import org.springframework.http.MediaType;
+import lombok.EqualsAndHashCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by WangYanJiong on 4/6/17.
  */
 
-@RestController
-@RequestMapping("/v1")
 public interface SubscribeModelApi {
 
     String TREE_MASTER = "master";
 
-    @RequestMapping(value = "/{subscriberId}/subscribe", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+
     ResponseEntity<Receipt> subscribe(
-            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
-            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
-            @PathVariable("subscriberId") String subscriberId,
-            @ModelAttribute Form form);
+            String requestId,
+            String operatorId,
+            String subscriberId,
+            Form form);
 
     @Data
+    @EqualsAndHashCode(callSuper = false)
     class Form {
         private String pubSetHash;
         private String group;
@@ -32,6 +29,7 @@ public interface SubscribeModelApi {
 
 
     @Data
+    @EqualsAndHashCode(callSuper = false)
     class Receipt {
         private String id;
         private String subSetHash;

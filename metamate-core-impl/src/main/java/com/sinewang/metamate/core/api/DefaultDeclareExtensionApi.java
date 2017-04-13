@@ -1,12 +1,11 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.erest.ErestHeaders;
-import one.kii.summer.erest.ErestResponse;
+import one.kii.summer.context.exception.BadRequest;
+import one.kii.summer.context.exception.Conflict;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
@@ -30,35 +29,32 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     private AnVisibilityValidator visibilityValidator;
 
     @Override
-    @RequestMapping(value = "/{ownerId}/extension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<Receipt> declareByFormUrlEncoded(
-            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
-            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
-            @PathVariable("ownerId") String ownerId,
-            @ModelAttribute Form form) {
+    public Receipt declareExtension(
+            String requestId,
+            String operatorId,
+            String ownerId,
+            Form form) throws BadRequest, Conflict {
 
         AnExtensionExtractor.Extension extension;
         try {
             extension = extensionExtractor.extract(form, ownerId);
         } catch (AnExtensionExtractor.MissingParamException e) {
-            return ErestResponse.badRequest(requestId, e.getMessage());
+            throw new BadRequest(e.getMessage());
         }
 
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
         if (!isValidVisibility) {
-            return ErestResponse.badRequest(requestId, "invalid Visibility, given [" + extension.getVisibility() + "]");
+            throw new BadRequest("visibility");
         }
 
         ExtensionDai.Extension daiExtension = DataTools.copy(extension, ExtensionDai.Extension.class);
 
         try {
             extensionDai.insertExtension(daiExtension);
-            Receipt receipt = DataTools.copy(daiExtension, Receipt.class);
-            return ErestResponse.created(requestId, receipt);
+            return DataTools.copy(daiExtension, Receipt.class);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
-            Receipt receipt = DataTools.copy(daiExtension, Receipt.class);
-            return ErestResponse.created(requestId, receipt);
+            throw new Conflict(extension.getId());
         }
     }
 

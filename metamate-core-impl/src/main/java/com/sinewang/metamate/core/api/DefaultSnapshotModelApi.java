@@ -2,12 +2,11 @@ package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
-import one.kii.summer.erest.ErestHeaders;
-import one.kii.summer.erest.ErestResponse;
+import one.kii.summer.context.exception.BadRequest;
+import one.kii.summer.context.exception.Conflict;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.SnapshotModelApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
@@ -45,13 +44,12 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
     private AnExtensionExtractor extensionExtractor;
 
 
-    @RequestMapping(value = "/{ownerId}/snapshot/{group:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<Receipt> snapshot(
-            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
-            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
-            @PathVariable("ownerId") String ownerId,
-            @PathVariable("group") String group,
-            @ModelAttribute Form form) throws RefereceExtensionHasNotBeenPublished {
+    public Receipt snapshot(
+            String requestId,
+            String operatorId,
+            String ownerId,
+            String group,
+            Form form) throws BadRequest, Conflict {
 
 
         List<ExtensionDai.Extension> extensions = extensionDai.selectExtensionsByOwnerGroup(ownerId, group);
@@ -66,7 +64,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
             try {
                 snapshot = publicationExtractor.extractSnapshot(form, extId, operatorId, date);
             } catch (AnPublicationExtractor.MissingParamException e) {
-                return ErestResponse.badRequest(requestId, e.getMessage());
+                throw new BadRequest(e.getMessage());
             }
 
             List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
@@ -96,7 +94,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
             Receipt receipt = DataTools.copy(duplicatedPublication, Receipt.class);
             receipt.setVersion(form.getVersion());
             receipt.setOwnerId(ownerId);
-            return ErestResponse.conflict(requestId, receipt);
+            throw new Conflict(pubSetHash);
         }
 
         Receipt receipt = new Receipt();
@@ -115,7 +113,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
         receipt.setPubSetHash(pubSetHash);
 
-        return ErestResponse.created(requestId, receipt);
+        return receipt;
 
     }
 

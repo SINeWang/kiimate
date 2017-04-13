@@ -2,10 +2,8 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.erest.ErestHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import one.kii.summer.context.exception.BadRequest;
+import one.kii.summer.context.exception.Conflict;
 
 import java.util.Date;
 import java.util.List;
@@ -14,8 +12,6 @@ import java.util.List;
  * Created by WangYanJiong on 4/5/17.
  */
 
-@RestController
-@RequestMapping("/v1")
 public interface SnapshotModelApi {
 
     String TREE_MASTER = "master";
@@ -23,13 +19,12 @@ public interface SnapshotModelApi {
     String VISIBILITY_PUBLIC = "public";
 
 
-    @RequestMapping(value = "/{ownerId}/snapshot/{group:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<Receipt> snapshot(
-            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
-            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
-            @PathVariable("ownerId") String ownerId,
-            @PathVariable("group") String group,
-            @ModelAttribute Form form) throws RefereceExtensionHasNotBeenPublished;
+    Receipt snapshot(
+            String requestId,
+            String operatorId,
+            String ownerId,
+            String group,
+            Form form) throws BadRequest, Conflict;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

@@ -2,11 +2,8 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.erest.ErestHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import one.kii.summer.context.exception.NotFound;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,25 +11,22 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
-
-@RestController
-@RequestMapping("/v1")
 public interface SaveInstanceApi {
 
     String TREE_MASTER = "master";
 
-    @RequestMapping(value = "/{ownerId}/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<Receipt> saveInstance(
-            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
-            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
-            @PathVariable("ownerId") String ownerId,
-            @PathVariable("group") String group,
-            @PathVariable("name") String name,
-            @PathVariable("tree") String tree,
-            @RequestParam MultiValueMap<String, String> map);
+    Receipt saveInstance(
+            String requestId,
+            String operatorId,
+            String ownerId,
+            String group,
+            String name,
+            String tree,
+            MultiValueMap<String, String> map) throws NotFound;
 
 
     @Data
+    @EqualsAndHashCode(callSuper = false)
     class Receipt {
         String group;
 

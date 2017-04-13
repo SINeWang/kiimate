@@ -2,25 +2,19 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.erest.ErestHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import one.kii.summer.context.exception.Conflict;
 
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
-@RestController
-@RequestMapping("/v1")
 public interface DeclareIntensionApi {
 
 
-    @RequestMapping(value = "/{ownerId}/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<Receipt> declarePropViaFormUrlEncoded2(
-            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
-            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
-            @PathVariable("ownerId") String ownerId,
-            @ModelAttribute Form form);
+    Receipt declareIntension(
+            String requestId,
+            String operatorId,
+            String ownerId,
+            Form form) throws Conflict;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

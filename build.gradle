@@ -17,7 +17,7 @@ ext {
     junitVersion = '4.12'
     mybatisSpringBootStarterVerison = "1.2.0"
     mysqlConnectorVersion = '5.1.41'
-    summerVersion = '0.2.8'
+    summerVersion = '0.2.9-SNAPSHOT'
     servletApiVersion = '3.1.0'
     jacksondatabindVersion = '2.8.7'
     guavaVersion = '21.0'
@@ -54,8 +54,8 @@ subprojects {
     apply plugin: 'java'
     apply plugin: "maven"
 
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
     dependencies {
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
@@ -72,6 +72,7 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
         compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
 
         compile group: "one.kii.summer", name: "summer-erest", version: "${summerVersion}", changing: true
+        compile group: "one.kii.summer", name: "summer-context", version: "${summerVersion}", changing: true
 
 
         compile("org.springframework:spring-tx:${springFrameworkVersion}")
@@ -98,6 +99,7 @@ configure(subprojects.findAll { it.name.endsWith("impl") }) {
 
         compile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-codec", version: "${summerVersion}", changing: true
+        compile group: "one.kii.summer", name: "summer-context", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-erest", version: "${summerVersion}", changing: true
 
         compile "com.google.guava:guava:${guavaVersion}"

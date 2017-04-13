@@ -1,11 +1,9 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.VisitIntensionsApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
@@ -16,8 +14,6 @@ import java.util.List;
  * Created by WangYanJiong on 3/27/17.
  */
 
-@RestController
-@RequestMapping("/v1")
 public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
     @Autowired
@@ -28,14 +24,13 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
 
     @Override
-    @RequestMapping(value = "/{ownerId}/intension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     public ResponseEntity<Extension> readIntensionsByGroupNameVersion(
-            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
-            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable("ownerId") String ownerId,
-            @PathVariable("group") String group,
-            @PathVariable("name") String name,
-            @PathVariable("tree") String tree) {
+            String requestId,
+            String visitorId,
+            String ownerId,
+            String group,
+            String name,
+            String tree) {
 
         String extId = anExtensionExtractor.hashId(ownerId, group, name, tree, VISIBILITY_PUBLIC);
         Extension extension = new Extension();
