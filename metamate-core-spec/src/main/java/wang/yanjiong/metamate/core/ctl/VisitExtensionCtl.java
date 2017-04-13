@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.context.io.ReadContext;
+import one.kii.summer.context.io.ReadController;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/v1")
-public class VisitExtensionCtl {
+public class VisitExtensionCtl extends ReadController {
 
     @Autowired
     private VisitExtensionApi api;
@@ -29,10 +30,8 @@ public class VisitExtensionCtl {
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
-        ReadContext context = new ReadContext();
-        context.setRequestId(requestId);
-        context.setVisitorId(visitorId);
-        context.setOwnerId(ownerId);
+
+        ReadContext context = buildContext(requestId, visitorId, ownerId);
 
         VisitExtensionApi.Form form = new VisitExtensionApi.Form();
         form.setGroup(group);
@@ -51,10 +50,7 @@ public class VisitExtensionCtl {
             @PathVariable("group") String group,
             @PathVariable("name") String name) {
 
-        ReadContext context = new ReadContext();
-        context.setRequestId(requestId);
-        context.setVisitorId(visitorId);
-        context.setOwnerId(ownerId);
+        ReadContext context = buildContext(requestId, visitorId, ownerId);
 
         VisitExtensionApi.SimpleForm form = new VisitExtensionApi.SimpleForm();
         form.setGroup(group);
@@ -70,10 +66,7 @@ public class VisitExtensionCtl {
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group) {
 
-        ReadContext context = new ReadContext();
-        context.setRequestId(requestId);
-        context.setVisitorId(visitorId);
-        context.setOwnerId(ownerId);
+        ReadContext context = buildContext(requestId, visitorId, ownerId);
 
         VisitExtensionApi.TinyForm form = new VisitExtensionApi.TinyForm();
         form.setGroup(group);

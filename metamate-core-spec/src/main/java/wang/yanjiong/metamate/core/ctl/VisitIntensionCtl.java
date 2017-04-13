@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.context.io.ReadContext;
+import one.kii.summer.context.io.ReadController;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import wang.yanjiong.metamate.core.api.VisitIntensionsApi;
 
 @RestController
 @RequestMapping("/v1")
-public class VisitIntensionCtl {
+public class VisitIntensionCtl extends ReadController {
 
     @Autowired
     private VisitIntensionsApi api;
@@ -28,10 +29,7 @@ public class VisitIntensionCtl {
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
 
-        ReadContext context = new ReadContext();
-        context.setRequestId(requestId);
-        context.setVisitorId(visitorId);
-        context.setOwnerId(ownerId);
+        ReadContext context = buildContext(requestId, visitorId, ownerId);
 
         VisitIntensionsApi.Form form = new VisitIntensionsApi.Form();
 

@@ -2,6 +2,7 @@ package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.context.exception.Conflict;
 import one.kii.summer.context.io.WriteContext;
+import one.kii.summer.context.io.WriteController;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import wang.yanjiong.metamate.core.api.DeclareIntensionApi;
 
 @RestController
 @RequestMapping("/v1")
-public class DeclareIntensionCtl {
+public class DeclareIntensionCtl extends WriteController {
 
     @Autowired
     DeclareIntensionApi api;
@@ -28,10 +29,7 @@ public class DeclareIntensionCtl {
             @PathVariable("ownerId") String ownerId,
             @ModelAttribute DeclareIntensionApi.Form form) {
         try {
-            WriteContext context = new WriteContext();
-            context.setRequestId(requestId);
-            context.setOperatorId(operatorId);
-            context.setOwnerId(ownerId);
+            WriteContext context = buildContext(requestId, operatorId, ownerId);
 
             return ErestResponse.created(requestId, api.declareIntension(context, form));
         } catch (Conflict conflict) {

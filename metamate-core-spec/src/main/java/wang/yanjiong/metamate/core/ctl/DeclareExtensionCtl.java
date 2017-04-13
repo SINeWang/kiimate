@@ -3,6 +3,7 @@ package wang.yanjiong.metamate.core.ctl;
 import one.kii.summer.context.exception.BadRequest;
 import one.kii.summer.context.exception.Conflict;
 import one.kii.summer.context.io.WriteContext;
+import one.kii.summer.context.io.WriteController;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
 
 @RestController
 @RequestMapping("/v1")
-public class DeclareExtensionCtl {
+public class DeclareExtensionCtl extends WriteController {
 
     @Autowired
     private DeclareExtensionApi api;
@@ -30,10 +31,7 @@ public class DeclareExtensionCtl {
             @ModelAttribute DeclareExtensionApi.Form form) {
 
         try {
-            WriteContext context = new WriteContext();
-            context.setRequestId(requestId);
-            context.setOperatorId(operatorId);
-            context.setOwnerId(ownerId);
+            WriteContext context = buildContext(requestId, operatorId, ownerId);
 
             return ErestResponse.created(requestId, api.declareExtension(context, form));
         } catch (BadRequest badRequest) {

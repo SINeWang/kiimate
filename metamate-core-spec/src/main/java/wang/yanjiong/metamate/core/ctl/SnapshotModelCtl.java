@@ -3,6 +3,7 @@ package wang.yanjiong.metamate.core.ctl;
 import one.kii.summer.context.exception.BadRequest;
 import one.kii.summer.context.exception.Conflict;
 import one.kii.summer.context.io.WriteContext;
+import one.kii.summer.context.io.WriteController;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import wang.yanjiong.metamate.core.api.SnapshotModelApi;
 
 @RestController
 @RequestMapping("/v1")
-public class SnapshotModelCtl {
+public class SnapshotModelCtl extends WriteController {
 
     @Autowired
     private SnapshotModelApi api;
@@ -32,10 +33,7 @@ public class SnapshotModelCtl {
             @ModelAttribute SnapshotModelApi.Form form) {
         try {
 
-            WriteContext context = new WriteContext();
-            context.setRequestId(requestId);
-            context.setOperatorId(operatorId);
-            context.setOwnerId(ownerId);
+            WriteContext context = buildContext(requestId, operatorId, ownerId);
 
             form.setGroup(group);
             return ErestResponse.created(requestId, api.snapshot(context, form));

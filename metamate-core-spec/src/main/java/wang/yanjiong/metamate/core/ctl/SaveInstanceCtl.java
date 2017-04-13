@@ -2,6 +2,7 @@ package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.context.exception.NotFound;
 import one.kii.summer.context.io.WriteContext;
+import one.kii.summer.context.io.WriteController;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import wang.yanjiong.metamate.core.api.SaveInstanceApi;
 
 @RestController
 @RequestMapping("/v1")
-public class SaveInstanceCtl {
+public class SaveInstanceCtl extends WriteController {
 
     @Autowired
     private SaveInstanceApi api;
@@ -33,10 +34,8 @@ public class SaveInstanceCtl {
             @RequestParam MultiValueMap<String, String> map) {
         try {
 
-            WriteContext context = new WriteContext();
-            context.setRequestId(requestId);
-            context.setOperatorId(operatorId);
-            context.setOwnerId(ownerId);
+            WriteContext context = buildContext(requestId, operatorId, ownerId);
+
 
             SaveInstanceApi.Form form = new SaveInstanceApi.Form();
             form.setGroup(group);

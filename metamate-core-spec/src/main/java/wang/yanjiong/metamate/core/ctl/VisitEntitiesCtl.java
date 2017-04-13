@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.context.io.ReadContext;
+import one.kii.summer.context.io.ReadController;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/v1")
-public class VisitEntitiesCtl {
+public class VisitEntitiesCtl extends ReadController {
 
     @Autowired
     private VisitEntitiesApi api;
@@ -30,10 +31,7 @@ public class VisitEntitiesCtl {
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
 
-        ReadContext context = new ReadContext();
-        context.setRequestId(requestId);
-        context.setVisitorId(visitorId);
-        context.setOwnerId(ownerId);
+        ReadContext context = buildContext(requestId, visitorId, ownerId);
 
         VisitEntitiesApi.Form form = new VisitEntitiesApi.Form();
         form.setTree(tree);
@@ -49,10 +47,7 @@ public class VisitEntitiesCtl {
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group) {
 
-        ReadContext context = new ReadContext();
-        context.setRequestId(requestId);
-        context.setVisitorId(visitorId);
-        context.setOwnerId(ownerId);
+        ReadContext context = buildContext(requestId, visitorId, ownerId);
 
         VisitEntitiesApi.SimpleForm form = new VisitEntitiesApi.SimpleForm();
         form.setGroup(group);
