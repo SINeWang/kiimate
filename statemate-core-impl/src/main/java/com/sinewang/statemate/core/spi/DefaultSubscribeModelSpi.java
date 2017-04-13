@@ -2,8 +2,13 @@ package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.SubscribeModelSpi;
 import one.kii.summer.erest.ErestPost;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by WangYanJiong on 09/04/2017.
@@ -12,6 +17,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "metamate")
 public class DefaultSubscribeModelSpi implements SubscribeModelSpi {
 
+    private static Logger logger = LoggerFactory.getLogger(DefaultSubscribeModelSpi.class);
 
     private static String URI = "/{subscriberId}/subscribe";
 
@@ -38,7 +44,7 @@ public class DefaultSubscribeModelSpi implements SubscribeModelSpi {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(operatorId);
-
+        logger.info("url:{}, variables:{}", form.getSubscriberId());
         return erest.execute(url, form, Receipt.class, form.getSubscriberId());
     }
 }
