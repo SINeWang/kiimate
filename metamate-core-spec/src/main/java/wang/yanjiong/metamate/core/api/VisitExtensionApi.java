@@ -1,7 +1,5 @@
 package wang.yanjiong.metamate.core.api;
 
-import org.springframework.http.ResponseEntity;
-
 import java.util.Map;
 
 /**
@@ -16,7 +14,7 @@ public interface VisitExtensionApi {
 
     String VISIBILITY_PUBLIC = "public";
 
-    ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+    Map<String, Object> readIntensionsByGroupNameVersion(
             String requestId,
             String visitorId,
             String ownerId,
@@ -24,14 +22,14 @@ public interface VisitExtensionApi {
             String name,
             String tree);
 
-    ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+    Map<String, Object> readIntensionsByGroupNameVersion(
             String requestId,
             String visitorId,
             String ownerId,
             String group,
             String name);
 
-    ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+    Map<String, Object> readIntensionsByGroupNameVersion(
             String requestId,
             String visitorId,
             String ownerId,

@@ -1,5 +1,7 @@
 package wang.yanjiong.metamate.core.api;
 
+import one.kii.summer.context.exception.BadRequest;
+import one.kii.summer.context.exception.Conflict;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
@@ -39,44 +39,72 @@ public class TestDeclareExtensionApi {
     public void testGroupOnly() {
         DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setGroup("testGroup");
-        ResponseEntity<DeclareExtensionApi.Receipt> response = declareExtensionApi.declareExtension(requestId, ownerId, operatorId, form);
-        DeclareExtensionApi.Receipt receipt = response.getBody();
-        HttpStatus httpStatus = response.getStatusCode();
-        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(receipt);
+        form.setRequestId(requestId);
+        form.setOwnerId(ownerId);
+        form.setOperatorId(operatorId);
+        DeclareExtensionApi.Receipt response = null;
+        try {
+            response = declareExtensionApi.declareExtension(form);
+        } catch (BadRequest badRequest) {
+            badRequest.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
+        }
+        Assert.assertNull(response);
     }
 
     @Test
     public void testNameOnly() {
         DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setName("testName");
-        ResponseEntity<DeclareExtensionApi.Receipt> response = declareExtensionApi.declareExtension(requestId, ownerId, operatorId, form);
-        DeclareExtensionApi.Receipt receipt = response.getBody();
-        HttpStatus httpStatus = response.getStatusCode();
-        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(receipt);
+        form.setRequestId(requestId);
+        form.setOwnerId(ownerId);
+        form.setOperatorId(operatorId);
+        DeclareExtensionApi.Receipt response = null;
+        try {
+            response = declareExtensionApi.declareExtension(form);
+        } catch (BadRequest badRequest) {
+            badRequest.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
+        }
+        Assert.assertNull(response);
     }
 
     @Test
     public void testVersionOnly() {
         DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setTree("testTree");
-        ResponseEntity<DeclareExtensionApi.Receipt> response = declareExtensionApi.declareExtension(requestId, ownerId, operatorId, form);
-        DeclareExtensionApi.Receipt receipt = response.getBody();
-        HttpStatus httpStatus = response.getStatusCode();
-        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(receipt);
+        form.setRequestId(requestId);
+        form.setOwnerId(ownerId);
+        form.setOperatorId(operatorId);
+        DeclareExtensionApi.Receipt response = null;
+        try {
+            response = declareExtensionApi.declareExtension(form);
+        } catch (BadRequest badRequest) {
+            badRequest.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
+        }
+        Assert.assertNull(response);
     }
 
     @Test
     public void testVisibilityOnly() {
         DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setVisibility("testVisibility");
-        ResponseEntity<DeclareExtensionApi.Receipt> response = declareExtensionApi.declareExtension(requestId, ownerId, operatorId, form);
-        DeclareExtensionApi.Receipt receipt = response.getBody();
-        HttpStatus httpStatus = response.getStatusCode();
-        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(receipt);
+        form.setRequestId(requestId);
+        form.setOwnerId(ownerId);
+        form.setOperatorId(operatorId);
+        DeclareExtensionApi.Receipt response = null;
+        try {
+            response = declareExtensionApi.declareExtension(form);
+        } catch (BadRequest badRequest) {
+            badRequest.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
+        }
+        Assert.assertNull(response);
     }
 
 
@@ -87,11 +115,18 @@ public class TestDeclareExtensionApi {
         form.setName("testName");
         form.setTree("testTree");
         form.setVisibility("protected");
-        ResponseEntity<DeclareExtensionApi.Receipt> response = declareExtensionApi.declareExtension(requestId, ownerId, operatorId, form);
-        DeclareExtensionApi.Receipt receipt = response.getBody();
-        HttpStatus httpStatus = response.getStatusCode();
-        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(receipt);
+        form.setRequestId(requestId);
+        form.setOwnerId(ownerId);
+        form.setOperatorId(operatorId);
+        DeclareExtensionApi.Receipt response = null;
+        try {
+            response = declareExtensionApi.declareExtension(form);
+        } catch (BadRequest badRequest) {
+            badRequest.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
+        }
+        Assert.assertNull(response);
     }
 
     @Test
@@ -101,11 +136,18 @@ public class TestDeclareExtensionApi {
         form.setName("testName");
         form.setTree("testTree");
         form.setVisibility("testVisibility");
-        ResponseEntity<DeclareExtensionApi.Receipt> response = declareExtensionApi.declareExtension(requestId, ownerId, operatorId, form);
-        DeclareExtensionApi.Receipt receipt = response.getBody();
-        HttpStatus httpStatus = response.getStatusCode();
-        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), httpStatus.value());
-        Assert.assertNull(receipt);
+        form.setRequestId(requestId);
+        form.setOwnerId(ownerId);
+        form.setOperatorId(operatorId);
+        DeclareExtensionApi.Receipt response = null;
+        try {
+            response = declareExtensionApi.declareExtension(form);
+        } catch (BadRequest badRequest) {
+            badRequest.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
+        }
+        Assert.assertNull(response);
     }
 
     @Test
@@ -118,13 +160,19 @@ public class TestDeclareExtensionApi {
         form.setGroup(group);
         form.setName(name);
         form.setTree(tree);
+        form.setRequestId(requestId);
+        form.setOwnerId(ownerId);
+        form.setOperatorId(operatorId);
         form.setVisibility(AnVisibilityValidator.Visibility.PROTECTED.name());
-        ResponseEntity<DeclareExtensionApi.Receipt> response = declareExtensionApi.declareExtension(requestId, ownerId, operatorId, form);
-        DeclareExtensionApi.Receipt receipt = response.getBody();
-        HttpStatus httpStatus = response.getStatusCode();
-        Assert.assertEquals(HttpStatus.ACCEPTED.value(), httpStatus.value());
-        Assert.assertNotNull(receipt);
-        String id = receipt.getId();
+        DeclareExtensionApi.Receipt response = null;
+        try {
+            response = declareExtensionApi.declareExtension(form);
+        } catch (BadRequest badRequest) {
+            badRequest.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
+        }
+        String id = response.getId();
         Assert.assertNotNull(id);
 
 

@@ -29,7 +29,10 @@ public class DeclareExtensionCtl {
             @ModelAttribute DeclareExtensionApi.Form form) {
 
         try {
-            return ErestResponse.created(requestId, api.declareExtension(requestId, operatorId, ownerId, form));
+            form.setGroup(requestId);
+            form.setOperatorId(operatorId);
+            form.setOwnerId(ownerId);
+            return ErestResponse.created(requestId, api.declareExtension(form));
         } catch (BadRequest badRequest) {
             return ErestResponse.badRequest(requestId, badRequest.getMessage());
         } catch (Conflict conflict) {

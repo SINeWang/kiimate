@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.erest.ErestHeaders;
+import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class VisitEntitiesCtl {
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
-        return api.readInstancesByGroupNameVersion(requestId, visitorId, ownerId, group, name, tree);
+        return ErestResponse.ok(requestId, api.readInstancesByGroupNameVersion(requestId, visitorId, ownerId, group, name, tree));
     }
 
     @RequestMapping(value = "/{ownerId}/entities/{group}", method = RequestMethod.GET)
@@ -35,7 +36,7 @@ public class VisitEntitiesCtl {
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
-            @PathVariable("group") String group){
-        return api.readInstancesByGroupNameVersion(requestId, visitorId, ownerId, group);
+            @PathVariable("group") String group) {
+        return ErestResponse.ok(requestId, api.readInstancesByGroupNameVersion(requestId, visitorId, ownerId, group));
     }
 }

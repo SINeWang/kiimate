@@ -29,18 +29,9 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     private AnVisibilityValidator visibilityValidator;
 
     @Override
-    public Receipt declareExtension(
-            String requestId,
-            String operatorId,
-            String ownerId,
-            Form form) throws BadRequest, Conflict {
+    public Receipt declareExtension(Form form) throws BadRequest, Conflict {
 
-        AnExtensionExtractor.Extension extension;
-        try {
-            extension = extensionExtractor.extract(form, ownerId);
-        } catch (AnExtensionExtractor.MissingParamException e) {
-            throw new BadRequest(e.getMessage());
-        }
+        AnExtensionExtractor.Extension extension = extensionExtractor.extract(form);
 
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());

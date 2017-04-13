@@ -1,6 +1,8 @@
 package wang.yanjiong.metamate.core.api;
 
 import com.sinewang.metamate.core.dai.mapper.ModelPublicationMapper;
+import one.kii.summer.context.exception.BadRequest;
+import one.kii.summer.context.exception.Conflict;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -10,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
@@ -137,18 +138,20 @@ public class TestSnapshotModelApi {
         form.setProviderId(providerId);
         modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
 
-        ResponseEntity<SnapshotModelApi.Receipt> response = null;
+        SnapshotModelApi.Receipt receipt = null;
         try {
-            response = snapshotModelApi.snapshot(
+            receipt = snapshotModelApi.snapshot(
                     requestId,
-                    ownerId,
                     operatorId,
+                    ownerId,
                     group,
                     form);
-        } catch (SnapshotModelApi.RefereceExtensionHasNotBeenPublished refereceExtensionHasNotBeenPublished) {
-            refereceExtensionHasNotBeenPublished.printStackTrace();
+        } catch (BadRequest badRequest) {
+            badRequest.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
         }
-        SnapshotModelApi.Receipt receipt = response.getBody();
+
         List<SnapshotModelApi.Intension> intensions = receipt.getIntensions();
         Assert.assertNotNull(receipt);
         Assert.assertEquals(version, receipt.getVersion());
@@ -162,7 +165,7 @@ public class TestSnapshotModelApi {
                 group,
                 name,
                 tree
-        ).getBody();
+        );
 
         Assert.assertNotNull(map);
     }

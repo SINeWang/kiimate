@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.api;
 
 import com.sinewang.metamate.core.dai.mapper.ModelSubscriptionMapper;
+import one.kii.summer.context.exception.Conflict;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,12 +61,17 @@ public class TestSubscribeModelApi {
 
         form.setGroup(group);
         form.setName(name);
-        SubscribeModelApi.Receipt receipt = subscribeModelApi.subscribe(
-                requestId,
-                operatorId,
-                subscriberId,
-                form
-        ).getBody();
+        SubscribeModelApi.Receipt receipt = null;
+        try {
+            receipt = subscribeModelApi.subscribe(
+                    requestId,
+                    operatorId,
+                    subscriberId,
+                    form
+            );
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
+        }
 
         Assert.assertEquals(receipt.getSubSetHash(), pubSetHash);
 

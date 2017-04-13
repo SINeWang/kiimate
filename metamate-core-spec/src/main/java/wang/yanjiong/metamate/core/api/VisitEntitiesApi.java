@@ -1,8 +1,7 @@
 package wang.yanjiong.metamate.core.api;
 
-import one.kii.summer.erest.ErestHeaders;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
@@ -18,19 +17,17 @@ public interface VisitEntitiesApi {
 
     String TREE_MASTER = "master";
 
-    @RequestMapping(value = "/{ownerId}/entities/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
-            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
-            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable("ownerId") String ownerId,
-            @PathVariable("group") String group,
-            @PathVariable("name") String name,
-            @PathVariable("tree") String tree);
+    Map<String, Object> readInstancesByGroupNameVersion(
+            String requestId,
+            String visitorId,
+            String ownerId,
+            String group,
+            String name,
+            String tree);
 
-    @RequestMapping(value = "/{ownerId}/entities/{group:.+}", method = RequestMethod.GET)
-    ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
-            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
-            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable("ownerId") String ownerId,
-            @PathVariable("group") String group);
+    Map<String, Object> readInstancesByGroupNameVersion(
+            String requestId,
+            String visitorId,
+            String ownerId,
+            String group);
 }

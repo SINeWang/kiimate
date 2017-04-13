@@ -1,9 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import wang.yanjiong.metamate.core.api.VisitIntensionsApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
@@ -24,7 +22,7 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
 
     @Override
-    public ResponseEntity<Extension> readIntensionsByGroupNameVersion(
+    public Extension readIntensionsByGroupNameVersion(
             String requestId,
             String visitorId,
             String ownerId,
@@ -41,6 +39,6 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
         List<Intension> intensions = DataTools.copy(list, Intension.class);
 
         extension.setIntensions(intensions);
-        return ErestResponse.ok(requestId, extension);
+        return extension;
     }
 }

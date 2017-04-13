@@ -2,7 +2,7 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.http.ResponseEntity;
+import one.kii.summer.context.exception.Conflict;
 
 /**
  * Created by WangYanJiong on 4/6/17.
@@ -13,11 +13,11 @@ public interface SubscribeModelApi {
     String TREE_MASTER = "master";
 
 
-    ResponseEntity<Receipt> subscribe(
+    Receipt subscribe(
             String requestId,
             String operatorId,
             String subscriberId,
-            Form form);
+            Form form) throws Conflict;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

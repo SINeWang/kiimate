@@ -4,6 +4,7 @@ import com.sinewang.metamate.core.dai.mapper.InstanceMapper;
 import com.sinewang.metamate.core.dai.mapper.IntensionMapper;
 import com.sinewang.metamate.core.dai.mapper.ModelPublicationMapper;
 import com.sinewang.metamate.core.dai.mapper.ModelSubscriptionMapper;
+import one.kii.summer.context.exception.NotFound;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -147,16 +148,21 @@ public class TestSaveInstanceApi {
 
         map.put(keyA, Arrays.asList(valueOfA));
         map.put(keyB, Arrays.asList(valueOfB));
-        List<SaveInstanceApi.Instance> instances = saveInstanceApi.saveInstance(
-                requestId,
-                operatorId,
-                ownerId,
-                group,
-                name,
-                tree
-                , map
+        List<SaveInstanceApi.Instance> instances = null;
+        try {
+            instances = saveInstanceApi.saveInstance(
+                    requestId,
+                    operatorId,
+                    ownerId,
+                    group,
+                    name,
+                    tree
+                    , map
 
-        ).getBody().getInstances();
+            ).getInstances();
+        } catch (NotFound notFound) {
+            notFound.printStackTrace();
+        }
 
         Assert.assertEquals(3, instances.size());
 
@@ -165,7 +171,7 @@ public class TestSaveInstanceApi {
                 requestId, visitorId,
                 ownerId,
                 group, name, tree
-        ).getBody();
+        );
 
         for (String key : instancesMap.keySet()) {
             if (key.equals(keyB)) {

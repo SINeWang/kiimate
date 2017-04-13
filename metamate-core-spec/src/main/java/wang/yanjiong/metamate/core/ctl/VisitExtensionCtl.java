@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.erest.ErestHeaders;
+import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class VisitExtensionCtl {
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
-        return api.readIntensionsByGroupNameVersion(requestId, visitorId, ownerId, group, name, tree);
+        return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(requestId, visitorId, ownerId, group, name, tree));
     }
 
 
@@ -38,7 +39,7 @@ public class VisitExtensionCtl {
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name) {
-        return api.readIntensionsByGroupNameVersion(requestId, visitorId, ownerId, group, name);
+        return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(requestId, visitorId, ownerId, group, name));
     }
 
     @RequestMapping(value = "/{ownerId}/extension/{group}", method = RequestMethod.GET)
@@ -47,6 +48,6 @@ public class VisitExtensionCtl {
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group) {
-        return api.readIntensionsByGroupNameVersion(requestId, visitorId, ownerId, group);
+        return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(requestId, visitorId, ownerId, group));
     }
 }

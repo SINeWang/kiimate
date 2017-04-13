@@ -1,6 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.context.exception.Conflict;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +22,11 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
-    public ResponseEntity<Receipt> subscribe(
+    public Receipt subscribe(
             String requestId,
             String operatorId,
             String subscriberId,
-            Form form) {
+            Form form) throws Conflict {
 
         AnSubscribeModelExtractor.ModelSubscription modelSubscription = subscribeModelExtractor.extract(
                 form, subscriberId, operatorId, TREE_MASTER);
@@ -34,11 +35,9 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
 
         try {
             modelSubscriptionDai.save(subscription);
-            Receipt receipt = DataTools.copy(modelSubscription, Receipt.class);
-            return ErestResponse.created(requestId, receipt);
+            return  DataTools.copy(modelSubscription, Receipt.class);
         } catch (ModelSubscriptionDai.DuplicatedSubscription duplicatedSubscription) {
-            Receipt receipt = DataTools.copy(duplicatedSubscription, Receipt.class);
-            return ErestResponse.conflict(requestId, receipt.getId());
+            throw new Conflict(subscription.getId());
         }
     }
 

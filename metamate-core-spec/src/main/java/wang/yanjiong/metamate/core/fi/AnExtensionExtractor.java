@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.fi;
 
 import lombok.Data;
+import one.kii.summer.context.exception.BadRequest;
 import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
 
 /**
@@ -8,7 +9,7 @@ import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
  */
 public interface AnExtensionExtractor {
 
-    Extension extract(DeclareExtensionApi.Form form, String ownerId) throws MissingParamException;
+    Extension extract(DeclareExtensionApi.Form form) throws BadRequest;
 
     String hashId(String ownerId, String group, String name, String tree, String visibility);
 
@@ -28,10 +29,5 @@ public interface AnExtensionExtractor {
         private String visibility;
     }
 
-    class MissingParamException extends Exception {
-        public MissingParamException(String message) {
-            super(message);
-        }
-    }
 
 }

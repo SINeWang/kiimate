@@ -1,8 +1,6 @@
 package com.sinewang.metamate.core.api;
 
-import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import wang.yanjiong.metamate.core.api.VisitEntitiesApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
@@ -29,7 +27,7 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
-    public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
+    public Map<String, Object> readInstancesByGroupNameVersion(
             String requestId,
             String visitorId,
             String ownerId,
@@ -38,7 +36,7 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
     }
 
     @Override
-    public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
+    public Map<String, Object> readInstancesByGroupNameVersion(
             String requestId,
             String visitorId,
             String ownerId,
@@ -55,9 +53,8 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
 
         Map<String, List<InstanceDai.Instance>> dict = dict(instances);
 
-        Map<String, Object> result = visitHierarchyInstance(rootExtId, dict);
+        return visitHierarchyInstance(rootExtId, dict);
 
-        return ErestResponse.ok(requestId, result);
     }
 
     private Map<String, Object> visitHierarchyInstance(String extId, Map<String, List<InstanceDai.Instance>> dict) {

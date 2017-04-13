@@ -12,15 +12,17 @@ import one.kii.summer.context.exception.Conflict;
 public interface DeclareExtensionApi {
 
 
-    Receipt declareExtension(
-            String requestId,
-            String operatorId,
-            String ownerId,
-            Form form) throws BadRequest, Conflict;
+    Receipt declareExtension(Form form) throws BadRequest, Conflict;
 
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Form {
+
+        String requestId;
+
+        String operatorId;
+
+        String ownerId;
 
         private String group;
 

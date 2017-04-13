@@ -2,7 +2,6 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +16,7 @@ public interface VisitIntensionsApi {
 
     String VISIBILITY_PUBLIC = "public";
 
-    ResponseEntity<Extension> readIntensionsByGroupNameVersion(
+    Extension readIntensionsByGroupNameVersion(
             String requestId,
             String visitorId,
             String ownerId,

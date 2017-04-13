@@ -3,7 +3,7 @@ package com.sinewang.metamate.core.fi;
 import com.google.common.base.CaseFormat;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
-import org.springframework.beans.BeanUtils;
+import one.kii.summer.context.exception.BadRequest;
 import org.springframework.stereotype.Service;
 import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
@@ -15,27 +15,31 @@ import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
 public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
     @Override
-    public Extension extract(DeclareExtensionApi.Form form, String ownerId) throws MissingParamException {
+    public Extension extract(DeclareExtensionApi.Form form) throws BadRequest {
 
         if (form.getGroup() == null || form.getGroup().isEmpty()) {
-            throw new MissingParamException("group is NULL or EMPTY");
+            throw new BadRequest("group");
         }
         if (form.getName() == null || form.getName().isEmpty()) {
-            throw new MissingParamException("name is NULL or EMPTY");
+            throw new BadRequest("name");
         }
         if (form.getTree() == null || form.getTree().isEmpty()) {
-            throw new MissingParamException("version is NULL or EMPTY");
+            throw new BadRequest("tree");
         }
         if (form.getVisibility() == null || form.getVisibility().isEmpty()) {
-            throw new MissingParamException("visibility is NULL or EMPTY");
+            throw new BadRequest("visibility");
+        }
+        if (form.getOwnerId() == null || form.getOwnerId().isEmpty()) {
+            throw new BadRequest("ownerId");
+        }
+        if (form.getOperatorId() == null || form.getOperatorId().isEmpty()) {
+            throw new BadRequest("operatorId");
         }
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
         form.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getName()));
         form.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getTree()));
 
         Extension extension = DataTools.copy(form, Extension.class);
-        extension.setOwnerId(ownerId);
-        BeanUtils.copyProperties(form, extension);
         String id = hashExtension(extension);
         extension.setId(id);
         return extension;

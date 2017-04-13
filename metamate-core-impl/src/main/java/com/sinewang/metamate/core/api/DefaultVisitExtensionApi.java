@@ -2,9 +2,7 @@ package com.sinewang.metamate.core.api;
 
 import com.google.common.base.CaseFormat;
 import one.kii.summer.erest.ErestHeaders;
-import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.VisitExtensionApi;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
@@ -27,7 +25,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
     @Override
     @RequestMapping(value = "/{ownerId}/extension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+    public Map<String, Object> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
@@ -40,13 +38,13 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
         String extId = extensionExtractor.hashId(ownerId, group, name, tree, VISIBILITY_PUBLIC);
 
-        return ErestResponse.ok(requestId, modelRestorer.fullRestoreAsMap(extId));
+        return modelRestorer.fullRestoreAsMap(extId);
     }
 
 
     @Override
     @RequestMapping(value = "/{ownerId}/extension/{group}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+    public Map<String, Object> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
@@ -54,12 +52,12 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         group = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, group);
 
         String extId = extensionExtractor.hashId(ownerId, group, NAME_ROOT, TREE_MASTER, VISIBILITY_PUBLIC);
-        return ErestResponse.ok(requestId, modelRestorer.fullRestoreAsMap(extId));
+        return modelRestorer.fullRestoreAsMap(extId);
     }
 
     @Override
     @RequestMapping(value = "/{ownerId}/extension/{group}/{name}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+    public Map<String, Object> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
@@ -69,6 +67,6 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name);
 
         String extId = extensionExtractor.hashId(ownerId, group, name, TREE_MASTER, VISIBILITY_PUBLIC);
-        return ErestResponse.ok(requestId, modelRestorer.fullRestoreAsMap(extId));
+        return modelRestorer.fullRestoreAsMap(extId);
     }
 }
