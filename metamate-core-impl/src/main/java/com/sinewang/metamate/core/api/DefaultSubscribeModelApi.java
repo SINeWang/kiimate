@@ -1,6 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,8 +27,8 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
     @Override
     @RequestMapping(value = "/{subscriberId}/subscribe", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> subscribe(
-            @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-OperatorId") String operatorId,
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable("subscriberId") String subscriberId,
             @ModelAttribute Form form) {
 

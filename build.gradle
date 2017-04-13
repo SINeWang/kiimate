@@ -17,7 +17,7 @@ ext {
     junitVersion = '4.12'
     mybatisSpringBootStarterVerison = "1.2.0"
     mysqlConnectorVersion = '5.1.41'
-    summerVersion = '0.2.6'
+    summerVersion = '0.2.8'
     servletApiVersion = '3.1.0'
     jacksondatabindVersion = '2.8.7'
     guavaVersion = '21.0'
@@ -71,7 +71,7 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
 
         compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
 
-        compile group: "one.kii.summer", name: "summer-annot", version: "${summerVersion}", changing: true
+        compile group: "one.kii.summer", name: "summer-erest", version: "${summerVersion}", changing: true
 
 
         compile("org.springframework:spring-tx:${springFrameworkVersion}")

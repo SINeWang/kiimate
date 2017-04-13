@@ -1,5 +1,6 @@
 package wang.yanjiong.metamate.core.api;
 
+import one.kii.summer.erest.ErestHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public interface VisitEntitiesApi {
 
     @RequestMapping(value = "/{ownerId}/entities/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
-            @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
@@ -28,8 +29,8 @@ public interface VisitEntitiesApi {
 
     @RequestMapping(value = "/{ownerId}/entities/{group:.+}", method = RequestMethod.GET)
     ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
-            @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group);
 }

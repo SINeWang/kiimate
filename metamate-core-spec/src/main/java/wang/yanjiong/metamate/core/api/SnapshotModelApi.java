@@ -2,6 +2,7 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import one.kii.summer.erest.ErestHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,8 @@ public interface SnapshotModelApi {
 
     @RequestMapping(value = "/{ownerId}/snapshot/{group:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> snapshot(
-            @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-OperatorId") String operatorId,
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @ModelAttribute Form form) throws RefereceExtensionHasNotBeenPublished;

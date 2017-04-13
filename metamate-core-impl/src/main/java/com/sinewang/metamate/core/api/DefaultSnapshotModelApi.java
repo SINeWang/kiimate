@@ -2,6 +2,7 @@ package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
+import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -46,8 +47,8 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
     @RequestMapping(value = "/{ownerId}/snapshot/{group:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> snapshot(
-            @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-OperatorId") String operatorId,
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @ModelAttribute Form form) throws RefereceExtensionHasNotBeenPublished {

@@ -1,5 +1,6 @@
 package com.sinewang.metamate.core.api;
 
+import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,8 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
     @Override
     @RequestMapping(value = "/{ownerId}/entities/{group}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
-            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
-            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group) {
         return readInstancesByGroupNameVersion(requestId, visitorId, ownerId, group, NAME_DEFAULT, TREE_MASTER);
@@ -44,8 +45,8 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
     @Override
     @RequestMapping(value = "/{ownerId}/entities/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
-            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
-            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,

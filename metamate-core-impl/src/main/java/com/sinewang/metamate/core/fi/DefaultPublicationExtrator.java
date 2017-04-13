@@ -2,7 +2,6 @@ package com.sinewang.metamate.core.fi;
 
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.stereotype.Component;
-import wang.yanjiong.metamate.core.api.ReleaseModelApi;
 import wang.yanjiong.metamate.core.api.SnapshotModelApi;
 import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
 import wang.yanjiong.metamate.core.fi.AnPublicationValidator;
@@ -25,19 +24,6 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
         publication.setProviderId(form.getProviderId());
         publication.setVersion(form.getVersion());
         publication.setPublication(AnPublicationValidator.Publication.SNAPSHOT.name());
-        publication.setCreatedAt(date);
-        return publication;
-    }
-
-    @Override
-    public Publication extractRelease(ReleaseModelApi.Form form, String extId, String operatorId, Date date) throws MissingParamException {
-        Publication publication = new Publication();
-        publication.setPubExtId(hashPubExtId(form.getProviderId(), extId, AnPublicationValidator.Publication.RELEASE.name(), form.getVersion()));
-        publication.setExtId(extId);
-        publication.setOperatorId(operatorId);
-        publication.setProviderId(form.getProviderId());
-        publication.setVersion(form.getVersion());
-        publication.setPublication(AnPublicationValidator.Publication.RELEASE.name());
         publication.setCreatedAt(date);
         return publication;
     }

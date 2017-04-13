@@ -1,6 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import com.google.common.base.CaseFormat;
+import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,8 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     @Override
     @RequestMapping(value = "/{ownerId}/extension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
-            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
-            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
@@ -46,8 +47,8 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     @Override
     @RequestMapping(value = "/{ownerId}/extension/{group}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
-            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
-            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group) {
         group = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, group);
@@ -59,8 +60,8 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     @Override
     @RequestMapping(value = "/{ownerId}/extension/{group}/{name}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
-            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
-            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name) {

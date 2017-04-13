@@ -152,6 +152,7 @@ public class TestSaveInstanceApi {
                 operatorId,
                 ownerId,
                 group,
+                name,
                 tree
                 , map
 

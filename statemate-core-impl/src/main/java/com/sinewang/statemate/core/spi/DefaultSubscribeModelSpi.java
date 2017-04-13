@@ -44,7 +44,7 @@ public class DefaultSubscribeModelSpi implements SubscribeModelSpi {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(operatorId);
-        logger.info("url:{}, variables:{}", form.getSubscriberId());
+        logger.info("url:{}, variables:{}", url, form.getSubscriberId());
         return erest.execute(url, form, Receipt.class, form.getSubscriberId());
     }
 }

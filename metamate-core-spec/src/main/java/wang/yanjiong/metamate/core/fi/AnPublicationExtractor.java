@@ -1,7 +1,6 @@
 package wang.yanjiong.metamate.core.fi;
 
 import lombok.Data;
-import wang.yanjiong.metamate.core.api.ReleaseModelApi;
 import wang.yanjiong.metamate.core.api.SnapshotModelApi;
 
 import java.util.Date;
@@ -15,11 +14,6 @@ public interface AnPublicationExtractor {
                                 String extId,
                                 String operatorId,
                                 Date date) throws MissingParamException;
-
-    Publication extractRelease(ReleaseModelApi.Form form,
-                               String extId,
-                               String operatorId,
-                               Date date) throws MissingParamException;
 
     String hashId(String pubExitId, String intId);
 

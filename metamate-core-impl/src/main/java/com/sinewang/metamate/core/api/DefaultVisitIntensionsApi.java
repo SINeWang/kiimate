@@ -1,6 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +30,8 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
     @Override
     @RequestMapping(value = "/{ownerId}/intension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     public ResponseEntity<Extension> readIntensionsByGroupNameVersion(
-            @RequestHeader(value = "X-git MM-RequestId", required = false) String requestId,
-            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,

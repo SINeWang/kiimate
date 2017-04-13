@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
+import one.kii.summer.erest.ErestHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +18,8 @@ public interface SubscribeModelApi {
 
     @RequestMapping(value = "/{subscriberId}/subscribe", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     ResponseEntity<Receipt> subscribe(
-            @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-OperatorId") String operatorId,
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable("subscriberId") String subscriberId,
             @ModelAttribute Form form);
 

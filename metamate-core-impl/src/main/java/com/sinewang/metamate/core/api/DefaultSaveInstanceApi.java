@@ -1,6 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,8 +45,8 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
     @Override
     @RequestMapping(value = "/{ownerId}/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Receipt> saveInstance(
-            @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-OperatorId") String operatorId,
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
@@ -96,17 +97,4 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
         return ErestResponse.created(requestId, receipt);
     }
 
-    @Override
-    @RequestMapping(value = "/instance/{group}/{name:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<Receipt> saveInstance(
-            @RequestHeader("X-SUMMER-RequestId") String requestId,
-            @RequestHeader("X-MM-OwnerId") String ownerId,
-            @RequestHeader("X-MM-OperatorId") String operatorId,
-            @PathVariable("group") String group,
-            @PathVariable("name") String name,
-            @RequestParam MultiValueMap<String, String> map) {
-
-        return saveInstance(requestId, ownerId, operatorId, group, TREE_MASTER, map);
-
-    }
 }

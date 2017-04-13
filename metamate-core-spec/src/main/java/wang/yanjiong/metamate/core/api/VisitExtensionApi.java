@@ -1,5 +1,6 @@
 package wang.yanjiong.metamate.core.api;
 
+import one.kii.summer.erest.ErestHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,8 @@ public interface VisitExtensionApi {
 
     @RequestMapping(value = "/{ownerId}/extension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
-            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
-            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
@@ -30,16 +31,16 @@ public interface VisitExtensionApi {
 
     @RequestMapping(value = "/{ownerId}/extension/{group}/{name}", method = RequestMethod.GET)
     ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
-            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
-            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name);
 
     @RequestMapping(value = "/{ownerId}/extension/{group}", method = RequestMethod.GET)
     ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
-            @RequestHeader(value = "X-SUMMER-RequestId", required = false) String requestId,
-            @RequestHeader("X-MM-VisitorId") String visitorId,
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group);
 }
