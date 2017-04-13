@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import one.kii.summer.context.exception.BadRequest;
 import one.kii.summer.context.exception.Conflict;
+import one.kii.summer.context.io.WriteContext;
 
 import java.util.Date;
 import java.util.List;
@@ -19,16 +20,13 @@ public interface SnapshotModelApi {
     String VISIBILITY_PUBLIC = "public";
 
 
-    Receipt snapshot(
-            String requestId,
-            String operatorId,
-            String ownerId,
-            String group,
-            Form form) throws BadRequest, Conflict;
+    Receipt snapshot(WriteContext context, Form form) throws BadRequest, Conflict;
 
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Form {
+
+        private String group;
 
         private String providerId;
 

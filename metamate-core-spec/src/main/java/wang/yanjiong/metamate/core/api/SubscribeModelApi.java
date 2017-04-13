@@ -3,6 +3,7 @@ package wang.yanjiong.metamate.core.api;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import one.kii.summer.context.exception.Conflict;
+import one.kii.summer.context.io.WriteContext;
 
 /**
  * Created by WangYanJiong on 4/6/17.
@@ -13,11 +14,7 @@ public interface SubscribeModelApi {
     String TREE_MASTER = "master";
 
 
-    Receipt subscribe(
-            String requestId,
-            String operatorId,
-            String subscriberId,
-            Form form) throws Conflict;
+    Receipt subscribe(WriteContext context, Form form) throws Conflict;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

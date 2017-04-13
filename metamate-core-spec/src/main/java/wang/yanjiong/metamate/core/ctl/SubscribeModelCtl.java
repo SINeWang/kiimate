@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.context.exception.Conflict;
+import one.kii.summer.context.io.WriteContext;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,13 @@ public class SubscribeModelCtl {
             @PathVariable("subscriberId") String subscriberId,
             @ModelAttribute SubscribeModelApi.Form form) {
         try {
-            return ErestResponse.created(requestId, api.subscribe(requestId, operatorId, subscriberId, form));
+
+            WriteContext context = new WriteContext();
+            context.setRequestId(requestId);
+            context.setOperatorId(operatorId);
+            context.setOwnerId(subscriberId);
+
+            return ErestResponse.created(requestId, api.subscribe(context, form));
         } catch (Conflict conflict) {
             return ErestResponse.conflict(requestId, conflict.getKey());
         }

@@ -2,6 +2,7 @@ package wang.yanjiong.metamate.core.api;
 
 import one.kii.summer.context.exception.BadRequest;
 import one.kii.summer.context.exception.Conflict;
+import one.kii.summer.context.io.WriteContext;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,12 +40,15 @@ public class TestDeclareExtensionApi {
     public void testGroupOnly() {
         DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setGroup("testGroup");
-        form.setRequestId(requestId);
-        form.setOwnerId(ownerId);
-        form.setOperatorId(operatorId);
+
+        WriteContext context = new WriteContext();
+        context.setRequestId(requestId);
+        context.setOperatorId(operatorId);
+        context.setOwnerId(ownerId);
+
         DeclareExtensionApi.Receipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(form);
+            response = declareExtensionApi.declareExtension(context, form);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
@@ -57,12 +61,15 @@ public class TestDeclareExtensionApi {
     public void testNameOnly() {
         DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setName("testName");
-        form.setRequestId(requestId);
-        form.setOwnerId(ownerId);
-        form.setOperatorId(operatorId);
+
+        WriteContext context = new WriteContext();
+        context.setRequestId(requestId);
+        context.setOperatorId(operatorId);
+        context.setOwnerId(ownerId);
+
         DeclareExtensionApi.Receipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(form);
+            response = declareExtensionApi.declareExtension(context, form);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
@@ -75,12 +82,15 @@ public class TestDeclareExtensionApi {
     public void testVersionOnly() {
         DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setTree("testTree");
-        form.setRequestId(requestId);
-        form.setOwnerId(ownerId);
-        form.setOperatorId(operatorId);
+
+        WriteContext context = new WriteContext();
+        context.setRequestId(requestId);
+        context.setOperatorId(operatorId);
+        context.setOwnerId(ownerId);
+
         DeclareExtensionApi.Receipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(form);
+            response = declareExtensionApi.declareExtension(context, form);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
@@ -93,12 +103,15 @@ public class TestDeclareExtensionApi {
     public void testVisibilityOnly() {
         DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
         form.setVisibility("testVisibility");
-        form.setRequestId(requestId);
-        form.setOwnerId(ownerId);
-        form.setOperatorId(operatorId);
+
+        WriteContext context = new WriteContext();
+        context.setRequestId(requestId);
+        context.setOperatorId(operatorId);
+        context.setOwnerId(ownerId);
+
         DeclareExtensionApi.Receipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(form);
+            response = declareExtensionApi.declareExtension(context, form);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
@@ -115,12 +128,14 @@ public class TestDeclareExtensionApi {
         form.setName("testName");
         form.setTree("testTree");
         form.setVisibility("protected");
-        form.setRequestId(requestId);
-        form.setOwnerId(ownerId);
-        form.setOperatorId(operatorId);
+        WriteContext context = new WriteContext();
+        context.setRequestId(requestId);
+        context.setOperatorId(operatorId);
+        context.setOwnerId(ownerId);
+
         DeclareExtensionApi.Receipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(form);
+            response = declareExtensionApi.declareExtension(context, form);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
@@ -136,12 +151,14 @@ public class TestDeclareExtensionApi {
         form.setName("testName");
         form.setTree("testTree");
         form.setVisibility("testVisibility");
-        form.setRequestId(requestId);
-        form.setOwnerId(ownerId);
-        form.setOperatorId(operatorId);
+        WriteContext context = new WriteContext();
+        context.setRequestId(requestId);
+        context.setOperatorId(operatorId);
+        context.setOwnerId(ownerId);
+
         DeclareExtensionApi.Receipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(form);
+            response = declareExtensionApi.declareExtension(context, form);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
@@ -160,13 +177,16 @@ public class TestDeclareExtensionApi {
         form.setGroup(group);
         form.setName(name);
         form.setTree(tree);
-        form.setRequestId(requestId);
-        form.setOwnerId(ownerId);
-        form.setOperatorId(operatorId);
+
+        WriteContext context = new WriteContext();
+        context.setRequestId(requestId);
+        context.setOperatorId(operatorId);
+        context.setOwnerId(ownerId);
+
         form.setVisibility(AnVisibilityValidator.Visibility.PROTECTED.name());
         DeclareExtensionApi.Receipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(form);
+            response = declareExtensionApi.declareExtension(context, form);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {

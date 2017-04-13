@@ -3,6 +3,7 @@ package wang.yanjiong.metamate.core.api;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import one.kii.summer.context.exception.NotFound;
+import one.kii.summer.context.io.WriteContext;
 import org.springframework.util.MultiValueMap;
 
 import java.util.List;
@@ -16,18 +17,22 @@ public interface SaveInstanceApi {
     String TREE_MASTER = "master";
 
     Receipt saveInstance(
-            String requestId,
-            String operatorId,
-            String ownerId,
-            String group,
-            String name,
-            String tree,
-            MultiValueMap<String, String> map) throws NotFound;
+            WriteContext context,
+            Form form
+    ) throws NotFound;
 
+    @Data
+    class Form {
+        String group;
+        String name;
+        String tree;
+        MultiValueMap<String, String> map;
+    }
 
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Receipt {
+
         String group;
 
         String name;

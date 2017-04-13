@@ -2,11 +2,10 @@ package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.context.exception.NotFound;
-import one.kii.summer.erest.ErestResponse;
+import one.kii.summer.context.io.WriteContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.SaveInstanceApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
@@ -41,31 +40,24 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    public Receipt saveInstance(
-            String requestId,
-            String operatorId,
-            String ownerId,
-            String group,
-            String name,
-            String tree,
-            MultiValueMap<String, String> map) throws NotFound {
+    public Receipt saveInstance(WriteContext context, Form form) throws NotFound {
 
-        String rootExtId = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(ownerId, group, name, tree);
+        String rootExtId = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(
+                context.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
 
         if (rootExtId == null) {
-            Receipt receipt = new Receipt();
-            receipt.setGroup(group);
-            receipt.setName(name);
-            receipt.setTree(tree);
             throw new NotFound(rootExtId);
         }
 
         Map<String, IntensionDai.Intension> dict = new HashMap<>();
         modelRestorer.restoreAsFieldDict(rootExtId, dict);
 
-        String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(ownerId, group, name, tree);
+        String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(
+                context.getOwnerId(), form.getGroup(), form.getName(), form.getTree()
+        );
 
-        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(ownerId, subId, operatorId, map, dict);
+        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(
+                context.getOwnerId(), subId, context.getOperatorId(), form.getMap(), dict);
 
         List<InstanceDai.Instances> instances1 = DataTools.copy(instances, InstanceDai.Instances.class);
 
@@ -86,10 +78,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             apiInstances.add(apiInstance);
         }
 
-        Receipt receipt = new Receipt();
-        receipt.setGroup(group);
-        receipt.setName(name);
-        receipt.setTree(tree);
+        Receipt receipt = DataTools.copy(form, Receipt.class);
         receipt.setInstances(apiInstances);
         return receipt;
     }

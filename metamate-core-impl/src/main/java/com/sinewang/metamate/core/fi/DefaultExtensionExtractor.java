@@ -29,12 +29,6 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         if (form.getVisibility() == null || form.getVisibility().isEmpty()) {
             throw new BadRequest("visibility");
         }
-        if (form.getOwnerId() == null || form.getOwnerId().isEmpty()) {
-            throw new BadRequest("ownerId");
-        }
-        if (form.getOperatorId() == null || form.getOperatorId().isEmpty()) {
-            throw new BadRequest("operatorId");
-        }
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
         form.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getName()));
         form.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getTree()));

@@ -1,5 +1,6 @@
 package wang.yanjiong.metamate.core.ctl;
 
+import one.kii.summer.context.io.ReadContext;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,17 @@ public class VisitExtensionCtl {
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
-        return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(requestId, visitorId, ownerId, group, name, tree));
+        ReadContext context = new ReadContext();
+        context.setRequestId(requestId);
+        context.setVisitorId(visitorId);
+        context.setOwnerId(ownerId);
+
+        VisitExtensionApi.Form form = new VisitExtensionApi.Form();
+        form.setGroup(group);
+        form.setName(name);
+        form.setTree(tree);
+
+        return ErestResponse.ok(requestId, api.readExtensionByGroupNameVersion(context, form));
     }
 
 
@@ -39,7 +50,17 @@ public class VisitExtensionCtl {
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name) {
-        return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(requestId, visitorId, ownerId, group, name));
+
+        ReadContext context = new ReadContext();
+        context.setRequestId(requestId);
+        context.setVisitorId(visitorId);
+        context.setOwnerId(ownerId);
+
+        VisitExtensionApi.SimpleForm form = new VisitExtensionApi.SimpleForm();
+        form.setGroup(group);
+        form.setName(name);
+
+        return ErestResponse.ok(requestId, api.readExtensionByGroupNameVersion(context, form));
     }
 
     @RequestMapping(value = "/{ownerId}/extension/{group}", method = RequestMethod.GET)
@@ -48,6 +69,15 @@ public class VisitExtensionCtl {
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group) {
-        return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(requestId, visitorId, ownerId, group));
+
+        ReadContext context = new ReadContext();
+        context.setRequestId(requestId);
+        context.setVisitorId(visitorId);
+        context.setOwnerId(ownerId);
+
+        VisitExtensionApi.TinyForm form = new VisitExtensionApi.TinyForm();
+        form.setGroup(group);
+
+        return ErestResponse.ok(requestId, api.readExtensionByGroupNameVersion(context, form));
     }
 }

@@ -2,6 +2,7 @@ package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.context.exception.BadRequest;
 import one.kii.summer.context.exception.Conflict;
+import one.kii.summer.context.io.WriteContext;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,12 @@ public class DeclareExtensionCtl {
             @ModelAttribute DeclareExtensionApi.Form form) {
 
         try {
-            form.setGroup(requestId);
-            form.setOperatorId(operatorId);
-            form.setOwnerId(ownerId);
-            return ErestResponse.created(requestId, api.declareExtension(form));
+            WriteContext context = new WriteContext();
+            context.setRequestId(requestId);
+            context.setOperatorId(operatorId);
+            context.setOwnerId(ownerId);
+
+            return ErestResponse.created(requestId, api.declareExtension(context, form));
         } catch (BadRequest badRequest) {
             return ErestResponse.badRequest(requestId, badRequest.getMessage());
         } catch (Conflict conflict) {

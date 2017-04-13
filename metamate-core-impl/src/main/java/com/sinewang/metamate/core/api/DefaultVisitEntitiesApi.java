@@ -1,5 +1,7 @@
 package com.sinewang.metamate.core.api;
 
+import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.context.io.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import wang.yanjiong.metamate.core.api.VisitEntitiesApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
@@ -27,27 +29,20 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
-    public Map<String, Object> readInstancesByGroupNameVersion(
-            String requestId,
-            String visitorId,
-            String ownerId,
-            String group) {
-        return readInstancesByGroupNameVersion(requestId, visitorId, ownerId, group, NAME_DEFAULT, TREE_MASTER);
+    public Map<String, Object> readInstancesByGroup(ReadContext context, SimpleForm simpleForm) {
+        Form form = DataTools.copy(simpleForm, Form.class);
+        form.setName(NAME_DEFAULT);
+        form.setTree(TREE_MASTER);
+        return readInstancesByGroupNameTree(context, form);
     }
 
     @Override
-    public Map<String, Object> readInstancesByGroupNameVersion(
-            String requestId,
-            String visitorId,
-            String ownerId,
-            String group,
-            String name,
-            String tree) {
+    public Map<String, Object> readInstancesByGroupNameTree(ReadContext context, Form form) {
 
-        String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(ownerId, group, name, tree);
+        String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
 
         String rootExtId = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(
-                ownerId, group, name, tree);
+                context.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
 
         List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(subId);
 

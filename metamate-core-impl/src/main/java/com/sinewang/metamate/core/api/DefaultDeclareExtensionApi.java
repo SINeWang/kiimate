@@ -3,6 +3,7 @@ package com.sinewang.metamate.core.api;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.context.exception.BadRequest;
 import one.kii.summer.context.exception.Conflict;
+import one.kii.summer.context.io.WriteContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     private AnVisibilityValidator visibilityValidator;
 
     @Override
-    public Receipt declareExtension(Form form) throws BadRequest, Conflict {
+    public Receipt declareExtension(WriteContext context, Form form) throws BadRequest, Conflict {
 
         AnExtensionExtractor.Extension extension = extensionExtractor.extract(form);
 

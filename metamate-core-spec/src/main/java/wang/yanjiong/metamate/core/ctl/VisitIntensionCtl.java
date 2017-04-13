@@ -1,5 +1,6 @@
 package wang.yanjiong.metamate.core.ctl;
 
+import one.kii.summer.context.io.ReadContext;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,18 @@ public class VisitIntensionCtl {
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
-        return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(requestId, visitorId, ownerId, group, name, tree));
+
+        ReadContext context = new ReadContext();
+        context.setRequestId(requestId);
+        context.setVisitorId(visitorId);
+        context.setOwnerId(ownerId);
+
+        VisitIntensionsApi.Form form = new VisitIntensionsApi.Form();
+
+        form.setGroup(group);
+        form.setName(name);
+        form.setTree(tree);
+
+        return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(context, form));
     }
 }

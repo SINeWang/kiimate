@@ -3,6 +3,8 @@ package wang.yanjiong.metamate.core.api;
 import com.sinewang.metamate.core.dai.mapper.ModelPublicationMapper;
 import one.kii.summer.context.exception.BadRequest;
 import one.kii.summer.context.exception.Conflict;
+import one.kii.summer.context.io.ReadContext;
+import one.kii.summer.context.io.WriteContext;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -136,16 +138,19 @@ public class TestSnapshotModelApi {
         SnapshotModelApi.Form form = new SnapshotModelApi.Form();
         form.setVersion(version);
         form.setProviderId(providerId);
+        form.setGroup(group);
         modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
+
+
+        WriteContext context = new WriteContext();
+        context.setRequestId(requestId);
+        context.setOperatorId(operatorId);
+        context.setOwnerId(ownerId);
+
 
         SnapshotModelApi.Receipt receipt = null;
         try {
-            receipt = snapshotModelApi.snapshot(
-                    requestId,
-                    operatorId,
-                    ownerId,
-                    group,
-                    form);
+            receipt = snapshotModelApi.snapshot(context, form);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
@@ -159,13 +164,16 @@ public class TestSnapshotModelApi {
         Assert.assertEquals(ownerId, receipt.getOwnerId());
         Assert.assertEquals(providerId, receipt.getProviderId());
 
-        Map<String, Object> map = visitExtensionApi.readIntensionsByGroupNameVersion(
-                visitorId,
-                ownerId,
-                group,
-                name,
-                tree
-        );
+        ReadContext readContext = new ReadContext();
+
+        readContext.setOwnerId(ownerId);
+        readContext.setVisitorId(visitorId);
+        readContext.setRequestId(requestId);
+
+        VisitExtensionApi.Form form1 = new VisitExtensionApi.Form();
+        form1.setGroup(group);
+
+        Map<String, Object> map = visitExtensionApi.readExtensionByGroupNameVersion(readContext, form1);
 
         Assert.assertNotNull(map);
     }

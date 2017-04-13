@@ -3,6 +3,7 @@ package wang.yanjiong.metamate.core.api;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import one.kii.summer.context.exception.Conflict;
+import one.kii.summer.context.io.WriteContext;
 
 /**
  * Created by WangYanJiong on 26/03/2017.
@@ -10,11 +11,7 @@ import one.kii.summer.context.exception.Conflict;
 public interface DeclareIntensionApi {
 
 
-    Receipt declareIntension(
-            String requestId,
-            String operatorId,
-            String ownerId,
-            Form form) throws Conflict;
+    Receipt declareIntension(WriteContext context, Form form) throws Conflict;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

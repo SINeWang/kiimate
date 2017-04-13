@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import one.kii.summer.context.exception.BadRequest;
 import one.kii.summer.context.exception.Conflict;
+import one.kii.summer.context.io.WriteContext;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -12,17 +13,11 @@ import one.kii.summer.context.exception.Conflict;
 public interface DeclareExtensionApi {
 
 
-    Receipt declareExtension(Form form) throws BadRequest, Conflict;
+    Receipt declareExtension(WriteContext context, Form form) throws BadRequest, Conflict;
 
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Form {
-
-        String requestId;
-
-        String operatorId;
-
-        String ownerId;
 
         private String group;
 

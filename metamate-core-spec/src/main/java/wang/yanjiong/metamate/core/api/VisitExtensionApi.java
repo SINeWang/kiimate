@@ -1,5 +1,8 @@
 package wang.yanjiong.metamate.core.api;
 
+import lombok.Data;
+import one.kii.summer.context.io.ReadContext;
+
 import java.util.Map;
 
 /**
@@ -14,24 +17,27 @@ public interface VisitExtensionApi {
 
     String VISIBILITY_PUBLIC = "public";
 
-    Map<String, Object> readIntensionsByGroupNameVersion(
-            String requestId,
-            String visitorId,
-            String ownerId,
-            String group,
-            String name,
-            String tree);
+    Map<String, Object> readExtensionByGroupNameVersion(ReadContext context, Form form);
 
-    Map<String, Object> readIntensionsByGroupNameVersion(
-            String requestId,
-            String visitorId,
-            String ownerId,
-            String group,
-            String name);
+    Map<String, Object> readExtensionByGroupNameVersion(ReadContext context, SimpleForm form);
 
-    Map<String, Object> readIntensionsByGroupNameVersion(
-            String requestId,
-            String visitorId,
-            String ownerId,
-            String group);
+    Map<String, Object> readExtensionByGroupNameVersion(ReadContext context, TinyForm form);
+
+    @Data
+    class Form {
+        String group;
+        String name;
+        String tree;
+    }
+
+    @Data
+    class SimpleForm {
+        String group;
+        String name;
+    }
+
+    @Data
+    class TinyForm {
+        String group;
+    }
 }

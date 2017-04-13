@@ -91,7 +91,7 @@ public class TestDeclareIntensionApi {
 //        Assert.assertEquals(field, receipt.getField());
 //        Assert.assertEquals(id, receipt.getId());
 //
-//        ResponseEntity<VisitIntensionsApi.Extension> extsionResponse = visitIntensionsApi.readIntensionsByGroupNameVersion(
+//        ResponseEntity<VisitIntensionsApi.Extension> extsionResponse = visitIntensionsApi.readExtensionByGroupNameVersion(
 //                ownerId,
 //                visitorId,
 //                group,

@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.context.exception.Conflict;
+import one.kii.summer.context.io.WriteContext;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,12 @@ public class DeclareIntensionCtl {
             @PathVariable("ownerId") String ownerId,
             @ModelAttribute DeclareIntensionApi.Form form) {
         try {
-            return ErestResponse.created(requestId, api.declareIntension(requestId, operatorId, ownerId, form));
+            WriteContext context = new WriteContext();
+            context.setRequestId(requestId);
+            context.setOperatorId(operatorId);
+            context.setOwnerId(ownerId);
+
+            return ErestResponse.created(requestId, api.declareIntension(context, form));
         } catch (Conflict conflict) {
             return ErestResponse.conflict(requestId, conflict.getKey());
         }

@@ -2,9 +2,8 @@ package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.context.exception.Conflict;
-import one.kii.summer.erest.ErestResponse;
+import one.kii.summer.context.io.WriteContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import wang.yanjiong.metamate.core.api.SubscribeModelApi;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
@@ -22,20 +21,16 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
-    public Receipt subscribe(
-            String requestId,
-            String operatorId,
-            String subscriberId,
-            Form form) throws Conflict {
+    public Receipt subscribe(WriteContext context, Form form) throws Conflict {
 
         AnSubscribeModelExtractor.ModelSubscription modelSubscription = subscribeModelExtractor.extract(
-                form, subscriberId, operatorId, TREE_MASTER);
+                form, context.getOwnerId(), context.getOperatorId(), TREE_MASTER);
 
         ModelSubscriptionDai.ModelSubscription subscription = DataTools.copy(modelSubscription, ModelSubscriptionDai.ModelSubscription.class);
 
         try {
             modelSubscriptionDai.save(subscription);
-            return  DataTools.copy(modelSubscription, Receipt.class);
+            return DataTools.copy(modelSubscription, Receipt.class);
         } catch (ModelSubscriptionDai.DuplicatedSubscription duplicatedSubscription) {
             throw new Conflict(subscription.getId());
         }

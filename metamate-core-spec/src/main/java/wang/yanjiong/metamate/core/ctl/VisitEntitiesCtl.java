@@ -1,5 +1,6 @@
 package wang.yanjiong.metamate.core.ctl;
 
+import one.kii.summer.context.io.ReadContext;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,17 @@ public class VisitEntitiesCtl {
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
-        return ErestResponse.ok(requestId, api.readInstancesByGroupNameVersion(requestId, visitorId, ownerId, group, name, tree));
+
+        ReadContext context = new ReadContext();
+        context.setRequestId(requestId);
+        context.setVisitorId(visitorId);
+        context.setOwnerId(ownerId);
+
+        VisitEntitiesApi.Form form = new VisitEntitiesApi.Form();
+        form.setTree(tree);
+        form.setGroup(group);
+        form.setName(name);
+        return ErestResponse.ok(requestId, api.readInstancesByGroupNameTree(context, form));
     }
 
     @RequestMapping(value = "/{ownerId}/entities/{group}", method = RequestMethod.GET)
@@ -37,6 +48,14 @@ public class VisitEntitiesCtl {
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group) {
-        return ErestResponse.ok(requestId, api.readInstancesByGroupNameVersion(requestId, visitorId, ownerId, group));
+
+        ReadContext context = new ReadContext();
+        context.setRequestId(requestId);
+        context.setVisitorId(visitorId);
+        context.setOwnerId(ownerId);
+
+        VisitEntitiesApi.SimpleForm form = new VisitEntitiesApi.SimpleForm();
+        form.setGroup(group);
+        return ErestResponse.ok(requestId, api.readInstancesByGroup(context, form));
     }
 }

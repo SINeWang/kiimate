@@ -4,6 +4,7 @@ import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
 import one.kii.summer.context.exception.BadRequest;
 import one.kii.summer.context.exception.Conflict;
+import one.kii.summer.context.io.WriteContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,15 +45,9 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
     private AnExtensionExtractor extensionExtractor;
 
 
-    public Receipt snapshot(
-            String requestId,
-            String operatorId,
-            String ownerId,
-            String group,
-            Form form) throws BadRequest, Conflict {
+    public Receipt snapshot(WriteContext context, Form form) throws BadRequest, Conflict {
 
-
-        List<ExtensionDai.Extension> extensions = extensionDai.selectExtensionsByOwnerGroup(ownerId, group);
+        List<ExtensionDai.Extension> extensions = extensionDai.selectExtensionsByOwnerGroup(context.getOwnerId(), form.getGroup());
         List<ModelPublicationDai.Publication> publications = new ArrayList<>();
         List<IntensionDai.Intension> allIntensions = new ArrayList<>();
 
@@ -60,9 +55,9 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
         List<String> ids = new ArrayList<>();
         for (ExtensionDai.Extension extension : extensions) {
             AnPublicationExtractor.Publication snapshot;
-            String extId = extensionExtractor.hashId(ownerId, group, extension.getName(), TREE_MASTER, VISIBILITY_PUBLIC);
+            String extId = extensionExtractor.hashId(context.getOwnerId(), form.getGroup(), extension.getName(), TREE_MASTER, VISIBILITY_PUBLIC);
             try {
-                snapshot = publicationExtractor.extractSnapshot(form, extId, operatorId, date);
+                snapshot = publicationExtractor.extractSnapshot(form, extId, context.getOperatorId(), date);
             } catch (AnPublicationExtractor.MissingParamException e) {
                 throw new BadRequest(e.getMessage());
             }
@@ -93,7 +88,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
         } catch (ModelPublicationDai.DuplicatedPublication duplicatedPublication) {
             Receipt receipt = DataTools.copy(duplicatedPublication, Receipt.class);
             receipt.setVersion(form.getVersion());
-            receipt.setOwnerId(ownerId);
+            receipt.setOwnerId(context.getOwnerId());
             throw new Conflict(pubSetHash);
         }
 
@@ -109,7 +104,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
         receipt.setProviderId(form.getProviderId());
 
-        receipt.setOwnerId(ownerId);
+        receipt.setOwnerId(context.getOwnerId());
 
         receipt.setPubSetHash(pubSetHash);
 

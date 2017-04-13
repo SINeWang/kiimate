@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.context.exception.NotFound;
+import one.kii.summer.context.io.WriteContext;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,19 @@ public class SaveInstanceCtl {
             @PathVariable("tree") String tree,
             @RequestParam MultiValueMap<String, String> map) {
         try {
-            return ErestResponse.created(requestId, api.saveInstance(requestId, operatorId, ownerId, group, name, tree, map));
+
+            WriteContext context = new WriteContext();
+            context.setRequestId(requestId);
+            context.setOperatorId(operatorId);
+            context.setOwnerId(ownerId);
+
+            SaveInstanceApi.Form form = new SaveInstanceApi.Form();
+            form.setGroup(group);
+            form.setName(name);
+            form.setTree(tree);
+            form.setMap(map);
+
+            return ErestResponse.created(requestId, api.saveInstance(context, form));
         } catch (NotFound notFound) {
             return ErestResponse.notFound(requestId, notFound.getKey());
         }

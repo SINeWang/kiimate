@@ -2,6 +2,7 @@ package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.context.exception.BadRequest;
 import one.kii.summer.context.exception.Conflict;
+import one.kii.summer.context.io.WriteContext;
 import one.kii.summer.erest.ErestHeaders;
 import one.kii.summer.erest.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,14 @@ public class SnapshotModelCtl {
             @PathVariable("group") String group,
             @ModelAttribute SnapshotModelApi.Form form) {
         try {
-            return ErestResponse.created(requestId, api.snapshot(requestId, operatorId, ownerId, group, form));
+
+            WriteContext context = new WriteContext();
+            context.setRequestId(requestId);
+            context.setOperatorId(operatorId);
+            context.setOwnerId(ownerId);
+
+            form.setGroup(group);
+            return ErestResponse.created(requestId, api.snapshot(context, form));
         } catch (BadRequest badRequest) {
             return ErestResponse.badRequest(requestId, badRequest.getMessage());
         } catch (Conflict conflict) {

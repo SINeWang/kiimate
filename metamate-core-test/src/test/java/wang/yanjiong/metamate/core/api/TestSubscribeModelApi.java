@@ -2,6 +2,7 @@ package wang.yanjiong.metamate.core.api;
 
 import com.sinewang.metamate.core.dai.mapper.ModelSubscriptionMapper;
 import one.kii.summer.context.exception.Conflict;
+import one.kii.summer.context.io.WriteContext;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,14 +62,15 @@ public class TestSubscribeModelApi {
 
         form.setGroup(group);
         form.setName(name);
+
+        WriteContext context = new WriteContext();
+        context.setRequestId(requestId);
+        context.setOperatorId(operatorId);
+        context.setOwnerId(subscriberId);
+
         SubscribeModelApi.Receipt receipt = null;
         try {
-            receipt = subscribeModelApi.subscribe(
-                    requestId,
-                    operatorId,
-                    subscriberId,
-                    form
-            );
+            receipt = subscribeModelApi.subscribe(context, form);
         } catch (Conflict conflict) {
             conflict.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.context.io.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import wang.yanjiong.metamate.core.api.VisitIntensionsApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
@@ -22,15 +23,9 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
 
     @Override
-    public Extension readIntensionsByGroupNameVersion(
-            String requestId,
-            String visitorId,
-            String ownerId,
-            String group,
-            String name,
-            String tree) {
+    public Extension readIntensionsByGroupNameVersion(ReadContext context, Form form) {
 
-        String extId = anExtensionExtractor.hashId(ownerId, group, name, tree, VISIBILITY_PUBLIC);
+        String extId = anExtensionExtractor.hashId(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree(), VISIBILITY_PUBLIC);
         Extension extension = new Extension();
         extension.setExtId(extId);
 

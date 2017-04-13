@@ -5,6 +5,8 @@ import com.sinewang.metamate.core.dai.mapper.IntensionMapper;
 import com.sinewang.metamate.core.dai.mapper.ModelPublicationMapper;
 import com.sinewang.metamate.core.dai.mapper.ModelSubscriptionMapper;
 import one.kii.summer.context.exception.NotFound;
+import one.kii.summer.context.io.ReadContext;
+import one.kii.summer.context.io.WriteContext;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -150,28 +152,36 @@ public class TestSaveInstanceApi {
         map.put(keyB, Arrays.asList(valueOfB));
         List<SaveInstanceApi.Instance> instances = null;
         try {
-            instances = saveInstanceApi.saveInstance(
-                    requestId,
-                    operatorId,
-                    ownerId,
-                    group,
-                    name,
-                    tree
-                    , map
+            WriteContext context = new WriteContext();
+            context.setRequestId(requestId);
+            context.setOperatorId(operatorId);
+            context.setOwnerId(ownerId);
 
-            ).getInstances();
+            SaveInstanceApi.Form form = new SaveInstanceApi.Form();
+            form.setMap(map);
+            form.setGroup(group);
+            form.setName(name);
+            form.setTree(tree);
+
+            instances = saveInstanceApi.saveInstance(context, form).getInstances();
         } catch (NotFound notFound) {
             notFound.printStackTrace();
         }
 
         Assert.assertEquals(3, instances.size());
 
+        ReadContext context = new ReadContext();
+        context.setRequestId(requestId);
+        context.setVisitorId(visitorId);
+        context.setOwnerId(ownerId);
 
-        Map<String, Object> instancesMap = visitEntitiesApi.readInstancesByGroupNameVersion(
-                requestId, visitorId,
-                ownerId,
-                group, name, tree
-        );
+        VisitEntitiesApi.Form form = new VisitEntitiesApi.Form();
+
+        form.setName(name);
+        form.setGroup(group);
+        form.setTree(tree);
+
+        Map<String, Object> instancesMap = visitEntitiesApi.readInstancesByGroupNameTree(context, form);
 
         for (String key : instancesMap.keySet()) {
             if (key.equals(keyB)) {
