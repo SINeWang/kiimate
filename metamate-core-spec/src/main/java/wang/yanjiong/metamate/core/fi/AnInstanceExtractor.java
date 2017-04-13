@@ -1,6 +1,7 @@
 package wang.yanjiong.metamate.core.fi;
 
 import lombok.Data;
+import one.kii.summer.context.io.WriteContext;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Map;
  */
 public interface AnInstanceExtractor {
 
-    List<Instance> extract(String ownerId, String subId, String operatorId, Map<String, List<String>> values, Map<String, IntensionDai.Intension> dict);
+    List<Instance> extract(WriteContext context, String subId, Map<String, List<String>> values, Map<String, IntensionDai.Intension> dict);
 
 
     @Data

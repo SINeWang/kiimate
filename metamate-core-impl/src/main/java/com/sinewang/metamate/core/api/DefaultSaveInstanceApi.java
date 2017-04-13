@@ -56,8 +56,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
                 context.getOwnerId(), form.getGroup(), form.getName(), form.getTree()
         );
 
-        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(
-                context.getOwnerId(), subId, context.getOperatorId(), form.getMap(), dict);
+        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, subId, form.getMap(), dict);
 
         List<InstanceDai.Instances> instances1 = DataTools.copy(instances, InstanceDai.Instances.class);
 

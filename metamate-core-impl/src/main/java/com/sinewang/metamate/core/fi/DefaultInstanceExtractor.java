@@ -1,7 +1,9 @@
 package com.sinewang.metamate.core.fi;
 
 import com.google.common.base.CaseFormat;
+import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
+import one.kii.summer.context.io.WriteContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
 
 
     @Override
-    public List<Instance> extract(String ownerId, String subId, String operatorId, Map<String, List<String>> map, Map<String, IntensionDai.Intension> fieldDict) {
+    public List<Instance> extract(WriteContext context, String subId, Map<String, List<String>> map, Map<String, IntensionDai.Intension> fieldDict) {
         List<Instance> instances = new ArrayList<>();
 
         for (String field : map.keySet()) {
@@ -37,18 +39,16 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
             String intId = intension.getId();
 
             String[] values = cleanUpValues(map.get(field).toArray(new String[0]));
-            String id = HashTools.hashHex(intId, ownerId);
+            String id = HashTools.hashHex(intId, context.getOwnerId());
             String[] both = StringUtils.mergeStringArrays(new String[]{id}, values);
             id = HashTools.hashHex(both);
-            Instance instance = new Instance();
+            Instance instance = DataTools.copy(context, Instance.class);
             instance.setId(id);
-            instance.setOwnerId(ownerId);
             instance.setSubId(subId);
             instance.setExtId(intension.getExtId());
             instance.setIntId(intId);
             instance.setField(dictField);
             instance.setValues(values);
-            instance.setOperatorId(operatorId);
             instances.add(instance);
         }
         return instances;
