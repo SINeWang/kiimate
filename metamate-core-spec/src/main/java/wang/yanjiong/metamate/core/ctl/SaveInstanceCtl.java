@@ -1,5 +1,6 @@
 package wang.yanjiong.metamate.core.ctl;
 
+import one.kii.summer.context.exception.Conflict;
 import one.kii.summer.context.exception.NotFound;
 import one.kii.summer.context.io.WriteContext;
 import one.kii.summer.context.io.WriteController;
@@ -46,6 +47,8 @@ public class SaveInstanceCtl extends WriteController {
             return ErestResponse.created(requestId, api.saveInstance(context, form));
         } catch (NotFound notFound) {
             return ErestResponse.notFound(requestId, notFound.getKey());
+        } catch (Conflict conflict) {
+            return ErestResponse.conflict(requestId, conflict.getKey());
         }
     }
 

@@ -1,6 +1,7 @@
 package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.context.exception.Conflict;
 import one.kii.summer.context.exception.NotFound;
 import one.kii.summer.context.io.WriteContext;
 import org.slf4j.Logger;
@@ -40,7 +41,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    public Receipt saveInstance(WriteContext context, Form form) throws NotFound {
+    public Receipt saveInstance(WriteContext context, Form form) throws NotFound, Conflict {
 
         String rootExtId = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(
                 context.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
@@ -63,7 +64,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
         try {
             instanceDai.insertInstances(instances1);
         } catch (InstanceDai.InstanceDuplicated instanceDuplicated) {
-            logger.error("instanceDuplicated", instanceDuplicated);
+            throw new Conflict(subId);
         }
 
 

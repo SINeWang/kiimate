@@ -4,6 +4,7 @@ import com.sinewang.metamate.core.dai.mapper.InstanceMapper;
 import com.sinewang.metamate.core.dai.mapper.IntensionMapper;
 import com.sinewang.metamate.core.dai.mapper.ModelPublicationMapper;
 import com.sinewang.metamate.core.dai.mapper.ModelSubscriptionMapper;
+import one.kii.summer.context.exception.Conflict;
 import one.kii.summer.context.exception.NotFound;
 import one.kii.summer.context.io.ReadContext;
 import one.kii.summer.context.io.WriteContext;
@@ -166,6 +167,8 @@ public class TestSaveInstanceApi {
             instances = saveInstanceApi.saveInstance(context, form).getInstances();
         } catch (NotFound notFound) {
             notFound.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
         }
 
         Assert.assertEquals(3, instances.size());

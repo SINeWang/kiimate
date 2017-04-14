@@ -2,6 +2,7 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import one.kii.summer.context.exception.Conflict;
 import one.kii.summer.context.exception.NotFound;
 import one.kii.summer.context.io.WriteContext;
 import org.springframework.util.MultiValueMap;
@@ -19,7 +20,7 @@ public interface SaveInstanceApi {
     Receipt saveInstance(
             WriteContext context,
             Form form
-    ) throws NotFound;
+    ) throws NotFound, Conflict;
 
     @Data
     class Form {
