@@ -1,6 +1,7 @@
 package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.SubscribeModelSpi;
+import one.kii.summer.context.exception.*;
 import one.kii.summer.erest.ErestPost;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,11 +41,24 @@ public class DefaultSubscribeModelSpi implements SubscribeModelSpi {
     }
 
     @Override
-    public Receipt subscribe(Form form) {
+    public Receipt subscribe(Form form) throws Panic {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(operatorId);
         logger.info("url:{}, variables:{}", url, form.getSubscriberId());
-        return erest.execute(url, form, Receipt.class, form.getSubscriberId());
+        try {
+            return erest.execute(url, form, Receipt.class, form.getSubscriberId());
+        } catch (Forbidden forbidden) {
+            forbidden.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
+        } catch (NotFound notFound) {
+            notFound.printStackTrace();
+        } catch (Panic panic) {
+            panic.printStackTrace();
+        } catch (BadRequest badRequest) {
+            badRequest.printStackTrace();
+        }
+        throw new Panic();
     }
 }

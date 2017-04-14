@@ -1,5 +1,6 @@
 package one.kii.statemate.core.spi;
 
+import one.kii.summer.context.exception.Panic;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,11 @@ public class TestSaveStateSpi {
         form.setGroup("test-sub-group");
         form.setName("default");
         form.setObject(conf);
-        saveStateSpi.save(form);
+        try {
+            saveStateSpi.save(form);
+        } catch (Panic panic) {
+            panic.printStackTrace();
+        }
     }
 
     class DataSource {

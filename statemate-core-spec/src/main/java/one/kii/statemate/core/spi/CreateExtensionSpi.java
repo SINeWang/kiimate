@@ -1,13 +1,14 @@
 package one.kii.statemate.core.spi;
 
 import lombok.Data;
+import one.kii.summer.context.exception.Panic;
 
 /**
  * Created by WangYanJiong on 4/7/17.
  */
 public interface CreateExtensionSpi {
 
-    Receipt createMasterPublicExtension(Form form);
+    Receipt createMasterPublicExtension(Form form) throws Panic;
 
     @Data
     class Form {

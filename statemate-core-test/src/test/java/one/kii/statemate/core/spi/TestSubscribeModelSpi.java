@@ -1,5 +1,6 @@
 package one.kii.statemate.core.spi;
 
+import one.kii.summer.context.exception.Panic;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +37,12 @@ public class TestSubscribeModelSpi {
         form.setGroup("testSubMultiValueGroup");
         form.setName("default");
         form.setPubSetHash("1ef3725c9ddc304a6489d35918637f85fb45415c85857f9e48d0385585e710db");
-        SubscribeModelSpi.Receipt receipt =  subscribeModelSpi.subscribe(form);
+        SubscribeModelSpi.Receipt receipt = null;
+        try {
+            receipt = subscribeModelSpi.subscribe(form);
+        } catch (Panic panic) {
+            panic.printStackTrace();
+        }
         Assert.assertNotNull(receipt);
     }
 }

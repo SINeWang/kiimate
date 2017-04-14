@@ -1,13 +1,14 @@
 package one.kii.statemate.core.spi;
 
 import lombok.Data;
+import one.kii.summer.context.exception.Panic;
 
 /**
  * Created by WangYanJiong on 09/04/2017.
  */
 public interface SubscribeModelSpi {
 
-    Receipt subscribe(Form form);
+    Receipt subscribe(Form form) throws Panic;
 
     @Data
     class Form {

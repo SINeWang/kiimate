@@ -1,6 +1,9 @@
 package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.ReadExtensionSpi;
+import one.kii.summer.context.exception.BadRequest;
+import one.kii.summer.context.exception.NotFound;
+import one.kii.summer.context.exception.Panic;
 import one.kii.summer.erest.ErestGetBasic;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -32,21 +35,37 @@ public class DefaultReadExtensionSpi implements ReadExtensionSpi {
     }
 
     @Override
-    public String readMasterExtension(GroupForm form) {
+    public String readMasterExtension(GroupForm form) throws Panic {
         String url = baseUrl + URI;
 
         ErestGetBasic erest = new ErestGetBasic(visitorId);
-        return erest.execute(url, String.class, ownerId, form.getGroup(), NAME_ROOT, TREE);
-
+        try {
+            return erest.execute(url, String.class, ownerId, form.getGroup(), NAME_ROOT, TREE);
+        } catch (NotFound notFound) {
+            notFound.printStackTrace();
+        } catch (BadRequest badRequest) {
+            badRequest.printStackTrace();
+        } catch (Panic panic) {
+            panic.printStackTrace();
+        }
+        throw new Panic();
     }
 
     @Override
-    public String readMasterExtension(GroupNameForm form) {
+    public String readMasterExtension(GroupNameForm form) throws Panic {
         String url = baseUrl + URI;
 
         ErestGetBasic erest = new ErestGetBasic(visitorId);
 
-        return erest.execute(url, String.class, ownerId, form.getGroup(), form.getName(), TREE);
-
+        try {
+            return erest.execute(url, String.class, ownerId, form.getGroup(), form.getName(), TREE);
+        } catch (NotFound notFound) {
+            notFound.printStackTrace();
+        } catch (BadRequest badRequest) {
+            badRequest.printStackTrace();
+        } catch (Panic panic) {
+            panic.printStackTrace();
+        }
+        throw new Panic();
     }
 }

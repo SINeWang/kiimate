@@ -1,5 +1,6 @@
 package one.kii.statemate.core.spi;
 
+import one.kii.summer.context.exception.Panic;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +41,12 @@ public class TestCreateMultiValueModelSpi {
         CreateModelSpi.Form form = new CreateModelSpi.Form();
         form.setGroup(group);
         form.setKlass(ThisIsAMultiValueSpringBootConfiguration.class);
-        CreateModelSpi.Receipt receipt = createModelSpi.createModel(form);
+        CreateModelSpi.Receipt receipt = null;
+        try {
+            receipt = createModelSpi.createModel(form);
+        } catch (Panic panic) {
+            panic.printStackTrace();
+        }
 
         Assert.assertNotNull(receipt);
 
@@ -48,7 +54,12 @@ public class TestCreateMultiValueModelSpi {
 
         form2.setGroup(group);
 
-        String extensionJson = readExtensionSpi.readMasterExtension(form2);
+        String extensionJson = null;
+        try {
+            extensionJson = readExtensionSpi.readMasterExtension(form2);
+        } catch (Panic panic) {
+            panic.printStackTrace();
+        }
 
         Assert.assertNotNull(extensionJson);
     }

@@ -1,6 +1,7 @@
 package one.kii.statemate.core.spi;
 
 import lombok.Data;
+import one.kii.summer.context.exception.Panic;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ public interface CreateModelSpi {
 
     String NAME_ROOT = "root";
 
-    <T> Receipt createModel(Form<T> form);
+    <T> Receipt createModel(Form<T> form) throws Panic;
 
     @Data
     class Form<T> {

@@ -2,15 +2,16 @@ package one.kii.statemate.core.spi;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import one.kii.summer.context.exception.Panic;
 
 /**
  * Created by WangYanJiong on 4/7/17.
  */
 public interface CreateIntensionSpi {
 
-    String createPublicPrimitiveIntension(PrimitiveIntensionForm form);
+    String createPublicPrimitiveIntension(PrimitiveIntensionForm form) throws Panic;
 
-    String createPublicImportIntension(ImportIntensionForm form);
+    String createPublicImportIntension(ImportIntensionForm form) throws Panic;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

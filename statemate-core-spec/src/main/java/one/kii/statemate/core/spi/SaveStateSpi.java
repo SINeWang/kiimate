@@ -1,6 +1,7 @@
 package one.kii.statemate.core.spi;
 
 import lombok.Data;
+import one.kii.summer.context.exception.Panic;
 
 /**
  * Created by WangYanJiong on 4/7/17.
@@ -8,7 +9,7 @@ import lombok.Data;
 public interface SaveStateSpi {
 
 
-    <T> void save(Form<T> form);
+    <T> void save(Form<T> form) throws Panic;
 
     @Data
     class Form<T> {

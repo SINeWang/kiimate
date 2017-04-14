@@ -3,6 +3,7 @@ package com.sinewang.statemate.core.spi;
 import one.kii.statemate.core.spi.CreateExtensionSpi;
 import one.kii.statemate.core.spi.CreateIntensionSpi;
 import one.kii.statemate.core.spi.CreateModelSpi;
+import one.kii.summer.context.exception.Panic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class DefaultCreateModelSpi implements CreateModelSpi {
     @Autowired
     private CreateIntensionSpi createIntensionSpi;
 
-    private <T> Receipt createModel(String ownerId, String group, String name, Class<T> klass) {
+    private <T> Receipt createModel(String ownerId, String group, String name, Class<T> klass) throws Panic {
         if (String.class.getName().equals(klass.getName()) || klass.isPrimitive()) {
             throw new IllegalArgumentException("Class is ILLEGAL:" + klass.getName());
         }
@@ -92,7 +93,7 @@ public class DefaultCreateModelSpi implements CreateModelSpi {
 
 
     @Override
-    public <T> Receipt createModel(Form<T> form) {
+    public <T> Receipt createModel(Form<T> form) throws Panic {
         return createModel(form.getOwnerId(), form.getGroup(), NAME_ROOT, form.getKlass());
     }
 

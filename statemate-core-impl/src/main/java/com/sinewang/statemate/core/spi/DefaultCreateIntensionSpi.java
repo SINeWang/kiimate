@@ -1,6 +1,7 @@
 package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.CreateIntensionSpi;
+import one.kii.summer.context.exception.*;
 import one.kii.summer.erest.ErestPost;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
     }
 
     @Override
-    public String createPublicPrimitiveIntension(PrimitiveIntensionForm form) {
+    public String createPublicPrimitiveIntension(PrimitiveIntensionForm form) throws Panic {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(form.getOwnerId());
@@ -40,12 +41,19 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
         map.put("single", toList(String.valueOf(form.isSingle())));
         map.put("structure", toList(form.getStructure()));
         map.put("visibility", toList(VISIBILITY_PUBLIC));
-        IntensionReceipt receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
-        return receipt.getId();
+        IntensionReceipt receipt = null;
+        try {
+            receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
+            return receipt.getId();
+        } catch (Conflict conflict) {
+            return conflict.getKey();
+        } catch (BadRequest | NotFound | Forbidden | Panic panic) {
+            throw new Panic();
+        }
     }
 
     @Override
-    public String createPublicImportIntension(ImportIntensionForm form) {
+    public String createPublicImportIntension(ImportIntensionForm form) throws Panic {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(form.getOwnerId());
@@ -57,8 +65,21 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
         map.put("structure", toList(form.getStructure()));
         map.put("refExtId", toList(form.getRefExtId()));
         map.put("visibility", toList(VISIBILITY_PUBLIC));
-        IntensionReceipt receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
-        return receipt.getExtId();
+        try {
+            IntensionReceipt receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
+            return receipt.getExtId();
+        } catch (Panic panic) {
+            panic.printStackTrace();
+        } catch (BadRequest badRequest) {
+            badRequest.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
+        } catch (NotFound notFound) {
+            notFound.printStackTrace();
+        } catch (Forbidden forbidden) {
+            forbidden.printStackTrace();
+        }
+        throw new Panic();
     }
 
     private List<String> toList(String string) {

@@ -1,6 +1,7 @@
 package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.SaveStateSpi;
+import one.kii.summer.context.exception.*;
 import one.kii.summer.erest.ErestPost;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -35,7 +36,7 @@ public class DefaultSaveStateSpi implements SaveStateSpi {
     }
 
     @Override
-    public <T> void save(Form<T> form) {
+    public <T> void save(Form<T> form) throws Panic {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         extractAsMap(form.getObject(), map);
         saveInstance(form.getOwnerId(), form.getGroup(), form.getName(), map);
@@ -85,10 +86,23 @@ public class DefaultSaveStateSpi implements SaveStateSpi {
         }
     }
 
-    private void saveInstance(String ownerId, String group, String name, MultiValueMap<String, String> map) {
+    private void saveInstance(String ownerId, String group, String name, MultiValueMap<String, String> map) throws Panic {
         String url = baseUrl + URI;
         ErestPost erestPost = new ErestPost(operatorId);
 
-        erestPost.execute(url, map, Receipt.class, ownerId, group, name, TREE);
+        try {
+            erestPost.execute(url, map, Receipt.class, ownerId, group, name, TREE);
+        } catch (Panic panic) {
+            panic.printStackTrace();
+        } catch (BadRequest badRequest) {
+            badRequest.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
+        } catch (NotFound notFound) {
+            notFound.printStackTrace();
+        } catch (Forbidden forbidden) {
+            forbidden.printStackTrace();
+        }
+        throw new Panic();
     }
 }
