@@ -2,8 +2,8 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.context.exception.Conflict;
-import one.kii.summer.context.io.WriteContext;
+import one.kii.summer.io.context.WriteContext;
+import one.kii.summer.io.exception.Conflict;
 
 /**
  * Created by WangYanJiong on 26/03/2017.

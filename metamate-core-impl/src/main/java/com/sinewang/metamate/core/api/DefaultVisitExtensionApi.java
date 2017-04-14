@@ -1,6 +1,6 @@
 package com.sinewang.metamate.core.api;
 
-import one.kii.summer.context.io.ReadContext;
+import one.kii.summer.io.context.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

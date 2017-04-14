@@ -2,7 +2,7 @@ package one.kii.statemate.core.spi;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.context.exception.Panic;
+import one.kii.summer.io.exception.Panic;
 
 /**
  * Created by WangYanJiong on 4/7/17.

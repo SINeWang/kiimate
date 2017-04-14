@@ -1,8 +1,8 @@
 package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.CreateIntensionSpi;
-import one.kii.summer.context.exception.*;
-import one.kii.summer.erest.ErestPost;
+import one.kii.summer.io.exception.*;
+import one.kii.summer.io.sender.ErestPost;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -68,18 +68,11 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
         try {
             IntensionReceipt receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
             return receipt.getExtId();
-        } catch (Panic panic) {
-            panic.printStackTrace();
-        } catch (BadRequest badRequest) {
-            badRequest.printStackTrace();
         } catch (Conflict conflict) {
-            conflict.printStackTrace();
-        } catch (NotFound notFound) {
-            notFound.printStackTrace();
-        } catch (Forbidden forbidden) {
-            forbidden.printStackTrace();
+            return conflict.getKey();
+        } catch (BadRequest | NotFound | Forbidden | Panic panic) {
+            throw new Panic();
         }
-        throw new Panic();
     }
 
     private List<String> toList(String string) {

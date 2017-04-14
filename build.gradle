@@ -17,7 +17,7 @@ ext {
     junitVersion = '4.12'
     mybatisSpringBootStarterVerison = "1.2.0"
     mysqlConnectorVersion = '5.1.41'
-    summerVersion = '0.2.10-SNAPSHOT'
+    summerVersion = '0.3.0-SNAPSHOT'
     servletApiVersion = '3.1.0'
     jacksondatabindVersion = '2.8.7'
     guavaVersion = '21.0'
@@ -71,9 +71,7 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
 
         compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
 
-        compile group: "one.kii.summer", name: "summer-erest", version: "${summerVersion}", changing: true
-        compile group: "one.kii.summer", name: "summer-context", version: "${summerVersion}", changing: true
-
+        compile group: "one.kii.summer", name: "summer-io", version: "${summerVersion}", changing: true
 
         compile("org.springframework:spring-tx:${springFrameworkVersion}")
         compile("org.springframework:spring-web:${springFrameworkVersion}")
@@ -99,8 +97,8 @@ configure(subprojects.findAll { it.name.endsWith("impl") }) {
 
         compile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-codec", version: "${summerVersion}", changing: true
-        compile group: "one.kii.summer", name: "summer-context", version: "${summerVersion}", changing: true
-        compile group: "one.kii.summer", name: "summer-erest", version: "${summerVersion}", changing: true
+        compile group: "one.kii.summer", name: "summer-io", version: "${summerVersion}", changing: true
+
 
         compile "com.google.guava:guava:${guavaVersion}"
 
@@ -134,7 +132,7 @@ configure(subprojects.findAll { it.name.endsWith("test") }) {
 
         testCompile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
         testCompile group: "one.kii.summer", name: "summer-codec", version: "${summerVersion}", changing: true
-        testCompile group: "one.kii.summer", name: "summer-erest", version: "${summerVersion}", changing: true
+        testCompile group: "one.kii.summer", name: "summer-io", version: "${summerVersion}", changing: true
 
 
         compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisSpringBootStarterVerison}")

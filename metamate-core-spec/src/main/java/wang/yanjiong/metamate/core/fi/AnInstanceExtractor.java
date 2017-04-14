@@ -1,7 +1,7 @@
 package wang.yanjiong.metamate.core.fi;
 
 import lombok.Data;
-import one.kii.summer.context.io.WriteContext;
+import one.kii.summer.io.context.WriteContext;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 
 import java.util.List;

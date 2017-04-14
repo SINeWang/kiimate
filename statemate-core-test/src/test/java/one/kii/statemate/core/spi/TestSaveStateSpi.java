@@ -1,6 +1,6 @@
 package one.kii.statemate.core.spi;
 
-import one.kii.summer.context.exception.Panic;
+import one.kii.summer.io.exception.Panic;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

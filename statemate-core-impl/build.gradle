@@ -1,7 +1,5 @@
 dependencies {
     compile project(":statemate-core-spec")
-
-    compile "one.kii.summer:summer-erest:${summerVersion}"
 }
 
 bootRepackage {

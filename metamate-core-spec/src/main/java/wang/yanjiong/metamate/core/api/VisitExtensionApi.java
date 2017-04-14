@@ -1,7 +1,7 @@
 package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
-import one.kii.summer.context.io.ReadContext;
+import one.kii.summer.io.context.ReadContext;
 
 import java.util.Map;
 

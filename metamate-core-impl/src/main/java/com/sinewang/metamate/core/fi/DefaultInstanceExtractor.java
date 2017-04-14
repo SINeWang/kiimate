@@ -3,7 +3,7 @@ package com.sinewang.metamate.core.fi;
 import com.google.common.base.CaseFormat;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
-import one.kii.summer.context.io.WriteContext;
+import one.kii.summer.io.context.WriteContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

@@ -3,7 +3,7 @@ package com.sinewang.statemate.core.spi;
 import one.kii.statemate.core.spi.CreateExtensionSpi;
 import one.kii.statemate.core.spi.CreateIntensionSpi;
 import one.kii.statemate.core.spi.CreateModelSpi;
-import one.kii.summer.context.exception.Panic;
+import one.kii.summer.io.exception.Panic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

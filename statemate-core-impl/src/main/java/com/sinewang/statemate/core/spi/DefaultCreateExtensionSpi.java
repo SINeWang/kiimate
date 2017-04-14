@@ -1,8 +1,8 @@
 package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.CreateExtensionSpi;
-import one.kii.summer.context.exception.*;
-import one.kii.summer.erest.ErestPost;
+import one.kii.summer.io.exception.*;
+import one.kii.summer.io.sender.ErestPost;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;

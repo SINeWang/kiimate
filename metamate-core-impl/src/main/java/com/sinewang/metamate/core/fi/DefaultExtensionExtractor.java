@@ -3,10 +3,13 @@ package com.sinewang.metamate.core.fi;
 import com.google.common.base.CaseFormat;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
-import one.kii.summer.context.exception.BadRequest;
+import one.kii.summer.io.exception.BadRequest;
 import org.springframework.stereotype.Service;
 import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
 import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 25/03/2017.
@@ -17,17 +20,22 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
     @Override
     public Extension extract(DeclareExtensionApi.Form form) throws BadRequest {
 
+        List<String> fields = new ArrayList<>();
+
         if (form.getGroup() == null || form.getGroup().isEmpty()) {
-            throw new BadRequest("group");
+            fields.add("group");
         }
         if (form.getName() == null || form.getName().isEmpty()) {
-            throw new BadRequest("name");
+            fields.add("name");
         }
         if (form.getTree() == null || form.getTree().isEmpty()) {
-            throw new BadRequest("tree");
+            fields.add("tree");
         }
         if (form.getVisibility() == null || form.getVisibility().isEmpty()) {
-            throw new BadRequest("visibility");
+            fields.add("visibility");
+        }
+        if (!fields.isEmpty()) {
+            throw new BadRequest(fields.toArray(new String[0]));
         }
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
         form.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getName()));

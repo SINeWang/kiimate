@@ -2,9 +2,9 @@ package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.context.exception.Conflict;
-import one.kii.summer.context.exception.NotFound;
-import one.kii.summer.context.io.WriteContext;
+import one.kii.summer.io.context.WriteContext;
+import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 import org.springframework.util.MultiValueMap;
 
 import java.util.List;
@@ -17,10 +17,7 @@ public interface SaveInstanceApi {
 
     String TREE_MASTER = "master";
 
-    Receipt saveInstance(
-            WriteContext context,
-            Form form
-    ) throws NotFound, Conflict;
+    Receipt saveInstance(WriteContext context, Form form) throws NotFound, Conflict;
 
     @Data
     class Form {

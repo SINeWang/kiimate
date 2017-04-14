@@ -1,6 +1,6 @@
 package one.kii.statemate.core.spi;
 
-import one.kii.summer.context.exception.Panic;
+import one.kii.summer.io.exception.Panic;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,8 +31,8 @@ public class TestSubscribeModelSpi {
     private SubscribeModelSpi subscribeModelSpi;
 
     @Test
-    public void test(){
-        SubscribeModelSpi.Form form  = new SubscribeModelSpi.Form();
+    public void test() {
+        SubscribeModelSpi.Form form = new SubscribeModelSpi.Form();
         form.setSubscriberId("wangyj");
         form.setGroup("testSubMultiValueGroup");
         form.setName("default");

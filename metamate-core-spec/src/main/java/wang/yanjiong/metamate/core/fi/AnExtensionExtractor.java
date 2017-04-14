@@ -1,7 +1,7 @@
 package wang.yanjiong.metamate.core.fi;
 
 import lombok.Data;
-import one.kii.summer.context.exception.BadRequest;
+import one.kii.summer.io.exception.BadRequest;
 import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
 
 /**
