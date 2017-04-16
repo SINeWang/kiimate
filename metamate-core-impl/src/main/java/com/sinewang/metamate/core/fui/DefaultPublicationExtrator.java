@@ -11,6 +11,7 @@ import java.util.Date;
 /**
  * Created by WangYanJiong on 05/04/2017.
  */
+
 @Component
 public class DefaultPublicationExtrator implements AnPublicationExtractor {
 

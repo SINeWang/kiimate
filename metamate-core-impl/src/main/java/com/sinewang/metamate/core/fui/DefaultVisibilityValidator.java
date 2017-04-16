@@ -1,12 +1,14 @@
 package com.sinewang.metamate.core.fui;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.fui.AnVisibilityValidator;
 
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
-@Service
+
+
+@Component
 public class DefaultVisibilityValidator implements AnVisibilityValidator {
 
     @Override

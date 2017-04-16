@@ -6,7 +6,7 @@ import one.kii.summer.codec.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fui.AnInstanceExtractor;
@@ -19,7 +19,8 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 3/27/17.
  */
-@Service
+
+@Component
 public class DefaultInstanceExtractor implements AnInstanceExtractor {
 
     private static Logger logger = LoggerFactory.getLogger(DefaultInstanceExtractor.class);

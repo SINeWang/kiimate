@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 
 import java.util.Date;
@@ -15,7 +15,7 @@ import java.util.List;
  * Created by WangYanJiong on 3/27/17.
  */
 
-@Service
+@Component
 public class DefaultIntensionDai implements IntensionDai {
 
     private final Logger logger = LoggerFactory.getLogger(DefaultIntensionDai.class);

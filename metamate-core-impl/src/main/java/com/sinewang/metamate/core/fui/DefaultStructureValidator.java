@@ -1,19 +1,19 @@
 package com.sinewang.metamate.core.fui;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.fui.AnStructureValidator;
 
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
 
-@Service
+@Component
 public class DefaultStructureValidator implements AnStructureValidator {
 
 
     @Override
     public boolean isValid(String structure) {
-        if(structure == null){
+        if (structure == null) {
             return false;
         }
         try {

@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 05/04/2017.
  */
+
 @Component
 public class DefaultModelPublicationDai implements ModelPublicationDai {
 

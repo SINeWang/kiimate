@@ -4,7 +4,7 @@ import com.google.common.base.CaseFormat;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
 import one.kii.summer.io.exception.BadRequest;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
 import wang.yanjiong.metamate.core.fui.AnExtensionExtractor;
 
@@ -14,7 +14,8 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 25/03/2017.
  */
-@Service
+
+@Component
 public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
     @Override

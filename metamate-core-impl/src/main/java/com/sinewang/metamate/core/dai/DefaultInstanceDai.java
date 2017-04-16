@@ -4,7 +4,7 @@ import com.sinewang.metamate.core.dai.mapper.InstanceMapper;
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 
 import java.util.Arrays;
@@ -14,7 +14,8 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 3/27/17.
  */
-@Service
+
+@Component
 public class DefaultInstanceDai implements InstanceDai {
 
     @Autowired

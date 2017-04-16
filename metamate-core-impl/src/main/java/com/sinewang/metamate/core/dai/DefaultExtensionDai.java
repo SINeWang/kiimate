@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * Created by WangYanJiong on 3/23/17.
  */
 
-@Service
+@Component
 public class DefaultExtensionDai implements ExtensionDai {
 
     private final Logger logger = LoggerFactory.getLogger(DefaultExtensionDai.class);
