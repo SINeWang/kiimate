@@ -25,7 +25,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     @Override
     public Map<String, Object> readExtensionByGroupNameVersion(ReadContext context, Form form) {
         String extId = extensionExtractor.hashId(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree(), VISIBILITY_PUBLIC);
-        return modelRestorer.fullRestoreAsMap(extId);
+        return modelRestorer.restoreAsMetaData(extId);
     }
 
 
@@ -33,12 +33,12 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     public Map<String, Object> readExtensionByGroupNameVersion(ReadContext context, TinyForm form) {
 
         String extId = extensionExtractor.hashId(context.getOwnerId(), form.getGroup(), NAME_ROOT, TREE_MASTER, VISIBILITY_PUBLIC);
-        return modelRestorer.fullRestoreAsMap(extId);
+        return modelRestorer.restoreAsMetaData(extId);
     }
 
     @Override
     public Map<String, Object> readExtensionByGroupNameVersion(ReadContext context, SimpleForm form) {
         String extId = extensionExtractor.hashId(context.getOwnerId(), form.getGroup(), form.getName(), TREE_MASTER, VISIBILITY_PUBLIC);
-        return modelRestorer.fullRestoreAsMap(extId);
+        return modelRestorer.restoreAsMetaData(extId);
     }
 }

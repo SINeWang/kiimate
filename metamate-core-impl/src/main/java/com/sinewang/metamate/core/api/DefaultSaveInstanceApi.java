@@ -50,7 +50,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             throw new NotFound(rootExtId);
         }
 
-        Map<String, IntensionDai.Intension> dict = modelRestorer.restoreAsFieldDict(rootExtId);
+        Map<String, IntensionDai.Intension> dict = modelRestorer.restoreAsIntensionDict(rootExtId);
 
         String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(
                 context.getOwnerId(), form.getGroup(), form.getName(), form.getTree()

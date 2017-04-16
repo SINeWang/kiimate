@@ -24,7 +24,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
         return list;
     }
 
-    public Map<String, Object> fullRestoreAsMap(String extId) {
+    public Map<String, Object> restoreAsMetaData(String extId) {
         if (extId == null) {
             return Collections.emptyMap();
         }
@@ -34,9 +34,9 @@ public class DefaultModelRestorer implements AnModelRestorer {
             String refExtId = intension.getRefExtId();
             if (refExtId != null) {
                 if (intension.isSingle()) {
-                    model.put(intension.getField(), fullRestoreAsMap(refExtId));
+                    model.put(intension.getField(), restoreAsMetaData(refExtId));
                 } else {
-                    model.put(intension.getField(), toArray(fullRestoreAsMap(refExtId)));
+                    model.put(intension.getField(), toArray(restoreAsMetaData(refExtId)));
                 }
             } else {
                 if (intension.isSingle()) {
@@ -49,7 +49,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
         return model;
     }
 
-    public Map<String, IntensionDai.Intension> restoreAsFieldDict(String extId) {
+    public Map<String, IntensionDai.Intension> restoreAsIntensionDict(String extId) {
         Map<String, IntensionDai.Intension> map = new HashMap<>();
         restoreAsFieldDict(extId, map);
         return map;

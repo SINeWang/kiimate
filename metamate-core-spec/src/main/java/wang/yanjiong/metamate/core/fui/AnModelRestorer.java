@@ -9,7 +9,7 @@ import java.util.Map;
  */
 public interface AnModelRestorer {
 
-    Map<String, Object> fullRestoreAsMap(String extId);
+    Map<String, Object> restoreAsMetaData(String extId);
 
-    Map<String, IntensionDai.Intension> restoreAsFieldDict(String extId);
+    Map<String, IntensionDai.Intension> restoreAsIntensionDict(String extId);
 }
