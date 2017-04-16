@@ -20,7 +20,7 @@ import static wang.yanjiong.metamate.core.ctl.DeclareExtensionCtl.OWNER_ID;
  */
 
 @RestController
-@RequestMapping("/v1/" + OWNER_ID + "/extension")
+@RequestMapping("/v1/{" + OWNER_ID + "}/extension")
 public class DeclareExtensionCtl extends WriteController {
 
     public final static String OWNER_ID = "owner-id";
