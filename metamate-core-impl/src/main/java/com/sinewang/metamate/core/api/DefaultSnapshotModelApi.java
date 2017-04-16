@@ -12,9 +12,9 @@ import wang.yanjiong.metamate.core.api.SnapshotModelApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.dai.ModelPublicationDai;
-import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
-import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
-import wang.yanjiong.metamate.core.fi.AnPublicationValidator;
+import wang.yanjiong.metamate.core.fui.AnExtensionExtractor;
+import wang.yanjiong.metamate.core.fui.AnPublicationExtractor;
+import wang.yanjiong.metamate.core.fui.AnPublicationValidator;
 
 import java.util.ArrayList;
 import java.util.Arrays;

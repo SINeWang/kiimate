@@ -1,4 +1,4 @@
-package wang.yanjiong.metamate.core.fi;
+package wang.yanjiong.metamate.core.fui;
 
 import lombok.Data;
 import one.kii.summer.io.exception.BadRequest;

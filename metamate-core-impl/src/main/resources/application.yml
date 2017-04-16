@@ -21,9 +21,3 @@ spring:
     url: jdbc:mysql://home.sinewang.com/metamate?autoReconnect=true
     username: root
     password: wave
----
-spring:
-  profiles: prod
-  datasource:
-    url: jdbc:mysql://10.10.10.44:33307/metamate?autoReconnect=true
-    username: root

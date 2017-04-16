@@ -1,10 +1,10 @@
-package com.sinewang.metamate.core.fi;
+package com.sinewang.metamate.core.fui;
 
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.SnapshotModelApi;
-import wang.yanjiong.metamate.core.fi.AnPublicationExtractor;
-import wang.yanjiong.metamate.core.fi.AnPublicationValidator;
+import wang.yanjiong.metamate.core.fui.AnPublicationExtractor;
+import wang.yanjiong.metamate.core.fui.AnPublicationValidator;
 
 import java.util.Date;
 

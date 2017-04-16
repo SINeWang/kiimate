@@ -1,4 +1,4 @@
-package com.sinewang.metamate.core.fi;
+package com.sinewang.metamate.core.fui;
 
 import com.google.common.base.CaseFormat;
 import one.kii.summer.beans.utils.DataTools;
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
-import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
+import wang.yanjiong.metamate.core.fui.AnInstanceExtractor;
 
 import java.util.ArrayList;
 import java.util.List;

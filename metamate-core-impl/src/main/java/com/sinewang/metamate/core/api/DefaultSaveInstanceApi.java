@@ -12,8 +12,8 @@ import wang.yanjiong.metamate.core.api.SaveInstanceApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
-import wang.yanjiong.metamate.core.fi.AnInstanceExtractor;
-import wang.yanjiong.metamate.core.fi.AnModelRestorer;
+import wang.yanjiong.metamate.core.fui.AnInstanceExtractor;
+import wang.yanjiong.metamate.core.fui.AnModelRestorer;
 
 import java.util.ArrayList;
 import java.util.HashMap;

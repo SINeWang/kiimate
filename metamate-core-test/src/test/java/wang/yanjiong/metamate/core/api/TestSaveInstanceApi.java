@@ -21,7 +21,7 @@ import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import wang.yanjiong.metamate.core.fi.*;
+import wang.yanjiong.metamate.core.fui.*;
 
 import java.util.Arrays;
 import java.util.Date;

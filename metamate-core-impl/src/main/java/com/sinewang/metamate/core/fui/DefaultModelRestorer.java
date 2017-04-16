@@ -1,9 +1,9 @@
-package com.sinewang.metamate.core.fi;
+package com.sinewang.metamate.core.fui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
-import wang.yanjiong.metamate.core.fi.AnModelRestorer;
+import wang.yanjiong.metamate.core.fui.AnModelRestorer;
 
 import java.util.*;
 

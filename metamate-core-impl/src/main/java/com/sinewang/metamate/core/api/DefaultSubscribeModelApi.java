@@ -6,7 +6,7 @@ import one.kii.summer.io.exception.Conflict;
 import org.springframework.beans.factory.annotation.Autowired;
 import wang.yanjiong.metamate.core.api.SubscribeModelApi;
 import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
-import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
+import wang.yanjiong.metamate.core.fui.AnSubscribeModelExtractor;
 
 /**
  * Created by WangYanJiong on 4/6/17.

@@ -5,7 +5,7 @@ import one.kii.summer.io.context.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import wang.yanjiong.metamate.core.api.VisitIntensionsApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
-import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
+import wang.yanjiong.metamate.core.fui.AnExtensionExtractor;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package com.sinewang.metamate.core.fi;
+package com.sinewang.metamate.core.fui;
 
 import org.springframework.stereotype.Component;
-import wang.yanjiong.metamate.core.fi.AnPublicationValidator;
-import wang.yanjiong.metamate.core.fi.AnStructureValidator;
+import wang.yanjiong.metamate.core.fui.AnPublicationValidator;
+import wang.yanjiong.metamate.core.fui.AnStructureValidator;
 
 /**
  * Created by WangYanJiong on 05/04/2017.

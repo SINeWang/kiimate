@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
-import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
-import wang.yanjiong.metamate.core.fi.AnVisibilityValidator;
+import wang.yanjiong.metamate.core.fui.AnExtensionExtractor;
+import wang.yanjiong.metamate.core.fui.AnVisibilityValidator;
 
 /**
  * Created by WangYanJiong on 3/24/17.

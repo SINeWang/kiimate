@@ -18,10 +18,10 @@ import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
-import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
-import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
-import wang.yanjiong.metamate.core.fi.AnStructureValidator;
-import wang.yanjiong.metamate.core.fi.AnVisibilityValidator;
+import wang.yanjiong.metamate.core.fui.AnExtensionExtractor;
+import wang.yanjiong.metamate.core.fui.AnIntensionExtractor;
+import wang.yanjiong.metamate.core.fui.AnStructureValidator;
+import wang.yanjiong.metamate.core.fui.AnVisibilityValidator;
 
 import java.util.List;
 import java.util.Map;

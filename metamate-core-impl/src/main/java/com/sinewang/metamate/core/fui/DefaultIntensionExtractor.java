@@ -1,11 +1,11 @@
-package com.sinewang.metamate.core.fi;
+package com.sinewang.metamate.core.fui;
 
 import com.google.common.base.CaseFormat;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.stereotype.Service;
 import wang.yanjiong.metamate.core.api.DeclareIntensionApi;
-import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
+import wang.yanjiong.metamate.core.fui.AnIntensionExtractor;
 
 /**
  * Created by WangYanJiong on 25/03/2017.

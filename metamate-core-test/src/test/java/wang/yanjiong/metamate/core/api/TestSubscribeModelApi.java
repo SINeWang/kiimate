@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
+import wang.yanjiong.metamate.core.fui.AnSubscribeModelExtractor;
 
 /**
  * Created by WangYanJiong on 4/6/17.

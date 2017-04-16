@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.DeclareIntensionApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
-import wang.yanjiong.metamate.core.fi.AnIntensionExtractor;
+import wang.yanjiong.metamate.core.fui.AnIntensionExtractor;
 
 /**
  * Created by WangYanJiong on 3/27/17.

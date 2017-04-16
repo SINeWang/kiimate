@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
-import wang.yanjiong.metamate.core.fi.AnVisibilityValidator;
+import wang.yanjiong.metamate.core.fui.AnVisibilityValidator;
 
 /**
  * Created by WangYanJiong on 3/24/17.

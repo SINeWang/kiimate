@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import wang.yanjiong.metamate.core.api.VisitExtensionApi;
-import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
-import wang.yanjiong.metamate.core.fi.AnModelRestorer;
+import wang.yanjiong.metamate.core.fui.AnExtensionExtractor;
+import wang.yanjiong.metamate.core.fui.AnModelRestorer;
 
 import java.util.Map;
 

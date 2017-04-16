@@ -1,10 +1,10 @@
-package com.sinewang.metamate.core.fi;
+package com.sinewang.metamate.core.fui;
 
 import com.google.common.base.CaseFormat;
 import one.kii.summer.codec.utils.HashTools;
 import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.SubscribeModelApi;
-import wang.yanjiong.metamate.core.fi.AnSubscribeModelExtractor;
+import wang.yanjiong.metamate.core.fui.AnSubscribeModelExtractor;
 
 /**
  * Created by WangYanJiong on 4/6/17.

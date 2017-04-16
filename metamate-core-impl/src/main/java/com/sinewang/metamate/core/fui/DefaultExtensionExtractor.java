@@ -1,4 +1,4 @@
-package com.sinewang.metamate.core.fi;
+package com.sinewang.metamate.core.fui;
 
 import com.google.common.base.CaseFormat;
 import one.kii.summer.beans.utils.DataTools;
@@ -6,7 +6,7 @@ import one.kii.summer.codec.utils.HashTools;
 import one.kii.summer.io.exception.BadRequest;
 import org.springframework.stereotype.Service;
 import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
-import wang.yanjiong.metamate.core.fi.AnExtensionExtractor;
+import wang.yanjiong.metamate.core.fui.AnExtensionExtractor;
 
 import java.util.ArrayList;
 import java.util.List;
