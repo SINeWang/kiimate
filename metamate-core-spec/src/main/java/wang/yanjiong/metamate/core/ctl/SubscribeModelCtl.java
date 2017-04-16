@@ -1,10 +1,10 @@
 package wang.yanjiong.metamate.core.ctl;
 
+import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.WriteController;
-import one.kii.summer.io.sender.ErestHeaders;
-import one.kii.summer.io.sender.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +34,7 @@ public class SubscribeModelCtl extends WriteController {
 
             return ErestResponse.created(requestId, api.subscribe(context, form));
         } catch (Conflict conflict) {
-            return ErestResponse.conflict(requestId, conflict.getKey());
+            return ErestResponse.conflict(requestId, conflict.getKeys()[0]);
         }
     }
 }

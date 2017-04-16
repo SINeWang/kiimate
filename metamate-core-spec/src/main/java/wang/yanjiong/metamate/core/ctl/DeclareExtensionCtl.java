@@ -42,7 +42,7 @@ public class DeclareExtensionCtl extends WriteController {
         } catch (BadRequest badRequest) {
             return ErestResponse.badRequest(requestId, badRequest.getFields());
         } catch (Conflict conflict) {
-            return ErestResponse.conflict(requestId, conflict.getKey());
+            return ErestResponse.conflict(requestId, conflict.getKeys()[0]);
         }
     }
 

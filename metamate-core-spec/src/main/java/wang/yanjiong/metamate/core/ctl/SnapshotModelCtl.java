@@ -1,11 +1,11 @@
 package wang.yanjiong.metamate.core.ctl;
 
+import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.WriteController;
-import one.kii.summer.io.sender.ErestHeaders;
-import one.kii.summer.io.sender.ErestResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,9 +38,9 @@ public class SnapshotModelCtl extends WriteController {
             form.setGroup(group);
             return ErestResponse.created(requestId, api.snapshot(context, form));
         } catch (BadRequest badRequest) {
-            return ErestResponse.badRequest(requestId, badRequest.getMessage());
+            return ErestResponse.badRequest(requestId, badRequest.getFields());
         } catch (Conflict conflict) {
-            return ErestResponse.badRequest(requestId, conflict.getKey());
+            return ErestResponse.conflict(requestId, conflict.getKeys()[0]);
         }
     }
 }
