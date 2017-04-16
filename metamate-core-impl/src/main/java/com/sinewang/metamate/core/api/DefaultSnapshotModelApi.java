@@ -6,8 +6,7 @@ import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.SnapshotModelApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
@@ -25,8 +24,7 @@ import java.util.List;
  * Created by WangYanJiong on 05/04/2017.
  */
 
-@RestController
-@RequestMapping("/v1")
+@Component
 public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
     @Autowired

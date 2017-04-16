@@ -4,8 +4,7 @@ import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.DeclareIntensionApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fui.AnIntensionExtractor;
@@ -14,8 +13,7 @@ import wang.yanjiong.metamate.core.fui.AnIntensionExtractor;
  * Created by WangYanJiong on 3/27/17.
  */
 
-@RestController
-@RequestMapping("/v1")
+@Component
 public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
 
 

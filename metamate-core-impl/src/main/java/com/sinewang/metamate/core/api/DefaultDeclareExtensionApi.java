@@ -4,9 +4,9 @@ import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.fui.AnExtensionExtractor;
@@ -15,8 +15,8 @@ import wang.yanjiong.metamate.core.fui.AnVisibilityValidator;
 /**
  * Created by WangYanJiong on 3/24/17.
  */
-@RestController
-@RequestMapping("/v1")
+
+@Component
 public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
 
 
@@ -48,6 +48,11 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             throw new Conflict(extension.getId());
         }
+    }
+
+    @Override
+    public CancelReceipt cancel(WriteContext context, CancelForm form) throws BadRequest, NotFound {
+        return null;
     }
 
 

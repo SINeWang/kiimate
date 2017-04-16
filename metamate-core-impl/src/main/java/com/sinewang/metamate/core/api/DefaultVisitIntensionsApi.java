@@ -3,6 +3,7 @@ package com.sinewang.metamate.core.api;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.io.context.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.VisitIntensionsApi;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fui.AnExtensionExtractor;
@@ -13,6 +14,7 @@ import java.util.List;
  * Created by WangYanJiong on 3/27/17.
  */
 
+@Component
 public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
     @Autowired

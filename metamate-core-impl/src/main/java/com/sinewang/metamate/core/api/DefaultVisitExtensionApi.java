@@ -2,8 +2,7 @@ package com.sinewang.metamate.core.api;
 
 import one.kii.summer.io.context.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.VisitExtensionApi;
 import wang.yanjiong.metamate.core.fui.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fui.AnModelRestorer;
@@ -13,8 +12,8 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 4/5/17.
  */
-@RestController
-@RequestMapping("/v1")
+
+@Component
 public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
     @Autowired

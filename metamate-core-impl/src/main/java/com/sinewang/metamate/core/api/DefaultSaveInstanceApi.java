@@ -7,7 +7,7 @@ import one.kii.summer.io.exception.NotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.SaveInstanceApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
@@ -23,7 +23,8 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 3/27/17.
  */
-@RestController
+
+@Component
 public class DefaultSaveInstanceApi implements SaveInstanceApi {
 
     private static final Logger logger = LoggerFactory.getLogger(DefaultSaveInstanceApi.class);

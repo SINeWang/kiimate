@@ -3,6 +3,7 @@ package com.sinewang.metamate.core.api;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.io.context.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.VisitEntitiesApi;
 import wang.yanjiong.metamate.core.dai.InstanceDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
@@ -17,6 +18,7 @@ import java.util.Map;
  * Created by WangYanJiong on 4/6/17.
  */
 
+@Component
 public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
 
     @Autowired
