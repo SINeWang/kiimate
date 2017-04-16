@@ -30,9 +30,9 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     private AnVisibilityValidator visibilityValidator;
 
     @Override
-    public Receipt declareExtension(WriteContext context, Form form) throws BadRequest, Conflict {
+    public CommitReceipt commit(WriteContext context, CommitForm commitForm) throws BadRequest, Conflict {
 
-        AnExtensionExtractor.Extension extension = extensionExtractor.extract(form);
+        AnExtensionExtractor.Extension extension = extensionExtractor.extract(commitForm);
 
 
         boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
@@ -44,7 +44,7 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
 
         try {
             extensionDai.insertExtension(daiExtension);
-            return DataTools.copy(daiExtension, Receipt.class);
+            return DataTools.copy(daiExtension, CommitReceipt.class);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             throw new Conflict(extension.getId());
         }

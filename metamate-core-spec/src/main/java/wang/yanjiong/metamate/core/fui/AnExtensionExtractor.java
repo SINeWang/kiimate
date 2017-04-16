@@ -9,7 +9,7 @@ import wang.yanjiong.metamate.core.api.DeclareExtensionApi;
  */
 public interface AnExtensionExtractor {
 
-    Extension extract(DeclareExtensionApi.Form form) throws BadRequest;
+    Extension extract(DeclareExtensionApi.CommitForm commitForm) throws BadRequest;
 
     String hashId(String ownerId, String group, String name, String tree, String visibility);
 

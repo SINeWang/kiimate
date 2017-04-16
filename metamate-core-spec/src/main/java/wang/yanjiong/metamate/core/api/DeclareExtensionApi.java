@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -13,11 +14,12 @@ import one.kii.summer.io.exception.Conflict;
 public interface DeclareExtensionApi {
 
 
-    Receipt declareExtension(WriteContext context, Form form) throws BadRequest, Conflict;
+    CommitReceipt commit(WriteContext context, CommitForm form) throws BadRequest, Conflict;
+
+    CancelReceipt cancel(WriteContext context, CancelForm form) throws BadRequest, NotFound;
 
     @Data
-    @EqualsAndHashCode(callSuper = false)
-    class Form {
+    class CommitForm {
 
         private String group;
 
@@ -29,8 +31,36 @@ public interface DeclareExtensionApi {
     }
 
     @Data
-    @EqualsAndHashCode(callSuper = false)
-    class Receipt {
+    class CommitReceipt {
+
+        private String id;
+
+        private String group;
+
+        private String name;
+
+        private String tree;
+
+        private String visibility;
+    }
+
+
+    @Data
+    class CancelForm {
+
+        private String id;
+
+        private String group;
+
+        private String name;
+
+        private String tree;
+
+        private String visibility;
+    }
+
+    @Data
+    class CancelReceipt {
 
         private String id;
 

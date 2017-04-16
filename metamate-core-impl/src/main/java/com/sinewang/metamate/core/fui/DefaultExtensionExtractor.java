@@ -18,30 +18,30 @@ import java.util.List;
 public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
     @Override
-    public Extension extract(DeclareExtensionApi.Form form) throws BadRequest {
+    public Extension extract(DeclareExtensionApi.CommitForm commitForm) throws BadRequest {
 
         List<String> fields = new ArrayList<>();
 
-        if (form.getGroup() == null || form.getGroup().isEmpty()) {
+        if (commitForm.getGroup() == null || commitForm.getGroup().isEmpty()) {
             fields.add("group");
         }
-        if (form.getName() == null || form.getName().isEmpty()) {
+        if (commitForm.getName() == null || commitForm.getName().isEmpty()) {
             fields.add("name");
         }
-        if (form.getTree() == null || form.getTree().isEmpty()) {
+        if (commitForm.getTree() == null || commitForm.getTree().isEmpty()) {
             fields.add("tree");
         }
-        if (form.getVisibility() == null || form.getVisibility().isEmpty()) {
+        if (commitForm.getVisibility() == null || commitForm.getVisibility().isEmpty()) {
             fields.add("visibility");
         }
         if (!fields.isEmpty()) {
             throw new BadRequest(fields.toArray(new String[0]));
         }
-        form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
-        form.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getName()));
-        form.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getTree()));
+        commitForm.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getGroup()));
+        commitForm.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getName()));
+        commitForm.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getTree()));
 
-        Extension extension = DataTools.copy(form, Extension.class);
+        Extension extension = DataTools.copy(commitForm, Extension.class);
         String id = hashExtension(extension);
         extension.setId(id);
         return extension;

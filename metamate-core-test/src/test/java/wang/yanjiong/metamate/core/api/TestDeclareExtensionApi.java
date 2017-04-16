@@ -38,17 +38,17 @@ public class TestDeclareExtensionApi {
 
     @Test
     public void testGroupOnly() {
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
-        form.setGroup("testGroup");
+        DeclareExtensionApi.CommitForm commitForm = new DeclareExtensionApi.CommitForm();
+        commitForm.setGroup("testGroup");
 
         WriteContext context = new WriteContext();
         context.setRequestId(requestId);
         context.setOperatorId(operatorId);
         context.setOwnerId(ownerId);
 
-        DeclareExtensionApi.Receipt response = null;
+        DeclareExtensionApi.CommitReceipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(context, form);
+            response = declareExtensionApi.commit(context, commitForm);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
@@ -59,17 +59,17 @@ public class TestDeclareExtensionApi {
 
     @Test
     public void testNameOnly() {
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
-        form.setName("testName");
+        DeclareExtensionApi.CommitForm commitForm = new DeclareExtensionApi.CommitForm();
+        commitForm.setName("testName");
 
         WriteContext context = new WriteContext();
         context.setRequestId(requestId);
         context.setOperatorId(operatorId);
         context.setOwnerId(ownerId);
 
-        DeclareExtensionApi.Receipt response = null;
+        DeclareExtensionApi.CommitReceipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(context, form);
+            response = declareExtensionApi.commit(context, commitForm);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
@@ -80,17 +80,17 @@ public class TestDeclareExtensionApi {
 
     @Test
     public void testVersionOnly() {
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
-        form.setTree("testTree");
+        DeclareExtensionApi.CommitForm commitForm = new DeclareExtensionApi.CommitForm();
+        commitForm.setTree("testTree");
 
         WriteContext context = new WriteContext();
         context.setRequestId(requestId);
         context.setOperatorId(operatorId);
         context.setOwnerId(ownerId);
 
-        DeclareExtensionApi.Receipt response = null;
+        DeclareExtensionApi.CommitReceipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(context, form);
+            response = declareExtensionApi.commit(context, commitForm);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
@@ -101,17 +101,17 @@ public class TestDeclareExtensionApi {
 
     @Test
     public void testVisibilityOnly() {
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
-        form.setVisibility("testVisibility");
+        DeclareExtensionApi.CommitForm commitForm = new DeclareExtensionApi.CommitForm();
+        commitForm.setVisibility("testVisibility");
 
         WriteContext context = new WriteContext();
         context.setRequestId(requestId);
         context.setOperatorId(operatorId);
         context.setOwnerId(ownerId);
 
-        DeclareExtensionApi.Receipt response = null;
+        DeclareExtensionApi.CommitReceipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(context, form);
+            response = declareExtensionApi.commit(context, commitForm);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
@@ -123,19 +123,19 @@ public class TestDeclareExtensionApi {
 
     @Test
     public void testInvalidStructure() {
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
-        form.setGroup("testGroup");
-        form.setName("testName");
-        form.setTree("testTree");
-        form.setVisibility("protected");
+        DeclareExtensionApi.CommitForm commitForm = new DeclareExtensionApi.CommitForm();
+        commitForm.setGroup("testGroup");
+        commitForm.setName("testName");
+        commitForm.setTree("testTree");
+        commitForm.setVisibility("protected");
         WriteContext context = new WriteContext();
         context.setRequestId(requestId);
         context.setOperatorId(operatorId);
         context.setOwnerId(ownerId);
 
-        DeclareExtensionApi.Receipt response = null;
+        DeclareExtensionApi.CommitReceipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(context, form);
+            response = declareExtensionApi.commit(context, commitForm);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
@@ -146,19 +146,19 @@ public class TestDeclareExtensionApi {
 
     @Test
     public void testInvalidVisibility() {
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
-        form.setGroup("testGroup");
-        form.setName("testName");
-        form.setTree("testTree");
-        form.setVisibility("testVisibility");
+        DeclareExtensionApi.CommitForm commitForm = new DeclareExtensionApi.CommitForm();
+        commitForm.setGroup("testGroup");
+        commitForm.setName("testName");
+        commitForm.setTree("testTree");
+        commitForm.setVisibility("testVisibility");
         WriteContext context = new WriteContext();
         context.setRequestId(requestId);
         context.setOperatorId(operatorId);
         context.setOwnerId(ownerId);
 
-        DeclareExtensionApi.Receipt response = null;
+        DeclareExtensionApi.CommitReceipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(context, form);
+            response = declareExtensionApi.commit(context, commitForm);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
@@ -173,20 +173,20 @@ public class TestDeclareExtensionApi {
         String name = "testName";
         String tree = "testTree";
 
-        DeclareExtensionApi.Form form = new DeclareExtensionApi.Form();
-        form.setGroup(group);
-        form.setName(name);
-        form.setTree(tree);
+        DeclareExtensionApi.CommitForm commitForm = new DeclareExtensionApi.CommitForm();
+        commitForm.setGroup(group);
+        commitForm.setName(name);
+        commitForm.setTree(tree);
 
         WriteContext context = new WriteContext();
         context.setRequestId(requestId);
         context.setOperatorId(operatorId);
         context.setOwnerId(ownerId);
 
-        form.setVisibility(AnVisibilityValidator.Visibility.PROTECTED.name());
-        DeclareExtensionApi.Receipt response = null;
+        commitForm.setVisibility(AnVisibilityValidator.Visibility.PROTECTED.name());
+        DeclareExtensionApi.CommitReceipt response = null;
         try {
-            response = declareExtensionApi.declareExtension(context, form);
+            response = declareExtensionApi.commit(context, commitForm);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
