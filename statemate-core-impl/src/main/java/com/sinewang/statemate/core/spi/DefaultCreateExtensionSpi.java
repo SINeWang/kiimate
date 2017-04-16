@@ -46,7 +46,7 @@ public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
             return erest.execute(url, map, Receipt.class, form.getOwnerId());
         } catch (Conflict conflict) {
             Receipt receipt = new Receipt();
-            receipt.setId(conflict.getKey());
+            receipt.setId(conflict.getKeys()[0]);
             return receipt;
         } catch (BadRequest | Forbidden | NotFound | Panic panic) {
             logger.error("", panic);

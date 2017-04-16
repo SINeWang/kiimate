@@ -46,7 +46,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
             receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
             return receipt.getId();
         } catch (Conflict conflict) {
-            return conflict.getKey();
+            return conflict.getKeys()[0];
         } catch (BadRequest | NotFound | Forbidden | Panic panic) {
             throw new Panic();
         }
@@ -69,7 +69,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
             IntensionReceipt receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
             return receipt.getExtId();
         } catch (Conflict conflict) {
-            return conflict.getKey();
+            return conflict.getKeys()[0];
         } catch (BadRequest | NotFound | Forbidden | Panic panic) {
             throw new Panic();
         }
