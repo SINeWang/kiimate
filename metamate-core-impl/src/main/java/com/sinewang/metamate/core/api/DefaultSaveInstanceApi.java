@@ -16,7 +16,6 @@ import wang.yanjiong.metamate.core.fui.AnInstanceExtractor;
 import wang.yanjiong.metamate.core.fui.AnModelRestorer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,8 +50,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
             throw new NotFound(rootExtId);
         }
 
-        Map<String, IntensionDai.Intension> dict = new HashMap<>();
-        modelRestorer.restoreAsFieldDict(rootExtId, dict);
+        Map<String, IntensionDai.Intension> dict = modelRestorer.restoreAsFieldDict(rootExtId);
 
         String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(
                 context.getOwnerId(), form.getGroup(), form.getName(), form.getTree()

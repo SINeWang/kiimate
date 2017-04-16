@@ -11,5 +11,5 @@ public interface AnModelRestorer {
 
     Map<String, Object> fullRestoreAsMap(String extId);
 
-    void restoreAsFieldDict(String extId, Map<String, IntensionDai.Intension> map);
+    Map<String, IntensionDai.Intension> restoreAsFieldDict(String extId);
 }

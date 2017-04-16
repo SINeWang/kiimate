@@ -49,7 +49,13 @@ public class DefaultModelRestorer implements AnModelRestorer {
         return model;
     }
 
-    public void restoreAsFieldDict(String extId, Map<String, IntensionDai.Intension> map) {
+    public Map<String, IntensionDai.Intension> restoreAsFieldDict(String extId) {
+        Map<String, IntensionDai.Intension> map = new HashMap<>();
+        restoreAsFieldDict(extId, map);
+        return map;
+    }
+
+    private void restoreAsFieldDict(String extId, Map<String, IntensionDai.Intension> map) {
         if (extId == null) {
             return;
         }
