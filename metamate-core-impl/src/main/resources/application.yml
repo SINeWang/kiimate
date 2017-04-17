@@ -18,6 +18,6 @@ spring:
 spring:
   profiles: home
   datasource:
-    url: jdbc:mysql://home.sinewang.com/metamate?autoReconnect=true
+    url: jdbc:mysql://mysql.sinewang.com/metamate?autoReconnect=true
     username: root
     password: wave
