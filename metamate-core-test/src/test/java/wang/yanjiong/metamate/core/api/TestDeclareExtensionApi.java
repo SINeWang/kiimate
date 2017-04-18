@@ -1,8 +1,8 @@
 package wang.yanjiong.metamate.core.api;
 
-import one.kii.summer.context.exception.BadRequest;
-import one.kii.summer.context.exception.Conflict;
-import one.kii.summer.context.io.WriteContext;
+import one.kii.summer.io.context.WriteContext;
+import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.Conflict;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,10 +41,7 @@ public class TestDeclareExtensionApi {
         DeclareExtensionApi.CommitForm commitForm = new DeclareExtensionApi.CommitForm();
         commitForm.setGroup("testGroup");
 
-        WriteContext context = new WriteContext();
-        context.setRequestId(requestId);
-        context.setOperatorId(operatorId);
-        context.setOwnerId(ownerId);
+        WriteContext context = new WriteContext(requestId, ownerId, operatorId);
 
         DeclareExtensionApi.CommitReceipt response = null;
         try {
@@ -62,10 +59,7 @@ public class TestDeclareExtensionApi {
         DeclareExtensionApi.CommitForm commitForm = new DeclareExtensionApi.CommitForm();
         commitForm.setName("testName");
 
-        WriteContext context = new WriteContext();
-        context.setRequestId(requestId);
-        context.setOperatorId(operatorId);
-        context.setOwnerId(ownerId);
+        WriteContext context = new WriteContext(requestId, ownerId, operatorId);
 
         DeclareExtensionApi.CommitReceipt response = null;
         try {
@@ -83,10 +77,7 @@ public class TestDeclareExtensionApi {
         DeclareExtensionApi.CommitForm commitForm = new DeclareExtensionApi.CommitForm();
         commitForm.setTree("testTree");
 
-        WriteContext context = new WriteContext();
-        context.setRequestId(requestId);
-        context.setOperatorId(operatorId);
-        context.setOwnerId(ownerId);
+        WriteContext context = new WriteContext(requestId, ownerId, operatorId);
 
         DeclareExtensionApi.CommitReceipt response = null;
         try {
@@ -104,10 +95,7 @@ public class TestDeclareExtensionApi {
         DeclareExtensionApi.CommitForm commitForm = new DeclareExtensionApi.CommitForm();
         commitForm.setVisibility("testVisibility");
 
-        WriteContext context = new WriteContext();
-        context.setRequestId(requestId);
-        context.setOperatorId(operatorId);
-        context.setOwnerId(ownerId);
+        WriteContext context = new WriteContext(requestId, ownerId, operatorId);
 
         DeclareExtensionApi.CommitReceipt response = null;
         try {
@@ -128,10 +116,8 @@ public class TestDeclareExtensionApi {
         commitForm.setName("testName");
         commitForm.setTree("testTree");
         commitForm.setVisibility("protected");
-        WriteContext context = new WriteContext();
-        context.setRequestId(requestId);
-        context.setOperatorId(operatorId);
-        context.setOwnerId(ownerId);
+
+        WriteContext context = new WriteContext(requestId, ownerId, operatorId);
 
         DeclareExtensionApi.CommitReceipt response = null;
         try {
@@ -151,10 +137,8 @@ public class TestDeclareExtensionApi {
         commitForm.setName("testName");
         commitForm.setTree("testTree");
         commitForm.setVisibility("testVisibility");
-        WriteContext context = new WriteContext();
-        context.setRequestId(requestId);
-        context.setOperatorId(operatorId);
-        context.setOwnerId(ownerId);
+
+        WriteContext context = new WriteContext(requestId, ownerId, operatorId);
 
         DeclareExtensionApi.CommitReceipt response = null;
         try {
@@ -178,10 +162,7 @@ public class TestDeclareExtensionApi {
         commitForm.setName(name);
         commitForm.setTree(tree);
 
-        WriteContext context = new WriteContext();
-        context.setRequestId(requestId);
-        context.setOperatorId(operatorId);
-        context.setOwnerId(ownerId);
+        WriteContext context = new WriteContext(requestId, ownerId, operatorId);
 
         commitForm.setVisibility(AnVisibilityValidator.Visibility.PROTECTED.name());
         DeclareExtensionApi.CommitReceipt response = null;

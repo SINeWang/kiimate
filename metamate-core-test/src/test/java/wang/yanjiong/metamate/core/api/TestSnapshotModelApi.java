@@ -1,10 +1,10 @@
 package wang.yanjiong.metamate.core.api;
 
 import com.sinewang.metamate.core.dai.mapper.ModelPublicationMapper;
-import one.kii.summer.context.exception.BadRequest;
-import one.kii.summer.context.exception.Conflict;
-import one.kii.summer.context.io.ReadContext;
-import one.kii.summer.context.io.WriteContext;
+import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.context.WriteContext;
+import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.Conflict;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -142,10 +142,7 @@ public class TestSnapshotModelApi {
         modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
 
 
-        WriteContext context = new WriteContext();
-        context.setRequestId(requestId);
-        context.setOperatorId(operatorId);
-        context.setOwnerId(ownerId);
+        WriteContext context = new WriteContext(requestId, ownerId, operatorId);
 
 
         SnapshotModelApi.Receipt receipt = null;
@@ -164,11 +161,8 @@ public class TestSnapshotModelApi {
         Assert.assertEquals(ownerId, receipt.getOwnerId());
         Assert.assertEquals(providerId, receipt.getProviderId());
 
-        ReadContext readContext = new ReadContext();
+        ReadContext readContext = new ReadContext(requestId, ownerId, operatorId);
 
-        readContext.setOwnerId(ownerId);
-        readContext.setVisitorId(visitorId);
-        readContext.setRequestId(requestId);
 
         VisitExtensionApi.Form form1 = new VisitExtensionApi.Form();
         form1.setGroup(group);

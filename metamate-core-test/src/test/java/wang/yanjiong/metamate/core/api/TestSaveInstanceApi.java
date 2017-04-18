@@ -4,10 +4,10 @@ import com.sinewang.metamate.core.dai.mapper.InstanceMapper;
 import com.sinewang.metamate.core.dai.mapper.IntensionMapper;
 import com.sinewang.metamate.core.dai.mapper.ModelPublicationMapper;
 import com.sinewang.metamate.core.dai.mapper.ModelSubscriptionMapper;
-import one.kii.summer.context.exception.Conflict;
-import one.kii.summer.context.exception.NotFound;
-import one.kii.summer.context.io.ReadContext;
-import one.kii.summer.context.io.WriteContext;
+import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.context.WriteContext;
+import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -153,10 +153,7 @@ public class TestSaveInstanceApi {
         map.put(keyB, Arrays.asList(valueOfB));
         List<SaveInstanceApi.Instance> instances = null;
         try {
-            WriteContext context = new WriteContext();
-            context.setRequestId(requestId);
-            context.setOperatorId(operatorId);
-            context.setOwnerId(ownerId);
+            WriteContext context = new WriteContext(requestId, ownerId, operatorId);
 
             SaveInstanceApi.Form form = new SaveInstanceApi.Form();
             form.setMap(map);
@@ -173,10 +170,7 @@ public class TestSaveInstanceApi {
 
         Assert.assertEquals(3, instances.size());
 
-        ReadContext context = new ReadContext();
-        context.setRequestId(requestId);
-        context.setVisitorId(visitorId);
-        context.setOwnerId(ownerId);
+        ReadContext context = new ReadContext(requestId, ownerId, operatorId);
 
         VisitEntitiesApi.Form form = new VisitEntitiesApi.Form();
 
