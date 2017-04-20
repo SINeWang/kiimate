@@ -1,7 +1,7 @@
 package wang.yanjiong.metamate.core.api;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -21,12 +21,16 @@ public interface DeclareExtensionApi {
     @Data
     class CommitForm {
 
+        @MustHave
         private String group;
 
+        @MustHave
         private String name;
 
+        @MustHave
         private String tree;
 
+        @MustHave
         private String visibility;
     }
 

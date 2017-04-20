@@ -47,7 +47,7 @@ public class DefaultSaveInstanceApi implements SaveInstanceApi {
                 context.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
 
         if (rootExtId == null) {
-            throw new NotFound(rootExtId);
+            throw new NotFound(new String[]{context.getOwnerId(), form.getGroup(), form.getName(), form.getTree()});
         }
 
         Map<String, IntensionDai.Intension> dict = modelRestorer.restoreAsIntensionDict(rootExtId);
