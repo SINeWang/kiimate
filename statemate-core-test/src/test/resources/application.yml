@@ -1,8 +1,3 @@
-statemate:
-  metamate:
-    url: http://git.euler.one/api/v1/users
-
-
 metamate:
   base-url: http://localhost:9090/v1
   visitor-id: wangyj
