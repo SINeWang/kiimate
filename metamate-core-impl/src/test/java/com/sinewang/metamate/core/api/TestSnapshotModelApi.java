@@ -1,7 +1,6 @@
-package wang.yanjiong.metamate.core.api;
+package com.sinewang.metamate.core.api;
 
 import com.sinewang.metamate.core.dai.mapper.ModelPublicationMapper;
-import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -16,15 +15,15 @@ import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import wang.yanjiong.metamate.core.api.SnapshotModelApi;
+import wang.yanjiong.metamate.core.api.TestDeclareExtensionApi;
+import wang.yanjiong.metamate.core.api.VisitExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fui.AnExtensionExtractor;
 import wang.yanjiong.metamate.core.fui.AnIntensionExtractor;
 import wang.yanjiong.metamate.core.fui.AnStructureValidator;
 import wang.yanjiong.metamate.core.fui.AnVisibilityValidator;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by WangYanJiong on 05/04/2017.
@@ -154,22 +153,13 @@ public class TestSnapshotModelApi {
             conflict.printStackTrace();
         }
 
-        List<SnapshotModelApi.Intension> intensions = receipt.getIntensions();
+
         Assert.assertNotNull(receipt);
         Assert.assertEquals(version, receipt.getVersion());
-        Assert.assertEquals(fields.length, intensions.size());
+
         Assert.assertEquals(ownerId, receipt.getOwnerId());
         Assert.assertEquals(providerId, receipt.getProviderId());
 
-        ReadContext readContext = new ReadContext(requestId, ownerId, operatorId);
-
-
-        VisitExtensionApi.Form form1 = new VisitExtensionApi.Form();
-        form1.setGroup(group);
-
-        Map<String, Object> map = visitExtensionApi.readExtensionByGroupNameVersion(readContext, form1);
-
-        Assert.assertNotNull(map);
     }
 
     @After

@@ -1,9 +1,8 @@
-package wang.yanjiong.metamate.core.api;
+package com.sinewang.metamate.core.api;
 
 import com.sinewang.metamate.core.dai.mapper.ModelSubscriptionMapper;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import wang.yanjiong.metamate.core.api.SubscribeModelApi;
 import wang.yanjiong.metamate.core.fui.AnSubscribeModelExtractor;
 
 /**
@@ -75,7 +75,6 @@ public class TestSubscribeModelApi {
             conflict.printStackTrace();
         }
 
-        Assert.assertEquals(receipt.getSubSetHash(), pubSetHash);
 
         modelSubscriptionMapper.deleteById(id);
 

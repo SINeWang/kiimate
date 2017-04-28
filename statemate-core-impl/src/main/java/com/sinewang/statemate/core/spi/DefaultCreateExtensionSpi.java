@@ -48,7 +48,10 @@ public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
             Receipt receipt = new Receipt();
             receipt.setId(conflict.getKeys()[0]);
             return receipt;
-        } catch (BadRequest | Forbidden | NotFound | Panic panic) {
+        } catch (NotFound notFound) {
+            logger.error("not-found:{}", notFound.getKey());
+            throw new Panic();
+        } catch (BadRequest | Forbidden | Panic panic) {
             logger.error("", panic);
             throw new Panic();
         }

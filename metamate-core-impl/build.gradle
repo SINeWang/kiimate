@@ -1,4 +1,7 @@
 dependencies {
     compile project(":metamate-core-spec")
+
+    testCompile project(":metamate-core-test").sourceSets.test.output
+
 }
 

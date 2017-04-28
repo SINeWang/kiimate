@@ -3,6 +3,7 @@ dependencies {
 
     testCompile project(":metamate-core-spec").sourceSets.main.output
     testCompile project(":metamate-core-impl").sourceSets.main.output
+
 }
 bootRepackage {
     enabled = false

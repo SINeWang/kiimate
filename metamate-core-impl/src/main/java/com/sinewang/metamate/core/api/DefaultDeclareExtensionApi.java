@@ -41,6 +41,7 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
         }
 
         ExtensionDai.Extension daiExtension = DataTools.copy(extension, ExtensionDai.Extension.class);
+        daiExtension.setOwnerId(context.getOwnerId());
 
         try {
             extensionDai.insertExtension(daiExtension);

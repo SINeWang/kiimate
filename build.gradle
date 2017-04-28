@@ -17,7 +17,7 @@ ext {
     junitVersion = '4.12'
     mybatisSpringBootStarterVerison = "1.2.0"
     mysqlConnectorVersion = '5.1.41'
-    summerVersion = '0.3.13'
+    summerVersion = '0.3.14'
     servletApiVersion = '3.1.0'
     jacksondatabindVersion = '2.8.7'
     guavaVersion = '21.0'
@@ -76,6 +76,8 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
         compile("org.springframework:spring-tx:${springFrameworkVersion}")
         compile("org.springframework:spring-web:${springFrameworkVersion}")
 
+        compile "com.google.guava:guava:${guavaVersion}"
+
         compile "javax.servlet:javax.servlet-api:${servletApiVersion}"
 
         testCompile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
@@ -100,7 +102,7 @@ configure(subprojects.findAll { it.name.endsWith("impl") }) {
         compile group: "one.kii.summer", name: "summer-io", version: "${summerVersion}", changing: true
 
 
-        compile "com.google.guava:guava:${guavaVersion}"
+
 
         compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
 
