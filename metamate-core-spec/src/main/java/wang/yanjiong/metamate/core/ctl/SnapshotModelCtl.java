@@ -17,7 +17,7 @@ import wang.yanjiong.metamate.core.api.SnapshotModelApi;
  */
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/api/v1")
 public class SnapshotModelCtl extends WriteController {
 
     @Autowired

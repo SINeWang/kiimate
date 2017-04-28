@@ -18,7 +18,7 @@ import wang.yanjiong.metamate.core.api.SaveInstanceApi;
  */
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/api/v1")
 public class SaveInstanceCtl extends WriteController {
 
     @Autowired

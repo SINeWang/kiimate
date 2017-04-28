@@ -14,7 +14,7 @@ import wang.yanjiong.metamate.core.api.VisitIntensionsApi;
  */
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/api/v1")
 public class VisitIntensionCtl extends ReadController {
 
     @Autowired

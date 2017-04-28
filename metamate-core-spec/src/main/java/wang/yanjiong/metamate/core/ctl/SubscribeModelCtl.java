@@ -16,7 +16,7 @@ import wang.yanjiong.metamate.core.api.SubscribeModelApi;
  */
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/api/v1")
 public class SubscribeModelCtl extends WriteController {
 
     @Autowired
