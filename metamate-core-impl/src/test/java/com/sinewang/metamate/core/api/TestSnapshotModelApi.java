@@ -1,9 +1,5 @@
 package com.sinewang.metamate.core.api;
 
-import com.sinewang.metamate.core.dai.mapper.ModelPublicationMapper;
-import one.kii.summer.io.context.WriteContext;
-import one.kii.summer.io.exception.BadRequest;
-import one.kii.summer.io.exception.Conflict;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,7 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import wang.yanjiong.metamate.core.api.SnapshotModelApi;
-import wang.yanjiong.metamate.core.api.TestDeclareExtensionApi;
 import wang.yanjiong.metamate.core.api.VisitExtensionApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
@@ -32,7 +27,7 @@ import wang.yanjiong.metamate.core.fui.AnVisibilityValidator;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.metamate.core")
-@SpringBootTest(classes = {TestDeclareExtensionApi.class})
+@SpringBootTest(classes = {TestSnapshotModelApi.class})
 public class TestSnapshotModelApi {
 
     @Autowired
