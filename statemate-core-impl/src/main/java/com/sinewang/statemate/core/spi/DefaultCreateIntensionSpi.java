@@ -1,12 +1,10 @@
 package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.CreateIntensionSpi;
-import one.kii.summer.beans.utils.MultiValueForm;
 import one.kii.summer.io.exception.*;
 import one.kii.summer.io.sender.ErestPost;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.util.MultiValueMap;
 
 
 /**
@@ -31,10 +29,8 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
 
         ErestPost erest = new ErestPost(form.getOwnerId());
 
-        MultiValueMap map = MultiValueForm.from(form);
-        IntensionReceipt receipt;
         try {
-            receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
+            IntensionReceipt receipt = erest.execute(url, form, IntensionReceipt.class, form.getOwnerId());
             return receipt.getId();
         } catch (Conflict conflict) {
             return conflict.getKeys()[0];
@@ -49,9 +45,8 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
 
         ErestPost erest = new ErestPost(form.getOwnerId());
 
-        MultiValueMap map = MultiValueForm.from(form);
         try {
-            IntensionReceipt receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
+            IntensionReceipt receipt = erest.execute(url, form, IntensionReceipt.class, form.getOwnerId());
             return receipt.getExtId();
         } catch (Conflict conflict) {
             return conflict.getKeys()[0];
