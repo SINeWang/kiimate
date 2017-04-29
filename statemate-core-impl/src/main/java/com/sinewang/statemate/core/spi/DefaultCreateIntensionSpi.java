@@ -20,7 +20,6 @@ import java.util.List;
 public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
 
     private static String TREE = "master";
-    private static String VISIBILITY_PUBLIC = "public";
     private static String URI = "/{ownerId}/intension";
 
     private String baseUrl;
@@ -40,8 +39,8 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
         map.set("field", form.getField());
         map.set("single", String.valueOf(form.isSingle()));
         map.set("structure", form.getStructure());
-        map.set("visibility", VISIBILITY_PUBLIC);
-        IntensionReceipt receipt = null;
+        map.set("visibility", form.getVisibility());
+        IntensionReceipt receipt;
         try {
             receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
             return receipt.getId();
@@ -64,7 +63,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
         map.set("single", String.valueOf(form.isSingle()));
         map.set("structure", form.getStructure());
         map.set("refExtId", form.getRefExtId());
-        map.set("visibility", VISIBILITY_PUBLIC);
+        map.set("visibility", form.getVisibility());
         try {
             IntensionReceipt receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
             return receipt.getExtId();

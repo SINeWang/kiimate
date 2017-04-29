@@ -8,6 +8,11 @@ import one.kii.summer.io.exception.Panic;
  */
 public interface CreateExtensionSpi {
 
+    String TREE_MASTER = "master";
+
+    String VISIBILITY_PUBLIC = "public";
+
+
     Receipt createMasterPublicExtension(Form form) throws Panic;
 
     @Data
@@ -18,6 +23,10 @@ public interface CreateExtensionSpi {
         private String group;
 
         private String name;
+
+        private String tree = TREE_MASTER;
+
+        private String visibility = VISIBILITY_PUBLIC;
 
     }
 

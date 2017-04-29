@@ -24,8 +24,7 @@ public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
     private static Logger logger = LoggerFactory.getLogger(DefaultCreateExtensionSpi.class);
 
     private static String URI = "/{ownerId}/extension";
-    private static String TREE = "master";
-    private static String VISIBILITY_PUBLIC = "public";
+
     private String baseUrl;
 
     public void setBaseUrl(String baseUrl) {
@@ -40,8 +39,8 @@ public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.set("group", form.getGroup());
         map.set("name", form.getName());
-        map.set("tree", TREE);
-        map.set("visibility", VISIBILITY_PUBLIC);
+        map.set("tree", form.getTree());
+        map.set("visibility", form.getVisibility());
         try {
             return erest.execute(url, map, Receipt.class, form.getOwnerId());
         } catch (Conflict conflict) {

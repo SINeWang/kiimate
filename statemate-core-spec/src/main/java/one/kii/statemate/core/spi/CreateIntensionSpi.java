@@ -9,6 +9,8 @@ import one.kii.summer.io.exception.Panic;
  */
 public interface CreateIntensionSpi {
 
+    String VISIBILITY_PUBLIC = "public";
+
     String createPublicPrimitiveIntension(PrimitiveIntensionForm form) throws Panic;
 
     String createPublicImportIntension(ImportIntensionForm form) throws Panic;
@@ -27,6 +29,8 @@ public interface CreateIntensionSpi {
 
         private String structure;
 
+        private String visibility = VISIBILITY_PUBLIC;
+
     }
 
     @Data
@@ -35,7 +39,6 @@ public interface CreateIntensionSpi {
 
         private String refExtId;
     }
-
 
 
     @Data
