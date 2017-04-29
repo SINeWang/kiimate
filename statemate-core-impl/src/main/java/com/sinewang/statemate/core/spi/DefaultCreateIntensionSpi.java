@@ -36,11 +36,11 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
         ErestPost erest = new ErestPost(form.getOwnerId());
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.put("extId", toList(form.getExtId()));
-        map.put("field", toList(form.getField()));
-        map.put("single", toList(String.valueOf(form.isSingle())));
-        map.put("structure", toList(form.getStructure()));
-        map.put("visibility", toList(VISIBILITY_PUBLIC));
+        map.set("extId", form.getExtId());
+        map.set("field", form.getField());
+        map.set("single", String.valueOf(form.isSingle()));
+        map.set("structure", form.getStructure());
+        map.set("visibility", VISIBILITY_PUBLIC);
         IntensionReceipt receipt = null;
         try {
             receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
@@ -59,12 +59,12 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
         ErestPost erest = new ErestPost(form.getOwnerId());
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.put("extId", toList(form.getExtId()));
-        map.put("field", toList(form.getField()));
-        map.put("single", toList(String.valueOf(form.isSingle())));
-        map.put("structure", toList(form.getStructure()));
-        map.put("refExtId", toList(form.getRefExtId()));
-        map.put("visibility", toList(VISIBILITY_PUBLIC));
+        map.set("extId", form.getExtId());
+        map.set("field", form.getField());
+        map.set("single", String.valueOf(form.isSingle()));
+        map.set("structure", form.getStructure());
+        map.set("refExtId", form.getRefExtId());
+        map.set("visibility", VISIBILITY_PUBLIC);
         try {
             IntensionReceipt receipt = erest.execute(url, map, IntensionReceipt.class, form.getOwnerId());
             return receipt.getExtId();
