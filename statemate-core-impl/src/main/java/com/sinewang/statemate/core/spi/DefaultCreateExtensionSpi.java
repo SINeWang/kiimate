@@ -38,10 +38,10 @@ public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
 
         ErestPost erest = new ErestPost(form.getOwnerId());
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.put("group", toList(form.getGroup()));
-        map.put("name", toList(form.getName()));
-        map.put("tree", toList(TREE));
-        map.put("visibility", toList(VISIBILITY_PUBLIC));
+        map.set("group", form.getGroup());
+        map.set("name", form.getName());
+        map.set("tree", TREE);
+        map.set("visibility", VISIBILITY_PUBLIC);
         try {
             return erest.execute(url, map, Receipt.class, form.getOwnerId());
         } catch (Conflict conflict) {
