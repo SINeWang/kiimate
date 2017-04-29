@@ -1,13 +1,13 @@
 package com.sinewang.statemate.core.spi;
 
 import one.kii.statemate.core.spi.CreateExtensionSpi;
+import one.kii.summer.beans.utils.MultiValueForm;
 import one.kii.summer.io.exception.*;
 import one.kii.summer.io.sender.ErestPost;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.util.ArrayList;
@@ -36,11 +36,8 @@ public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(form.getOwnerId());
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.set("group", form.getGroup());
-        map.set("name", form.getName());
-        map.set("tree", form.getTree());
-        map.set("visibility", form.getVisibility());
+
+        MultiValueMap map = MultiValueForm.from(form);
         try {
             return erest.execute(url, map, Receipt.class, form.getOwnerId());
         } catch (Conflict conflict) {
@@ -55,11 +52,4 @@ public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
             throw new Panic();
         }
     }
-
-    private List<String> toList(String string) {
-        List<String> list = new ArrayList<>();
-        list.add(string);
-        return list;
-    }
-
 }
