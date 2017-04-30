@@ -33,6 +33,12 @@ public interface VisitIntensionsApi {
 
         private String extId;
 
+        private String group;
+
+        private String name;
+
+        private String tree;
+
         private List<Intension> intensions;
     }
 

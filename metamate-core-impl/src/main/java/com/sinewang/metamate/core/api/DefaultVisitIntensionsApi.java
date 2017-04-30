@@ -30,6 +30,9 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
         String extId = anExtensionExtractor.hashId(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree(), VISIBILITY_PUBLIC);
         Extension extension = new Extension();
         extension.setExtId(extId);
+        extension.setGroup(form.getGroup());
+        extension.setName(form.getName());
+        extension.setTree(form.getTree());
 
         List<IntensionDai.Intension> list = intensionDai.selectIntensionsByExtId(extId);
 

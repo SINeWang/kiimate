@@ -15,7 +15,13 @@ import wang.yanjiong.metamate.core.api.VisitIntensionsApi;
 
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "*")
 public class VisitIntensionCtl extends ReadController {
+
+
+    private static final String NAME_ROOT = "root";
+
+    private static final String TREE_MASTER = "master";
 
     @Autowired
     private VisitIntensionsApi api;
@@ -29,13 +35,31 @@ public class VisitIntensionCtl extends ReadController {
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
 
-        ReadContext context = buildContext(requestId, visitorId, ownerId);
+        ReadContext context = buildContext(requestId, ownerId, visitorId);
 
         VisitIntensionsApi.Form form = new VisitIntensionsApi.Form();
 
         form.setGroup(group);
         form.setName(name);
         form.setTree(tree);
+
+        return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(context, form));
+    }
+
+    @RequestMapping(value = "/{ownerId}/intension/{group:.+}", method = RequestMethod.GET)
+    public ResponseEntity<VisitIntensionsApi.Extension> readIntensionsByGroupNameVersion(
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
+            @PathVariable("ownerId") String ownerId,
+            @PathVariable("group") String group) {
+
+        ReadContext context = buildContext(requestId, ownerId, visitorId);
+
+        VisitIntensionsApi.Form form = new VisitIntensionsApi.Form();
+
+        form.setGroup(group);
+        form.setName(NAME_ROOT);
+        form.setTree(TREE_MASTER);
 
         return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(context, form));
     }
