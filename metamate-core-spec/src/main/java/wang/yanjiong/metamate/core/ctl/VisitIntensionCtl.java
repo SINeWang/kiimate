@@ -34,16 +34,7 @@ public class VisitIntensionCtl extends ReadController {
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
-
-        ReadContext context = buildContext(requestId, ownerId, visitorId);
-
-        VisitIntensionsApi.Form form = new VisitIntensionsApi.Form();
-
-        form.setGroup(group);
-        form.setName(name);
-        form.setTree(tree);
-
-        return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(context, form));
+        return getExtensionResponseEntity(requestId, ownerId, visitorId, group, name, tree);
     }
 
     @RequestMapping(value = "/{ownerId}/intension/{group:.+}", method = RequestMethod.GET)
@@ -52,15 +43,22 @@ public class VisitIntensionCtl extends ReadController {
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group) {
+        return getExtensionResponseEntity(requestId, ownerId, visitorId, group, NAME_ROOT, TREE_MASTER);
+    }
 
+    private ResponseEntity<VisitIntensionsApi.Extension> getExtensionResponseEntity(
+            String requestId,
+            String ownerId,
+            String visitorId,
+            String group,
+            String name,
+            String tree) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
         VisitIntensionsApi.Form form = new VisitIntensionsApi.Form();
-
         form.setGroup(group);
-        form.setName(NAME_ROOT);
-        form.setTree(TREE_MASTER);
-
+        form.setName(name);
+        form.setTree(tree);
         return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(context, form));
     }
 }
