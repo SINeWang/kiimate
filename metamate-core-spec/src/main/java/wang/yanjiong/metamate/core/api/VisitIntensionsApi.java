@@ -33,6 +33,8 @@ public interface VisitIntensionsApi {
 
         private String extId;
 
+        private String ownerId;
+
         private String group;
 
         private String name;
