@@ -11,12 +11,16 @@ import wang.yanjiong.metamate.core.api.VisitEntitiesApi;
 
 import java.util.Map;
 
+import static wang.yanjiong.metamate.core.api.VisitEntitiesApi.NAME_DEFAULT;
+import static wang.yanjiong.metamate.core.api.VisitEntitiesApi.TREE_MASTER;
+
 /**
  * Created by WangYanJiong on 4/13/17.
  */
 
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "*")
 public class VisitEntitiesCtl extends ReadController {
 
     @Autowired
@@ -47,10 +51,12 @@ public class VisitEntitiesCtl extends ReadController {
             @PathVariable("ownerId") String ownerId,
             @PathVariable("group") String group) {
 
-        ReadContext context = buildContext(requestId, visitorId, ownerId);
+        ReadContext context = buildContext(requestId, ownerId, visitorId);
 
-        VisitEntitiesApi.SimpleForm form = new VisitEntitiesApi.SimpleForm();
+        VisitEntitiesApi.Form form = new VisitEntitiesApi.Form();
         form.setGroup(group);
-        return ErestResponse.ok(requestId, api.readInstancesByGroup(context, form));
+        form.setName(NAME_DEFAULT);
+        form.setTree(TREE_MASTER);
+        return ErestResponse.ok(requestId, api.readInstancesByGroupNameTree(context, form));
     }
 }

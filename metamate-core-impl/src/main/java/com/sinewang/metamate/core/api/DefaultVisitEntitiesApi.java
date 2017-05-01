@@ -31,14 +31,6 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
-    public Map<String, Object> readInstancesByGroup(ReadContext context, SimpleForm simpleForm) {
-        Form form = DataTools.copy(simpleForm, Form.class);
-        form.setName(NAME_DEFAULT);
-        form.setTree(TREE_MASTER);
-        return readInstancesByGroupNameTree(context, form);
-    }
-
-    @Override
     public Map<String, Object> readInstancesByGroupNameTree(ReadContext context, Form form) {
 
         String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree());

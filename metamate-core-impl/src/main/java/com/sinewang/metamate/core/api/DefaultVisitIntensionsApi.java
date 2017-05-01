@@ -2,9 +2,11 @@ package com.sinewang.metamate.core.api;
 
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import wang.yanjiong.metamate.core.api.VisitIntensionsApi;
+import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.fui.AnExtensionExtractor;
 
@@ -23,12 +25,23 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
     @Autowired
     private AnExtensionExtractor anExtensionExtractor;
 
+    @Autowired
+    private ExtensionDai extensionDai;
+
 
     @Override
-    public Extension readIntensionsByGroupNameVersion(ReadContext context, Form form) {
+    public Extension readIntensionsByGroupNameVersion(ReadContext context, Form form) throws NotFound {
 
         String extId = anExtensionExtractor.hashId(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree(), VISIBILITY_PUBLIC);
-        Extension extension = new Extension();
+
+        ExtensionDai.Extension dbExtension = extensionDai.selectExtensionById(extId);
+
+        if (dbExtension == null) {
+            throw new NotFound(new String[]{context.getOwnerId(), form.getGroup(), form.getName(), form.getTree()});
+        }
+
+        Extension extension = DataTools.copy(dbExtension, Extension.class);
+
         extension.setExtId(extId);
 
         extension.setOwnerId(context.getOwnerId());

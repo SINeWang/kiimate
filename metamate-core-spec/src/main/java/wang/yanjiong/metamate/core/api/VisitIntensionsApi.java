@@ -3,6 +3,7 @@ package wang.yanjiong.metamate.core.api;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.NotFound;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ public interface VisitIntensionsApi {
 
     String VISIBILITY_PUBLIC = "public";
 
-    Extension readIntensionsByGroupNameVersion(ReadContext context, Form form);
+    Extension readIntensionsByGroupNameVersion(ReadContext context, Form form) throws NotFound;
 
     @Data
     class Form {

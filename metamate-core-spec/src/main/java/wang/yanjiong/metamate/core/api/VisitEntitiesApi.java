@@ -21,8 +21,6 @@ public interface VisitEntitiesApi {
 
     Map<String, Object> readInstancesByGroupNameTree(ReadContext context, Form form);
 
-    Map<String, Object> readInstancesByGroup(ReadContext context, SimpleForm form);
-
     @Data
     class Form {
         String group;

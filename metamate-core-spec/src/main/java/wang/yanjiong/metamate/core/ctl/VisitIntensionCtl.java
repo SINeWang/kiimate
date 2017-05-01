@@ -2,6 +2,7 @@ package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class VisitIntensionCtl extends ReadController {
     @Autowired
     private VisitIntensionsApi api;
 
-    @RequestMapping(value = "/{ownerId}/intension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{ownerId}/extensions/{group}/{name}/{tree:.+}/intensions", method = RequestMethod.GET)
     public ResponseEntity<VisitIntensionsApi.Extension> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
@@ -37,7 +38,17 @@ public class VisitIntensionCtl extends ReadController {
         return getExtensionResponseEntity(requestId, ownerId, visitorId, group, name, tree);
     }
 
-    @RequestMapping(value = "/{ownerId}/intension/{group:.+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{ownerId}/extensions/{group}/{name}/intensions", method = RequestMethod.GET)
+    public ResponseEntity<VisitIntensionsApi.Extension> readIntensionsByGroupNameVersion(
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
+            @PathVariable("ownerId") String ownerId,
+            @PathVariable("group") String group,
+            @PathVariable("name") String name) {
+        return getExtensionResponseEntity(requestId, ownerId, visitorId, group, name, TREE_MASTER);
+    }
+
+    @RequestMapping(value = "/{ownerId}/extensions/{group}/intensions", method = RequestMethod.GET)
     public ResponseEntity<VisitIntensionsApi.Extension> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
@@ -59,6 +70,10 @@ public class VisitIntensionCtl extends ReadController {
         form.setGroup(group);
         form.setName(name);
         form.setTree(tree);
-        return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(context, form));
+        try {
+            return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(context, form));
+        } catch (NotFound notFound) {
+            return ErestResponse.notFound(requestId, notFound.getKey());
+        }
     }
 }
