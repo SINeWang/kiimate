@@ -17,6 +17,7 @@ public interface ModelPublicationDai {
 
     List<Publication> getPublicationsByPubSetHash(String pubSetHash);
 
+    List<Publication> queryPublicationsByGroup(String group);
 
     List<Provider> getProviders(String query);
 

@@ -44,7 +44,12 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     }
 
     @Override
+    public List<Publication> queryPublicationsByGroup(String query) {
+        return modelPublicationMapper.selectPublicationByGroupQuery(query);
+    }
+
+    @Override
     public List<Provider> getProviders(String query) {
-        return modelPublicationMapper.selectProvidersByQuery(query);
+        return modelPublicationMapper.selectProvidersByProviderQuery(query);
     }
 }

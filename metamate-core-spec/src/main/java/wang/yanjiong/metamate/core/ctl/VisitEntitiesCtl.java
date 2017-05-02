@@ -33,7 +33,7 @@ public class VisitEntitiesCtl extends ReadController {
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
 
-        ReadContext context = buildContext(requestId, visitorId, ownerId);
+        ReadContext context = buildContext(requestId, ownerId, visitorId);
 
         VisitEntitiesApi.Form form = new VisitEntitiesApi.Form();
         form.setTree(tree);

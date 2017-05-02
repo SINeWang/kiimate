@@ -1,7 +1,9 @@
 package wang.yanjiong.metamate.core.ctl;
 
 import one.kii.summer.io.context.ErestHeaders;
+import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.receiver.ErestResponse;
+import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 @CrossOrigin(origins = "*")
-public class ExploreModelsCtl {
+public class ExploreModelsCtl extends ReadController {
 
     @Autowired
     private ExploreModelsApi exploreModelsApi;
@@ -26,7 +28,29 @@ public class ExploreModelsCtl {
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @RequestParam("q") String query) {
-        List<ExploreModelsApi.Provider> providers = exploreModelsApi.getProviders(query);
+        ReadContext context = buildContext(requestId, null, visitorId);
+
+        ExploreModelsApi.QueryProvidersForm form = new ExploreModelsApi.QueryProvidersForm();
+
+        form.setQuery(query);
+
+        List<ExploreModelsApi.Provider> providers = exploreModelsApi.queryProviders(context, form);
         return ErestResponse.ok(requestId, providers);
+    }
+
+    @RequestMapping(value = "/explore/models", method = RequestMethod.GET)
+    public ResponseEntity<?> exploreModels(
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
+            @RequestParam("q") String query) {
+
+        ReadContext context = buildContext(requestId, null, visitorId);
+
+        ExploreModelsApi.QueryModelsForm form = new ExploreModelsApi.QueryModelsForm();
+
+        form.setQuery(query);
+
+        List<ExploreModelsApi.Model> models = exploreModelsApi.queryModels(context, form);
+        return ErestResponse.ok(requestId, models);
     }
 }

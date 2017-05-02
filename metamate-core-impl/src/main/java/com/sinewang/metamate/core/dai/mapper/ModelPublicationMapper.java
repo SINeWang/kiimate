@@ -38,5 +38,7 @@ public interface ModelPublicationMapper {
 
     void deletePublicationByProviderId(@Param("providerId") String providerId);
 
-    List<ModelPublicationDai.Provider> selectProvidersByQuery(@Param("query") String query);
+    List<ModelPublicationDai.Provider> selectProvidersByProviderQuery(@Param("query") String query);
+
+    List<ModelPublicationDai.Publication> selectPublicationByGroupQuery(@Param("query") String query);
 }
