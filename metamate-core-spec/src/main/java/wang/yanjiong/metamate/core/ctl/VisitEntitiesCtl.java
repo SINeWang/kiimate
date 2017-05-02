@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wang.yanjiong.metamate.core.api.VisitEntitiesApi;
 
-import java.util.Map;
-
 import static wang.yanjiong.metamate.core.api.VisitEntitiesApi.NAME_DEFAULT;
 import static wang.yanjiong.metamate.core.api.VisitEntitiesApi.TREE_MASTER;
 
@@ -27,7 +25,7 @@ public class VisitEntitiesCtl extends ReadController {
     private VisitEntitiesApi api;
 
     @RequestMapping(value = "/{ownerId}/entities/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
+    public ResponseEntity<VisitEntitiesApi.Entities> readInstancesByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
@@ -45,7 +43,7 @@ public class VisitEntitiesCtl extends ReadController {
     }
 
     @RequestMapping(value = "/{ownerId}/entities/{group:.+}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
+    public ResponseEntity<VisitEntitiesApi.Entities> readInstancesByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
