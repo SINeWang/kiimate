@@ -27,7 +27,7 @@ public class VisitIntensionCtl extends ReadController {
     @Autowired
     private VisitIntensionsApi api;
 
-    @RequestMapping(value = "/{ownerId}/extensions/{group}/{name}/{tree:.+}/intensions", method = RequestMethod.GET)
+    @RequestMapping(value = "/{ownerId}/extensions/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     public ResponseEntity<VisitIntensionsApi.Extension> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
@@ -38,7 +38,7 @@ public class VisitIntensionCtl extends ReadController {
         return getExtensionResponseEntity(requestId, ownerId, visitorId, group, name, tree);
     }
 
-    @RequestMapping(value = "/{ownerId}/extensions/{group}/{name}/intensions", method = RequestMethod.GET)
+    @RequestMapping(value = "/{ownerId}/extensions/{group}/{name:.+}", method = RequestMethod.GET)
     public ResponseEntity<VisitIntensionsApi.Extension> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
@@ -48,7 +48,7 @@ public class VisitIntensionCtl extends ReadController {
         return getExtensionResponseEntity(requestId, ownerId, visitorId, group, name, TREE_MASTER);
     }
 
-    @RequestMapping(value = "/{ownerId}/extensions/{group}/intensions", method = RequestMethod.GET)
+    @RequestMapping(value = "/{ownerId}/extensions/{group:.+}", method = RequestMethod.GET)
     public ResponseEntity<VisitIntensionsApi.Extension> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
