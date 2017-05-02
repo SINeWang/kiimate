@@ -17,6 +17,14 @@ public interface ModelPublicationDai {
 
     List<Publication> getPublicationsByPubSetHash(String pubSetHash);
 
+
+    List<Provider> getProviders(String query);
+
+    @Data
+    class Provider {
+        String providerId;
+    }
+
     @Data
     class Publication {
         String id;

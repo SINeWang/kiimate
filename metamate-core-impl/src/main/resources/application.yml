@@ -14,3 +14,11 @@ spring:
     url: jdbc:mysql://10.0.3.18/metamate?autoReconnect=true
     username: root
     password: wave
+
+---
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://10.10.10.44:33307/metamate?autoReconnect=true
+    username: root
+    password: 2fJicd{{4qvJZin

@@ -42,4 +42,9 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     public List<Publication> getPublicationsByPubSetHash(String pubSetHash) {
         return modelPublicationMapper.selectPublicationByPubSetHash(pubSetHash);
     }
+
+    @Override
+    public List<Provider> getProviders(String query) {
+        return modelPublicationMapper.selectProvidersByQuery(query);
+    }
 }

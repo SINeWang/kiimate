@@ -15,6 +15,10 @@
         <result column="operator_id" property="operatorId"/>
         <result column="begin_time" property="beginTime"/>
     </resultMap>
+    
+    <resultMap id="Provider" type="wang.yanjiong.metamate.core.dai.ModelPublicationDai$Provider">
+        <result column="provider_id" property="providerId"/>
+    </resultMap>
 
     <insert id="insertPublication">
         INSERT INTO mm_m_pub
@@ -48,6 +52,14 @@
         FROM  mm_m_pub
         WHERE provider_id = #{providerId} AND ext_id = #{extId} AND pub = #{publication} AND version = #{version}
     </delete>
+
+    <select id="selectProvidersByQuery" resultMap="Provider">
+        <bind name="query_pattern" value="'%' + query + '%'" />
+        SELECT DISTINCT(provider_id)
+        FROM mm_m_pub
+        WHERE provider_id LIKE #{query_pattern}
+        ORDER BY provider_id ASC
+    </select>
 
     <delete id="deletePublicationByProviderId">
         DELETE
