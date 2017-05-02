@@ -44,7 +44,7 @@ public class VisitEntitiesCtl extends ReadController {
         return ErestResponse.ok(requestId, api.readInstancesByGroupNameTree(context, form));
     }
 
-    @RequestMapping(value = "/{ownerId}/entities/{group}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{ownerId}/entities/{group:.+}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readInstancesByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
