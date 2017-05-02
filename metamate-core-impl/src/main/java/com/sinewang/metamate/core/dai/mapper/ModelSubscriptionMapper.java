@@ -41,5 +41,7 @@ public interface ModelSubscriptionMapper {
             @Param("name") String name,
             @Param("tree") String tree);
 
+    int countModelSubscriptions(@Param("subSetHash") String subSetHash);
+
 
 }

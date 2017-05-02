@@ -17,6 +17,8 @@ public interface ModelSubscriptionDai {
 
     String getLatestSubIdBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree);
 
+    int countModelSubscriptions(String pubSetHash);
+
     @Data
     class ModelSubscription {
         private String id;

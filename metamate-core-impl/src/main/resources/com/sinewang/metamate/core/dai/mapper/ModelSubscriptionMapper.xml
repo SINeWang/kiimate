@@ -38,7 +38,7 @@
     </select>
     
     <select id="countLatestSubscription" resultType="int">
-        SELECT COUNT(msub.id) FROM mm_m_sub msub
+        SELECT count(msub.id) FROM mm_m_sub msub
         WHERE msub.sub_set_hash = #{subSetHash} AND msub.subscriber_id = #{subscriberId}
         AND msub.group = #{group} AND msub.name = #{name}
         AND msub.end_time IS NULL
@@ -49,5 +49,12 @@
         FROM mm_m_sub msub
         WHERE msub.subscriber_id = #{subscriberId} AND msub.group = #{group} AND msub.name = #{name} AND msub.tree = #{tree}
         AND msub.end_time IS NULL
+    </select>
+
+    <select id="countModelSubscriptions" resultType="int">
+        SELECT count(msub.id)
+        FROM mm_m_sub msub
+        WHERE msub.sub_set_hash = #{subSetHash}
+        AND end_time IS NULL
     </select>
 </mapper>

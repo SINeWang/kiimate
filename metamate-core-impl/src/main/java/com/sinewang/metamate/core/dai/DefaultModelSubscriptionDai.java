@@ -63,4 +63,9 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
         );
     }
 
+    @Override
+    public int countModelSubscriptions(String pubSetHash) {
+        return modelSubscriptionMapper.countModelSubscriptions(pubSetHash);
+    }
+
 }

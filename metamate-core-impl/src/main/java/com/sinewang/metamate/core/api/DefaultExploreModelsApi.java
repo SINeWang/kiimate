@@ -8,6 +8,7 @@ import wang.yanjiong.metamate.core.api.ExploreModelsApi;
 import wang.yanjiong.metamate.core.dai.ExtensionDai;
 import wang.yanjiong.metamate.core.dai.IntensionDai;
 import wang.yanjiong.metamate.core.dai.ModelPublicationDai;
+import wang.yanjiong.metamate.core.dai.ModelSubscriptionDai;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,9 @@ public class DefaultExploreModelsApi implements ExploreModelsApi {
 
     @Autowired
     private ModelPublicationDai modelPublicationDai;
+
+    @Autowired
+    private ModelSubscriptionDai modelSubscriptionDai;
 
     @Autowired
     private ExtensionDai extensionDai;
@@ -41,14 +45,21 @@ public class DefaultExploreModelsApi implements ExploreModelsApi {
         for (ModelPublicationDai.Publication publication : publications) {
             ExtensionDai.Extension extension = extensionDai.selectExtensionById(publication.getExtId());
 
+
             List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(extension.getId());
 
             List<Intension> intensions = DataTools.copy(intensionList, Intension.class  );
 
+            int subscriptions = modelSubscriptionDai.countModelSubscriptions(publication.getPubSetHash());
+
             Model model = DataTools.copy(publication, Model.class);
+
+
             model.setGroup(extension.getGroup());
             model.setName(extension.getName());
             model.setIntensions(intensions);
+
+            model.setSubscriptions(subscriptions);
 
             models.add(model);
         }

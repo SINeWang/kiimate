@@ -23,6 +23,9 @@ public interface ExploreModelsApi {
 
     @Data
     class Model {
+
+        int subscriptions;
+
         String pubSetHash;
         String providerId;
         String group;
