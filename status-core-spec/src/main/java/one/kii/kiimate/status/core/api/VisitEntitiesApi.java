@@ -19,7 +19,7 @@ public interface VisitEntitiesApi {
 
     String TREE_MASTER = "master";
 
-    Entities readInstancesByGroupNameTree(ReadContext context, Form form);
+    Receipt readInstancesByGroupNameTree(ReadContext context, Form form);
 
     @Data
     class Form {
@@ -29,7 +29,7 @@ public interface VisitEntitiesApi {
     }
 
     @Data
-    class Entities {
+    class Receipt {
         String ownerId;
         String group;
         String name;

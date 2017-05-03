@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1")
 @CrossOrigin(origins = "*")
-public class VisitEntitiesCtl extends ReadController {
+public class VisitStatusCtl extends ReadController {
 
     @Autowired
     private VisitEntitiesApi api;
 
-    @RequestMapping(value = "/{ownerId}/entities/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitEntitiesApi.Entities> readInstancesByGroupNameVersion(
+    @RequestMapping(value = "/{ownerId}/instances/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
+    public ResponseEntity<VisitEntitiesApi.Receipt> readInstancesByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,
@@ -39,8 +39,8 @@ public class VisitEntitiesCtl extends ReadController {
         return ErestResponse.ok(requestId, api.readInstancesByGroupNameTree(context, form));
     }
 
-    @RequestMapping(value = "/{ownerId}/entities/{group:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitEntitiesApi.Entities> readInstancesByGroupNameVersion(
+    @RequestMapping(value = "/{ownerId}/instances/{group:.+}", method = RequestMethod.GET)
+    public ResponseEntity<VisitEntitiesApi.Receipt> readInstancesByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable("ownerId") String ownerId,

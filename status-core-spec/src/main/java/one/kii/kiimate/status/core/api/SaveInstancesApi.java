@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
-public interface SaveInstanceApi {
+public interface SaveInstancesApi {
 
     String TREE_MASTER = "master";
 

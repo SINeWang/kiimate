@@ -31,7 +31,7 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
-    public Entities readInstancesByGroupNameTree(ReadContext context, Form form) {
+    public Receipt readInstancesByGroupNameTree(ReadContext context, Form form) {
 
         String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
 
@@ -44,11 +44,11 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
 
         Map<String, Object> body = visitHierarchyInstance(rootExtId, dict);
 
-        Entities entities = DataTools.copy(form, Entities.class);
-        entities.setOwnerId(context.getOwnerId());
-        entities.setInstances(body);
+        Receipt receipt = DataTools.copy(form, Receipt.class);
+        receipt.setOwnerId(context.getOwnerId());
+        receipt.setInstances(body);
 
-        return entities;
+        return receipt;
     }
 
     private Map<String, Object> visitHierarchyInstance(String extId, Map<String, List<InstanceDai.Instance>> dict) {

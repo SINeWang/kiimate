@@ -3,7 +3,7 @@ package com.sinewang.kiimate.status.core.api;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
-import one.kii.kiimate.status.core.api.SaveInstanceApi;
+import one.kii.kiimate.status.core.api.SaveInstancesApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.summer.beans.utils.DataTools;
@@ -24,9 +24,9 @@ import java.util.Map;
  */
 
 @Component
-public class DefaultSaveInstanceApi implements SaveInstanceApi {
+public class DefaultSaveInstancesApi implements SaveInstancesApi {
 
-    private static final Logger logger = LoggerFactory.getLogger(DefaultSaveInstanceApi.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultSaveInstancesApi.class);
 
     @Autowired
     private InstanceDai instanceDai;

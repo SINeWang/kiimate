@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.SaveInstanceApi;
+import one.kii.kiimate.status.core.api.SaveInstancesApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1")
-public class SaveInstanceCtl extends WriteController {
+public class SaveInstancesCtl extends WriteController {
 
     @Autowired
-    private SaveInstanceApi api;
+    private SaveInstancesApi api;
 
-    @RequestMapping(value = "/{ownerId}/instance/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<SaveInstanceApi.Receipt> saveInstance(
+    @RequestMapping(value = "/{ownerId}/instances/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    ResponseEntity<SaveInstancesApi.Receipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable("ownerId") String ownerId,
@@ -37,8 +37,7 @@ public class SaveInstanceCtl extends WriteController {
 
             WriteContext context = buildContext(requestId, operatorId, ownerId);
 
-
-            SaveInstanceApi.Form form = new SaveInstanceApi.Form();
+            SaveInstancesApi.Form form = new SaveInstancesApi.Form();
             form.setGroup(group);
             form.setName(name);
             form.setTree(tree);
