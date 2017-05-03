@@ -1,42 +1,75 @@
 @startuml
 
 
-'Instance "1" --|>  "n" InstanceTag
+Instance "1" -down-|>  "1" ModelSubscription
 
-Instance "1" --left-|>  "1" ModelSubscription
+Asset .right..> AssetSubscription
 
-Model "1" -up-|>  "n" ModelSubscription
+Status ..right.> Instance
 
-Model "1" --|>  "n" ModelPublication
+Model ..right.> ModelSubscription
+
+Asset "1" ...> "n" Model
+Asset "1" ...> "n" Status
+Model "1" ...> "n" Status
+
+
+
+ModelSubscription "n" -right-|> "1" ModelPublication
 
 ModelPublication "1" --|>  "1" Extension
 ModelPublication "1" --|>  "n" Intension
 
-Extension "1" o--right--|> "n" Intension
+Extension "1" --right--|> "n" Intension
 
-Entity "1" -up-|> "n" Instance
+AssetPublication "1" -down-|> "1" Instance
 
-AssetPublication "1" -up-|> "1" Entity
+AssetSubscription "n" -right-> "1" AssetPublication
 
-AssetSubscription "1" -down-|> "1" Asset
 
-Asset "1" --|> "n" AssetPublication
 
-class Asset {
-    Subject provider_id
+class Asset #FFFFFF {
+    Subject owner_id // a_subscriber_id
     Subject visitor_id
-    DateTime begin_time
-    DateTime end_time
+    ---
+    Model model
+    Status status
+    ---
+    DateTime view_time
 }
 
-class AssetSubscription{
-    string id
-    string pub_set_hash
-    string instance_id
-    Visibility visibility
-    Publication publication
+class Status #FFFFFF {
+    Subject owner_id // m_subscriber_id
+    Namespace m_sub_group
+    Namespace m_sub_name
+    ---
+    Instance[] instances
+    ---
+    DateTime track_time
+}
+
+class Model #FFFFFF {
     Subject provider_id
-    string version
+    string pub_set_hash
+    string root_ext_id
+    ---
+    Namespace ext_group
+    Namespace ext_name
+    ---
+    Publication publication
+    Version semantic
+    Visibility visibility
+}
+
+class AssetSubscription {
+    string id
+    ---
+    Subject subscriber_id
+    string a_sub_set_hash // a_pub_set_hash
+    ---
+    Namespace group
+    Namespace name
+    Tracking tag
     ---
     Subject operator_id
     DateTime begin_time
@@ -45,41 +78,29 @@ class AssetSubscription{
 
 class AssetPublication{
     string id
-    string pub_set_hash
+    ---
+    string a_pub_set_hash
     string ins_id
-    Visibility visibility
+    ---
     Subject provider_id
     Publication publication
-    string version
+    Version semantic
+    Visibility visibility
     ---
     Subject operator_id
     DateTime begin_time
     DateTime end_time
 }
 
-class Entity {
-    Subject owner_id
-    Instance[] instances
-    Intension[] intensions
-}
 
-class Model {
-    string pub_set_hash
-    Subject provider_id
-    string group
-    string name
-    string ext_id
-    string version
-    Publication publication
-    Date begin_time
-}
 
 class Extension {
     string id // ext_id
-    Subject owner_id // extension's owner
-    string group
-    string name
-    string tree
+    ---
+    Subject owner_id
+    Namespace group
+    Namespace name
+    Tracking tree
     Visibility visibility
     ---
     Subject operator_id
@@ -89,6 +110,7 @@ class Extension {
 
 class Intension {
     string id // int_id
+    ---
     string ext_id
     string field
     Boolean single
@@ -103,13 +125,14 @@ class Intension {
 
 class ModelPublication {
     string id // pub_id
-    string pub_set_hash
-    Subject provider_id
+    ---
+    string m_pub_set_hash
     string ext_id
     string int_id
     ---
+    Subject provider_id
     Publication publication
-    string version
+    Version semantic
     Visibility visibility
     ---
     Subject operator_id
@@ -119,11 +142,13 @@ class ModelPublication {
 
 class ModelSubscription {
     string id // sub_id
-    string pub_set_hash
+    ---
     Subject subscriber_id
-    string group
-    string name
-    string tree
+    string m_sub_set_hash // m_pub_set_hash
+    ---
+    Namespace group
+    Namespace name
+    Tracking tag
     ---
     Subject operator_id
     DateTime begin_time
@@ -165,6 +190,19 @@ enum Subject {
     OPERATOR    // read&write
 }
 
+enum Namespace {
+    GROUP
+    NAME
+}
+
+enum Version {
+    SEMANTIC
+}
+
+enum Tracking {
+    TREE
+    TAG
+}
 
 @enduml
 

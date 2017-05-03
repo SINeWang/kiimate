@@ -26,13 +26,15 @@ public interface ExploreModelsApi {
 
         int subscriptions;
 
-        String pubSetHash;
         String providerId;
+        String pubSetHash;
+        String rootExtId;
+
         String group;
         String name;
-        String extId;
-        String version;
+
         String publication;
+        String version;
         Date beginTime;
 
         List<Intension> intensions;
