@@ -1,22 +1,10 @@
 # KiiMate, be the best **Mate** of **Knowledge Integration & Innovation**
 
+## Concept Model
+
+![KiiMate Concept Model](kii-mate.png)
 
 * Sharing and Managing your Knowledge like `Git` with RESTful API
-
-## URL
-
-### Names URL
-
-* `kiimate://<example.com>/names/{group}/{name}/[{tree}]?[tag=<tag>]`
-
-### Properties URL
-
-* `kiimate://<example.com>/props/{group}/{name}/[{tree}]?[tag=<tag>]`
-
-### Entities URL
-
-* `kiimate://<example.com>/entities/{group}/{name}/[{tree}]?[tag=<tag>]`
-
 
 ## Basic Knowledge
 
