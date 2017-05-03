@@ -30,7 +30,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
-@ComponentScan("com.sinewang.metamate.core")
+@ComponentScan("com.sinewang.kiimate.model.core")
 @SpringBootTest(classes = {TestSnapshotModelApi.class})
 public class TestSnapshotModelApi {
 
