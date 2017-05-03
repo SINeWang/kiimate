@@ -1,7 +1,14 @@
 package com.sinewang.kiimate.model.core.api;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ModelPublicationMapper;
-import com.sinewang.modelmate.core.dai.mapper.ModelPublicationMapper;
+import one.kii.kiimate.model.core.api.SnapshotModelApi;
+import one.kii.kiimate.model.core.api.VisitExtensionApi;
+import one.kii.kiimate.model.core.dai.ExtensionDai;
+import one.kii.kiimate.model.core.dai.IntensionDai;
+import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
+import one.kii.kiimate.model.core.fui.AnIntensionExtractor;
+import one.kii.kiimate.model.core.fui.AnStructureValidator;
+import one.kii.kiimate.model.core.fui.AnVisibilityValidator;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -16,14 +23,6 @@ import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import one.kii.kiimate.model.core.api.SnapshotModelApi;
-import one.kii.kiimate.model.core.api.VisitExtensionApi;
-import one.kii.kiimate.model.core.dai.ExtensionDai;
-import one.kii.kiimate.model.core.dai.IntensionDai;
-import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
-import one.kii.kiimate.model.core.fui.AnIntensionExtractor;
-import one.kii.kiimate.model.core.fui.AnStructureValidator;
-import one.kii.kiimate.model.core.fui.AnVisibilityValidator;
 
 /**
  * Created by WangYanJiong on 05/04/2017.

@@ -161,7 +161,7 @@ class Instance {
     string sub_id
     string ext_id
     string int_id
-    string field
+    Namespace field
     string value
     string value_set_hash
     string value_ref_id
@@ -193,6 +193,7 @@ enum Subject {
 enum Namespace {
     GROUP
     NAME
+    FIELD
 }
 
 enum Version {
@@ -202,6 +203,14 @@ enum Version {
 enum Tracking {
     TREE
     TAG
+}
+
+enum Structure {
+    REFERENCE
+    NUMBER
+    STRING
+    BOOLEAN
+    DATETIME
 }
 
 @enduml

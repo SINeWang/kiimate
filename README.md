@@ -4,7 +4,7 @@ Be the best **Mate** of **Knowledge Integration & Innovation**
 
 ## Concept Model
 
-![KiiMate Concept Model](kii-mate.png)
+![KiiMate Concept Model](kiimate.png)
 
 * Sharing and Managing your Knowledge like `Git` with RESTful API
 

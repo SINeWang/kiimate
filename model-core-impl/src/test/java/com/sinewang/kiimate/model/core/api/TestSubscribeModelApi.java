@@ -1,7 +1,8 @@
 package com.sinewang.kiimate.model.core.api;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
-import com.sinewang.modelmate.core.dai.mapper.ModelSubscriptionMapper;
+import one.kii.kiimate.model.core.api.SubscribeModelApi;
+import one.kii.kiimate.model.core.fui.AnSubscribeModelExtractor;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import org.junit.Test;
@@ -12,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import one.kii.kiimate.model.core.api.SubscribeModelApi;
-import one.kii.kiimate.model.core.fui.AnSubscribeModelExtractor;
 
 /**
  * Created by WangYanJiong on 4/6/17.
