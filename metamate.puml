@@ -1,64 +1,147 @@
 @startuml
 
 
-ModelSubscription "1" --|>  "n" ModelPublication
-
-ModelPublication "1" --|>  "1" ModelExtension
-ModelPublication "1" --|>  "n" ModelIntension
-
-Instance "1" --|>  "1" ModelSubscription
-
 'Instance "1" --|>  "n" InstanceTag
 
+Instance "1" --left-|>  "1" ModelSubscription
 
-ModelExtension "1" o--right--|> "n" ModelIntension
+Model "1" -up-|>  "n" ModelSubscription
 
-class ModelExtension {
-    String id // ext_id
-    String owner_id // extension's owner
-    String group
-    String name
-    String tree
-    Visibility visibility
-    String operator_id
+Model "1" --|>  "n" ModelPublication
+
+ModelPublication "1" --|>  "1" Extension
+ModelPublication "1" --|>  "n" Intension
+
+Extension "1" o--right--|> "n" Intension
+
+Entity "1" -up-|> "n" Instance
+
+AssetPublication "1" -up-|> "1" Entity
+
+AssetSubscription "1" -down-|> "1" Asset
+
+Asset "1" --|> "n" AssetPublication
+
+class Asset {
+    Subject provider_id
+    Subject visitor_id
     DateTime begin_time
     DateTime end_time
 }
 
-class ModelIntension {
-    String id // int_id
-    String ext_id
-    String field
+class AssetSubscription{
+    string id
+    string pub_set_hash
+    string instance_id
+    Visibility visibility
+    Publication publication
+    Subject provider_id
+    string version
+    ---
+    Subject operator_id
+    DateTime begin_time
+    DateTime end_time
+}
+
+class AssetPublication{
+    string id
+    string pub_set_hash
+    string ins_id
+    Visibility visibility
+    Subject provider_id
+    Publication publication
+    string version
+    ---
+    Subject operator_id
+    DateTime begin_time
+    DateTime end_time
+}
+
+class Entity {
+    Subject owner_id
+    Instance[] instances
+    Intension[] intensions
+}
+
+class Model {
+    string pub_set_hash
+    Subject provider_id
+    string group
+    string name
+    string ext_id
+    string version
+    Publication publication
+    Date begin_time
+}
+
+class Extension {
+    string id // ext_id
+    Subject owner_id // extension's owner
+    string group
+    string name
+    string tree
+    Visibility visibility
+    ---
+    Subject operator_id
+    DateTime begin_time
+    DateTime end_time
+}
+
+class Intension {
+    string id // int_id
+    string ext_id
+    string field
     Boolean single
     Structure structure
-    String ref_ext_id
+    string ref_ext_id
     Visibility visibility
-    String operator_id
+    ---
+    Subject operator_id
     DateTime begin_time
     DateTime end_time
 }
 
 class ModelPublication {
-    String id // pub_id
-    String pub_set_hash
-    String provider_id
-    String ext_id
-    String int_id
-    String version
+    string id // pub_id
+    string pub_set_hash
+    Subject provider_id
+    string ext_id
+    string int_id
+    ---
     Publication publication
+    string version
     Visibility visibility
-    String operator_id
+    ---
+    Subject operator_id
     DateTime begin_time
     DateTime end_time
 }
 
 class ModelSubscription {
-    String id // sub_id
-    String pub_set_hash
-    String subscriber_id
-    String group
-    String name
-    String tree
+    string id // sub_id
+    string pub_set_hash
+    Subject subscriber_id
+    string group
+    string name
+    string tree
+    ---
+    Subject operator_id
+    DateTime begin_time
+    DateTime end_time
+}
+
+class Instance {
+    string id // ins_id
+    Subject owner_id
+    string sub_id
+    string ext_id
+    string int_id
+    string field
+    string value
+    string value_set_hash
+    string value_ref_id
+    ---
+    Subject operator_id
     DateTime begin_time
     DateTime end_time
 }
@@ -74,28 +157,14 @@ enum Visibility {
     PUBLIC
 }
 
-class Instance {
-    String id // i_id
-    String owner_id // instance's owner
-    String sub_id
-    String ext_id
-    String int_id
-    String field
-    String value
-    String value_set_hash
-    String value_ref_id
-    DateTime begin_time
-    DateTime end_time
+enum Subject {
+    OWNER
+    PROVIDER
+    SUBSCRIBER
+    VISITOR     // read only
+    OPERATOR    // read&write
 }
 
-'class InstanceTag {
-'    String id // i_tag_id
-'    String owner_id // instance's owner
-'    String[] i_id
-'    Publication publication
-'    DateTime created_at
-'    Visibility visibility
-'}
 
 @enduml
 
