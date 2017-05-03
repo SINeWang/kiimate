@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sinewang.kiimate.model.core.dai.mapper.IntensionMapper">
+
+    <resultMap id="Intension" type="one.kii.kiimate.model.core.dai.IntensionDai$Intension">
+        <result column="id" property="id"/>
+        <result column="ext_id" property="extId"/>
+        <result column="field" property="field"/>
+        <result column="is_single" property="single"/>
+        <result column="structure" property="structure"/>
+        <result column="ref_ext_id" property="refExtId"/>
+        <result column="visibility" property="visibility"/>
+    </resultMap>
+
+    <select id="selectLatestIntensionsByExtId" resultMap="Intension">
+        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_ext_id, mint.visibility
+        FROM mm_m_int mint
+        WHERE mint.ext_id = #{extId}
+        AND mint.end_time IS NULL
+    </select>
+
+    <select id="selectLatestIntensionByExtIdField" resultMap="Intension">
+        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_ext_id, mint.visibility
+        FROM mm_m_int mint
+        WHERE mint.ext_id = #{extId}
+        AND mint.field = #{field}
+        AND mint.end_time IS NULL
+    </select>
+
+    <update id="updateLatestIntensionEndTimeById">
+        UPDATE mm_m_int mint
+        SET mint.end_time = #{endTime}
+        WHERE mint.id = #{id}
+    </update>
+
+    <insert id="insertIntension">
+        INSERT INTO mm_m_int
+        (`id`, `ext_id`, `field`, `is_single`, `structure`, `ref_ext_id`, `visibility`, `begin_time`)
+        VALUES
+        (#{id}, #{extId}, #{field}, #{single}, #{structure}, #{refExtId}, #{visibility}, #{beginTime})
+    </insert>
+
+    <delete id="deleteIntensionsByExtId">
+        DELETE FROM mm_m_int
+        WHERE ext_id = #{extId}
+    </delete>
+
+
+</mapper>

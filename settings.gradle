@@ -1,9 +1,10 @@
-rootProject.name = 'metamate'
+rootProject.name = 'kiimate'
 
-include 'metamate-core-impl'
-include 'metamate-core-spec'
-include 'metamate-core-test'
-include 'statemate-core-spec'
-include 'statemate-core-impl'
-include 'statemate-core-test'
+include 'model-core-impl'
+include 'model-core-spec'
+include 'model-core-test'
+include 'status-core-spec'
+include 'status-core-impl'
+include 'status-core-test'
+include 'kiimate-impl'
 

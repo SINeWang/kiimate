@@ -1,9 +1,0 @@
-dependencies {
-    compile project(":statemate-core-spec")
-
-    testCompile project(":statemate-core-spec").sourceSets.main.output
-    testCompile project(":statemate-core-impl").sourceSets.main.output
-}
-bootRepackage {
-    enabled = false
-}

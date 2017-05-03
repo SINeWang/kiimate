@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper">
+
+    <resultMap id="Extension" type="one.kii.kiimate.model.core.dai.ExtensionDai$Extension">
+        <result column="id" property="id"/>
+        <result column="group" property="group"/>
+        <result column="name" property="name"/>
+        <result column="tree" property="tree"/>
+        <result column="owner_id" property="ownerId"/>
+        <result column="visibility" property="visibility"/>
+    </resultMap>
+
+    <select id="selectExtensionById" resultMap="Extension">
+        SELECT mext.id, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility
+        FROM mm_m_ext mext
+        WHERE mext.id = #{id} AND mext.end_time IS NULL
+    </select>
+
+    <select id="selectExtensionsByOwnerGroup" resultMap="Extension">
+         SELECT mext.id, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility
+        FROM mm_m_ext mext
+        WHERE mext.owner_id = #{ownerId} AND mext.group = #{group} AND mext.end_time IS NULL
+    </select>
+
+    <insert id="insertExtension">
+        INSERT INTO mm_m_ext
+        (`id`, `group`, `name`, `tree`, `owner_id`, `visibility`, `begin_time`)
+        VALUES
+        (#{id}, #{group}, #{name}, #{tree}, #{ownerId}, #{visibility}, #{beginTime})
+    </insert>
+
+    <update id="updateEndTimeExtensionByOwnerIdGroup">
+        UPDATE mm_m_ext
+        SET end_time = #{endTime}
+        WHERE owner_id = #{ownerId} AND `group` = #{group}
+    </update>
+
+    <delete id="deleteExtensionById">
+        DELETE FROM mm_m_ext
+        WHERE id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sinewang.kiimate.model.core.dai.mapper.ModelPublicationMapper">
+
+    <resultMap id="Publication" type="one.kii.kiimate.model.core.dai.ModelPublicationDai$Publication">
+        <result column="id" property="id"/>
+        <result column="pub_set_hash" property="pubSetHash"/>
+        <result column="provider_id" property="providerId"/>
+        <result column="ext_id" property="extId"/>
+        <result column="int_id" property="intId"/>
+        <result column="version" property="version"/>
+        <result column="pub" property="publication"/>
+        <result column="operator_id" property="operatorId"/>
+        <result column="begin_time" property="beginTime"/>
+    </resultMap>
+
+    <resultMap id="Provider" type="one.kii.kiimate.model.core.dai.ModelPublicationDai$Provider">
+        <result column="provider_id" property="providerId"/>
+    </resultMap>
+
+    <insert id="insertPublication">
+        INSERT INTO mm_m_pub
+        (id, pub_set_hash, provider_id, ext_id, int_id, version, pub, operator_id, begin_time)
+        VALUES
+        (#{id}, #{pubSetHash}, #{providerId}, #{extId}, #{intId}, #{version}, #{publication}, #{operatorId}, #{createdAt})
+    </insert>
+
+    <select id="selectPublicationsByProviderIdExtIdPubVersion" resultMap="Publication">
+        SELECT id, pub_set_hash, provider_id, ext_id, int_id, version, pub, operator_id, begin_time
+        FROM  mm_m_pub
+        WHERE pub_ext_id = #{pubExtId}
+        AND end_time IS NULL
+    </select>
+
+    <select id="selectPublicationByPubSetHash" resultMap="Publication">
+        SELECT mpub.id, mpub.pub_set_hash, mpub.provider_id, mpub.ext_id, mpub.int_id, mpub.version, mpub.pub, mpub.operator_id, mpub.begin_time
+        FROM  mm_m_pub mpub
+        WHERE mpub.pub_set_hash = #{pubSetHash}
+    </select>
+
+    <select id="countPublicationByPubSetHash" resultType="int">
+        SELECT COUNT(mpub.id)
+        FROM  mm_m_pub mpub
+        WHERE mpub.pub_set_hash = #{pubSetHash}
+        AND mpub.end_time IS NULL
+    </select>
+
+    <delete id="deletePublicationByProviderIdExtIdPubVersion">
+        DELETE
+        FROM  mm_m_pub
+        WHERE provider_id = #{providerId} AND ext_id = #{extId} AND pub = #{publication} AND version = #{version}
+    </delete>
+
+    <select id="selectProvidersByProviderQuery" resultMap="Provider">
+        <bind name="query_pattern" value="'%' + query + '%'"/>
+        SELECT DISTINCT(provider_id)
+        FROM mm_m_pub
+        WHERE provider_id LIKE #{query_pattern}
+        ORDER BY provider_id ASC
+    </select>
+
+    <select id="selectPublicationByGroupQuery" resultMap="Publication">
+        <bind name="query_pattern" value="'%' + query + '%'"/>
+        SELECT mpub.pub_set_hash, mpub.provider_id, mpub.ext_id, mpub.version, mpub.pub, mpub.operator_id, mpub.begin_time
+        FROM mm_m_pub mpub, mm_m_ext mext
+        WHERE mpub.ext_id = mext.id
+        AND mext.`group` LIKE #{query_pattern}
+        AND mpub.end_time IS NULL
+        GROUP BY ext_id
+    </select>
+
+    <delete id="deletePublicationByProviderId">
+        DELETE
+        FROM  mm_m_pub
+        WHERE provider_id = #{providerId}
+    </delete>
+</mapper>

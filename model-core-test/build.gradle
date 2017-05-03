@@ -1,0 +1,10 @@
+dependencies {
+    compile project(":model-core-spec")
+
+    testCompile project(":model-core-spec").sourceSets.main.output
+    testCompile project(":model-core-impl").sourceSets.main.output
+
+}
+bootRepackage {
+    enabled = false
+}

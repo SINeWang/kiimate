@@ -1,0 +1,6 @@
+dependencies {
+    compile project(":model-core-spec")
+
+    testCompile project(":model-core-test").sourceSets.test.output
+
+}

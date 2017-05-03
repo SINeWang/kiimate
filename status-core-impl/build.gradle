@@ -1,0 +1,10 @@
+dependencies {
+    compile project(":status-core-spec")
+
+    compile project(":model-core-spec")
+
+}
+
+bootRepackage {
+    enabled = false
+}
