@@ -1,4 +1,6 @@
-# KiiMate, be the best **Mate** of **Knowledge Integration & Innovation**
+# KiiMate
+
+Be the best **Mate** of **Knowledge Integration & Innovation**
 
 ## Concept Model
 
@@ -8,11 +10,11 @@
 
 ## Basic Knowledge
 
-### Concepts
+### Related Concepts
 
 * MetaData & MetaModel
 
-* Model & Entity
+* Model, Instance, Data, Entity, etc.
 
 * Cloud Computing's Provider & Subscriber
 
@@ -26,4 +28,6 @@
 
 ## See Also
 
-[Cross Reference Model Definition Language](crmdl.md)
+* [KiiStore](https://github.com/sinewang/kii-store)
+
+* [Cross Reference Model Definition Language](crmdl.md)

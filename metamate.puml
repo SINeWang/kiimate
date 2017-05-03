@@ -7,7 +7,7 @@ Asset .right.. AssetSubscription
 
 Status ..right.. Instance
 
-Model ..right.. ModelSubscription
+Model ..right... ModelSubscription
 
 Asset "1" ...> "n" Model : "Space Point"
 Asset "1" ...> "n" Status : "Time x Space"
@@ -24,7 +24,7 @@ Extension "1" --right--|> "n" Intension
 
 AssetPublication "1" -down-|> "1" Instance
 
-AssetSubscription "n" -right-|> "1" AssetPublication
+AssetSubscription "n" -right-> "1" AssetPublication
 
 
 
