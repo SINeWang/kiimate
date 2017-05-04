@@ -11,23 +11,27 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+import static one.kii.kiimate.model.core.ctl.VisitExtensionCtl.OWNER_ID;
+
 /**
  * Created by WangYanJiong on 4/13/17.
  */
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/extension")
 @CrossOrigin(origins = "*")
 public class VisitExtensionCtl extends ReadController {
+
+    public static final String OWNER_ID = "ownerId";
 
     @Autowired
     private VisitExtensionApi api;
 
-    @RequestMapping(value = "/{ownerId}/extension/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable("ownerId") String ownerId,
+            @PathVariable(OWNER_ID) String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
@@ -43,11 +47,11 @@ public class VisitExtensionCtl extends ReadController {
     }
 
 
-    @RequestMapping(value = "/{ownerId}/extension/{group}/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{group}/{name}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable("ownerId") String ownerId,
+            @PathVariable(OWNER_ID) String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name) {
 
@@ -60,11 +64,11 @@ public class VisitExtensionCtl extends ReadController {
         return ErestResponse.ok(requestId, api.readExtensionByGroupNameVersion(context, form));
     }
 
-    @RequestMapping(value = "/{ownerId}/extension/{group}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{group}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable("ownerId") String ownerId,
+            @PathVariable(OWNER_ID) String ownerId,
             @PathVariable("group") String group) {
 
         ReadContext context = buildContext(requestId, visitorId, ownerId);

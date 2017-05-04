@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.summer.io.context.ErestHeaders.OWNER_ID;
+import static one.kii.kiimate.model.core.ctl.DeclareIntensionCtl.OWNER_ID;
 
 /**
  * Created by WangYanJiong on 4/13/17.
@@ -21,6 +21,8 @@ import static one.kii.summer.io.context.ErestHeaders.OWNER_ID;
 @RequestMapping("/api/v1/{" + OWNER_ID + "}/intension")
 public class DeclareIntensionCtl extends WriteController {
 
+    public static final String OWNER_ID = "ownerId";
+
     @Autowired
     DeclareIntensionApi api;
 
@@ -28,7 +30,7 @@ public class DeclareIntensionCtl extends WriteController {
     public ResponseEntity<DeclareIntensionApi.Receipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
-            @PathVariable("ownerId") String ownerId,
+            @PathVariable(OWNER_ID) String ownerId,
             @ModelAttribute DeclareIntensionApi.Form form) {
         try {
             WriteContext context = buildContext(requestId, operatorId, ownerId);

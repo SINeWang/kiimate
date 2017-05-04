@@ -12,23 +12,26 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static one.kii.kiimate.model.core.ctl.SnapshotModelCtl.OWNER_ID;
+
 /**
  * Created by WangYanJiong on 4/13/17.
  */
 
 @RestController
-@RequestMapping("/api/v1/{ownerId}/snapshot/{group:.+}")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/snapshot/{group:.+}")
 public class SnapshotModelCtl extends WriteController {
+
+    public static final String OWNER_ID = "ownerId";
 
     @Autowired
     private SnapshotModelApi api;
-
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<SnapshotModelApi.Receipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
-            @PathVariable("ownerId") String ownerId,
+            @PathVariable(OWNER_ID) String ownerId,
             @PathVariable("group") String group,
             @ModelAttribute SnapshotModelApi.Form form) {
         try {

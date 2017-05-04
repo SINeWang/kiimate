@@ -13,7 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.summer.io.context.ErestHeaders.OWNER_ID;
+import static one.kii.kiimate.model.core.ctl.DeclareExtensionCtl.OWNER_ID;
 
 
 /**
@@ -24,6 +24,7 @@ import static one.kii.summer.io.context.ErestHeaders.OWNER_ID;
 @RequestMapping("/api/v1/{" + OWNER_ID + "}/extension")
 public class DeclareExtensionCtl extends WriteController {
 
+    public static final String OWNER_ID = "ownerId";
 
     @Autowired
     private DeclareExtensionApi api;
