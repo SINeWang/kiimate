@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/{ownerId}/snapshot/{group:.+}")
 public class SnapshotModelCtl extends WriteController {
 
     @Autowired
     private SnapshotModelApi api;
 
 
-    @RequestMapping(value = "/{ownerId}/snapshot/{group:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<SnapshotModelApi.Receipt> snapshot(
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<SnapshotModelApi.Receipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable("ownerId") String ownerId,

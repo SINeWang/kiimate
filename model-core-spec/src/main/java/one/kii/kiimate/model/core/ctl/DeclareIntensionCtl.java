@@ -11,19 +11,21 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static one.kii.summer.io.context.ErestHeaders.OWNER_ID;
+
 /**
  * Created by WangYanJiong on 4/13/17.
  */
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/intension")
 public class DeclareIntensionCtl extends WriteController {
 
     @Autowired
     DeclareIntensionApi api;
 
-    @RequestMapping(value = "/{ownerId}/intension", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<DeclareIntensionApi.Receipt> declareIntension(
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<DeclareIntensionApi.Receipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable("ownerId") String ownerId,

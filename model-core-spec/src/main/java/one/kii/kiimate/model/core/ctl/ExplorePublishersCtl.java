@@ -16,27 +16,27 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/v1/explore/models")
+@RequestMapping("/api/v1/explore/publishers")
 @CrossOrigin(origins = "*")
-public class ExploreModelsCtl extends ReadController {
+public class ExplorePublishersCtl extends ReadController {
 
     @Autowired
     private ExploreModelsApi exploreModelsApi;
 
-
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<ExploreModelsApi.Model>> exploreModels(
+    @RequestMapping(value = "/explore/publishers", method = RequestMethod.GET)
+    public ResponseEntity<List<ExploreModelsApi.Provider>> explorePublishers(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @RequestParam("q") String query) {
-
         ReadContext context = buildContext(requestId, null, visitorId);
 
-        ExploreModelsApi.QueryModelsForm form = new ExploreModelsApi.QueryModelsForm();
+        ExploreModelsApi.QueryProvidersForm form = new ExploreModelsApi.QueryProvidersForm();
 
         form.setQuery(query);
 
-        List<ExploreModelsApi.Model> models = exploreModelsApi.queryModels(context, form);
-        return ErestResponse.ok(requestId, models);
+        List<ExploreModelsApi.Provider> providers = exploreModelsApi.queryProviders(context, form);
+        return ErestResponse.ok(requestId, providers);
     }
+
+
 }

@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/{subscriberId}/subscribe")
 public class SubscribeModelCtl extends WriteController {
 
     @Autowired
     private SubscribeModelApi api;
 
-    @RequestMapping(value = "/{subscriberId}/subscribe", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<SubscribeModelApi.Receipt> subscribe(
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<SubscribeModelApi.Receipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable("subscriberId") String subscriberId,
