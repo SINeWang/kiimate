@@ -37,7 +37,7 @@ public class DeclareIntensionCtl extends WriteController {
 
             return ErestResponse.created(requestId, api.declareIntension(context, form));
         } catch (Conflict conflict) {
-            return ErestResponse.conflict(requestId, conflict.getKeys()[0]);
+            return ErestResponse.conflict(requestId, conflict.getKeys());
         }
 
     }

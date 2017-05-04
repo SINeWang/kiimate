@@ -43,7 +43,7 @@ public class SnapshotModelCtl extends WriteController {
         } catch (BadRequest badRequest) {
             return ErestResponse.badRequest(requestId, badRequest.getFields());
         } catch (Conflict conflict) {
-            return ErestResponse.conflict(requestId, conflict.getKeys()[0]);
+            return ErestResponse.conflict(requestId, conflict.getKeys());
         }
     }
 }
