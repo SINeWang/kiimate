@@ -26,9 +26,6 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     @Autowired
     private AnExtensionExtractor extensionExtractor;
 
-    @Autowired
-    private AnVisibilityValidator visibilityValidator;
-
     @Override
     public CommitReceipt commit(WriteContext context, CommitForm commitForm) throws BadRequest, Conflict {
 

@@ -25,11 +25,13 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         commitForm.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getGroup()));
         commitForm.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getName()));
         commitForm.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getTree()));
+        commitForm.setVisibility(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getVisibility()));
 
 
         Extension extension = DataTools.copy(commitForm, Extension.class);
         try {
-            Visibility.valueOf(commitForm.getVisibility());
+            String visibility = commitForm.getVisibility();
+            Visibility.valueOf(visibility.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new BadRequest("visibility");
         }
