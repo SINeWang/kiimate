@@ -1,5 +1,9 @@
 package com.sinewang.kiimate.model.core.api;
 
+import one.kii.kiimate.model.core.api.DeclareExtensionApi;
+import one.kii.kiimate.model.core.dai.ExtensionDai;
+import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
+import one.kii.kiimate.model.core.fui.AnVisibilityValidator;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -7,10 +11,6 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import one.kii.kiimate.model.core.api.DeclareExtensionApi;
-import one.kii.kiimate.model.core.dai.ExtensionDai;
-import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
-import one.kii.kiimate.model.core.fui.AnVisibilityValidator;
 
 /**
  * Created by WangYanJiong on 3/24/17.
@@ -33,12 +33,6 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     public CommitReceipt commit(WriteContext context, CommitForm commitForm) throws BadRequest, Conflict {
 
         AnExtensionExtractor.Extension extension = extensionExtractor.extract(commitForm);
-
-
-        boolean isValidVisibility = visibilityValidator.isValid(extension.getVisibility());
-        if (!isValidVisibility) {
-            throw new BadRequest("visibility");
-        }
 
         ExtensionDai.Extension daiExtension = DataTools.copy(extension, ExtensionDai.Extension.class);
         daiExtension.setOwnerId(context.getOwnerId());

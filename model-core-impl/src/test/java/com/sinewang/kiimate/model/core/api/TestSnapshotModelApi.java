@@ -100,7 +100,7 @@ public class TestSnapshotModelApi {
 
         extension.setOwnerId(ownerId);
 
-        extension.setVisibility(visibility);
+        extension.setVisibility(ExtensionDai.Visibility.PRIVATE);
 
 
         extension.setId(extId);

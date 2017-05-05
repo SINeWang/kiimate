@@ -15,6 +15,12 @@ public interface AnExtensionExtractor {
 
     String hashId(String ownerId, String group, String name, String tree, String visibility);
 
+    enum Visibility {
+        PRIVATE,
+        PROTECTED,
+        PUBLIC
+    }
+
     @Data
     class Extension {
 

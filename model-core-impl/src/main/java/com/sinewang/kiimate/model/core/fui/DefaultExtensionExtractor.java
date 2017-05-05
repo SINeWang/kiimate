@@ -1,13 +1,13 @@
 package com.sinewang.kiimate.model.core.fui;
 
 import com.google.common.base.CaseFormat;
+import one.kii.kiimate.model.core.api.DeclareExtensionApi;
+import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.validator.Must;
 import org.springframework.stereotype.Component;
-import one.kii.kiimate.model.core.api.DeclareExtensionApi;
-import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 
 /**
  * Created by WangYanJiong on 25/03/2017.
@@ -26,7 +26,13 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         commitForm.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getName()));
         commitForm.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getTree()));
 
+
         Extension extension = DataTools.copy(commitForm, Extension.class);
+        try {
+            Visibility.valueOf(commitForm.getVisibility());
+        } catch (IllegalArgumentException e) {
+            throw new BadRequest("visibility");
+        }
         String id = hashExtension(extension);
         extension.setId(id);
         return extension;
