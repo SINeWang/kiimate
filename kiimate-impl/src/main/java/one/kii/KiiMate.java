@@ -1,4 +1,4 @@
-package one.kii.kiimate;
+package one.kii;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Created by WangYanJiong on 03/05/2017.
+ * Created by WangYanJiong on 05/05/2017.
  */
 
 @Configuration
@@ -20,10 +20,8 @@ import org.springframework.context.annotation.Configuration;
 @MapperScan({
         "com.sinewang.kiimate.model.core",
         "com.sinewang.kiimate.status.core"})
-public class Main {
-
+public class KiiMate {
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        SpringApplication.run(KiiMate.class, args);
     }
-
 }
