@@ -55,7 +55,7 @@ public class TestExtensionDai {
         extension.setOwnerId(testOwnerId);
         extension.setName(testName);
         extension.setTree(testTree);
-        extension.setVisibility(ExtensionDai.Visibility.PRIVATE);
+        extension.setVisibility(testVisibility);
         extension.setId(testId);
         try {
             extensionDai.insertExtension(extension);
@@ -80,7 +80,7 @@ public class TestExtensionDai {
         extension.setOwnerId(testOwnerId);
         extension.setName(testName);
         extension.setTree(testTree);
-        extension.setVisibility(ExtensionDai.Visibility.PRIVATE);
+        extension.setVisibility(testVisibility);
         extension.setId(testId);
         try {
             extensionDai.insertExtension(extension);
