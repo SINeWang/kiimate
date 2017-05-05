@@ -30,15 +30,31 @@ public class DeclareExtensionCtl extends WriteController {
     @Autowired
     private DeclareExtensionApi api;
 
-    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-    public ResponseEntity<DeclareExtensionApi.CommitReceipt> commit(
+    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public ResponseEntity<DeclareExtensionApi.CommitReceipt> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @ModelAttribute @RequestBody DeclareExtensionApi.CommitForm form) {
+            @ModelAttribute DeclareExtensionApi.CommitForm form) {
+        return commit(requestId, operatorId, ownerId, form);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<DeclareExtensionApi.CommitReceipt> commitJson(
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
+            @PathVariable(OWNER_ID) String ownerId,
+            @RequestBody DeclareExtensionApi.CommitForm form) {
+        return commit(requestId, operatorId, ownerId, form);
+    }
+
+    private ResponseEntity<DeclareExtensionApi.CommitReceipt> commit(
+            String requestId,
+            String operatorId,
+            String ownerId,
+            DeclareExtensionApi.CommitForm form) {
         try {
             WriteContext context = buildContext(requestId, operatorId, ownerId);
-
             return ErestResponse.created(requestId, api.commit(context, form));
         } catch (BadRequest badRequest) {
             return ErestResponse.badRequest(requestId, badRequest.getFields());
@@ -47,12 +63,13 @@ public class DeclareExtensionCtl extends WriteController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.PATCH, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+
+    @RequestMapping(method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<DeclareExtensionApi.CancelReceipt> cancel(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @ModelAttribute @RequestBody DeclareExtensionApi.CancelForm form) {
+            @ModelAttribute DeclareExtensionApi.CancelForm form) {
 
         try {
             WriteContext context = buildContext(requestId, operatorId, ownerId);
