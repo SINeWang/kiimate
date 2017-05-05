@@ -1,4 +1,4 @@
-package one.kii.kii;
+package one.kii.kiimate;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
