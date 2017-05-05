@@ -22,6 +22,7 @@ import static one.kii.kiimate.model.core.ctl.DeclareExtensionCtl.OWNER_ID;
 
 @RestController
 @RequestMapping("/api/v1/{" + OWNER_ID + "}/extension")
+@CrossOrigin(value = "*")
 public class DeclareExtensionCtl extends WriteController {
 
     public static final String OWNER_ID = "ownerId";
@@ -29,13 +30,12 @@ public class DeclareExtensionCtl extends WriteController {
     @Autowired
     private DeclareExtensionApi api;
 
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<DeclareExtensionApi.CommitReceipt> commit(
+    @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<DeclareExtensionApi.CommitReceipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @ModelAttribute DeclareExtensionApi.CommitForm form) {
-
+            @ModelAttribute @RequestBody DeclareExtensionApi.CommitForm form) {
         try {
             WriteContext context = buildContext(requestId, operatorId, ownerId);
 
@@ -47,13 +47,12 @@ public class DeclareExtensionCtl extends WriteController {
         }
     }
 
-
-    @RequestMapping(method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<DeclareExtensionApi.CancelReceipt> cancel(
+    @RequestMapping(method = RequestMethod.PATCH, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+    public ResponseEntity<DeclareExtensionApi.CancelReceipt> cancel(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @ModelAttribute DeclareExtensionApi.CancelForm form) {
+            @ModelAttribute @RequestBody DeclareExtensionApi.CancelForm form) {
 
         try {
             WriteContext context = buildContext(requestId, operatorId, ownerId);
