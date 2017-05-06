@@ -28,6 +28,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     private Receipt buildReceipt(String extId) {
         ExtensionDai.Extension extension = extensionDai.selectExtensionById(extId);
         Receipt receipt = DataTools.copy(extension, Receipt.class);
+        receipt.setExtId(extension.getId());
         receipt.setBody(modelRestorer.restoreAsMetaData(extId));
         return receipt;
     }

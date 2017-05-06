@@ -16,7 +16,7 @@ import static one.kii.kiimate.model.core.ctl.VisitExtensionCtl.OWNER_ID;
  */
 
 @RestController
-@RequestMapping("/api/v1/{" + OWNER_ID + "}/extension")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/extensions")
 @CrossOrigin(origins = "*")
 public class VisitExtensionCtl extends ReadController {
 
