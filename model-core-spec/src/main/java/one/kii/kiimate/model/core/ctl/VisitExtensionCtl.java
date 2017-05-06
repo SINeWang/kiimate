@@ -47,7 +47,7 @@ public class VisitExtensionCtl extends ReadController {
     }
 
 
-    @RequestMapping(value = "/{group}/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{group}/{name:.+}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
@@ -64,7 +64,7 @@ public class VisitExtensionCtl extends ReadController {
         return ErestResponse.ok(requestId, api.readExtensionByGroupNameVersion(context, form));
     }
 
-    @RequestMapping(value = "/{group}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{group:.+}", method = RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
