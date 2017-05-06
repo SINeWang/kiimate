@@ -17,11 +17,11 @@ public interface VisitExtensionApi {
 
     String VISIBILITY_PUBLIC = "public";
 
-    Map<String, Object> readExtensionByGroupNameVersion(ReadContext context, Form form);
+    Receipt visit(ReadContext context, Form form);
 
-    Map<String, Object> readExtensionByGroupNameVersion(ReadContext context, SimpleForm form);
+    Receipt visit(ReadContext context, SimpleForm form);
 
-    Map<String, Object> readExtensionByGroupNameVersion(ReadContext context, TinyForm form);
+    Receipt visit(ReadContext context, TinyForm form);
 
     @Data
     class Form {
@@ -39,5 +39,15 @@ public interface VisitExtensionApi {
     @Data
     class TinyForm {
         String group;
+    }
+
+    @Data
+    class Receipt {
+        String ownerId;
+        String group;
+        String name;
+        String tree;
+        String extId;
+        Map<String, Object> body;
     }
 }

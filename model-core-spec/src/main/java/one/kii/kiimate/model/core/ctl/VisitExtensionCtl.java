@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 import static one.kii.kiimate.model.core.ctl.VisitExtensionCtl.OWNER_ID;
 
 /**
@@ -28,7 +26,7 @@ public class VisitExtensionCtl extends ReadController {
     private VisitExtensionApi api;
 
     @RequestMapping(value = "/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+    public ResponseEntity<VisitExtensionApi.Receipt> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -43,12 +41,12 @@ public class VisitExtensionCtl extends ReadController {
         form.setName(name);
         form.setTree(tree);
 
-        return ErestResponse.ok(requestId, api.readExtensionByGroupNameVersion(context, form));
+        return ErestResponse.ok(requestId, api.visit(context, form));
     }
 
 
     @RequestMapping(value = "/{group}/{name:.+}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+    public ResponseEntity<VisitExtensionApi.Receipt> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -61,11 +59,11 @@ public class VisitExtensionCtl extends ReadController {
         form.setGroup(group);
         form.setName(name);
 
-        return ErestResponse.ok(requestId, api.readExtensionByGroupNameVersion(context, form));
+        return ErestResponse.ok(requestId, api.visit(context, form));
     }
 
     @RequestMapping(value = "/{group:.+}", method = RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> readIntensionsByGroupNameVersion(
+    public ResponseEntity<VisitExtensionApi.Receipt> readIntensionsByGroupNameVersion(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -76,6 +74,6 @@ public class VisitExtensionCtl extends ReadController {
         VisitExtensionApi.TinyForm form = new VisitExtensionApi.TinyForm();
         form.setGroup(group);
 
-        return ErestResponse.ok(requestId, api.readExtensionByGroupNameVersion(context, form));
+        return ErestResponse.ok(requestId, api.visit(context, form));
     }
 }
