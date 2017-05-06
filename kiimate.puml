@@ -117,6 +117,7 @@ class Intension {
     Structure structure
     string ref_ext_id
     Visibility visibility
+    Boolean required
     ---
     Subject operator_id
     DateTime begin_time
