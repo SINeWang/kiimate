@@ -41,6 +41,7 @@ public class DefaultIntensionDai implements IntensionDai {
                     intension.getStructure(),
                     intension.getRefExtId(),
                     intension.getVisibility(),
+                    intension.isRequired(),
                     now
             );
         } catch (DuplicateKeyException duplicated) {

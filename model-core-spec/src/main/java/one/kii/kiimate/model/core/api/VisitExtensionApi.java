@@ -3,7 +3,7 @@ package one.kii.kiimate.model.core.api;
 import lombok.Data;
 import one.kii.summer.io.context.ReadContext;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 4/5/17.
@@ -48,6 +48,26 @@ public interface VisitExtensionApi {
         String name;
         String tree;
         String extId;
-        Map<String, Object> body;
+        String visibility;
+        List<Intension> intensions;
     }
+
+    @Data
+    class Intension {
+
+        private String id;
+
+        private String field;
+
+        private boolean single;
+
+        private String structure;
+
+        private String refExtId;
+
+        private String visibility;
+
+        private boolean required;
+    }
+
 }

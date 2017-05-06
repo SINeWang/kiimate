@@ -12,17 +12,18 @@
         <result column="structure" property="structure"/>
         <result column="ref_ext_id" property="refExtId"/>
         <result column="visibility" property="visibility"/>
+        <result column="is_required" property="required"/>
     </resultMap>
 
     <select id="selectLatestIntensionsByExtId" resultMap="Intension">
-        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_ext_id, mint.visibility
+        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_ext_id, mint.visibility, mint.is_required
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.end_time IS NULL
     </select>
 
     <select id="selectLatestIntensionByExtIdField" resultMap="Intension">
-        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_ext_id, mint.visibility
+        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_ext_id, mint.visibility, mint.is_required
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
@@ -37,9 +38,9 @@
 
     <insert id="insertIntension">
         INSERT INTO mm_m_int
-        (`id`, `ext_id`, `field`, `is_single`, `structure`, `ref_ext_id`, `visibility`, `begin_time`)
+        (`id`, `ext_id`, `field`, `is_single`, `structure`, `ref_ext_id`, `visibility`, `is_required`, `begin_time`)
         VALUES
-        (#{id}, #{extId}, #{field}, #{single}, #{structure}, #{refExtId}, #{visibility}, #{beginTime})
+        (#{id}, #{extId}, #{field}, #{single}, #{structure}, #{refExtId}, #{visibility}, #{required}, #{beginTime})
     </insert>
 
     <delete id="deleteIntensionsByExtId">

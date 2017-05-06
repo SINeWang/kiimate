@@ -22,6 +22,7 @@ public interface IntensionMapper {
                          @Param("structure") String structure,
                          @Param("refExtId") String refExtId,
                          @Param("visibility") String visibility,
+                         @Param("required") boolean required,
                          @Param("beginTime") Date beginTime);
 
 

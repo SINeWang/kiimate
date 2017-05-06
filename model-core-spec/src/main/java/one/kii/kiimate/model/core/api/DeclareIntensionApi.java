@@ -29,7 +29,7 @@ public interface DeclareIntensionApi {
 
         private String visibility;
 
-
+        private boolean required;
     }
 
     @Data
@@ -50,6 +50,7 @@ public interface DeclareIntensionApi {
 
         private String visibility;
 
+        private boolean required;
     }
 
 }

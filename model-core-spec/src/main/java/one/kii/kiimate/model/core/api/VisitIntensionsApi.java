@@ -60,6 +60,8 @@ public interface VisitIntensionsApi {
         private String refExtId;
 
         private String visibility;
+
+        private boolean required;
     }
 
 }

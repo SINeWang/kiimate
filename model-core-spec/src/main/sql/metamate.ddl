@@ -44,6 +44,7 @@ CREATE TABLE `mm_m_int` (
   `visibility` varchar(16) NOT NULL COMMENT 'the visibility of scope',
   `structure` varchar(16) DEFAULT NULL,
   `ref_ext_id` varchar(160),
+  `is_required` tinyint(1) NOT NULL,
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`,`begin_time`)

@@ -36,6 +36,7 @@ public interface IntensionDai {
 
         private String visibility;
 
+        private boolean required;
     }
 
     class IntensionDuplicated extends Exception {
