@@ -1,12 +1,5 @@
 package com.sinewang.kiimate.model.core.api;
 
-import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.codec.utils.HashTools;
-import one.kii.summer.io.context.WriteContext;
-import one.kii.summer.io.exception.BadRequest;
-import one.kii.summer.io.exception.Conflict;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import one.kii.kiimate.model.core.api.SnapshotModelApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
@@ -14,6 +7,13 @@ import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.kiimate.model.core.fui.AnPublicationExtractor;
 import one.kii.kiimate.model.core.fui.AnPublicationValidator;
+import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.codec.utils.HashTools;
+import one.kii.summer.io.context.WriteContext;
+import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.Conflict;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,21 +27,17 @@ import java.util.List;
 @Component
 public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
+    private static final String SNAPSHOT = "snapshot";
     @Autowired
     private AnPublicationExtractor publicationExtractor;
-
     @Autowired
     private IntensionDai intensionDai;
-
     @Autowired
     private ExtensionDai extensionDai;
-
     @Autowired
     private ModelPublicationDai modelPublicationDai;
-
     @Autowired
     private AnExtensionExtractor extensionExtractor;
-
 
     public Receipt snapshot(WriteContext context, Form form) throws BadRequest, Conflict {
 
@@ -51,26 +47,37 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
         Date date = new Date();
         List<String> ids = new ArrayList<>();
+
         for (ExtensionDai.Extension extension : extensions) {
             AnPublicationExtractor.Publication snapshot;
-            String extId = extensionExtractor.hashId(context.getOwnerId(), form.getGroup(), extension.getName(), TREE_MASTER, VISIBILITY_PUBLIC);
+
+
+            AnExtensionExtractor.Extension newExtension = DataTools.copy(extension, AnExtensionExtractor.Extension.class);
+            String tree = SNAPSHOT + "-" + form.getVersion();
+            newExtension.setTree(tree);
+
+            extensionExtractor.hashId(newExtension);
             try {
-                snapshot = publicationExtractor.extractSnapshot(form, extId, context.getOperatorId(), date);
+                snapshot = publicationExtractor.extractSnapshot(form, newExtension.getId(), context.getOperatorId(), date);
             } catch (AnPublicationExtractor.MissingParamException e) {
                 throw new BadRequest(e.getMessage());
             }
 
-            List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
-            allIntensions.addAll(intensions);
-
-            String pubExtId = publicationExtractor.hashPubExtId(snapshot.getProviderId(), extId, snapshot.getPublication(), snapshot.getVersion());
+            List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extension.getId());
 
             for (IntensionDai.Intension intension : intensions) {
+                intension.setExtId(newExtension.getId());
+            }
 
-                String id = publicationExtractor.hashId(pubExtId, intension.getId());
+            allIntensions.addAll(intensions);
+
+            final String snapExtId = publicationExtractor.hashPublishExtId(snapshot.getProviderId(), newExtension.getId());
+
+            for (IntensionDai.Intension intension : intensions) {
+                String id = publicationExtractor.hashId(snapExtId, intension.getId());
                 ids.add(id);
                 ModelPublicationDai.Publication daiPublication = DataTools.copy(snapshot, ModelPublicationDai.Publication.class);
-                daiPublication.setPublication(AnPublicationValidator.Publication.SNAPSHOT.name());
+                daiPublication.setPublication(SNAPSHOT);
                 daiPublication.setIntId(intension.getId());
                 daiPublication.setId(id);
                 daiPublication.setBeginTime(snapshot.getCreatedAt());
@@ -82,7 +89,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
         String pubSetHash = HashTools.hashHex(idArray);
 
         try {
-            modelPublicationDai.savePublications(pubSetHash, publications);
+            modelPublicationDai.savePublications(pubSetHash, publications, extensions, allIntensions);
         } catch (ModelPublicationDai.DuplicatedPublication duplicatedPublication) {
             Receipt receipt = DataTools.copy(duplicatedPublication, Receipt.class);
             receipt.setVersion(form.getVersion());

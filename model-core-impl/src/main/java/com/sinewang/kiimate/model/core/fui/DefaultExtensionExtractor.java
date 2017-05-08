@@ -49,6 +49,17 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         return HashTools.hashHex(ownerId, group, name, tree, visibility);
     }
 
+    @Override
+    public void hashId(Extension extension) {
+        String id = hashId(
+                extension.getOwnerId(),
+                extension.getGroup(),
+                extension.getName(),
+                extension.getTree(),
+                extension.getVisibility());
+        extension.setId(id);
+    }
+
     private String hashExtension(Extension extension) {
         return hashId(extension.getOwnerId(), extension.getGroup(), extension.getName(), extension.getTree(), extension.getVisibility());
     }

@@ -17,7 +17,7 @@ public interface AnPublicationExtractor {
 
     String hashId(String pubExitId, String intId);
 
-    String hashPubExtId(String providerId, String extId, String publication, String version);
+    String hashPublishExtId(String providerId, String extId);
 
     @Data
     class Publication {

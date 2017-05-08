@@ -15,6 +15,8 @@ public interface AnExtensionExtractor {
 
     String hashId(String ownerId, String group, String name, String tree, String visibility);
 
+    void hashId(Extension extension);
+
     enum Visibility {
         PRIVATE,
         PROTECTED,

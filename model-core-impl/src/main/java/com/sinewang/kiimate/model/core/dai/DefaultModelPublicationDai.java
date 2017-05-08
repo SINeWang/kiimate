@@ -1,10 +1,15 @@
 package com.sinewang.kiimate.model.core.dai;
 
+import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
+import com.sinewang.kiimate.model.core.dai.mapper.IntensionMapper;
 import com.sinewang.kiimate.model.core.dai.mapper.ModelPublicationMapper;
+import one.kii.kiimate.model.core.dai.ExtensionDai;
+import one.kii.kiimate.model.core.dai.IntensionDai;
+import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,8 +22,16 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     @Autowired
     private ModelPublicationMapper modelPublicationMapper;
 
+    @Autowired
+    private ExtensionMapper extensionMapper;
+
+    @Autowired
+    private IntensionMapper intensionMapper;
+
     @Override
-    public void savePublications(String pubSetHash, List<Publication> publications) throws DuplicatedPublication {
+    public void savePublications(String pubSetHash, List<Publication> publications,
+                                 List<ExtensionDai.Extension> extensions,
+                                 List<IntensionDai.Intension> intensions) throws DuplicatedPublication {
         int count = modelPublicationMapper.countPublicationByPubSetHash(pubSetHash);
         if (count > 0) {
             throw new DuplicatedPublication(pubSetHash);
@@ -34,6 +47,33 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
                     publication.getPublication(),
                     publication.getOperatorId(),
                     publication.getBeginTime()
+            );
+        }
+
+        Date now = new Date();
+        for (IntensionDai.Intension intension : intensions) {
+            intensionMapper.insertIntension(
+                    intension.getId(),
+                    intension.getExtId(),
+                    intension.getField(),
+                    intension.isSingle(),
+                    intension.getStructure(),
+                    intension.getRefExtId(),
+                    intension.getVisibility(),
+                    intension.isRequired(),
+                    now
+            );
+        }
+
+        for (ExtensionDai.Extension extension : extensions) {
+            extensionMapper.insertExtension(
+                    extension.getId(),
+                    extension.getOwnerId(),
+                    extension.getGroup(),
+                    extension.getName(),
+                    extension.getTree(),
+                    extension.getVisibility(),
+                    now
             );
         }
     }

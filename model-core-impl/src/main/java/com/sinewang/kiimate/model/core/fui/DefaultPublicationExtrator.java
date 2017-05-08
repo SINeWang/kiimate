@@ -1,10 +1,10 @@
 package com.sinewang.kiimate.model.core.fui;
 
-import one.kii.summer.codec.utils.HashTools;
-import org.springframework.stereotype.Component;
 import one.kii.kiimate.model.core.api.SnapshotModelApi;
 import one.kii.kiimate.model.core.fui.AnPublicationExtractor;
 import one.kii.kiimate.model.core.fui.AnPublicationValidator;
+import one.kii.summer.codec.utils.HashTools;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -19,7 +19,7 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
     @Override
     public Publication extractSnapshot(SnapshotModelApi.Form form, String extId, String operatorId, Date date) throws MissingParamException {
         Publication publication = new Publication();
-        publication.setPubExtId(hashPubExtId(form.getProviderId(), extId, AnPublicationValidator.Publication.SNAPSHOT.name(), form.getVersion()));
+        publication.setPubExtId(hashPublishExtId(form.getProviderId(), extId));
         publication.setExtId(extId);
         publication.setOperatorId(operatorId);
         publication.setProviderId(form.getProviderId());
@@ -35,8 +35,8 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
     }
 
     @Override
-    public String hashPubExtId(String providerId, String extId, String publication, String version) {
-        return HashTools.hashHex(providerId, extId, publication, version);
+    public String hashPublishExtId(String providerId, String extId) {
+        return HashTools.hashHex(providerId, extId);
     }
 
 }
