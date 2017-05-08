@@ -4,6 +4,7 @@ import lombok.Data;
 import one.kii.summer.io.context.ReadContext;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 4/5/17.
@@ -50,6 +51,7 @@ public interface VisitExtensionApi {
         String extId;
         String visibility;
         List<Intension> intensions;
+        Map<String, Object> schema;
     }
 
     @Data

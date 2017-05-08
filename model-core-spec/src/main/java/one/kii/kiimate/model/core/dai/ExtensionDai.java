@@ -15,6 +15,9 @@ public interface ExtensionDai {
 
     List<Extension> selectExtensionsByOwnerGroup(String ownerId, String group);
 
+    List<Extension> queryExtensionsByOwnerGroup(String ownerId, String group);
+
+
     void deleteExtensionById(String id);
 
     @Transactional

@@ -25,6 +25,8 @@ public interface ExtensionMapper {
 
     List<ExtensionDai.Extension> selectExtensionsByOwnerGroup(@Param("ownerId") String ownerId, @Param("group") String group);
 
+    List<ExtensionDai.Extension> queryExtensionsByOwnerGroup(@Param("ownerId") String ownerId, @Param("group") String group);
+
     void deleteExtensionById(@Param("id") String id);
 
     void updateEndTimeExtensionByOwnerIdGroup(

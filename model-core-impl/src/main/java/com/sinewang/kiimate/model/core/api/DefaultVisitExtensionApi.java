@@ -31,7 +31,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     @Autowired
     private IntensionDai intensionDai;
 
-    private Receipt buildReceipt(String extId) {
+    private Receipt buildReceipt(final String extId) {
         ExtensionDai.Extension extension = extensionDai.selectExtensionById(extId);
         Receipt receipt = DataTools.copy(extension, Receipt.class);
         receipt.setExtId(extension.getId());
@@ -40,6 +40,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
         List<Intension> intensions = DataTools.copy(intensionList, Intension.class);
         receipt.setIntensions(intensions);
+        receipt.setSchema(modelRestorer.restoreAsMetaData(extId));
         return receipt;
     }
 

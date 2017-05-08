@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 02/05/2017.
  */
-public interface ExploreModelsApi {
+public interface SearchModelsApi {
 
 
     List<Provider> queryProviders(ReadContext context, QueryProvidersForm form);

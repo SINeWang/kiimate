@@ -4,7 +4,7 @@ import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.io.context.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import one.kii.kiimate.model.core.api.ExploreModelsApi;
+import one.kii.kiimate.model.core.api.SearchModelsApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
@@ -17,7 +17,7 @@ import java.util.List;
  * Created by WangYanJiong on 02/05/2017.
  */
 @Component
-public class DefaultExploreModelsApi implements ExploreModelsApi {
+public class DefaultSearchModelsApi implements SearchModelsApi {
 
 
     @Autowired

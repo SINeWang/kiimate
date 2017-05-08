@@ -19,19 +19,40 @@ import static one.kii.kiimate.model.core.ctl.DeclareIntensionCtl.OWNER_ID;
 
 @RestController
 @RequestMapping("/api/v1/{" + OWNER_ID + "}/intension")
+@CrossOrigin(value = "*")
 public class DeclareIntensionCtl extends WriteController {
 
     public static final String OWNER_ID = "ownerId";
 
     @Autowired
-    DeclareIntensionApi api;
+    private DeclareIntensionApi api;
+
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<DeclareIntensionApi.Receipt> commit(
+    public ResponseEntity<DeclareIntensionApi.Receipt> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @ModelAttribute DeclareIntensionApi.Form form) {
+        return commit(requestId, operatorId, ownerId, form);
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<DeclareIntensionApi.Receipt> commitJson(
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
+            @PathVariable(OWNER_ID) String ownerId,
+            @RequestBody DeclareIntensionApi.Form form) {
+        return commit(requestId, operatorId, ownerId, form);
+    }
+
+
+    private ResponseEntity<DeclareIntensionApi.Receipt> commit(
+            String requestId,
+            String operatorId,
+            String ownerId,
+            DeclareIntensionApi.Form form) {
         try {
             WriteContext context = buildContext(requestId, operatorId, ownerId);
 
@@ -39,7 +60,7 @@ public class DeclareIntensionCtl extends WriteController {
         } catch (Conflict conflict) {
             return ErestResponse.conflict(requestId, conflict.getKeys());
         }
-
     }
+
 
 }

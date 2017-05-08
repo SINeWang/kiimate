@@ -38,6 +38,11 @@ public class DefaultExtensionDai implements ExtensionDai {
     }
 
     @Override
+    public List<Extension> queryExtensionsByOwnerGroup(String ownerId, String group) {
+        return extensionMapper.queryExtensionsByOwnerGroup(ownerId, group);
+    }
+
+    @Override
     public void deleteExtensionById(String id) {
         extensionMapper.deleteExtensionById(id);
     }
