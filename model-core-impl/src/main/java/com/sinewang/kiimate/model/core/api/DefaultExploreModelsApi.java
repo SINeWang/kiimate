@@ -55,6 +55,7 @@ public class DefaultExploreModelsApi implements ExploreModelsApi {
             Model model = DataTools.copy(publication, Model.class);
 
 
+            model.setRootExtId(extension.getId());
             model.setGroup(extension.getGroup());
             model.setName(extension.getName());
             model.setIntensions(intensions);
