@@ -6,6 +6,7 @@ import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 26/03/2017.
@@ -13,7 +14,7 @@ import java.util.List;
 public interface RemoveIntensionApi {
 
 
-    List<Intension> removeIntension(WriteContext context, Form form) throws Conflict;
+    Receipt removeIntension(WriteContext context, Form form) throws Conflict;
 
     @Data
     @EqualsAndHashCode(callSuper = false)
@@ -25,6 +26,14 @@ public interface RemoveIntensionApi {
 
         private String ownerId;
 
+    }
+
+    @Data
+    class Receipt {
+
+        List<Intension> intensions;
+
+        Map<String, Object> schema;
     }
 
 

@@ -36,7 +36,7 @@ public class RemoveIntensionCtl extends WriteController {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<List<RemoveIntensionApi.Intension>> commit(
+    public ResponseEntity<RemoveIntensionApi.Receipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -50,8 +50,9 @@ public class RemoveIntensionCtl extends WriteController {
             form.setExtId(extId);
             form.setOwnerId(ownerId);
 
-            List<RemoveIntensionApi.Intension> intensionList = api.removeIntension(context, form);
-            return ErestResponse.created(requestId, intensionList);
+            RemoveIntensionApi.Receipt receipt = api.removeIntension(context, form);
+
+            return ErestResponse.created(requestId, receipt);
         } catch (Conflict conflict) {
             return ErestResponse.conflict(requestId, conflict.getKeys());
         }
