@@ -1,6 +1,5 @@
 package one.kii.kiimate.model.core.ctl;
 
-import one.kii.kiimate.model.core.api.DeclareIntensionApi;
 import one.kii.kiimate.model.core.api.RemoveIntensionApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
@@ -19,7 +18,7 @@ import static one.kii.kiimate.model.core.ctl.RemoveIntensionCtl.INT_ID;
  */
 
 @RestController
-@RequestMapping("/api/v1/{" + OWNER_ID + "}/intension/{" + INT_ID + "}")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/intensions/{" + INT_ID + "}")
 @CrossOrigin(value = "*")
 public class RemoveIntensionCtl extends WriteController {
 
