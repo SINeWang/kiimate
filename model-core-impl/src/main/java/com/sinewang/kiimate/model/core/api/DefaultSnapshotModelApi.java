@@ -5,6 +5,7 @@ import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
+import one.kii.kiimate.model.core.fui.AnIntensionExtractor;
 import one.kii.kiimate.model.core.fui.AnPublicationExtractor;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
@@ -38,6 +39,9 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
     @Autowired
     private AnExtensionExtractor extensionExtractor;
 
+    @Autowired
+    private AnIntensionExtractor intensionExtractor;
+
     public Receipt snapshot(WriteContext context, Form form) throws BadRequest, Conflict {
 
         List<ExtensionDai.Extension> extensions = extensionDai.selectExtensionsByOwnerGroup(context.getOwnerId(), form.getGroup());
@@ -65,6 +69,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
             for (IntensionDai.Intension intension : intensions) {
                 intension.setExtId(newExtension.getId());
+                intension.setId(intensionExtractor.hashId(newExtension.getId(), intension.getField()));
             }
 
             allIntensions.addAll(intensions);

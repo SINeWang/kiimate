@@ -61,6 +61,4 @@ public class DefaultIntensionDai implements IntensionDai {
         Date now = new Date();
         intensionMapper.updateLatestIntensionEndTimeById(intId, now);
     }
-
-
 }

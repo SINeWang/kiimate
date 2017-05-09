@@ -5,17 +5,21 @@ import lombok.EqualsAndHashCode;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 
+import java.util.List;
+
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
 public interface RemoveIntensionApi {
 
 
-    Receipt removeIntension(WriteContext context, Form form) throws Conflict;
+    List<Intension> removeIntension(WriteContext context, Form form) throws Conflict;
 
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Form {
+
+        private String extId;
 
         private String intId;
 
@@ -23,10 +27,23 @@ public interface RemoveIntensionApi {
 
     }
 
-    @Data
-    @EqualsAndHashCode(callSuper = false)
-    class Receipt {
 
+    @Data
+    class Intension {
+
+        private String id;
+
+        private String field;
+
+        private boolean single;
+
+        private String structure;
+
+        private String refExtId;
+
+        private String visibility;
+
+        private boolean required;
     }
 
 }
