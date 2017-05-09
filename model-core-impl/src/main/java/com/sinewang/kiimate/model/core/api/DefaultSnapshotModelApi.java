@@ -6,7 +6,6 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.kiimate.model.core.fui.AnPublicationExtractor;
-import one.kii.kiimate.model.core.fui.AnPublicationValidator;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
@@ -47,15 +46,14 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
         Date date = new Date();
         List<String> ids = new ArrayList<>();
-
+        List<AnExtensionExtractor.Extension> newExtensions = new ArrayList<>();
         for (ExtensionDai.Extension extension : extensions) {
-            AnPublicationExtractor.Publication snapshot;
-
-
             AnExtensionExtractor.Extension newExtension = DataTools.copy(extension, AnExtensionExtractor.Extension.class);
             String tree = SNAPSHOT + "-" + form.getVersion();
             newExtension.setTree(tree);
+            newExtensions.add(newExtension);
 
+            AnPublicationExtractor.Publication snapshot;
             extensionExtractor.hashId(newExtension);
             try {
                 snapshot = publicationExtractor.extractSnapshot(form, newExtension.getId(), context.getOperatorId(), date);
@@ -89,7 +87,8 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
         String pubSetHash = HashTools.hashHex(idArray);
 
         try {
-            modelPublicationDai.savePublications(pubSetHash, publications, extensions, allIntensions);
+            List<ExtensionDai.Extension> newExtensionList = DataTools.copy(newExtensions, ExtensionDai.Extension.class);
+            modelPublicationDai.savePublications(pubSetHash, publications, newExtensionList, allIntensions);
         } catch (ModelPublicationDai.DuplicatedPublication duplicatedPublication) {
             Receipt receipt = DataTools.copy(duplicatedPublication, Receipt.class);
             receipt.setVersion(form.getVersion());

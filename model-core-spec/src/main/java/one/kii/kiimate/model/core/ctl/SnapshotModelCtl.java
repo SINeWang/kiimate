@@ -19,7 +19,8 @@ import static one.kii.kiimate.model.core.ctl.SnapshotModelCtl.OWNER_ID;
  */
 
 @RestController
-@RequestMapping("/api/v1/{" + OWNER_ID + "}/snapshot/{group:.+}")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/snapshot")
+@CrossOrigin(origins = "*")
 public class SnapshotModelCtl extends WriteController {
 
     public static final String OWNER_ID = "ownerId";
@@ -28,17 +29,27 @@ public class SnapshotModelCtl extends WriteController {
     private SnapshotModelApi api;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<SnapshotModelApi.Receipt> commit(
+    public ResponseEntity<SnapshotModelApi.Receipt> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @PathVariable("group") String group,
             @ModelAttribute SnapshotModelApi.Form form) {
+        return commit(requestId, operatorId, ownerId, form);
+    }
+
+
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<SnapshotModelApi.Receipt> commitJson(
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
+            @PathVariable(OWNER_ID) String ownerId,
+            @RequestBody SnapshotModelApi.Form form) {
+        return commit(requestId, operatorId, ownerId, form);
+    }
+
+    private ResponseEntity<SnapshotModelApi.Receipt> commit(@RequestHeader(ErestHeaders.REQUEST_ID) String requestId, @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId, @PathVariable(OWNER_ID) String ownerId, @ModelAttribute SnapshotModelApi.Form form) {
         try {
-
             WriteContext context = buildContext(requestId, operatorId, ownerId);
-
-            form.setGroup(group);
             return ErestResponse.created(requestId, api.snapshot(context, form));
         } catch (BadRequest badRequest) {
             return ErestResponse.badRequest(requestId, badRequest.getFields());
@@ -46,4 +57,6 @@ public class SnapshotModelCtl extends WriteController {
             return ErestResponse.conflict(requestId, conflict.getKeys());
         }
     }
+
+
 }
