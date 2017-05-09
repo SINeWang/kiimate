@@ -35,7 +35,7 @@ public class RemoveIntensionCtl extends WriteController {
     private RemoveIntensionApi api;
 
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.PATCH)
     public ResponseEntity<RemoveIntensionApi.Receipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
