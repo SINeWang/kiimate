@@ -26,9 +26,9 @@ public interface SnapshotModelApi {
     @EqualsAndHashCode(callSuper = false)
     class Form {
 
-        private String group;
-
         private String providerId;
+
+        private String extId;
 
         private String version;
 

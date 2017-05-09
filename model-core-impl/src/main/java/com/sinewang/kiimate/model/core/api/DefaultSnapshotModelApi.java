@@ -44,49 +44,48 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
     public Receipt snapshot(WriteContext context, Form form) throws BadRequest, Conflict {
 
-        List<ExtensionDai.Extension> extensions = extensionDai.selectExtensionsByOwnerGroup(context.getOwnerId(), form.getGroup());
+        ExtensionDai.Extension extension = extensionDai.selectExtensionById(form.getExtId());
         List<ModelPublicationDai.Publication> publications = new ArrayList<>();
         List<IntensionDai.Intension> allIntensions = new ArrayList<>();
 
         Date date = new Date();
         List<String> ids = new ArrayList<>();
         List<AnExtensionExtractor.Extension> newExtensions = new ArrayList<>();
-        for (ExtensionDai.Extension extension : extensions) {
-            AnExtensionExtractor.Extension newExtension = DataTools.copy(extension, AnExtensionExtractor.Extension.class);
-            String tree = SNAPSHOT + "-" + form.getVersion();
-            newExtension.setTree(tree);
-            newExtensions.add(newExtension);
+        AnExtensionExtractor.Extension newExtension = DataTools.copy(extension, AnExtensionExtractor.Extension.class);
+        String tree = SNAPSHOT + "-" + form.getVersion();
+        newExtension.setTree(tree);
+        newExtensions.add(newExtension);
 
-            AnPublicationExtractor.Publication snapshot;
-            extensionExtractor.hashId(newExtension);
-            try {
-                snapshot = publicationExtractor.extractSnapshot(form, newExtension.getId(), context.getOperatorId(), date);
-            } catch (AnPublicationExtractor.MissingParamException e) {
-                throw new BadRequest(e.getMessage());
-            }
-
-            List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extension.getId());
-
-            for (IntensionDai.Intension intension : intensions) {
-                intension.setExtId(newExtension.getId());
-                intension.setId(intensionExtractor.hashId(newExtension.getId(), intension.getField()));
-            }
-
-            allIntensions.addAll(intensions);
-
-            final String snapExtId = publicationExtractor.hashPublishExtId(snapshot.getProviderId(), newExtension.getId());
-
-            for (IntensionDai.Intension intension : intensions) {
-                String id = publicationExtractor.hashId(snapExtId, intension.getId());
-                ids.add(id);
-                ModelPublicationDai.Publication daiPublication = DataTools.copy(snapshot, ModelPublicationDai.Publication.class);
-                daiPublication.setPublication(SNAPSHOT);
-                daiPublication.setIntId(intension.getId());
-                daiPublication.setId(id);
-                daiPublication.setBeginTime(snapshot.getCreatedAt());
-                publications.add(daiPublication);
-            }
+        AnPublicationExtractor.Publication snapshot;
+        extensionExtractor.hashId(newExtension);
+        try {
+            snapshot = publicationExtractor.extractSnapshot(form, newExtension.getId(), context.getOperatorId(), date);
+        } catch (AnPublicationExtractor.MissingParamException e) {
+            throw new BadRequest(e.getMessage());
         }
+
+        List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extension.getId());
+
+        for (IntensionDai.Intension intension : intensions) {
+            intension.setExtId(newExtension.getId());
+            intension.setId(intensionExtractor.hashId(newExtension.getId(), intension.getField()));
+        }
+
+        allIntensions.addAll(intensions);
+
+        final String snapExtId = publicationExtractor.hashPublishExtId(snapshot.getProviderId(), newExtension.getId());
+
+        for (IntensionDai.Intension intension : intensions) {
+            String id = publicationExtractor.hashId(snapExtId, intension.getId());
+            ids.add(id);
+            ModelPublicationDai.Publication daiPublication = DataTools.copy(snapshot, ModelPublicationDai.Publication.class);
+            daiPublication.setPublication(SNAPSHOT);
+            daiPublication.setIntId(intension.getId());
+            daiPublication.setId(id);
+            daiPublication.setBeginTime(snapshot.getCreatedAt());
+            publications.add(daiPublication);
+        }
+
         String[] idArray = ids.toArray(new String[0]);
         Arrays.sort(idArray);
         String pubSetHash = HashTools.hashHex(idArray);

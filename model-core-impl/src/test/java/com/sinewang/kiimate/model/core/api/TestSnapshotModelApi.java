@@ -135,7 +135,7 @@ public class TestSnapshotModelApi {
         SnapshotModelApi.Form form = new SnapshotModelApi.Form();
         form.setVersion(version);
         form.setProviderId(providerId);
-        form.setGroup(group);
+        form.setExtId(extId);
         modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
 
 
