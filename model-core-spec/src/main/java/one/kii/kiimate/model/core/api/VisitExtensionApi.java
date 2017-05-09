@@ -48,7 +48,7 @@ public interface VisitExtensionApi {
         String group;
         String name;
         String tree;
-        String extId;
+        String id;
         String visibility;
         List<Intension> intensions;
         Map<String, Object> schema;

@@ -34,7 +34,6 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     private Receipt buildReceipt(final String extId) {
         ExtensionDai.Extension extension = extensionDai.selectExtensionById(extId);
         Receipt receipt = DataTools.copy(extension, Receipt.class);
-        receipt.setExtId(extension.getId());
 
         List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(extId);
 
