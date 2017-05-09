@@ -5,6 +5,9 @@ import lombok.EqualsAndHashCode;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
@@ -33,12 +36,18 @@ public interface DeclareIntensionApi {
     }
 
     @Data
-    @EqualsAndHashCode(callSuper = false)
     class Receipt {
 
-        private String id;
+        List<Intension> intensions;
 
-        private String extId;
+        Map<String, Object> schema;
+    }
+
+
+    @Data
+    class Intension {
+
+        private String id;
 
         private String field;
 

@@ -3,11 +3,14 @@ package com.sinewang.kiimate.model.core.api;
 import one.kii.kiimate.model.core.api.DeclareIntensionApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnIntensionExtractor;
+import one.kii.kiimate.model.core.fui.AnModelRestorer;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 3/27/17.
@@ -23,6 +26,9 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
     @Autowired
     private AnIntensionExtractor anIntensionExtractor;
 
+    @Autowired
+    private AnModelRestorer modelRestorer;
+
     @Override
     public Receipt declareIntension(WriteContext context, Form form) throws Conflict {
 
@@ -33,10 +39,16 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
         IntensionDai.Intension daiRecord = DataTools.copy(intension, IntensionDai.Intension.class);
         try {
             intensionDai.insertIntension(daiRecord);
-            return DataTools.copy(daiRecord, Receipt.class);
         } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
             throw new Conflict(daiRecord.getId());
         }
+        Receipt receipt = new Receipt();
+        List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(form.getExtId());
+        List<Intension> intensions = DataTools.copy(intensionList, Intension.class);
+        receipt.setIntensions(intensions);
+        receipt.setSchema(modelRestorer.restoreAsMetaData(form.getExtId()));
+
+        return receipt;
 
     }
 
