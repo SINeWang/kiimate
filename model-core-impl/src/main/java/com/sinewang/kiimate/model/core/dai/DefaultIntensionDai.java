@@ -1,12 +1,12 @@
 package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.IntensionMapper;
+import one.kii.kiimate.model.core.dai.IntensionDai;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
-import one.kii.kiimate.model.core.dai.IntensionDai;
 
 import java.util.Date;
 import java.util.List;
@@ -55,9 +55,11 @@ public class DefaultIntensionDai implements IntensionDai {
         return intensionMapper.selectLatestIntensionsByExtId(extId);
     }
 
+
     @Override
-    public void deleteIntensionsByExitId(String extId) {
-        intensionMapper.deleteIntensionsByExtId(extId);
+    public void removeIntension(String intId) {
+        Date now = new Date();
+        intensionMapper.updateLatestIntensionEndTimeById(intId, now);
     }
 
 

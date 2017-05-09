@@ -87,7 +87,6 @@ public class TestSnapshotModelApi {
 
         modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
         extensionDai.deleteExtensionById(extId);
-        intensionDai.deleteIntensionsByExitId(extId);
 
 
         ExtensionDai.Extension extension = new ExtensionDai.Extension();
@@ -164,7 +163,6 @@ public class TestSnapshotModelApi {
     @After
     public void after() {
         extensionDai.deleteExtensionById(extId);
-        intensionDai.deleteIntensionsByExitId(extId);
         modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
     }
 }

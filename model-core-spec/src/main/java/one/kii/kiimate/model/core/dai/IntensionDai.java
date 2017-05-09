@@ -17,7 +17,7 @@ public interface IntensionDai {
 
     List<Intension> selectIntensionsByExtId(String extId);
 
-    void deleteIntensionsByExitId(String extId);
+    void removeIntension(String extId);
 
     @Data
     class Intension {
