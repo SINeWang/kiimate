@@ -11,13 +11,21 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static one.kii.kiimate.model.core.ctl.SubscribeModelCtl.OWNER_ID;
+import static one.kii.kiimate.model.core.ctl.SubscribeModelCtl.PUB_SET;
+
 /**
  * Created by WangYanJiong on 4/13/17.
  */
 
 @RestController
-@RequestMapping("/api/v1/{subscriberId}/subscribe")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/subscriptions/{" + PUB_SET + "}")
+@CrossOrigin(origins = "*")
 public class SubscribeModelCtl extends WriteController {
+
+    public static final String OWNER_ID = "ownerId";
+
+    public static final String PUB_SET = "pub-set";
 
     @Autowired
     private SubscribeModelApi api;
@@ -26,12 +34,14 @@ public class SubscribeModelCtl extends WriteController {
     public ResponseEntity<SubscribeModelApi.Receipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
-            @PathVariable("subscriberId") String subscriberId,
+            @PathVariable(OWNER_ID) String ownerId,
+            @PathVariable(PUB_SET) String pubSet,
             @ModelAttribute SubscribeModelApi.Form form) {
         try {
 
-            WriteContext context = buildContext(requestId, operatorId, subscriberId);
+            WriteContext context = buildContext(requestId, ownerId, operatorId);
 
+            form.setPubSet(pubSet);
             return ErestResponse.created(requestId, api.subscribe(context, form));
         } catch (Conflict conflict) {
             return ErestResponse.conflict(requestId, conflict.getKeys());

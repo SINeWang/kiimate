@@ -19,7 +19,7 @@ public interface SubscribeModelApi {
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Form {
-        private String pubSetHash;
+        private String pubSet;
         private String group;
         private String name;
     }

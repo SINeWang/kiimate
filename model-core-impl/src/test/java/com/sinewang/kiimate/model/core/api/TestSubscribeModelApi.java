@@ -30,7 +30,6 @@ public class TestSubscribeModelApi {
     @Autowired
     private AnSubscribeModelExtractor subscribeModelExtractor;
 
-
     @Autowired
     private ModelSubscriptionMapper modelSubscriptionMapper;
 
@@ -44,7 +43,7 @@ public class TestSubscribeModelApi {
 
     private String requestId = "testRequestId";
 
-    private String pubSetHash = "testPubSetHash";
+    private String pubSet = "testPubSetHash";
 
     private String name = "testSubName";
 
@@ -56,10 +55,10 @@ public class TestSubscribeModelApi {
 
         form.setGroup("testGroup");
 
-        form.setPubSetHash(pubSetHash);
+        form.setPubSet(pubSet);
 
 
-        String id = subscribeModelExtractor.hashId(subscriberId, pubSetHash, group, name, tree);
+        String id = subscribeModelExtractor.hashId(subscriberId, pubSet, group, name, tree);
         modelSubscriptionMapper.deleteById(id);
 
         form.setGroup(group);
@@ -74,7 +73,6 @@ public class TestSubscribeModelApi {
         } catch (Conflict conflict) {
             conflict.printStackTrace();
         }
-
 
         modelSubscriptionMapper.deleteById(id);
 
