@@ -26,12 +26,13 @@ public class SearchSubscriptionsCtl extends ReadController {
     @Autowired
     private SearchSubscriptionsApi searchSubscriptionsApi;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<SearchSubscriptionsApi.Subscriptions>> explorePublishers(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
+            @PathVariable(OWNER_ID) String ownerId,
             @RequestParam("q") String query) {
-        ReadContext context = buildContext(requestId, null, visitorId);
+        ReadContext context = buildContext(requestId, ownerId, visitorId);
 
         SearchSubscriptionsApi.QueryForm form = new SearchSubscriptionsApi.QueryForm();
 
