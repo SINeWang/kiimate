@@ -13,7 +13,7 @@ import java.util.List;
 public interface ModelPublicationDai {
 
     @Transactional
-    void savePublications(String pubSetHash, List<Publication> publication, List<ExtensionDai.Extension> extensions, List<IntensionDai.Intension> intensions) throws DuplicatedPublication;
+    void savePublications(String pubSet, List<Publication> publication, List<ExtensionDai.Extension> extensions, List<IntensionDai.Intension> intensions) throws DuplicatedPublication;
 
     List<Publication> getPublicationsByPubSetHash(String pubSetHash);
 
@@ -29,7 +29,7 @@ public interface ModelPublicationDai {
     @Data
     class Publication {
         String id;
-        String pubSetHash;
+        String pubSet;
         String providerId;
         String extId;
         String intId;

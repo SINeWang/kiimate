@@ -39,7 +39,7 @@ public interface SnapshotModelApi {
     class Receipt {
 
         List<Intension> intensions;
-        private String pubSetHash;
+        private String pubSet;
         private String providerId;
 
         private String ownerId;

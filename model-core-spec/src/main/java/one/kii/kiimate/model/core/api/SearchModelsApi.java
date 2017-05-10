@@ -27,7 +27,7 @@ public interface SearchModelsApi {
         int subscriptions;
 
         String providerId;
-        String pubSetHash;
+        String pubSet;
         String rootExtId;
 
         String group;

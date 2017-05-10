@@ -50,7 +50,7 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
 
             List<Intension> intensions = DataTools.copy(intensionList, Intension.class  );
 
-            int subscriptions = modelSubscriptionDai.countModelSubscriptions(publication.getPubSetHash());
+            int subscriptions = modelSubscriptionDai.countModelSubscriptions(publication.getPubSet());
 
             Model model = DataTools.copy(publication, Model.class);
 

@@ -29,17 +29,17 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     private IntensionMapper intensionMapper;
 
     @Override
-    public void savePublications(String pubSetHash, List<Publication> publications,
+    public void savePublications(String pubSet, List<Publication> publications,
                                  List<ExtensionDai.Extension> extensions,
                                  List<IntensionDai.Intension> intensions) throws DuplicatedPublication {
-        int count = modelPublicationMapper.countPublicationByPubSetHash(pubSetHash);
+        int count = modelPublicationMapper.countPublicationByPubSet(pubSet);
         if (count > 0) {
-            throw new DuplicatedPublication(pubSetHash);
+            throw new DuplicatedPublication(pubSet);
         }
         for (Publication publication : publications) {
             modelPublicationMapper.insertPublication(
                     publication.getId(),
-                    pubSetHash,
+                    pubSet,
                     publication.getProviderId(),
                     publication.getExtId(),
                     publication.getIntId(),

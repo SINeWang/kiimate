@@ -15,7 +15,7 @@ public interface ModelPublicationMapper {
 
     void insertPublication(
             @Param("id") String id,
-            @Param("pubSetHash") String pubSetHash,
+            @Param("pubSet") String pubSet,
             @Param("providerId") String providerId,
             @Param("extId") String extId,
             @Param("intId") String intId,
@@ -25,10 +25,10 @@ public interface ModelPublicationMapper {
             @Param("createdAt") Date createdAt);
 
     List<ModelPublicationDai.Publication> selectPublicationByPubSetHash(
-            @Param("pubSetHash") String pubSetHash);
+            @Param("pubSet") String pubSet);
 
-    int countPublicationByPubSetHash(
-            @Param("pubSetHash") String pubSetHash);
+    int countPublicationByPubSet(
+            @Param("pubSet") String pubSet);
 
     void deletePublicationByProviderIdExtIdPubVersion(
             @Param("providerId") String providerId,

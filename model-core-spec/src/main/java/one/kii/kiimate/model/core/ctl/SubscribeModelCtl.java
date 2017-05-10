@@ -31,12 +31,31 @@ public class SubscribeModelCtl extends WriteController {
     private SubscribeModelApi api;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<SubscribeModelApi.Receipt> commit(
+    public ResponseEntity<SubscribeModelApi.Receipt> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(PUB_SET) String pubSet,
             @ModelAttribute SubscribeModelApi.Form form) {
+        return commit(requestId, operatorId, ownerId, pubSet, form);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<SubscribeModelApi.Receipt> commitJson(
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
+            @PathVariable(OWNER_ID) String ownerId,
+            @PathVariable(PUB_SET) String pubSet,
+            @RequestBody SubscribeModelApi.Form form) {
+        return commit(requestId, operatorId, ownerId, pubSet, form);
+    }
+
+    private ResponseEntity<SubscribeModelApi.Receipt> commit(
+            String requestId,
+            String operatorId,
+            String ownerId,
+            String pubSet,
+            SubscribeModelApi.Form form) {
         try {
 
             WriteContext context = buildContext(requestId, ownerId, operatorId);

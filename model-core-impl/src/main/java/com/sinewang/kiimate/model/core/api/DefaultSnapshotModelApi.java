@@ -88,16 +88,16 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
         String[] idArray = ids.toArray(new String[0]);
         Arrays.sort(idArray);
-        String pubSetHash = HashTools.hashHex(idArray);
+        String pubSet = HashTools.hashHex(idArray);
 
         try {
             List<ExtensionDai.Extension> newExtensionList = DataTools.copy(newExtensions, ExtensionDai.Extension.class);
-            modelPublicationDai.savePublications(pubSetHash, publications, newExtensionList, allIntensions);
+            modelPublicationDai.savePublications(pubSet, publications, newExtensionList, allIntensions);
         } catch (ModelPublicationDai.DuplicatedPublication duplicatedPublication) {
             Receipt receipt = DataTools.copy(duplicatedPublication, Receipt.class);
             receipt.setVersion(form.getVersion());
             receipt.setOwnerId(context.getOwnerId());
-            throw new Conflict(pubSetHash);
+            throw new Conflict(pubSet);
         }
 
         Receipt receipt = new Receipt();
@@ -114,7 +114,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
         receipt.setOwnerId(context.getOwnerId());
 
-        receipt.setPubSetHash(pubSetHash);
+        receipt.setPubSet(pubSet);
 
         return receipt;
 
