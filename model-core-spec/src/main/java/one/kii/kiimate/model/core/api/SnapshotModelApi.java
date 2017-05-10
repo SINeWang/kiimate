@@ -17,8 +17,6 @@ public interface SnapshotModelApi {
 
     String TREE_MASTER = "master";
 
-    String VISIBILITY_PUBLIC = "public";
-
 
     Receipt snapshot(WriteContext context, Form form) throws BadRequest, Conflict;
 
@@ -59,11 +57,5 @@ public interface SnapshotModelApi {
         boolean single;
     }
 
-    class RefereceExtensionHasNotBeenPublished extends Exception {
-
-        public RefereceExtensionHasNotBeenPublished(String message) {
-            super(message);
-        }
-    }
 
 }
