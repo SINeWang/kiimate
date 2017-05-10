@@ -23,7 +23,7 @@ import static one.kii.kiimate.model.core.ctl.SubscribeModelCtl.PUB_SET;
 @CrossOrigin(origins = "*")
 public class SubscribeModelCtl extends WriteController {
 
-    public static final String OWNER_ID = "ownerId";
+    public static final String OWNER_ID = "owner-id";
 
     public static final String PUB_SET = "pub-set";
 
