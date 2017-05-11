@@ -1,9 +1,11 @@
 package com.sinewang.kiimate.model.core.dai.mapper;
 
+import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 05/04/2017.
@@ -42,6 +44,10 @@ public interface ModelSubscriptionMapper {
             @Param("tree") String tree);
 
     int countModelSubscriptions(@Param("subSetHash") String subSetHash);
+
+    List<ModelSubscriptionDai.ModelSubscription> querySubscriptionsByOwnerGroup(
+            @Param("ownerId") String ownerId,
+            @Param("group") String group);
 
 
 }

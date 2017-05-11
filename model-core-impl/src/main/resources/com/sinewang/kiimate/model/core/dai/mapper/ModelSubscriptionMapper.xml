@@ -57,4 +57,13 @@
         WHERE msub.sub_set_hash = #{subSetHash}
         AND end_time IS NULL
     </select>
+
+    <select id="querySubscriptionsByOwnerGroup" resultMap="Subscription">
+        <bind name="group_pattern" value="'%' + group + '%'"/>
+        SELECT msub.id, msub.sub_set_hash, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id
+        FROM mm_m_sub msub
+        WHERE msub.subscriber_id = #{ownerId}
+        AND msub.group LIKE #{group_pattern}
+        AND msub.end_time IS NULL
+    </select>
 </mapper>

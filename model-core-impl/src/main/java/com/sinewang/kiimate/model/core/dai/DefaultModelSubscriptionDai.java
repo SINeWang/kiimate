@@ -1,11 +1,12 @@
 package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
+import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 4/6/17.
@@ -61,6 +62,11 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
         return modelSubscriptionMapper.selectLatestSubIdSubscriberIdGroupNameTree(
                 subscriberId, group, name, tree
         );
+    }
+
+    @Override
+    public List<ModelSubscription> querySubscriptionsByOwnerGroup(String ownerId, String group) {
+        return modelSubscriptionMapper.querySubscriptionsByOwnerGroup(ownerId, group);
     }
 
     @Override

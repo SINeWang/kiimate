@@ -2,11 +2,11 @@ package com.sinewang.kiimate.model.core.api;
 
 import one.kii.kiimate.model.core.api.SearchSubscriptionsApi;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
+import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.io.context.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,6 +21,7 @@ public class DefaultSearchSubscriptionsApi implements SearchSubscriptionsApi {
 
     @Override
     public List<Subscriptions> search(ReadContext context, QueryForm form) {
-        return Collections.emptyList();
+        List<ModelSubscriptionDai.ModelSubscription> list = modelSubscriptionDai.querySubscriptionsByOwnerGroup(context.getOwnerId(), form.getGroup());
+        return DataTools.copy(list, Subscriptions.class);
     }
 }

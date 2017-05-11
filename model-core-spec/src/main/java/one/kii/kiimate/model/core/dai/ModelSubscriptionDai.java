@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by WangYanJiong on 4/6/17.
  */
@@ -16,6 +18,8 @@ public interface ModelSubscriptionDai {
     String getLatestRootExtIdBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree);
 
     String getLatestSubIdBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree);
+
+    List<ModelSubscription> querySubscriptionsByOwnerGroup(String ownerId, String group);
 
     int countModelSubscriptions(String pubSetHash);
 
