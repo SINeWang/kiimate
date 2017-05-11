@@ -41,6 +41,10 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
 
         List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
+        List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(rootExtId);
+        List<Intension> intensions = DataTools.copy(intensionList, Intension.class);
+
+
         Map<String, List<InstanceDai.Instance>> dict = dict(instances);
 
         Map<String, Object> body = visitHierarchyInstance(rootExtId, dict);
@@ -48,6 +52,7 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         Receipt receipt = DataTools.copy(form, Receipt.class);
         receipt.setOwnerId(context.getOwnerId());
         receipt.setInstances(body);
+        receipt.setIntensions(intensions);
 
         return receipt;
     }

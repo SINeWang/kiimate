@@ -4,6 +4,7 @@ import lombok.Data;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +25,26 @@ public interface VisitStatusApi {
     @Data
     class Receipt {
         String ownerId;
+        List<Intension> intensions;
         Map<String, Object> instances;
+    }
+
+
+    @Data
+    class Intension {
+
+        private String id;
+
+        private String field;
+
+        private boolean single;
+
+        private String structure;
+
+        private String refExtId;
+
+        private String visibility;
+
+        private boolean required;
     }
 }
