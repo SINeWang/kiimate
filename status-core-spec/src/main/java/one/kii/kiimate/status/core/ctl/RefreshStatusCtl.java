@@ -8,7 +8,9 @@ import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.WriteController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MimeType;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,7 @@ import static one.kii.kiimate.status.core.ctl.RefreshStatusCtl.SUB_ID;
 
 @RestController
 @RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/status/{" + SUB_ID + "}", method = RequestMethod.PUT)
+@CrossOrigin(origins = "*")
 public class RefreshStatusCtl extends WriteController {
 
     public static final String OWNER_ID = "ownerId";
@@ -31,7 +34,7 @@ public class RefreshStatusCtl extends WriteController {
     @Autowired
     private RefreshStatusApi api;
 
-    @RequestMapping
+    @RequestMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     ResponseEntity<RefreshStatusApi.Receipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
