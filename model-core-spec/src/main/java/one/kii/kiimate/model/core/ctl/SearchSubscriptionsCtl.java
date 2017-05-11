@@ -27,7 +27,7 @@ public class SearchSubscriptionsCtl extends ReadController {
     private SearchSubscriptionsApi searchSubscriptionsApi;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<SearchSubscriptionsApi.Subscriptions>> explorePublishers(
+    public ResponseEntity<List<SearchSubscriptionsApi.Subscriptions>> search(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,

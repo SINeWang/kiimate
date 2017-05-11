@@ -10,7 +10,7 @@ import one.kii.summer.io.receiver.WriteController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MimeType;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,13 +34,34 @@ public class RefreshStatusCtl extends WriteController {
     @Autowired
     private RefreshStatusApi api;
 
-    @RequestMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<RefreshStatusApi.Receipt> commit(
+    @RequestMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    ResponseEntity<RefreshStatusApi.Receipt> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(SUB_ID) String subId,
             @RequestParam MultiValueMap<String, String> map) {
+        return commit(requestId, operatorId, ownerId, subId, map);
+    }
+
+
+    @RequestMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    ResponseEntity<RefreshStatusApi.Receipt> commitJson(
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
+            @PathVariable(OWNER_ID) String ownerId,
+            @PathVariable(SUB_ID) String subId,
+            @RequestBody String json) {
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        return commit(requestId, operatorId, ownerId, subId, map);
+    }
+
+    private ResponseEntity<RefreshStatusApi.Receipt> commit(
+            String requestId,
+            String operatorId,
+            String ownerId,
+            String subId,
+            MultiValueMap<String, String> map) {
         try {
 
             WriteContext context = buildContext(requestId, operatorId, ownerId);
@@ -56,5 +77,6 @@ public class RefreshStatusCtl extends WriteController {
             return ErestResponse.conflict(requestId, conflict.getKeys()[0]);
         }
     }
+
 
 }
