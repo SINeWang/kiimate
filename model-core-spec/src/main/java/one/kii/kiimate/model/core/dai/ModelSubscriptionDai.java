@@ -27,7 +27,7 @@ public interface ModelSubscriptionDai {
     class ModelSubscription {
         private String id;
 
-        private String subSetHash;
+        private String subSet;
 
         private String subscriberId;
 

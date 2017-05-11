@@ -6,7 +6,7 @@
 
     <resultMap id="Subscription" type="one.kii.kiimate.model.core.dai.ModelSubscriptionDai$ModelSubscription">
         <result column="id" property="id"/>
-        <result column="sub_set_hash" property="subSetHash"/>
+        <result column="sub_set_hash" property="subSet"/>
         <result column="subscriber_id" property="subscriberId"/>
         <result column="group" property="group"/>
         <result column="name" property="name"/>
@@ -18,7 +18,7 @@
         INSERT INTO mm_m_sub
         (id, sub_set_hash, subscriber_id, `group`, `name`, `tree`, operator_id, begin_time)
         VALUES
-        (#{id}, #{subSetHash}, #{subscriberId}, #{group}, #{name}, #{tree}, #{operatorId}, #{beginTime})
+        (#{id}, #{subSet}, #{subscriberId}, #{group}, #{name}, #{tree}, #{operatorId}, #{beginTime})
     </insert>
 
     <delete id="deleteById">
@@ -39,7 +39,7 @@
     
     <select id="countLatestSubscription" resultType="int">
         SELECT count(msub.id) FROM mm_m_sub msub
-        WHERE msub.sub_set_hash = #{subSetHash} AND msub.subscriber_id = #{subscriberId}
+        WHERE msub.sub_set_hash = #{subSet} AND msub.subscriber_id = #{subscriberId}
         AND msub.group = #{group} AND msub.name = #{name}
         AND msub.end_time IS NULL
     </select>
@@ -54,7 +54,7 @@
     <select id="countModelSubscriptions" resultType="int">
         SELECT count(msub.id)
         FROM mm_m_sub msub
-        WHERE msub.sub_set_hash = #{subSetHash}
+        WHERE msub.sub_set_hash = #{subSet}
         AND end_time IS NULL
     </select>
 

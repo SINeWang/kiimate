@@ -14,14 +14,14 @@ import java.util.List;
 public interface ModelSubscriptionMapper {
 
     int countLatestSubscription(
-            @Param("subSetHash") String subSetHash,
+            @Param("subSet") String subSet,
             @Param("subscriberId") String subscriberId,
             @Param("group") String group,
             @Param("name") String name);
 
     void insertSubscription(
             @Param("id") String id,
-            @Param("subSetHash") String subSetHash,
+            @Param("subSet") String subSet,
             @Param("subscriberId") String subscriberId,
             @Param("group") String group,
             @Param("name") String name,
@@ -43,7 +43,7 @@ public interface ModelSubscriptionMapper {
             @Param("name") String name,
             @Param("tree") String tree);
 
-    int countModelSubscriptions(@Param("subSetHash") String subSetHash);
+    int countModelSubscriptions(@Param("subSet") String subSet);
 
     List<ModelSubscriptionDai.ModelSubscription> querySubscriptionsByOwnerGroup(
             @Param("ownerId") String ownerId,

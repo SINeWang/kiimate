@@ -23,14 +23,14 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     @Override
     public void save(ModelSubscription modelSubscription) throws DuplicatedSubscription {
         int count = modelSubscriptionMapper.countLatestSubscription(
-                modelSubscription.getSubSetHash(),
+                modelSubscription.getSubSet(),
                 modelSubscription.getSubscriberId(),
                 modelSubscription.getGroup(),
                 modelSubscription.getName()
         );
         if (count > 0) {
             throw new DuplicatedSubscription(
-                    modelSubscription.getSubSetHash(),
+                    modelSubscription.getSubSet(),
                     modelSubscription.getSubscriberId(),
                     modelSubscription.getGroup(),
                     modelSubscription.getName()
@@ -39,7 +39,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
         Date now = new Date();
         modelSubscriptionMapper.insertSubscription(
                 modelSubscription.getId(),
-                modelSubscription.getSubSetHash(),
+                modelSubscription.getSubSet(),
                 modelSubscription.getSubscriberId(),
                 modelSubscription.getGroup(),
                 modelSubscription.getName(),
