@@ -18,6 +18,7 @@ public interface SearchSubscriptionsApi {
     class Subscriptions {
         String group;
         String name;
+        String tree;
     }
 
     @Data
