@@ -53,6 +53,7 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         receipt.setOwnerId(context.getOwnerId());
         receipt.setInstances(body);
         receipt.setIntensions(intensions);
+        receipt.setSubId(form.getSubId());
 
         return receipt;
     }

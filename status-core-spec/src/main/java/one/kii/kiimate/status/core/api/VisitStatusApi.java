@@ -24,6 +24,7 @@ public interface VisitStatusApi {
 
     @Data
     class Receipt {
+        String subId;
         String ownerId;
         List<Intension> intensions;
         Map<String, Object> instances;
