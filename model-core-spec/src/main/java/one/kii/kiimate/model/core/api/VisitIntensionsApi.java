@@ -18,7 +18,7 @@ public interface VisitIntensionsApi {
 
     String VISIBILITY_PUBLIC = "public";
 
-    Extension readIntensionsByGroupNameVersion(ReadContext context, Form form) throws NotFound;
+    Extension visit(ReadContext context, Form form) throws NotFound;
 
     @Data
     class Form {

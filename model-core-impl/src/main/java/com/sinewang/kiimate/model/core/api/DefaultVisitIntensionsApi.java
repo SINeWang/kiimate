@@ -30,7 +30,7 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
 
     @Override
-    public Extension readIntensionsByGroupNameVersion(ReadContext context, Form form) throws NotFound {
+    public Extension visit(ReadContext context, Form form) throws NotFound {
 
         String extId = anExtensionExtractor.hashId(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree(), VISIBILITY_PUBLIC);
 

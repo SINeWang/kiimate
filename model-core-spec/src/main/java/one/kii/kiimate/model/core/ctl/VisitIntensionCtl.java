@@ -75,7 +75,7 @@ public class VisitIntensionCtl extends ReadController {
         form.setName(name);
         form.setTree(tree);
         try {
-            return ErestResponse.ok(requestId, api.readIntensionsByGroupNameVersion(context, form));
+            return ErestResponse.ok(requestId, api.visit(context, form));
         } catch (NotFound notFound) {
             return ErestResponse.notFound(requestId, notFound.getKey());
         }
