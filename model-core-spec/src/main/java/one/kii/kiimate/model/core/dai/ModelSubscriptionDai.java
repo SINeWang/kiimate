@@ -19,7 +19,14 @@ public interface ModelSubscriptionDai {
 
     List<ModelSubscription> querySubscriptionsByOwnerGroup(String ownerId, String group);
 
-    int countModelSubscriptions(String pubSetHash);
+    int countModelSubscriptions(String pubSet);
+
+    List<Subscribers> querySubscriberId(String subscriberId);
+
+    @Data
+    class Subscribers {
+        String subscriberId;
+    }
 
     @Data
     class ModelSubscription {

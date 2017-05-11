@@ -13,6 +13,10 @@
         <result column="tree" property="tree"/>
         <result column="operator_id" property="operatorId"/>
     </resultMap>
+    
+    <resultMap id="Subscribers" type="one.kii.kiimate.model.core.dai.ModelSubscriptionDai$Subscribers">
+        <result column="subscriber_id" property="subscriberId"/>
+    </resultMap>
 
     <insert id="insertSubscription">
         INSERT INTO mm_m_sub
@@ -62,5 +66,12 @@
         AND mpub.end_time IS NULL
         AND mext.end_time IS NULL
         GROUP BY mext.id
+    </select>
+
+    <select id="querySubscriberId" resultMap="Subscribers">
+        <bind name="subscriberId_pattern" value="'%' + subscriberId + '%'"/>
+        SELECT msub.subscriber_id FROM mm_m_sub msub
+        WHERE subscriber_id LIKE #{subscriberId_pattern}
+        GROUP BY msub.subscriber_id
     </select>
 </mapper>
