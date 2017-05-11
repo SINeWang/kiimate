@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.SaveInstancesApi;
+import one.kii.kiimate.status.core.api.RefreshInstancesApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
@@ -8,42 +8,45 @@ import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.WriteController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+
+import static one.kii.kiimate.status.core.ctl.RefreshInstancesCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.RefreshInstancesCtl.SUB_ID;
+
 
 /**
  * Created by WangYanJiong on 4/13/17.
  */
 
 @RestController
-@RequestMapping("/api/v1")
-public class SaveInstancesCtl extends WriteController {
+@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/instances/{" + SUB_ID + "}", method = RequestMethod.PUT)
+public class RefreshInstancesCtl extends WriteController {
+
+    public static final String OWNER_ID = "ownerId";
+
+    public static final String SUB_ID = "subId";
 
     @Autowired
-    private SaveInstancesApi api;
+    private RefreshInstancesApi api;
 
-    @RequestMapping(value = "/{ownerId}/instances/{group}/{name}/{tree:.+}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<SaveInstancesApi.Receipt> commit(
+    @RequestMapping
+    ResponseEntity<RefreshInstancesApi.Receipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
-            @PathVariable("ownerId") String ownerId,
-            @PathVariable("group") String group,
-            @PathVariable("name") String name,
-            @PathVariable("tree") String tree,
+            @PathVariable(OWNER_ID) String ownerId,
+            @PathVariable(SUB_ID) String subId,
             @RequestParam MultiValueMap<String, String> map) {
         try {
 
             WriteContext context = buildContext(requestId, operatorId, ownerId);
 
-            SaveInstancesApi.Form form = new SaveInstancesApi.Form();
-            form.setGroup(group);
-            form.setName(name);
-            form.setTree(tree);
+            RefreshInstancesApi.Form form = new RefreshInstancesApi.Form();
+            form.setSubId(subId);
             form.setMap(map);
 
-            return ErestResponse.created(requestId, api.saveInstance(context, form));
+            return ErestResponse.created(requestId, api.commit(context, form));
         } catch (NotFound notFound) {
             return ErestResponse.notFound(requestId, notFound.getKey());
         } catch (Conflict conflict) {

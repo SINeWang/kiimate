@@ -15,9 +15,7 @@ public interface ModelSubscriptionDai {
     @Transactional
     void save(ModelSubscription modelSubscription) throws DuplicatedSubscription;
 
-    String getLatestRootExtIdBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree);
-
-    String getLatestSubIdBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree);
+    String getLatestRootExtIdByOwnerSubscription(String owner, String subId);
 
     List<ModelSubscription> querySubscriptionsByOwnerGroup(String ownerId, String group);
 

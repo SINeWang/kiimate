@@ -51,17 +51,8 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public String getLatestRootExtIdBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree) {
-        return modelSubscriptionMapper.selectLatestSubscriptionBySubscriberIdGroupNameTree(
-                subscriberId, group, name, tree
-        );
-    }
-
-    @Override
-    public String getLatestSubIdBySubscriberIdGroupNameTree(String subscriberId, String group, String name, String tree) {
-        return modelSubscriptionMapper.selectLatestSubIdSubscriberIdGroupNameTree(
-                subscriberId, group, name, tree
-        );
+    public String getLatestRootExtIdByOwnerSubscription(String owner, String subId) {
+        return modelSubscriptionMapper.selectLatestRootExtIdByOwnerSubscription(owner, subId);
     }
 
     @Override

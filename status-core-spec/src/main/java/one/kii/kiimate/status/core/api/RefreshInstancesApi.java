@@ -13,17 +13,14 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
-public interface SaveInstancesApi {
+public interface RefreshInstancesApi {
 
-    String TREE_MASTER = "master";
-
-    Receipt saveInstance(WriteContext context, Form form) throws NotFound, Conflict;
+    Receipt commit(WriteContext context, Form form) throws NotFound, Conflict;
 
     @Data
     class Form {
-        String group;
-        String name;
-        String tree;
+        String ownerId;
+        String subId;
         MultiValueMap<String, String> map;
     }
 

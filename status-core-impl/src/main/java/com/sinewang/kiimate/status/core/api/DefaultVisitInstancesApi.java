@@ -2,10 +2,11 @@ package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.status.core.api.VisitEntitiesApi;
+import one.kii.kiimate.status.core.api.VisitInstancesApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,7 @@ import java.util.Map;
  */
 
 @Component
-public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
+public class DefaultVisitInstancesApi implements VisitInstancesApi {
 
     @Autowired
     private InstanceDai instanceDai;
@@ -31,14 +32,14 @@ public class DefaultVisitEntitiesApi implements VisitEntitiesApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
-    public Receipt readInstancesByGroupNameTree(ReadContext context, Form form) {
+    public Receipt visit(ReadContext context, Form form) throws NotFound {
 
-        String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
+        String rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(context.getOwnerId(), form.getSubId());
+        if (rootExtId == null) {
+            throw new NotFound(new String[]{form.getOwnerId(), form.getSubId()});
+        }
 
-        String rootExtId = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(
-                context.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
-
-        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(subId);
+        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
         Map<String, List<InstanceDai.Instance>> dict = dict(instances);
 

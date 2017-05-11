@@ -3,7 +3,7 @@ package com.sinewang.kiimate.status.core.api;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
-import one.kii.kiimate.status.core.api.SaveInstancesApi;
+import one.kii.kiimate.status.core.api.RefreshInstancesApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.summer.beans.utils.DataTools;
@@ -24,9 +24,9 @@ import java.util.Map;
  */
 
 @Component
-public class DefaultSaveInstancesApi implements SaveInstancesApi {
+public class DefaultRefreshInstancesApi implements RefreshInstancesApi {
 
-    private static final Logger logger = LoggerFactory.getLogger(DefaultSaveInstancesApi.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultRefreshInstancesApi.class);
 
     @Autowired
     private InstanceDai instanceDai;
@@ -41,33 +41,29 @@ public class DefaultSaveInstancesApi implements SaveInstancesApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    public Receipt saveInstance(WriteContext context, Form form) throws NotFound, Conflict {
+    public Receipt commit(WriteContext context, Form form) throws NotFound, Conflict {
 
-        String rootExtId = modelSubscriptionDai.getLatestRootExtIdBySubscriberIdGroupNameTree(
-                context.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
+        String rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(
+                context.getOwnerId(), form.getSubId());
 
         if (rootExtId == null) {
-            throw new NotFound(new String[]{context.getOwnerId(), form.getGroup(), form.getName(), form.getTree()});
+            throw new NotFound(new String[]{context.getOwnerId(), form.getSubId()});
         }
 
         Map<String, IntensionDai.Intension> dict = modelRestorer.restoreAsIntensionDict(rootExtId);
 
-        String subId = modelSubscriptionDai.getLatestSubIdBySubscriberIdGroupNameTree(
-                context.getOwnerId(), form.getGroup(), form.getName(), form.getTree()
-        );
-
-        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, subId, form.getMap(), dict);
+        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, form.getSubId(), form.getMap(), dict);
 
         List<InstanceDai.Instances> instances1 = DataTools.copy(instances, InstanceDai.Instances.class);
 
         try {
             instanceDai.insertInstances(instances1);
         } catch (InstanceDai.InstanceDuplicated instanceDuplicated) {
-            throw new Conflict(subId);
+            throw new Conflict(form.getSubId());
         }
 
 
-        List<InstanceDai.Instance> dbInstances = instanceDai.selectLatestInstanceBySubId(subId);
+        List<InstanceDai.Instance> dbInstances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
         List<Instance> apiInstances = new ArrayList<>();
 

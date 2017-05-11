@@ -31,23 +31,15 @@ public interface ModelSubscriptionMapper {
 
     void deleteById(@Param("id") String id);
 
-    String selectLatestSubscriptionBySubscriberIdGroupNameTree(
-            @Param("subscriberId") String subscriberId,
-            @Param("group") String group,
-            @Param("name") String name,
-            @Param("tree") String tree);
-
-    String selectLatestSubIdSubscriberIdGroupNameTree(
-            @Param("subscriberId") String subscriberId,
-            @Param("group") String group,
-            @Param("name") String name,
-            @Param("tree") String tree);
-
     int countModelSubscriptions(@Param("subSet") String subSet);
 
     List<ModelSubscriptionDai.ModelSubscription> querySubscriptionsByOwnerGroup(
             @Param("ownerId") String ownerId,
             @Param("group") String group);
+
+    String selectLatestRootExtIdByOwnerSubscription(
+            @Param("ownerId") String ownerId,
+            @Param("subId") String subId);
 
 
 }

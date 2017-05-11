@@ -27,27 +27,11 @@
         WHERE id = #{id}
     </delete>
 
-    <select id="selectLatestSubscriptionBySubscriberIdGroupNameTree" resultType="string">
-        SELECT mpub.ext_id
-        FROM  mm_m_sub msub, mm_m_pub mpub, mm_m_ext mext
-        WHERE  msub.sub_set_hash = mpub.pub_set_hash
-        AND mpub.ext_id = mext.id AND mext.name = 'root'
-        AND msub.subscriber_id = #{subscriberId} AND msub.group = #{group} AND msub.name = #{name} AND msub.tree = #{tree}
-        AND msub.end_time IS NULL
-        GROUP BY msub.sub_set_hash
-    </select>
-    
+
     <select id="countLatestSubscription" resultType="int">
         SELECT count(msub.id) FROM mm_m_sub msub
         WHERE msub.sub_set_hash = #{subSet} AND msub.subscriber_id = #{subscriberId}
         AND msub.group = #{group} AND msub.name = #{name}
-        AND msub.end_time IS NULL
-    </select>
-    
-    <select id="selectLatestSubIdSubscriberIdGroupNameTree" resultType="string">
-        SELECT msub.id
-        FROM mm_m_sub msub
-        WHERE msub.subscriber_id = #{subscriberId} AND msub.group = #{group} AND msub.name = #{name} AND msub.tree = #{tree}
         AND msub.end_time IS NULL
     </select>
 
@@ -65,5 +49,18 @@
         WHERE msub.subscriber_id = #{ownerId}
         AND msub.group LIKE #{group_pattern}
         AND msub.end_time IS NULL
+    </select>
+
+    <select id="selectLatestRootExtIdByOwnerSubscription" resultType="string">
+        SELECT mext.id
+        FROM mm_m_sub msub, mm_m_pub mpub, mm_m_ext mext
+        WHERE mext.id = mpub.ext_id
+        AND mpub.pub_set_hash = msub.sub_set_hash
+        AND mext.name = 'root'
+        AND msub.subscriber_id = #{ownerId} AND msub.id = #{subId}
+        AND msub.end_time IS NULL
+        AND mpub.end_time IS NULL
+        AND mext.end_time IS NULL
+        GROUP BY mext.id
     </select>
 </mapper>
