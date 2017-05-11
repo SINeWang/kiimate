@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
-public interface RefreshInstancesApi {
+public interface RefreshStatusApi {
 
     Receipt commit(WriteContext context, Form form) throws NotFound, Conflict;
 

@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by WangYanJiong on 4/5/17.
  */
 
-public interface VisitInstancesApi {
+public interface VisitStatusApi {
 
 
     Receipt visit(ReadContext context, Form form) throws NotFound;

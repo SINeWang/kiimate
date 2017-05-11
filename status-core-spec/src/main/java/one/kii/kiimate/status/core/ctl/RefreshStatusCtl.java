@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.RefreshInstancesApi;
+import one.kii.kiimate.status.core.api.RefreshStatusApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
@@ -12,8 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.status.core.ctl.RefreshInstancesCtl.OWNER_ID;
-import static one.kii.kiimate.status.core.ctl.RefreshInstancesCtl.SUB_ID;
+import static one.kii.kiimate.status.core.ctl.RefreshStatusCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.RefreshStatusCtl.SUB_ID;
 
 
 /**
@@ -21,18 +21,18 @@ import static one.kii.kiimate.status.core.ctl.RefreshInstancesCtl.SUB_ID;
  */
 
 @RestController
-@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/instances/{" + SUB_ID + "}", method = RequestMethod.PUT)
-public class RefreshInstancesCtl extends WriteController {
+@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/status/{" + SUB_ID + "}", method = RequestMethod.PUT)
+public class RefreshStatusCtl extends WriteController {
 
     public static final String OWNER_ID = "ownerId";
 
     public static final String SUB_ID = "subId";
 
     @Autowired
-    private RefreshInstancesApi api;
+    private RefreshStatusApi api;
 
     @RequestMapping
-    ResponseEntity<RefreshInstancesApi.Receipt> commit(
+    ResponseEntity<RefreshStatusApi.Receipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -42,7 +42,7 @@ public class RefreshInstancesCtl extends WriteController {
 
             WriteContext context = buildContext(requestId, operatorId, ownerId);
 
-            RefreshInstancesApi.Form form = new RefreshInstancesApi.Form();
+            RefreshStatusApi.Form form = new RefreshStatusApi.Form();
             form.setSubId(subId);
             form.setMap(map);
 
