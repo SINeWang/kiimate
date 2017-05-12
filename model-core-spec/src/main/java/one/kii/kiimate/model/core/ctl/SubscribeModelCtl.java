@@ -61,7 +61,7 @@ public class SubscribeModelCtl extends WriteController {
             WriteContext context = buildContext(requestId, ownerId, operatorId);
 
             form.setPubSet(pubSet);
-            return ErestResponse.created(requestId, api.subscribe(context, form));
+            return ErestResponse.created(requestId, api.commit(context, form));
         } catch (Conflict conflict) {
             return ErestResponse.conflict(requestId, conflict.getKeys());
         }

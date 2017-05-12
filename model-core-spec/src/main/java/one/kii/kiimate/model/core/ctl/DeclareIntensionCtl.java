@@ -56,7 +56,7 @@ public class DeclareIntensionCtl extends WriteController {
         try {
             WriteContext context = buildContext(requestId, operatorId, ownerId);
 
-            return ErestResponse.created(requestId, api.declareIntension(context, form));
+            return ErestResponse.created(requestId, api.commit(context, form));
         } catch (Conflict conflict) {
             return ErestResponse.conflict(requestId, conflict.getKeys());
         }

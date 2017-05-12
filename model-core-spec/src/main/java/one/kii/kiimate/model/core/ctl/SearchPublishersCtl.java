@@ -34,7 +34,7 @@ public class SearchPublishersCtl extends ReadController {
 
         form.setQuery(query);
 
-        List<SearchModelsApi.Provider> providers = searchModelsApi.queryProviders(context, form);
+        List<SearchModelsApi.Provider> providers = searchModelsApi.search(context, form);
         return ErestResponse.ok(requestId, providers);
     }
 

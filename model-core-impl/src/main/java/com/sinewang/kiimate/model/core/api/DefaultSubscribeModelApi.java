@@ -23,7 +23,7 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
-    public Receipt subscribe(WriteContext context, Form form) throws Conflict {
+    public Receipt commit(WriteContext context, Form form) throws Conflict {
 
         AnSubscribeModelExtractor.ModelSubscription modelSubscription = subscribeModelExtractor.extract(
                 form, context.getOwnerId(), context.getOperatorId(), TREE_MASTER);

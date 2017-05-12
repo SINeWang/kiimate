@@ -144,7 +144,7 @@ public class TestSnapshotModelApi {
 
         SnapshotModelApi.Receipt receipt = null;
         try {
-            receipt = snapshotModelApi.snapshot(context, form);
+            receipt = snapshotModelApi.commit(context, form);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {

@@ -12,9 +12,9 @@ import java.util.List;
 public interface SearchModelsApi {
 
 
-    List<Provider> queryProviders(ReadContext context, QueryProvidersForm form);
+    List<Provider> search(ReadContext context, QueryProvidersForm form);
 
-    List<Model> queryModels(ReadContext context, QueryModelsForm form);
+    List<Model> search(ReadContext context, QueryModelsForm form);
 
     @Data
     class Provider {

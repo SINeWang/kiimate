@@ -69,7 +69,7 @@ public class TestSubscribeModelApi {
 
         SubscribeModelApi.Receipt receipt = null;
         try {
-            receipt = subscribeModelApi.subscribe(context, form);
+            receipt = subscribeModelApi.commit(context, form);
         } catch (Conflict conflict) {
             conflict.printStackTrace();
         }

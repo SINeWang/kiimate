@@ -19,7 +19,7 @@ import static one.kii.kiimate.model.core.ctl.SnapshotModelCtl.OWNER_ID;
  */
 
 @RestController
-@RequestMapping("/api/v1/{" + OWNER_ID + "}/snapshot")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/commit")
 @CrossOrigin(origins = "*")
 public class SnapshotModelCtl extends WriteController {
 
@@ -50,7 +50,7 @@ public class SnapshotModelCtl extends WriteController {
     private ResponseEntity<SnapshotModelApi.Receipt> commit(@RequestHeader(ErestHeaders.REQUEST_ID) String requestId, @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId, @PathVariable(OWNER_ID) String ownerId, @ModelAttribute SnapshotModelApi.Form form) {
         try {
             WriteContext context = buildContext(requestId, operatorId, ownerId);
-            return ErestResponse.created(requestId, api.snapshot(context, form));
+            return ErestResponse.created(requestId, api.commit(context, form));
         } catch (BadRequest badRequest) {
             return ErestResponse.badRequest(requestId, badRequest.getFields());
         } catch (Conflict conflict) {

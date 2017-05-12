@@ -14,7 +14,7 @@ import java.util.Map;
 public interface DeclareIntensionApi {
 
 
-    Receipt declareIntension(WriteContext context, Form form) throws Conflict;
+    Receipt commit(WriteContext context, Form form) throws Conflict;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

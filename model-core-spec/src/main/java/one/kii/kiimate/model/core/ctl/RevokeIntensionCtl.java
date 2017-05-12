@@ -48,7 +48,7 @@ public class RevokeIntensionCtl extends WriteController {
             form.setExtId(extId);
             form.setOwnerId(ownerId);
 
-            RemoveIntensionApi.Receipt receipt = api.removeIntension(context, form);
+            RemoveIntensionApi.Receipt receipt = api.commit(context, form);
 
             return ErestResponse.created(requestId, receipt);
         } catch (Conflict conflict) {

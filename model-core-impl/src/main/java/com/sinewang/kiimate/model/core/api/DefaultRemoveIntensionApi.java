@@ -25,7 +25,7 @@ public class DefaultRemoveIntensionApi implements RemoveIntensionApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    public Receipt removeIntension(WriteContext context, Form form) throws Conflict {
+    public Receipt commit(WriteContext context, Form form) throws Conflict {
 
         Receipt receipt = new Receipt();
 

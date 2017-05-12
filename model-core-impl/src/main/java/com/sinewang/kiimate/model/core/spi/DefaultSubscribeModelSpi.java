@@ -17,7 +17,7 @@ public class DefaultSubscribeModelSpi implements SubscribeModelSpi {
 
     private static Logger logger = LoggerFactory.getLogger(DefaultSubscribeModelSpi.class);
 
-    private static String URI = "/{subscriberId}/subscribe";
+    private static String URI = "/{subscriberId}/commit";
 
     private String baseUrl;
 

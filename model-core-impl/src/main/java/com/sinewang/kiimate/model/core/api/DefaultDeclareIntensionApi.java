@@ -30,7 +30,7 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    public Receipt declareIntension(WriteContext context, Form form) throws Conflict {
+    public Receipt commit(WriteContext context, Form form) throws Conflict {
 
         AnIntensionExtractor.Intension intension = anIntensionExtractor.parseForm(form);
         if (form.getExtId().equals(form.getRefExtId())) {

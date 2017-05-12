@@ -27,7 +27,7 @@ import java.util.List;
 @Component
 public class DefaultSnapshotModelApi implements SnapshotModelApi {
 
-    private static final String SNAPSHOT = "snapshot";
+    private static final String SNAPSHOT = "commit";
     @Autowired
     private AnPublicationExtractor publicationExtractor;
     @Autowired
@@ -42,7 +42,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
     @Autowired
     private AnIntensionExtractor intensionExtractor;
 
-    public Receipt snapshot(WriteContext context, Form form) throws BadRequest, Conflict {
+    public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict {
 
         ExtensionDai.Extension extension = extensionDai.selectExtensionById(form.getExtId());
         List<ModelPublicationDai.Publication> publications = new ArrayList<>();

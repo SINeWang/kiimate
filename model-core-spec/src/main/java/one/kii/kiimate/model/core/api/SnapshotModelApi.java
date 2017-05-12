@@ -15,10 +15,8 @@ import java.util.List;
 
 public interface SnapshotModelApi {
 
-    String TREE_MASTER = "master";
 
-
-    Receipt snapshot(WriteContext context, Form form) throws BadRequest, Conflict;
+    Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

@@ -33,13 +33,13 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
     private IntensionDai intensionDai;
 
     @Override
-    public List<Provider> queryProviders(ReadContext context, QueryProvidersForm form) {
+    public List<Provider> search(ReadContext context, QueryProvidersForm form) {
         List<ModelPublicationDai.Provider> providerList = modelPublicationDai.getProviders(form.getQuery());
         return DataTools.copy(providerList, Provider.class);
     }
 
     @Override
-    public List<Model> queryModels(ReadContext context, QueryModelsForm form) {
+    public List<Model> search(ReadContext context, QueryModelsForm form) {
         List<ModelPublicationDai.Publication> publications = modelPublicationDai.queryPublicationsByGroup(form.getQuery());
         List<Model> models = new ArrayList<>();
         for (ModelPublicationDai.Publication publication : publications) {
