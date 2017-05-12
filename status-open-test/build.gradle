@@ -1,0 +1,9 @@
+dependencies {
+    compile project(":status-open-spec")
+
+    testCompile project(":status-open-spec").sourceSets.main.output
+    testCompile project(":status-open-impl").sourceSets.main.output
+}
+bootRepackage {
+    enabled = false
+}

@@ -7,4 +7,7 @@ include 'status-core-spec'
 include 'status-core-impl'
 include 'status-core-test'
 include 'kiimate-impl'
+include 'status-open-spec'
+include 'status-open-impl'
+include 'status-open-test'
 

@@ -1,4 +1,4 @@
-package one.kii.kiimate.status.core.spi;
+package one.kii.kiimate.status.open.spi;
 
 import one.kii.summer.io.exception.Panic;
 import org.junit.Test;
@@ -21,54 +21,65 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.statemate")
-@SpringBootTest(classes = {TestSaveStateSpi.class})
+@SpringBootTest(classes = {TestSaveMultiValueStateSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class TestSaveStateSpi {
+public class TestSaveMultiValueStateSpi {
 
-    private ThisIsASpringBootConfiguration conf = new ThisIsASpringBootConfiguration();
+    private ThisIsAMultiValueSpringBootConfiguration conf = new ThisIsAMultiValueSpringBootConfiguration();
 
     @Autowired
-    private SaveStateSpi saveStateSpi;
+    private RefreshStatusSpi refreshStatusSpi;
 
     @Test
     public void test() {
-        SaveStateSpi.Form form = new SaveStateSpi.Form();
-        form.setGroup("test-sub-group");
+        RefreshStatusSpi.Form form = new RefreshStatusSpi.Form();
+        form.setGroup("test-sub-multi-value-group");
         form.setName("default");
         form.setObject(conf);
         try {
-            saveStateSpi.save(form);
+            refreshStatusSpi.save(form);
         } catch (Panic panic) {
             panic.printStackTrace();
         }
     }
 
-    class DataSource {
+    class ThisIsAMultiValueSpringBootConfiguration {
 
-        public String driverClassName = "mysql";
-
-        public String url = "url";
-
-        public String username = "name";
-
-        public String password = "passwd";
-    }
-
-    class Server {
-        public int port = 23424;
-    }
-
-    class Logging {
-        public String level = "debug";
-    }
-
-    class ThisIsASpringBootConfiguration {
-
-        public DataSource datasource = new DataSource();
+        public Spring spring = new Spring();
 
         public Server server = new Server();
 
-        public Logging logging = new Logging();
+        public Logging[] logging = new Logging[]{new Logging()};
 
     }
+
+    class Spring {
+        DataSource datasource = new DataSource();
+        Profiles profile = new Profiles();
+    }
+
+    class Profiles {
+        String[] active = new String[]{"common", "dev"};
+    }
+
+
+    class DataSource {
+
+        public String driverClassName = "multidriver";
+
+        public String url = "multiurl";
+
+        public String username = "multiusername";
+
+        public String password = "multipassword";
+    }
+
+    class Server {
+        public int[] port = new int[]{8080, 9091};
+    }
+
+    class Logging {
+        public String level = "Debug";
+    }
+
 }

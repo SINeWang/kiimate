@@ -1,6 +1,6 @@
-package com.sinewang.kiimate.status.core.spi;
+package com.sinewang.kiimate.status.open.spi;
 
-import one.kii.kiimate.status.core.spi.SaveStateSpi;
+import one.kii.kiimate.status.open.spi.RefreshStatusSpi;
 import one.kii.summer.io.exception.*;
 import one.kii.summer.io.sender.ErestPost;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 @ConfigurationProperties(prefix = "metamate")
 @Component
-public class DefaultSaveStateSpi implements SaveStateSpi {
+public class DefaultRefreshStatusSpi implements RefreshStatusSpi {
 
     private static String URI = "/{ownerId}/instance/{group}/{name}/{tree}";
 
