@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static one.kii.kiimate.status.core.ctl.RefreshStatusCtl.OWNER_ID;
 import static one.kii.kiimate.status.core.ctl.RefreshStatusCtl.SUB_ID;
 
@@ -35,7 +37,7 @@ public class RefreshStatusCtl extends WriteController {
     private RefreshStatusApi api;
 
     @RequestMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    ResponseEntity<RefreshStatusApi.Receipt> commitForm(
+    public ResponseEntity<List<RefreshStatusApi.Instance>> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -46,7 +48,7 @@ public class RefreshStatusCtl extends WriteController {
 
 
     @RequestMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    ResponseEntity<RefreshStatusApi.Receipt> commitJson(
+    public ResponseEntity<List<RefreshStatusApi.Instance>> commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -56,7 +58,7 @@ public class RefreshStatusCtl extends WriteController {
         return commit(requestId, operatorId, ownerId, subId, mmap);
     }
 
-    private ResponseEntity<RefreshStatusApi.Receipt> commit(
+    private ResponseEntity<List<RefreshStatusApi.Instance>> commit(
             String requestId,
             String operatorId,
             String ownerId,

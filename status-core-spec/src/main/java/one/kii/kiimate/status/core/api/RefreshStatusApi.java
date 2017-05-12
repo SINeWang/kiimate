@@ -15,26 +15,13 @@ import java.util.List;
  */
 public interface RefreshStatusApi {
 
-    Receipt commit(WriteContext context, Form form) throws NotFound, Conflict;
+    List<Instance> commit(WriteContext context, Form form) throws NotFound, Conflict;
 
     @Data
     class Form {
         String ownerId;
         String subId;
         MultiValueMap<String, String> map;
-    }
-
-    @Data
-    @EqualsAndHashCode(callSuper = false)
-    class Receipt {
-
-        String group;
-
-        String name;
-
-        String tree;
-
-        List<Instance> instances;
     }
 
     @Data

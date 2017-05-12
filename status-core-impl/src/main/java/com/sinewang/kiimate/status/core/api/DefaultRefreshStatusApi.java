@@ -41,7 +41,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    public Receipt commit(WriteContext context, Form form) throws NotFound, Conflict {
+    public List<Instance> commit(WriteContext context, Form form) throws NotFound, Conflict {
 
         String rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(
                 context.getOwnerId(), form.getSubId());
@@ -73,9 +73,8 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
             apiInstances.add(apiInstance);
         }
 
-        Receipt receipt = DataTools.copy(form, Receipt.class);
-        receipt.setInstances(apiInstances);
-        return receipt;
+
+        return apiInstances;
     }
 
 }
