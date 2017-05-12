@@ -10,11 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static one.kii.kiimate.model.core.ctl.DeclareIntensionCtl.OWNER_ID;
-import static one.kii.kiimate.model.core.ctl.RemoveIntensionCtl.EXT_ID;
-import static one.kii.kiimate.model.core.ctl.RemoveIntensionCtl.INT_ID;
+import static one.kii.kiimate.model.core.ctl.RevokeIntensionCtl.EXT_ID;
+import static one.kii.kiimate.model.core.ctl.RevokeIntensionCtl.INT_ID;
 
 /**
  * Created by WangYanJiong on 4/13/17.
@@ -23,7 +21,7 @@ import static one.kii.kiimate.model.core.ctl.RemoveIntensionCtl.INT_ID;
 @RestController
 @RequestMapping("/api/v1/{" + OWNER_ID + "}/extensions/{" + EXT_ID + "}/intensions/{" + INT_ID + "}")
 @CrossOrigin(value = "*")
-public class RemoveIntensionCtl extends WriteController {
+public class RevokeIntensionCtl extends WriteController {
 
     public static final String OWNER_ID = "ownerId";
 

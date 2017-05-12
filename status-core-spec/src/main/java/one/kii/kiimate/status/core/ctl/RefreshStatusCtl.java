@@ -1,6 +1,7 @@
 package one.kii.kiimate.status.core.ctl;
 
 import one.kii.kiimate.status.core.api.RefreshStatusApi;
+import one.kii.summer.beans.utils.MultiValueMapTools;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
@@ -10,7 +11,6 @@ import one.kii.summer.io.receiver.WriteController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,8 +52,8 @@ public class RefreshStatusCtl extends WriteController {
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(SUB_ID) String subId,
             @RequestBody String json) {
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        return commit(requestId, operatorId, ownerId, subId, map);
+        MultiValueMap mmap = MultiValueMapTools.from(json);
+        return commit(requestId, operatorId, ownerId, subId, mmap);
     }
 
     private ResponseEntity<RefreshStatusApi.Receipt> commit(

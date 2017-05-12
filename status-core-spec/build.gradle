@@ -1,4 +1,3 @@
 dependencies {
     compile project(":model-core-spec")
-    compile("com.fasterxml.jackson.core:jackson-databind:${jacksondatabindVersion}")
 }
