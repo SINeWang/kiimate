@@ -1,0 +1,9 @@
+dependencies {
+    compile project(":status-cases-spec")
+
+    testCompile project(":status-cases-spec").sourceSets.main.output
+    testCompile project(":status-cases-impl").sourceSets.main.output
+}
+bootRepackage {
+    enabled = false
+}
