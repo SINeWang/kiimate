@@ -18,7 +18,7 @@ public interface AnSubscribeModelExtractor {
     @Data
     class ModelSubscription {
         private String id;
-        private String subSetHash;
+        private String subSet;
         private String subscriberId;
         private String group;
         private String name;

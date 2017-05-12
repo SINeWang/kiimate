@@ -24,7 +24,7 @@ public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor 
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
 
         ModelSubscription subscription = new ModelSubscription();
-        subscription.setSubSetHash(form.getPubSet());
+        subscription.setSubSet(form.getPubSet());
         subscription.setGroup(form.getGroup());
         subscription.setName(form.getName());
         subscription.setSubscriberId(subscriberId);
