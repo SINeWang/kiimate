@@ -1,0 +1,15 @@
+dependencies {
+    compile project(":model-core-spec")
+    compile project(":model-core-impl")
+    compile project(":status-core-spec")
+    compile project(":status-core-impl")
+
+    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}") {}
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+}
+
