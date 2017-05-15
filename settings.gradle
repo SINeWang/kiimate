@@ -13,5 +13,7 @@ include 'status-core-test'
 include 'status-cases-spec'
 include 'status-cases-impl'
 include 'status-cases-test'
-
+include 'subject-core-spec'
+include 'subject-core-impl'
+include 'subject-core-test'
 

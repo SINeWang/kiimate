@@ -1,4 +1,6 @@
 dependencies {
+    compile project(":subject-core-spec")
+    compile project(":subject-core-impl")
     compile project(":model-core-spec")
     compile project(":model-core-impl")
     compile project(":status-core-spec")
