@@ -4,3 +4,6 @@ dependencies {
     testCompile project(":model-core-test").sourceSets.test.output
 
 }
+bootRepackage {
+    enabled = false
+}
