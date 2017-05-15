@@ -1,5 +1,6 @@
 package com.sinewang.kiimate.subject.core.api;
 
+import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.model.core.dai.OwnersDai;
 import one.kii.kiimate.subject.core.api.SearchSubjectsApi;
@@ -24,6 +25,9 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
 
+    @Autowired
+    private ModelPublicationDai modelPublicationDai;
+
     @Override
     public List<Subjects> search(ReadContext context, Form form) {
         switch (form.getObjectType()) {
@@ -33,11 +37,20 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
                         List<OwnersDai.Owners> owners = ownersDai.queryOwners(form.getGroup());
                         return DataTools.copy(owners, Subjects.class);
                 }
+            case INTENSION:
+                switch (form.getAccessType()) {
+                    case OWNER:
+                        List<OwnersDai.Owners> owners = ownersDai.queryOwners(form.getGroup());
+                        return DataTools.copy(owners, Subjects.class);
+                }
             case MODEL:
                 switch (form.getAccessType()) {
                     case SUBSCRIBER:
-                        List<ModelSubscriptionDai.Subscribers> list = modelSubscriptionDai.querySubscriberId(form.getGroup());
-                        return DataTools.copy(list, Subjects.class);
+                        List<ModelSubscriptionDai.Subscribers> subscribers = modelSubscriptionDai.querySubscriberId(form.getGroup());
+                        return DataTools.copy(subscribers, Subjects.class);
+                    case PROVIDER:
+                        List<ModelPublicationDai.Provider> providers = modelPublicationDai.getProviders(form.getGroup());
+                        return DataTools.copy(providers, Subjects.class);
                 }
 
         }

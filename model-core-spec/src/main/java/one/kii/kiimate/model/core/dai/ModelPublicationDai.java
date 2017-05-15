@@ -23,7 +23,7 @@ public interface ModelPublicationDai {
 
     @Data
     class Provider {
-        String providerId;
+        String id;
     }
 
     @Data

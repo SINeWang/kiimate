@@ -17,7 +17,7 @@
     </resultMap>
 
     <resultMap id="Provider" type="one.kii.kiimate.model.core.dai.ModelPublicationDai$Provider">
-        <result column="provider_id" property="providerId"/>
+        <result column="provider_id" property="id"/>
     </resultMap>
 
     <insert id="insertPublication">
