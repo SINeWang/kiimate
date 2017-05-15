@@ -1,4 +1,4 @@
-package one.kii.kiimate.model.core.spi;
+package one.kii.kiimate.model.cases.spi;
 
 import lombok.Data;
 import one.kii.summer.io.exception.Panic;

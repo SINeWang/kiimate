@@ -1,8 +1,8 @@
-package com.sinewang.kiimate.model.core.spi;
+package com.sinewang.kiimate.model.cases.spi;
 
-import one.kii.kiimate.model.core.spi.CreateExtensionSpi;
-import one.kii.kiimate.model.core.spi.CreateIntensionSpi;
-import one.kii.kiimate.model.core.spi.CreateModelSpi;
+import one.kii.kiimate.model.cases.spi.CreateExtensionSpi;
+import one.kii.kiimate.model.cases.spi.CreateIntensionSpi;
+import one.kii.kiimate.model.cases.spi.CreateModelSpi;
 import one.kii.summer.io.exception.Panic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

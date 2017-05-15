@@ -1,6 +1,6 @@
-package com.sinewang.kiimate.model.core.spi;
+package com.sinewang.kiimate.model.cases.spi;
 
-import one.kii.kiimate.model.core.spi.SubscribeModelSpi;
+import one.kii.kiimate.model.cases.spi.SubscribeModelSpi;
 import one.kii.summer.io.exception.*;
 import one.kii.summer.io.sender.ErestPost;
 import org.slf4j.Logger;

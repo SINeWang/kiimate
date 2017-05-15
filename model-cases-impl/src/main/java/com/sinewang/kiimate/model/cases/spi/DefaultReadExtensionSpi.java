@@ -1,6 +1,6 @@
-package com.sinewang.kiimate.model.core.spi;
+package com.sinewang.kiimate.model.cases.spi;
 
-import one.kii.kiimate.model.core.spi.ReadExtensionSpi;
+import one.kii.kiimate.model.cases.spi.ReadExtensionSpi;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;

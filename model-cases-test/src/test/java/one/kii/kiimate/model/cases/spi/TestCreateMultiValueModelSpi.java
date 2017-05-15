@@ -1,4 +1,4 @@
-package one.kii.kiimate.model.core.spi;
+package one.kii.kiimate.model.cases.spi;
 
 import one.kii.summer.io.exception.Panic;
 import org.junit.Assert;
@@ -23,9 +23,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.kiimate.model")
-@SpringBootTest(classes = {TestCreateModelSpi.class})
+@SpringBootTest(classes = {TestCreateMultiValueModelSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class TestCreateModelSpi {
+public class TestCreateMultiValueModelSpi {
 
     @Autowired
     private CreateModelSpi createModelSpi;
@@ -33,14 +33,14 @@ public class TestCreateModelSpi {
     @Autowired
     private ReadExtensionSpi readExtensionSpi;
 
-    private String group = "testGroup";
+    private String group = "testMultiValueGroup";
 
 
     @Test
     public void test() {
         CreateModelSpi.Form form = new CreateModelSpi.Form();
         form.setGroup(group);
-        form.setKlass(ThisIsASpringBootConfiguration.class);
+        form.setKlass(ThisIsAMultiValueSpringBootConfiguration.class);
         CreateModelSpi.Receipt receipt = null;
         try {
             receipt = createModelSpi.createModel(form);
@@ -64,13 +64,13 @@ public class TestCreateModelSpi {
         Assert.assertNotNull(extensionJson);
     }
 
-    class ThisIsASpringBootConfiguration {
+    class ThisIsAMultiValueSpringBootConfiguration {
 
         public Spring spring;
 
         public Server server;
 
-        public Logging logging;
+        public Logging[] logging;
 
     }
 
@@ -80,7 +80,7 @@ public class TestCreateModelSpi {
     }
 
     class Profiles {
-        String active;
+        String[] active;
     }
 
 
@@ -96,7 +96,7 @@ public class TestCreateModelSpi {
     }
 
     class Server {
-        public int port;
+        public int[] port;
     }
 
     class Logging {

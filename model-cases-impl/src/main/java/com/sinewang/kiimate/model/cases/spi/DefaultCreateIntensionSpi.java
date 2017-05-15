@@ -1,6 +1,6 @@
-package com.sinewang.kiimate.model.core.spi;
+package com.sinewang.kiimate.model.cases.spi;
 
-import one.kii.kiimate.model.core.spi.CreateIntensionSpi;
+import one.kii.kiimate.model.cases.spi.CreateIntensionSpi;
 import one.kii.summer.io.exception.*;
 import one.kii.summer.io.sender.ErestPost;
 import org.springframework.boot.context.properties.ConfigurationProperties;

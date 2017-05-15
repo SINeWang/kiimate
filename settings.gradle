@@ -10,4 +10,7 @@ include 'kiimate-impl'
 include 'status-cases-spec'
 include 'status-cases-impl'
 include 'status-cases-test'
+include 'model-cases-spec'
+include 'model-cases-impl'
+include 'model-cases-test'
 
