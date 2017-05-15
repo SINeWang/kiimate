@@ -3,7 +3,6 @@ package com.sinewang.kiimate.model.core.api;
 import one.kii.kiimate.model.core.api.DeclareExtensionApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
-import one.kii.kiimate.model.core.fui.AnVisibilityValidator;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
