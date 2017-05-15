@@ -42,10 +42,10 @@ public interface ModelPublicationDai {
     class DuplicatedPublication extends Exception {
 
         @Getter
-        private String pubSetHash;
+        private String pubSet;
 
-        public DuplicatedPublication(String pubSetHash) {
-            this.pubSetHash = pubSetHash;
+        public DuplicatedPublication(String pubSet) {
+            this.pubSet = pubSet;
         }
     }
 }

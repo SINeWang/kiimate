@@ -8,7 +8,6 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.kiimate.model.core.fui.AnIntensionExtractor;
 import one.kii.kiimate.model.core.fui.AnStructureValidator;
-import one.kii.kiimate.model.core.fui.AnVisibilityValidator;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -67,7 +66,7 @@ public class TestPublishModelApi {
 
     private String visitorId = "testVisitorId";
 
-    private String visibility = AnVisibilityValidator.Visibility.PUBLIC.name();
+    private String visibility = "protected";
 
     private String operatorId = "operatorId";
 

@@ -13,7 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
-import one.kii.kiimate.model.core.fui.AnVisibilityValidator;
+
 
 /**
  * Created by WangYanJiong on 3/24/17.
@@ -143,7 +143,7 @@ public class TestDeclareExtensionApi {
 
         WriteContext context = new WriteContext(requestId, ownerId, operatorId);
 
-        commitForm.setVisibility(AnVisibilityValidator.Visibility.PROTECTED.name());
+        commitForm.setVisibility("protected");
         DeclareExtensionApi.CommitReceipt response = null;
         try {
             response = declareExtensionApi.commit(context, commitForm);
