@@ -23,40 +23,40 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.kiimate.model")
-@SpringBootTest(classes = {TestCreateModelSpi.class})
+@SpringBootTest(classes = {TestPublishModelSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class TestCreateModelSpi {
+public class TestPublishModelSpi {
 
     @Autowired
-    private CreateModelSpi createModelSpi;
+    private PublishModelSpi publishModelSpi;
 
     @Autowired
-    private ReadExtensionSpi readExtensionSpi;
+    private VisitExtensionSpi visitExtensionSpi;
 
     private String group = "testGroup";
 
 
     @Test
     public void test() {
-        CreateModelSpi.Form form = new CreateModelSpi.Form();
+        PublishModelSpi.Form form = new PublishModelSpi.Form();
         form.setGroup(group);
         form.setKlass(ThisIsASpringBootConfiguration.class);
-        CreateModelSpi.Receipt receipt = null;
+        PublishModelSpi.Receipt receipt = null;
         try {
-            receipt = createModelSpi.createModel(form);
+            receipt = publishModelSpi.commit(form);
         } catch (Panic panic) {
             panic.printStackTrace();
         }
 
         Assert.assertNotNull(receipt);
 
-        ReadExtensionSpi.GroupForm form2 = new ReadExtensionSpi.GroupForm();
+        VisitExtensionSpi.GroupForm form2 = new VisitExtensionSpi.GroupForm();
 
         form2.setGroup(group);
 
         String extensionJson = null;
         try {
-            extensionJson = readExtensionSpi.readMasterExtension(form2);
+            extensionJson = visitExtensionSpi.visit(form2);
         } catch (Panic panic) {
             panic.printStackTrace();
         }

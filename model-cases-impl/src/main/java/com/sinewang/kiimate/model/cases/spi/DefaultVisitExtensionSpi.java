@@ -1,6 +1,6 @@
 package com.sinewang.kiimate.model.cases.spi;
 
-import one.kii.kiimate.model.cases.spi.ReadExtensionSpi;
+import one.kii.kiimate.model.cases.spi.VisitExtensionSpi;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @ConfigurationProperties(prefix = "metamate")
 @Component
-public class DefaultReadExtensionSpi implements ReadExtensionSpi {
+public class DefaultVisitExtensionSpi implements VisitExtensionSpi {
 
 
     private static String URI = "/{ownerId}/extension/{group}/{name}/{tree}";
@@ -35,7 +35,7 @@ public class DefaultReadExtensionSpi implements ReadExtensionSpi {
     }
 
     @Override
-    public String readMasterExtension(GroupForm form) throws Panic {
+    public String visit(GroupForm form) throws Panic {
         String url = baseUrl + URI;
 
         ErestGetBasic erest = new ErestGetBasic(visitorId);
@@ -52,7 +52,7 @@ public class DefaultReadExtensionSpi implements ReadExtensionSpi {
     }
 
     @Override
-    public String readMasterExtension(GroupNameForm form) throws Panic {
+    public String visit(GroupNameForm form) throws Panic {
         String url = baseUrl + URI;
 
         ErestGetBasic erest = new ErestGetBasic(visitorId);

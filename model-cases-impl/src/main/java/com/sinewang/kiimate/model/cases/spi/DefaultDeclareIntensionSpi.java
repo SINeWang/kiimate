@@ -1,6 +1,6 @@
 package com.sinewang.kiimate.model.cases.spi;
 
-import one.kii.kiimate.model.cases.spi.CreateIntensionSpi;
+import one.kii.kiimate.model.cases.spi.DeclareIntensionSpi;
 import one.kii.summer.io.exception.*;
 import one.kii.summer.io.sender.ErestPost;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @ConfigurationProperties(prefix = "metamate")
 @Component
-public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
+public class DefaultDeclareIntensionSpi implements DeclareIntensionSpi {
 
     private static String TREE = "master";
     private static String URI = "/{ownerId}/intension";
@@ -24,7 +24,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
     }
 
     @Override
-    public String createPublicPrimitiveIntension(PrimitiveIntensionForm form) throws Panic {
+    public String commit(PrimitiveIntensionForm form) throws Panic {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(form.getOwnerId());
@@ -40,7 +40,7 @@ public class DefaultCreateIntensionSpi implements CreateIntensionSpi {
     }
 
     @Override
-    public String createPublicImportIntension(ImportIntensionForm form) throws Panic {
+    public String commit(ImportIntensionForm form) throws Panic {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(form.getOwnerId());

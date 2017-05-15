@@ -8,7 +8,7 @@ import one.kii.summer.io.exception.Panic;
  */
 public interface SubscribeModelSpi {
 
-    Receipt subscribe(Form form) throws Panic;
+    Receipt commit(Form form) throws Panic;
 
     @Data
     class Form {

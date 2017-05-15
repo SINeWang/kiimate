@@ -6,13 +6,13 @@ import one.kii.summer.io.exception.Panic;
 /**
  * Created by WangYanJiong on 4/7/17.
  */
-public interface ReadExtensionSpi {
+public interface VisitExtensionSpi {
 
     String NAME_ROOT = "root";
 
-    String readMasterExtension(GroupForm form) throws Panic;
+    String visit(GroupForm form) throws Panic;
 
-    String readMasterExtension(GroupNameForm form) throws Panic;
+    String visit(GroupNameForm form) throws Panic;
 
     @Data
     class GroupForm {

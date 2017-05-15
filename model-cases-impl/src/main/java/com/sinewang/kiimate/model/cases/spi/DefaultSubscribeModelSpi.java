@@ -38,7 +38,7 @@ public class DefaultSubscribeModelSpi implements SubscribeModelSpi {
     }
 
     @Override
-    public Receipt subscribe(Form form) throws Panic {
+    public Receipt commit(Form form) throws Panic {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(operatorId);

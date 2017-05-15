@@ -7,13 +7,13 @@ import one.kii.summer.io.exception.Panic;
 /**
  * Created by WangYanJiong on 4/7/17.
  */
-public interface CreateIntensionSpi {
+public interface DeclareIntensionSpi {
 
     String VISIBILITY_PUBLIC = "public";
 
-    String createPublicPrimitiveIntension(PrimitiveIntensionForm form) throws Panic;
+    String commit(PrimitiveIntensionForm form) throws Panic;
 
-    String createPublicImportIntension(ImportIntensionForm form) throws Panic;
+    String commit(ImportIntensionForm form) throws Panic;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

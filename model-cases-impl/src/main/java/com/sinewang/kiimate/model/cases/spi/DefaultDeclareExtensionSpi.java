@@ -1,7 +1,7 @@
 package com.sinewang.kiimate.model.cases.spi;
 
 
-import one.kii.kiimate.model.cases.spi.CreateExtensionSpi;
+import one.kii.kiimate.model.cases.spi.DeclareExtensionSpi;
 import one.kii.summer.io.exception.*;
 import one.kii.summer.io.sender.ErestPost;
 import org.slf4j.Logger;
@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
  */
 @ConfigurationProperties(prefix = "metamate")
 @Component
-public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
+public class DefaultDeclareExtensionSpi implements DeclareExtensionSpi {
 
-    private static Logger logger = LoggerFactory.getLogger(DefaultCreateExtensionSpi.class);
+    private static Logger logger = LoggerFactory.getLogger(DefaultDeclareExtensionSpi.class);
 
     private static String URI = "/{ownerId}/extension";
 
@@ -28,7 +28,7 @@ public class DefaultCreateExtensionSpi implements CreateExtensionSpi {
     }
 
     @Override
-    public Receipt createMasterPublicExtension(Form form) throws Panic {
+    public Receipt commit(Form form) throws Panic {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(form.getOwnerId());

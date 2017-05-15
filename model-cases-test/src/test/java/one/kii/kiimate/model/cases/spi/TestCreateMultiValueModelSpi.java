@@ -28,35 +28,35 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class TestCreateMultiValueModelSpi {
 
     @Autowired
-    private CreateModelSpi createModelSpi;
+    private PublishModelSpi publishModelSpi;
 
     @Autowired
-    private ReadExtensionSpi readExtensionSpi;
+    private VisitExtensionSpi visitExtensionSpi;
 
     private String group = "testMultiValueGroup";
 
 
     @Test
     public void test() {
-        CreateModelSpi.Form form = new CreateModelSpi.Form();
+        PublishModelSpi.Form form = new PublishModelSpi.Form();
         form.setGroup(group);
         form.setKlass(ThisIsAMultiValueSpringBootConfiguration.class);
-        CreateModelSpi.Receipt receipt = null;
+        PublishModelSpi.Receipt receipt = null;
         try {
-            receipt = createModelSpi.createModel(form);
+            receipt = publishModelSpi.commit(form);
         } catch (Panic panic) {
             panic.printStackTrace();
         }
 
         Assert.assertNotNull(receipt);
 
-        ReadExtensionSpi.GroupForm form2 = new ReadExtensionSpi.GroupForm();
+        VisitExtensionSpi.GroupForm form2 = new VisitExtensionSpi.GroupForm();
 
         form2.setGroup(group);
 
         String extensionJson = null;
         try {
-            extensionJson = readExtensionSpi.readMasterExtension(form2);
+            extensionJson = visitExtensionSpi.visit(form2);
         } catch (Panic panic) {
             panic.printStackTrace();
         }

@@ -1,8 +1,8 @@
 package com.sinewang.kiimate.model.cases.spi;
 
-import one.kii.kiimate.model.cases.spi.CreateExtensionSpi;
-import one.kii.kiimate.model.cases.spi.CreateIntensionSpi;
-import one.kii.kiimate.model.cases.spi.CreateModelSpi;
+import one.kii.kiimate.model.cases.spi.DeclareExtensionSpi;
+import one.kii.kiimate.model.cases.spi.DeclareIntensionSpi;
+import one.kii.kiimate.model.cases.spi.PublishModelSpi;
 import one.kii.summer.io.exception.Panic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,23 +19,23 @@ import java.util.Map;
  * Created by WangYanJiong on 4/7/17.
  */
 @Component
-public class DefaultCreateModelSpi implements CreateModelSpi {
+public class DefaultPublishModelSpi implements PublishModelSpi {
 
-    private static Logger logger = LoggerFactory.getLogger(DefaultCreateModelSpi.class);
-
-    @Autowired
-    private CreateExtensionSpi createExtensionSpi;
+    private static Logger logger = LoggerFactory.getLogger(DefaultPublishModelSpi.class);
 
     @Autowired
-    private CreateIntensionSpi createIntensionSpi;
+    private DeclareExtensionSpi createExtensionSpi;
+
+    @Autowired
+    private DeclareIntensionSpi declareIntensionSpi;
 
     private <T> Receipt createModel(String ownerId, String group, String name, Class<T> klass) throws Panic {
         if (String.class.getName().equals(klass.getName()) || klass.isPrimitive()) {
             throw new IllegalArgumentException("Class is ILLEGAL:" + klass.getName());
         }
         logger.debug("[begin] group:[{}] createModel:[{}]", klass.getName());
-        logger.debug("[before] createExtensionSpi.createMasterPublicExtension:group=[{}],name=[{}]", group, name);
-        CreateExtensionSpi.Form extForm = new CreateExtensionSpi.Form();
+        logger.debug("[before] createExtensionSpi.commit:group=[{}],name=[{}]", group, name);
+        DeclareExtensionSpi.Form extForm = new DeclareExtensionSpi.Form();
         extForm.setGroup(group);
         if (name.equals(NAME_ROOT)) {
             extForm.setName(NAME_ROOT);
@@ -43,8 +43,8 @@ public class DefaultCreateModelSpi implements CreateModelSpi {
             extForm.setName(name);
         }
         extForm.setOwnerId(ownerId);
-        String extId = createExtensionSpi.createMasterPublicExtension(extForm).getId();
-        logger.debug("[after] createExtensionSpi.createMasterPublicExtension:extId=[{}]", extId);
+        String extId = createExtensionSpi.commit(extForm).getId();
+        logger.debug("[after] createExtensionSpi.commit:extId=[{}]", extId);
 
         Map<String, Receipt> refs = new HashMap<>();
 
@@ -61,24 +61,24 @@ public class DefaultCreateModelSpi implements CreateModelSpi {
                 type = type.getComponentType();
             }
             if (String.class.getName().equals(type.getName()) || type.isPrimitive()) {
-                CreateIntensionSpi.PrimitiveIntensionForm form = new CreateIntensionSpi.PrimitiveIntensionForm();
+                DeclareIntensionSpi.PrimitiveIntensionForm form = new DeclareIntensionSpi.PrimitiveIntensionForm();
                 form.setSingle(single);
                 form.setField(fieldName);
                 form.setStructure(type.getSimpleName());
                 form.setExtId(extId);
                 form.setOwnerId(ownerId);
-                String intId = createIntensionSpi.createPublicPrimitiveIntension(form);
+                String intId = declareIntensionSpi.commit(form);
                 ints.add(intId);
             } else {
                 Receipt receipt = createModel(ownerId, group, fieldName, type);
-                CreateIntensionSpi.ImportIntensionForm form = new CreateIntensionSpi.ImportIntensionForm();
+                DeclareIntensionSpi.ImportIntensionForm form = new DeclareIntensionSpi.ImportIntensionForm();
                 form.setSingle(single);
                 form.setField(fieldName);
                 form.setRefExtId(receipt.getExtId());
                 form.setExtId(extId);
                 form.setOwnerId(ownerId);
                 form.setStructure(type.getSimpleName());
-                String intId = createIntensionSpi.createPublicImportIntension(form);
+                String intId = declareIntensionSpi.commit(form);
                 refs.put(intId, receipt);
             }
 
@@ -93,7 +93,7 @@ public class DefaultCreateModelSpi implements CreateModelSpi {
 
 
     @Override
-    public <T> Receipt createModel(Form<T> form) throws Panic {
+    public <T> Receipt commit(Form<T> form) throws Panic {
         return createModel(form.getOwnerId(), form.getGroup(), NAME_ROOT, form.getKlass());
     }
 

@@ -9,11 +9,11 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 4/7/17.
  */
-public interface CreateModelSpi {
+public interface PublishModelSpi {
 
     String NAME_ROOT = "root";
 
-    <T> Receipt createModel(Form<T> form) throws Panic;
+    <T> Receipt commit(Form<T> form) throws Panic;
 
     @Data
     class Form<T> {

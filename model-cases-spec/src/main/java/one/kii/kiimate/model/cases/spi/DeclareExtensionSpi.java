@@ -6,14 +6,14 @@ import one.kii.summer.io.exception.Panic;
 /**
  * Created by WangYanJiong on 4/7/17.
  */
-public interface CreateExtensionSpi {
+public interface DeclareExtensionSpi {
 
     String TREE_MASTER = "master";
 
     String VISIBILITY_PUBLIC = "public";
 
 
-    Receipt createMasterPublicExtension(Form form) throws Panic;
+    Receipt commit(Form form) throws Panic;
 
     @Data
     class Form {

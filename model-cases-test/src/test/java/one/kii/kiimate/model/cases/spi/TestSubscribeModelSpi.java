@@ -39,7 +39,7 @@ public class TestSubscribeModelSpi {
         form.setPubSetHash("1ef3725c9ddc304a6489d35918637f85fb45415c85857f9e48d0385585e710db");
         SubscribeModelSpi.Receipt receipt = null;
         try {
-            receipt = subscribeModelSpi.subscribe(form);
+            receipt = subscribeModelSpi.commit(form);
         } catch (Panic panic) {
             panic.printStackTrace();
         }
