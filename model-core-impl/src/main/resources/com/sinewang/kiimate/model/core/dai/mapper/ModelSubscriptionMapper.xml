@@ -15,7 +15,7 @@
     </resultMap>
     
     <resultMap id="Subscribers" type="one.kii.kiimate.model.core.dai.ModelSubscriptionDai$Subscribers">
-        <result column="subscriber_id" property="subscriberId"/>
+        <result column="subscriber_id" property="id"/>
     </resultMap>
 
     <insert id="insertSubscription">

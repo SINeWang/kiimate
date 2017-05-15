@@ -25,7 +25,7 @@ public interface ModelSubscriptionDai {
 
     @Data
     class Subscribers {
-        String subscriberId;
+        String id;
     }
 
     @Data
