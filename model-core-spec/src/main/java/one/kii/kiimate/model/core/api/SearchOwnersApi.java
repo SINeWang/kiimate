@@ -16,7 +16,7 @@ public interface SearchOwnersApi {
 
     @Data
     class Owners {
-        String ownerId;
+        String id;
     }
 
     @Data

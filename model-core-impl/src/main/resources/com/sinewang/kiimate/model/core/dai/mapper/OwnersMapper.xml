@@ -3,7 +3,7 @@
 <mapper namespace="com.sinewang.kiimate.model.core.dai.mapper.OwnersMapper">
 
     <resultMap id="Owners" type="one.kii.kiimate.model.core.api.SearchOwnersApi$Owners">
-        <result column="owner_id" property="ownerId"/>
+        <result column="owner_id" property="id"/>
     </resultMap>
 
     <select id="queryOwners" resultMap="Owners">

@@ -29,14 +29,14 @@ public class SearchOwnersCtl extends ReadController {
     public ResponseEntity<?> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @RequestParam("ownerId") String ownerId) {
+            @RequestParam("id") String id) {
 
         ReadContext context = buildContext(requestId, null, visitorId);
 
 
         SearchOwnersApi.QueryForm queryForm = new SearchOwnersApi.QueryForm();
 
-        queryForm.setOwnerId(ownerId);
+        queryForm.setOwnerId(id);
 
         List<SearchOwnersApi.Owners> owners = searchOwnersApi.search(context, queryForm);
         return ErestResponse.ok(requestId, owners);

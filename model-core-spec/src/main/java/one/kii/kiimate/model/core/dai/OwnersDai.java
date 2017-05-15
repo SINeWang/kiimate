@@ -14,6 +14,6 @@ public interface OwnersDai {
 
     @Data
     class Owners {
-        String ownerId;
+        String id;
     }
 }
