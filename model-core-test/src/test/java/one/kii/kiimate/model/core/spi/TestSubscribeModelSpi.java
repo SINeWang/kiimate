@@ -21,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
-@ComponentScan("com.sinewang.modelmate")
+@ComponentScan("com.sinewang.kiimate.model")
 @SpringBootTest(classes = {TestSubscribeModelSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class TestSubscribeModelSpi {

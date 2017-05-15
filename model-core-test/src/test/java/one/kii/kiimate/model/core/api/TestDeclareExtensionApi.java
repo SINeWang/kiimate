@@ -20,7 +20,7 @@ import one.kii.kiimate.model.core.dai.ExtensionDai;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
-@ComponentScan("com.sinewang.modelmate.core")
+@ComponentScan("com.sinewang.kiimate.model")
 @SpringBootTest(classes = {TestDeclareExtensionApi.class})
 public class TestDeclareExtensionApi {
 

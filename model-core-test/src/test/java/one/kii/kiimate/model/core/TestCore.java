@@ -14,7 +14,7 @@ import org.springframework.test.context.BootstrapWith;
 
 @RunWith(value = Suite.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
-@ComponentScan("com.sinewang.modelmate.core")
+@ComponentScan("com.sinewang.kiimate.model.core")
 @Suite.SuiteClasses({
         TestDeclareExtensionApi.class,
         TestExtensionDai.class})
