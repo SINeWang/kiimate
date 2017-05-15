@@ -32,36 +32,36 @@ public class VisitIntensionCtl extends ReadController {
     private VisitIntensionsApi api;
 
     @RequestMapping(value = "/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitIntensionsApi.Extension> readIntensionsByGroupNameVersion(
+    public ResponseEntity<VisitIntensionsApi.Extension> visit3(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name,
             @PathVariable("tree") String tree) {
-        return getExtensionResponseEntity(requestId, ownerId, visitorId, group, name, tree);
+        return visit(requestId, ownerId, visitorId, group, name, tree);
     }
 
     @RequestMapping(value = "/{group}/{name:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitIntensionsApi.Extension> readIntensionsByGroupNameVersion(
+    public ResponseEntity<VisitIntensionsApi.Extension> visit2(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable("group") String group,
             @PathVariable("name") String name) {
-        return getExtensionResponseEntity(requestId, ownerId, visitorId, group, name, TREE_MASTER);
+        return visit(requestId, ownerId, visitorId, group, name, TREE_MASTER);
     }
 
     @RequestMapping(value = "/{group:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitIntensionsApi.Extension> readIntensionsByGroupNameVersion(
+    public ResponseEntity<VisitIntensionsApi.Extension> visit1(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable("group") String group) {
-        return getExtensionResponseEntity(requestId, ownerId, visitorId, group, NAME_ROOT, TREE_MASTER);
+        return visit(requestId, ownerId, visitorId, group, NAME_ROOT, TREE_MASTER);
     }
 
-    private ResponseEntity<VisitIntensionsApi.Extension> getExtensionResponseEntity(
+    private ResponseEntity<VisitIntensionsApi.Extension> visit(
             String requestId,
             String ownerId,
             String visitorId,
