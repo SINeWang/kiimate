@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan({
+        "com.sinewang.kiimate.subject.core",
+        "one.kii.kiimate.subject.core",
         "com.sinewang.kiimate.model.core",
         "one.kii.kiimate.model.core",
         "com.sinewang.kiimate.status.core",
