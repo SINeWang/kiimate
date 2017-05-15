@@ -1,7 +1,7 @@
 package com.sinewang.kiimate.model.core.api;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ModelPublicationMapper;
-import one.kii.kiimate.model.core.api.SnapshotModelApi;
+import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.api.VisitExtensionApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
@@ -31,11 +31,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.kiimate.model.core")
-@SpringBootTest(classes = {TestSnapshotModelApi.class})
-public class TestSnapshotModelApi {
+@SpringBootTest(classes = {TestPublishModelApi.class})
+public class TestPublishModelApi {
 
     @Autowired
-    private SnapshotModelApi snapshotModelApi;
+    private PublishModelApi publishModelApi;
 
     @Autowired
     private VisitExtensionApi visitExtensionApi;
@@ -132,7 +132,7 @@ public class TestSnapshotModelApi {
 
     @Test
     public void test() {
-        SnapshotModelApi.Form form = new SnapshotModelApi.Form();
+        PublishModelApi.Form form = new PublishModelApi.Form();
         form.setVersion(version);
         form.setProviderId(providerId);
         form.setExtId(extId);
@@ -142,9 +142,9 @@ public class TestSnapshotModelApi {
         WriteContext context = new WriteContext(requestId, ownerId, operatorId);
 
 
-        SnapshotModelApi.Receipt receipt = null;
+        PublishModelApi.Receipt receipt = null;
         try {
-            receipt = snapshotModelApi.commit(context, form);
+            receipt = publishModelApi.commit(context, form);
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {

@@ -1,7 +1,7 @@
 package one.kii.kiimate.model.core.fui;
 
 import lombok.Data;
-import one.kii.kiimate.model.core.api.SnapshotModelApi;
+import one.kii.kiimate.model.core.api.PublishModelApi;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public interface AnPublicationExtractor {
 
-    Publication extractSnapshot(SnapshotModelApi.Form form,
+    Publication extractSnapshot(PublishModelApi.Form form,
                                 String extId,
                                 String operatorId,
                                 Date date) throws MissingParamException;

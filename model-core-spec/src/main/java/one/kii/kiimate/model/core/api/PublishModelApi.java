@@ -13,7 +13,7 @@ import java.util.List;
  * Created by WangYanJiong on 4/5/17.
  */
 
-public interface SnapshotModelApi {
+public interface PublishModelApi {
 
 
     Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict;
@@ -21,6 +21,8 @@ public interface SnapshotModelApi {
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Form {
+
+        private String publication;
 
         private String providerId;
 

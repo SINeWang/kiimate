@@ -1,6 +1,6 @@
 package com.sinewang.kiimate.model.core.api;
 
-import one.kii.kiimate.model.core.api.SnapshotModelApi;
+import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
@@ -25,17 +25,20 @@ import java.util.List;
  */
 
 @Component
-public class DefaultSnapshotModelApi implements SnapshotModelApi {
+public class DefaultPublishModelApi implements PublishModelApi {
 
-    private static final String SNAPSHOT = "commit";
     @Autowired
     private AnPublicationExtractor publicationExtractor;
+
     @Autowired
     private IntensionDai intensionDai;
+
     @Autowired
     private ExtensionDai extensionDai;
+
     @Autowired
     private ModelPublicationDai modelPublicationDai;
+
     @Autowired
     private AnExtensionExtractor extensionExtractor;
 
@@ -52,7 +55,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
         List<String> ids = new ArrayList<>();
         List<AnExtensionExtractor.Extension> newExtensions = new ArrayList<>();
         AnExtensionExtractor.Extension newExtension = DataTools.copy(extension, AnExtensionExtractor.Extension.class);
-        String tree = SNAPSHOT + "-" + form.getVersion();
+        String tree = form.getPublication() + "-" + form.getVersion();
         newExtension.setTree(tree);
         newExtensions.add(newExtension);
 
@@ -79,7 +82,7 @@ public class DefaultSnapshotModelApi implements SnapshotModelApi {
             String id = publicationExtractor.hashId(snapExtId, intension.getId());
             ids.add(id);
             ModelPublicationDai.Publication daiPublication = DataTools.copy(snapshot, ModelPublicationDai.Publication.class);
-            daiPublication.setPublication(SNAPSHOT);
+            daiPublication.setPublication(form.getPublication());
             daiPublication.setIntId(intension.getId());
             daiPublication.setId(id);
             daiPublication.setBeginTime(snapshot.getCreatedAt());
