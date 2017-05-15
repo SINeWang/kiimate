@@ -29,7 +29,12 @@ public class DefaultPublishModelSpi implements PublishModelSpi {
     @Autowired
     private DeclareIntensionSpi declareIntensionSpi;
 
-    private <T> Receipt createModel(String ownerId, String group, String name, Class<T> klass) throws Panic {
+    @Override
+    public <T> Receipt commit(Form<T> form) throws Panic {
+        return publish(form.getOwnerId(), form.getGroup(), NAME_ROOT, form.getKlass());
+    }
+
+    private <T> Receipt publish(String ownerId, String group, String name, Class<T> klass) throws Panic {
         if (String.class.getName().equals(klass.getName()) || klass.isPrimitive()) {
             throw new IllegalArgumentException("Class is ILLEGAL:" + klass.getName());
         }
@@ -70,7 +75,7 @@ public class DefaultPublishModelSpi implements PublishModelSpi {
                 String intId = declareIntensionSpi.commit(form);
                 ints.add(intId);
             } else {
-                Receipt receipt = createModel(ownerId, group, fieldName, type);
+                Receipt receipt = publish(ownerId, group, fieldName, type);
                 DeclareIntensionSpi.ImportIntensionForm form = new DeclareIntensionSpi.ImportIntensionForm();
                 form.setSingle(single);
                 form.setField(fieldName);
@@ -91,10 +96,5 @@ public class DefaultPublishModelSpi implements PublishModelSpi {
         return receipt;
     }
 
-
-    @Override
-    public <T> Receipt commit(Form<T> form) throws Panic {
-        return createModel(form.getOwnerId(), form.getGroup(), NAME_ROOT, form.getKlass());
-    }
 
 }

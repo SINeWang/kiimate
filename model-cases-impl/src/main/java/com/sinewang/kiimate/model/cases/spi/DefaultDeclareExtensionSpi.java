@@ -19,7 +19,7 @@ public class DefaultDeclareExtensionSpi implements DeclareExtensionSpi {
 
     private static Logger logger = LoggerFactory.getLogger(DefaultDeclareExtensionSpi.class);
 
-    private static String URI = "/{ownerId}/extension";
+    private static String URI = "/{ownerId}/extensions";
 
     private String baseUrl;
 

@@ -17,7 +17,7 @@ public class DefaultSubscribeModelSpi implements SubscribeModelSpi {
 
     private static Logger logger = LoggerFactory.getLogger(DefaultSubscribeModelSpi.class);
 
-    private static String URI = "/{subscriberId}/commit";
+    private static String URI = "/{subscriberId}/subscriptions/{sub-set}";
 
     private String baseUrl;
 
@@ -42,9 +42,9 @@ public class DefaultSubscribeModelSpi implements SubscribeModelSpi {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(operatorId);
-        logger.info("url:{}, variables:{}", url, form.getSubscriberId());
+        logger.info("url:{}, variables:{}, {}", url, form.getSubscriberId(), form.getPubSet());
         try {
-            return erest.execute(url, form, Receipt.class, form.getSubscriberId());
+            return erest.execute(url, form, Receipt.class, form.getSubscriberId(), form.getPubSet());
         } catch (Forbidden forbidden) {
             forbidden.printStackTrace();
         } catch (Conflict conflict) {

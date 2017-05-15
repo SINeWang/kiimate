@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class DefaultVisitExtensionSpi implements VisitExtensionSpi {
 
 
-    private static String URI = "/{ownerId}/extension/{group}/{name}/{tree}";
+    private static String URI = "/{ownerId}/extensions/{group}/{name}/{tree}";
     private static String TREE = "master";
     private String ownerId;
     private String visitorId;
