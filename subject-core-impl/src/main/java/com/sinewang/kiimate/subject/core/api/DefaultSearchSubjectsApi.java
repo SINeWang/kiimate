@@ -52,6 +52,12 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
                         List<ModelPublicationDai.Provider> providers = modelPublicationDai.getProviders(form.getGroup());
                         return DataTools.copy(providers, Subjects.class);
                 }
+            case INSTANCE:
+                switch (form.getAccessType()) {
+                    case OWNER:
+                        List<ModelSubscriptionDai.Subscribers> subscribers = modelSubscriptionDai.querySubscriberId(form.getGroup());
+                        return DataTools.copy(subscribers, Subjects.class);
+                }
 
         }
         return Collections.emptyList();

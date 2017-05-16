@@ -33,6 +33,7 @@ public interface SearchSubjectsApi {
         EXTENSION,
         EVENT,
         INTENSION,
+        INSTANCE,
         MODEL,
         STATUS
     }
