@@ -50,19 +50,26 @@ public interface ModelSubscriptionDai {
 
         @Getter
         private String subSetHash;
+
         @Getter
         private String subscriberId;
+
         @Getter
         private String group;
+
         @Getter
         private String name;
 
-        public DuplicatedSubscription(String subSetHash, String subscriberId, String group, String name) {
+        @Getter
+        private String tree;
+
+        public DuplicatedSubscription(String subSetHash, String subscriberId, String group, String name, String tree) {
             super();
             this.subSetHash = subSetHash;
             this.subscriberId = subscriberId;
             this.group = group;
             this.name = name;
+            this.tree = tree;
         }
 
     }

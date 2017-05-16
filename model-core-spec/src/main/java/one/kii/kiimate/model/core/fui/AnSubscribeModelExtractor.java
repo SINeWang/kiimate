@@ -13,7 +13,7 @@ public interface AnSubscribeModelExtractor {
 
     String hashId(String subscriberId, String pubSetHash, String group, String name, String tree);
 
-    ModelSubscription extract(SubscribeModelApi.Form form, String subscriberId, String operatorId, String tree);
+    ModelSubscription extract(SubscribeModelApi.Form form, String subscriberId, String operatorId);
 
     @Data
     class ModelSubscription {

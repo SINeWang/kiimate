@@ -35,7 +35,7 @@
     <select id="countLatestSubscription" resultType="int">
         SELECT count(msub.id) FROM mm_m_sub msub
         WHERE msub.sub_set_hash = #{subSet} AND msub.subscriber_id = #{subscriberId}
-        AND msub.group = #{group} AND msub.name = #{name}
+        AND msub.group = #{group} AND msub.name = #{name} AND msub.tree = #{tree}
         AND msub.end_time IS NULL
     </select>
 

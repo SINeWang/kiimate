@@ -11,9 +11,6 @@ import one.kii.summer.io.exception.Conflict;
 
 public interface SubscribeModelApi {
 
-    String TREE_MASTER = "master";
-
-
     Receipt commit(WriteContext context, Form form) throws Conflict;
 
     @Data
@@ -22,8 +19,8 @@ public interface SubscribeModelApi {
         private String pubSet;
         private String group;
         private String name;
+        private String tree;
     }
-
 
     @Data
     @EqualsAndHashCode(callSuper = false)

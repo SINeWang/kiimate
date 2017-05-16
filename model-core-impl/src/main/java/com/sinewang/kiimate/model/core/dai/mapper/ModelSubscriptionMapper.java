@@ -17,7 +17,8 @@ public interface ModelSubscriptionMapper {
             @Param("subSet") String subSet,
             @Param("subscriberId") String subscriberId,
             @Param("group") String group,
-            @Param("name") String name);
+            @Param("name") String name,
+            @Param("tree") String tree);
 
     void insertSubscription(
             @Param("id") String id,

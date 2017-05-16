@@ -26,14 +26,16 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
                 modelSubscription.getSubSet(),
                 modelSubscription.getSubscriberId(),
                 modelSubscription.getGroup(),
-                modelSubscription.getName()
+                modelSubscription.getName(),
+                modelSubscription.getTree()
         );
         if (count > 0) {
             throw new DuplicatedSubscription(
                     modelSubscription.getSubSet(),
                     modelSubscription.getSubscriberId(),
                     modelSubscription.getGroup(),
-                    modelSubscription.getName()
+                    modelSubscription.getName(),
+                    modelSubscription.getTree()
             );
         }
         Date now = new Date();
