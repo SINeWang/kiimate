@@ -31,8 +31,6 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
         AnExtensionExtractor.Extension extension = extensionExtractor.extract(context, commitForm);
 
         ExtensionDai.Extension daiExtension = DataTools.copy(extension, ExtensionDai.Extension.class);
-        daiExtension.setOwnerId(context.getOwnerId());
-
         try {
             extensionDai.insertExtension(daiExtension);
             return DataTools.copy(daiExtension, CommitReceipt.class);

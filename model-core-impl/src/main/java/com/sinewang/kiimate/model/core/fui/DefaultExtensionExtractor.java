@@ -20,7 +20,6 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
     @Override
     public Extension extract(WriteContext context, DeclareExtensionApi.CommitForm commitForm) throws BadRequest {
 
-
         Must.have(commitForm);
 
         commitForm.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getGroup()));
@@ -28,9 +27,7 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         commitForm.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getTree()));
         commitForm.setVisibility(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getVisibility()));
 
-
-        Extension extension = DataTools.copy(commitForm, Extension.class);
-        extension.setOwnerId(context.getOwnerId());
+        Extension extension = DataTools.magicCopy(Extension.class, commitForm, context);
         try {
             String visibility = commitForm.getVisibility();
             Visibility.valueOf(visibility.toUpperCase());
