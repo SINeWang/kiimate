@@ -3,6 +3,7 @@ package com.sinewang.kiimate.model.core.api;
 import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
 import one.kii.kiimate.model.core.api.SubscribeModelApi;
 import one.kii.kiimate.model.core.fui.AnSubscribeModelExtractor;
+import one.kii.summer.codec.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import org.junit.Test;
@@ -58,7 +59,14 @@ public class TestSubscribeModelApi {
         form.setPubSet(pubSet);
 
 
-        String id = subscribeModelExtractor.hashId(subscriberId, pubSet, group, name, tree);
+        AnSubscribeModelExtractor.ModelSubscription model = new AnSubscribeModelExtractor.ModelSubscription();
+        model.setSubscriberId(subscriberId);
+        model.setSubSet(pubSet);
+        model.setGroup(group);
+        model.setName(name);
+        model.setTree(tree);
+
+        String id = HashTools.hashHex(model);
         modelSubscriptionMapper.deleteById(id);
 
         form.setGroup(group);

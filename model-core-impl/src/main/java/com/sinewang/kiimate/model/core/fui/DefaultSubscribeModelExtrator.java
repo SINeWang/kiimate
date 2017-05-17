@@ -13,12 +13,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor {
 
-
-    @Override
-    public String hashId(String subscriberId, String pubSetHash, String group, String name, String tree) {
-        return HashTools.hashHex(subscriberId, pubSetHash, group, name, tree);
-    }
-
     @Override
     public ModelSubscription extract(SubscribeModelApi.Form form, String subscriberId, String operatorId) {
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
@@ -31,7 +25,7 @@ public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor 
         subscription.setTree(form.getTree());
         subscription.setOperatorId(operatorId);
 
-        String id = hashId(subscriberId, form.getPubSet(), form.getGroup(), form.getName(), form.getTree());
+        String id = HashTools.hashHex(subscription);
 
         subscription.setId(id);
         return subscription;
