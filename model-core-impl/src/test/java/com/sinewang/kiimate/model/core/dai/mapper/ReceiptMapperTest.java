@@ -19,9 +19,9 @@ import java.util.Date;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
-@SpringBootTest(classes = {ExtensionMapperTest.class})
+@SpringBootTest(classes = {ReceiptMapperTest.class})
 @EnableAutoConfiguration
-public class ExtensionMapperTest {
+public class ReceiptMapperTest {
 
     @Autowired
     private ExtensionMapper extensionMapper;

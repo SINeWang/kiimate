@@ -42,8 +42,6 @@ public class DefaultPublishModelApi implements PublishModelApi {
     @Autowired
     private AnExtensionExtractor extensionExtractor;
 
-    @Autowired
-    private AnIntensionExtractor intensionExtractor;
 
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict {
 
@@ -71,7 +69,7 @@ public class DefaultPublishModelApi implements PublishModelApi {
 
         for (IntensionDai.Intension intension : intensions) {
             intension.setExtId(newExtension.getId());
-            intension.setId(intensionExtractor.hashId(newExtension.getId(), intension.getField()));
+            intension.setId(HashTools.hashHex(intension));
         }
 
         allIntensions.addAll(intensions);

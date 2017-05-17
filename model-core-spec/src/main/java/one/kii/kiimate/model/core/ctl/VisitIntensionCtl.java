@@ -32,7 +32,7 @@ public class VisitIntensionCtl extends ReadController {
     private VisitIntensionsApi api;
 
     @RequestMapping(value = "/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitIntensionsApi.Extension> visit3(
+    public ResponseEntity<VisitIntensionsApi.Receipt> visit3(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -43,7 +43,7 @@ public class VisitIntensionCtl extends ReadController {
     }
 
     @RequestMapping(value = "/{group}/{name:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitIntensionsApi.Extension> visit2(
+    public ResponseEntity<VisitIntensionsApi.Receipt> visit2(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -53,7 +53,7 @@ public class VisitIntensionCtl extends ReadController {
     }
 
     @RequestMapping(value = "/{group:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitIntensionsApi.Extension> visit1(
+    public ResponseEntity<VisitIntensionsApi.Receipt> visit1(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -61,7 +61,7 @@ public class VisitIntensionCtl extends ReadController {
         return visit(requestId, ownerId, visitorId, group, NAME_ROOT, TREE_MASTER);
     }
 
-    private ResponseEntity<VisitIntensionsApi.Extension> visit(
+    private ResponseEntity<VisitIntensionsApi.Receipt> visit(
             String requestId,
             String ownerId,
             String visitorId,

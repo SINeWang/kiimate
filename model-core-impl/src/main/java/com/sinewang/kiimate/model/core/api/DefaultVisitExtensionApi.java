@@ -45,20 +45,31 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
     @Override
     public Receipt visit(ReadContext context, Form form) {
-        String extId = extensionExtractor.hashId(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree(), VISIBILITY_PUBLIC);
-        return buildReceipt(extId);
+        AnExtensionExtractor.Extension extension = DataTools.copy(form, AnExtensionExtractor.Extension.class);
+        extension.setOwnerId(context.getOwnerId());
+        extension.setVisibility(VISIBILITY_PUBLIC);
+        extensionExtractor.hashId(extension);
+        return buildReceipt(extension.getId());
     }
 
 
     @Override
     public Receipt visit(ReadContext context, TinyForm form) {
-        String extId = extensionExtractor.hashId(context.getOwnerId(), form.getGroup(), NAME_ROOT, TREE_MASTER, VISIBILITY_PUBLIC);
-        return buildReceipt(extId);
+        AnExtensionExtractor.Extension extension = DataTools.copy(form, AnExtensionExtractor.Extension.class);
+        extension.setOwnerId(context.getOwnerId());
+        extension.setName(NAME_ROOT);
+        extension.setTree(TREE_MASTER);
+        extension.setVisibility(VISIBILITY_PUBLIC);
+        extensionExtractor.hashId(extension);
+        return buildReceipt(extension.getId());
     }
 
     @Override
     public Receipt visit(ReadContext context, SimpleForm form) {
-        String extId = extensionExtractor.hashId(context.getOwnerId(), form.getGroup(), form.getName(), TREE_MASTER, VISIBILITY_PUBLIC);
-        return buildReceipt(extId);
+        AnExtensionExtractor.Extension extension = DataTools.copy(form, AnExtensionExtractor.Extension.class);
+        extension.setOwnerId(context.getOwnerId());
+        extension.setTree(TREE_MASTER);
+        extension.setVisibility(VISIBILITY_PUBLIC);
+        return buildReceipt(extension.getId());
     }
 }

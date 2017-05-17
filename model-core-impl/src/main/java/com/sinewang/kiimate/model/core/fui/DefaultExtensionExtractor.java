@@ -5,6 +5,7 @@ import one.kii.kiimate.model.core.api.DeclareExtensionApi;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.codec.utils.HashTools;
+import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.validator.Must;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
     @Override
-    public Extension extract(DeclareExtensionApi.CommitForm commitForm) throws BadRequest {
+    public Extension extract(WriteContext context, DeclareExtensionApi.CommitForm commitForm) throws BadRequest {
 
 
         Must.have(commitForm);
@@ -29,39 +30,26 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
 
         Extension extension = DataTools.copy(commitForm, Extension.class);
+        extension.setOwnerId(context.getOwnerId());
         try {
             String visibility = commitForm.getVisibility();
             Visibility.valueOf(visibility.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new BadRequest("visibility");
         }
-        String id = hashExtension(extension);
-        extension.setId(id);
+        hashId(extension);
         return extension;
     }
 
     @Override
-    public String hashId(String ownerId, String group, String name, String tree, String visibility) {
-        group = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, group);
-        name = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name);
-        tree = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, tree);
-
-        return HashTools.hashHex(ownerId, group, name, tree, visibility);
-    }
-
-    @Override
     public void hashId(Extension extension) {
-        String id = hashId(
-                extension.getOwnerId(),
-                extension.getGroup(),
-                extension.getName(),
-                extension.getTree(),
-                extension.getVisibility());
+        extension.setOwnerId(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getOwnerId()));
+        extension.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getGroup()));
+        extension.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getName()));
+        extension.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getTree()));
+        extension.setVisibility(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getVisibility()));
+        String id = HashTools.hashHex(extension);
         extension.setId(id);
-    }
-
-    private String hashExtension(Extension extension) {
-        return hashId(extension.getOwnerId(), extension.getGroup(), extension.getName(), extension.getTree(), extension.getVisibility());
     }
 
 

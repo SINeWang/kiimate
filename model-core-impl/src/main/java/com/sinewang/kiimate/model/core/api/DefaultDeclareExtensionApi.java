@@ -28,7 +28,7 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     @Override
     public CommitReceipt commit(WriteContext context, CommitForm commitForm) throws BadRequest, Conflict {
 
-        AnExtensionExtractor.Extension extension = extensionExtractor.extract(commitForm);
+        AnExtensionExtractor.Extension extension = extensionExtractor.extract(context, commitForm);
 
         ExtensionDai.Extension daiExtension = DataTools.copy(extension, ExtensionDai.Extension.class);
         daiExtension.setOwnerId(context.getOwnerId());

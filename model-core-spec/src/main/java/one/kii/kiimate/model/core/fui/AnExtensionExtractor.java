@@ -2,6 +2,8 @@ package one.kii.kiimate.model.core.fui;
 
 import lombok.Data;
 import one.kii.kiimate.model.core.api.DeclareExtensionApi;
+import one.kii.summer.codec.annotations.HashFactor;
+import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 
 
@@ -11,9 +13,7 @@ import one.kii.summer.io.exception.BadRequest;
 public interface AnExtensionExtractor {
 
 
-    Extension extract(DeclareExtensionApi.CommitForm commitForm) throws BadRequest;
-
-    String hashId(String ownerId, String group, String name, String tree, String visibility);
+    Extension extract(WriteContext context, DeclareExtensionApi.CommitForm commitForm) throws BadRequest;
 
     void hashId(Extension extension);
 
@@ -28,14 +28,19 @@ public interface AnExtensionExtractor {
 
         private String id;
 
+        @HashFactor
         private String ownerId;
 
+        @HashFactor
         private String group;
 
+        @HashFactor
         private String name;
 
+        @HashFactor
         private String tree;
 
+        @HashFactor
         private String visibility;
     }
 

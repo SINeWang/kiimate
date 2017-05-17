@@ -18,7 +18,7 @@ public interface VisitIntensionsApi {
 
     String VISIBILITY_PUBLIC = "public";
 
-    Extension visit(ReadContext context, Form form) throws NotFound;
+    Receipt visit(ReadContext context, Form form) throws NotFound;
 
     @Data
     class Form {
@@ -30,7 +30,7 @@ public interface VisitIntensionsApi {
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class Extension {
+    class Receipt {
 
         private String extId;
 

@@ -18,8 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.kiimate.model")
-@SpringBootTest(classes = {TestExtensionDai.class})
-public class TestExtensionDai {
+@SpringBootTest(classes = {TestReceiptDai.class})
+public class TestReceiptDai {
 
     String testId = "testId";
     String testOwnerId = "testOwnerId";

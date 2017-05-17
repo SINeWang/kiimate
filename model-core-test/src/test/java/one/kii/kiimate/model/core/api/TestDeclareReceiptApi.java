@@ -21,8 +21,8 @@ import one.kii.kiimate.model.core.dai.ExtensionDai;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.kiimate.model")
-@SpringBootTest(classes = {TestDeclareExtensionApi.class})
-public class TestDeclareExtensionApi {
+@SpringBootTest(classes = {TestDeclareReceiptApi.class})
+public class TestDeclareReceiptApi {
 
     @Autowired
     private DeclareExtensionApi declareExtensionApi;
