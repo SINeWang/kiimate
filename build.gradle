@@ -72,6 +72,7 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
         compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
 
         compile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
+        compile group: "one.kii.summer", name: "summer-codec", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-io", version: "${summerVersion}", changing: true
 
         compile("org.springframework:spring-tx:${springFrameworkVersion}")
