@@ -8,6 +8,7 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.kiimate.model.core.fui.AnIntensionExtractor;
 import one.kii.kiimate.model.core.fui.AnStructureValidator;
+import one.kii.summer.codec.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -82,7 +83,15 @@ public class TestPublishModelApi {
 
     @Before
     public void before() {
-        this.extId = extensionExtractor.hashId(ownerId, group, name, tree, visibility);
+        AnExtensionExtractor.Extension extension1 = new AnExtensionExtractor.Extension();
+        extension1.setOwnerId(ownerId);
+        extension1.setGroup(group);
+        extension1.setName(name);
+        extension1.setTree(tree);
+        extension1.setVisibility(visibility);
+        extensionExtractor.hashId(extension1);
+
+        this.extId = extension1.getId();
 
         modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
         extensionDai.deleteExtensionById(extId);
@@ -118,7 +127,7 @@ public class TestPublishModelApi {
             intension.setVisibility(visibility);
             intension.setStructure(AnStructureValidator.Structure.STRING.name());
             intension.setField(field);
-            String intId = intensionExtractor.hashId(extId, field);
+            String intId = HashTools.hashHex(extId, field);
             intension.setId(intId);
             try {
                 intensionDai.insertIntension(intension);

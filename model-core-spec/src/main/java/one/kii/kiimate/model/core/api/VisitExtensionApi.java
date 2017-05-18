@@ -2,6 +2,7 @@ package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.NotFound;
 
 import java.util.List;
 import java.util.Map;
@@ -18,13 +19,14 @@ public interface VisitExtensionApi {
 
     String VISIBILITY_PUBLIC = "public";
 
-    Receipt visit(ReadContext context, Form form);
+    Receipt visit(ReadContext context, Form form) throws NotFound;
 
     @Data
     class Form {
         String group;
         String name = NAME_ROOT;
         String tree = TREE_MASTER;
+        String visibility = VISIBILITY_PUBLIC;
     }
 
     @Data

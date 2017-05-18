@@ -13,6 +13,7 @@ import one.kii.summer.io.exception.NotFound;
 
 public interface DeclareExtensionApi {
 
+    String TREE_MASTER = "master";
 
     CommitReceipt commit(WriteContext context, CommitForm form) throws BadRequest, Conflict;
 
@@ -28,7 +29,7 @@ public interface DeclareExtensionApi {
         private String name;
 
         @MustHave
-        private String tree;
+        private String tree = TREE_MASTER;
 
         @MustHave
         private String visibility;

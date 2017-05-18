@@ -3,6 +3,7 @@ package one.kii.kiimate.model.core.ctl;
 import one.kii.kiimate.model.core.api.VisitExtensionApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,11 @@ public class VisitExtensionCtl extends ReadController {
         form.setGroup(group);
         form.setName(name);
         form.setTree(tree);
-        return ErestResponse.ok(requestId, api.visit(context, form));
+        try {
+            return ErestResponse.ok(requestId, api.visit(context, form));
+        } catch (NotFound notFound) {
+            return ErestResponse.notFound(requestId, notFound.getKeys());
+        }
     }
 
 
@@ -57,7 +62,11 @@ public class VisitExtensionCtl extends ReadController {
         VisitExtensionApi.Form form = new VisitExtensionApi.Form();
         form.setGroup(group);
         form.setName(name);
-        return ErestResponse.ok(requestId, api.visit(context, form));
+        try {
+            return ErestResponse.ok(requestId, api.visit(context, form));
+        } catch (NotFound notFound) {
+            return ErestResponse.notFound(requestId, notFound.getKeys());
+        }
     }
 
     @RequestMapping(value = "/{group:.+}", method = RequestMethod.GET)
@@ -71,6 +80,10 @@ public class VisitExtensionCtl extends ReadController {
 
         VisitExtensionApi.Form form = new VisitExtensionApi.Form();
         form.setGroup(group);
-        return ErestResponse.ok(requestId, api.visit(context, form));
+        try {
+            return ErestResponse.ok(requestId, api.visit(context, form));
+        } catch (NotFound notFound) {
+            return ErestResponse.notFound(requestId, notFound.getKeys());
+        }
     }
 }
