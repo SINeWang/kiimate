@@ -2,7 +2,7 @@ package one.kii.kiimate.model.core.fui;
 
 import lombok.Data;
 import one.kii.kiimate.model.core.api.DeclareIntensionApi;
-import one.kii.summer.codec.annotations.HashFactor;
+import one.kii.summer.beans.annotations.KeyFactor;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -18,10 +18,10 @@ public interface AnIntensionExtractor {
 
         private String id;
 
-        @HashFactor
+        @KeyFactor
         private String extId;
 
-        @HashFactor
+        @KeyFactor
         private String field;
 
         private String visibility;

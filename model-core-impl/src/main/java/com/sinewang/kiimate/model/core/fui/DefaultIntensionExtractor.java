@@ -4,7 +4,7 @@ import com.google.common.base.CaseFormat;
 import one.kii.kiimate.model.core.api.DeclareIntensionApi;
 import one.kii.kiimate.model.core.fui.AnIntensionExtractor;
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.codec.utils.HashTools;
+import one.kii.summer.beans.utils.HashTools;
 import org.springframework.stereotype.Component;
 
 /**

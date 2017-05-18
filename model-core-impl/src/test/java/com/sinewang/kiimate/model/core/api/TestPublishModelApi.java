@@ -2,13 +2,11 @@ package com.sinewang.kiimate.model.core.api;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ModelPublicationMapper;
 import one.kii.kiimate.model.core.api.PublishModelApi;
-import one.kii.kiimate.model.core.api.VisitExtensionApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
-import one.kii.kiimate.model.core.fui.AnIntensionExtractor;
 import one.kii.kiimate.model.core.fui.AnStructureValidator;
-import one.kii.summer.codec.utils.HashTools;
+import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -38,9 +36,6 @@ public class TestPublishModelApi {
     private PublishModelApi publishModelApi;
 
     @Autowired
-    private VisitExtensionApi visitExtensionApi;
-
-    @Autowired
     private ExtensionDai extensionDai;
 
     @Autowired
@@ -48,9 +43,6 @@ public class TestPublishModelApi {
 
     @Autowired
     private AnExtensionExtractor extensionExtractor;
-
-    @Autowired
-    private AnIntensionExtractor intensionExtractor;
 
     @Autowired
     private ModelPublicationMapper modelPublicationMapper;

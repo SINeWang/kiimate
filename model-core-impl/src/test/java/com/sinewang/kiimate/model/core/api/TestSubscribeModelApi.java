@@ -3,7 +3,7 @@ package com.sinewang.kiimate.model.core.api;
 import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
 import one.kii.kiimate.model.core.api.SubscribeModelApi;
 import one.kii.kiimate.model.core.fui.AnSubscribeModelExtractor;
-import one.kii.summer.codec.utils.HashTools;
+import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import org.junit.Test;

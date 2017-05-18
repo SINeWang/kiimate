@@ -2,7 +2,7 @@ package one.kii.kiimate.model.core.fui;
 
 import lombok.Data;
 import one.kii.kiimate.model.core.api.DeclareExtensionApi;
-import one.kii.summer.codec.annotations.HashFactor;
+import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 
@@ -28,19 +28,19 @@ public interface AnExtensionExtractor {
 
         private String id;
 
-        @HashFactor
+        @KeyFactor
         private String ownerId;
 
-        @HashFactor
+        @KeyFactor
         private String group;
 
-        @HashFactor
+        @KeyFactor
         private String name;
 
-        @HashFactor
+        @KeyFactor
         private String tree;
 
-        @HashFactor
+        @KeyFactor
         private String visibility;
     }
 

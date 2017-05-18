@@ -2,7 +2,7 @@ package com.sinewang.kiimate.status.core.dai;
 
 import com.sinewang.kiimate.status.core.dai.mapper.InstanceMapper;
 import one.kii.kiimate.status.core.dai.InstanceDai;
-import one.kii.summer.codec.utils.HashTools;
+import one.kii.summer.beans.utils.HashTools;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

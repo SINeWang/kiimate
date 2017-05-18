@@ -4,7 +4,7 @@ import com.google.common.base.CaseFormat;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.codec.utils.HashTools;
+import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

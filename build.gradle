@@ -20,7 +20,7 @@ ext {
     servletApiVersion = '3.1.0'
     springBootVersion = '1.5.2.RELEASE'
     springFrameworkVersion = '4.3.7.RELEASE'
-    summerVersion = '0.3.23'
+    summerVersion = '0.4.0'
 }
 
 scmVersion {
@@ -72,7 +72,6 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
         compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
 
         compile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
-        compile group: "one.kii.summer", name: "summer-codec", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-io", version: "${summerVersion}", changing: true
 
         compile("org.springframework:spring-tx:${springFrameworkVersion}")
@@ -105,7 +104,6 @@ configure(subprojects.findAll { it.name.endsWith("impl") }) {
         compile("mysql:mysql-connector-java:${mysqlConnectorVersion}")
 
         compile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
-        compile group: "one.kii.summer", name: "summer-codec", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-io", version: "${summerVersion}", changing: true
 
         compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
@@ -123,7 +121,6 @@ configure(subprojects.findAll { it.name.endsWith("test") }) {
         compile("org.springframework.boot:spring-boot-devtools")
 
         testCompile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
-        testCompile group: "one.kii.summer", name: "summer-codec", version: "${summerVersion}", changing: true
         testCompile group: "one.kii.summer", name: "summer-io", version: "${summerVersion}", changing: true
 
 

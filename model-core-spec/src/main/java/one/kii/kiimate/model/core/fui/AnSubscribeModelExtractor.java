@@ -2,14 +2,14 @@ package one.kii.kiimate.model.core.fui;
 
 import lombok.Data;
 import one.kii.kiimate.model.core.api.SubscribeModelApi;
-import one.kii.summer.codec.annotations.HashFactor;
+import one.kii.summer.beans.annotations.KeyFactor;
 
 /**
  * Created by WangYanJiong on 4/6/17.
  */
 
 public interface AnSubscribeModelExtractor {
-    
+
     ModelSubscription extract(SubscribeModelApi.Form form, String subscriberId, String operatorId);
 
     @Data
@@ -17,19 +17,19 @@ public interface AnSubscribeModelExtractor {
 
         private String id;
 
-        @HashFactor
+        @KeyFactor
         private String subSet;
 
-        @HashFactor
+        @KeyFactor
         private String subscriberId;
 
-        @HashFactor
+        @KeyFactor
         private String group;
 
-        @HashFactor
+        @KeyFactor
         private String name;
 
-        @HashFactor
+        @KeyFactor
         private String tree;
 
         private String operatorId;

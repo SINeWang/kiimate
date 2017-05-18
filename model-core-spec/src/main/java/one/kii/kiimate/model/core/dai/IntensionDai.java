@@ -2,7 +2,7 @@ package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
 import lombok.Getter;
-import one.kii.summer.codec.annotations.HashFactor;
+import one.kii.summer.beans.annotations.KeyFactor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -25,10 +25,10 @@ public interface IntensionDai {
 
         private String id;
 
-        @HashFactor
+        @KeyFactor
         private String extId;
 
-        @HashFactor
+        @KeyFactor
         private String field;
 
         private boolean single;
