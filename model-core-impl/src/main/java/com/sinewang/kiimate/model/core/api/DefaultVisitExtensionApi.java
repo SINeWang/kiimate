@@ -45,31 +45,10 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
     @Override
     public Receipt visit(ReadContext context, Form form) {
-        AnExtensionExtractor.Extension extension = DataTools.copy(form, AnExtensionExtractor.Extension.class);
-        extension.setOwnerId(context.getOwnerId());
+        AnExtensionExtractor.Extension extension = DataTools.magicCopy(AnExtensionExtractor.Extension.class, context);
         extension.setVisibility(VISIBILITY_PUBLIC);
         extensionExtractor.hashId(extension);
         return buildReceipt(extension.getId());
     }
 
-
-    @Override
-    public Receipt visit(ReadContext context, TinyForm form) {
-        AnExtensionExtractor.Extension extension = DataTools.copy(form, AnExtensionExtractor.Extension.class);
-        extension.setOwnerId(context.getOwnerId());
-        extension.setName(NAME_ROOT);
-        extension.setTree(TREE_MASTER);
-        extension.setVisibility(VISIBILITY_PUBLIC);
-        extensionExtractor.hashId(extension);
-        return buildReceipt(extension.getId());
-    }
-
-    @Override
-    public Receipt visit(ReadContext context, SimpleForm form) {
-        AnExtensionExtractor.Extension extension = DataTools.copy(form, AnExtensionExtractor.Extension.class);
-        extension.setOwnerId(context.getOwnerId());
-        extension.setTree(TREE_MASTER);
-        extension.setVisibility(VISIBILITY_PUBLIC);
-        return buildReceipt(extension.getId());
-    }
 }

@@ -20,26 +20,11 @@ public interface VisitExtensionApi {
 
     Receipt visit(ReadContext context, Form form);
 
-    Receipt visit(ReadContext context, SimpleForm form);
-
-    Receipt visit(ReadContext context, TinyForm form);
-
     @Data
     class Form {
         String group;
-        String name;
-        String tree;
-    }
-
-    @Data
-    class SimpleForm {
-        String group;
-        String name;
-    }
-
-    @Data
-    class TinyForm {
-        String group;
+        String name = NAME_ROOT;
+        String tree = TREE_MASTER;
     }
 
     @Data

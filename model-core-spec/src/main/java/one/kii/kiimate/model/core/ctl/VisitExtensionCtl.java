@@ -40,7 +40,6 @@ public class VisitExtensionCtl extends ReadController {
         form.setGroup(group);
         form.setName(name);
         form.setTree(tree);
-
         return ErestResponse.ok(requestId, api.visit(context, form));
     }
 
@@ -55,10 +54,9 @@ public class VisitExtensionCtl extends ReadController {
 
         ReadContext context = buildContext(requestId, visitorId, ownerId);
 
-        VisitExtensionApi.SimpleForm form = new VisitExtensionApi.SimpleForm();
+        VisitExtensionApi.Form form = new VisitExtensionApi.Form();
         form.setGroup(group);
         form.setName(name);
-
         return ErestResponse.ok(requestId, api.visit(context, form));
     }
 
@@ -71,9 +69,8 @@ public class VisitExtensionCtl extends ReadController {
 
         ReadContext context = buildContext(requestId, visitorId, ownerId);
 
-        VisitExtensionApi.TinyForm form = new VisitExtensionApi.TinyForm();
+        VisitExtensionApi.Form form = new VisitExtensionApi.Form();
         form.setGroup(group);
-
         return ErestResponse.ok(requestId, api.visit(context, form));
     }
 }
