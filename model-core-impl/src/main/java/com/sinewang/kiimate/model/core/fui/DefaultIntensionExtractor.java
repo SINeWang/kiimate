@@ -3,7 +3,7 @@ package com.sinewang.kiimate.model.core.fui;
 import com.google.common.base.CaseFormat;
 import one.kii.kiimate.model.core.api.DeclareIntensionApi;
 import one.kii.kiimate.model.core.fui.AnIntensionExtractor;
-import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.beans.utils.HashTools;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,7 @@ public class DefaultIntensionExtractor implements AnIntensionExtractor {
 
         form.setField(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getField()));
 
-        Intension intension = DataTools.copy(form, Intension.class);
+        Intension intension = BasicCopy.from(Intension.class, form);
         hashId(intension);
         return intension;
     }

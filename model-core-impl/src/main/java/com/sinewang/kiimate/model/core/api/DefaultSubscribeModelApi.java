@@ -1,13 +1,13 @@
 package com.sinewang.kiimate.model.core.api;
 
-import one.kii.summer.beans.utils.DataTools;
+import one.kii.kiimate.model.core.api.SubscribeModelApi;
+import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
+import one.kii.kiimate.model.core.fui.AnSubscribeModelExtractor;
+import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import one.kii.kiimate.model.core.api.SubscribeModelApi;
-import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.model.core.fui.AnSubscribeModelExtractor;
 
 /**
  * Created by WangYanJiong on 4/6/17.
@@ -28,11 +28,11 @@ public class DefaultSubscribeModelApi implements SubscribeModelApi {
         AnSubscribeModelExtractor.ModelSubscription modelSubscription = subscribeModelExtractor.extract(
                 form, context.getOwnerId(), context.getOperatorId());
 
-        ModelSubscriptionDai.ModelSubscription subscription = DataTools.copy(modelSubscription, ModelSubscriptionDai.ModelSubscription.class);
+        ModelSubscriptionDai.ModelSubscription subscription = BasicCopy.from(ModelSubscriptionDai.ModelSubscription.class, modelSubscription);
 
         try {
             modelSubscriptionDai.save(subscription);
-            return DataTools.copy(modelSubscription, Receipt.class);
+            return BasicCopy.from(Receipt.class, modelSubscription);
         } catch (ModelSubscriptionDai.DuplicatedSubscription duplicatedSubscription) {
             throw new Conflict(subscription.getId());
         }

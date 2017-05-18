@@ -6,7 +6,7 @@ import one.kii.kiimate.model.core.fui.AnModelRestorer;
 import one.kii.kiimate.status.core.api.RefreshStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
-import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
@@ -54,7 +54,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, form.getSubId(), form.getMap(), dict);
 
-        List<InstanceDai.Instances> instances1 = DataTools.copy(instances, InstanceDai.Instances.class);
+        List<InstanceDai.Instances> instances1 = BasicCopy.from(InstanceDai.Instances.class, instances);
 
         try {
             instanceDai.insertInstances(instances1);
@@ -68,7 +68,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         List<Instance> apiInstances = new ArrayList<>();
 
         for (InstanceDai.Instance dbInstance : dbInstances) {
-            Instance apiInstance = DataTools.copy(dbInstance, Instance.class);
+            Instance apiInstance = BasicCopy.from(Instance.class, dbInstance);
             apiInstance.setValue(new String[]{dbInstance.getValue()});
             apiInstances.add(apiInstance);
         }

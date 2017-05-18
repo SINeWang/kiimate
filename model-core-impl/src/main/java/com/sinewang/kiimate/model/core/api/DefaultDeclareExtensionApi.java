@@ -3,7 +3,7 @@ package com.sinewang.kiimate.model.core.api;
 import one.kii.kiimate.model.core.api.DeclareExtensionApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
-import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -30,10 +30,10 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
 
         AnExtensionExtractor.Extension extension = extensionExtractor.extract(context, commitForm);
 
-        ExtensionDai.Extension daiExtension = DataTools.copy(extension, ExtensionDai.Extension.class);
+        ExtensionDai.Extension daiExtension = BasicCopy.from(ExtensionDai.Extension.class, extension);
         try {
             extensionDai.insertExtension(daiExtension);
-            return DataTools.copy(daiExtension, CommitReceipt.class);
+            return BasicCopy.from(CommitReceipt.class, daiExtension);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             throw new Conflict(extension.getId());
         }

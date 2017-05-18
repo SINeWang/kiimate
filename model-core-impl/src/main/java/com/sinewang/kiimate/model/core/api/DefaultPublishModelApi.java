@@ -6,7 +6,7 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.kiimate.model.core.fui.AnPublicationExtractor;
-import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -51,7 +51,7 @@ public class DefaultPublishModelApi implements PublishModelApi {
         Date date = new Date();
         List<String> ids = new ArrayList<>();
         List<AnExtensionExtractor.Extension> newExtensions = new ArrayList<>();
-        AnExtensionExtractor.Extension newExtension = DataTools.copy(extension, AnExtensionExtractor.Extension.class);
+        AnExtensionExtractor.Extension newExtension = BasicCopy.from(AnExtensionExtractor.Extension.class, extension);
         String tree = form.getPublication() + "-" + form.getVersion();
         newExtension.setTree(tree);
         newExtensions.add(newExtension);
@@ -78,7 +78,7 @@ public class DefaultPublishModelApi implements PublishModelApi {
         for (IntensionDai.Intension intension : intensions) {
             String id = publicationExtractor.hashId(snapExtId, intension.getId());
             ids.add(id);
-            ModelPublicationDai.Publication daiPublication = DataTools.copy(snapshot, ModelPublicationDai.Publication.class);
+            ModelPublicationDai.Publication daiPublication = BasicCopy.from(ModelPublicationDai.Publication.class, snapshot);
             daiPublication.setPublication(form.getPublication());
             daiPublication.setIntId(intension.getId());
             daiPublication.setId(id);
@@ -91,10 +91,10 @@ public class DefaultPublishModelApi implements PublishModelApi {
         String pubSet = HashTools.hashHex(idArray);
 
         try {
-            List<ExtensionDai.Extension> newExtensionList = DataTools.copy(newExtensions, ExtensionDai.Extension.class);
+            List<ExtensionDai.Extension> newExtensionList = BasicCopy.from(ExtensionDai.Extension.class, newExtensions);
             modelPublicationDai.savePublications(pubSet, publications, newExtensionList, allIntensions);
         } catch (ModelPublicationDai.DuplicatedPublication duplicatedPublication) {
-            Receipt receipt = DataTools.copy(duplicatedPublication, Receipt.class);
+            Receipt receipt = BasicCopy.from(Receipt.class, duplicatedPublication);
             receipt.setVersion(form.getVersion());
             receipt.setOwnerId(context.getOwnerId());
             throw new Conflict(pubSet);
@@ -106,7 +106,7 @@ public class DefaultPublishModelApi implements PublishModelApi {
 
         receipt.setCreatedAt(date);
 
-        List<Intension> snapshotIntensions = DataTools.copy(allIntensions, Intension.class);
+        List<Intension> snapshotIntensions = BasicCopy.from(Intension.class, allIntensions);
 
         receipt.setIntensions(snapshotIntensions);
 

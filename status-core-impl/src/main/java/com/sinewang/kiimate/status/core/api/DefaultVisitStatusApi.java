@@ -4,7 +4,7 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.VisitStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
-import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,14 +42,14 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
         List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(rootExtId);
-        List<Intension> intensions = DataTools.copy(intensionList, Intension.class);
+        List<Intension> intensions = BasicCopy.from(Intension.class, intensionList);
 
 
         Map<String, List<InstanceDai.Instance>> dict = dict(instances);
 
         Map<String, Object> body = visitHierarchyInstance(rootExtId, dict);
 
-        Receipt receipt = DataTools.copy(form, Receipt.class);
+        Receipt receipt = BasicCopy.from(Receipt.class, form);
         receipt.setOwnerId(context.getOwnerId());
         receipt.setInstances(body);
         receipt.setIntensions(intensions);

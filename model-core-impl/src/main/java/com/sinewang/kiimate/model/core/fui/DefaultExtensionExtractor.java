@@ -3,8 +3,8 @@ package com.sinewang.kiimate.model.core.fui;
 import com.google.common.base.CaseFormat;
 import one.kii.kiimate.model.core.api.DeclareExtensionApi;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
-import one.kii.summer.beans.utils.DataTools;
 import one.kii.summer.beans.utils.HashTools;
+import one.kii.summer.beans.utils.MagicCopy;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.validator.Must;
@@ -27,7 +27,7 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         commitForm.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getTree()));
         commitForm.setVisibility(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getVisibility()));
 
-        Extension extension = DataTools.magicCopy(Extension.class, commitForm, context);
+        Extension extension = MagicCopy.from(Extension.class, commitForm, context);
         try {
             String visibility = commitForm.getVisibility();
             Visibility.valueOf(visibility.toUpperCase());

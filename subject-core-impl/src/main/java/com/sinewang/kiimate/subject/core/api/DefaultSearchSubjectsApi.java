@@ -4,7 +4,7 @@ import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.model.core.dai.OwnersDai;
 import one.kii.kiimate.subject.core.api.SearchSubjectsApi;
-import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.io.context.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,36 +34,36 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
             case EXTENSION:
                 switch (form.getAccessType()) {
                     case OWNER:
-                        List<OwnersDai.Owners> owners = ownersDai.queryOwners(form.getGroup());
-                        return DataTools.copy(owners, Subjects.class);
+                        List<OwnersDai.Owners> subjects = ownersDai.queryOwners(form.getGroup());
+                        return BasicCopy.from(Subjects.class, subjects);
                 }
             case INTENSION:
                 switch (form.getAccessType()) {
                     case OWNER:
-                        List<OwnersDai.Owners> owners = ownersDai.queryOwners(form.getGroup());
-                        return DataTools.copy(owners, Subjects.class);
+                        List<OwnersDai.Owners> subjects = ownersDai.queryOwners(form.getGroup());
+                        return BasicCopy.from(Subjects.class, subjects);
                 }
             case MODEL:
                 switch (form.getAccessType()) {
                     case SUBSCRIBER:
-                        List<ModelSubscriptionDai.Subscribers> subscribers = modelSubscriptionDai.querySubscriberId(form.getGroup());
-                        return DataTools.copy(subscribers, Subjects.class);
+                        List<ModelSubscriptionDai.Subscribers> subjects = modelSubscriptionDai.querySubscriberId(form.getGroup());
+                        return BasicCopy.from(Subjects.class, subjects);
                     case PROVIDER:
-                        List<ModelPublicationDai.Provider> providers = modelPublicationDai.getProviders(form.getGroup());
-                        return DataTools.copy(providers, Subjects.class);
+                        List<ModelPublicationDai.Provider> subjects1 = modelPublicationDai.getProviders(form.getGroup());
+                        return BasicCopy.from(Subjects.class, subjects1);
                 }
             case INSTANCE:
                 switch (form.getAccessType()) {
                     case OWNER:
-                        List<ModelSubscriptionDai.Subscribers> subscribers = modelSubscriptionDai.querySubscriberId(form.getGroup());
-                        return DataTools.copy(subscribers, Subjects.class);
+                        List<ModelSubscriptionDai.Subscribers> subjects = modelSubscriptionDai.querySubscriberId(form.getGroup());
+                        return BasicCopy.from(Subjects.class, subjects);
                 }
             case ASSET:
             case STATUS:
                 switch (form.getAccessType()) {
                     case OWNER:
-                        List<ModelSubscriptionDai.Subscribers> subscribers = modelSubscriptionDai.querySubscriberId(form.getGroup());
-                        return DataTools.copy(subscribers, Subjects.class);
+                        List<ModelSubscriptionDai.Subscribers> subjects = modelSubscriptionDai.querySubscriberId(form.getGroup());
+                        return BasicCopy.from(Subjects.class, subjects);
                 }
         }
         return Collections.emptyList();

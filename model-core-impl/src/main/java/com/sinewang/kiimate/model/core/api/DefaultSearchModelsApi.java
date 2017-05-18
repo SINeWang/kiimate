@@ -1,14 +1,14 @@
 package com.sinewang.kiimate.model.core.api;
 
-import one.kii.summer.beans.utils.DataTools;
-import one.kii.summer.io.context.ReadContext;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import one.kii.kiimate.model.core.api.SearchModelsApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
+import one.kii.summer.beans.utils.BasicCopy;
+import one.kii.summer.io.context.ReadContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
     @Override
     public List<Provider> search(ReadContext context, QueryProvidersForm form) {
         List<ModelPublicationDai.Provider> providerList = modelPublicationDai.getProviders(form.getQuery());
-        return DataTools.copy(providerList, Provider.class);
+        return BasicCopy.from(Provider.class, providerList);
     }
 
     @Override
@@ -48,11 +48,11 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
 
             List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(extension.getId());
 
-            List<Intension> intensions = DataTools.copy(intensionList, Intension.class  );
+            List<Intension> intensions = BasicCopy.from(Intension.class, intensionList);
 
             int subscriptions = modelSubscriptionDai.countModelSubscriptions(publication.getPubSet());
 
-            Model model = DataTools.copy(publication, Model.class);
+            Model model = BasicCopy.from(Model.class, publication);
 
 
             model.setRootExtId(extension.getId());

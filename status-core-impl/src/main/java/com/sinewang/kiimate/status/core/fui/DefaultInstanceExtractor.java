@@ -3,7 +3,7 @@ package com.sinewang.kiimate.status.core.fui;
 import com.google.common.base.CaseFormat;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
-import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
             String id = HashTools.hashHex(intId, context.getOwnerId());
             String[] both = StringUtils.mergeStringArrays(new String[]{id}, values);
             id = HashTools.hashHex(both);
-            Instance instance = DataTools.copy(context, Instance.class);
+            Instance instance = BasicCopy.from(Instance.class, context);
             instance.setId(id);
             instance.setSubId(subId);
             instance.setExtId(intension.getExtId());

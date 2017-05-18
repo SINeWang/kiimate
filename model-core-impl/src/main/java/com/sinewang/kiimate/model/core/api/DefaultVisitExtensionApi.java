@@ -5,8 +5,9 @@ import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
-import one.kii.summer.beans.utils.DataTools;
+import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.beans.utils.KeyFactorTools;
+import one.kii.summer.beans.utils.MagicCopy;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +40,11 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         if (extensionRecord == null) {
             throw new NotFound(KeyFactorTools.find(extension));
         }
-        Receipt receipt = DataTools.copy(extensionRecord, Receipt.class);
+        Receipt receipt = BasicCopy.from(Receipt.class, extensionRecord);
 
         List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(extId);
 
-        List<Intension> intensions = DataTools.copy(intensionList, Intension.class);
+        List<Intension> intensions = BasicCopy.from(Intension.class, intensionList);
         receipt.setIntensions(intensions);
         receipt.setSchema(modelRestorer.restoreAsMetaData(extId));
         return receipt;
@@ -51,7 +52,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
     @Override
     public Receipt visit(ReadContext context, Form form) throws NotFound {
-        AnExtensionExtractor.Extension extension = DataTools.magicCopy(AnExtensionExtractor.Extension.class, form, context);
+        AnExtensionExtractor.Extension extension = MagicCopy.from(AnExtensionExtractor.Extension.class, form, context);
         extensionExtractor.hashId(extension);
         return buildReceipt(extension);
     }
