@@ -36,4 +36,21 @@ CREATE TABLE `mm_i_ins` (
 #   PRIMARY KEY (`tag_id`,`owner_id`,`ext_id`)
 # ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `km_s_pub`;
+CREATE TABLE km_s_pub
+(
+	id VARCHAR(160) NOT NULL,
+	pub_set VARCHAR(160) NOT NULL,
+	provider_id VARCHAR(160) NOT NULL,
+	m_sub_id VARCHAR(160) NOT NULL,
+	m_ext_id VARCHAR(160) NOT NULL,
+	m_int_id VARCHAR(160) NOT NULL,
+	version VARCHAR(32) NOT NULL,
+	visibility VARCHAR(32) NOT NULL,
+	stability VARCHAR(32) NOT NULL,
+	begin_time datetime NOT NULL,
+	end_time datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 SET FOREIGN_KEY_CHECKS = 1;
