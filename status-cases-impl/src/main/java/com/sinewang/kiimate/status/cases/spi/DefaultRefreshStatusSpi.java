@@ -36,7 +36,7 @@ public class DefaultRefreshStatusSpi implements RefreshStatusSpi {
     }
 
     @Override
-    public <T> void save(RefreshStatusSpi.Form<T> form) throws Panic {
+    public <T> void commit(RefreshStatusSpi.Form<T> form) throws Panic {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         extractAsMap(form.getObject(), map);
         saveInstance(form.getOwnerId(), form.getGroup(), form.getName(), map);

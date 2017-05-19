@@ -9,7 +9,7 @@ import one.kii.summer.io.exception.Panic;
 public interface RefreshStatusSpi {
 
 
-    <T> void save(Form<T> form) throws Panic;
+    <T> void commit(Form<T> form) throws Panic;
 
     @Data
     class Form<T> {

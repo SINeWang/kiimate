@@ -37,7 +37,7 @@ public class TestSaveMultiValueStateSpi {
         form.setName("default");
         form.setObject(conf);
         try {
-            refreshStatusSpi.save(form);
+            refreshStatusSpi.commit(form);
         } catch (Panic panic) {
             panic.printStackTrace();
         }

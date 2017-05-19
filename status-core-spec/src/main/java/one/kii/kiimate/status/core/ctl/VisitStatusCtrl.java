@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.status.core.ctl.VisitInstancesCtrl.OWNER_ID;
-import static one.kii.kiimate.status.core.ctl.VisitInstancesCtrl.SUB_ID;
+import static one.kii.kiimate.status.core.ctl.VisitStatusCtrl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.VisitStatusCtrl.SUB_ID;
 
 
 /**
@@ -21,7 +21,7 @@ import static one.kii.kiimate.status.core.ctl.VisitInstancesCtrl.SUB_ID;
 @RestController
 @RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/status/{" + SUB_ID + "}", method = RequestMethod.GET)
 @CrossOrigin(origins = "*")
-public class VisitInstancesCtrl extends ReadController {
+public class VisitStatusCtrl extends ReadController {
 
     public static final String OWNER_ID = "owner-id";
 
