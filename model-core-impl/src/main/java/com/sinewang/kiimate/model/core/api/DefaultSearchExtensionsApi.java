@@ -7,6 +7,7 @@ import one.kii.summer.io.context.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +27,16 @@ public class DefaultSearchExtensionsApi implements SearchExtensionsApi {
 
         List<Extension> extensions = BasicCopy.from(Extension.class, extensionList);
 
-        return extensions;
+        List<Extension> list = new ArrayList<>();
+        for (Extension extension : extensions) {
+            if (extension.getTree().startsWith("release-")) {
+                continue;
+            } else if (extension.getTree().startsWith("snapshot-")) {
+                continue;
+            }
+            list.add(extension);
+        }
+        return list;
 
     }
 
