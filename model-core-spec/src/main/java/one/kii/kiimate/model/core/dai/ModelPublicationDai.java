@@ -34,7 +34,7 @@ public interface ModelPublicationDai {
         String extId;
         String intId;
         String version;
-        String publication;
+        String stability;
         String operatorId;
         Date beginTime;
     }

@@ -44,7 +44,7 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
                     publication.getExtId(),
                     publication.getIntId(),
                     publication.getVersion(),
-                    publication.getPublication(),
+                    publication.getStability(),
                     publication.getOperatorId(),
                     publication.getBeginTime()
             );
@@ -79,8 +79,8 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     }
 
     @Override
-    public List<Publication> getPublicationsByPubSetHash(String pubSetHash) {
-        return modelPublicationMapper.selectPublicationByPubSetHash(pubSetHash);
+    public List<Publication> getPublicationsByPubSetHash(String pubSet) {
+        return modelPublicationMapper.selectPublicationByPubSetHash(pubSet);
     }
 
     @Override

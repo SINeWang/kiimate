@@ -20,7 +20,7 @@ public interface ModelPublicationMapper {
             @Param("extId") String extId,
             @Param("intId") String intId,
             @Param("version") String version,
-            @Param("publication") String publication,
+            @Param("stability") String stability,
             @Param("operatorId") String operatorId,
             @Param("createdAt") Date createdAt);
 
@@ -33,7 +33,7 @@ public interface ModelPublicationMapper {
     void deletePublicationByProviderIdExtIdPubVersion(
             @Param("providerId") String providerId,
             @Param("extId") String extId,
-            @Param("publication") String publication,
+            @Param("stability") String stability,
             @Param("version") String version);
 
     void deletePublicationByProviderId(@Param("providerId") String providerId);

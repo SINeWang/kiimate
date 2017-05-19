@@ -1,4 +1,4 @@
-package one.kii.kiimate.model.core.api;
+package one.kii.kiimate.status.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,10 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by WangYanJiong on 4/5/17.
+ * Created by WangYanJiong on 19/05/2017.
  */
-
-public interface PublishModelApi {
+public interface PublishAssetApi {
 
 
     Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound;
@@ -27,9 +26,11 @@ public interface PublishModelApi {
 
         private String providerId;
 
-        private String extId;
+        private String subId;
 
         private String version;
+
+        private String visibility;
 
     }
 
@@ -37,26 +38,26 @@ public interface PublishModelApi {
     @EqualsAndHashCode(callSuper = false)
     class Receipt {
 
-        List<Intension> intensions;
+        List<Instance> instances;
+
         private String pubSet;
+
         private String providerId;
 
         private String ownerId;
 
         private String version;
 
-        private Date createdAt;
+        private Date beginTime;
 
     }
 
     @Data
     @EqualsAndHashCode(callSuper = false)
-    class Intension {
+    class Instance {
 
-        String field;
+        private String field;
 
-        boolean single;
+        private String[] value;
     }
-
-
 }

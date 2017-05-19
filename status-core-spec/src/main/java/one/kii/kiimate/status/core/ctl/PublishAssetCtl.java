@@ -1,6 +1,6 @@
-package one.kii.kiimate.model.core.ctl;
+package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.model.core.api.PublishModelApi;
+import one.kii.kiimate.status.core.api.PublishAssetApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -13,52 +13,54 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.model.core.ctl.PublishModelCtl.OWNER_ID;
-import static one.kii.kiimate.model.core.ctl.PublishModelCtl.STABILITY;
+import static one.kii.kiimate.status.core.ctl.PublishAssetCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.PublishAssetCtl.STABILITY;
+
 
 /**
- * Created by WangYanJiong on 4/13/17.
+ * Created by WangYanJiong on 19/05/2017.
  */
 
 @RestController
-@RequestMapping("/api/v1/{" + OWNER_ID + "}/publications/{" + STABILITY + "}")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/publications/assets/{" + STABILITY + "}")
 @CrossOrigin(origins = "*")
-public class PublishModelCtl extends WriteController {
+public class PublishAssetCtl extends WriteController {
 
     public static final String OWNER_ID = "owner-id";
 
     public static final String STABILITY = "stability";
 
+
     @Autowired
-    private PublishModelApi api;
+    private PublishAssetApi api;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<PublishModelApi.Receipt> commitForm(
+    public ResponseEntity<PublishAssetApi.Receipt> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(STABILITY) String publication,
-            @ModelAttribute PublishModelApi.Form form) {
+            @ModelAttribute PublishAssetApi.Form form) {
         return commit(requestId, operatorId, ownerId, publication, form);
     }
 
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<PublishModelApi.Receipt> commitJson(
+    public ResponseEntity<PublishAssetApi.Receipt> commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(STABILITY) String publication,
-            @RequestBody PublishModelApi.Form form) {
+            @RequestBody PublishAssetApi.Form form) {
         return commit(requestId, operatorId, ownerId, publication, form);
     }
 
-    private ResponseEntity<PublishModelApi.Receipt> commit(
+    private ResponseEntity<PublishAssetApi.Receipt> commit(
             String requestId,
             String operatorId,
             String ownerId,
             String stability,
-            PublishModelApi.Form form) {
+            PublishAssetApi.Form form) {
         form.setStability(stability);
         try {
             WriteContext context = buildContext(requestId, operatorId, ownerId);
@@ -71,6 +73,4 @@ public class PublishModelCtl extends WriteController {
             return ErestResponse.notFound(requestId, notFound.getKeys());
         }
     }
-
-
 }

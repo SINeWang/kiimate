@@ -53,7 +53,7 @@ public class DefaultPublishModelApi implements PublishModelApi {
         List<String> ids = new ArrayList<>();
         List<AnExtensionExtractor.Extension> newExtensions = new ArrayList<>();
         AnExtensionExtractor.Extension newExtension = BasicCopy.from(AnExtensionExtractor.Extension.class, extension);
-        String tree = form.getPublication() + "-" + form.getVersion();
+        String tree = form.getStability() + "-" + form.getVersion();
         newExtension.setTree(tree);
         newExtensions.add(newExtension);
 
@@ -78,7 +78,7 @@ public class DefaultPublishModelApi implements PublishModelApi {
             String id = publicationExtractor.hashId(snapExtId, intension.getId());
             ids.add(id);
             ModelPublicationDai.Publication daiPublication = BasicCopy.from(ModelPublicationDai.Publication.class, snapshot);
-            daiPublication.setPublication(form.getPublication());
+            daiPublication.setStability(form.getStability());
             daiPublication.setIntId(intension.getId());
             daiPublication.setId(id);
             daiPublication.setBeginTime(snapshot.getCreatedAt());

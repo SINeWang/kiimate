@@ -1,7 +1,6 @@
 package one.kii.kiimate.status.core.fui;
 
 import lombok.Data;
-
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.summer.io.context.WriteContext;
 
@@ -13,7 +12,10 @@ import java.util.Map;
  */
 public interface AnInstanceExtractor {
 
-    List<Instance> extract(WriteContext context, String subId, Map<String, List<String>> values, Map<String, IntensionDai.Intension> dict);
+    List<Instance> extract(WriteContext context,
+                           String subId,
+                           Map<String, List<String>> values,
+                           Map<String, IntensionDai.Intension> dict);
 
     @Data
     class Instance {
