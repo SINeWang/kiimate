@@ -10,6 +10,7 @@ import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -149,6 +150,8 @@ public class TestPublishModelApi {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
             conflict.printStackTrace();
+        } catch (NotFound notFound) {
+            notFound.printStackTrace();
         }
 
 

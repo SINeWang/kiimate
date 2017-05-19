@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 public interface PublishModelApi {
 
 
-    Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict;
+    Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

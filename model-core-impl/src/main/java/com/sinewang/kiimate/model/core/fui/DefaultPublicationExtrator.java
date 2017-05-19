@@ -4,6 +4,7 @@ import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.fui.AnPublicationExtractor;
 import one.kii.kiimate.model.core.fui.AnPublicationValidator;
 import one.kii.summer.beans.utils.HashTools;
+import one.kii.summer.io.exception.BadRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -17,7 +18,7 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
 
 
     @Override
-    public Publication extractSnapshot(PublishModelApi.Form form, String extId, String operatorId, Date date) throws MissingParamException {
+    public Publication extractSnapshot(PublishModelApi.Form form, String extId, String operatorId, Date date) throws BadRequest {
         Publication publication = new Publication();
         publication.setPubExtId(hashPublishExtId(form.getProviderId(), extId));
         publication.setExtId(extId);

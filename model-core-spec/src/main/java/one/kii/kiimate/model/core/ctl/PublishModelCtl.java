@@ -5,6 +5,7 @@ import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.WriteController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,8 @@ public class PublishModelCtl extends WriteController {
             return ErestResponse.badRequest(requestId, badRequest.getFields());
         } catch (Conflict conflict) {
             return ErestResponse.conflict(requestId, conflict.getKeys());
+        } catch (NotFound notFound) {
+            return ErestResponse.notFound(requestId, notFound.getKeys());
         }
     }
 

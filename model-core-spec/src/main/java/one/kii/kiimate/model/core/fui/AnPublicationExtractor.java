@@ -2,6 +2,7 @@ package one.kii.kiimate.model.core.fui;
 
 import lombok.Data;
 import one.kii.kiimate.model.core.api.PublishModelApi;
+import one.kii.summer.io.exception.BadRequest;
 
 import java.util.Date;
 
@@ -13,7 +14,7 @@ public interface AnPublicationExtractor {
     Publication extractSnapshot(PublishModelApi.Form form,
                                 String extId,
                                 String operatorId,
-                                Date date) throws MissingParamException;
+                                Date date) throws BadRequest;
 
     String hashId(String pubExitId, String intId);
 
@@ -36,12 +37,6 @@ public interface AnPublicationExtractor {
 
         private Date createdAt;
 
-    }
-
-    class MissingParamException extends Exception {
-        public MissingParamException(String message) {
-            super(message);
-        }
     }
 
 }

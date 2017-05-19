@@ -11,6 +11,7 @@ import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +43,7 @@ public class DefaultPublishModelApi implements PublishModelApi {
     private AnExtensionExtractor extensionExtractor;
 
 
-    public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict {
+    public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
 
         ExtensionDai.Extension extension = extensionDai.selectExtensionById(form.getExtId());
         List<ModelPublicationDai.Publication> publications = new ArrayList<>();
@@ -58,14 +59,12 @@ public class DefaultPublishModelApi implements PublishModelApi {
 
         AnPublicationExtractor.Publication snapshot;
         extensionExtractor.hashId(newExtension);
-        try {
-            snapshot = publicationExtractor.extractSnapshot(form, newExtension.getId(), context.getOperatorId(), date);
-        } catch (AnPublicationExtractor.MissingParamException e) {
-            throw new BadRequest(e.getMessage());
-        }
+        snapshot = publicationExtractor.extractSnapshot(form, newExtension.getId(), context.getOperatorId(), date);
 
         List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extension.getId());
-
+        if (intensions.isEmpty()) {
+            throw new NotFound(new String[]{"intensions"});
+        }
         for (IntensionDai.Intension intension : intensions) {
             intension.setExtId(newExtension.getId());
             intension.setId(HashTools.hashHex(intension));
