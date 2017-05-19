@@ -25,7 +25,7 @@ import static one.kii.kiimate.model.core.ctl.DeclareExtensionCtl.OWNER_ID;
 @CrossOrigin(value = "*")
 public class DeclareExtensionCtl extends WriteController {
 
-    public static final String OWNER_ID = "ownerId";
+    public static final String OWNER_ID = "owner-id";
 
     @Autowired
     private DeclareExtensionApi api;

@@ -22,7 +22,7 @@ import static one.kii.kiimate.model.core.ctl.DeclareIntensionCtl.OWNER_ID;
 @CrossOrigin(value = "*")
 public class DeclareIntensionCtl extends WriteController {
 
-    public static final String OWNER_ID = "ownerId";
+    public static final String OWNER_ID = "owner-id";
 
     @Autowired
     private DeclareIntensionApi api;

@@ -29,9 +29,9 @@ import static one.kii.kiimate.status.core.ctl.RefreshStatusCtl.SUB_ID;
 @CrossOrigin(origins = "*")
 public class RefreshStatusCtl extends WriteController {
 
-    public static final String OWNER_ID = "ownerId";
+    public static final String OWNER_ID = "owner-id";
 
-    public static final String SUB_ID = "subId";
+    public static final String SUB_ID = "sub-id";
 
     @Autowired
     private RefreshStatusApi api;

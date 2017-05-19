@@ -21,7 +21,8 @@ import static one.kii.kiimate.model.core.ctl.SearchSubscriptionsCtl.OWNER_ID;
 @RequestMapping("/api/v1/{" + OWNER_ID + "}/subscriptions")
 @CrossOrigin(origins = "*")
 public class SearchSubscriptionsCtl extends ReadController {
-    public static final String OWNER_ID = "ownerId";
+
+    public static final String OWNER_ID = "owner-id";
 
     @Autowired
     private SearchSubscriptionsApi searchSubscriptionsApi;

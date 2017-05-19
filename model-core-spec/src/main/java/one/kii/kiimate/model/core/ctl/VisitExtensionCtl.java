@@ -21,7 +21,7 @@ import static one.kii.kiimate.model.core.ctl.VisitExtensionCtl.OWNER_ID;
 @CrossOrigin(origins = "*")
 public class VisitExtensionCtl extends ReadController {
 
-    public static final String OWNER_ID = "ownerId";
+    public static final String OWNER_ID = "owner-id";
 
     @Autowired
     private VisitExtensionApi api;

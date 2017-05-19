@@ -22,7 +22,7 @@ import static one.kii.kiimate.model.core.ctl.VisitIntensionCtl.OWNER_ID;
 @CrossOrigin(origins = "*")
 public class VisitIntensionCtl extends ReadController {
 
-    public static final String OWNER_ID = "ownerId";
+    public static final String OWNER_ID = "owner-id";
 
     private static final String NAME_ROOT = "root";
 

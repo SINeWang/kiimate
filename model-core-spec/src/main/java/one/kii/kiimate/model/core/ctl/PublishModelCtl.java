@@ -25,7 +25,7 @@ import static one.kii.kiimate.model.core.ctl.PublishModelCtl.PUBLICATION;
 @CrossOrigin(origins = "*")
 public class PublishModelCtl extends WriteController {
 
-    public static final String OWNER_ID = "ownerId";
+    public static final String OWNER_ID = "owner-id";
 
     public static final String PUBLICATION = "publication";
 

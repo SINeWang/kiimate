@@ -23,9 +23,9 @@ import static one.kii.kiimate.status.core.ctl.VisitInstancesCtrl.SUB_ID;
 @CrossOrigin(origins = "*")
 public class VisitInstancesCtrl extends ReadController {
 
-    public static final String OWNER_ID = "ownerId";
+    public static final String OWNER_ID = "owner-id";
 
-    public static final String SUB_ID = "subId";
+    public static final String SUB_ID = "sub-id";
 
 
     @Autowired

@@ -22,7 +22,7 @@ import static one.kii.kiimate.model.core.ctl.SearchExtensionsCtl.OWNER_ID;
 @CrossOrigin(origins = "*")
 public class SearchExtensionsCtl extends ReadController {
 
-    public static final String OWNER_ID = "ownerId";
+    public static final String OWNER_ID = "owner-id";
 
 
     @Autowired

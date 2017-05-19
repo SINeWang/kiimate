@@ -23,11 +23,11 @@ import static one.kii.kiimate.model.core.ctl.RevokeIntensionCtl.INT_ID;
 @CrossOrigin(value = "*")
 public class RevokeIntensionCtl extends WriteController {
 
-    public static final String OWNER_ID = "ownerId";
+    public static final String OWNER_ID = "owner-id";
 
-    public static final String INT_ID = "intId";
+    public static final String INT_ID = "int-id";
 
-    public static final String EXT_ID = "extId";
+    public static final String EXT_ID = "ext-id";
 
     @Autowired
     private RemoveIntensionApi api;
