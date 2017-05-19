@@ -56,7 +56,7 @@ class Model #FFFFFF {
     Namespace ext_group
     Namespace ext_name
     ---
-    Publication publication
+    Stability stability
     Version semantic
     Visibility visibility
 }
@@ -83,7 +83,7 @@ class AssetPublication{
     string ins_id
     ---
     Subject provider_id
-    Publication publication
+    Stability stability
     Version semantic
     Visibility visibility
     ---
@@ -132,7 +132,7 @@ class ModelPublication {
     string int_id
     ---
     Subject provider_id
-    Publication publication
+    Stability stability
     Version semantic
     Visibility visibility
     ---
@@ -172,7 +172,7 @@ class Instance {
     DateTime end_time
 }
 
-enum Publication {
+enum Stability {
     SNAPSHOT
     RELEASE
 }

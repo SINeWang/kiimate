@@ -76,7 +76,7 @@ CREATE TABLE `mm_m_pub` (
   `ext_id` varchar(160) NOT NULL,
   `int_id` varchar(160) NOT NULL,
   `version` varchar(64) NOT NULL,
-  `pub` varchar(64) NOT NULL,
+  `stability` varchar(64) NOT NULL,
   `operator_id` varchar(160) NOT NULL,
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,

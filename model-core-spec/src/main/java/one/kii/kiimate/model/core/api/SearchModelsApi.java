@@ -33,7 +33,7 @@ public interface SearchModelsApi {
         String group;
         String name;
 
-        String publication;
+        String stability;
         String version;
         Date beginTime;
 
