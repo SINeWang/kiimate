@@ -27,7 +27,7 @@ public interface VisitStatusApi {
         String subId;
         String ownerId;
         List<Intension> intensions;
-        Map<String, Object> instances;
+        Map<String, Object> map;
     }
 
 

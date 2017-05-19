@@ -47,11 +47,11 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
 
         Map<String, List<InstanceDai.Instance>> dict = dict(instances);
 
-        Map<String, Object> body = visitHierarchyInstance(rootExtId, dict);
+        Map<String, Object> map = visitHierarchyInstance(rootExtId, dict);
 
         Receipt receipt = BasicCopy.from(Receipt.class, form);
         receipt.setOwnerId(context.getOwnerId());
-        receipt.setInstances(body);
+        receipt.setMap(map);
         receipt.setIntensions(intensions);
         receipt.setSubId(form.getSubId());
 
