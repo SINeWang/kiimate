@@ -128,6 +128,11 @@ public class DefaultInstanceDai implements InstanceDai {
         return instanceMapper.selectLatestInstancesBySubId(subId);
     }
 
+    @Override
+    public List<Instance> selectLatestInstanceByPubSet(String pubSet) {
+        return instanceMapper.selectLatestInstancesByPubSet(pubSet);
+    }
+
 
     private void insertInstance(Instance instance, Date beginTime) {
         if (instance.getValue().isEmpty()) {

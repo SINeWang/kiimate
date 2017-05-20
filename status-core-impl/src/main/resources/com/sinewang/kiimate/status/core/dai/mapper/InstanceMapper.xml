@@ -24,6 +24,14 @@
         AND mins.end_time is NULL
     </select>
 
+    <select id="selectLatestInstancesByPubSet" resultMap="Instance">
+        SELECT mins.id, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set_hash, mins.value_ref_id, mins.operator_id
+        FROM mm_i_ins mins, km_s_pub spub
+        WHERE spub.pub_set = #{pubSet}
+        AND mins.id = spub.ins_id
+        AND mins.end_time is NULL
+    </select>
+
     <select id="selectLatestInstanceBySubIdIntId" resultMap="Instance">
         SELECT mins.id, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set_hash, mins.value_ref_id, mins.operator_id
         FROM mm_i_ins mins

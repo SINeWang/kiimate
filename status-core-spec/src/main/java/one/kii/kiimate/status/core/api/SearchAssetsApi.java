@@ -4,6 +4,7 @@ import lombok.Data;
 import one.kii.summer.io.context.ReadContext;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 20/05/2017.
@@ -22,6 +23,7 @@ public interface SearchAssetsApi {
         String name;
         String stability;
         String version;
+        Map<String, Object> map;
     }
 
     @Data

@@ -40,6 +40,7 @@ public interface AssetPublicationDai {
         String pubSet;
         String ownerId;
         String visibility;
+        String modelSubId;
         String group;
         String name;
         String stability;

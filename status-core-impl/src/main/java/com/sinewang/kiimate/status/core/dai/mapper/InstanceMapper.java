@@ -29,6 +29,8 @@ public interface InstanceMapper {
 
     List<InstanceDai.Instance> selectLatestInstancesBySubId(@Param("subId") String subId);
 
+    List<InstanceDai.Instance> selectLatestInstancesByPubSet(@Param("pubSet") String putSet);
+
     List<InstanceDai.Instance> selectLatestInstanceBySubIdIntId(@Param("subId") String subId,
                                                                 @Param("intId") String intId);
 
