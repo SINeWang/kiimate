@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sinewang.kiimate.status.core.dai.mapper.AssetPublicationMapper">
+
+    <insert id="insertAssetPublication">
+        INSERT INTO km_s_pub
+        (id, pub_set, provider_id, m_sub_id, ins_id, version, visibility, stability, begin_time)
+        VALUES
+        (#{id}, #{pubSet}, #{providerId}, #{modelSubId}, #{insId}, #{version}, #{visibility}, #{stability}, #{beginTime})
+    </insert>
+</mapper>

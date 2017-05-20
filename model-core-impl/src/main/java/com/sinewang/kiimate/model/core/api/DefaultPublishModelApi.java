@@ -72,10 +72,10 @@ public class DefaultPublishModelApi implements PublishModelApi {
 
         allIntensions.addAll(intensions);
 
-        final String snapExtId = publicationExtractor.hashPublishExtId(snapshot.getProviderId(), newExtension.getId());
+        final String publishExtId = publicationExtractor.hashPublishExtId(snapshot.getProviderId(), newExtension.getId());
 
         for (IntensionDai.Intension intension : intensions) {
-            String id = publicationExtractor.hashId(snapExtId, intension.getId());
+            String id = publicationExtractor.hashId(publishExtId, intension.getId());
             ids.add(id);
             ModelPublicationDai.Publication daiPublication = BasicCopy.from(ModelPublicationDai.Publication.class, snapshot);
             daiPublication.setStability(form.getStability());

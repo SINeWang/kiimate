@@ -8,7 +8,6 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by WangYanJiong on 19/05/2017.
@@ -37,8 +36,6 @@ public interface PublishAssetApi {
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Receipt {
-
-        List<Instance> instances;
 
         private String pubSet;
 
