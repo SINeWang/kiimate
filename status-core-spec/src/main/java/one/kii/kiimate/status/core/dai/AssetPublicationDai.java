@@ -15,6 +15,8 @@ public interface AssetPublicationDai {
     @Transactional
     Date insert(String pubSet, List<Record> records);
 
+    List<Owners> queryOwners(String ownerId);
+
     @Data
     class Record {
         String id;
@@ -24,5 +26,10 @@ public interface AssetPublicationDai {
         String version;
         String visibility;
         String stability;
+    }
+
+    @Data
+    class Owners {
+        String id;
     }
 }

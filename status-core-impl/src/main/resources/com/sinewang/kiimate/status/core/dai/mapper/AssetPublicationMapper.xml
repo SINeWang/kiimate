@@ -2,10 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sinewang.kiimate.status.core.dai.mapper.AssetPublicationMapper">
 
+    <resultMap id="Owners" type="one.kii.kiimate.status.core.dai.AssetPublicationDai$Owners">
+        <result column="owner_id" property="id"/>
+    </resultMap>
+    
     <insert id="insertAssetPublication">
         INSERT INTO km_s_pub
         (id, pub_set, owner_id, m_sub_id, ins_id, version, visibility, stability, begin_time)
         VALUES
         (#{id}, #{pubSet}, #{ownerId}, #{modelSubId}, #{insId}, #{version}, #{visibility}, #{stability}, #{beginTime})
     </insert>
+    <select id="queryOwners" resultMap="Owners">
+        <bind name="ownerId_pattern" value="'%' + ownerId + '%'"/>
+        SELECT ssub.owner_id FROM km_s_pub ssub
+        WHERE ssub.owner_id LIKE #{ownerId_pattern}
+        AND ssub.end_time IS NULL
+        GROUP BY ssub.owner_id
+    </select>
 </mapper>

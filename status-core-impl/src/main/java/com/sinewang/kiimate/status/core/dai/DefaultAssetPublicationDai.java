@@ -36,4 +36,9 @@ public class DefaultAssetPublicationDai implements AssetPublicationDai {
         }
         return now;
     }
+
+    @Override
+    public List<Owners> queryOwners(String ownerId) {
+        return assetPublicationMapper.queryOwners(ownerId);
+    }
 }

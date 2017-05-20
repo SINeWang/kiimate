@@ -3,6 +3,7 @@ package com.sinewang.kiimate.subject.core.api;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.model.core.dai.OwnersDai;
+import one.kii.kiimate.status.core.dai.AssetPublicationDai;
 import one.kii.kiimate.subject.core.api.SearchSubjectsApi;
 import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.io.context.ReadContext;
@@ -28,7 +29,10 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
     @Autowired
     private ModelPublicationDai modelPublicationDai;
 
-    @Override
+    @Autowired
+    private AssetPublicationDai assetPublicationDai;
+
+  @Override
     public List<Subjects> search(ReadContext context, Form form) {
         switch (form.getObjectType()) {
             case EXTENSION:
@@ -59,6 +63,11 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
                         return BasicCopy.from(Subjects.class, subjects);
                 }
             case ASSET:
+                switch (form.getAccessType()) {
+                    case OWNER:
+                        List<AssetPublicationDai.Owners> subjects = assetPublicationDai.queryOwners(form.getGroup());
+                        return BasicCopy.from(Subjects.class, subjects);
+                }
             case STATUS:
                 switch (form.getAccessType()) {
                     case OWNER:
