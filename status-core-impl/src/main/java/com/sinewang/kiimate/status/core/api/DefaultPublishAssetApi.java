@@ -6,6 +6,7 @@ import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AssetPublicationExtractor;
 import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.beans.utils.HashTools;
+import one.kii.summer.beans.utils.MagicCopy;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -13,9 +14,7 @@ import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by WangYanJiong on 19/05/2017.
@@ -58,7 +57,10 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
         String pubSet = HashTools.hashHex(idArray);
 
 
-        assetPublicationDai.insert(pubSet, records);
-        return BasicCopy.from(Receipt.class, form);
+        Date date = assetPublicationDai.insert(pubSet, records);
+        Map map = new HashMap<>();
+        map.put("pubSet", pubSet);
+        map.put("beginTime", date);
+        return MagicCopy.from(Receipt.class, form, map);
     }
 }

@@ -41,9 +41,9 @@ public interface PublishAssetApi {
 
         private String providerId;
 
-        private String ownerId;
-
         private String version;
+
+        private String visibility;
 
         private Date beginTime;
 

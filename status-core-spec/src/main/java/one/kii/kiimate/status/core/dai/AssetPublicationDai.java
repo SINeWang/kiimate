@@ -13,12 +13,11 @@ public interface AssetPublicationDai {
 
 
     @Transactional
-    void insert(String pubSet, List<Record> records);
+    Date insert(String pubSet, List<Record> records);
 
     @Data
     class Record {
         String id;
-        String pubSet;
         String providerId;
         String modelSubId;
         String insId;

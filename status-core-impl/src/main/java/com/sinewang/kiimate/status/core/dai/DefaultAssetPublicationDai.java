@@ -19,7 +19,7 @@ public class DefaultAssetPublicationDai implements AssetPublicationDai {
     private AssetPublicationMapper assetPublicationMapper;
 
     @Override
-    public void insert(String pubSet, List<Record> records) {
+    public Date insert(String pubSet, List<Record> records) {
         Date now = new Date();
         for (Record record : records) {
             assetPublicationMapper.insertAssetPublication(
@@ -34,5 +34,6 @@ public class DefaultAssetPublicationDai implements AssetPublicationDai {
                     now
             );
         }
+        return now;
     }
 }
