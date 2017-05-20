@@ -26,4 +26,7 @@ public interface AssetPublicationMapper {
     );
 
     List<AssetPublicationDai.Owners> queryOwners(@Param("ownerId") String ownerId);
+
+    List<AssetPublicationDai.Assets> queryAssets(@Param("ownerId") String ownerId,
+                                                 @Param("group") String group);
 }

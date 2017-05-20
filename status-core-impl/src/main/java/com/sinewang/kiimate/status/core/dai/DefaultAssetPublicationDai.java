@@ -41,4 +41,9 @@ public class DefaultAssetPublicationDai implements AssetPublicationDai {
     public List<Owners> queryOwners(String ownerId) {
         return assetPublicationMapper.queryOwners(ownerId);
     }
+
+    @Override
+    public List<Assets> queryAssets(String ownerId, String group) {
+        return assetPublicationMapper.queryAssets(ownerId, group);
+    }
 }

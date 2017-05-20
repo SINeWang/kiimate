@@ -5,7 +5,17 @@
     <resultMap id="Owners" type="one.kii.kiimate.status.core.dai.AssetPublicationDai$Owners">
         <result column="owner_id" property="id"/>
     </resultMap>
-    
+
+    <resultMap id="Assets" type="one.kii.kiimate.status.core.dai.AssetPublicationDai$Assets">
+        <result column="pub_set" property="pubSet"/>
+        <result column="owner_id" property="ownerId"/>
+        <result column="visibility" property="visibility"/>
+        <result column="group" property="group"/>
+        <result column="name" property="name"/>
+        <result column="stability" property="stability"/>
+        <result column="version" property="version"/>
+    </resultMap>
+
     <insert id="insertAssetPublication">
         INSERT INTO km_s_pub
         (id, pub_set, owner_id, m_sub_id, ins_id, version, visibility, stability, begin_time)
@@ -18,5 +28,15 @@
         WHERE ssub.owner_id LIKE #{ownerId_pattern}
         AND ssub.end_time IS NULL
         GROUP BY ssub.owner_id
+    </select>
+    <select id="queryAssets" resultMap="Assets">
+        <bind name="group_pattern" value="'%' + group + '%'"/>
+        SELECT ssub.pub_set, ssub.owner_id, ssub.visibility, ssub.stability, ssub.version, msub.group, msub.name
+        FROM km_s_pub ssub, mm_m_sub msub
+        WHERE ssub.owner_id = #{ownerId}
+        AND ssub.m_sub_id = msub.id
+        AND msub.group LIKE #{group_pattern}
+        AND ssub.end_time IS NULL
+        GROUP BY ssub.pub_set
     </select>
 </mapper>

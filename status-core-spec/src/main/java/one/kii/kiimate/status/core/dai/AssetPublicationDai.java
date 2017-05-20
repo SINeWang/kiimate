@@ -17,6 +17,8 @@ public interface AssetPublicationDai {
 
     List<Owners> queryOwners(String ownerId);
 
+    List<Assets> queryAssets(String ownerId, String group);
+
     @Data
     class Record {
         String id;
@@ -31,5 +33,16 @@ public interface AssetPublicationDai {
     @Data
     class Owners {
         String id;
+    }
+
+    @Data
+    class Assets {
+        String pubSet;
+        String ownerId;
+        String visibility;
+        String group;
+        String name;
+        String stability;
+        String version;
     }
 }
