@@ -18,7 +18,7 @@ public interface AssetPublicationDai {
     @Data
     class Record {
         String id;
-        String providerId;
+        String ownerId;
         String modelSubId;
         String insId;
         String version;

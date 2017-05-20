@@ -25,7 +25,7 @@ public class DefaultAssetPublicationDai implements AssetPublicationDai {
             assetPublicationMapper.insertAssetPublication(
                     record.getId(),
                     pubSet,
-                    record.getProviderId(),
+                    record.getOwnerId(),
                     record.getModelSubId(),
                     record.getInsId(),
                     record.getVersion(),

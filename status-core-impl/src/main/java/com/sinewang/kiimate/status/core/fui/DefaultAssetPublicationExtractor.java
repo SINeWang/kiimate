@@ -15,7 +15,6 @@ public class DefaultAssetPublicationExtractor implements AssetPublicationExtract
     @Override
     public Informal extract(WriteContext context, PublishAssetApi.Form form) {
         Informal informal = BasicCopy.from(Informal.class, form);
-        informal.setProviderId(context.getOwnerId());
         informal.setModelSubId(form.getSubId());
         return informal;
     }

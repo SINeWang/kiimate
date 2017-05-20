@@ -15,7 +15,7 @@ public interface AssetPublicationExtractor {
 
     @Data
     class Informal {
-        String providerId;
+        String ownerId;
         String modelSubId;
         String version;
         String visibility;
@@ -26,7 +26,7 @@ public interface AssetPublicationExtractor {
     class Formal {
         String id;
         String pubSet;
-        String providerId;
+        String ownerId;
         String modelSubId;
         String version;
         String visibility;

@@ -14,7 +14,7 @@ public interface AssetPublicationMapper {
     void insertAssetPublication(
             @Param("id") String id,
             @Param("pubSet") String pubSet,
-            @Param("providerId") String providerId,
+            @Param("ownerId") String ownerId,
             @Param("modelSubId") String modelSubId,
             @Param("insId") String insId,
             @Param("version") String version,

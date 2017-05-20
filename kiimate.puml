@@ -79,10 +79,11 @@ class AssetSubscription {
 class AssetPublication{
     string id
     ---
-    string a_pub_set_hash
+    string pub_set
     string ins_id
+    string m_sub_id
     ---
-    Subject provider_id
+    Subject owner_id
     Stability stability
     Version semantic
     Visibility visibility

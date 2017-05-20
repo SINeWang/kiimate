@@ -41,12 +41,13 @@ CREATE TABLE km_s_pub
 (
 	id VARCHAR(160) NOT NULL,
 	pub_set VARCHAR(160) NOT NULL,
-	provider_id VARCHAR(160) NOT NULL,
+	owner_id VARCHAR(160) NOT NULL,
 	m_sub_id VARCHAR(160) NOT NULL,
   ins_id VARCHAR(160) NOT NULL,
 	version VARCHAR(32) NOT NULL,
 	visibility VARCHAR(32) NOT NULL,
 	stability VARCHAR(32) NOT NULL,
+  operator_id VARCHAR(32) NOT NULL,
 	begin_time datetime NOT NULL,
 	end_time datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
