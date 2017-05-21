@@ -129,8 +129,8 @@ public class DefaultInstanceDai implements InstanceDai {
     }
 
     @Override
-    public List<Instance> selectLatestInstanceByPubSet(String pubSet) {
-        return instanceMapper.selectLatestInstancesByPubSet(pubSet);
+    public List<Instance> selectInstanceByPubSet(String pubSet) {
+        return instanceMapper.selectInstancesByPubSet(pubSet);
     }
 
 

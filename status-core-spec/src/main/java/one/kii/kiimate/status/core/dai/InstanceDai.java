@@ -15,7 +15,7 @@ public interface InstanceDai {
 
     List<Instance> selectLatestInstanceBySubId(String subId);
 
-    List<Instance> selectLatestInstanceByPubSet(String pubSet);
+    List<Instance> selectInstanceByPubSet(String pubSet);
 
 
     @Data
