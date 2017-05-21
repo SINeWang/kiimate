@@ -2,6 +2,7 @@ package one.kii.kiimate.status.core.api;
 
 import lombok.Data;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.NotFound;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.Map;
 public interface VisitAssetsApi {
 
 
-    List<Assets> visit(ReadContext context, SearchAssetsApi.QueryForm form);
+    Assets visit(ReadContext context, Form form) throws NotFound;
 
     @Data
     class Assets {
@@ -29,7 +30,7 @@ public interface VisitAssetsApi {
     }
 
     @Data
-    class QueryForm {
+    class Form {
         String pubSet;
         String version;
     }

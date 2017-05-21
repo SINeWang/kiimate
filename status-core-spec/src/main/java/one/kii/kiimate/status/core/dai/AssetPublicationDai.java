@@ -19,6 +19,8 @@ public interface AssetPublicationDai {
 
     List<Assets> queryAssets(String ownerId, String group);
 
+    Assets selectAssets(String ownerId, String pubSet, String version);
+
     @Data
     class Record {
         String id;

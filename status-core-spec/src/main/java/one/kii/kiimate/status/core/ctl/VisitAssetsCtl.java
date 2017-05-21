@@ -1,5 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
+import one.kii.kiimate.status.core.api.VisitAssetsApi;
 import one.kii.kiimate.status.core.api.VisitStatusApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
@@ -27,21 +28,21 @@ public class VisitAssetsCtl extends ReadController {
 
     public static final String VERSION = "version";
 
-
     @Autowired
-    private VisitStatusApi api;
+    private VisitAssetsApi api;
 
     @RequestMapping
-    public ResponseEntity<VisitStatusApi.Receipt> visit(
+    public ResponseEntity<VisitAssetsApi.Assets> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @PathVariable(PUB_SET) String subId,
+            @PathVariable(PUB_SET) String pubSet,
             @PathVariable(VERSION) String version) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
-        VisitStatusApi.Form form = new VisitStatusApi.Form();
-        form.setSubId(subId);
+        VisitAssetsApi.Form form = new VisitAssetsApi.Form();
+        form.setPubSet(pubSet);
+        form.setVersion(version);
         try {
             return ErestResponse.ok(requestId, api.visit(context, form));
         } catch (NotFound notFound) {

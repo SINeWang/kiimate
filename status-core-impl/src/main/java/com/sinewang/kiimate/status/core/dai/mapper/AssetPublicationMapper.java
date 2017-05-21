@@ -29,4 +29,8 @@ public interface AssetPublicationMapper {
 
     List<AssetPublicationDai.Assets> queryAssets(@Param("ownerId") String ownerId,
                                                  @Param("group") String group);
+
+    AssetPublicationDai.Assets selectAsset(@Param("ownerId") String ownerId,
+                                           @Param("pubSet") String pubSet,
+                                           @Param("version") String version);
 }
