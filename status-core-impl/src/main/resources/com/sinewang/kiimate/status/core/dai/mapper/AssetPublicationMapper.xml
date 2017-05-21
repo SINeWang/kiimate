@@ -44,7 +44,7 @@
         SELECT ssub.pub_set, ssub.owner_id, ssub.visibility,ssub.m_sub_id, ssub.stability, ssub.version, msub.group, msub.name
         FROM km_s_pub ssub, mm_m_sub msub
         WHERE ssub.owner_id = #{ownerId}
-        AND ssub.pubSet = #{pubSet}
+        AND ssub.pub_set  = #{pubSet}
         AND ssub.version = #{version}
         AND ssub.m_sub_id = msub.id
         AND ssub.end_time IS NULL
