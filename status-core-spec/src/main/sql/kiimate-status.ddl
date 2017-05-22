@@ -53,4 +53,16 @@ CREATE TABLE km_s_pub
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `km_s_sub`;
+CREATE TABLE km_s_sub
+(
+  id VARCHAR(160) NOT NULL,
+  subscriber_id VARCHAR(32) NOT NULL,
+  sub_set VARCHAR(160) NOT NULL,
+  ins_sub_id VARCHAR(160) NOT NULL,
+  operator_id VARCHAR(32) NOT NULL,
+  begin_time datetime NOT NULL,
+  end_time datetime null
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 SET FOREIGN_KEY_CHECKS = 1;
