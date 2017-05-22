@@ -23,13 +23,11 @@ public interface SubscribeAssetApi {
 
         private String insSubId;
 
-        private String pubSet;
+        private String subSet;
 
         private String stability;
 
         private String version;
-
-        private String visibility;
 
     }
 
@@ -37,13 +35,11 @@ public interface SubscribeAssetApi {
     @EqualsAndHashCode(callSuper = false)
     class Receipt {
 
-        private String pubSet;
+        private String subSet;
 
-        private String ownerId;
+        private String subscriberId;
 
-        private String version;
-
-        private String visibility;
+        private String insSubId;
 
         private Date beginTime;
 
