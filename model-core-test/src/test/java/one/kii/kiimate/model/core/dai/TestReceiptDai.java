@@ -1,5 +1,6 @@
 package one.kii.kiimate.model.core.dai;
 
+import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -31,9 +32,12 @@ public class TestReceiptDai {
     @Autowired
     private ExtensionDai extensionDai;
 
+    @Autowired
+    private ExtensionMapper extensionMapper;
+
     @Before
     public void setup() {
-        extensionDai.deleteExtensionById(testId);
+        extensionMapper.deleteExtensionById(testId);
     }
 
     @Test(expected = NullPointerException.class)
@@ -48,7 +52,7 @@ public class TestReceiptDai {
 
     @Test
     public void testFirstInsert() {
-        extensionDai.deleteExtensionById(testId);
+        extensionMapper.deleteExtensionById(testId);
 
         ExtensionDai.Extension extension = new ExtensionDai.Extension();
         extension.setGroup(testGroup);
@@ -91,7 +95,7 @@ public class TestReceiptDai {
 
     @After
     public void cleanUp() {
-        extensionDai.deleteExtensionById(testId);
+        extensionMapper.deleteExtensionById(testId);
     }
 
 }

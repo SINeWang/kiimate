@@ -1,5 +1,6 @@
 package one.kii.kiimate.model.core.api;
 
+import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -29,6 +30,9 @@ public class TestDeclareReceiptApi {
 
     @Autowired
     private ExtensionDai extensionDai;
+
+    @Autowired
+    private ExtensionMapper extensionMapper;
 
     private String ownerId = "testOwnerId";
 
@@ -160,6 +164,6 @@ public class TestDeclareReceiptApi {
 
         Assert.assertNotNull(extension);
 
-        extensionDai.deleteExtensionById(id);
+        extensionMapper.deleteExtensionById(id);
     }
 }

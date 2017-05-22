@@ -1,5 +1,6 @@
 package com.sinewang.kiimate.model.core.api;
 
+import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
 import com.sinewang.kiimate.model.core.dai.mapper.ModelPublicationMapper;
 import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
@@ -46,6 +47,9 @@ public class TestPublishModelApi {
     private AnExtensionExtractor extensionExtractor;
 
     @Autowired
+    private ExtensionMapper extensionMapper;
+
+    @Autowired
     private ModelPublicationMapper modelPublicationMapper;
 
     private String providerId = "testProviderId";
@@ -87,7 +91,7 @@ public class TestPublishModelApi {
         this.extId = extension1.getId();
 
         modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
-        extensionDai.deleteExtensionById(extId);
+        extensionMapper.deleteExtensionById(extId);
 
 
         ExtensionDai.Extension extension = new ExtensionDai.Extension();
@@ -165,7 +169,7 @@ public class TestPublishModelApi {
 
     @After
     public void after() {
-        extensionDai.deleteExtensionById(extId);
+        extensionMapper.deleteExtensionById(extId);
         modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
     }
 }

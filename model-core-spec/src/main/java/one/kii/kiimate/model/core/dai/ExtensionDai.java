@@ -17,9 +17,6 @@ public interface ExtensionDai {
 
     List<Extension> queryExtensionsByOwnerGroup(String ownerId, String group);
 
-
-    void deleteExtensionById(String id);
-
     @Transactional
     void insertExtension(Extension extension) throws ExtensionDuplicated;
 
