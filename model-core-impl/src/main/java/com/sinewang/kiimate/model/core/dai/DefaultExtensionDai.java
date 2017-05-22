@@ -42,10 +42,6 @@ public class DefaultExtensionDai implements ExtensionDai {
         return extensionMapper.queryExtensionsByOwnerGroup(ownerId, group);
     }
 
-    @Override
-    public void deleteExtensionById(String id) {
-        extensionMapper.deleteExtensionById(id);
-    }
 
     @Override
     public void insertExtension(Extension extension) throws ExtensionDuplicated {
