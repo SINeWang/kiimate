@@ -18,7 +18,7 @@ import static one.kii.kiimate.model.core.ctl.DeclareIntensionCtl.OWNER_ID;
  */
 
 @RestController
-@RequestMapping("/api/v1/{" + OWNER_ID + "}/intension")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/intensions")
 @CrossOrigin(value = "*")
 public class DeclareIntensionCtl extends WriteController {
 

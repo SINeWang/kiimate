@@ -18,7 +18,7 @@ import static one.kii.kiimate.model.core.ctl.VisitIntensionCtl.OWNER_ID;
  */
 
 @RestController
-@RequestMapping("/api/v1/{" + OWNER_ID + "}/intension/")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/intensions/")
 @CrossOrigin(origins = "*")
 public class VisitIntensionCtl extends ReadController {
 

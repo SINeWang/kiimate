@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/v1/search/assets")
+@RequestMapping("/api/v1/assets")
 @CrossOrigin(origins = "*")
 public class SearchAssetsCtl extends ReadController {
 
