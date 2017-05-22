@@ -29,15 +29,15 @@ import static one.kii.kiimate.status.core.ctl.RefreshStatusCtl.SUB_ID;
 @CrossOrigin(origins = "*")
 public class RefreshStatusCtl extends WriteController {
 
-    public static final String OWNER_ID = "owner-id";
+    static final String OWNER_ID = "owner-id";
 
-    public static final String SUB_ID = "sub-id";
+    static final String SUB_ID = "sub-id";
 
     @Autowired
     private RefreshStatusApi api;
 
     @RequestMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<List<RefreshStatusApi.Instance>> commitForm(
+    public ResponseEntity commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -48,13 +48,13 @@ public class RefreshStatusCtl extends WriteController {
 
 
     @RequestMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<RefreshStatusApi.Instance>> commitJson(
+    public ResponseEntity commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(SUB_ID) String subId,
             @RequestBody String json) {
-        MultiValueMap mmap = MultiValueMapTools.from(json);
+        MultiValueMap<String, String> mmap = MultiValueMapTools.from(json);
         return commit(requestId, operatorId, ownerId, subId, mmap);
     }
 
