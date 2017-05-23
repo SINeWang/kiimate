@@ -40,20 +40,19 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
     @Override
     public Asset visit(ReadContext context, PubSetForm form) throws NotFound {
         AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getPubSet(), form.getStability(), form.getVersion());
-
         return transform(context, assetDb);
     }
 
     @Override
     public Asset visit(ReadContext context, GroupNameForm form) throws NotFound {
         AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getGroup(), form.getName(), form.getStability(), form.getVersion());
-        if (assetDb == null) {
-            throw new NotFound(KeyFactorTools.find(assetDb));
-        }
         return transform(context, assetDb);
     }
 
-    private Asset transform(ReadContext context, AssetPublicationDai.Assets assetDb) {
+    private Asset transform(ReadContext context, AssetPublicationDai.Assets assetDb) throws NotFound {
+        if (assetDb == null) {
+            throw new NotFound(KeyFactorTools.find(assetDb));
+        }
         List<InstanceDai.Instance> instances = instanceDai.selectInstanceByPubSet(assetDb.getPubSet());
         Asset asset = BasicCopy.from(Asset.class, assetDb);
         String rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(context.getOwnerId(), assetDb.getModelSubId());

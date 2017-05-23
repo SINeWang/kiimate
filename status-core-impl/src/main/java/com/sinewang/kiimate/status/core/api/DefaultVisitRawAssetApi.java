@@ -35,20 +35,19 @@ public class DefaultVisitRawAssetApi implements VisitRawAssetsApi {
     @Override
     public Map<String, Object> visit(ReadContext context, PubSetForm form) throws NotFound {
         AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getPubSet(), form.getStability(), form.getVersion());
-
         return transform(context, assetDb);
     }
 
     @Override
     public Map<String, Object> visit(ReadContext context, GroupNameForm form) throws NotFound {
         AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getGroup(), form.getName(), form.getStability(), form.getVersion());
-        if (assetDb == null) {
-            throw new NotFound(KeyFactorTools.find(assetDb));
-        }
         return transform(context, assetDb);
     }
 
-    private Map<String, Object> transform(ReadContext context, AssetPublicationDai.Assets assetDb) {
+    private Map<String, Object> transform(ReadContext context, AssetPublicationDai.Assets assetDb) throws NotFound {
+        if (assetDb == null) {
+            throw new NotFound(KeyFactorTools.find(assetDb));
+        }
         List<InstanceDai.Instance> instances = instanceDai.selectInstanceByPubSet(assetDb.getPubSet());
         String rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(context.getOwnerId(), assetDb.getModelSubId());
         return instanceTransformer.from(instances, rootExtId);
