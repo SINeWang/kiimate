@@ -3,9 +3,9 @@
 <mapper namespace="com.sinewang.kiimate.status.core.dai.mapper.AssetSubscriptionMapper">
     <insert id="insert">
         INSERT INTO km_s_sub
-        (id, subscriber_id, sub_set, ins_sub_id, operator_id, begin_time)
+        (id, subscriber_id, sub_set, operator_id, begin_time)
         VALUES
-        (#{id}, #{subscriberId}, #{subSet}, #{insSubId}, #{operatorId}, #{beginTime})
+        (#{id}, #{subscriberId}, #{subSet}, #{operatorId}, #{beginTime})
     </insert>
     <select id="countById" resultType="int">
         SELECT count(id) FROM km_s_sub WHERE id = #{id}

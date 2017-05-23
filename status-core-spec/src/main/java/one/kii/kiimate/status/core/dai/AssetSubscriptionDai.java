@@ -26,9 +26,6 @@ public interface AssetSubscriptionDai {
         @KeyFactor
         String subSet;
 
-        @KeyFactor
-        String insSubId;
-
         String operatorId;
 
         @KeyFactor
@@ -36,7 +33,7 @@ public interface AssetSubscriptionDai {
     }
 
     @Data
-    class Owners {
+    class Subscribers {
         String id;
     }
 }

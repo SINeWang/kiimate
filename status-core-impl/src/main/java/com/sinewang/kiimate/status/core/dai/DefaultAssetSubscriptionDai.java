@@ -23,7 +23,6 @@ public class DefaultAssetSubscriptionDai implements AssetSubscriptionDai {
                     record.getId(),
                     record.getSubscriberId(),
                     record.getSubSet(),
-                    record.getInsSubId(),
                     record.getOperatorId(),
                     record.getBeginTime()
             );

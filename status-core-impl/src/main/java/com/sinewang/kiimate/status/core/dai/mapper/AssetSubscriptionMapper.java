@@ -16,7 +16,6 @@ public interface AssetSubscriptionMapper {
     void insert(@Param("id") String id,
                 @Param("subscriberId") String subscriberId,
                 @Param("subSet") String subSet,
-                @Param("insSubId") String insSubId,
                 @Param("operatorId") String operatorId,
                 @Param("beginTime") Date beginTime);
 

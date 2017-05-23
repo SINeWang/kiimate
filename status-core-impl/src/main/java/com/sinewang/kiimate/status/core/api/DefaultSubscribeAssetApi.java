@@ -38,6 +38,7 @@ public class DefaultSubscribeAssetApi implements SubscribeAssetApi {
         assetSubscriptionDai.save(record);
 
         return BasicCopy.from(Receipt.class, record);
+
     }
 
 }

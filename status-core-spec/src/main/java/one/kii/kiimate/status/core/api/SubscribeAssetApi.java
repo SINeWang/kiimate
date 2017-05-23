@@ -21,8 +21,6 @@ public interface SubscribeAssetApi {
     @EqualsAndHashCode(callSuper = false)
     class Form {
 
-        private String insSubId;
-
         private String subSet;
 
         private String stability;
@@ -35,11 +33,11 @@ public interface SubscribeAssetApi {
     @EqualsAndHashCode(callSuper = false)
     class Receipt {
 
+        private String id;
+
         private String subSet;
 
         private String subscriberId;
-
-        private String insSubId;
 
         private Date beginTime;
 
