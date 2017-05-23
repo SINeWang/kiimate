@@ -166,47 +166,31 @@ class Instance {
     Namespace field
     string value
     string value_set_hash
-    string value_ref_id
+    string value_ref_path
+    Reference type
     ---
     Subject operator_id
     DateTime begin_time
     DateTime end_time
 }
 
-enum Stability {
-    SNAPSHOT
-    RELEASE
-}
 
-enum Visibility {
-    PRIVATE
-    PROTECTED
-    PUBLIC
-}
 
-enum Subject {
-    OWNER
-    PROVIDER
-    SUBSCRIBER
-    VISITOR     // read only
-    OPERATOR    // read&write
-}
 
 enum Namespace {
     GROUP
     NAME
     FIELD
 }
-
-enum Version {
-    SEMANTIC
+enum Reference {
+    DIRECT
+    REVIEW
 }
 
-enum Tracking {
-    TREE
-    TAG
+enum Stability {
+    SNAPSHOT
+    RELEASE
 }
-
 enum Structure {
     REFERENCE
     NUMBER
@@ -214,6 +198,27 @@ enum Structure {
     BOOLEAN
     DATETIME
 }
+enum Subject {
+    OWNER
+    PROVIDER
+    SUBSCRIBER
+    VISITOR     // read only
+    OPERATOR    // read&write
+}
+enum Tracking {
+    TREE
+    TAG
+}
+enum Version {
+    SEMANTIC
+}
+enum Visibility {
+    PRIVATE
+    PROTECTED
+    PUBLIC
+}
+
+
 
 @enduml
 
