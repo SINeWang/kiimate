@@ -18,6 +18,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
     @Autowired
     private IntensionDai intensionDai;
 
+    @SuppressWarnings("unchecked")
     private List toArray(Object o) {
         List list = new ArrayList();
         list.add(o);
