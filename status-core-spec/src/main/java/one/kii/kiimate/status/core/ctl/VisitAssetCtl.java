@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.VisitAssetsApi;
+import one.kii.kiimate.status.core.api.VisitAssetApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
@@ -10,16 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.status.core.ctl.VisitAssetsCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.VisitAssetCtl.OWNER_ID;
 
 
 /**
  * Created by WangYanJiong on 21/05/2017.
  */
 @RestController
-@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/assets", method = RequestMethod.GET)
+@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/asset", method = RequestMethod.GET)
 @CrossOrigin(origins = "*")
-public class VisitAssetsCtl extends ReadController {
+public class VisitAssetCtl extends ReadController {
 
     public static final String OWNER_ID = "owner-id";
 
@@ -34,10 +34,10 @@ public class VisitAssetsCtl extends ReadController {
     public static final String NAME = "name";
 
     @Autowired
-    private VisitAssetsApi api;
+    private VisitAssetApi api;
 
     @RequestMapping(value = "/{" + PUB_SET + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
-    public ResponseEntity<VisitAssetsApi.Assets> visit(
+    public ResponseEntity<VisitAssetApi.Asset> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -45,7 +45,7 @@ public class VisitAssetsCtl extends ReadController {
             @PathVariable(STABILITY) String stability,
             @PathVariable(VERSION) String version) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
-        VisitAssetsApi.PubSetForm form = new VisitAssetsApi.PubSetForm();
+        VisitAssetApi.PubSetForm form = new VisitAssetApi.PubSetForm();
         form.setPubSet(pubSet);
         form.setVersion(version);
         form.setStability(stability);
@@ -57,7 +57,7 @@ public class VisitAssetsCtl extends ReadController {
     }
 
     @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
-    public ResponseEntity<VisitAssetsApi.Assets> visit(
+    public ResponseEntity<VisitAssetApi.Asset> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -67,7 +67,7 @@ public class VisitAssetsCtl extends ReadController {
             @PathVariable(VERSION) String version) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
-        VisitAssetsApi.GroupNameForm form = new VisitAssetsApi.GroupNameForm();
+        VisitAssetApi.GroupNameForm form = new VisitAssetApi.GroupNameForm();
         form.setGroup(group);
         form.setName(name);
         if (null != stability) {

@@ -10,19 +10,19 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 21/05/2017.
  */
-public interface VisitAssetsApi {
+public interface VisitAssetApi {
 
 
     String STABILITY_LATEST = "latest";
 
     String VERSION_HEAD = "HEAD";
 
-    Assets visit(ReadContext context, PubSetForm form) throws NotFound;
+    Asset visit(ReadContext context, PubSetForm form) throws NotFound;
 
-    Assets visit(ReadContext context, GroupNameForm form) throws NotFound;
+    Asset visit(ReadContext context, GroupNameForm form) throws NotFound;
 
     @Data
-    class Assets {
+    class Asset {
         String pubSet;
         String ownerId;
         String visibility;
