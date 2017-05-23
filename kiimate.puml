@@ -65,7 +65,7 @@ class AssetSubscription {
     string id
     ---
     Subject subscriber_id
-    string a_sub_set_hash // a_pub_set_hash
+    string sub_se // a_pub_set
     ---
     Namespace group
     Namespace name
