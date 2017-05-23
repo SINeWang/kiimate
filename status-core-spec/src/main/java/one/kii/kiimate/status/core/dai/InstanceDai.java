@@ -39,7 +39,7 @@ public interface InstanceDai {
 
         private String valueRefPath;
 
-        private String valueRefType;
+        private String valueRefPolicy;
 
         private String operatorId;
 

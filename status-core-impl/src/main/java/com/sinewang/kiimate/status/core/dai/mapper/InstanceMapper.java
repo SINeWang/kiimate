@@ -24,7 +24,7 @@ public interface InstanceMapper {
                         @Param("value") String value,
                         @Param("valueSetHash") String valueSetHash,
                         @Param("valueRefPath") String valueRefPath,
-                        @Param("valueRefType") String valueRefType,
+                        @Param("valueRefPolicy") String valueRefPolicy,
                         @Param("operatorId") String operatorId,
                         @Param("beginTime") Date beginTime);
 

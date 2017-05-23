@@ -167,7 +167,7 @@ class Instance {
     string value
     string value_set_hash
     string value_ref_path
-    Reference value_ref_type
+    ReferencePolicy value_ref_policy
     ---
     Subject operator_id
     DateTime begin_time
@@ -182,9 +182,9 @@ enum Namespace {
     NAME
     FIELD
 }
-enum Reference {
-    DIRECT
-    REVIEW
+enum ReferencePolicy {
+    LATEST
+    FIXED
 }
 
 enum Stability {

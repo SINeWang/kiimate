@@ -148,7 +148,7 @@ public class DefaultInstanceDai implements InstanceDai {
                 instance.getValue(),
                 instance.getValueSetHash(),
                 instance.getValueRefPath(),
-                instance.getValueRefType(),
+                instance.getValueRefPolicy(),
                 instance.getOperatorId(),
                 beginTime);
     }

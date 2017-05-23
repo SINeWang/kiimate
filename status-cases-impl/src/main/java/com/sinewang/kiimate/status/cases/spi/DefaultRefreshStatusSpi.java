@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 4/7/17.
  */
-@ConfigurationProperties(prefix = "metamate")
+@ConfigurationProperties(prefix = "kiimate")
 @Component
 public class DefaultRefreshStatusSpi implements RefreshStatusSpi {
 
@@ -23,12 +23,12 @@ public class DefaultRefreshStatusSpi implements RefreshStatusSpi {
 
     private static String TREE = "master";
 
-    private String baseUrl;
+    private String url;
 
     private String operatorId;
 
-    public void setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public void setOperatorId(String operatorId) {
@@ -87,11 +87,11 @@ public class DefaultRefreshStatusSpi implements RefreshStatusSpi {
     }
 
     private void saveInstance(String ownerId, String group, String name, MultiValueMap<String, String> map) throws Panic {
-        String url = baseUrl + URI;
+        String baseUrl = url + URI;
         ErestPost erestPost = new ErestPost(operatorId);
 
         try {
-            erestPost.execute(url, map, Receipt.class, ownerId, group, name, TREE);
+            erestPost.execute(baseUrl, map, Receipt.class, ownerId, group, name, TREE);
         } catch (Panic panic) {
             panic.printStackTrace();
         } catch (BadRequest badRequest) {
