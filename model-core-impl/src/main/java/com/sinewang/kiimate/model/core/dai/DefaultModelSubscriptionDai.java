@@ -72,4 +72,5 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
         return modelSubscriptionMapper.querySubscriberId(subscriberId);
     }
 
+
 }

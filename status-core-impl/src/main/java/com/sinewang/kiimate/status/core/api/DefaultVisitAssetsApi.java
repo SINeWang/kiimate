@@ -37,15 +37,26 @@ public class DefaultVisitAssetsApi implements VisitAssetsApi {
     private InstanceTransformer instanceTransformer;
 
     @Override
-    public Assets visit(ReadContext context, Form form) throws NotFound {
+    public Assets visit(ReadContext context, PubSetForm form) throws NotFound {
         AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getPubSet(), form.getVersion());
 
+        return transform(context, assetDb);
+    }
+
+    @Override
+    public Assets visit(ReadContext context, GroupNameForm form) throws NotFound {
+        AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree(), form.getVersion());
+
+        return transform(context, assetDb);
+    }
+
+    private Assets transform(ReadContext context, AssetPublicationDai.Assets assetDb) {
         List<InstanceDai.Instance> instances = instanceDai.selectInstanceByPubSet(assetDb.getPubSet());
-        VisitAssetsApi.Assets asset = BasicCopy.from(VisitAssetsApi.Assets.class, assetDb);
+        Assets asset = BasicCopy.from(Assets.class, assetDb);
         String rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(context.getOwnerId(), assetDb.getModelSubId());
         Map<String, Object> map = instanceTransformer.from(instances, rootExtId);
         List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(rootExtId);
-        List<VisitAssetsApi.Intension> intensions = BasicCopy.from(VisitAssetsApi.Intension.class, intensionList);
+        List<Intension> intensions = BasicCopy.from(Intension.class, intensionList);
         asset.setIntensions(intensions);
         asset.setMap(map);
         return asset;

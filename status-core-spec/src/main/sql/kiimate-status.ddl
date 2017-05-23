@@ -42,7 +42,7 @@ CREATE TABLE km_s_pub
 (
 	id VARCHAR(160) NOT NULL,
 	pub_set VARCHAR(160) NOT NULL,
-	owner_id VARCHAR(160) NOT NULL,
+	provider_id VARCHAR(160) NOT NULL,
 	m_sub_id VARCHAR(160) NOT NULL,
   ins_id VARCHAR(160) NOT NULL,
 	version VARCHAR(32) NOT NULL,

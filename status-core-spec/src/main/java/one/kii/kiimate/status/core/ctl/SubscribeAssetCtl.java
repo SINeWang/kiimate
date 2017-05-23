@@ -27,8 +27,6 @@ public class SubscribeAssetCtl extends WriteController {
 
     public static final String OWNER_ID = "owner-id";
 
-    public static final String STABILITY = "stability";
-
 
     @Autowired
     private SubscribeAssetApi api;
@@ -39,7 +37,7 @@ public class SubscribeAssetCtl extends WriteController {
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @ModelAttribute SubscribeAssetApi.Form form) {
-        return commit(requestId, operatorId, ownerId, form);
+        return commit(requestId, ownerId, operatorId, form);
     }
 
 
@@ -49,7 +47,7 @@ public class SubscribeAssetCtl extends WriteController {
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @RequestBody SubscribeAssetApi.Form form) {
-        return commit(requestId, operatorId, ownerId, form);
+        return commit(requestId, ownerId, operatorId, form);
     }
 
     private ResponseEntity<SubscribeAssetApi.Receipt> commit(

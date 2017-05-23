@@ -2,6 +2,7 @@ package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
 import lombok.Getter;
+import one.kii.summer.beans.annotations.KeyFactor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -34,12 +35,16 @@ public interface ModelSubscriptionDai {
 
         private String subSet;
 
+        @KeyFactor
         private String subscriberId;
 
+        @KeyFactor
         private String group;
 
+        @KeyFactor
         private String name;
 
+        @KeyFactor
         private String tree;
 
         private String operatorId;

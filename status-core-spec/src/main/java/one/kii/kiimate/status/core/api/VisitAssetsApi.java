@@ -13,7 +13,13 @@ import java.util.Map;
 public interface VisitAssetsApi {
 
 
-    Assets visit(ReadContext context, Form form) throws NotFound;
+    String TREE_LATEST = "latest";
+
+    String VERSION_HEAD = "HEAD";
+
+    Assets visit(ReadContext context, PubSetForm form) throws NotFound;
+
+    Assets visit(ReadContext context, GroupNameForm form) throws NotFound;
 
     @Data
     class Assets {
@@ -30,9 +36,17 @@ public interface VisitAssetsApi {
     }
 
     @Data
-    class Form {
+    class PubSetForm {
         String pubSet;
         String version;
+    }
+
+    @Data
+    class GroupNameForm {
+        String group;
+        String name;
+        String tree = TREE_LATEST;
+        String version = VERSION_HEAD;
     }
 
     @Data

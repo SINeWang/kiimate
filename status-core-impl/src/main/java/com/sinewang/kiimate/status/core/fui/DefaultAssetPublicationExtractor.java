@@ -15,13 +15,11 @@ public class DefaultAssetPublicationExtractor implements AssetPublicationExtract
     @Override
     public Informal extract(WriteContext context, PublishAssetApi.Form form) {
         Informal informal = BasicCopy.from(Informal.class, form);
+        if (TREE_LATEST.equals(form.getStability())) {
+            informal.setVersion(VERSION_HEAD);
+        }
         informal.setModelSubId(form.getSubId());
         return informal;
     }
 
-    @Override
-    public Formal supplement(Informal informal) {
-        Formal formal = BasicCopy.from(Formal.class, informal);
-        return formal;
-    }
 }

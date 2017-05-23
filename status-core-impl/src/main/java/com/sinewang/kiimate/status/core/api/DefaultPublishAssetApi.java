@@ -48,6 +48,7 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
             AssetPublicationDai.Record record = BasicCopy.from(AssetPublicationDai.Record.class, informal);
             record.setInsId(instance.getId());
             record.setId(id);
+            record.setVersion(informal.getVersion());
             records.add(record);
             instancesIds.add(id);
         }

@@ -16,7 +16,7 @@ public interface AssetPublicationMapper {
     void insertAssetPublication(
             @Param("id") String id,
             @Param("pubSet") String pubSet,
-            @Param("ownerId") String ownerId,
+            @Param("providerId") String providerId,
             @Param("modelSubId") String modelSubId,
             @Param("insId") String insId,
             @Param("version") String version,
@@ -25,12 +25,18 @@ public interface AssetPublicationMapper {
             @Param("beginTime") Date beginTime
     );
 
-    List<AssetPublicationDai.Owners> queryOwners(@Param("ownerId") String ownerId);
+    List<AssetPublicationDai.Providers> queryProviders(@Param("providerId") String providerId);
 
-    List<AssetPublicationDai.Assets> queryAssets(@Param("ownerId") String ownerId,
+    List<AssetPublicationDai.Assets> queryAssets(@Param("providerId") String providerId,
                                                  @Param("group") String group);
 
-    AssetPublicationDai.Assets selectAsset(@Param("ownerId") String ownerId,
+    AssetPublicationDai.Assets selectAsset(@Param("providerId") String providerId,
                                            @Param("pubSet") String pubSet,
                                            @Param("version") String version);
+
+    AssetPublicationDai.Assets selectAssetByProviderGroupNameStabilityVersion(@Param("providerId") String providerId,
+                                                                              @Param("group") String group,
+                                                                              @Param("name") String name,
+                                                                              @Param("stability") String stability,
+                                                                              @Param("version") String version);
 }

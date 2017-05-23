@@ -9,13 +9,15 @@ import one.kii.summer.io.context.WriteContext;
  */
 public interface AssetPublicationExtractor {
 
-    Informal extract(WriteContext context, PublishAssetApi.Form form);
+    String TREE_LATEST = "latest";
 
-    Formal supplement(Informal informal);
+    String VERSION_HEAD = "HEAD";
+
+    Informal extract(WriteContext context, PublishAssetApi.Form form);
 
     @Data
     class Informal {
-        String ownerId;
+        String providerId;
         String modelSubId;
         String version;
         String visibility;
@@ -26,7 +28,7 @@ public interface AssetPublicationExtractor {
     class Formal {
         String id;
         String pubSet;
-        String ownerId;
+        String providerId;
         String modelSubId;
         String version;
         String visibility;

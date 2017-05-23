@@ -65,7 +65,7 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
             case ASSET:
                 switch (form.getAccessType()) {
                     case OWNER:
-                        List<AssetPublicationDai.Owners> subjects = assetPublicationDai.queryOwners(form.getGroup());
+                        List<AssetPublicationDai.Providers> subjects = assetPublicationDai.queryProviders(form.getGroup());
                         return BasicCopy.from(Subjects.class, subjects);
                 }
             case STATUS:

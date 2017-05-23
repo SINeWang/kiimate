@@ -42,6 +42,13 @@ public interface ModelSubscriptionMapper {
             @Param("ownerId") String ownerId,
             @Param("subId") String subId);
 
+    ModelSubscriptionDai.ModelSubscription selectSubscriptionByOwnerGroupNameTree(
+            @Param("ownerId") String ownerId,
+            @Param("group") String group,
+            @Param("name") String name,
+            @Param("tree") String tree);
+
+
     List<ModelSubscriptionDai.Subscribers> querySubscriberId(@Param("subscriberId") String subscriberId);
 
 
