@@ -167,7 +167,7 @@ class Instance {
     string value
     string value_set_hash
     string value_ref_path
-    Reference type
+    Reference value_ref_type
     ---
     Subject operator_id
     DateTime begin_time
