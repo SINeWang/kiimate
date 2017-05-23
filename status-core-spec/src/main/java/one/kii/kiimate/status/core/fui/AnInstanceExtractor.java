@@ -34,6 +34,10 @@ public interface AnInstanceExtractor {
 
         private String field;
 
+        private String valueRefPath;
+
+        private String valueRefType;
+
         private String[] values;
 
     }

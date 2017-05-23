@@ -37,7 +37,9 @@ public interface InstanceDai {
 
         private String valueSetHash;
 
-        private String valueRefId;
+        private String valueRefPath;
+
+        private String valueRefType;
 
         private String operatorId;
 
