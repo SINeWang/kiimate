@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultVisitAssetsSpi implements VisitAssetsSpi {
 
-    private static String URI = "/{owner-id}/assets/{group}/{name}/{tree}";
+    private static String URI = "/{owner-id}/assets/{group}/{name}/{stability}";
     @Value("${kiimate.url}")
     private String url;
 

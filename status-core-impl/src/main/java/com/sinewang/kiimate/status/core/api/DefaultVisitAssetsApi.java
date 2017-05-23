@@ -7,6 +7,7 @@ import one.kii.kiimate.status.core.dai.AssetPublicationDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.BasicCopy;
+import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,10 @@ public class DefaultVisitAssetsApi implements VisitAssetsApi {
 
     @Override
     public Assets visit(ReadContext context, GroupNameForm form) throws NotFound {
-        AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree(), form.getVersion());
-
+        AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getGroup(), form.getName(), form.getStability(), form.getVersion());
+        if(assetDb == null){
+            throw new NotFound(KeyFactorTools.find(assetDb));
+        }
         return transform(context, assetDb);
     }
 
@@ -59,6 +62,7 @@ public class DefaultVisitAssetsApi implements VisitAssetsApi {
         List<Intension> intensions = BasicCopy.from(Intension.class, intensionList);
         asset.setIntensions(intensions);
         asset.setMap(map);
+        asset.setOwnerId(context.getOwnerId());
         return asset;
     }
 }

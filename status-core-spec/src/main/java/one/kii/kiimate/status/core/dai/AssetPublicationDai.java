@@ -1,6 +1,7 @@
 package one.kii.kiimate.status.core.dai;
 
 import lombok.Data;
+import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ public interface AssetPublicationDai {
 
     List<Assets> queryAssets(String ownerId, String group);
 
-    Assets selectAssets(String ownerId, String group, String name, String tree, String latest) throws NotFound;
+    Assets selectAssets(String ownerId, String group, String name, String stability, String version) throws NotFound;
 
     Assets selectAssets(String ownerId, String pubSet, String version);
 
@@ -41,13 +42,22 @@ public interface AssetPublicationDai {
 
     @Data
     class Assets {
+
         String pubSet;
+
         String providerId;
+
         String visibility;
+
         String modelSubId;
+
+        @KeyFactor
         String group;
+        @KeyFactor
         String name;
+        @KeyFactor
         String stability;
+        @KeyFactor
         String version;
     }
 }

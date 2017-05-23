@@ -27,11 +27,11 @@ public class VisitAssetsCtl extends ReadController {
 
     public static final String VERSION = "version";
 
+    public static final String STABILITY = "stability";
+
     public static final String GROUP = "group";
 
     public static final String NAME = "name";
-
-    public static final String TREE = "tree";
 
     @Autowired
     private VisitAssetsApi api;
@@ -54,20 +54,22 @@ public class VisitAssetsCtl extends ReadController {
         }
     }
 
-    @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + TREE + ":.+}")
+    @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + ":.+}")
     public ResponseEntity<VisitAssetsApi.Assets> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(GROUP) String group,
             @PathVariable(NAME) String name,
-            @PathVariable(TREE) String tree) {
+            @PathVariable(STABILITY) String stability) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
         VisitAssetsApi.GroupNameForm form = new VisitAssetsApi.GroupNameForm();
         form.setGroup(group);
         form.setName(name);
-        form.setTree(tree);
+        if (null != stability) {
+            form.setStability(stability);
+        }
         try {
             return ErestResponse.ok(requestId, api.visit(context, form));
         } catch (NotFound notFound) {

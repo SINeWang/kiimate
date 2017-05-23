@@ -21,9 +21,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.statemate")
-@SpringBootTest(classes = {TestSaveStateSpi.class})
+@SpringBootTest(classes = {TestRefreshStateSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class TestSaveStateSpi {
+public class TestRefreshStateSpi {
 
     private ThisIsASpringBootConfiguration conf = new ThisIsASpringBootConfiguration();
 

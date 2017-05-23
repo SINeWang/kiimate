@@ -13,7 +13,7 @@ import java.util.Map;
 public interface VisitAssetsApi {
 
 
-    String TREE_LATEST = "latest";
+    String STABILITY_LATEST = "latest";
 
     String VERSION_HEAD = "HEAD";
 
@@ -45,7 +45,7 @@ public interface VisitAssetsApi {
     class GroupNameForm {
         String group;
         String name;
-        String tree = TREE_LATEST;
+        String stability = STABILITY_LATEST;
         String version = VERSION_HEAD;
     }
 
