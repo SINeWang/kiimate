@@ -1,6 +1,6 @@
 rootProject.name = 'kiimate'
 
-include 'kiimate'
+include 'core'
 include 'model-core-impl'
 include 'model-core-spec'
 include 'model-core-test'
