@@ -39,7 +39,7 @@ public class DefaultVisitAssetsApi implements VisitAssetsApi {
 
     @Override
     public Assets visit(ReadContext context, PubSetForm form) throws NotFound {
-        AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getPubSet(), form.getVersion());
+        AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getPubSet(), form.getStability(), form.getVersion());
 
         return transform(context, assetDb);
     }
@@ -47,7 +47,7 @@ public class DefaultVisitAssetsApi implements VisitAssetsApi {
     @Override
     public Assets visit(ReadContext context, GroupNameForm form) throws NotFound {
         AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getGroup(), form.getName(), form.getStability(), form.getVersion());
-        if(assetDb == null){
+        if (assetDb == null) {
             throw new NotFound(KeyFactorTools.find(assetDb));
         }
         return transform(context, assetDb);

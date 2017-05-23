@@ -36,17 +36,19 @@ public class VisitAssetsCtl extends ReadController {
     @Autowired
     private VisitAssetsApi api;
 
-    @RequestMapping(value = "/{" + PUB_SET + "}/{" + VERSION + ":.+}")
+    @RequestMapping(value = "/{" + PUB_SET + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
     public ResponseEntity<VisitAssetsApi.Assets> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(PUB_SET) String pubSet,
+            @PathVariable(STABILITY) String stability,
             @PathVariable(VERSION) String version) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
         VisitAssetsApi.PubSetForm form = new VisitAssetsApi.PubSetForm();
         form.setPubSet(pubSet);
         form.setVersion(version);
+        form.setStability(stability);
         try {
             return ErestResponse.ok(requestId, api.visit(context, form));
         } catch (NotFound notFound) {
@@ -54,14 +56,15 @@ public class VisitAssetsCtl extends ReadController {
         }
     }
 
-    @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + ":.+}")
+    @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
     public ResponseEntity<VisitAssetsApi.Assets> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(GROUP) String group,
             @PathVariable(NAME) String name,
-            @PathVariable(STABILITY) String stability) {
+            @PathVariable(STABILITY) String stability,
+            @PathVariable(VERSION) String version) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
         VisitAssetsApi.GroupNameForm form = new VisitAssetsApi.GroupNameForm();
@@ -69,6 +72,9 @@ public class VisitAssetsCtl extends ReadController {
         form.setName(name);
         if (null != stability) {
             form.setStability(stability);
+        }
+        if (null != version) {
+            form.setVersion(version);
         }
         try {
             return ErestResponse.ok(requestId, api.visit(context, form));

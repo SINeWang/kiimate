@@ -12,12 +12,14 @@ public interface VisitAssetsSpi {
 
     String STABILITY_LATEST = "latest";
 
+    String VERSION_HEAD = "HEAD";
 
     <T> T visit(Class<T> klass, LatestForm latestForm) throws BadRequest, Panic, NotFound;
 
     @Data
     class LatestForm {
         final String stability = STABILITY_LATEST;
+        final String version = VERSION_HEAD;
         String ownerId;
         String group;
         String name;

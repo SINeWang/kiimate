@@ -51,8 +51,8 @@ public class DefaultAssetPublicationDai implements AssetPublicationDai {
     }
 
     @Override
-    public Assets selectAssets(String ownerId, String pubSet, String version) {
-        return assetPublicationMapper.selectAsset(ownerId, pubSet, version);
+    public Assets selectAssets(String ownerId, String pubSet, String stability, String version) {
+        return assetPublicationMapper.selectAsset(ownerId, pubSet, stability, version);
     }
 
     @Override

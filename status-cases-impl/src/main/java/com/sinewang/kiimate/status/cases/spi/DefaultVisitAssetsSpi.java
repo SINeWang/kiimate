@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultVisitAssetsSpi implements VisitAssetsSpi {
 
-    private static String URI = "/{owner-id}/assets/{group}/{name}/{stability}";
+    private static String URI = "/{owner-id}/assets/{group}/{name}/{stability}/{version}";
     @Value("${kiimate.url}")
     private String url;
 
@@ -22,7 +22,7 @@ public class DefaultVisitAssetsSpi implements VisitAssetsSpi {
     public <T> T visit(Class<T> klass, LatestForm latestForm) throws BadRequest, Panic, NotFound {
         String urlTemplate = url + URI;
         ErestGetBasic erestGet = new ErestGetBasic(latestForm.getOwnerId());
-        return erestGet.execute(urlTemplate, klass, latestForm.getOwnerId(), latestForm.getGroup(), latestForm.getName(), latestForm.getStability());
+        return erestGet.execute(urlTemplate, klass, latestForm.getOwnerId(), latestForm.getGroup(), latestForm.getName(), latestForm.getStability(), latestForm.getVersion());
     }
 
 

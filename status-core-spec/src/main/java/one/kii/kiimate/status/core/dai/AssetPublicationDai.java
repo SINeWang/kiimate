@@ -22,7 +22,7 @@ public interface AssetPublicationDai {
 
     Assets selectAssets(String ownerId, String group, String name, String stability, String version) throws NotFound;
 
-    Assets selectAssets(String ownerId, String pubSet, String version);
+    Assets selectAssets(String ownerId, String pubSet, String stability, String version);
 
     @Data
     class Record {

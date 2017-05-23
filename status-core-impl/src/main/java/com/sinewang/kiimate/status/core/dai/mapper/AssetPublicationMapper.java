@@ -32,6 +32,7 @@ public interface AssetPublicationMapper {
 
     AssetPublicationDai.Assets selectAsset(@Param("providerId") String providerId,
                                            @Param("pubSet") String pubSet,
+                                           @Param("stability") String stability,
                                            @Param("version") String version);
 
     AssetPublicationDai.Assets selectAssetByProviderGroupNameStabilityVersion(@Param("providerId") String providerId,

@@ -38,6 +38,7 @@ public interface VisitAssetsApi {
     @Data
     class PubSetForm {
         String pubSet;
+        String stability;
         String version;
     }
 
