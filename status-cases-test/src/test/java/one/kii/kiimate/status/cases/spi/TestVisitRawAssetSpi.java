@@ -17,7 +17,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,16 +25,16 @@ import java.util.Map;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.kiimate")
-@SpringBootTest(classes = {TestVisitAssetsSpi.class})
+@SpringBootTest(classes = {TestVisitRawAssetSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class TestVisitAssetsSpi {
+public class TestVisitRawAssetSpi {
 
     @Autowired
-    private VisitAssetsSpi spi;
+    private VisitRawAssetSpi spi;
 
     @Test
     public void test() {
-        VisitAssetsSpi.LatestForm form = new VisitAssetsSpi.LatestForm();
+        VisitRawAssetSpi.LatestForm form = new VisitRawAssetSpi.LatestForm();
         form.setName("default");
         form.setGroup("token");
         form.setOwnerId("wangyj");

@@ -1,6 +1,6 @@
 package com.sinewang.kiimate.status.cases.spi;
 
-import one.kii.kiimate.status.cases.spi.VisitAssetsSpi;
+import one.kii.kiimate.status.cases.spi.VisitRawAssetSpi;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
  * Created by WangYanJiong on 23/05/2017.
  */
 @Component
-public class DefaultVisitAssetsSpi implements VisitAssetsSpi {
+public class DefaultVisitRawAssetSpi implements VisitRawAssetSpi {
 
-    private static String URI = "/{owner-id}/assets/{group}/{name}/{stability}/{version}";
+    private static String URI = "/{owner-id}/raw-asset/{group}/{name}/{stability}/{version}";
 
     @Value("${kiimate.url}")
     private String url;

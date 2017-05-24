@@ -8,7 +8,7 @@ import one.kii.summer.io.exception.Panic;
 /**
  * Created by WangYanJiong on 23/05/2017.
  */
-public interface VisitAssetsSpi {
+public interface VisitRawAssetSpi {
 
     String STABILITY_LATEST = "latest";
 
