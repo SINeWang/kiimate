@@ -63,6 +63,11 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
+    public ModelSubscription selectSubscriptionByOwnerGroupNameTree(String ownerId, String group, String name, String tree) {
+        return modelSubscriptionMapper.selectSubscriptionByOwnerGroupNameTree(ownerId, group, name, tree);
+    }
+
+    @Override
     public int countModelSubscriptions(String pubSetHash) {
         return modelSubscriptionMapper.countModelSubscriptions(pubSetHash);
     }

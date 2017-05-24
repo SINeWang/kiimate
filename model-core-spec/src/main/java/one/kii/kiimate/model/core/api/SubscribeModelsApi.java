@@ -11,7 +11,7 @@ import one.kii.summer.io.exception.Conflict;
 
 public interface SubscribeModelsApi {
 
-    String TREE_DEFAULT = "default";
+    String TREE_MASTER = "master";
 
     Receipt commit(WriteContext context, Form form) throws Conflict;
 
@@ -21,7 +21,7 @@ public interface SubscribeModelsApi {
         private String pubSet;
         private String group;
         private String name;
-        private String tree = TREE_DEFAULT;
+        private String tree = TREE_MASTER;
     }
 
     @Data

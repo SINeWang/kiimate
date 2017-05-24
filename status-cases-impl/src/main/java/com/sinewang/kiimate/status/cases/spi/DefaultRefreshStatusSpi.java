@@ -2,8 +2,8 @@ package com.sinewang.kiimate.status.cases.spi;
 
 import one.kii.kiimate.status.cases.spi.RefreshStatusSpi;
 import one.kii.summer.io.exception.*;
-import one.kii.summer.io.sender.ErestPost;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import one.kii.summer.io.sender.ErestPut;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -13,25 +13,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by WangYanJiong on 4/7/17.
+ * Created by WangYanJiong on 7/4/17.
  */
-@ConfigurationProperties(prefix = "kiimate")
 @Component
 public class DefaultRefreshStatusSpi implements RefreshStatusSpi {
 
-    private static String URI = "/{ownerId}/instance/{group}/{name}/{tree}";
+    private static String URI_SUB_ID = "/{ownerId}/status/{sub-id}";
 
-    private static String TREE = "master";
+    private static String URI_SUB_GNT = "/{ownerId}/status/{group}/{name}/{tree}";
 
+    @Value("${kiimate.url}")
     private String url;
 
+    @Value("${kiimate.operator-id}")
     private String operatorId;
 
     @Override
-    public <T> void commit(RefreshStatusSpi.Form<T> form) throws Panic {
+    public void commit(GroupNameTreeForm form) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         extractAsMap(form.getObject(), map);
-        saveInstance(form.getOwnerId(), form.getGroup(), form.getName(), map);
+        saveInstance(form, map);
+    }
+
+    @Override
+    public void commit(SubIdForm form) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        extractAsMap(form.getObject(), map);
+        saveInstance(form, map);
     }
 
     private <T> void extractAsMap(T object, MultiValueMap<String, String> map) {
@@ -78,23 +86,15 @@ public class DefaultRefreshStatusSpi implements RefreshStatusSpi {
         }
     }
 
-    private void saveInstance(String ownerId, String group, String name, MultiValueMap<String, String> map) throws Panic {
-        String baseUrl = url + URI;
-        ErestPost erestPost = new ErestPost(operatorId);
+    private void saveInstance(GroupNameTreeForm form, MultiValueMap<String, String> map) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
+        String urlTemplate = url + URI_SUB_GNT;
+        ErestPut put = new ErestPut(operatorId);
+        put.execute(urlTemplate, map, null, form.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
+    }
 
-        try {
-            erestPost.execute(baseUrl, map, Receipt.class, ownerId, group, name, TREE);
-        } catch (Panic panic) {
-            panic.printStackTrace();
-        } catch (BadRequest badRequest) {
-            badRequest.printStackTrace();
-        } catch (Conflict conflict) {
-            conflict.printStackTrace();
-        } catch (NotFound notFound) {
-            notFound.printStackTrace();
-        } catch (Forbidden forbidden) {
-            forbidden.printStackTrace();
-        }
-        throw new Panic();
+    private void saveInstance(SubIdForm form, MultiValueMap<String, String> map) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
+        String urlTemplate = url + URI_SUB_ID;
+        ErestPut put = new ErestPut(operatorId);
+        put.execute(urlTemplate, map, null, form.getOwnerId(), form.getSubId());
     }
 }

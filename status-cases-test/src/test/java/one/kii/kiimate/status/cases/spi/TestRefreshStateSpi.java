@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.cases.spi;
 
-import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.exception.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,55 +20,65 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
-@ComponentScan("com.sinewang.statemate")
+@ComponentScan("com.sinewang")
 @SpringBootTest(classes = {TestRefreshStateSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class TestRefreshStateSpi {
 
-    private ThisIsASpringBootConfiguration conf = new ThisIsASpringBootConfiguration();
 
     @Autowired
     private RefreshStatusSpi refreshStatusSpi;
 
     @Test
-    public void test() {
-        RefreshStatusSpi.Form form = new RefreshStatusSpi.Form();
-        form.setGroup("test-sub-group");
+    public void testGntForm() {
+        RefreshStatusSpi.GroupNameTreeForm form = new RefreshStatusSpi.GroupNameTreeForm();
+        form.setOwnerId("wangyj");
+        form.setGroup("test-token");
         form.setName("default");
-        form.setObject(conf);
+        form.setTree("master");
+        form.setObject(new Token1());
         try {
             refreshStatusSpi.commit(form);
-        } catch (Panic panic) {
-            panic.printStackTrace();
+        } catch (Panic | Forbidden | BadRequest | NotFound | Conflict oops) {
+            oops.printStackTrace();
         }
     }
 
-    class DataSource {
-
-        public String driverClassName = "mysql";
-
-        public String url = "url";
-
-        public String username = "name";
-
-        public String password = "passwd";
+    @Test
+    public void testSubIdForm() {
+        RefreshStatusSpi.SubIdForm form = new RefreshStatusSpi.SubIdForm();
+        form.setSubId("48982345f8c901d266ced0cfb6cd471654b2105fd18bbd512d5b266358dcbace");
+        form.setOwnerId("wangyj");
+        form.setObject(new Token2());
+        try {
+            refreshStatusSpi.commit(form);
+        } catch (Panic | Forbidden | BadRequest | NotFound | Conflict oops) {
+            oops.printStackTrace();
+        }
     }
 
-    class Server {
-        public int port = 23424;
+    public static class Token1 {
+        int expiresIn = 10;
+
+        public int getExpiresIn() {
+            return expiresIn;
+        }
+
+        public void setExpiresIn(int expiresIn) {
+            this.expiresIn = expiresIn;
+        }
     }
 
-    class Logging {
-        public String level = "debug";
+    public static class Token2 {
+        int expiresIn = 11;
+
+        public int getExpiresIn() {
+            return expiresIn;
+        }
+
+        public void setExpiresIn(int expiresIn) {
+            this.expiresIn = expiresIn;
+        }
     }
 
-    class ThisIsASpringBootConfiguration {
-
-        public DataSource datasource = new DataSource();
-
-        public Server server = new Server();
-
-        public Logging logging = new Logging();
-
-    }
 }

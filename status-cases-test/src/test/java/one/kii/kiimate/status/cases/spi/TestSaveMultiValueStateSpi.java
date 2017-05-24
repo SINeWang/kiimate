@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.cases.spi;
 
-import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.exception.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +32,15 @@ public class TestSaveMultiValueStateSpi {
 
     @Test
     public void test() {
-        RefreshStatusSpi.Form form = new RefreshStatusSpi.Form();
-        form.setGroup("test-sub-multi-value-group");
-        form.setName("default");
-        form.setObject(conf);
+        RefreshStatusSpi.GroupNameTreeForm groupNameTreeForm = new RefreshStatusSpi.GroupNameTreeForm();
+        groupNameTreeForm.setGroup("test-sub-multi-value-group");
+        groupNameTreeForm.setName("default");
+        groupNameTreeForm.setTree("master");
+        groupNameTreeForm.setObject(conf);
         try {
-            refreshStatusSpi.commit(form);
-        } catch (Panic panic) {
-            panic.printStackTrace();
+            refreshStatusSpi.commit(groupNameTreeForm);
+        } catch (Panic | Forbidden | BadRequest | NotFound | Conflict oops) {
+            oops.printStackTrace();
         }
     }
 

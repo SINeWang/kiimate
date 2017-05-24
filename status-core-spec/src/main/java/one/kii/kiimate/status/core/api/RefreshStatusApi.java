@@ -15,12 +15,21 @@ import java.util.List;
  */
 public interface RefreshStatusApi {
 
-    List<Instance> commit(WriteContext context, Form form) throws NotFound, Conflict;
+    List<Instance> commit(WriteContext context, SubIdForm form) throws NotFound, Conflict;
+
+    List<Instance> commit(WriteContext context, GroupNameTreeForm form) throws NotFound, Conflict;
 
     @Data
-    class Form {
-        String ownerId;
+    class SubIdForm {
         String subId;
+        MultiValueMap<String, String> map;
+    }
+
+    @Data
+    class GroupNameTreeForm {
+        String group;
+        String name;
+        String tree;
         MultiValueMap<String, String> map;
     }
 

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static one.kii.kiimate.status.core.ctl.RefreshStatusCtl.OWNER_ID;
-import static one.kii.kiimate.status.core.ctl.RefreshStatusCtl.SUB_ID;
 
 
 /**
@@ -25,7 +24,7 @@ import static one.kii.kiimate.status.core.ctl.RefreshStatusCtl.SUB_ID;
  */
 
 @RestController
-@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/status/{" + SUB_ID + "}", method = RequestMethod.PUT)
+@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/status", method = RequestMethod.PUT)
 @CrossOrigin(origins = "*")
 public class RefreshStatusCtl extends WriteController {
 
@@ -33,10 +32,16 @@ public class RefreshStatusCtl extends WriteController {
 
     static final String SUB_ID = "sub-id";
 
+    static final String GROUP = "group";
+
+    static final String NAME = "name";
+
+    static final String TREE = "tree";
+
     @Autowired
     private RefreshStatusApi api;
 
-    @RequestMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @RequestMapping(value = "/{" + SUB_ID + "}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
@@ -46,8 +51,20 @@ public class RefreshStatusCtl extends WriteController {
         return commit(requestId, operatorId, ownerId, subId, map);
     }
 
+    @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + TREE + "}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity commitForm(
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
+            @PathVariable(OWNER_ID) String ownerId,
+            @PathVariable(GROUP) String group,
+            @PathVariable(NAME) String name,
+            @PathVariable(TREE) String tree,
+            @RequestParam MultiValueMap<String, String> map) {
+        return commit(requestId, operatorId, ownerId, group, name, tree, map);
+    }
 
-    @RequestMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+
+    @RequestMapping(value = "/{" + SUB_ID + "}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
@@ -58,6 +75,18 @@ public class RefreshStatusCtl extends WriteController {
         return commit(requestId, operatorId, ownerId, subId, mmap);
     }
 
+    @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + TREE + "}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity commitJson(
+            @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
+            @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
+            @PathVariable(OWNER_ID) String ownerId,
+            @PathVariable(GROUP) String group,
+            @PathVariable(NAME) String name,
+            @PathVariable(TREE) String tree,
+            @RequestParam MultiValueMap<String, String> map) {
+        return commit(requestId, operatorId, ownerId, group, name, tree, map);
+    }
+
     private ResponseEntity<List<RefreshStatusApi.Instance>> commit(
             String requestId,
             String operatorId,
@@ -65,13 +94,33 @@ public class RefreshStatusCtl extends WriteController {
             String subId,
             MultiValueMap<String, String> map) {
         try {
-
-            WriteContext context = buildContext(requestId, operatorId, ownerId);
-
-            RefreshStatusApi.Form form = new RefreshStatusApi.Form();
+            WriteContext context = buildContext(requestId, ownerId, operatorId);
+            RefreshStatusApi.SubIdForm form = new RefreshStatusApi.SubIdForm();
             form.setSubId(subId);
             form.setMap(map);
+            return ErestResponse.created(requestId, api.commit(context, form));
+        } catch (NotFound notFound) {
+            return ErestResponse.notFound(requestId, notFound.getKey());
+        } catch (Conflict conflict) {
+            return ErestResponse.conflict(requestId, conflict.getKeys()[0]);
+        }
+    }
 
+    private ResponseEntity<List<RefreshStatusApi.Instance>> commit(
+            String requestId,
+            String operatorId,
+            String ownerId,
+            String group,
+            String name,
+            String tree,
+            MultiValueMap<String, String> map) {
+        try {
+            WriteContext context = buildContext(requestId, ownerId, operatorId);
+            RefreshStatusApi.GroupNameTreeForm form = new RefreshStatusApi.GroupNameTreeForm();
+            form.setGroup(group);
+            form.setName(name);
+            form.setTree(tree);
+            form.setMap(map);
             return ErestResponse.created(requestId, api.commit(context, form));
         } catch (NotFound notFound) {
             return ErestResponse.notFound(requestId, notFound.getKey());

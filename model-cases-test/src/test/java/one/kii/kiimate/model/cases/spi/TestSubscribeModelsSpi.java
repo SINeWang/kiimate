@@ -34,7 +34,7 @@ public class TestSubscribeModelsSpi {
     public void test() {
         SubscribeModelsSpi.Form form = new SubscribeModelsSpi.Form();
         form.setSubscriberId("wangyj");
-        form.setGroup("testSubMultiValueGroup");
+        form.setGroup("test-token");
         form.setName("default");
         form.setPubSet("33df86613e40cadbb399e9e4ef478108fd1a7b17b5b325cc8ca809acaf2c1850");
         SubscribeModelsSpi.Receipt receipt = null;

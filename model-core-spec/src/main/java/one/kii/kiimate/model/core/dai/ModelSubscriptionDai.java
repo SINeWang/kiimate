@@ -20,6 +20,8 @@ public interface ModelSubscriptionDai {
 
     List<ModelSubscription> querySubscriptionsByOwnerGroup(String ownerId, String group);
 
+    ModelSubscription selectSubscriptionByOwnerGroupNameTree(String ownerId, String group, String name, String tree);
+
     int countModelSubscriptions(String pubSet);
 
     List<Subscribers> querySubscriberId(String subscriberId);

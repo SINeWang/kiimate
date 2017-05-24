@@ -1,5 +1,3 @@
 kiimate:
   url: http://localhost:9090/api/v1
-  visitor-id: wangyj
-  subscriber-id: wangyj
-  operator-id: wangyj
+  operator-id: status-cases-spi

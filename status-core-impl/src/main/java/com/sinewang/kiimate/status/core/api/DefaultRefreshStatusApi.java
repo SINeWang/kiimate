@@ -7,6 +7,7 @@ import one.kii.kiimate.status.core.api.RefreshStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.summer.beans.utils.BasicCopy;
+import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
@@ -41,7 +42,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    public List<Instance> commit(WriteContext context, Form form) throws NotFound, Conflict {
+    public List<Instance> commit(WriteContext context, SubIdForm form) throws NotFound, Conflict {
 
         String rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(
                 context.getOwnerId(), form.getSubId());
@@ -61,8 +62,6 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         } catch (InstanceDai.InstanceDuplicated instanceDuplicated) {
             throw new Conflict(form.getSubId());
         }
-
-
         List<InstanceDai.Instance> dbInstances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
         List<Instance> apiInstances = new ArrayList<>();
@@ -75,6 +74,18 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
 
         return apiInstances;
+    }
+
+    @Override
+    public List<Instance> commit(WriteContext context, GroupNameTreeForm form) throws NotFound, Conflict {
+        ModelSubscriptionDai.ModelSubscription subscription = modelSubscriptionDai.selectSubscriptionByOwnerGroupNameTree(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
+        if (subscription == null) {
+            throw new NotFound(KeyFactorTools.find(ModelSubscriptionDai.ModelSubscription.class));
+        }
+        String subId = subscription.getId();
+        SubIdForm subIdForm = BasicCopy.from(SubIdForm.class, form);
+        subIdForm.setSubId(subId);
+        return commit(context, subIdForm);
     }
 
 }
