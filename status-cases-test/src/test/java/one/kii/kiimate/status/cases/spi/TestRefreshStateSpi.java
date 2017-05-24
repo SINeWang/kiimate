@@ -31,7 +31,7 @@ public class TestRefreshStateSpi {
 
     @Test
     public void testGntForm() {
-        RefreshStatusSpi.GroupNameTreeForm form = new RefreshStatusSpi.GroupNameTreeForm();
+        RefreshStatusSpi.GroupNameTreeForm<Token1> form = new RefreshStatusSpi.GroupNameTreeForm<>();
         form.setOwnerId("wangyj");
         form.setGroup("test-token");
         form.setName("default");
@@ -46,7 +46,7 @@ public class TestRefreshStateSpi {
 
     @Test
     public void testSubIdForm() {
-        RefreshStatusSpi.SubIdForm form = new RefreshStatusSpi.SubIdForm();
+        RefreshStatusSpi.SubIdForm<Token2> form = new RefreshStatusSpi.SubIdForm<>();
         form.setSubId("48982345f8c901d266ced0cfb6cd471654b2105fd18bbd512d5b266358dcbace");
         form.setOwnerId("wangyj");
         form.setObject(new Token2());
