@@ -9,7 +9,7 @@
         <result column="owner_id" property="ownerId"/>
         <result column="sub_id" property="subId"/>
         <result column="ext_id" property="extId"/>
-        <result column="int_id" property="extId"/>
+        <result column="int_id" property="intId"/>
         <result column="field" property="field"/>
         <result column="value" property="value"/>
         <result column="value_set_hash" property="valueSetHash"/>

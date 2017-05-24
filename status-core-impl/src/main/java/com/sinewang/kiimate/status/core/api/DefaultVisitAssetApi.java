@@ -51,7 +51,7 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
 
     private Asset transform(ReadContext context, AssetPublicationDai.Assets assetDb) throws NotFound {
         if (assetDb == null) {
-            throw new NotFound(KeyFactorTools.find(assetDb));
+            throw new NotFound(KeyFactorTools.find(DefaultSearchAssetsApi.Assets.class));
         }
         List<InstanceDai.Instance> instances = instanceDai.selectInstanceByPubSet(assetDb.getPubSet());
         Asset asset = BasicCopy.from(Asset.class, assetDb);
