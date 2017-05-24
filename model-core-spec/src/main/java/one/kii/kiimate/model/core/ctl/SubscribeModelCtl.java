@@ -1,6 +1,6 @@
 package one.kii.kiimate.model.core.ctl;
 
-import one.kii.kiimate.model.core.api.SubscribeModelApi;
+import one.kii.kiimate.model.core.api.SubscribeModelsApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
@@ -26,31 +26,31 @@ public class SubscribeModelCtl extends WriteController {
 
 
     @Autowired
-    private SubscribeModelApi api;
+    private SubscribeModelsApi api;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<SubscribeModelApi.Receipt> commitForm(
+    public ResponseEntity<SubscribeModelsApi.Receipt> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @ModelAttribute SubscribeModelApi.Form form) {
+            @ModelAttribute SubscribeModelsApi.Form form) {
         return commit(requestId, operatorId, ownerId, form);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<SubscribeModelApi.Receipt> commitJson(
+    public ResponseEntity<SubscribeModelsApi.Receipt> commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @RequestBody SubscribeModelApi.Form form) {
+            @RequestBody SubscribeModelsApi.Form form) {
         return commit(requestId, operatorId, ownerId, form);
     }
 
-    private ResponseEntity<SubscribeModelApi.Receipt> commit(
+    private ResponseEntity<SubscribeModelsApi.Receipt> commit(
             String requestId,
             String operatorId,
             String ownerId,
-            SubscribeModelApi.Form form) {
+            SubscribeModelsApi.Form form) {
         try {
 
             WriteContext context = buildContext(requestId, ownerId, operatorId);

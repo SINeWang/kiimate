@@ -1,6 +1,6 @@
 package com.sinewang.kiimate.model.core.api;
 
-import one.kii.kiimate.model.core.api.SubscribeModelApi;
+import one.kii.kiimate.model.core.api.SubscribeModelsApi;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.model.core.fui.AnSubscribeModelExtractor;
 import one.kii.summer.beans.utils.BasicCopy;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class DefaultSubscribeModelApi implements SubscribeModelApi {
+public class DefaultSubscribeModelsApi implements SubscribeModelsApi {
 
     @Autowired
     private AnSubscribeModelExtractor subscribeModelExtractor;

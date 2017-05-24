@@ -1,7 +1,7 @@
 package com.sinewang.kiimate.model.core.fui;
 
 import com.google.common.base.CaseFormat;
-import one.kii.kiimate.model.core.api.SubscribeModelApi;
+import one.kii.kiimate.model.core.api.SubscribeModelsApi;
 import one.kii.kiimate.model.core.fui.AnSubscribeModelExtractor;
 import one.kii.summer.beans.utils.HashTools;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor {
 
     @Override
-    public ModelSubscription extract(SubscribeModelApi.Form form, String subscriberId, String operatorId) {
+    public ModelSubscription extract(SubscribeModelsApi.Form form, String subscriberId, String operatorId) {
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
 
         ModelSubscription subscription = new ModelSubscription();

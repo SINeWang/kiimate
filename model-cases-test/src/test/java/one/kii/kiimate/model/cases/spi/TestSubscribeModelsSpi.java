@@ -1,6 +1,6 @@
 package one.kii.kiimate.model.cases.spi;
 
-import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.exception.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,25 +22,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.kiimate.model")
-@SpringBootTest(classes = {TestSubscribeModelSpi.class})
+@SpringBootTest(classes = {TestSubscribeModelsSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class TestSubscribeModelSpi {
+public class TestSubscribeModelsSpi {
 
 
     @Autowired
-    private SubscribeModelSpi subscribeModelSpi;
+    private SubscribeModelsSpi subscribeModelsSpi;
 
     @Test
     public void test() {
-        SubscribeModelSpi.Form form = new SubscribeModelSpi.Form();
+        SubscribeModelsSpi.Form form = new SubscribeModelsSpi.Form();
         form.setSubscriberId("wangyj");
         form.setGroup("testSubMultiValueGroup");
         form.setName("default");
-        form.setPubSet("1ef3725c9ddc304a6489d35918637f85fb45415c85857f9e48d0385585e710db");
-        SubscribeModelSpi.Receipt receipt = null;
+        form.setPubSet("33df86613e40cadbb399e9e4ef478108fd1a7b17b5b325cc8ca809acaf2c1850");
+        SubscribeModelsSpi.Receipt receipt = null;
         try {
-            receipt = subscribeModelSpi.commit(form);
-        } catch (Panic panic) {
+            receipt = subscribeModelsSpi.commit(form);
+        } catch (Panic | BadRequest | Forbidden | Conflict | NotFound panic) {
             panic.printStackTrace();
         }
         Assert.assertNotNull(receipt);

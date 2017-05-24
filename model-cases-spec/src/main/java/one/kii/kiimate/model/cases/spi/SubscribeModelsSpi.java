@@ -1,14 +1,14 @@
 package one.kii.kiimate.model.cases.spi;
 
 import lombok.Data;
-import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.exception.*;
 
 /**
  * Created by WangYanJiong on 09/04/2017.
  */
-public interface SubscribeModelSpi {
+public interface SubscribeModelsSpi {
 
-    Receipt commit(Form form) throws Panic;
+    Receipt commit(Form form) throws Panic, BadRequest, Forbidden, Conflict, NotFound;
 
     @Data
     class Form {

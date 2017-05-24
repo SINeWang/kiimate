@@ -1,7 +1,7 @@
 package com.sinewang.kiimate.model.core.api;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
-import one.kii.kiimate.model.core.api.SubscribeModelApi;
+import one.kii.kiimate.model.core.api.SubscribeModelsApi;
 import one.kii.kiimate.model.core.fui.AnSubscribeModelExtractor;
 import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
@@ -22,11 +22,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.kiimate.model.core")
-@SpringBootTest(classes = {TestSubscribeModelApi.class})
-public class TestSubscribeModelApi {
+@SpringBootTest(classes = {TestSubscribeModelsApi.class})
+public class TestSubscribeModelsApi {
 
     @Autowired
-    private SubscribeModelApi subscribeModelApi;
+    private SubscribeModelsApi subscribeModelsApi;
 
     @Autowired
     private AnSubscribeModelExtractor subscribeModelExtractor;
@@ -52,7 +52,7 @@ public class TestSubscribeModelApi {
 
     @Test
     public void test() {
-        SubscribeModelApi.Form form = new SubscribeModelApi.Form();
+        SubscribeModelsApi.Form form = new SubscribeModelsApi.Form();
 
         form.setGroup("testGroup");
 
@@ -75,9 +75,9 @@ public class TestSubscribeModelApi {
         WriteContext context = new WriteContext(requestId, ownerId, operatorId);
 
 
-        SubscribeModelApi.Receipt receipt = null;
+        SubscribeModelsApi.Receipt receipt = null;
         try {
-            receipt = subscribeModelApi.commit(context, form);
+            receipt = subscribeModelsApi.commit(context, form);
         } catch (Conflict conflict) {
             conflict.printStackTrace();
         }

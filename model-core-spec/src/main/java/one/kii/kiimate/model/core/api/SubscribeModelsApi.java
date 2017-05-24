@@ -9,7 +9,9 @@ import one.kii.summer.io.exception.Conflict;
  * Created by WangYanJiong on 4/6/17.
  */
 
-public interface SubscribeModelApi {
+public interface SubscribeModelsApi {
+
+    String TREE_DEFAULT = "default";
 
     Receipt commit(WriteContext context, Form form) throws Conflict;
 
@@ -19,7 +21,7 @@ public interface SubscribeModelApi {
         private String pubSet;
         private String group;
         private String name;
-        private String tree;
+        private String tree = TREE_DEFAULT;
     }
 
     @Data
