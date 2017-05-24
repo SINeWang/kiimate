@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 4/7/17.
  */
-public interface PublishModelSpi {
+public interface PublishModelsSpi {
 
     String NAME_ROOT = "root";
 

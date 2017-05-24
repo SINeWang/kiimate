@@ -2,7 +2,7 @@ package com.sinewang.kiimate.model.cases.spi;
 
 import one.kii.kiimate.model.cases.spi.DeclareExtensionSpi;
 import one.kii.kiimate.model.cases.spi.DeclareIntensionSpi;
-import one.kii.kiimate.model.cases.spi.PublishModelSpi;
+import one.kii.kiimate.model.cases.spi.PublishModelsSpi;
 import one.kii.summer.io.exception.Panic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +19,9 @@ import java.util.Map;
  * Created by WangYanJiong on 4/7/17.
  */
 @Component
-public class DefaultPublishModelSpi implements PublishModelSpi {
+public class DefaultPublishModelsSpi implements PublishModelsSpi {
 
-    private static Logger logger = LoggerFactory.getLogger(DefaultPublishModelSpi.class);
+    private static Logger logger = LoggerFactory.getLogger(DefaultPublishModelsSpi.class);
 
     @Autowired
     private DeclareExtensionSpi createExtensionSpi;

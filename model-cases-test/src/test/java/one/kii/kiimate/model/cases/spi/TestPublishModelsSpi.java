@@ -23,12 +23,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.kiimate.model")
-@SpringBootTest(classes = {TestPublishModelSpi.class})
+@SpringBootTest(classes = {TestPublishModelsSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class TestPublishModelSpi {
+public class TestPublishModelsSpi {
 
     @Autowired
-    private PublishModelSpi publishModelSpi;
+    private PublishModelsSpi publishModelsSpi;
 
     @Autowired
     private VisitExtensionSpi visitExtensionSpi;
@@ -38,12 +38,12 @@ public class TestPublishModelSpi {
 
     @Test
     public void test() {
-        PublishModelSpi.Form form = new PublishModelSpi.Form();
+        PublishModelsSpi.Form form = new PublishModelsSpi.Form();
         form.setGroup(group);
         form.setKlass(ThisIsASpringBootConfiguration.class);
-        PublishModelSpi.Receipt receipt = null;
+        PublishModelsSpi.Receipt receipt = null;
         try {
-            receipt = publishModelSpi.commit(form);
+            receipt = publishModelsSpi.commit(form);
         } catch (Panic panic) {
             panic.printStackTrace();
         }

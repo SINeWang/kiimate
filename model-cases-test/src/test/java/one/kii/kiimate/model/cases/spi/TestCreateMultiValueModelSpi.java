@@ -28,7 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class TestCreateMultiValueModelSpi {
 
     @Autowired
-    private PublishModelSpi publishModelSpi;
+    private PublishModelsSpi publishModelsSpi;
 
     @Autowired
     private VisitExtensionSpi visitExtensionSpi;
@@ -38,12 +38,12 @@ public class TestCreateMultiValueModelSpi {
 
     @Test
     public void test() {
-        PublishModelSpi.Form form = new PublishModelSpi.Form();
+        PublishModelsSpi.Form form = new PublishModelsSpi.Form();
         form.setGroup(group);
         form.setKlass(ThisIsAMultiValueSpringBootConfiguration.class);
-        PublishModelSpi.Receipt receipt = null;
+        PublishModelsSpi.Receipt receipt = null;
         try {
-            receipt = publishModelSpi.commit(form);
+            receipt = publishModelsSpi.commit(form);
         } catch (Panic panic) {
             panic.printStackTrace();
         }
