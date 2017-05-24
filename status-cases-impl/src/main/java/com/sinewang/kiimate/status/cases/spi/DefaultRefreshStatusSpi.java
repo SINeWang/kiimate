@@ -27,14 +27,6 @@ public class DefaultRefreshStatusSpi implements RefreshStatusSpi {
 
     private String operatorId;
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public void setOperatorId(String operatorId) {
-        this.operatorId = operatorId;
-    }
-
     @Override
     public <T> void commit(RefreshStatusSpi.Form<T> form) throws Panic {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
