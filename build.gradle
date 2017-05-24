@@ -5,8 +5,8 @@ buildscript {
 }
 
 plugins {
-    id 'pl.allegro.tech.build.axion-release' version '1.5.0'
-    id 'org.springframework.boot' version '1.5.2.RELEASE' apply false
+    id 'pl.allegro.tech.build.axion-release' version '1.6.0'
+    id 'org.springframework.boot' version '1.5.3.RELEASE' apply false
     id 'idea'
 }
 
@@ -18,8 +18,8 @@ ext {
     mybatisSpringBootStarterVerison = "1.2.0"
     mysqlConnectorVersion = '5.1.41'
     servletApiVersion = '3.1.0'
-    springBootVersion = '1.5.2.RELEASE'
-    springFrameworkVersion = '4.3.7.RELEASE'
+    springBootVersion = '1.5.3.RELEASE'
+    springFrameworkVersion = '4.3.8.RELEASE'
     summerVersion = '0.4.2'
 }
 
@@ -88,11 +88,6 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
 
 configure(subprojects.findAll { it.name.endsWith("impl") }) {
 
-    buildscript {
-        dependencies {
-            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        }
-    }
     apply plugin: 'org.springframework.boot'
 
     dependencies {
