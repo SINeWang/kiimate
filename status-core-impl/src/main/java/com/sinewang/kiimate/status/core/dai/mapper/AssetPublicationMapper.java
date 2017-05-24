@@ -40,4 +40,13 @@ public interface AssetPublicationMapper {
                                                                               @Param("name") String name,
                                                                               @Param("stability") String stability,
                                                                               @Param("version") String version);
+
+    AssetPublicationDai.Assets selectAssetsByProviderModelSubIdStabilityVersion(@Param("providerId") String providerId,
+                                                                                @Param("modelSubId") String group,
+                                                                                @Param("stability") String stability,
+                                                                                @Param("version") String version);
+
+    void revokeAsset(@Param("providerId") String providerId,
+                     @Param("pubSet") String pubSet,
+                     @Param("endTime") Date endTime);
 }

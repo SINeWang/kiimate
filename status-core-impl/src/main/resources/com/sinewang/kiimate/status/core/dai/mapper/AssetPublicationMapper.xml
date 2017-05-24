@@ -62,4 +62,22 @@
         AND ssub.end_time IS NULL
         GROUP BY ssub.pub_set
     </select>
+    <select id="selectAssetsByProviderModelSubIdStabilityVersion" resultMap="Assets">
+        SELECT ssub.pub_set, ssub.provider_id, ssub.visibility, ssub.m_sub_id, ssub.stability, ssub.version, msub.group, msub.name
+        FROM km_s_pub ssub, mm_m_sub msub
+        WHERE ssub.provider_id = #{providerId}
+        AND ssub.m_sub_id = msub.id
+        AND msub.id = #{modelSubId}
+        AND ssub.stability = #{stability}
+        AND ssub.version = #{version}
+        AND ssub.end_time IS NULL
+        GROUP BY ssub.pub_set
+    </select>
+    <update id="revokeAsset">
+        UPDATE km_s_pub spub
+        SET spub.end_time = #{endTime}
+        WHERE spub.end_time IS NULL
+        AND spub.provider_id = #{providerId}
+        AND spub.pub_set = #{pubSet}
+    </update>
 </mapper>

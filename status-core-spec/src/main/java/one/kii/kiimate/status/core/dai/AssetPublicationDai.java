@@ -14,7 +14,7 @@ import java.util.List;
 public interface AssetPublicationDai {
 
     @Transactional
-    Date insert(String pubSet, List<Record> records);
+    Date save(String pubSet, List<Record> records, Assets previousAsset);
 
     List<Providers> queryProviders(String providerId);
 
@@ -22,7 +22,9 @@ public interface AssetPublicationDai {
 
     Assets selectAssets(String ownerId, String group, String name, String stability, String version) throws NotFound;
 
-    Assets selectAssets(String ownerId, String pubSet, String stability, String version);
+    Assets selectAssetsPubSet(String ownerId, String pubSet, String stability, String version);
+
+    Assets selectAssetsByModelSubId(String ownerId, String modelSubId, String stability, String version) throws NotFound;
 
     @Data
     class Record {

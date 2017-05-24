@@ -22,8 +22,15 @@ public class DefaultAssetPublicationDai implements AssetPublicationDai {
 
 
     @Override
-    public Date insert(String pubSet, List<Record> records) {
+    public Date save(String pubSet, List<Record> records, Assets previousAsset) {
         Date now = new Date();
+        if (previousAsset != null) {
+            assetPublicationMapper.revokeAsset(
+                    previousAsset.getProviderId(),
+                    previousAsset.getPubSet(),
+                    now
+            );
+        }
         for (Record record : records) {
             assetPublicationMapper.insertAssetPublication(
                     record.getId(),
@@ -51,8 +58,18 @@ public class DefaultAssetPublicationDai implements AssetPublicationDai {
     }
 
     @Override
-    public Assets selectAssets(String ownerId, String pubSet, String stability, String version) {
+    public Assets selectAssetsPubSet(String ownerId, String pubSet, String stability, String version) {
         return assetPublicationMapper.selectAsset(ownerId, pubSet, stability, version);
+    }
+
+    @Override
+    public Assets selectAssetsByModelSubId(String providerId, String modelSubId, String stability, String version) throws NotFound {
+        Assets assets =
+                assetPublicationMapper.selectAssetsByProviderModelSubIdStabilityVersion(providerId, modelSubId, stability, version);
+        if (assets == null) {
+            throw new NotFound(KeyFactorTools.find(Assets.class));
+        }
+        return assets;
     }
 
     @Override

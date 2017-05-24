@@ -39,7 +39,7 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
 
     @Override
     public Asset visit(ReadContext context, PubSetForm form) throws NotFound {
-        AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getPubSet(), form.getStability(), form.getVersion());
+        AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssetsPubSet(context.getOwnerId(), form.getPubSet(), form.getStability(), form.getVersion());
         return transform(context, assetDb);
     }
 

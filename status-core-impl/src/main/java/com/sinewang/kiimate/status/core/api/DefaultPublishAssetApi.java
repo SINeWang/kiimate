@@ -35,12 +35,17 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
 
         AssetPublicationExtractor.Informal informal = assetPublicationExtractor.extract(context, form);
+        AssetPublicationDai.Assets previousAsset = null;
+        try {
+            previousAsset = assetPublicationDai.selectAssetsByModelSubId(informal.getProviderId(), informal.getModelSubId(), informal.getStability(), informal.getVersion());
+        } catch (NotFound ignore) {
+        }
 
         List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
         List<AssetPublicationDai.Record> records = new ArrayList<>();
 
-        final String publishAssetId = HashTools.hashHex(form.getProviderId(), form.getSubId());
+        final String publishAssetId = HashTools.hashHex(informal.getProviderId(), informal.getModelSubId());
 
         List<String> instancesIds = new ArrayList<>();
         for (InstanceDai.Instance instance : instances) {
@@ -58,7 +63,7 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
         String pubSet = HashTools.hashHex(idArray);
 
 
-        Date date = assetPublicationDai.insert(pubSet, records);
+        Date date = assetPublicationDai.save(pubSet, records, previousAsset);
         Map map = new HashMap<>();
         map.put("pubSet", pubSet);
         map.put("beginTime", date);
