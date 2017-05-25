@@ -9,6 +9,8 @@ import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.Yaml;
 
 import java.util.Map;
 
@@ -21,7 +23,7 @@ import static one.kii.kiimate.status.core.ctl.VisitAssetCtl.OWNER_ID;
 @RestController
 @RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/raw-asset", method = RequestMethod.GET)
 @CrossOrigin(origins = "*")
-public class VisitRawAssetsCtl extends ReadController {
+public class VisitRawAssetCtl extends ReadController {
 
     public static final String OWNER_ID = "owner-id";
 
@@ -34,6 +36,9 @@ public class VisitRawAssetsCtl extends ReadController {
     public static final String GROUP = "group";
 
     public static final String NAME = "name";
+
+    public static final String FORMAT_YML = "yml";
+
 
     @Autowired
     private VisitRawAssetsApi api;
@@ -59,14 +64,15 @@ public class VisitRawAssetsCtl extends ReadController {
     }
 
     @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
-    public ResponseEntity<Map<String, Object>> visit(
+    public ResponseEntity<?> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(GROUP) String group,
             @PathVariable(NAME) String name,
             @PathVariable(STABILITY) String stability,
-            @PathVariable(VERSION) String version) {
+            @PathVariable(VERSION) String version,
+            @RequestParam(value = FORMAT_YML, required = false) String yml) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
         VisitRawAssetsApi.GroupNameForm form = new VisitRawAssetsApi.GroupNameForm();
@@ -79,10 +85,18 @@ public class VisitRawAssetsCtl extends ReadController {
             form.setVersion(version);
         }
         try {
-            return ErestResponse.ok(requestId, api.visit(context, form));
+            if (yml == null) {
+                return ErestResponse.ok(requestId, api.visit(context, form));
+            } else {
+                DumperOptions options = new DumperOptions();
+                options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+                Yaml yaml = new Yaml(options);
+                return ErestResponse.ok(requestId, yaml.dump(api.visit(context, form)));
+            }
         } catch (NotFound notFound) {
             return ErestResponse.notFound(requestId, notFound.getKey());
         }
     }
+
 
 }

@@ -12,7 +12,7 @@ plugins {
 
 ext {
     guavaVersion = '21.0'
-    jacksondatabindVersion = '2.8.7'
+    jacksondatabindVersion = '2.8.8'
     junitVersion = '4.12'
     lombokVersion = '1.16.16'
     mybatisSpringBootStarterVerison = "1.2.0"
@@ -76,7 +76,10 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
 
         compile("org.springframework:spring-tx:${springFrameworkVersion}")
         compile("org.springframework:spring-web:${springFrameworkVersion}")
+
         compile "com.google.guava:guava:${guavaVersion}"
+        compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${jacksondatabindVersion}"
+        compile "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksondatabindVersion}"
 
         compile "javax.servlet:javax.servlet-api:${servletApiVersion}"
 
