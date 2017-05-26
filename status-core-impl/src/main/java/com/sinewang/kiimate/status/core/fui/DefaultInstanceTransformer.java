@@ -116,11 +116,8 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                                 TimedValue tv = new TimedValue();
                                 tv.setValue(v);
                                 tv.setTime(instance.getBeginTime());
+                                result.computeIfAbsent(instance.getField(), key -> new ArrayList<>());
                                 List values = (List) result.get(intension.getField());
-                                if (values == null) {
-                                    values = new ArrayList<>();
-                                    result.put(intension.getField(), values);
-                                }
                                 values.add(tv);
                             }
                         }
@@ -152,11 +149,8 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                 values.add(instance);
                 dict.put(instance.getField(), values);
             } else {
+                dict.computeIfAbsent(instance.getField(), key -> new ArrayList<>());
                 List<InstanceDai.Instance> values = dict.get(instance.getField());
-                if (values == null) {
-                    values = new ArrayList<>();
-                    dict.put(instance.getField(), values);
-                }
                 values.add(instance);
             }
         }
