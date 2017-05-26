@@ -57,15 +57,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                 if (intension.getRefExtId() != null) {
                     Map<String, Object> child = parseTimed(intension.getRefExtId(), dict);
                     if (!child.isEmpty()) {
-                        List values = (List) result.get(intension.getField());
-                        if (values == null) {
-                            // TODO: should be convert to TimedValue
-                            values = new ArrayList<>();
-                            values.add(child);
-                            result.put(intension.getField(), values);
-                        } else {
-                            values.add(child);
-                        }
+                        addComplexValueToList(result, intension, child);
                     }
                 } else {
                     List<InstanceDai.Instance> instances = dict.get(intension.getField());
@@ -75,11 +67,9 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                                 List values = (List) result.get(intension.getField());
                                 if (values == null) {
                                     values = new ArrayList<>();
-                                    values.add(instance.getValue());
                                     result.put(intension.getField(), values);
-                                } else {
-                                    values.add(instance.getValue());
                                 }
+                                values.add(instance.getValue());
                             }
                         }
                     }
@@ -116,30 +106,22 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
             } else {
                 if (intension.getRefExtId() != null) {
                     Map<String, Object> child = parseTimed(intension.getRefExtId(), dict);
-                    if (!child.isEmpty()) {
-                        List values = (List) result.get(intension.getField());
-                        if (values == null) {
-                            // TODO: should be convert to TimedValue
-                            values = new ArrayList<>();
-                            values.add(child);
-                            result.put(intension.getField(), values);
-                        } else {
-                            values.add(child);
-                        }
-                    }
+                    addComplexValueToList(result, intension, child);
                 } else {
                     List<InstanceDai.Instance> instances = dict.get(intension.getField());
                     if (instances != null && !instances.isEmpty()) {
                         for (InstanceDai.Instance instance : instances) {
                             if (instance.getValue() != null) {
+                                Object v = instance.getValue();
+                                TimedValue tv = new TimedValue();
+                                tv.setValue(v);
+                                tv.setTime(instance.getBeginTime());
                                 List values = (List) result.get(intension.getField());
                                 if (values == null) {
                                     values = new ArrayList<>();
-                                    values.add(instance.getValue());
                                     result.put(intension.getField(), values);
-                                } else {
-                                    values.add(instance.getValue());
                                 }
+                                values.add(tv);
                             }
                         }
                     }
@@ -148,6 +130,18 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
             }
         }
         return result;
+    }
+
+
+    private void addComplexValueToList(Map<String, Object> result, IntensionDai.Intension intension, Map<String, Object> child) {
+        if (!child.isEmpty()) {
+            List values = (List) result.get(intension.getField());
+            if (values == null) {
+                values = new ArrayList<>();
+                result.put(intension.getField(), values);
+            }
+            values.add(child);
+        }
     }
 
     private Map<String, List<InstanceDai.Instance>> dict(List<InstanceDai.Instance> instances) {
