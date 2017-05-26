@@ -50,6 +50,6 @@ public class DefaultVisitRawAssetApi implements VisitRawAssetsApi {
         }
         List<InstanceDai.Instance> instances = instanceDai.selectInstanceByPubSet(assetDb.getPubSet());
         String rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(context.getOwnerId(), assetDb.getModelSubId());
-        return instanceTransformer.from(instances, rootExtId);
+        return instanceTransformer.toRawValue(instances, rootExtId);
     }
 }

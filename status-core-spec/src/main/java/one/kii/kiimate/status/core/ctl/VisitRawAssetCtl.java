@@ -21,7 +21,7 @@ import static one.kii.kiimate.status.core.ctl.VisitAssetCtl.OWNER_ID;
  * Created by WangYanJiong on 23/05/2017.
  */
 @RestController
-@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/raw-asset", method = RequestMethod.GET)
+@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/asset", method = RequestMethod.GET)
 @CrossOrigin(origins = "*")
 public class VisitRawAssetCtl extends ReadController {
 
@@ -43,7 +43,7 @@ public class VisitRawAssetCtl extends ReadController {
     @Autowired
     private VisitRawAssetsApi api;
 
-    @RequestMapping(value = "/{" + PUB_SET + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
+    @RequestMapping(value = "/{" + PUB_SET + "}/{" + STABILITY + "}/{" + VERSION + ":.+}/raw")
     public ResponseEntity<Map<String, Object>> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
@@ -63,7 +63,7 @@ public class VisitRawAssetCtl extends ReadController {
         }
     }
 
-    @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
+    @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}/raw")
     public ResponseEntity<?> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,

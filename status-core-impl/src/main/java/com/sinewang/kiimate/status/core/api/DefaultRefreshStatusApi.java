@@ -55,10 +55,10 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, form.getSubId(), form.getMap(), dict);
 
-        List<InstanceDai.Instances> instances1 = BasicCopy.from(InstanceDai.Instances.class, instances);
+        List<InstanceDai.Record> record1 = BasicCopy.from(InstanceDai.Record.class, instances);
 
         try {
-            instanceDai.insertInstances(instances1);
+            instanceDai.insert(record1);
         } catch (InstanceDai.InstanceDuplicated instanceDuplicated) {
             throw new Conflict(form.getSubId());
         }
@@ -71,8 +71,6 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
             apiInstance.setValue(new String[]{dbInstance.getValue()});
             apiInstances.add(apiInstance);
         }
-
-
         return apiInstances;
     }
 

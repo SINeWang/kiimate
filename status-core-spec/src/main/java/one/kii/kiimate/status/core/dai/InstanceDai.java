@@ -3,6 +3,7 @@ package one.kii.kiimate.status.core.dai;
 import lombok.Data;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,11 +12,17 @@ import java.util.List;
 public interface InstanceDai {
 
     @Transactional
-    void insertInstances(List<Instances> instances) throws InstanceDuplicated;
+    void insert(List<Record> records) throws InstanceDuplicated;
 
     List<Instance> selectLatestInstanceBySubId(String subId);
 
     List<Instance> selectInstanceByPubSet(String pubSet);
+
+    @Data
+    class LatestStatus {
+        Date beginTime;
+        List<Instance> instances;
+    }
 
 
     @Data
@@ -43,10 +50,12 @@ public interface InstanceDai {
 
         private String operatorId;
 
+        private Date beginTime;
+
     }
 
     @Data
-    class Instances {
+    class Record {
 
         private String id; // id = hashHex(hashHex(extId, fieldId), ownerId)
 

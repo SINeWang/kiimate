@@ -43,7 +43,7 @@ class Status #FFFFFF {
     Namespace m_sub_group
     Namespace m_sub_name
     ---
-    Instance[] instances
+    Instance[] record
     ---
     DateTime track_time
 }

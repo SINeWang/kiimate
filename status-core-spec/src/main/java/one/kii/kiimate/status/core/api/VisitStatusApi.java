@@ -4,6 +4,7 @@ import lombok.Data;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ public interface VisitStatusApi {
         List<Intension> intensions;
         Map<String, Object> map;
     }
+
 
 
     @Data

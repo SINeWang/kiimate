@@ -42,4 +42,5 @@ public interface InstanceMapper {
     void deleteInstanceByOwnerId(@Param("ownerId") String ownerId,
                                  @Param("subId") String subId);
 
+
 }

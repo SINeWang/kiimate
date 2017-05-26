@@ -22,16 +22,16 @@ public class DefaultInstanceDai implements InstanceDai {
     private InstanceMapper instanceMapper;
 
     @Override
-    public void insertInstances(List<Instances> instancesList) throws InstanceDuplicated {
+    public void insert(List<Record> records) throws InstanceDuplicated {
         Date now = new Date();
-        for (Instances instances : instancesList) {
-            String[] values = instances.getValues();
+        for (Record record : records) {
+            String[] values = record.getValues();
             {
                 if (values.length == 1) {
                     if (values[0].isEmpty()) {
                         instanceMapper.updateInstanceEndTimeBySubIdIntId(
-                                instances.getSubId(),
-                                instances.getIntId(),
+                                record.getSubId(),
+                                record.getIntId(),
                                 now);
                         continue;
                     }
@@ -39,8 +39,8 @@ public class DefaultInstanceDai implements InstanceDai {
                     boolean insert = false;
 
                     List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceBySubIdIntId(
-                            instances.getSubId(),
-                            instances.getIntId());
+                            record.getSubId(),
+                            record.getIntId());
                     if (latestInstanceList.size() == 0) {
                         insert = true;
                     } else if (latestInstanceList.size() == 1) {
@@ -59,13 +59,13 @@ public class DefaultInstanceDai implements InstanceDai {
 
                     if (refresh) {
                         instanceMapper.updateInstanceEndTimeBySubIdIntId(
-                                instances.getSubId(),
-                                instances.getIntId(),
+                                record.getSubId(),
+                                record.getIntId(),
                                 now);
                     }
                     if (insert) {
                         Instance instance = new Instance();
-                        BeanUtils.copyProperties(instances, instance);
+                        BeanUtils.copyProperties(record, instance);
                         instance.setValue(values[0]);
                         insertInstance(instance, now);
                     }
@@ -76,8 +76,8 @@ public class DefaultInstanceDai implements InstanceDai {
             {
 
                 List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceBySubIdIntId(
-                        instances.getSubId(),
-                        instances.getIntId());
+                        record.getSubId(),
+                        record.getIntId());
                 boolean refresh = false;
                 if (values.length != latestInstanceList.size()) {
                     refresh = true;
@@ -106,16 +106,16 @@ public class DefaultInstanceDai implements InstanceDai {
                     continue;
                 }
                 instanceMapper.updateInstanceEndTimeBySubIdIntId(
-                        instances.getSubId(),
-                        instances.getIntId(),
+                        record.getSubId(),
+                        record.getIntId(),
                         now);
                 String valueSetHash = HashTools.hashHex(values);
                 for (String value : values) {
                     Instance instance = new Instance();
-                    BeanUtils.copyProperties(instances, instance, "id");
+                    BeanUtils.copyProperties(record, instance, "id");
                     instance.setValueSetHash(valueSetHash);
                     instance.setValue(value);
-                    String id = HashTools.hashHex(instances.getId(), value);
+                    String id = HashTools.hashHex(record.getId(), value);
                     instance.setId(id);
                     insertInstance(instance, now);
                 }

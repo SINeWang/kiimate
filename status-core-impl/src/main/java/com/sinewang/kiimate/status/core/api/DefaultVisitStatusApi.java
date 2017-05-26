@@ -6,6 +6,7 @@ import one.kii.kiimate.status.core.api.VisitStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.BasicCopy;
+import one.kii.summer.beans.utils.MagicCopy;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,13 +48,11 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         List<Intension> intensions = BasicCopy.from(Intension.class, intensionList);
 
 
-        Map<String, Object> map = instanceTransformer.from(instances, rootExtId);
+        Map<String, Object> map = instanceTransformer.toTimedValue(instances, rootExtId);
 
-        Receipt receipt = BasicCopy.from(Receipt.class, form);
-        receipt.setOwnerId(context.getOwnerId());
+        Receipt receipt = MagicCopy.from(Receipt.class, form, context);
         receipt.setMap(map);
         receipt.setIntensions(intensions);
-        receipt.setSubId(form.getSubId());
 
         return receipt;
     }
