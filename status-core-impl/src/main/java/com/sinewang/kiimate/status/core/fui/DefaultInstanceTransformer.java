@@ -64,11 +64,8 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                     if (instances != null && !instances.isEmpty()) {
                         for (InstanceDai.Instance instance : instances) {
                             if (instance.getValue() != null) {
+                                result.computeIfAbsent(instance.getField(), key -> new ArrayList<>());
                                 List values = (List) result.get(intension.getField());
-                                if (values == null) {
-                                    values = new ArrayList<>();
-                                    result.put(intension.getField(), values);
-                                }
                                 values.add(instance.getValue());
                             }
                         }
@@ -132,11 +129,8 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
 
     private void addComplexValueToList(Map<String, Object> result, IntensionDai.Intension intension, Map<String, Object> child) {
         if (!child.isEmpty()) {
+            result.computeIfAbsent(intension.getField(), key -> new ArrayList<>());
             List values = (List) result.get(intension.getField());
-            if (values == null) {
-                values = new ArrayList<>();
-                result.put(intension.getField(), values);
-            }
             values.add(child);
         }
     }
