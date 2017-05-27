@@ -2,8 +2,7 @@ package com.sinewang.kiimate.status.core.dai;
 
 import com.sinewang.kiimate.status.core.dai.mapper.AssetPublicationMapper;
 import one.kii.kiimate.status.core.dai.AssetPublicationDai;
-import one.kii.summer.beans.utils.KeyFactorTools;
-import one.kii.summer.io.exception.NotFound;
+import one.kii.kiimate.status.core.dai.LoadAssetsDai;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,63 +21,35 @@ public class DefaultAssetPublicationDai implements AssetPublicationDai {
 
 
     @Override
-    public Date save(String pubSet, List<Record> records, Assets previousAsset) {
+    public List<Providers> queryProviders(ClueId clue) {
+        return assetPublicationMapper.queryProviders(
+                clue.getId());
+    }
+
+    @Override
+    public Date save(Record record) {
         Date now = new Date();
-        if (previousAsset != null) {
+        LoadAssetsDai.Assets previous = record.getPrevious();
+        if (previous != null) {
             assetPublicationMapper.revokeAsset(
-                    previousAsset.getProviderId(),
-                    previousAsset.getPubSet(),
+                    previous.getProviderId(),
+                    previous.getPubSet(),
                     now
             );
         }
-        for (Record record : records) {
+        for (Entry entry : record.getEntries()) {
             assetPublicationMapper.insertAssetPublication(
-                    record.getId(),
-                    pubSet,
-                    record.getProviderId(),
-                    record.getModelSubId(),
-                    record.getInsId(),
-                    record.getVersion(),
-                    record.getVisibility(),
-                    record.getStability(),
+                    entry.getId(),
+                    record.getPubSet(),
+                    entry.getProviderId(),
+                    entry.getModelSubId(),
+                    entry.getInsId(),
+                    entry.getVersion(),
+                    entry.getVisibility(),
+                    entry.getStability(),
                     now
             );
         }
         return now;
-    }
-
-    @Override
-    public List<Providers> queryProviders(String providerId) {
-        return assetPublicationMapper.queryProviders(providerId);
-    }
-
-    @Override
-    public List<Assets> queryAssets(String providerId, String group) {
-        return assetPublicationMapper.queryAssets(providerId, group);
-    }
-
-    @Override
-    public Assets selectAssetsPubSet(String ownerId, String pubSet, String stability, String version) {
-        return assetPublicationMapper.selectAsset(ownerId, pubSet, stability, version);
-    }
-
-    @Override
-    public Assets selectAssetsByModelSubId(String providerId, String modelSubId, String stability, String version) throws NotFound {
-        Assets assets =
-                assetPublicationMapper.selectAssetsByProviderModelSubIdStabilityVersion(providerId, modelSubId, stability, version);
-        if (assets == null) {
-            throw new NotFound(KeyFactorTools.find(Assets.class));
-        }
-        return assets;
-    }
-
-    @Override
-    public Assets selectAssets(String providerId, String group, String name, String stability, String version) throws NotFound {
-        Assets assets =
-                assetPublicationMapper.selectAssetByProviderGroupNameStabilityVersion(providerId, group, name, stability, version);
-        if (assets == null) {
-            throw new NotFound(KeyFactorTools.find(Assets.class));
-        }
-        return assets;
     }
 }

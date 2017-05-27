@@ -3,6 +3,7 @@ package com.sinewang.kiimate.status.core.api;
 import one.kii.kiimate.status.core.api.PublishAssetApi;
 import one.kii.kiimate.status.core.dai.AssetPublicationDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
+import one.kii.kiimate.status.core.dai.LoadAssetsDai;
 import one.kii.kiimate.status.core.fui.AssetPublicationExtractor;
 import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.beans.utils.HashTools;
@@ -31,30 +32,35 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
     @Autowired
     private AssetPublicationExtractor assetPublicationExtractor;
 
+    @Autowired
+    private LoadAssetsDai loadAssetsDai;
+
     @Override
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
 
         AssetPublicationExtractor.Informal informal = assetPublicationExtractor.extract(context, form);
-        AssetPublicationDai.Assets previousAsset = null;
+        LoadAssetsDai.Assets previous = null;
         try {
-            previousAsset = assetPublicationDai.selectAssetsByModelSubId(informal.getProviderId(), informal.getModelSubId(), informal.getStability(), informal.getVersion());
+            LoadAssetsDai.ChannelModelSubId channelModelSubId = BasicCopy.from(LoadAssetsDai.ChannelModelSubId.class, informal);
+            channelModelSubId.setOwnerId(informal.getProviderId());
+            previous = loadAssetsDai.fetchAssets(channelModelSubId);
         } catch (NotFound ignore) {
         }
 
         List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
-        List<AssetPublicationDai.Record> records = new ArrayList<>();
+        List<AssetPublicationDai.Entry> entries = new ArrayList<>();
 
         final String publishAssetId = HashTools.hashHex(informal.getProviderId(), informal.getModelSubId());
 
         List<String> instancesIds = new ArrayList<>();
         for (InstanceDai.Instance instance : instances) {
             String id = HashTools.hashHex(publishAssetId, instance.getId());
-            AssetPublicationDai.Record record = BasicCopy.from(AssetPublicationDai.Record.class, informal);
+            AssetPublicationDai.Entry record = BasicCopy.from(AssetPublicationDai.Entry.class, informal);
             record.setInsId(instance.getId());
             record.setId(id);
             record.setVersion(informal.getVersion());
-            records.add(record);
+            entries.add(record);
             instancesIds.add(id);
         }
 
@@ -62,8 +68,12 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
         Arrays.sort(idArray);
         String pubSet = HashTools.hashHex(idArray);
 
+        AssetPublicationDai.Record record = new AssetPublicationDai.Record();
+        record.setPubSet(pubSet);
+        record.setEntries(entries);
+        record.setPrevious(previous);
 
-        Date date = assetPublicationDai.save(pubSet, records, previousAsset);
+        Date date = assetPublicationDai.save(record);
         Map map = new HashMap<>();
         map.put("pubSet", pubSet);
         map.put("beginTime", date);

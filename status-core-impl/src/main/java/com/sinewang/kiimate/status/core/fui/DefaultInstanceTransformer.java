@@ -23,15 +23,13 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     @Override
     public Map<String, Object> toTimedValue(List<InstanceDai.Instance> instancesList, String rootExtId) {
         Map<String, List<InstanceDai.Instance>> dict = dict(instancesList);
-        Map<String, Object> map = parseTimed(rootExtId, dict);
-        return map;
+        return parseTimed(rootExtId, dict);
     }
 
     @Override
     public Map<String, Object> toRawValue(List<InstanceDai.Instance> instancesList, String rootExtId) {
         Map<String, List<InstanceDai.Instance>> dict = dict(instancesList);
-        Map<String, Object> map = parseRaw(rootExtId, dict);
-        return map;
+        return parseRaw(rootExtId, dict);
     }
 
     private Map<String, Object> parseRaw(String extId, Map<String, List<InstanceDai.Instance>> dict) {

@@ -32,7 +32,7 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
     @Autowired
     private AssetPublicationDai assetPublicationDai;
 
-  @Override
+    @Override
     public List<Subjects> search(ReadContext context, Form form) {
         switch (form.getObjectType()) {
             case EXTENSION:
@@ -65,7 +65,9 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
             case ASSET:
                 switch (form.getAccessType()) {
                     case OWNER:
-                        List<AssetPublicationDai.Providers> subjects = assetPublicationDai.queryProviders(form.getGroup());
+                        AssetPublicationDai.ClueId clue = new AssetPublicationDai.ClueId();
+                        clue.setId(context.getOwnerId());
+                        List<AssetPublicationDai.Providers> subjects = assetPublicationDai.queryProviders(clue);
                         return BasicCopy.from(Subjects.class, subjects);
                 }
             case STATUS:

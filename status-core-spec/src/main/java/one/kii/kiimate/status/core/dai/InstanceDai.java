@@ -19,13 +19,6 @@ public interface InstanceDai {
     List<Instance> selectInstanceByPubSet(String pubSet);
 
     @Data
-    class LatestStatus {
-        Date beginTime;
-        List<Instance> instances;
-    }
-
-
-    @Data
     class Instance {
 
         private String id; // id = hashHex(instances.id, value)

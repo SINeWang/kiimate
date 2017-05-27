@@ -3,11 +3,12 @@ package com.sinewang.kiimate.status.core.api;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.VisitAssetApi;
-import one.kii.kiimate.status.core.dai.AssetPublicationDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
+import one.kii.kiimate.status.core.dai.LoadAssetsDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.beans.utils.KeyFactorTools;
+import one.kii.summer.beans.utils.MagicCopy;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import java.util.Map;
 public class DefaultVisitAssetApi implements VisitAssetApi {
 
     @Autowired
-    private AssetPublicationDai assetPublicationDai;
+    private LoadAssetsDai loadAssetsDai;
 
     @Autowired
     private InstanceDai instanceDai;
@@ -39,17 +40,19 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
 
     @Override
     public Asset visit(ReadContext context, PubSetForm form) throws NotFound {
-        AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssetsPubSet(context.getOwnerId(), form.getPubSet(), form.getStability(), form.getVersion());
+        LoadAssetsDai.ChannelPubSet channel = MagicCopy.from(LoadAssetsDai.ChannelPubSet.class, form, context);
+        LoadAssetsDai.Assets assetDb = loadAssetsDai.fetchAssets(channel);
         return transform(context, assetDb);
     }
 
     @Override
     public Asset visit(ReadContext context, GroupNameForm form) throws NotFound {
-        AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getGroup(), form.getName(), form.getStability(), form.getVersion());
+        LoadAssetsDai.ChannelGroupName channel = MagicCopy.from(LoadAssetsDai.ChannelGroupName.class, form, context);
+        LoadAssetsDai.Assets assetDb = loadAssetsDai.fetchAssets(channel);
         return transform(context, assetDb);
     }
 
-    private Asset transform(ReadContext context, AssetPublicationDai.Assets assetDb) throws NotFound {
+    private Asset transform(ReadContext context, LoadAssetsDai.Assets assetDb) throws NotFound {
         if (assetDb == null) {
             throw new NotFound(KeyFactorTools.find(DefaultSearchAssetsApi.Assets.class));
         }

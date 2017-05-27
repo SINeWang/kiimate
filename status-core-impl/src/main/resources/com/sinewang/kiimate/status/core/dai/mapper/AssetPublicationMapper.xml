@@ -6,7 +6,7 @@
         <result column="provider_id" property="id"/>
     </resultMap>
 
-    <resultMap id="Assets" type="one.kii.kiimate.status.core.dai.AssetPublicationDai$Assets">
+    <resultMap id="Assets" type="one.kii.kiimate.status.core.dai.LoadAssetsDai$Assets">
         <result column="pub_set" property="pubSet"/>
         <result column="provider_id" property="providerId"/>
         <result column="visibility" property="visibility"/>

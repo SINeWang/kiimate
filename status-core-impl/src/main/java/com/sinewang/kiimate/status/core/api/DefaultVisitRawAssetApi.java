@@ -2,10 +2,11 @@ package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.VisitRawAssetsApi;
-import one.kii.kiimate.status.core.dai.AssetPublicationDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
+import one.kii.kiimate.status.core.dai.LoadAssetsDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.KeyFactorTools;
+import one.kii.summer.beans.utils.MagicCopy;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import java.util.Map;
 public class DefaultVisitRawAssetApi implements VisitRawAssetsApi {
 
     @Autowired
-    private AssetPublicationDai assetPublicationDai;
+    private LoadAssetsDai loadAssetsDai;
 
     @Autowired
     private InstanceDai instanceDai;
@@ -34,19 +35,21 @@ public class DefaultVisitRawAssetApi implements VisitRawAssetsApi {
 
     @Override
     public Map<String, Object> visit(ReadContext context, PubSetForm form) throws NotFound {
-        AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssetsPubSet(context.getOwnerId(), form.getPubSet(), form.getStability(), form.getVersion());
+        LoadAssetsDai.ChannelPubSet channel = MagicCopy.from(LoadAssetsDai.ChannelPubSet.class, form, context);
+        LoadAssetsDai.Assets assetDb = loadAssetsDai.fetchAssets(channel);
         return transform(context, assetDb);
     }
 
     @Override
     public Map<String, Object> visit(ReadContext context, GroupNameForm form) throws NotFound {
-        AssetPublicationDai.Assets assetDb = assetPublicationDai.selectAssets(context.getOwnerId(), form.getGroup(), form.getName(), form.getStability(), form.getVersion());
+        LoadAssetsDai.ChannelGroupName channel = MagicCopy.from(LoadAssetsDai.ChannelGroupName.class, form, context);
+        LoadAssetsDai.Assets assetDb = loadAssetsDai.fetchAssets(channel);
         return transform(context, assetDb);
     }
 
-    private Map<String, Object> transform(ReadContext context, AssetPublicationDai.Assets assetDb) throws NotFound {
+    private Map<String, Object> transform(ReadContext context, LoadAssetsDai.Assets assetDb) throws NotFound {
         if (assetDb == null) {
-            throw new NotFound(KeyFactorTools.find(AssetPublicationDai.Assets.class));
+            throw new NotFound(KeyFactorTools.find(LoadAssetsDai.Assets.class));
         }
         List<InstanceDai.Instance> instances = instanceDai.selectInstanceByPubSet(assetDb.getPubSet());
         String rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(context.getOwnerId(), assetDb.getModelSubId());

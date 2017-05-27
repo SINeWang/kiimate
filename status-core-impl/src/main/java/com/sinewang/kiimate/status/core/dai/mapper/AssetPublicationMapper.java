@@ -1,6 +1,7 @@
 package com.sinewang.kiimate.status.core.dai.mapper;
 
 import one.kii.kiimate.status.core.dai.AssetPublicationDai;
+import one.kii.kiimate.status.core.dai.LoadAssetsDai;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,24 +28,24 @@ public interface AssetPublicationMapper {
 
     List<AssetPublicationDai.Providers> queryProviders(@Param("providerId") String providerId);
 
-    List<AssetPublicationDai.Assets> queryAssets(@Param("providerId") String providerId,
-                                                 @Param("group") String group);
+    List<LoadAssetsDai.Assets> queryAssets(@Param("providerId") String providerId,
+                                           @Param("group") String group);
 
-    AssetPublicationDai.Assets selectAsset(@Param("providerId") String providerId,
-                                           @Param("pubSet") String pubSet,
-                                           @Param("stability") String stability,
-                                           @Param("version") String version);
+    LoadAssetsDai.Assets selectAsset(@Param("providerId") String providerId,
+                                     @Param("pubSet") String pubSet,
+                                     @Param("stability") String stability,
+                                     @Param("version") String version);
 
-    AssetPublicationDai.Assets selectAssetByProviderGroupNameStabilityVersion(@Param("providerId") String providerId,
-                                                                              @Param("group") String group,
-                                                                              @Param("name") String name,
-                                                                              @Param("stability") String stability,
-                                                                              @Param("version") String version);
+    LoadAssetsDai.Assets selectAssetByProviderGroupNameStabilityVersion(@Param("providerId") String providerId,
+                                                                        @Param("group") String group,
+                                                                        @Param("name") String name,
+                                                                        @Param("stability") String stability,
+                                                                        @Param("version") String version);
 
-    AssetPublicationDai.Assets selectAssetsByProviderModelSubIdStabilityVersion(@Param("providerId") String providerId,
-                                                                                @Param("modelSubId") String group,
-                                                                                @Param("stability") String stability,
-                                                                                @Param("version") String version);
+    LoadAssetsDai.Assets selectAssetsByProviderModelSubIdStabilityVersion(@Param("providerId") String providerId,
+                                                                          @Param("modelSubId") String group,
+                                                                          @Param("stability") String stability,
+                                                                          @Param("version") String version);
 
     void revokeAsset(@Param("providerId") String providerId,
                      @Param("pubSet") String pubSet,

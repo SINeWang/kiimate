@@ -1,8 +1,6 @@
 package one.kii.kiimate.status.core.dai;
 
 import lombok.Data;
-import one.kii.summer.beans.annotations.KeyFactor;
-import one.kii.summer.io.exception.NotFound;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -14,52 +12,47 @@ import java.util.List;
 public interface AssetPublicationDai {
 
     @Transactional
-    Date save(String pubSet, List<Record> records, Assets previousAsset);
+    Date save(Record record);
 
-    List<Providers> queryProviders(String providerId);
-
-    List<Assets> queryAssets(String ownerId, String group);
-
-    Assets selectAssets(String ownerId, String group, String name, String stability, String version) throws NotFound;
-
-    Assets selectAssetsPubSet(String ownerId, String pubSet, String stability, String version);
-
-    Assets selectAssetsByModelSubId(String ownerId, String modelSubId, String stability, String version) throws NotFound;
+    List<Providers> queryProviders(ClueId clue);
 
     @Data
-    class Record {
+    class ClueId{
         String id;
-        String providerId;
-        String modelSubId;
-        String insId;
-        String version;
-        String visibility;
-        String stability;
     }
 
     @Data
     class Providers {
         String id;
+
     }
 
     @Data
-    class Assets {
+    class Record {
 
         String pubSet;
 
-        String providerId;
+        List<Entry> entries;
 
-        String visibility;
+        LoadAssetsDai.Assets previous;
+    }
+
+    @Data
+    class Entry {
+        String id;
+
+        String providerId;
 
         String modelSubId;
 
-        @KeyFactor
-        String group;
-        @KeyFactor
-        String name;
-        @KeyFactor
-        String stability;
-        @KeyFactor
+        String insId;
+
         String version;
+
+        String visibility;
+
+        String stability;
     }
+
+
 }
