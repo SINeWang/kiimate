@@ -16,18 +16,42 @@ public interface ModelSubscriptionDai {
     @Transactional
     void save(ModelSubscription modelSubscription) throws DuplicatedSubscription;
 
-    String getLatestRootExtIdByOwnerSubscription(String owner, String subId);
+    ExtensionId getLatestRootExtIdByOwnerSubscription(String owner, String subId);
 
-    List<ModelSubscription> querySubscriptionsByOwnerGroup(String ownerId, String group);
+    List<ModelSubscription> querySubscriptions(ClueGroup clue);
 
-    ModelSubscription selectSubscriptionByOwnerGroupNameTree(String ownerId, String group, String name, String tree);
+    List<Subscribers> querySubscribers(ClueSubscriberId clue);
+
+    ModelSubscription selectSubscription(ChannelGroupNameTree channel);
 
     int countModelSubscriptions(String pubSet);
 
-    List<Subscribers> querySubscriberId(String subscriberId);
+    @Data
+    class ClueGroup{
+        String ownerId;
+        String group;
+    }
+
+    @Data
+    class ClueSubscriberId{
+        String id;
+    }
+
+    @Data
+    class ChannelGroupNameTree{
+        String ownerId;
+        String group;
+        String name;
+        String tree;
+    }
 
     @Data
     class Subscribers {
+        String id;
+    }
+
+    @Data
+    class ExtensionId {
         String id;
     }
 

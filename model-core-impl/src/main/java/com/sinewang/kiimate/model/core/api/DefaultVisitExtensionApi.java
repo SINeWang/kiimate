@@ -5,7 +5,6 @@ import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
-import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
@@ -34,14 +33,17 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     private IntensionDai intensionDai;
 
     private Receipt buildReceipt(final AnExtensionExtractor.Extension extension) throws NotFound {
+        ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
+
         String extId = extension.getId();
-        ExtensionDai.Extension extensionRecord = extensionDai.selectExtensionById(extId);
-        if (extensionRecord == null) {
-            throw new NotFound(KeyFactorTools.find(extension));
-        }
+
+        ExtensionDai.Extension extensionRecord = extensionDai.loadExtension(channel);
+
         Receipt receipt = ValueMapping.from(Receipt.class, extensionRecord);
 
-        List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(extId);
+
+        IntensionDai.ChannelExtension channelExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, extension);
+        List<IntensionDai.Intension> intensionList = intensionDai.loadIntensions(channelExtension);
 
         List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
         receipt.setIntensions(intensions);

@@ -38,7 +38,7 @@ public interface ModelSubscriptionMapper {
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 
-    String selectLatestRootExtIdByOwnerSubscription(
+    ModelSubscriptionDai.ExtensionId selectLatestRootExtIdByOwnerSubscription(
             @Param("ownerId") String ownerId,
             @Param("subId") String subId);
 

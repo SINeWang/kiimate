@@ -2,6 +2,7 @@ package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
 import lombok.Getter;
+import one.kii.summer.io.exception.NotFound;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -11,11 +12,20 @@ import java.util.List;
  */
 public interface ExtensionDai {
 
-    Extension selectExtensionById(String id);
+    Extension loadExtension(ChannelId channel) throws NotFound;
 
-    List<Extension> selectExtensionsByOwnerGroup(String ownerId, String group);
+    List<Extension> queryExtension(ClueGroup clue);
 
-    List<Extension> queryExtensionsByOwnerGroup(String ownerId, String group);
+    @Data
+    class ClueGroup{
+        String ownerId;
+        String group;
+    }
+
+    @Data
+    class ChannelId{
+        String id;
+    }
 
     @Transactional
     void insertExtension(Extension extension) throws ExtensionDuplicated;

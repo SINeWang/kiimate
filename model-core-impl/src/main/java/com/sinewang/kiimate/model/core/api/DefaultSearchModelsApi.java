@@ -7,6 +7,7 @@ import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -43,10 +44,18 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
         List<ModelPublicationDai.Publication> publications = modelPublicationDai.queryPublicationsByGroup(form.getQuery());
         List<Model> models = new ArrayList<>();
         for (ModelPublicationDai.Publication publication : publications) {
-            ExtensionDai.Extension extension = extensionDai.selectExtensionById(publication.getExtId());
+            ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, publication);
 
+            ExtensionDai.Extension extension;
+            try {
+                extension = extensionDai.loadExtension(channel);
+            } catch (NotFound notFound) {
+                continue;
+            }
 
-            List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(extension.getId());
+            IntensionDai.ChannelExtension channelExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, extension);
+
+            List<IntensionDai.Intension> intensionList = intensionDai.loadIntensions(channelExtension);
 
             List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
 

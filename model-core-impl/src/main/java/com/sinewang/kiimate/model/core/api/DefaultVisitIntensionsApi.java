@@ -37,15 +37,16 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
         extension.setVisibility(VISIBILITY_PUBLIC);
         extensionExtractor.hashId(extension);
 
-        String extId = extension.getId();
+        ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
 
-        ExtensionDai.Extension dbExtension = extensionDai.selectExtensionById(extId);
+        ExtensionDai.Extension dbExtension = extensionDai.loadExtension(channel);
 
         if (dbExtension == null) {
             throw new NotFound(new String[]{context.getOwnerId(), form.getGroup(), form.getName(), form.getTree()});
         }
 
-        List<IntensionDai.Intension> list = intensionDai.selectIntensionsByExtId(extId);
+        IntensionDai.ChannelExtension channel1 = ValueMapping.from(IntensionDai.ChannelExtension.class, extension);
+        List<IntensionDai.Intension> list = intensionDai.loadIntensions(channel1);
 
         List<Intension> intensions = ValueMapping.from(Intension.class, list);
 

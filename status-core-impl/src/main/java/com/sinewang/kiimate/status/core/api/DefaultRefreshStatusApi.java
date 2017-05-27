@@ -44,14 +44,14 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
     @Override
     public List<Instance> commit(WriteContext context, SubIdForm form) throws NotFound, Conflict {
 
-        String rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(
+        ModelSubscriptionDai.ExtensionId rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(
                 context.getOwnerId(), form.getSubId());
 
         if (rootExtId == null) {
             throw new NotFound(new String[]{context.getOwnerId(), form.getSubId()});
         }
 
-        Map<String, IntensionDai.Intension> dict = modelRestorer.restoreAsIntensionDict(rootExtId);
+        Map<String, IntensionDai.Intension> dict = modelRestorer.restoreAsIntensionDict(rootExtId.getId());
 
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, form.getSubId(), form.getMap(), dict);
 
@@ -76,7 +76,8 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
     @Override
     public List<Instance> commit(WriteContext context, GroupNameTreeForm form) throws NotFound, Conflict {
-        ModelSubscriptionDai.ModelSubscription subscription = modelSubscriptionDai.selectSubscriptionByOwnerGroupNameTree(context.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
+        ModelSubscriptionDai.ChannelGroupNameTree channel = ValueMapping.from(ModelSubscriptionDai.ChannelGroupNameTree.class, form, context);
+        ModelSubscriptionDai.ModelSubscription subscription = modelSubscriptionDai.selectSubscription(channel);
         if (subscription == null) {
             throw new NotFound(KeyFactorTools.find(ModelSubscriptionDai.ModelSubscription.class));
         }

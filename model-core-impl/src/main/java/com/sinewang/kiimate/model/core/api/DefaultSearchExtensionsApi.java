@@ -23,7 +23,8 @@ public class DefaultSearchExtensionsApi implements SearchExtensionsApi {
     @Override
     public List<Extension> search(ReadContext context, QueryForm form) {
 
-        List<ExtensionDai.Extension> extensionList = extensionDai.queryExtensionsByOwnerGroup(form.getOwnerId(), form.getGroup());
+        ExtensionDai.ClueGroup clue = ValueMapping.from(ExtensionDai.ClueGroup.class, form);
+        List<ExtensionDai.Extension> extensionList = extensionDai.queryExtension(clue);
 
         List<Extension> extensions = ValueMapping.from(Extension.class, extensionList);
 

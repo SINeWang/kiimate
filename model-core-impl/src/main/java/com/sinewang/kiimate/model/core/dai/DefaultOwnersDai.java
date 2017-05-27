@@ -19,7 +19,9 @@ public class DefaultOwnersDai implements OwnersDai {
     private OwnersMapper ownersMapper;
 
     @Override
-    public List<Owners> queryOwners(String ownerId) {
-        return ownersMapper.queryOwners(ownerId);
+    public List<Owners> queryOwners(ClueId clue) {
+        return ownersMapper.queryOwners(
+                clue.getId()
+        );
     }
 }

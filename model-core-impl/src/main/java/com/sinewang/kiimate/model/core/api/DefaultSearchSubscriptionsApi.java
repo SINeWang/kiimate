@@ -21,7 +21,8 @@ public class DefaultSearchSubscriptionsApi implements SearchSubscriptionsApi {
 
     @Override
     public List<Subscriptions> search(ReadContext context, QueryForm form) {
-        List<ModelSubscriptionDai.ModelSubscription> list = modelSubscriptionDai.querySubscriptionsByOwnerGroup(context.getOwnerId(), form.getGroup());
+        ModelSubscriptionDai.ClueGroup clue = ValueMapping.from(ModelSubscriptionDai.ClueGroup.class, context, form);
+        List<ModelSubscriptionDai.ModelSubscription> list = modelSubscriptionDai.querySubscriptions(clue);
         return ValueMapping.from(Subscriptions.class, list);
     }
 }

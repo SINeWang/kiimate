@@ -42,12 +42,16 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
         } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
             throw new Conflict(daiRecord.getId());
         }
-        Receipt receipt = new Receipt();
-        List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(form.getExtId());
+
+        IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
+        channel.setId(form.getExtId());
+
+        List<IntensionDai.Intension> intensionList = intensionDai.loadIntensions(channel);
         List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
+
+        Receipt receipt = new Receipt();
         receipt.setIntensions(intensions);
         receipt.setSchema(modelRestorer.restoreAsMetaData(form.getExtId()));
-
         return receipt;
 
     }

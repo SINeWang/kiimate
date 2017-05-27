@@ -53,18 +53,25 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public String getLatestRootExtIdByOwnerSubscription(String owner, String subId) {
+    public ExtensionId getLatestRootExtIdByOwnerSubscription(String owner, String subId) {
         return modelSubscriptionMapper.selectLatestRootExtIdByOwnerSubscription(owner, subId);
     }
 
     @Override
-    public List<ModelSubscription> querySubscriptionsByOwnerGroup(String ownerId, String group) {
-        return modelSubscriptionMapper.querySubscriptionsByOwnerGroup(ownerId, group);
+    public List<ModelSubscription> querySubscriptions(ClueGroup clue) {
+        return modelSubscriptionMapper.querySubscriptionsByOwnerGroup(
+                clue.getOwnerId(),
+                clue.getGroup());
     }
 
     @Override
-    public ModelSubscription selectSubscriptionByOwnerGroupNameTree(String ownerId, String group, String name, String tree) {
-        return modelSubscriptionMapper.selectSubscriptionByOwnerGroupNameTree(ownerId, group, name, tree);
+    public ModelSubscription selectSubscription(ChannelGroupNameTree channel) {
+        return modelSubscriptionMapper.selectSubscriptionByOwnerGroupNameTree(
+                channel.getOwnerId(),
+                channel.getGroup(),
+                channel.getName(),
+                channel.getTree()
+        );
     }
 
     @Override
@@ -73,8 +80,9 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public List<Subscribers> querySubscriberId(String subscriberId) {
-        return modelSubscriptionMapper.querySubscriberId(subscriberId);
+    public List<Subscribers> querySubscribers(ClueSubscriberId clue) {
+        return modelSubscriptionMapper.querySubscriberId(
+                clue.getId());
     }
 
 

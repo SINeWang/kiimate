@@ -1,6 +1,7 @@
 package one.kii.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
+import one.kii.summer.io.exception.NotFound;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -40,15 +41,11 @@ public class TestReceiptDai {
         extensionMapper.deleteExtensionById(testId);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testNull() {
-        extensionDai.selectExtensionById(null);
+    @Test(expected = NotFound.class)
+    public void testNull() throws NotFound {
+        extensionDai.loadExtension(null);
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testEmpty() {
-        extensionDai.selectExtensionById("");
-    }
 
     @Test
     public void testFirstInsert() {
@@ -66,8 +63,14 @@ public class TestReceiptDai {
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             //ignore
         }
+        ExtensionDai.ChannelId extId = new ExtensionDai.ChannelId();
+        extId.setId(testId);
 
-        ExtensionDai.Extension dbExtension = extensionDai.selectExtensionById(testId);
+        ExtensionDai.Extension dbExtension = null;
+        try {
+            dbExtension = extensionDai.loadExtension(extId);
+        } catch (NotFound notFound) {
+        }
 
         Assert.assertEquals(dbExtension.getId(), testId);
         Assert.assertEquals(dbExtension.getOwnerId(), testOwnerId);

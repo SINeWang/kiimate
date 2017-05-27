@@ -1,9 +1,11 @@
 package one.kii.kiimate.model.core.api;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
+import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -160,7 +162,13 @@ public class TestDeclareReceiptApi {
         Assert.assertNotNull(id);
 
 
-        ExtensionDai.Extension extension = extensionDai.selectExtensionById(id);
+        ExtensionDai.ChannelId extId = new ExtensionDai.ChannelId();
+        extId.setId(id);
+        ExtensionDai.Extension extension = null;
+        try {
+            extension = extensionDai.loadExtension(extId);
+        } catch (NotFound notFound) {
+        }
 
         Assert.assertNotNull(extension);
 

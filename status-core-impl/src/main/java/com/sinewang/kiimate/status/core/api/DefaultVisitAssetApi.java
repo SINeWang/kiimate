@@ -57,9 +57,12 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
         }
         List<InstanceDai.Instance> instances = instanceDai.selectInstanceByPubSet(assetDb.getPubSet());
         Asset asset = ValueMapping.from(Asset.class, assetDb);
-        String rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(context.getOwnerId(), assetDb.getModelSubId());
-        Map<String, Object> map = instanceTransformer.toTimedValue(instances, rootExtId);
-        List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(rootExtId);
+        ModelSubscriptionDai.ExtensionId rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(context.getOwnerId(), assetDb.getModelSubId());
+        Map<String, Object> map = instanceTransformer.toTimedValue(instances, rootExtId.getId());
+
+        IntensionDai.ChannelExtension extension = ValueMapping.from(IntensionDai.ChannelExtension.class, rootExtId);
+
+        List<IntensionDai.Intension> intensionList = intensionDai.loadIntensions(extension);
         List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
         asset.setIntensions(intensions);
         asset.setMap(map);

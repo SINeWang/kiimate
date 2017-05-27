@@ -18,6 +18,10 @@
         <result column="subscriber_id" property="id"/>
     </resultMap>
 
+    <resultMap id="ExtensionId" type="one.kii.kiimate.model.core.dai.ModelSubscriptionDai$ExtensionId">
+        <result column="id" property="id"/>
+    </resultMap>
+
     <insert id="insertSubscription">
         INSERT INTO mm_m_sub
         (id, sub_set_hash, subscriber_id, `group`, `name`, `tree`, operator_id, begin_time)
@@ -55,7 +59,7 @@
         AND msub.end_time IS NULL
     </select>
 
-    <select id="selectLatestRootExtIdByOwnerSubscription" resultType="string">
+    <select id="selectLatestRootExtIdByOwnerSubscription" resultMap="ExtensionId">
         SELECT mext.id
         FROM mm_m_sub msub, mm_m_pub mpub, mm_m_ext mext
         WHERE mext.id = mpub.ext_id

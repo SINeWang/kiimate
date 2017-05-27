@@ -44,8 +44,9 @@ public class DefaultPublishModelApi implements PublishModelApi {
 
 
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
-
-        ExtensionDai.Extension extension = extensionDai.selectExtensionById(form.getExtId());
+        ExtensionDai.ChannelId channelId = new ExtensionDai.ChannelId();
+        channelId.setId(form.getExtId());
+        ExtensionDai.Extension extension = extensionDai.loadExtension(channelId);
         List<ModelPublicationDai.Publication> publications = new ArrayList<>();
         List<IntensionDai.Intension> allIntensions = new ArrayList<>();
 
@@ -61,7 +62,10 @@ public class DefaultPublishModelApi implements PublishModelApi {
         extensionExtractor.hashId(newExtension);
         snapshot = publicationExtractor.extractSnapshot(form, newExtension.getId(), context.getOperatorId(), date);
 
-        List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extension.getId());
+
+        IntensionDai.ChannelExtension channel = ValueMapping.from(IntensionDai.ChannelExtension.class, extension);
+
+        List<IntensionDai.Intension> intensions = intensionDai.loadIntensions(channel);
         if (intensions.isEmpty()) {
             throw new NotFound(new String[]{"intensions"});
         }

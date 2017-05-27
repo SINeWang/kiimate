@@ -29,11 +29,19 @@ public class DefaultModelRestorer implements AnModelRestorer {
         if (extId == null) {
             return Collections.emptyMap();
         }
+        IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
+        channel.setId(extId);
+        return restoreAsMetaData(channel);
+    }
+
+    private Map<String, Object> restoreAsMetaData(IntensionDai.ChannelExtension extension) {
         Map<String, Object> model = new HashMap<>();
-        List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
+        List<IntensionDai.Intension> intensions = intensionDai.loadIntensions(extension);
         for (IntensionDai.Intension intension : intensions) {
             String refExtId = intension.getRefExtId();
             if (refExtId != null) {
+                IntensionDai.ChannelExtension refExt = new IntensionDai.ChannelExtension();
+                refExt.setId(refExtId);
                 if (intension.isSingle()) {
                     model.put(intension.getField(), restoreAsMetaData(refExtId));
                 } else {
@@ -52,19 +60,26 @@ public class DefaultModelRestorer implements AnModelRestorer {
 
     public Map<String, IntensionDai.Intension> restoreAsIntensionDict(String extId) {
         Map<String, IntensionDai.Intension> map = new HashMap<>();
-        restoreAsFieldDict(extId, map);
+        IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
+        channel.setId(extId);
+        restoreAsFieldDict(channel, map);
         return map;
     }
 
-    private void restoreAsFieldDict(String extId, Map<String, IntensionDai.Intension> map) {
-        if (extId == null) {
-            return;
-        }
-        List<IntensionDai.Intension> intensions = intensionDai.selectIntensionsByExtId(extId);
+    public Map<String, IntensionDai.Intension> restoreAsIntensionDict(IntensionDai.ChannelExtension extension) {
+            Map<String, IntensionDai.Intension> map = new HashMap<>();
+            restoreAsFieldDict(extension, map);
+            return map;
+    }
+
+    private void restoreAsFieldDict(IntensionDai.ChannelExtension extension, Map<String, IntensionDai.Intension> map) {
+        List<IntensionDai.Intension> intensions = intensionDai.loadIntensions(extension);
         for (IntensionDai.Intension intension : intensions) {
             String refExtId = intension.getRefExtId();
             if (refExtId != null) {
-                restoreAsFieldDict(refExtId, map);
+                IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
+                channel.setId(refExtId);
+                restoreAsFieldDict(channel, map);
             } else {
                 map.put(intension.getField(), intension);
             }

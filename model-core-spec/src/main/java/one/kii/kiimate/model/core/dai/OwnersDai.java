@@ -10,7 +10,12 @@ import java.util.List;
 public interface OwnersDai {
 
 
-    List<Owners> queryOwners(String ownerId);
+    List<Owners> queryOwners(ClueId clue);
+
+    @Data
+    class ClueId {
+        String id;
+    }
 
     @Data
     class Owners {

@@ -38,19 +38,25 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
             case EXTENSION:
                 switch (form.getAccessType()) {
                     case OWNER:
-                        List<OwnersDai.Owners> subjects = ownersDai.queryOwners(form.getGroup());
+                        OwnersDai.ClueId clue = new OwnersDai.ClueId();
+                        clue.setId(form.getGroup());
+                        List<OwnersDai.Owners> subjects = ownersDai.queryOwners(clue);
                         return ValueMapping.from(Subjects.class, subjects);
                 }
             case INTENSION:
                 switch (form.getAccessType()) {
                     case OWNER:
-                        List<OwnersDai.Owners> subjects = ownersDai.queryOwners(form.getGroup());
+                        OwnersDai.ClueId clue = new OwnersDai.ClueId();
+                        clue.setId(form.getGroup());
+                        List<OwnersDai.Owners> subjects = ownersDai.queryOwners(clue);
                         return ValueMapping.from(Subjects.class, subjects);
                 }
             case MODEL:
                 switch (form.getAccessType()) {
                     case SUBSCRIBER:
-                        List<ModelSubscriptionDai.Subscribers> subjects = modelSubscriptionDai.querySubscriberId(form.getGroup());
+                        ModelSubscriptionDai.ClueSubscriberId clue = new ModelSubscriptionDai.ClueSubscriberId();
+                        clue.setId(form.getGroup());
+                        List<ModelSubscriptionDai.Subscribers> subjects = modelSubscriptionDai.querySubscribers(clue);
                         return ValueMapping.from(Subjects.class, subjects);
                     case PROVIDER:
                         List<ModelPublicationDai.Provider> subjects1 = modelPublicationDai.getProviders(form.getGroup());
@@ -59,21 +65,25 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
             case INSTANCE:
                 switch (form.getAccessType()) {
                     case OWNER:
-                        List<ModelSubscriptionDai.Subscribers> subjects = modelSubscriptionDai.querySubscriberId(form.getGroup());
+                        ModelSubscriptionDai.ClueSubscriberId clue = new ModelSubscriptionDai.ClueSubscriberId();
+                        clue.setId(form.getGroup());
+                        List<ModelSubscriptionDai.Subscribers> subjects = modelSubscriptionDai.querySubscribers(clue);
                         return ValueMapping.from(Subjects.class, subjects);
                 }
             case ASSET:
                 switch (form.getAccessType()) {
                     case OWNER:
                         AssetPublicationDai.ClueId clue = new AssetPublicationDai.ClueId();
-                        clue.setId(context.getOwnerId());
+                        clue.setId(form.getGroup());
                         List<AssetPublicationDai.Providers> subjects = assetPublicationDai.queryProviders(clue);
                         return ValueMapping.from(Subjects.class, subjects);
                 }
             case STATUS:
                 switch (form.getAccessType()) {
                     case OWNER:
-                        List<ModelSubscriptionDai.Subscribers> subjects = modelSubscriptionDai.querySubscriberId(form.getGroup());
+                        ModelSubscriptionDai.ClueSubscriberId clue = new ModelSubscriptionDai.ClueSubscriberId();
+                        clue.setId(form.getGroup());
+                        List<ModelSubscriptionDai.Subscribers> subjects = modelSubscriptionDai.querySubscribers(clue);
                         return ValueMapping.from(Subjects.class, subjects);
                 }
         }

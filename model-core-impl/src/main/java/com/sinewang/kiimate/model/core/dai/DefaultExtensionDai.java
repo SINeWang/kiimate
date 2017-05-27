@@ -2,12 +2,13 @@ package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
+import one.kii.summer.beans.utils.KeyFactorTools;
+import one.kii.summer.io.exception.NotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -25,21 +26,22 @@ public class DefaultExtensionDai implements ExtensionDai {
     private ExtensionMapper extensionMapper;
 
     @Override
-    public Extension selectExtensionById(String id) {
-        if (StringUtils.isEmpty(id)) {
-            throw new NullPointerException("id is EMPTY");
+    public Extension loadExtension(ChannelId channel) throws NotFound {
+        if (channel == null) {
+            throw new NotFound(KeyFactorTools.find(ChannelId.class));
         }
-        return extensionMapper.selectExtensionById(id);
+        Extension extension = extensionMapper.selectExtensionById(channel.getId());
+        if (extension == null) {
+            throw new NotFound(KeyFactorTools.find(ChannelId.class));
+        }
+        return extension;
     }
 
     @Override
-    public List<Extension> selectExtensionsByOwnerGroup(String ownerId, String group) {
-        return extensionMapper.selectExtensionsByOwnerGroup(ownerId, group);
-    }
-
-    @Override
-    public List<Extension> queryExtensionsByOwnerGroup(String ownerId, String group) {
-        return extensionMapper.queryExtensionsByOwnerGroup(ownerId, group);
+    public List<Extension> queryExtension(ClueGroup clue) {
+        return extensionMapper.queryExtensionsByOwnerGroup(
+                clue.getOwnerId(),
+                clue.getGroup());
     }
 
 
