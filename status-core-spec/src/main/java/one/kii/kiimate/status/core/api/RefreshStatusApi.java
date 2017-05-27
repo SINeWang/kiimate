@@ -1,13 +1,13 @@
 package one.kii.kiimate.status.core.api;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.util.MultiValueMap;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -15,9 +15,9 @@ import java.util.List;
  */
 public interface RefreshStatusApi {
 
-    List<Instance> commit(WriteContext context, SubIdForm form) throws NotFound, Conflict;
+    Receipt commit(WriteContext context, SubIdForm form) throws NotFound, Conflict;
 
-    List<Instance> commit(WriteContext context, GroupNameTreeForm form) throws NotFound, Conflict;
+    Receipt commit(WriteContext context, GroupNameTreeForm form) throws NotFound, Conflict;
 
     @Data
     class SubIdForm {
@@ -34,23 +34,11 @@ public interface RefreshStatusApi {
     }
 
     @Data
-    @EqualsAndHashCode(callSuper = false)
-    class Instance {
-
-        private String id;
-
-        private String extId;
-
-        private String intId;
-
-        private String ownerId;
-
-        private String operatorId;
-
-        private String field;
-
-        private String[] value;
-
+    class Receipt {
+        String subId;
+        String ownerId;
+        List<VisitStatusApi.Intension> intensions;
+        Map<String, Object> map;
     }
 
 }

@@ -14,8 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static one.kii.kiimate.status.core.ctl.RefreshStatusCtl.OWNER_ID;
 
 
@@ -87,7 +85,7 @@ public class RefreshStatusCtl extends WriteController {
         return commit(requestId, operatorId, ownerId, group, name, tree, map);
     }
 
-    private ResponseEntity<List<RefreshStatusApi.Instance>> commit(
+    private ResponseEntity<RefreshStatusApi.Receipt> commit(
             String requestId,
             String operatorId,
             String ownerId,
@@ -106,7 +104,7 @@ public class RefreshStatusCtl extends WriteController {
         }
     }
 
-    private ResponseEntity<List<RefreshStatusApi.Instance>> commit(
+    private ResponseEntity<RefreshStatusApi.Receipt> commit(
             String requestId,
             String operatorId,
             String ownerId,

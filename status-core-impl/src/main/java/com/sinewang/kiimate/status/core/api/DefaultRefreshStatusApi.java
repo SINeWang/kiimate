@@ -4,8 +4,10 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
 import one.kii.kiimate.status.core.api.RefreshStatusApi;
+import one.kii.kiimate.status.core.api.VisitStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
+import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
@@ -16,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,8 +42,14 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
     @Autowired
     private AnModelRestorer modelRestorer;
 
+    @Autowired
+    private IntensionDai intensionDai;
+
+    @Autowired
+    private InstanceTransformer instanceTransformer;
+
     @Override
-    public List<Instance> commit(WriteContext context, SubIdForm form) throws NotFound, Conflict {
+    public Receipt commit(WriteContext context, SubIdForm form) throws NotFound, Conflict {
 
         ModelSubscriptionDai.ExtensionId rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(
                 context.getOwnerId(), form.getSubId());
@@ -62,20 +69,27 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         } catch (InstanceDai.InstanceDuplicated instanceDuplicated) {
             throw new Conflict(form.getSubId());
         }
-        List<InstanceDai.Instance> dbInstances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
-        List<Instance> apiInstances = new ArrayList<>();
 
-        for (InstanceDai.Instance dbInstance : dbInstances) {
-            Instance apiInstance = ValueMapping.from(Instance.class, dbInstance);
-            apiInstance.setValue(new String[]{dbInstance.getValue()});
-            apiInstances.add(apiInstance);
-        }
-        return apiInstances;
+        IntensionDai.ChannelExtension rootExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, rootExtId);
+
+        List<InstanceDai.Instance> newInstances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
+
+        List<IntensionDai.Intension> intensionList = intensionDai.loadLatestIntensions(rootExtension);
+        List<VisitStatusApi.Intension> intensions = ValueMapping.from(VisitStatusApi.Intension.class, intensionList);
+
+
+        Map<String, Object> map = instanceTransformer.toTimedValue(newInstances, rootExtId.getId());
+
+        Receipt receipt = ValueMapping.from(Receipt.class, form, context);
+        receipt.setMap(map);
+        receipt.setIntensions(intensions);
+
+        return receipt;
     }
 
     @Override
-    public List<Instance> commit(WriteContext context, GroupNameTreeForm form) throws NotFound, Conflict {
+    public Receipt commit(WriteContext context, GroupNameTreeForm form) throws NotFound, Conflict {
         ModelSubscriptionDai.ChannelGroupNameTree channel = ValueMapping.from(ModelSubscriptionDai.ChannelGroupNameTree.class, form, context);
         ModelSubscriptionDai.ModelSubscription subscription = modelSubscriptionDai.selectSubscription(channel);
         if (subscription == null) {
