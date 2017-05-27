@@ -38,16 +38,6 @@
         AND mint.field = #{field}
         AND mint.end_time IS NULL
     </select>
-    <select id="selectLastFieldsByExtId" resultType="java.lang.String">
-        SELECT mint.field
-        FROM mm_m_int mint
-        WHERE mint.ext_id = #{extId}
-        <![CDATA[
-        AND mint.begin_time <= #{beginTime}
-        AND mint.end_time >= #{beginTime}
-        ]]>
-        GROUP BY mint.field
-    </select>
     <select id="selectLastFieldsByExtIdPubSet" resultType="java.lang.String">
         SELECT mint.field
         FROM mm_m_int mint, mm_m_pub mpub

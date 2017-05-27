@@ -32,11 +32,6 @@ public interface IntensionMapper {
 
     IntensionDai.Intension selectLatestIntensionByExtIdField(@Param("extId") String extId, @Param("field") String field);
 
-    List<String> selectLastFieldsByExtId(
-            @Param("extId") String extId,
-            @Param("beginTime") Date beginTime,
-            @Param("endTime") Date endTime);
-
     List<String> selectLastFieldsByExtIdPubSet(
             @Param("extId") String extId,
             @Param("pubSet") String pubSet,

@@ -19,8 +19,6 @@ public interface IntensionDai {
 
     List<Intension> loadLatestIntensions(ChannelExtension channel);
 
-    List<Intension> loadLastIntensions(ChannelExtension channel);
-
     List<Intension> loadLastIntensions(ChannelPubSet channel);
 
     void removeIntension(String intId);

@@ -77,20 +77,6 @@ public class DefaultIntensionDai implements IntensionDai {
     }
 
     @Override
-    public List<Intension> loadLastIntensions(ChannelExtension extension) {
-        List<String> fields = intensionMapper.selectLastFieldsByExtId(
-                extension.getId(),
-                extension.getBeginTime(),
-                extension.getEndTime());
-        List<Intension> intensions = new ArrayList<>();
-        for (String field : fields) {
-            Intension intension = intensionMapper.selectLastIntensionByExtIdField(extension.getId(), field);
-            intensions.add(intension);
-        }
-        return intensions;
-    }
-
-    @Override
     public List<Intension> loadLastIntensions(ChannelPubSet pubSet) {
         List<String> fields = intensionMapper.selectLastFieldsByExtIdPubSet(
                 pubSet.getId(),
