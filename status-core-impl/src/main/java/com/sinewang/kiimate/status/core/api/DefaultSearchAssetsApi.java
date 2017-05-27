@@ -20,7 +20,7 @@ public class DefaultSearchAssetsApi implements SearchAssetsApi {
 
     @Override
     public List<Assets> search(ReadContext context, QueryForm form) {
-        LoadAssetsDai.ClueGroup clue = ValueMapping.from(LoadAssetsDai.ClueGroup.class, form);
+        LoadAssetsDai.ClueGroup clue = ValueMapping.from(LoadAssetsDai.ClueGroup.class, context);
         clue.setGroup(form.getQuery());
         List<LoadAssetsDai.Assets> assetsList = loadAssetsDai.queryAssets(clue);
         return ValueMapping.from(Assets.class, assetsList);
