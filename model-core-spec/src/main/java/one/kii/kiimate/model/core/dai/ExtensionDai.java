@@ -2,9 +2,11 @@ package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
 import lombok.Getter;
+import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +27,7 @@ public interface ExtensionDai {
     @Data
     class ChannelId{
         String id;
+        Date beginTime;
     }
 
     @Transactional
@@ -35,15 +38,23 @@ public interface ExtensionDai {
 
         private String id;
 
-        private String group;
-
-        private String name;
-
-        private String tree;
-
+        @KeyFactor
         private String ownerId;
 
+        @KeyFactor
+        private String group;
+
+        @KeyFactor
+        private String name;
+
+        @KeyFactor
+        private String tree;
+
         private String visibility;
+
+        private Date beginTime;
+
+        private Date endTime;
 
     }
 

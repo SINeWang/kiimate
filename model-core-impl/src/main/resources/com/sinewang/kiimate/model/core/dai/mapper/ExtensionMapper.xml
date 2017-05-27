@@ -11,28 +11,43 @@
         <result column="tree" property="tree"/>
         <result column="owner_id" property="ownerId"/>
         <result column="visibility" property="visibility"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
     </resultMap>
 
-    <select id="selectExtensionById" resultMap="Extension">
-        SELECT mext.id, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility
+    <select id="selectLatestExtensionById" resultMap="Extension">
+        SELECT mext.id, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time
         FROM mm_m_ext mext
-        WHERE mext.id = #{id} AND mext.end_time IS NULL
+        WHERE mext.id = #{id}
+        AND mext.end_time IS NULL
+    </select>
+
+    <select id="selectLastExtensionByIdTime" resultMap="Extension">
+        SELECT mext.id, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time
+        FROM mm_m_ext mext
+        WHERE mext.id = #{id}
+        <![CDATA[
+        AND ((mext.end_time IS NULL) OR ((mext.end_time <= #{beginTime} AND (mext.begin_time >= #{beginTime}))))
+        ]]>
+        ORDER BY mext.begin_time DESC
+        LIMIT 0, 1
     </select>
 
     <select id="selectExtensionsByOwnerGroup" resultMap="Extension">
-         SELECT mext.id, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility
+         SELECT mext.id, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time
         FROM mm_m_ext mext
         WHERE mext.owner_id = #{ownerId} AND mext.group = #{group} AND mext.end_time IS NULL
     </select>
 
     <select id="queryExtensionsByOwnerGroup" resultMap="Extension">
         <bind name="group_pattern" value="'%' + group + '%'"/>
-        SELECT mext.id, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility
+        SELECT mext.id, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time
         FROM mm_m_ext mext
         WHERE mext.owner_id = #{ownerId}
         AND mext.`group` LIKE #{group_pattern}
         AND mext.end_time IS NULL
     </select>
+
 
     <insert id="insertExtension">
         INSERT INTO mm_m_ext
@@ -41,10 +56,10 @@
         (#{id}, #{group}, #{name}, #{tree}, #{ownerId}, #{visibility}, #{beginTime})
     </insert>
 
-    <update id="updateEndTimeExtensionByOwnerIdGroup">
-        UPDATE mm_m_ext
-        SET end_time = #{endTime}
-        WHERE owner_id = #{ownerId} AND `group` = #{group}
+    <update id="updateEndTimeExtensionById">
+        UPDATE mm_m_ext mext
+        SET mext.end_time = #{endTime}
+        WHERE mext.id = #{extId}
     </update>
 
     <delete id="deleteExtensionById">

@@ -46,7 +46,7 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
         }
 
         IntensionDai.ChannelExtension channel1 = ValueMapping.from(IntensionDai.ChannelExtension.class, extension);
-        List<IntensionDai.Intension> list = intensionDai.loadIntensions(channel1);
+        List<IntensionDai.Intension> list = intensionDai.loadLatestIntensions(channel1);
 
         List<Intension> intensions = ValueMapping.from(Intension.class, list);
 

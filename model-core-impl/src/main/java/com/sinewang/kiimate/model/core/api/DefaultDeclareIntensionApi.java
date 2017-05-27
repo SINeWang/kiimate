@@ -46,7 +46,7 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
         IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
         channel.setId(form.getExtId());
 
-        List<IntensionDai.Intension> intensionList = intensionDai.loadIntensions(channel);
+        List<IntensionDai.Intension> intensionList = intensionDai.loadLatestIntensions(channel);
         List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
 
         Receipt receipt = new Receipt();

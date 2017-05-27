@@ -56,7 +56,7 @@ public class TestSubscribeModelsApi {
 
         form.setGroup("testGroup");
 
-        form.setPubSet(pubSet);
+        form.setSubSet(pubSet);
 
 
         AnSubscribeModelExtractor.ModelSubscription model = new AnSubscribeModelExtractor.ModelSubscription();

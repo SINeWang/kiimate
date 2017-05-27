@@ -62,7 +62,7 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
 
         IntensionDai.ChannelExtension extension = ValueMapping.from(IntensionDai.ChannelExtension.class, rootExtId);
 
-        List<IntensionDai.Intension> intensionList = intensionDai.loadIntensions(extension);
+        List<IntensionDai.Intension> intensionList = intensionDai.loadLatestIntensions(extension);
         List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
         asset.setIntensions(intensions);
         asset.setMap(map);

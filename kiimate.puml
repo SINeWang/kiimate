@@ -99,6 +99,7 @@ class Extension {
     Namespace name
     Tracking tree
     Visibility visibility
+    string int_set
     ---
     Subject operator_id
     DateTime begin_time

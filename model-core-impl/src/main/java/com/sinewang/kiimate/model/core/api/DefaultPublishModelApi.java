@@ -4,7 +4,6 @@ import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
-import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.kiimate.model.core.fui.AnPublicationExtractor;
 import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.beans.utils.ValueMapping;
@@ -38,9 +37,6 @@ public class DefaultPublishModelApi implements PublishModelApi {
     @Autowired
     private ModelPublicationDai modelPublicationDai;
 
-    @Autowired
-    private AnExtensionExtractor extensionExtractor;
-
 
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
         ExtensionDai.ChannelId channelId = new ExtensionDai.ChannelId();
@@ -55,7 +51,7 @@ public class DefaultPublishModelApi implements PublishModelApi {
 
         List<IntensionDai.Intension> allIntensions = new ArrayList<>();
 
-        List<IntensionDai.Intension> intensions = intensionDai.loadIntensions(channel);
+        List<IntensionDai.Intension> intensions = intensionDai.loadLatestIntensions(channel);
         if (intensions.isEmpty()) {
             throw new NotFound(new String[]{"intensions"});
         }

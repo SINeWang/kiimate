@@ -37,7 +37,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     }
 
     private Map<String, Object> parseRaw(IntensionDai.ChannelExtension extId, Map<String, List<InstanceDai.Instance>> dict) {
-        List<IntensionDai.Intension> intensions = intensionDai.loadIntensions(extId);
+        List<IntensionDai.Intension> intensions = intensionDai.loadLatestIntensions(extId);
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Intension intension : intensions) {
             if (intension.isSingle()) {
@@ -85,7 +85,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
 
 
     private Map<String, Object> parseTimed(IntensionDai.ChannelExtension extId, Map<String, List<InstanceDai.Instance>> dict) {
-        List<IntensionDai.Intension> intensions = intensionDai.loadIntensions(extId);
+        List<IntensionDai.Intension> intensions = intensionDai.loadLatestIntensions(extId);
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Intension intension : intensions) {
             if (intension.isSingle()) {

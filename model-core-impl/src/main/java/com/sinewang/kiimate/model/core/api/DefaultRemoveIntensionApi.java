@@ -34,7 +34,7 @@ public class DefaultRemoveIntensionApi implements RemoveIntensionApi {
         IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
         channel.setId(form.getExtId());
 
-        List<Intension> intensions = ValueMapping.from(Intension.class, intensionDai.loadIntensions(channel));
+        List<Intension> intensions = ValueMapping.from(Intension.class, intensionDai.loadLatestIntensions(channel));
 
         receipt.setIntensions(intensions);
 

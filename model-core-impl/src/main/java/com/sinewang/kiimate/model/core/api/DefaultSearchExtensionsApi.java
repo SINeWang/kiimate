@@ -16,6 +16,9 @@ import java.util.List;
 @Component
 public class DefaultSearchExtensionsApi implements SearchExtensionsApi {
 
+    static final private String PREFIX_RELEASE = "release";
+
+    static final private String PREFIX_SNAPSHOT = "snapshot";
 
     @Autowired
     private ExtensionDai extensionDai;
@@ -30,9 +33,10 @@ public class DefaultSearchExtensionsApi implements SearchExtensionsApi {
 
         List<Extension> list = new ArrayList<>();
         for (Extension extension : extensions) {
-            if (extension.getTree().startsWith("release-")) {
+            if (extension.getTree().startsWith(PREFIX_RELEASE)) {
                 continue;
-            } else if (extension.getTree().startsWith("snapshot-")) {
+            }
+            if (extension.getTree().startsWith(PREFIX_SNAPSHOT)) {
                 continue;
             }
             list.add(extension);

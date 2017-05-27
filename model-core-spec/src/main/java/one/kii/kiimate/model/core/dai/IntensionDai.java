@@ -3,9 +3,9 @@ package one.kii.kiimate.model.core.dai;
 import lombok.Data;
 import lombok.Getter;
 import one.kii.summer.beans.annotations.KeyFactor;
-import org.springframework.core.annotation.AliasFor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,14 +17,20 @@ public interface IntensionDai {
     @Transactional
     void insertIntension(Intension intension) throws IntensionDuplicated;
 
-    List<Intension> loadIntensions(ChannelExtension channel);
+    List<Intension> loadLatestIntensions(ChannelExtension channel);
+
+    List<Intension> loadLastIntensions(ChannelExtension channel);
 
     void removeIntension(String intId);
 
     @Data
-    class ChannelExtension{
+    class ChannelExtension {
 
         String id;
+
+        Date beginTime;
+
+        Date endTime;
     }
 
     @Data

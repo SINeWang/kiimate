@@ -37,9 +37,9 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
 
         List<String> ids = new ArrayList<>();
         for (IntensionDai.Intension intension : intensions) {
-            IntensionPublication publication = ValueMapping.from(IntensionPublication.class, extension);
-            String id = HashTools.hashHex(publication);
+            IntensionPublication publication = ValueMapping.from(IntensionPublication.class, intension, extension);
             publication.setIntId(intension.getId());
+            String id = HashTools.hashHex(publication);
             publication.setId(id);
             ids.add(id);
             publications.add(publication);

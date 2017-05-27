@@ -45,7 +45,7 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
         List<Model> models = new ArrayList<>();
         for (ModelPublicationDai.Publication publication : publications) {
             ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, publication);
-
+            channel.setId(publication.getExtId());
             ExtensionDai.Extension extension;
             try {
                 extension = extensionDai.loadExtension(channel);
@@ -55,7 +55,7 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
 
             IntensionDai.ChannelExtension channelExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, extension);
 
-            List<IntensionDai.Intension> intensionList = intensionDai.loadIntensions(channelExtension);
+            List<IntensionDai.Intension> intensionList = intensionDai.loadLastIntensions(channelExtension);
 
             List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
 

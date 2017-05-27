@@ -36,7 +36,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
 
     private Map<String, Object> restoreAsMetaData(IntensionDai.ChannelExtension extension) {
         Map<String, Object> model = new HashMap<>();
-        List<IntensionDai.Intension> intensions = intensionDai.loadIntensions(extension);
+        List<IntensionDai.Intension> intensions = intensionDai.loadLatestIntensions(extension);
         for (IntensionDai.Intension intension : intensions) {
             String refExtId = intension.getRefExtId();
             if (refExtId != null) {
@@ -73,7 +73,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
     }
 
     private void restoreAsFieldDict(IntensionDai.ChannelExtension extension, Map<String, IntensionDai.Intension> map) {
-        List<IntensionDai.Intension> intensions = intensionDai.loadIntensions(extension);
+        List<IntensionDai.Intension> intensions = intensionDai.loadLatestIntensions(extension);
         for (IntensionDai.Intension intension : intensions) {
             String refExtId = intension.getRefExtId();
             if (refExtId != null) {

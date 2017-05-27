@@ -33,11 +33,11 @@ public class ReceiptMapperTest {
         String ownerId = "testOwnerId";
         extensionMapper.deleteExtensionById(id);
 
-        ExtensionDai.Extension ext = extensionMapper.selectExtensionById("12");
+        ExtensionDai.Extension ext = extensionMapper.selectLatestExtensionById("12");
         Assert.assertNull(ext);
 
         extensionMapper.insertExtension(id, ownerId, "12", "56", "78", "90", new Date());
-        ExtensionDai.Extension ext1 = extensionMapper.selectExtensionById(id);
+        ExtensionDai.Extension ext1 = extensionMapper.selectLatestExtensionById(id);
         Assert.assertNotNull(ext1);
 
         extensionMapper.deleteExtensionById("12");

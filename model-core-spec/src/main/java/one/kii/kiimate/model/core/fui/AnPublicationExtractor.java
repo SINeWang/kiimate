@@ -3,6 +3,7 @@ package one.kii.kiimate.model.core.fui;
 import lombok.Data;
 import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
+import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.exception.BadRequest;
 
 import java.util.Date;
@@ -46,14 +47,19 @@ public interface AnPublicationExtractor {
 
         private String pubSet;
 
+        @KeyFactor
         private String providerId;
 
+        @KeyFactor
         private String extId;
 
+        @KeyFactor
         private String intId;
 
+        @KeyFactor
         private String stability;
 
+        @KeyFactor
         private String version;
 
         private String operatorId;

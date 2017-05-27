@@ -3,6 +3,7 @@ package one.kii.kiimate.model.core.fui;
 import lombok.Data;
 import one.kii.kiimate.model.core.api.SubscribeModelsApi;
 import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.io.context.WriteContext;
 
 /**
  * Created by WangYanJiong on 4/6/17.
@@ -10,7 +11,7 @@ import one.kii.summer.beans.annotations.KeyFactor;
 
 public interface AnSubscribeModelExtractor {
 
-    ModelSubscription extract(SubscribeModelsApi.Form form, String subscriberId, String operatorId);
+    ModelSubscription extract(SubscribeModelsApi.Form form, WriteContext context);
 
     @Data
     class ModelSubscription {

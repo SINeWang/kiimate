@@ -26,7 +26,7 @@ public class DefaultSubscribeModelsApi implements SubscribeModelsApi {
     public Receipt commit(WriteContext context, Form form) throws Conflict {
 
         AnSubscribeModelExtractor.ModelSubscription modelSubscription = subscribeModelExtractor.extract(
-                form, context.getOwnerId(), context.getOperatorId());
+                form, context);
 
         ModelSubscriptionDai.ModelSubscription subscription = ValueMapping.from(ModelSubscriptionDai.ModelSubscription.class, modelSubscription);
 

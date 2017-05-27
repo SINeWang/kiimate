@@ -30,7 +30,12 @@ public class DefaultExtensionDai implements ExtensionDai {
         if (channel == null) {
             throw new NotFound(KeyFactorTools.find(ChannelId.class));
         }
-        Extension extension = extensionMapper.selectExtensionById(channel.getId());
+        Extension extension;
+        if (channel.getBeginTime() == null) {
+            extension = extensionMapper.selectLatestExtensionById(channel.getId());
+        } else {
+            extension = extensionMapper.selectLastExtensionByIdTime(channel.getId(), channel.getBeginTime());
+        }
         if (extension == null) {
             throw new NotFound(KeyFactorTools.find(ChannelId.class));
         }
@@ -48,7 +53,7 @@ public class DefaultExtensionDai implements ExtensionDai {
     @Override
     public void insertExtension(Extension extension) throws ExtensionDuplicated {
         Date now = new Date();
-        Extension lastExtension = extensionMapper.selectExtensionById(extension.getId());
+        Extension lastExtension = extensionMapper.selectLatestExtensionById(extension.getId());
 
         if (lastExtension != null) {
             throw new ExtensionDuplicated(extension.getId());

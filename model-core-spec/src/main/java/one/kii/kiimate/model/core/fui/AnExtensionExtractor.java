@@ -6,6 +6,8 @@ import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 
+import java.util.Date;
+
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -42,6 +44,9 @@ public interface AnExtensionExtractor {
 
         @KeyFactor
         private String visibility;
+
+        @KeyFactor
+        private Date beginTime;
     }
 
 

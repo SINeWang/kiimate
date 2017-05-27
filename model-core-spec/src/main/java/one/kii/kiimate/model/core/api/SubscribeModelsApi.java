@@ -18,7 +18,7 @@ public interface SubscribeModelsApi {
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Form {
-        private String pubSet;
+        private String subSet;
         private String group;
         private String name;
         private String tree = TREE_MASTER;

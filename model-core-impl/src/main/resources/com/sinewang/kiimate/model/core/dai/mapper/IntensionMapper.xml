@@ -22,12 +22,27 @@
         AND mint.end_time IS NULL
     </select>
 
+    <select id="selectLastIntensionByExtIdField" resultMap="Intension">
+        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_ext_id, mint.visibility, mint.is_required
+        FROM mm_m_int mint
+        WHERE mint.ext_id = #{extId}
+        AND mint.field = #{field}
+        ORDER BY mint.begin_time DESC
+        LIMIT 0,1
+    </select>
+
     <select id="selectLatestIntensionByExtIdField" resultMap="Intension">
         SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_ext_id, mint.visibility, mint.is_required
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
         AND mint.end_time IS NULL
+    </select>
+    <select id="selectLastFieldsByExtId" resultType="java.lang.String">
+        SELECT mint.field
+        FROM mm_m_int mint
+        WHERE mint.ext_id = #{extId}
+        GROUP BY mint.field
     </select>
 
     <update id="updateLatestIntensionEndTimeById">
