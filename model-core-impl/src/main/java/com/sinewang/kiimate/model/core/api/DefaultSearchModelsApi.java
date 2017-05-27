@@ -53,9 +53,9 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
                 continue;
             }
 
-            IntensionDai.ChannelExtension channelExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, extension);
+            IntensionDai.ChannelPubSet pubSet = ValueMapping.from(IntensionDai.ChannelPubSet.class, extension, publication);
 
-            List<IntensionDai.Intension> intensionList = intensionDai.loadLastIntensions(channelExtension);
+            List<IntensionDai.Intension> intensionList = intensionDai.loadLastIntensions(pubSet);
 
             List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
 

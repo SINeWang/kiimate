@@ -90,6 +90,21 @@ public class DefaultIntensionDai implements IntensionDai {
         return intensions;
     }
 
+    @Override
+    public List<Intension> loadLastIntensions(ChannelPubSet pubSet) {
+        List<String> fields = intensionMapper.selectLastFieldsByExtIdPubSet(
+                pubSet.getId(),
+                pubSet.getPubSet(),
+                pubSet.getBeginTime(),
+                pubSet.getEndTime());
+        List<Intension> intensions = new ArrayList<>();
+        for (String field : fields) {
+            Intension intension = intensionMapper.selectLastIntensionByExtIdField(pubSet.getId(), field);
+            intensions.add(intension);
+        }
+        return intensions;
+    }
+
 
     @Override
     public void removeIntension(String intId) {

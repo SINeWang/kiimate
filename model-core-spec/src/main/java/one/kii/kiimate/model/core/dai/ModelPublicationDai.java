@@ -52,6 +52,7 @@ public interface ModelPublicationDai {
         String stability;
 
         String operatorId;
+
         Date beginTime;
     }
 

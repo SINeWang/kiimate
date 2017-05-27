@@ -21,6 +21,8 @@ public interface IntensionDai {
 
     List<Intension> loadLastIntensions(ChannelExtension channel);
 
+    List<Intension> loadLastIntensions(ChannelPubSet channel);
+
     void removeIntension(String intId);
 
     @Data
@@ -32,6 +34,20 @@ public interface IntensionDai {
 
         Date endTime;
     }
+
+    @Data
+    class ChannelPubSet {
+
+        String id;
+
+        String pubSet;
+
+        Date beginTime;
+
+        Date endTime;
+    }
+
+
 
     @Data
     class Intension {

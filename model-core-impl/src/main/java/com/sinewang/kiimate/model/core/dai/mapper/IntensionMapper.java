@@ -37,6 +37,12 @@ public interface IntensionMapper {
             @Param("beginTime") Date beginTime,
             @Param("endTime") Date endTime);
 
+    List<String> selectLastFieldsByExtIdPubSet(
+            @Param("extId") String extId,
+            @Param("pubSet") String pubSet,
+            @Param("beginTime") Date beginTime,
+            @Param("endTime") Date endTime);
+
     void updateLatestIntensionEndTimeById(@Param("id") String id, @Param("endTime") Date endTime);
 
     void deleteIntensionsByExtId(@Param("extId") String extId);
