@@ -41,7 +41,7 @@ public class DefaultPublishModelApi implements PublishModelApi {
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
         ExtensionDai.ChannelId channelId = new ExtensionDai.ChannelId();
         channelId.setId(form.getExtId());
-        ExtensionDai.Extension extension = extensionDai.loadExtension(channelId);
+        ExtensionDai.Extension extension = extensionDai.loadLastExtension(channelId);
 
         Date date = new Date();
 

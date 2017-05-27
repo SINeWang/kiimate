@@ -42,6 +42,9 @@
         SELECT mint.field
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
+        <![CDATA[
+        AND mint.begin_time <= #{beginTime}
+        ]]>
         GROUP BY mint.field
     </select>
 

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface ExtensionDai {
 
-    Extension loadExtension(ChannelId channel) throws NotFound;
+    Extension loadLastExtension(ChannelId channel) throws NotFound;
 
     List<Extension> queryExtension(ClueGroup clue);
 

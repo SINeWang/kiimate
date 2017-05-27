@@ -39,7 +39,7 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
         ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
 
-        ExtensionDai.Extension dbExtension = extensionDai.loadExtension(channel);
+        ExtensionDai.Extension dbExtension = extensionDai.loadLastExtension(channel);
 
         if (dbExtension == null) {
             throw new NotFound(new String[]{context.getOwnerId(), form.getGroup(), form.getName(), form.getTree()});

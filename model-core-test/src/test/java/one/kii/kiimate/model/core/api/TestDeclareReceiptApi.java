@@ -1,7 +1,6 @@
 package one.kii.kiimate.model.core.api;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
-import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -166,7 +165,7 @@ public class TestDeclareReceiptApi {
         extId.setId(id);
         ExtensionDai.Extension extension = null;
         try {
-            extension = extensionDai.loadExtension(extId);
+            extension = extensionDai.loadLastExtension(extId);
         } catch (NotFound notFound) {
         }
 

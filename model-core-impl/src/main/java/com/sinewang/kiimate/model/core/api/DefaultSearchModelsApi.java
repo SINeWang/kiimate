@@ -48,7 +48,7 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
             channel.setId(publication.getExtId());
             ExtensionDai.Extension extension;
             try {
-                extension = extensionDai.loadExtension(channel);
+                extension = extensionDai.loadLastExtension(channel);
             } catch (NotFound notFound) {
                 continue;
             }

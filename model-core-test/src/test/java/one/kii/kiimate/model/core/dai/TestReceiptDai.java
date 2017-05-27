@@ -43,7 +43,7 @@ public class TestReceiptDai {
 
     @Test(expected = NotFound.class)
     public void testNull() throws NotFound {
-        extensionDai.loadExtension(null);
+        extensionDai.loadLastExtension(null);
     }
 
 
@@ -68,7 +68,7 @@ public class TestReceiptDai {
 
         ExtensionDai.Extension dbExtension = null;
         try {
-            dbExtension = extensionDai.loadExtension(extId);
+            dbExtension = extensionDai.loadLastExtension(extId);
         } catch (NotFound notFound) {
         }
 

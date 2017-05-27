@@ -37,7 +37,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
         String extId = extension.getId();
 
-        ExtensionDai.Extension extensionRecord = extensionDai.loadExtension(channel);
+        ExtensionDai.Extension extensionRecord = extensionDai.loadLastExtension(channel);
 
         Receipt receipt = ValueMapping.from(Receipt.class, extensionRecord);
 

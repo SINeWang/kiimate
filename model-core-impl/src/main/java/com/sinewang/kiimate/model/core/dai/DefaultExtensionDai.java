@@ -26,7 +26,7 @@ public class DefaultExtensionDai implements ExtensionDai {
     private ExtensionMapper extensionMapper;
 
     @Override
-    public Extension loadExtension(ChannelId channel) throws NotFound {
+    public Extension loadLastExtension(ChannelId channel) throws NotFound {
         if (channel == null) {
             throw new NotFound(KeyFactorTools.find(ChannelId.class));
         }

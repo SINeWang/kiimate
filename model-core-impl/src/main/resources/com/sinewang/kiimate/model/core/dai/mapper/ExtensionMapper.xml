@@ -27,7 +27,7 @@
         FROM mm_m_ext mext
         WHERE mext.id = #{id}
         <![CDATA[
-        AND ((mext.end_time IS NULL) OR ((mext.end_time <= #{beginTime} AND (mext.begin_time >= #{beginTime}))))
+        AND mext.begin_time <= #{beginTime}
         ]]>
         ORDER BY mext.begin_time DESC
         LIMIT 0, 1
