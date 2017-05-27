@@ -6,8 +6,8 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.kiimate.model.core.fui.AnPublicationExtractor;
+import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.beans.utils.ValueMapping;
-import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -47,60 +46,29 @@ public class DefaultPublishModelApi implements PublishModelApi {
         ExtensionDai.ChannelId channelId = new ExtensionDai.ChannelId();
         channelId.setId(form.getExtId());
         ExtensionDai.Extension extension = extensionDai.loadExtension(channelId);
-        List<ModelPublicationDai.Publication> publications = new ArrayList<>();
-        List<IntensionDai.Intension> allIntensions = new ArrayList<>();
 
         Date date = new Date();
-        List<String> ids = new ArrayList<>();
-        List<AnExtensionExtractor.Extension> newExtensions = new ArrayList<>();
-        AnExtensionExtractor.Extension newExtension = ValueMapping.from(AnExtensionExtractor.Extension.class, extension);
-        String tree = form.getStability() + "-" + form.getVersion();
-        newExtension.setTree(tree);
-        newExtensions.add(newExtension);
 
-        AnPublicationExtractor.Publication snapshot;
-        extensionExtractor.hashId(newExtension);
-        snapshot = publicationExtractor.extractSnapshot(form, newExtension.getId(), context.getOperatorId(), date);
-
+        AnPublicationExtractor.ExtensionPublication extensionPublication = publicationExtractor.extract(form, extension.getId(), context.getOperatorId(), date);
 
         IntensionDai.ChannelExtension channel = ValueMapping.from(IntensionDai.ChannelExtension.class, extension);
+
+        List<IntensionDai.Intension> allIntensions = new ArrayList<>();
 
         List<IntensionDai.Intension> intensions = intensionDai.loadIntensions(channel);
         if (intensions.isEmpty()) {
             throw new NotFound(new String[]{"intensions"});
         }
-        for (IntensionDai.Intension intension : intensions) {
-            intension.setExtId(newExtension.getId());
-            intension.setId(HashTools.hashHex(intension));
-        }
-
         allIntensions.addAll(intensions);
 
-        final String publishExtId = publicationExtractor.hashPublishExtId(snapshot.getProviderId(), newExtension.getId());
+        List<AnPublicationExtractor.IntensionPublication> publications = publicationExtractor.extract(extensionPublication, intensions);
 
-        for (IntensionDai.Intension intension : intensions) {
-            String id = publicationExtractor.hashId(publishExtId, intension.getId());
-            ids.add(id);
-            ModelPublicationDai.Publication daiPublication = ValueMapping.from(ModelPublicationDai.Publication.class, snapshot);
-            daiPublication.setStability(form.getStability());
-            daiPublication.setIntId(intension.getId());
-            daiPublication.setId(id);
-            daiPublication.setBeginTime(snapshot.getCreatedAt());
-            publications.add(daiPublication);
-        }
-
-        String[] idArray = ids.toArray(new String[0]);
-        Arrays.sort(idArray);
-        String pubSet = HashTools.hashHex(idArray);
+        List<ModelPublicationDai.Publication> publications1 = ValueMapping.from(ModelPublicationDai.Publication.class, publications);
 
         try {
-            List<ExtensionDai.Extension> newExtensionList = ValueMapping.from(ExtensionDai.Extension.class, newExtensions);
-            modelPublicationDai.savePublications(pubSet, publications, newExtensionList, allIntensions);
+            modelPublicationDai.save(publications1);
         } catch (ModelPublicationDai.DuplicatedPublication duplicatedPublication) {
-            Receipt receipt = ValueMapping.from(Receipt.class, duplicatedPublication);
-            receipt.setVersion(form.getVersion());
-            receipt.setOwnerId(context.getOwnerId());
-            throw new Conflict(pubSet);
+            throw new Conflict(KeyFactorTools.find(Form.class));
         }
 
         Receipt receipt = new Receipt();
@@ -116,8 +84,6 @@ public class DefaultPublishModelApi implements PublishModelApi {
         receipt.setProviderId(form.getProviderId());
 
         receipt.setOwnerId(context.getOwnerId());
-
-        receipt.setPubSet(pubSet);
 
         return receipt;
 

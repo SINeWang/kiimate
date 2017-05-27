@@ -2,6 +2,7 @@ package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -23,12 +24,16 @@ public interface PublishModelApi {
     @EqualsAndHashCode(callSuper = false)
     class Form {
 
+        @KeyFactor
         private String stability;
 
+        @KeyFactor
         private String providerId;
 
+        @KeyFactor
         private String extId;
 
+        @KeyFactor
         private String version;
 
     }

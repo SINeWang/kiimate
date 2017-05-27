@@ -79,6 +79,27 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     }
 
     @Override
+    public void save(List<Publication> publications) throws DuplicatedPublication {
+        int count = modelPublicationMapper.countPublicationByPubSet(publications.get(0).getPubSet());
+        if (count > 0) {
+            throw new DuplicatedPublication(publications.get(0).getPubSet());
+        }
+        for (Publication publication : publications) {
+            modelPublicationMapper.insertPublication(
+                    publication.getId(),
+                    publication.getPubSet(),
+                    publication.getProviderId(),
+                    publication.getExtId(),
+                    publication.getIntId(),
+                    publication.getVersion(),
+                    publication.getStability(),
+                    publication.getOperatorId(),
+                    publication.getBeginTime()
+            );
+        }
+    }
+
+    @Override
     public List<Publication> getPublicationsByPubSetHash(String pubSet) {
         return modelPublicationMapper.selectPublicationByPubSetHash(pubSet);
     }
