@@ -6,9 +6,8 @@ import one.kii.kiimate.status.core.api.VisitAssetApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.dai.LoadAssetsDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
-import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.beans.utils.KeyFactorTools;
-import one.kii.summer.beans.utils.MagicCopy;
+import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +39,14 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
 
     @Override
     public Asset visit(ReadContext context, PubSetForm form) throws NotFound {
-        LoadAssetsDai.ChannelPubSet channel = MagicCopy.from(LoadAssetsDai.ChannelPubSet.class, form, context);
+        LoadAssetsDai.ChannelPubSet channel = ValueMapping.from(LoadAssetsDai.ChannelPubSet.class, form, context);
         LoadAssetsDai.Assets assetDb = loadAssetsDai.fetchAssets(channel);
         return transform(context, assetDb);
     }
 
     @Override
     public Asset visit(ReadContext context, GroupNameForm form) throws NotFound {
-        LoadAssetsDai.ChannelGroupName channel = MagicCopy.from(LoadAssetsDai.ChannelGroupName.class, form, context);
+        LoadAssetsDai.ChannelGroupName channel = ValueMapping.from(LoadAssetsDai.ChannelGroupName.class, form, context);
         LoadAssetsDai.Assets assetDb = loadAssetsDai.fetchAssets(channel);
         return transform(context, assetDb);
     }
@@ -57,11 +56,11 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
             throw new NotFound(KeyFactorTools.find(DefaultSearchAssetsApi.Assets.class));
         }
         List<InstanceDai.Instance> instances = instanceDai.selectInstanceByPubSet(assetDb.getPubSet());
-        Asset asset = BasicCopy.from(Asset.class, assetDb);
+        Asset asset = ValueMapping.from(Asset.class, assetDb);
         String rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(context.getOwnerId(), assetDb.getModelSubId());
         Map<String, Object> map = instanceTransformer.toTimedValue(instances, rootExtId);
         List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(rootExtId);
-        List<Intension> intensions = BasicCopy.from(Intension.class, intensionList);
+        List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
         asset.setIntensions(intensions);
         asset.setMap(map);
         asset.setOwnerId(context.getOwnerId());

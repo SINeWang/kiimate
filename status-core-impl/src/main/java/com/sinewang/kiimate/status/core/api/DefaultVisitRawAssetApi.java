@@ -6,7 +6,7 @@ import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.dai.LoadAssetsDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.KeyFactorTools;
-import one.kii.summer.beans.utils.MagicCopy;
+import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +35,14 @@ public class DefaultVisitRawAssetApi implements VisitRawAssetsApi {
 
     @Override
     public Map<String, Object> visit(ReadContext context, PubSetForm form) throws NotFound {
-        LoadAssetsDai.ChannelPubSet channel = MagicCopy.from(LoadAssetsDai.ChannelPubSet.class, form, context);
+        LoadAssetsDai.ChannelPubSet channel = ValueMapping.from(LoadAssetsDai.ChannelPubSet.class, form, context);
         LoadAssetsDai.Assets assetDb = loadAssetsDai.fetchAssets(channel);
         return transform(context, assetDb);
     }
 
     @Override
     public Map<String, Object> visit(ReadContext context, GroupNameForm form) throws NotFound {
-        LoadAssetsDai.ChannelGroupName channel = MagicCopy.from(LoadAssetsDai.ChannelGroupName.class, form, context);
+        LoadAssetsDai.ChannelGroupName channel = ValueMapping.from(LoadAssetsDai.ChannelGroupName.class, form, context);
         LoadAssetsDai.Assets assetDb = loadAssetsDai.fetchAssets(channel);
         return transform(context, assetDb);
     }

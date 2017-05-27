@@ -2,9 +2,8 @@ package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.status.core.api.SubscribeAssetApi;
 import one.kii.kiimate.status.core.dai.AssetSubscriptionDai;
-import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.beans.utils.HashTools;
-import one.kii.summer.beans.utils.MagicCopy;
+import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -27,7 +26,7 @@ public class DefaultSubscribeAssetApi implements SubscribeAssetApi {
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
 
 
-        AssetSubscriptionDai.Record record = MagicCopy.from(AssetSubscriptionDai.Record.class, form, context);
+        AssetSubscriptionDai.Record record = ValueMapping.from(AssetSubscriptionDai.Record.class, form, context);
 
         record.setSubscriberId(context.getOwnerId());
 
@@ -37,7 +36,7 @@ public class DefaultSubscribeAssetApi implements SubscribeAssetApi {
 
         assetSubscriptionDai.save(record);
 
-        return BasicCopy.from(Receipt.class, record);
+        return ValueMapping.from(Receipt.class, record);
 
     }
 

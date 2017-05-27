@@ -5,9 +5,8 @@ import one.kii.kiimate.status.core.dai.AssetPublicationDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.dai.LoadAssetsDai;
 import one.kii.kiimate.status.core.fui.AssetPublicationExtractor;
-import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.beans.utils.HashTools;
-import one.kii.summer.beans.utils.MagicCopy;
+import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -41,7 +40,7 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
         AssetPublicationExtractor.Informal informal = assetPublicationExtractor.extract(context, form);
         LoadAssetsDai.Assets previous = null;
         try {
-            LoadAssetsDai.ChannelModelSubId channelModelSubId = BasicCopy.from(LoadAssetsDai.ChannelModelSubId.class, informal);
+            LoadAssetsDai.ChannelModelSubId channelModelSubId = ValueMapping.from(LoadAssetsDai.ChannelModelSubId.class, informal);
             channelModelSubId.setOwnerId(informal.getProviderId());
             previous = loadAssetsDai.fetchAssets(channelModelSubId);
         } catch (NotFound ignore) {
@@ -56,7 +55,7 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
         List<String> instancesIds = new ArrayList<>();
         for (InstanceDai.Instance instance : instances) {
             String id = HashTools.hashHex(publishAssetId, instance.getId());
-            AssetPublicationDai.Entry record = BasicCopy.from(AssetPublicationDai.Entry.class, informal);
+            AssetPublicationDai.Entry record = ValueMapping.from(AssetPublicationDai.Entry.class, informal);
             record.setInsId(instance.getId());
             record.setId(id);
             record.setVersion(informal.getVersion());
@@ -77,6 +76,6 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
         Map map = new HashMap<>();
         map.put("pubSet", pubSet);
         map.put("beginTime", date);
-        return MagicCopy.from(Receipt.class, form, map);
+        return ValueMapping.from(Receipt.class, form, map);
     }
 }

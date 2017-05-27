@@ -6,8 +6,8 @@ import one.kii.kiimate.model.core.fui.AnModelRestorer;
 import one.kii.kiimate.status.core.api.RefreshStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
-import one.kii.summer.beans.utils.BasicCopy;
 import one.kii.summer.beans.utils.KeyFactorTools;
+import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
@@ -55,7 +55,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, form.getSubId(), form.getMap(), dict);
 
-        List<InstanceDai.Record> record1 = BasicCopy.from(InstanceDai.Record.class, instances);
+        List<InstanceDai.Record> record1 = ValueMapping.from(InstanceDai.Record.class, instances);
 
         try {
             instanceDai.insert(record1);
@@ -67,7 +67,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         List<Instance> apiInstances = new ArrayList<>();
 
         for (InstanceDai.Instance dbInstance : dbInstances) {
-            Instance apiInstance = BasicCopy.from(Instance.class, dbInstance);
+            Instance apiInstance = ValueMapping.from(Instance.class, dbInstance);
             apiInstance.setValue(new String[]{dbInstance.getValue()});
             apiInstances.add(apiInstance);
         }
@@ -81,7 +81,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
             throw new NotFound(KeyFactorTools.find(ModelSubscriptionDai.ModelSubscription.class));
         }
         String subId = subscription.getId();
-        SubIdForm subIdForm = BasicCopy.from(SubIdForm.class, form);
+        SubIdForm subIdForm = ValueMapping.from(SubIdForm.class, form);
         subIdForm.setSubId(subId);
         return commit(context, subIdForm);
     }

@@ -2,7 +2,7 @@ package com.sinewang.kiimate.model.core.api;
 
 import one.kii.kiimate.model.core.api.SearchExtensionsApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
-import one.kii.summer.beans.utils.BasicCopy;
+import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class DefaultSearchExtensionsApi implements SearchExtensionsApi {
 
         List<ExtensionDai.Extension> extensionList = extensionDai.queryExtensionsByOwnerGroup(form.getOwnerId(), form.getGroup());
 
-        List<Extension> extensions = BasicCopy.from(Extension.class, extensionList);
+        List<Extension> extensions = ValueMapping.from(Extension.class, extensionList);
 
         List<Extension> list = new ArrayList<>();
         for (Extension extension : extensions) {

@@ -4,7 +4,7 @@ import one.kii.kiimate.model.core.api.VisitIntensionsApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
-import one.kii.summer.beans.utils.BasicCopy;
+import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
     @Override
     public Receipt visit(ReadContext context, Form form) throws NotFound {
 
-        AnExtensionExtractor.Extension extension = BasicCopy.from(AnExtensionExtractor.Extension.class, form);
+        AnExtensionExtractor.Extension extension = ValueMapping.from(AnExtensionExtractor.Extension.class, form);
         extension.setOwnerId(context.getOwnerId());
         extension.setVisibility(VISIBILITY_PUBLIC);
         extensionExtractor.hashId(extension);
@@ -47,9 +47,9 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
         List<IntensionDai.Intension> list = intensionDai.selectIntensionsByExtId(extId);
 
-        List<Intension> intensions = BasicCopy.from(Intension.class, list);
+        List<Intension> intensions = ValueMapping.from(Intension.class, list);
 
-        Receipt receipt = BasicCopy.from(Receipt.class, extension);
+        Receipt receipt = ValueMapping.from(Receipt.class, extension);
         receipt.setIntensions(intensions);
         return receipt;
     }

@@ -3,7 +3,7 @@ package com.sinewang.kiimate.model.core.api;
 import one.kii.kiimate.model.core.api.RemoveIntensionApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
-import one.kii.summer.beans.utils.BasicCopy;
+import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class DefaultRemoveIntensionApi implements RemoveIntensionApi {
 
         intensionDai.removeIntension(form.getIntId());
 
-        List<Intension> intensions = BasicCopy.from(Intension.class, intensionDai.selectIntensionsByExtId(form.getExtId()));
+        List<Intension> intensions = ValueMapping.from(Intension.class, intensionDai.selectIntensionsByExtId(form.getExtId()));
 
         receipt.setIntensions(intensions);
 

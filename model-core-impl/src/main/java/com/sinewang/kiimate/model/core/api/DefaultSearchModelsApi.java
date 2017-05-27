@@ -5,7 +5,7 @@ import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.summer.beans.utils.BasicCopy;
+import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -35,7 +35,7 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
     @Override
     public List<Provider> search(ReadContext context, QueryProvidersForm form) {
         List<ModelPublicationDai.Provider> providerList = modelPublicationDai.getProviders(form.getQuery());
-        return BasicCopy.from(Provider.class, providerList);
+        return ValueMapping.from(Provider.class, providerList);
     }
 
     @Override
@@ -48,11 +48,11 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
 
             List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(extension.getId());
 
-            List<Intension> intensions = BasicCopy.from(Intension.class, intensionList);
+            List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
 
             int subscriptions = modelSubscriptionDai.countModelSubscriptions(publication.getPubSet());
 
-            Model model = BasicCopy.from(Model.class, publication);
+            Model model = ValueMapping.from(Model.class, publication);
 
 
             model.setRootExtId(extension.getId());

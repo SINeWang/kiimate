@@ -5,8 +5,7 @@ import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.VisitStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
-import one.kii.summer.beans.utils.BasicCopy;
-import one.kii.summer.beans.utils.MagicCopy;
+import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +44,12 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
         List<IntensionDai.Intension> intensionList = intensionDai.selectIntensionsByExtId(rootExtId);
-        List<Intension> intensions = BasicCopy.from(Intension.class, intensionList);
+        List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
 
 
         Map<String, Object> map = instanceTransformer.toTimedValue(instances, rootExtId);
 
-        Receipt receipt = MagicCopy.from(Receipt.class, form, context);
+        Receipt receipt = ValueMapping.from(Receipt.class, form, context);
         receipt.setMap(map);
         receipt.setIntensions(intensions);
 
