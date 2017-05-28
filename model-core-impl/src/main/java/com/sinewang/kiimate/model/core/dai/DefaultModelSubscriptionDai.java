@@ -75,6 +75,14 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
+    public ModelSubscription selectSubscription(ChannelSubId channel) {
+        return modelSubscriptionMapper.selectByOwnerSubId(
+                channel.getOwnerId(),
+                channel.getSubId()
+        );
+    }
+
+    @Override
     public int countModelSubscriptions(String pubSetHash) {
         return modelSubscriptionMapper.countModelSubscriptions(pubSetHash);
     }

@@ -52,4 +52,7 @@ public interface ModelSubscriptionMapper {
     List<ModelSubscriptionDai.Subscribers> querySubscriberId(@Param("subscriberId") String subscriberId);
 
 
+    ModelSubscriptionDai.ModelSubscription selectByOwnerSubId(
+            @Param("ownerId") String ownerId,
+            @Param("subId") String subId);
 }

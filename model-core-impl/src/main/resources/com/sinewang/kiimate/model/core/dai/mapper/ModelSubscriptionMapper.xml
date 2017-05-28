@@ -87,4 +87,11 @@
         AND msub.tree = #{tree}
         AND msub.end_time IS NULL
     </select>
+    <select id="selectByOwnerSubId" resultMap="Subscription">
+        SELECT msub.id, msub.sub_set_hash, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id
+        FROM mm_m_sub msub
+        WHERE msub.subscriber_id = #{ownerId}
+        AND msub.sub_id = #{subId}
+        AND msub.end_time IS NULL
+    </select>
 </mapper>

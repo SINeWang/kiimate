@@ -1,5 +1,6 @@
 package com.sinewang.kiimate.status.core.api;
 
+import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.PublishAssetApi;
 import one.kii.kiimate.status.core.dai.AssetPublicationDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
@@ -33,6 +34,9 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
 
     @Autowired
     private LoadAssetsDai loadAssetsDai;
+
+    @Autowired
+    private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
@@ -74,8 +78,9 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
 
         Date date = assetPublicationDai.save(record);
         Map map = new HashMap<>();
-        map.put("pubSet", pubSet);
+        ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, form);
+        ModelSubscriptionDai.ModelSubscription modelSubscription =  modelSubscriptionDai.selectSubscription(channel);
         map.put("beginTime", date);
-        return ValueMapping.from(Receipt.class, form, map);
+        return ValueMapping.from(Receipt.class, form, map, modelSubscription);
     }
 }

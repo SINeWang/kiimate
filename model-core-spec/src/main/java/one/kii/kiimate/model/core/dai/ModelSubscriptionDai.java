@@ -24,6 +24,8 @@ public interface ModelSubscriptionDai {
 
     ModelSubscription selectSubscription(ChannelGroupNameTree channel);
 
+    ModelSubscription selectSubscription(ChannelSubId channel);
+
     int countModelSubscriptions(String pubSet);
 
     @Data
@@ -43,6 +45,12 @@ public interface ModelSubscriptionDai {
         String group;
         String name;
         String tree;
+    }
+
+    @Data
+    class ChannelSubId {
+        String ownerId;
+        String subId;
     }
 
     @Data

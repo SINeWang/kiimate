@@ -39,6 +39,10 @@ public interface PublishAssetApi {
 
         private String pubSet;
 
+        private String group;
+
+        private String name;
+
         private String providerId;
 
         private String version;
