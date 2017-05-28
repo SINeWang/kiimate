@@ -1,8 +1,6 @@
 package com.sinewang.kiimate.model.core.dai;
 
-import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
 import com.sinewang.kiimate.model.core.dai.mapper.IntensionMapper;
-import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +23,6 @@ public class DefaultIntensionDai implements IntensionDai {
 
     @Autowired
     private IntensionMapper intensionMapper;
-
-    @Autowired
-    private ExtensionMapper extensionMapper;
 
     @Override
     public void insertIntension(Intension intension) throws IntensionDuplicated {
@@ -54,21 +49,6 @@ public class DefaultIntensionDai implements IntensionDai {
             throw new IntensionDai.IntensionDuplicated(intension.getId());
         }
 
-        ExtensionDai.Extension extension = extensionMapper.selectLatestExtensionById(intension.getExtId());
-
-        extensionMapper.updateEndTimeExtensionById(intension.getExtId(), now);
-
-        extension.setBeginTime(now);
-
-        extensionMapper.insertExtension(
-                extension.getId(),
-                extension.getOwnerId(),
-                extension.getGroup(),
-                extension.getName(),
-                extension.getTree(),
-                extension.getVisibility(),
-                now
-        );
     }
 
     @Override
