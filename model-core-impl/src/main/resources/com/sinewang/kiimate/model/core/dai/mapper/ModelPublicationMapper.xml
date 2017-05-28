@@ -34,12 +34,6 @@
         AND end_time IS NULL
     </select>
 
-    <select id="selectPublicationByPubSetHash" resultMap="Publication">
-        SELECT mpub.id, mpub.pub_set_hash, mpub.provider_id, mpub.ext_id, mpub.int_id, mpub.version, mpub.stability, mpub.operator_id, mpub.begin_time
-        FROM  mm_m_pub mpub
-        WHERE mpub.pub_set_hash = #{pubSet}
-    </select>
-
     <select id="countPublicationByPubSet" resultType="int">
         SELECT COUNT(mpub.id)
         FROM  mm_m_pub mpub

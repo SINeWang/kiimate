@@ -46,7 +46,6 @@ public interface IntensionDai {
     }
 
 
-
     @Data
     class Intension {
 

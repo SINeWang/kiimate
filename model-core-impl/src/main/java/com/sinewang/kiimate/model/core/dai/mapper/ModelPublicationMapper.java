@@ -1,8 +1,8 @@
 package com.sinewang.kiimate.model.core.dai.mapper;
 
+import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 
 import java.util.Date;
 import java.util.List;
@@ -23,9 +23,6 @@ public interface ModelPublicationMapper {
             @Param("stability") String stability,
             @Param("operatorId") String operatorId,
             @Param("createdAt") Date createdAt);
-
-    List<ModelPublicationDai.Publication> selectPublicationByPubSetHash(
-            @Param("pubSet") String pubSet);
 
     int countPublicationByPubSet(
             @Param("pubSet") String pubSet);
