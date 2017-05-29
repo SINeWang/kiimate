@@ -79,6 +79,7 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
         Date date = assetPublicationDai.save(record);
         Map map = new HashMap<>();
         ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, form);
+        channel.setOwnerId(informal.getProviderId());
         ModelSubscriptionDai.ModelSubscription modelSubscription =  modelSubscriptionDai.selectSubscription(channel);
         map.put("beginTime", date);
         return ValueMapping.from(Receipt.class, form, map, modelSubscription);
