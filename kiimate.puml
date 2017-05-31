@@ -113,7 +113,7 @@ class Intension {
     string field
     Boolean single
     Structure structure
-    string ref_ext_id
+    Coordinate m_ref_path
     Visibility visibility
     Boolean required
     ---
@@ -179,15 +179,24 @@ enum Namespace {
     NAME
     FIELD
 }
+
 enum ReferencePolicy {
     LATEST
     FIXED
 }
+enum Coordinate {
+    subject_id
+    group
+    name
+    stability
+    version
+}
 
 enum Stability {
-    SNAPSHOT
+    MILESTONE
     RELEASE
 }
+
 enum Structure {
     REFERENCE
     NUMBER
