@@ -25,13 +25,13 @@ public interface PublishModelApi {
     class Form {
 
         @KeyFactor
-        private String stability;
-
-        @KeyFactor
         private String providerId;
 
         @KeyFactor
         private String extId;
+
+        @KeyFactor
+        private String stability;
 
         @KeyFactor
         private String version;

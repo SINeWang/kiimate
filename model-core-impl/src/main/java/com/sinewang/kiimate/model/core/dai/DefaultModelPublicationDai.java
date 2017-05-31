@@ -18,6 +18,27 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     private ModelPublicationMapper modelPublicationMapper;
 
     @Override
+    public List<PublishedExtension> queryPublications(ClueGroup clue) {
+        return modelPublicationMapper.selectPublishedExtensionByGroupQuery(clue.getGroup());
+    }
+
+    @Override
+    public List<PublishedSnapshot> fetchPublishedSnapshotsByExtId(ChannelId channel) {
+        return modelPublicationMapper.selectPublishedSnapshotsByExtId(channel.getId());
+
+    }
+
+    @Override
+    public Publication fetchPublications(ChannelPubSet channel) {
+        return modelPublicationMapper.selectPublicationsByPubSet(channel.getPubSet());
+    }
+
+    @Override
+    public List<Provider> getProviders(ClueId clue) {
+        return modelPublicationMapper.selectProvidersByProviderQuery(clue.getId());
+    }
+
+    @Override
     public void save(List<Publication> publications) throws DuplicatedPublication {
         int count = modelPublicationMapper.countPublicationByPubSet(publications.get(0).getPubSet());
         if (count > 0) {
@@ -38,23 +59,4 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
         }
     }
 
-    @Override
-    public List<PublishedExtension> queryPublicationsByGroup(String query) {
-        return modelPublicationMapper.selectPublishedExtensionByGroupQuery(query);
-    }
-
-    @Override
-    public List<PublishedSnapshot> queryPublishedSnapshotsByExtId(String extId) {
-        return modelPublicationMapper.selectPublishedSnapshotsByExtId(extId);
-    }
-
-    @Override
-    public Publication fetchPublicationsByPubSet(String pubSet) {
-        return  modelPublicationMapper.selectPublicationsByPubSet(pubSet);
-    }
-
-    @Override
-    public List<Provider> getProviders(String query) {
-        return modelPublicationMapper.selectProvidersByProviderQuery(query);
-    }
 }

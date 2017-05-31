@@ -29,6 +29,8 @@ public interface SearchModelsApi {
 
         String name;
 
+        String id;
+
         List<Snapshot> snapshots;
     }
 
