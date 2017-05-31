@@ -34,7 +34,7 @@ public class SearchModelsCtl extends ReadController {
 
         SearchModelsApi.QueryModelsForm form = new SearchModelsApi.QueryModelsForm();
 
-        form.setQuery(query);
+        form.setGroup(query);
 
         List<SearchModelsApi.Models> models = searchModelsApi.search(context, form);
         return ErestResponse.ok(requestId, models);

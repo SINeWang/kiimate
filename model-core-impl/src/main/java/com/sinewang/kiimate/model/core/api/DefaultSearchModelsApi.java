@@ -2,7 +2,6 @@ package com.sinewang.kiimate.model.core.api;
 
 import one.kii.kiimate.model.core.api.SearchModelsApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
-import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.summer.beans.utils.ValueMapping;
@@ -30,18 +29,19 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
     @Autowired
     private ExtensionDai extensionDai;
 
-    @Autowired
-    private IntensionDai intensionDai;
-
     @Override
     public List<Provider> search(ReadContext context, QueryProvidersForm form) {
-        List<ModelPublicationDai.Provider> providerList = modelPublicationDai.getProviders(form.getQuery());
+        ModelPublicationDai.ClueId id = ValueMapping.from(ModelPublicationDai.ClueId.class, form);
+
+        List<ModelPublicationDai.Provider> providerList = modelPublicationDai.getProviders(id);
         return ValueMapping.from(Provider.class, providerList);
     }
 
     @Override
     public List<Models> search(ReadContext context, QueryModelsForm form) {
-        List<ModelPublicationDai.PublishedExtension> extensions = modelPublicationDai.queryPublicationsByGroup(form.getQuery());
+        ModelPublicationDai.ClueGroup group = ValueMapping.from(ModelPublicationDai.ClueGroup.class, form);
+
+        List<ModelPublicationDai.PublishedExtension> extensions = modelPublicationDai.queryPublications(group);
         List<Models> models = new ArrayList<>();
         for (ModelPublicationDai.PublishedExtension extension : extensions) {
             ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
@@ -53,7 +53,9 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
             }
             List<Snapshot> snapshots = new ArrayList<>();
 
-            List<ModelPublicationDai.PublishedSnapshot> snapshotList = modelPublicationDai.queryPublishedSnapshotsByExtId(extension.getId());
+            ModelPublicationDai.ChannelId id = ValueMapping.from(ModelPublicationDai.ChannelId.class, extension);
+
+            List<ModelPublicationDai.PublishedSnapshot> snapshotList = modelPublicationDai.fetchPublishedSnapshotsByExtId(id);
 
             Models model = ValueMapping.from(Models.class, lastExtension, extension);
             for (ModelPublicationDai.PublishedSnapshot publishedSnapshot : snapshotList) {

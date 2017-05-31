@@ -59,7 +59,9 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
                         List<ModelSubscriptionDai.Subscribers> subjects = modelSubscriptionDai.querySubscribers(clue);
                         return ValueMapping.from(Subjects.class, subjects);
                     case PROVIDER:
-                        List<ModelPublicationDai.Provider> subjects1 = modelPublicationDai.getProviders(form.getGroup());
+                        ModelPublicationDai.ClueId id = new ModelPublicationDai.ClueId();
+                        id.setId(form.getGroup());
+                        List<ModelPublicationDai.Provider> subjects1 = modelPublicationDai.getProviders(id);
                         return ValueMapping.from(Subjects.class, subjects1);
                 }
             case INSTANCE:

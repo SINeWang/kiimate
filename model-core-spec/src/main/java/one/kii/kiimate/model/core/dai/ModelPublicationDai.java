@@ -14,16 +14,38 @@ import java.util.List;
 public interface ModelPublicationDai {
 
 
-    List<PublishedExtension> queryPublicationsByGroup(String group);
+    List<PublishedExtension> queryPublications(ClueGroup clue);
 
-    List<PublishedSnapshot> queryPublishedSnapshotsByExtId(String extId);
+    List<PublishedSnapshot> fetchPublishedSnapshotsByExtId(ChannelId channel);
 
-    Publication fetchPublicationsByPubSet(String pubSet);
+    Publication fetchPublications(ChannelPubSet channel);
 
-    List<Provider> getProviders(String query);
+    List<Provider> getProviders(ClueId clue);
+
 
     @Transactional
     void save(List<Publication> publication) throws DuplicatedPublication;
+
+    @Data
+    class ClueGroup {
+        String group;
+    }
+
+    @Data
+    class ChannelPubSet {
+        String pubSet;
+    }
+
+    @Data
+    class ChannelId {
+        String id;
+    }
+
+    @Data
+    class ClueId {
+        String id;
+    }
+
 
     @Data
     class Provider {

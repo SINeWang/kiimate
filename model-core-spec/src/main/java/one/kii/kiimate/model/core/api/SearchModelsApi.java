@@ -34,7 +34,7 @@ public interface SearchModelsApi {
 
     @Data
     class QueryProvidersForm {
-        private String query;
+        private String id;
     }
 
     @Data
@@ -48,7 +48,7 @@ public interface SearchModelsApi {
 
     @Data
     class QueryModelsForm {
-        private String query;
+        private String group;
         private String stability;
         private String version;
     }
