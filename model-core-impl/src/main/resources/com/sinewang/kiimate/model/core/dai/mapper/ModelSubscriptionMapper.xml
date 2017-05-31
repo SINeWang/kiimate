@@ -6,7 +6,7 @@
 
     <resultMap id="Subscription" type="one.kii.kiimate.model.core.dai.ModelSubscriptionDai$ModelSubscription">
         <result column="id" property="id"/>
-        <result column="sub_set_hash" property="subSet"/>
+        <result column="sub_set" property="subSet"/>
         <result column="subscriber_id" property="subscriberId"/>
         <result column="group" property="group"/>
         <result column="name" property="name"/>
@@ -19,7 +19,7 @@
     </resultMap>
 
     <resultMap id="ModelPubSet" type="one.kii.kiimate.model.core.dai.ModelSubscriptionDai$ModelPubSet">
-        <result column="pub_set_hash" property="pubSet"/>
+        <result column="pub_set" property="pubSet"/>
         <result column="id" property="rootExtId"/>
         <result column="begin_time" property="beginTime"/>
         <result column="end_time" property="endTime"/>
@@ -27,7 +27,7 @@
 
     <insert id="insertSubscription">
         INSERT INTO mm_m_sub
-        (id, sub_set_hash, subscriber_id, `group`, `name`, `tree`, operator_id, begin_time)
+        (id, sub_set, subscriber_id, `group`, `name`, `tree`, operator_id, begin_time)
         VALUES
         (#{id}, #{subSet}, #{subscriberId}, #{group}, #{name}, #{tree}, #{operatorId}, #{beginTime})
     </insert>
@@ -41,7 +41,7 @@
 
     <select id="countLatestSubscription" resultType="int">
         SELECT count(msub.id) FROM mm_m_sub msub
-        WHERE msub.sub_set_hash = #{subSet} AND msub.subscriber_id = #{subscriberId}
+        WHERE msub.sub_set = #{subSet} AND msub.subscriber_id = #{subscriberId}
         AND msub.group = #{group} AND msub.name = #{name} AND msub.tree = #{tree}
         AND msub.end_time IS NULL
     </select>
@@ -49,13 +49,13 @@
     <select id="countModelSubscriptions" resultType="int">
         SELECT count(msub.id)
         FROM mm_m_sub msub
-        WHERE msub.sub_set_hash = #{subSet}
+        WHERE msub.sub_set = #{subSet}
         AND end_time IS NULL
     </select>
 
     <select id="querySubscriptionsByOwnerGroup" resultMap="Subscription">
         <bind name="group_pattern" value="'%' + group + '%'"/>
-        SELECT msub.id, msub.sub_set_hash, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id
+        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id
         FROM mm_m_sub msub
         WHERE msub.subscriber_id = #{ownerId}
         AND msub.group LIKE #{group_pattern}
@@ -63,10 +63,10 @@
     </select>
 
     <select id="selectModelPubSetByOwnerSubscription" resultMap="ModelPubSet">
-        SELECT mext.id, mpub.pub_set_hash, mpub.begin_time, mpub.end_time
+        SELECT mext.id, mpub.pub_set, mpub.begin_time, mpub.end_time
         FROM mm_m_sub msub, mm_m_pub mpub, mm_m_ext mext
         WHERE mext.id = mpub.ext_id
-        AND mpub.pub_set_hash = msub.sub_set_hash
+        AND mpub.pub_set = msub.sub_set
         AND mext.name = 'root'
         AND msub.subscriber_id = #{ownerId} AND msub.id = #{subId}
         AND msub.end_time IS NULL
@@ -82,7 +82,7 @@
         GROUP BY msub.subscriber_id
     </select>
     <select id="selectSubscriptionByOwnerGroupNameTree" resultMap="Subscription">
-        SELECT msub.id, msub.sub_set_hash, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id
+        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id
         FROM mm_m_sub msub
         WHERE msub.subscriber_id = #{ownerId}
         AND msub.group = #{group}
@@ -91,7 +91,7 @@
         AND msub.end_time IS NULL
     </select>
     <select id="selectByOwnerSubId" resultMap="Subscription">
-        SELECT msub.id, msub.sub_set_hash, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id
+        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id
         FROM mm_m_sub msub
         WHERE msub.subscriber_id = #{ownerId}
         AND msub.id = #{subId}

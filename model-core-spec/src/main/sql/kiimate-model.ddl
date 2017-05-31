@@ -43,7 +43,7 @@ CREATE TABLE `mm_m_int` (
   `is_single` tinyint(1) NOT NULL,
   `visibility` varchar(16) NOT NULL COMMENT 'the visibility of scope',
   `structure` varchar(16) DEFAULT NULL,
-  `ref_ext_id` varchar(160),
+  `ref_m_pub_set` varchar(160),
   `is_required` tinyint(1) NOT NULL,
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE `mm_m_crf` (
 DROP TABLE IF EXISTS `mm_m_pub`;
 CREATE TABLE `mm_m_pub` (
   `id` varchar(160) NOT NULL COMMENT 'hash(pub_ext_id, int_id)',
-  `pub_set_hash` varchar(160) DEFAULT NULL COMMENT ' hash all pubs id(sorted) at once',
+  `pub_set` varchar(160) DEFAULT NULL COMMENT ' hash all pubs id(sorted) at once',
   `provider_id` varchar(160) NOT NULL,
   `ext_id` varchar(160) NOT NULL,
   `int_id` varchar(160) NOT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE `mm_m_pub` (
 DROP TABLE IF EXISTS `mm_m_sub`;
 CREATE TABLE `mm_m_sub` (
   `id` varchar(160) NOT NULL COMMENT 'hash(subscriber_id, pub_set_hash, group, name, tree)',
-  `sub_set_hash` varchar(160) NOT NULL COMMENT 'pub_set_hash',
+  `sub_set` varchar(160) NOT NULL COMMENT 'pub_set_hash',
   `subscriber_id` varchar(160) NOT NULL,
   `group` varchar(64) NOT NULL,
   `name` varchar(64) NOT NULL,

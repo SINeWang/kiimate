@@ -12,7 +12,7 @@
         <result column="int_id" property="intId"/>
         <result column="field" property="field"/>
         <result column="value" property="value"/>
-        <result column="value_set_hash" property="valueSetHash"/>
+        <result column="value_set" property="valueSetHash"/>
         <result column="value_ref_path" property="valueRefPath"/>
         <result column="value_ref_policy" property="valueRefPolicy"/>
         <result column="operator_id" property="operatorId"/>
@@ -20,14 +20,14 @@
     </resultMap>
 
     <select id="selectLatestInstancesBySubId" resultMap="Instance">
-        SELECT mins.id, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set_hash, mins.value_ref_path, mins.value_ref_policy, mins.operator_id, mins.begin_time
+        SELECT mins.id, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_path, mins.value_ref_policy, mins.operator_id, mins.begin_time
         FROM mm_i_ins mins
         WHERE mins.sub_id = #{subId}
         AND mins.end_time is NULL
     </select>
 
     <select id="selectInstancesByPubSet" resultMap="Instance">
-        SELECT mins.id, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set_hash, mins.value_ref_path, mins.value_ref_policy, mins.operator_id, mins.begin_time
+        SELECT mins.id, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_path, mins.value_ref_policy, mins.operator_id, mins.begin_time
         FROM mm_i_ins mins, km_s_pub spub
         WHERE spub.pub_set = #{pubSet}
         AND mins.id = spub.ins_id
@@ -35,7 +35,7 @@
     </select>
 
     <select id="selectLatestInstanceBySubIdIntId" resultMap="Instance">
-        SELECT mins.id, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set_hash, mins.value_ref_path, mins.value_ref_policy, mins.operator_id, mins.begin_time
+        SELECT mins.id, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_path, mins.value_ref_policy, mins.operator_id, mins.begin_time
         FROM mm_i_ins mins
         WHERE mins.sub_id = #{subId} AND mins.int_id = #{intId}
         AND mins.end_time IS NULL
@@ -49,7 +49,7 @@
 
     <insert id="insertInstance">
         INSERT INTO mm_i_ins
-        (`id`, `owner_id`, `sub_id`, `ext_id`, `int_id`, `field`,  `value`, `value_set_hash`, `value_ref_path`, `value_ref_policy`, `operator_id`, `begin_time`)
+        (`id`, `owner_id`, `sub_id`, `ext_id`, `int_id`, `field`,  `value`, `value_set`, `value_ref_path`, `value_ref_policy`, `operator_id`, `begin_time`)
         VALUES
         (#{id}, #{ownerId}, #{subId}, #{extId}, #{intId}, #{field}, #{value}, #{valueSetHash}, #{valueRefPath}, #{valueRefPolicy}, #{operatorId}, #{beginTime})
     </insert>

@@ -20,7 +20,7 @@ public interface IntensionMapper {
                          @Param("field") String field,
                          @Param("single") boolean single,
                          @Param("structure") String structure,
-                         @Param("refExtId") String refExtId,
+                         @Param("refPubSet") String refPubSet,
                          @Param("visibility") String visibility,
                          @Param("required") boolean required,
                          @Param("beginTime") Date beginTime);

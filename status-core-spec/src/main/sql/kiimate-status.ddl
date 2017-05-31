@@ -13,7 +13,7 @@ CREATE TABLE `mm_i_ins` (
   `int_id` varchar(160) NOT NULL,
   `field` varchar(64) NOT NULL,
   `value` varchar(255) DEFAULT NULL,
-  `value_set_hash` varchar(160) DEFAULT NULL,
+  `value_set` varchar(160) DEFAULT NULL,
   `value_ref_path` varchar(160) DEFAULT NULL,
   `value_ref_policy` varchar(64) DEFAULT NULL,
   `operator_id` varchar(160) NOT NULL,

@@ -10,20 +10,20 @@
         <result column="field" property="field"/>
         <result column="is_single" property="single"/>
         <result column="structure" property="structure"/>
-        <result column="ref_ext_id" property="refExtId"/>
+        <result column="ref_m_pub_set" property="refPubSet"/>
         <result column="visibility" property="visibility"/>
         <result column="is_required" property="required"/>
     </resultMap>
 
     <select id="selectLatestIntensionsByExtId" resultMap="Intension">
-        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_ext_id, mint.visibility, mint.is_required
+        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.end_time IS NULL
     </select>
 
     <select id="selectLastIntensionByExtIdField" resultMap="Intension">
-        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_ext_id, mint.visibility, mint.is_required
+        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
@@ -32,7 +32,7 @@
     </select>
 
     <select id="selectLatestIntensionByExtIdField" resultMap="Intension">
-        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_ext_id, mint.visibility, mint.is_required
+        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
@@ -41,7 +41,7 @@
     <select id="selectLastFieldsByExtIdPubSet" resultType="java.lang.String">
         SELECT mint.field
         FROM mm_m_int mint, mm_m_pub mpub
-        WHERE mpub.pub_set_hash = #{pubSet}
+        WHERE mpub.pub_set = #{pubSet}
         AND mpub.ext_id = mint.ext_id
         AND mpub.int_id = mint.id
         AND mint.ext_id = #{extId}
@@ -60,9 +60,9 @@
 
     <insert id="insertIntension">
         INSERT INTO mm_m_int
-        (`id`, `ext_id`, `field`, `is_single`, `structure`, `ref_ext_id`, `visibility`, `is_required`, `begin_time`)
+        (`id`, `ext_id`, `field`, `is_single`, `structure`, `ref_m_pub_set`, `visibility`, `is_required`, `begin_time`)
         VALUES
-        (#{id}, #{extId}, #{field}, #{single}, #{structure}, #{refExtId}, #{visibility}, #{required}, #{beginTime})
+        (#{id}, #{extId}, #{field}, #{single}, #{structure}, #{refPubSet}, #{visibility}, #{required}, #{beginTime})
     </insert>
 
     <delete id="deleteIntensionsByExtId">

@@ -6,7 +6,7 @@
 
     <resultMap id="Publication" type="one.kii.kiimate.model.core.dai.ModelPublicationDai$Publication">
         <result column="id" property="id"/>
-        <result column="pub_set_hash" property="pubSet"/>
+        <result column="pub_set" property="pubSet"/>
         <result column="provider_id" property="providerId"/>
         <result column="ext_id" property="extId"/>
         <result column="int_id" property="intId"/>
@@ -26,7 +26,7 @@
     </resultMap>
 
     <resultMap id="PublishedSnapshot" type="one.kii.kiimate.model.core.dai.ModelPublicationDai$PublishedSnapshot">
-        <result column="pub_set_hash" property="pubSet"/>
+        <result column="pub_set" property="pubSet"/>
         <result column="stability" property="stability"/>
         <result column="version" property="version"/>
         <result column="begin_time" property="beginTime"/>
@@ -38,13 +38,13 @@
 
     <insert id="insertPublication">
         INSERT INTO mm_m_pub
-        (id, pub_set_hash, provider_id, ext_id, int_id, version, stability, operator_id, begin_time)
+        (id, pub_set, provider_id, ext_id, int_id, version, stability, operator_id, begin_time)
         VALUES
         (#{id}, #{pubSet}, #{providerId}, #{extId}, #{intId}, #{version}, #{stability}, #{operatorId}, #{createdAt})
     </insert>
 
     <select id="selectPublicationsByProviderIdExtIdPubVersion" resultMap="Publication">
-        SELECT id, pub_set_hash, provider_id, ext_id, int_id, version, stability, operator_id, begin_time
+        SELECT id, pub_set, provider_id, ext_id, int_id, version, stability, operator_id, begin_time
         FROM  mm_m_pub
         WHERE pub_ext_id = #{pubExtId}
         AND end_time IS NULL
@@ -53,7 +53,7 @@
     <select id="countPublicationByPubSet" resultType="int">
         SELECT COUNT(mpub.id)
         FROM  mm_m_pub mpub
-        WHERE mpub.pub_set_hash = #{pubSet}
+        WHERE mpub.pub_set = #{pubSet}
         AND mpub.end_time IS NULL
     </select>
 
@@ -81,20 +81,20 @@
         GROUP BY mpub.provider_id, mext.group,  mext.name
     </select>
     <select id="selectPublicationsByPubSet" resultMap="Publication">
-        SELECT mpub.pub_set_hash, mpub.provider_id, mpub.ext_id, mpub.version, mpub.stability, mpub.operator_id, mpub.begin_time
+        SELECT mpub.pub_set, mpub.provider_id, mpub.ext_id, mpub.version, mpub.stability, mpub.operator_id, mpub.begin_time
         FROM mm_m_pub mpub, mm_m_ext mext
         WHERE mpub.ext_id = mext.id
-        AND mpub.pub_set_hash = #{pubSet}
+        AND mpub.pub_set = #{pubSet}
         AND mpub.end_time IS NULL
-        GROUP BY mpub.pub_set_hash
+        GROUP BY mpub.pub_set
     </select>
     <select id="selectPublishedSnapshotsByExtId" resultMap="PublishedSnapshot">
-        SELECT mpub.pub_set_hash, mpub.version, mpub.stability, mpub.begin_time
+        SELECT mpub.pub_set, mpub.version, mpub.stability, mpub.begin_time
         FROM mm_m_pub mpub, mm_m_ext mext
         WHERE mpub.ext_id = mext.id
         AND mpub.ext_id = #{extId}
         AND mpub.end_time IS NULL
-        GROUP BY mpub.pub_set_hash
+        GROUP BY mpub.pub_set
     </select>
 
     <delete id="deletePublicationByProviderId">
