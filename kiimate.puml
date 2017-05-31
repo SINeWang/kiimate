@@ -163,7 +163,7 @@ class Instance {
     Namespace field
     string value
     string value_set_hash
-    string value_ref_path
+    Coordinate v_ref_path
     ReferencePolicy value_ref_policy
     ---
     Subject operator_id
