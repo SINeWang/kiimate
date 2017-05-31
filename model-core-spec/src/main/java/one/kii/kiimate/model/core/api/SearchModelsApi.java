@@ -14,7 +14,7 @@ public interface SearchModelsApi {
 
     List<Provider> search(ReadContext context, QueryProvidersForm form);
 
-    List<Model> search(ReadContext context, QueryModelsForm form);
+    List<Models> search(ReadContext context, QueryModelsForm form);
 
     @Data
     class Provider {
@@ -22,38 +22,14 @@ public interface SearchModelsApi {
     }
 
     @Data
-    class Model {
-
-        int subscriptions;
-
+    class Models {
         String providerId;
-        String pubSet;
-        String rootExtId;
 
         String group;
+
         String name;
 
-        String stability;
-        String version;
-        Date beginTime;
-
-        List<Intension> intensions;
-    }
-
-    @Data
-    class Intension {
-
-        private String id;
-
-        private String field;
-
-        private boolean single;
-
-        private String structure;
-
-        private String refExtId;
-
-        private String visibility;
+        List<Snapshot> snapshots;
     }
 
     @Data
@@ -62,9 +38,18 @@ public interface SearchModelsApi {
     }
 
     @Data
+    class Snapshot {
+        int subscriptions;
+        String pubSet;
+        String stability;
+        String version;
+        Date beginTime;
+    }
+
+    @Data
     class QueryModelsForm {
         private String query;
-        private String publication;
+        private String stability;
         private String version;
     }
 }

@@ -37,5 +37,9 @@ public interface ModelPublicationMapper {
 
     List<ModelPublicationDai.Provider> selectProvidersByProviderQuery(@Param("query") String query);
 
-    List<ModelPublicationDai.Publication> selectPublicationByGroupQuery(@Param("query") String query);
+    List<ModelPublicationDai.PublishedExtension> selectPublishedExtensionByGroupQuery(@Param("query") String query);
+
+    List<ModelPublicationDai.PublishedSnapshot> selectPublishedSnapshotsByExtId(@Param("extId") String extId);
+
+    ModelPublicationDai.Publication selectPublicationsByPubSet(@Param("pubSet") String pubSet);
 }

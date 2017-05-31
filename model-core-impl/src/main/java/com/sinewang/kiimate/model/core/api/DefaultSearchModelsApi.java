@@ -40,36 +40,33 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
     }
 
     @Override
-    public List<Model> search(ReadContext context, QueryModelsForm form) {
-        List<ModelPublicationDai.Publication> publications = modelPublicationDai.queryPublicationsByGroup(form.getQuery());
-        List<Model> models = new ArrayList<>();
-        for (ModelPublicationDai.Publication publication : publications) {
-            ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, publication);
-            channel.setId(publication.getExtId());
-            ExtensionDai.Extension extension;
+    public List<Models> search(ReadContext context, QueryModelsForm form) {
+        List<ModelPublicationDai.PublishedExtension> extensions = modelPublicationDai.queryPublicationsByGroup(form.getQuery());
+        List<Models> models = new ArrayList<>();
+        for (ModelPublicationDai.PublishedExtension extension : extensions) {
+            ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
+            ExtensionDai.Extension lastExtension;
             try {
-                extension = extensionDai.loadLastExtension(channel);
+                lastExtension = extensionDai.loadLastExtension(channel);
             } catch (NotFound notFound) {
                 continue;
             }
+            List<Snapshot> snapshots = new ArrayList<>();
 
-            IntensionDai.ChannelPubSet pubSet = ValueMapping.from(IntensionDai.ChannelPubSet.class, publication, extension);
+            List<ModelPublicationDai.PublishedSnapshot> snapshotList = modelPublicationDai.queryPublishedSnapshotsByExtId(extension.getId());
+
+            Models model = ValueMapping.from(Models.class, lastExtension, extension);
+            for (ModelPublicationDai.PublishedSnapshot publishedSnapshot : snapshotList) {
+                int subscriptions = modelSubscriptionDai.countModelSubscriptions(publishedSnapshot.getPubSet());
 
 
-            List<IntensionDai.Intension> intensionList = intensionDai.loadLastIntensions(pubSet);
-            List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
+                Snapshot snapshot = ValueMapping.from(Snapshot.class, publishedSnapshot);
+                snapshot.setSubscriptions(subscriptions);
+                snapshots.add(snapshot);
 
+                model.setSnapshots(snapshots);
 
-            int subscriptions = modelSubscriptionDai.countModelSubscriptions(publication.getPubSet());
-
-            Model model = ValueMapping.from(Model.class, publication, extension);
-
-            model.setRootExtId(extension.getId());
-
-            model.setIntensions(intensions);
-
-            model.setSubscriptions(subscriptions);
-
+            }
             models.add(model);
         }
         return models;

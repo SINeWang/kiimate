@@ -14,7 +14,11 @@ import java.util.List;
 public interface ModelPublicationDai {
 
 
-    List<Publication> queryPublicationsByGroup(String group);
+    List<PublishedExtension> queryPublicationsByGroup(String group);
+
+    List<PublishedSnapshot> queryPublishedSnapshotsByExtId(String extId);
+
+    Publication fetchPublicationsByPubSet(String pubSet);
 
     List<Provider> getProviders(String query);
 
@@ -51,6 +55,33 @@ public interface ModelPublicationDai {
 
         Date beginTime;
     }
+
+    @Data
+    class PublishedExtension {
+        String id;
+
+        @KeyFactor
+        String providerId;
+
+        @KeyFactor
+        String group;
+
+        @KeyFactor
+        String name;
+
+        String operatorId;
+
+        Date beginTime;
+    }
+
+    @Data
+    class PublishedSnapshot {
+        String pubSet;
+        String stability;
+        String version;
+        Date beginTime;
+    }
+
 
     class DuplicatedPublication extends Exception {
 

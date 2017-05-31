@@ -39,8 +39,18 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     }
 
     @Override
-    public List<Publication> queryPublicationsByGroup(String query) {
-        return modelPublicationMapper.selectPublicationByGroupQuery(query);
+    public List<PublishedExtension> queryPublicationsByGroup(String query) {
+        return modelPublicationMapper.selectPublishedExtensionByGroupQuery(query);
+    }
+
+    @Override
+    public List<PublishedSnapshot> queryPublishedSnapshotsByExtId(String extId) {
+        return modelPublicationMapper.selectPublishedSnapshotsByExtId(extId);
+    }
+
+    @Override
+    public Publication fetchPublicationsByPubSet(String pubSet) {
+        return  modelPublicationMapper.selectPublicationsByPubSet(pubSet);
     }
 
     @Override

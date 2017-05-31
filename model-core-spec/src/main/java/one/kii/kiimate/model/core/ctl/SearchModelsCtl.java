@@ -25,7 +25,7 @@ public class SearchModelsCtl extends ReadController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<SearchModelsApi.Model>> exploreModels(
+    public ResponseEntity<List<SearchModelsApi.Models>> exploreModels(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @RequestParam("q") String query) {
@@ -36,7 +36,7 @@ public class SearchModelsCtl extends ReadController {
 
         form.setQuery(query);
 
-        List<SearchModelsApi.Model> models = searchModelsApi.search(context, form);
+        List<SearchModelsApi.Models> models = searchModelsApi.search(context, form);
         return ErestResponse.ok(requestId, models);
     }
 }
