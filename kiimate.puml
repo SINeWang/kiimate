@@ -184,7 +184,7 @@ enum ReferencePolicy {
     LATEST
     FIXED
 }
-enum Coordinate {
+class Coordinate {
     subject_id
     group
     name
