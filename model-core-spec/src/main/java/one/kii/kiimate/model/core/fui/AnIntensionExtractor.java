@@ -28,7 +28,7 @@ public interface AnIntensionExtractor {
 
         private String structure;
 
-        private String refExtId;
+        private String refPubSet;
 
         private boolean required;
 

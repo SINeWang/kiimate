@@ -37,7 +37,7 @@ public interface DeclareIntensionSpi {
     @EqualsAndHashCode(callSuper = false)
     class ImportIntensionForm extends PrimitiveIntensionForm {
 
-        private String refExtId;
+        private String refPubSet;
     }
 
 
@@ -55,7 +55,7 @@ public interface DeclareIntensionSpi {
 
         private String structure;
 
-        private String refExtId;
+        private String refPubSet;
 
         private String visibility;
 

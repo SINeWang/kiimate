@@ -79,7 +79,6 @@ public class DefaultPublishModelsSpi implements PublishModelsSpi {
                 DeclareIntensionSpi.ImportIntensionForm form = new DeclareIntensionSpi.ImportIntensionForm();
                 form.setSingle(single);
                 form.setField(fieldName);
-                form.setRefExtId(receipt.getExtId());
                 form.setExtId(extId);
                 form.setOwnerId(ownerId);
                 form.setStructure(type.getSimpleName());

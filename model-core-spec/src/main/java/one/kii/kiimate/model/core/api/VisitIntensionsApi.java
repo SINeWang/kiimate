@@ -57,7 +57,7 @@ public interface VisitIntensionsApi {
 
         private String structure;
 
-        private String refExtId;
+        private String refPubSet;
 
         private String visibility;
 
