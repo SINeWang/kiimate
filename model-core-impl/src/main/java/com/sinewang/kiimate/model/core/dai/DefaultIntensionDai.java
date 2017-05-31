@@ -39,7 +39,7 @@ public class DefaultIntensionDai implements IntensionDai {
                     intension.getField(),
                     intension.isSingle(),
                     intension.getStructure(),
-                    intension.getRefExtId(),
+                    intension.getRefPubSet(),
                     intension.getVisibility(),
                     intension.isRequired(),
                     now

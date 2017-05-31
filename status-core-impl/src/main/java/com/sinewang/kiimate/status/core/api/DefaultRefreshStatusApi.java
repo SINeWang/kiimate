@@ -51,14 +51,14 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
     @Override
     public Receipt commit(WriteContext context, SubIdForm form) throws NotFound, Conflict {
 
-        ModelSubscriptionDai.ExtensionId rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(
+        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(
                 context.getOwnerId(), form.getSubId());
 
-        if (rootExtId == null) {
+        if (model == null) {
             throw new NotFound(new String[]{context.getOwnerId(), form.getSubId()});
         }
 
-        Map<String, IntensionDai.Intension> dict = modelRestorer.restoreAsIntensionDict(rootExtId.getId());
+        Map<String, IntensionDai.Intension> dict = modelRestorer.restoreAsIntensionDict(model.getRootExtId());
 
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, form.getSubId(), form.getMap(), dict);
 
@@ -71,7 +71,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         }
 
 
-        IntensionDai.ChannelExtension rootExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, rootExtId);
+        IntensionDai.ChannelExtension rootExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, model);
 
         List<InstanceDai.Instance> newInstances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
@@ -79,7 +79,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         List<VisitStatusApi.Intension> intensions = ValueMapping.from(VisitStatusApi.Intension.class, intensionList);
 
 
-        Map<String, Object> map = instanceTransformer.toTimedValue(newInstances, rootExtId.getId());
+        Map<String, Object> map = instanceTransformer.toTimedValue(newInstances, model);
 
         Receipt receipt = ValueMapping.from(Receipt.class, form, context);
         receipt.setMap(map);

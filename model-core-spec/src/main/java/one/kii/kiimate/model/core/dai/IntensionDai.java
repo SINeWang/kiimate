@@ -61,7 +61,7 @@ public interface IntensionDai {
 
         private String structure;
 
-        private String refExtId;
+        private String refPubSet;
 
         private String visibility;
 

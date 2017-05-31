@@ -113,7 +113,7 @@ class Intension {
     string field
     Boolean single
     Structure structure
-    Coordinate m_ref_path
+    string ref_m_pub_set
     Visibility visibility
     Boolean required
     ---

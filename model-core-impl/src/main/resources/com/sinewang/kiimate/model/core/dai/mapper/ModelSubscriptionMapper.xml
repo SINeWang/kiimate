@@ -18,8 +18,11 @@
         <result column="subscriber_id" property="id"/>
     </resultMap>
 
-    <resultMap id="ExtensionId" type="one.kii.kiimate.model.core.dai.ModelSubscriptionDai$ExtensionId">
-        <result column="id" property="id"/>
+    <resultMap id="ModelPubSet" type="one.kii.kiimate.model.core.dai.ModelSubscriptionDai$ModelPubSet">
+        <result column="pub_set_hash" property="pubSet"/>
+        <result column="id" property="rootExtId"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
     </resultMap>
 
     <insert id="insertSubscription">
@@ -59,8 +62,8 @@
         AND msub.end_time IS NULL
     </select>
 
-    <select id="selectLatestRootExtIdByOwnerSubscription" resultMap="ExtensionId">
-        SELECT mext.id
+    <select id="selectModelPubSetByOwnerSubscription" resultMap="ModelPubSet">
+        SELECT mext.id, mpub.pub_set_hash, mpub.begin_time, mpub.end_time
         FROM mm_m_sub msub, mm_m_pub mpub, mm_m_ext mext
         WHERE mext.id = mpub.ext_id
         AND mpub.pub_set_hash = msub.sub_set_hash

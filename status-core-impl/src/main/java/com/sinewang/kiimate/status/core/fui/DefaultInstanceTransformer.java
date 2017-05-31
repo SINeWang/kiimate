@@ -1,8 +1,10 @@
 package com.sinewang.kiimate.status.core.fui;
 
 import one.kii.kiimate.model.core.dai.IntensionDai;
+import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
+import one.kii.summer.beans.utils.ValueMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,30 +23,30 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     private IntensionDai intensionDai;
 
     @Override
-    public Map<String, Object> toTimedValue(List<InstanceDai.Instance> instancesList, String rootExtId) {
+    public Map<String, Object> toTimedValue(List<InstanceDai.Instance> instancesList, ModelSubscriptionDai.ModelPubSet model) {
         Map<String, List<InstanceDai.Instance>> dict = dict(instancesList);
-        IntensionDai.ChannelExtension extension = new IntensionDai.ChannelExtension();
-        extension.setId(rootExtId);
+        IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
+        extension.setId(model.getRootExtId());
         return parseTimed(extension, dict);
     }
 
     @Override
-    public Map<String, Object> toRawValue(List<InstanceDai.Instance> instancesList, String rootExtId) {
+    public Map<String, Object> toRawValue(List<InstanceDai.Instance> instancesList, ModelSubscriptionDai.ModelPubSet model) {
         Map<String, List<InstanceDai.Instance>> dict = dict(instancesList);
-        IntensionDai.ChannelExtension extension = new IntensionDai.ChannelExtension();
-        extension.setId(rootExtId);
+        IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
+        extension.setId(model.getRootExtId());
         return parseRaw(extension, dict);
     }
 
-    private Map<String, Object> parseRaw(IntensionDai.ChannelExtension extId, Map<String, List<InstanceDai.Instance>> dict) {
-        List<IntensionDai.Intension> intensions = intensionDai.loadLatestIntensions(extId);
+    private Map<String, Object> parseRaw(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Instance>> dict) {
+        List<IntensionDai.Intension> intensions = intensionDai.loadLastIntensions(pubSet);
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Intension intension : intensions) {
             if (intension.isSingle()) {
-                if (intension.getRefExtId() != null) {
-                    IntensionDai.ChannelExtension refExtId = new IntensionDai.ChannelExtension();
-                    refExtId.setId(intension.getRefExtId());
-                    Map<String, Object> child = parseRaw(refExtId, dict);
+                if (intension.getRefPubSet() != null) {
+                    IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
+                    refPubSet.setPubSet(intension.getRefPubSet());
+                    Map<String, Object> child = parseRaw(refPubSet, dict);
                     if (!child.isEmpty()) {
                         result.put(intension.getField(), child);
                     }
@@ -58,10 +60,10 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                     }
                 }
             } else {
-                if (intension.getRefExtId() != null) {
-                    IntensionDai.ChannelExtension refExtId = new IntensionDai.ChannelExtension();
-                    refExtId.setId(intension.getRefExtId());
-                    Map<String, Object> child = parseTimed(refExtId, dict);
+                if (intension.getRefPubSet() != null) {
+                    IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
+                    refPubSet.setPubSet(intension.getRefPubSet());
+                    Map<String, Object> child = parseTimed(refPubSet, dict);
                     if (!child.isEmpty()) {
                         addComplexValueToList(result, intension, child);
                     }
@@ -84,15 +86,15 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     }
 
 
-    private Map<String, Object> parseTimed(IntensionDai.ChannelExtension extId, Map<String, List<InstanceDai.Instance>> dict) {
-        List<IntensionDai.Intension> intensions = intensionDai.loadLatestIntensions(extId);
+    private Map<String, Object> parseTimed(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Instance>> dict) {
+        List<IntensionDai.Intension> intensions = intensionDai.loadLastIntensions(pubSet);
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Intension intension : intensions) {
             if (intension.isSingle()) {
-                if (intension.getRefExtId() != null) {
-                    IntensionDai.ChannelExtension refExtId = new IntensionDai.ChannelExtension();
-                    refExtId.setId(intension.getRefExtId());
-                    Map<String, Object> child = parseTimed(refExtId, dict);
+                if (intension.getRefPubSet() != null) {
+                    IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
+                    refPubSet.setPubSet(intension.getRefPubSet());
+                    Map<String, Object> child = parseTimed(refPubSet, dict);
                     if (!child.isEmpty()) {
                         result.put(intension.getField(), child);
                     }
@@ -109,11 +111,11 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                     }
                 }
             } else {
-                if (intension.getRefExtId() != null) {
-                    IntensionDai.ChannelExtension refExtId = new IntensionDai.ChannelExtension();
-                    refExtId.setId(intension.getRefExtId());
+                if (intension.getRefPubSet() != null) {
+                    IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
+                    refPubSet.setPubSet(intension.getRefPubSet());
 
-                    Map<String, Object> child = parseTimed(refExtId, dict);
+                    Map<String, Object> child = parseTimed(refPubSet, dict);
                     addComplexValueToList(result, intension, child);
                 } else {
                     List<InstanceDai.Instance> instances = dict.get(intension.getField());

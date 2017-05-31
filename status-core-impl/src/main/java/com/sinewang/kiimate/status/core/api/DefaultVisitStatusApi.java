@@ -36,12 +36,12 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
     @Override
     public Receipt visit(ReadContext context, Form form) throws NotFound {
 
-        ModelSubscriptionDai.ExtensionId rootExtId = modelSubscriptionDai.getLatestRootExtIdByOwnerSubscription(context.getOwnerId(), form.getSubId());
-        if (rootExtId == null) {
+        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(context.getOwnerId(), form.getSubId());
+        if (model == null) {
             throw new NotFound(new String[]{form.getOwnerId(), form.getSubId()});
         }
 
-        IntensionDai.ChannelExtension rootExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, rootExtId);
+        IntensionDai.ChannelExtension rootExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, model);
 
         List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
@@ -49,7 +49,7 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
 
 
-        Map<String, Object> map = instanceTransformer.toTimedValue(instances, rootExtId.getId());
+        Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);
 
         Receipt receipt = ValueMapping.from(Receipt.class, form, context);
         receipt.setMap(map);

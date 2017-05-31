@@ -38,14 +38,14 @@ public class DefaultModelRestorer implements AnModelRestorer {
         Map<String, Object> model = new HashMap<>();
         List<IntensionDai.Intension> intensions = intensionDai.loadLatestIntensions(extension);
         for (IntensionDai.Intension intension : intensions) {
-            String refExtId = intension.getRefExtId();
-            if (refExtId != null) {
-                IntensionDai.ChannelExtension refExt = new IntensionDai.ChannelExtension();
-                refExt.setId(refExtId);
+            String refPubSet = intension.getRefPubSet();
+            if (refPubSet != null) {
+                IntensionDai.ChannelPubSet refExt = new IntensionDai.ChannelPubSet();
+                refExt.setPubSet(refPubSet);
                 if (intension.isSingle()) {
-                    model.put(intension.getField(), restoreAsMetaData(refExtId));
+                    model.put(intension.getField(), restoreAsMetaData(refPubSet));
                 } else {
-                    model.put(intension.getField(), toArray(restoreAsMetaData(refExtId)));
+                    model.put(intension.getField(), toArray(restoreAsMetaData(refPubSet)));
                 }
             } else {
                 if (intension.isSingle()) {
@@ -75,7 +75,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
     private void restoreAsFieldDict(IntensionDai.ChannelExtension extension, Map<String, IntensionDai.Intension> map) {
         List<IntensionDai.Intension> intensions = intensionDai.loadLatestIntensions(extension);
         for (IntensionDai.Intension intension : intensions) {
-            String refExtId = intension.getRefExtId();
+            String refExtId = intension.getRefPubSet();
             if (refExtId != null) {
                 IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
                 channel.setId(refExtId);

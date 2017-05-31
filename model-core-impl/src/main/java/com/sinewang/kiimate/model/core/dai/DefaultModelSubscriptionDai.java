@@ -53,8 +53,8 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public ExtensionId getLatestRootExtIdByOwnerSubscription(String owner, String subId) {
-        return modelSubscriptionMapper.selectLatestRootExtIdByOwnerSubscription(owner, subId);
+    public ModelPubSet getModelPubSetByOwnerSubscription(String owner, String subId) {
+        return modelSubscriptionMapper.selectModelPubSetByOwnerSubscription(owner, subId);
     }
 
     @Override

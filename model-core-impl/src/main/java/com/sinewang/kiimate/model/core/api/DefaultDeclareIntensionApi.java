@@ -33,9 +33,7 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
     public Receipt commit(WriteContext context, Form form) throws Conflict {
 
         AnIntensionExtractor.Intension intension = anIntensionExtractor.parseForm(form);
-        if (form.getExtId().equals(form.getRefExtId())) {
-            throw new Conflict(new String[]{"extId", "refExtId"});
-        }
+
         IntensionDai.Intension daiRecord = ValueMapping.from(IntensionDai.Intension.class, intension);
         try {
             intensionDai.insertIntension(daiRecord);

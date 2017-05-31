@@ -5,6 +5,7 @@ import lombok.Getter;
 import one.kii.summer.beans.annotations.KeyFactor;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ public interface ModelSubscriptionDai {
     @Transactional
     void save(ModelSubscription modelSubscription) throws DuplicatedSubscription;
 
-    ExtensionId getLatestRootExtIdByOwnerSubscription(String owner, String subId);
+    ModelPubSet getModelPubSetByOwnerSubscription(String owner, String subId);
 
     List<ModelSubscription> querySubscriptions(ClueGroup clue);
 
@@ -59,8 +60,11 @@ public interface ModelSubscriptionDai {
     }
 
     @Data
-    class ExtensionId {
-        String id;
+    class ModelPubSet {
+        String pubSet;
+        String rootExtId;
+        Date beginTime;
+        Date endTime;
     }
 
     @Data
