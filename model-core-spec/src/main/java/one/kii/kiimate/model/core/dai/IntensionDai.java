@@ -40,7 +40,7 @@ public interface IntensionDai {
     @Data
     class ChannelPubSet {
 
-        long id;
+        long extId;
 
         long pubSet;
 

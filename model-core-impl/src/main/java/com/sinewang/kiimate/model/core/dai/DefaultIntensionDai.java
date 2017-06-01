@@ -60,12 +60,14 @@ public class DefaultIntensionDai implements IntensionDai {
     @Override
     public List<Record> loadLast(ChannelPubSet pubSet) {
         List<String> fields = intensionMapper.selectLastFieldsByExtIdPubSet(
-                pubSet.getId(),
+                pubSet.getExtId(),
                 pubSet.getPubSet(),
                 pubSet.getBeginTime());
         List<Record> records = new ArrayList<>();
         for (String field : fields) {
-            Record record = intensionMapper.selectLastIntensionByExtIdField(pubSet.getId(), field);
+            Record record = intensionMapper.selectLastIntensionByExtIdField(
+                    pubSet.getExtId(),
+                    field);
             records.add(record);
         }
         return records;

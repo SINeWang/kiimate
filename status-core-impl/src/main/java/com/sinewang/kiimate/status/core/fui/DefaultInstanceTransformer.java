@@ -26,7 +26,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     public Map<String, Object> toTimedValue(List<InstanceDai.Instance> instancesList, ModelSubscriptionDai.ModelPubSet model) {
         Map<String, List<InstanceDai.Instance>> dict = dict(instancesList);
         IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
-        extension.setId(model.getRootExtId());
+        extension.setExtId(model.getRootExtId());
         return parseTimed(extension, dict);
     }
 
@@ -34,7 +34,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     public Map<String, Object> toRawValue(List<InstanceDai.Instance> instancesList, ModelSubscriptionDai.ModelPubSet model) {
         Map<String, List<InstanceDai.Instance>> dict = dict(instancesList);
         IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
-        extension.setId(model.getRootExtId());
+        extension.setExtId(model.getRootExtId());
         return parseRaw(extension, dict);
     }
 

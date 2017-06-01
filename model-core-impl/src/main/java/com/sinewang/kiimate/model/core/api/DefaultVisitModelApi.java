@@ -48,6 +48,8 @@ public class DefaultVisitModelApi implements VisitModelApi {
 
         IntensionDai.ChannelPubSet pubSet1 = ValueMapping.from(IntensionDai.ChannelPubSet.class, publication, record);
 
+        pubSet1.setExtId(record.getId());
+
 
         List<IntensionDai.Record> recordList = intensionDai.loadLast(pubSet1);
         List<VisitModelApi.Intension> intensions = ValueMapping.from(VisitModelApi.Intension.class, recordList);
