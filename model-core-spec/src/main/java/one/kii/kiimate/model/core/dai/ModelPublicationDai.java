@@ -79,7 +79,7 @@ public interface ModelPublicationDai {
 
     @Data
     class PublishedExtension {
-        String id;
+        long id;
 
         @KeyFactor
         String providerId;

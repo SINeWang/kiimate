@@ -35,8 +35,6 @@ public interface IntensionDai {
         long id;
 
         Date beginTime;
-
-        Date endTime;
     }
 
     @Data

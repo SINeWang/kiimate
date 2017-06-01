@@ -87,6 +87,7 @@
         AND mpub.pub_set = #{pubSet}
         AND mpub.end_time IS NULL
         AND mext.name = 'root'
+        GROUP BY mpub.pub_set
     </select>
     <select id="selectPublishedSnapshotsByExtId" resultMap="PublishedSnapshot">
         SELECT mpub.pub_set, mpub.version, mpub.stability, mpub.begin_time

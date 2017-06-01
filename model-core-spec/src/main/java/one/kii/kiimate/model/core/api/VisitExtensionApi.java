@@ -31,11 +31,11 @@ public interface VisitExtensionApi {
 
     @Data
     class Receipt {
+        long id;
         String ownerId;
         String group;
         String name;
         String tree;
-        String id;
         String visibility;
         List<Intension> intensions;
         Map<String, Object> schema;
