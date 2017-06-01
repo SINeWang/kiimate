@@ -42,7 +42,7 @@ public class DefaultAssetPublicationDai implements AssetPublicationDai {
                     entry.getId(),
                     record.getPubSet(),
                     entry.getProviderId(),
-                    entry.getModelSubId(),
+                    entry.getSubId(),
                     entry.getInsId(),
                     entry.getVersion(),
                     entry.getVisibility(),

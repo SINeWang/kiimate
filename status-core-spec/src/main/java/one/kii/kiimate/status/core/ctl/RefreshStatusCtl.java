@@ -44,7 +44,7 @@ public class RefreshStatusCtl extends WriteController {
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @PathVariable(SUB_ID) String subId,
+            @PathVariable(SUB_ID) long subId,
             @RequestParam MultiValueMap<String, String> map) {
         return commit(requestId, operatorId, ownerId, subId, map);
     }
@@ -67,7 +67,7 @@ public class RefreshStatusCtl extends WriteController {
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @PathVariable(SUB_ID) String subId,
+            @PathVariable(SUB_ID) long subId,
             @RequestBody String json) {
         MultiValueMap<String, String> mmap = MultiValueMapTools.from(json);
         return commit(requestId, operatorId, ownerId, subId, mmap);
@@ -89,7 +89,7 @@ public class RefreshStatusCtl extends WriteController {
             String requestId,
             String operatorId,
             String ownerId,
-            String subId,
+            long subId,
             MultiValueMap<String, String> map) {
         try {
             WriteContext context = buildContext(requestId, ownerId, operatorId);

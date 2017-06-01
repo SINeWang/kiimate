@@ -1,6 +1,7 @@
 package one.kii.kiimate.status.core.dai;
 
 import lombok.Data;
+import one.kii.summer.beans.annotations.KeyFactor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -14,28 +15,28 @@ public interface InstanceDai {
     @Transactional
     void insert(List<Record> records) throws InstanceDuplicated;
 
-    List<Instance> selectLatestInstanceBySubId(String subId);
+    List<Instance> selectLatestInstanceBySubId(long subId);
 
-    List<Instance> selectInstanceByPubSet(String pubSet);
+    List<Instance> selectInstanceByPubSet(long pubSet);
 
     @Data
     class Instance {
 
-        private String id; // id = hashHex(instances.id, value)
+        private long id;
 
         private String ownerId;
 
-        private String subId;
+        private long subId;
 
-        private String extId;
+        private long extId;
 
-        private String intId;
+        private long intId;
 
         private String field;
 
         private String value;
 
-        private String valueSetHash;
+        private long valueSet;
 
         private String valueRefPath;
 
@@ -50,21 +51,22 @@ public interface InstanceDai {
     @Data
     class Record {
 
-        private String id; // id = hashHex(hashHex(extId, fieldId), ownerId)
+        @KeyFactor
+        private long id;
 
         private String ownerId;
 
-        private String subId;
+        private long subId;
 
-        private String extId;
+        private long extId;
 
-        private String intId;
+        private long intId;
 
         private String field;
 
         private String[] values;
 
-        private String valueSetHash;
+        private long valueSet;
 
         private String valueRefId;
 

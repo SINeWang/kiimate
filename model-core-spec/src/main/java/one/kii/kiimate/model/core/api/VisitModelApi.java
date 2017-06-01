@@ -21,8 +21,8 @@ public interface VisitModelApi {
         int subscriptions;
 
         String providerId;
-        String pubSet;
-        String rootExtId;
+        long pubSet;
+        long rootExtId;
 
         String group;
         String name;
@@ -45,13 +45,13 @@ public interface VisitModelApi {
 
         private String structure;
 
-        private String refPubSet;
+        private long refPubSet;
 
         private String visibility;
     }
 
     @Data
     class VisitModelForm {
-        private String pubSet;
+        private long pubSet;
     }
 }

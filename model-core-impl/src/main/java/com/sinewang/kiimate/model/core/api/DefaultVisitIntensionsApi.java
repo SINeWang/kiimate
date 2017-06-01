@@ -23,9 +23,6 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
     private IntensionDai intensionDai;
 
     @Autowired
-    private AnExtensionExtractor extensionExtractor;
-
-    @Autowired
     private ExtensionDai extensionDai;
 
 
@@ -35,7 +32,6 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
         AnExtensionExtractor.Extension extension = ValueMapping.from(AnExtensionExtractor.Extension.class, form);
         extension.setOwnerId(context.getOwnerId());
         extension.setVisibility(VISIBILITY_PUBLIC);
-        extensionExtractor.hashId(extension);
 
         ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
 

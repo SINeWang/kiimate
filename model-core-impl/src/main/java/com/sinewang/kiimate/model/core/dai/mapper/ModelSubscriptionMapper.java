@@ -14,15 +14,15 @@ import java.util.List;
 public interface ModelSubscriptionMapper {
 
     int countLatestSubscription(
-            @Param("subSet") String subSet,
+            @Param("subSet") long subSet,
             @Param("subscriberId") String subscriberId,
             @Param("group") String group,
             @Param("name") String name,
             @Param("tree") String tree);
 
     void insertSubscription(
-            @Param("id") String id,
-            @Param("subSet") String subSet,
+            @Param("id") long id,
+            @Param("subSet") long subSet,
             @Param("subscriberId") String subscriberId,
             @Param("group") String group,
             @Param("name") String name,
@@ -30,9 +30,9 @@ public interface ModelSubscriptionMapper {
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
-    void deleteById(@Param("id") String id);
+    void deleteById(@Param("id") long id);
 
-    int countModelSubscriptions(@Param("subSet") String subSet);
+    int countModelSubscriptions(@Param("subSet") long subSet);
 
     List<ModelSubscriptionDai.ModelSubscription> querySubscriptionsByOwnerGroup(
             @Param("ownerId") String ownerId,
@@ -40,7 +40,7 @@ public interface ModelSubscriptionMapper {
 
     ModelSubscriptionDai.ModelPubSet selectModelPubSetByOwnerSubscription(
             @Param("ownerId") String ownerId,
-            @Param("subId") String subId);
+            @Param("subId") long subId);
 
     ModelSubscriptionDai.ModelSubscription selectSubscriptionByOwnerGroupNameTree(
             @Param("ownerId") String ownerId,
@@ -54,5 +54,5 @@ public interface ModelSubscriptionMapper {
 
     ModelSubscriptionDai.ModelSubscription selectByOwnerSubId(
             @Param("ownerId") String ownerId,
-            @Param("subId") String subId);
+            @Param("subId") long subId);
 }

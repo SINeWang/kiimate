@@ -1,6 +1,7 @@
 package com.sinewang.kiimate.model.core.fui;
 
 import com.google.common.base.CaseFormat;
+import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.api.DeclareExtensionApi;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.summer.beans.utils.HashTools;
@@ -16,6 +17,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DefaultExtensionExtractor implements AnExtensionExtractor {
+
+    private static final Eid64Generator idgen = new Eid64Generator(0);
 
     @Override
     public Extension extract(WriteContext context, DeclareExtensionApi.CommitForm commitForm) throws BadRequest {
@@ -34,19 +37,18 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         } catch (IllegalArgumentException e) {
             throw new BadRequest("visibility");
         }
-        hashId(extension);
+        hash(extension);
+        extension.setId(idgen.born());
         return extension;
     }
 
-    @Override
-    public void hashId(Extension extension) {
+    private void hash(Extension extension) {
         extension.setOwnerId(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getOwnerId()));
         extension.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getGroup()));
         extension.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getName()));
         extension.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getTree()));
         extension.setVisibility(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getVisibility()));
-        String id = HashTools.hashHex(extension);
-        extension.setId(id);
+        extension.setCommit(HashTools.hashHex(extension));
     }
 
 

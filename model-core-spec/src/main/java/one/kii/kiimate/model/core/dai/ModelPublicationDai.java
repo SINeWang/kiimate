@@ -18,7 +18,7 @@ public interface ModelPublicationDai {
 
     List<PublishedSnapshot> fetchPublishedSnapshotsByExtId(ChannelId channel);
 
-    Publication fetchPublications(ChannelPubSet channel);
+    Publication fetchRootPublications(ChannelPubSet channel);
 
     List<Provider> getProviders(ClueId clue);
 
@@ -33,19 +33,18 @@ public interface ModelPublicationDai {
 
     @Data
     class ChannelPubSet {
-        String pubSet;
+        long pubSet;
     }
 
     @Data
     class ChannelId {
-        String id;
+        long id;
     }
 
     @Data
     class ClueId {
         String id;
     }
-
 
     @Data
     class Provider {
@@ -54,18 +53,18 @@ public interface ModelPublicationDai {
 
     @Data
     class Publication {
-        String id;
+        long id;
 
-        String pubSet;
+        long pubSet;
 
         @KeyFactor
         String providerId;
 
         @KeyFactor
-        String extId;
+        long extId;
 
         @KeyFactor
-        String intId;
+        long intId;
 
         @KeyFactor
         String version;
@@ -98,7 +97,7 @@ public interface ModelPublicationDai {
 
     @Data
     class PublishedSnapshot {
-        String pubSet;
+        long pubSet;
         String stability;
         String version;
         Date beginTime;
@@ -108,9 +107,9 @@ public interface ModelPublicationDai {
     class DuplicatedPublication extends Exception {
 
         @Getter
-        private String pubSet;
+        private long pubSet;
 
-        public DuplicatedPublication(String pubSet) {
+        public DuplicatedPublication(long pubSet) {
             this.pubSet = pubSet;
         }
     }

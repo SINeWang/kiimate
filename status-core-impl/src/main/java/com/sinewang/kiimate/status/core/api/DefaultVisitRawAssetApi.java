@@ -52,7 +52,10 @@ public class DefaultVisitRawAssetApi implements VisitRawAssetsApi {
             throw new NotFound(KeyFactorTools.find(LoadAssetsDai.Assets.class));
         }
         List<InstanceDai.Instance> instances = instanceDai.selectInstanceByPubSet(assetDb.getPubSet());
-        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(context.getOwnerId(), assetDb.getModelSubId());
+
+        ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, assetDb);
+
+        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(channel);
         return instanceTransformer.toRawValue(instances, model);
     }
 }

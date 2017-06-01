@@ -36,7 +36,7 @@ public class VisitStatusCtrl extends ReadController {
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @PathVariable(SUB_ID) String subId) {
+            @PathVariable(SUB_ID) long subId) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
         VisitStatusApi.Form form = new VisitStatusApi.Form();

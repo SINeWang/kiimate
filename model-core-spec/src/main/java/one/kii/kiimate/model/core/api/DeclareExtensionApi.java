@@ -38,7 +38,9 @@ public interface DeclareExtensionApi {
     @Data
     class CommitReceipt {
 
-        private String id;
+        private long id;
+
+        private String commit;
 
         private String group;
 
@@ -53,7 +55,7 @@ public interface DeclareExtensionApi {
     @Data
     class CancelForm {
 
-        private String id;
+        private long id;
 
         private String group;
 
@@ -67,7 +69,7 @@ public interface DeclareExtensionApi {
     @Data
     class CancelReceipt {
 
-        private String id;
+        private long id;
 
         private String group;
 

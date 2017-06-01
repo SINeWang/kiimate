@@ -21,7 +21,7 @@ public interface RefreshStatusApi {
 
     @Data
     class SubIdForm {
-        String subId;
+        long subId;
         MultiValueMap<String, String> map;
     }
 
@@ -35,7 +35,7 @@ public interface RefreshStatusApi {
 
     @Data
     class Receipt {
-        String subId;
+        long subId;
         String ownerId;
         List<VisitStatusApi.Intension> intensions;
         Map<String, Object> map;

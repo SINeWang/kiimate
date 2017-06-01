@@ -28,7 +28,7 @@ public interface PublishModelApi {
         private String providerId;
 
         @KeyFactor
-        private String extId;
+        private long extId;
 
         @KeyFactor
         private String stability;

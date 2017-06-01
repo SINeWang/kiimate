@@ -15,7 +15,7 @@ import java.util.List;
 public interface AnPublicationExtractor {
 
     ExtensionPublication extract(PublishModelApi.Form form,
-                                 String extId,
+                                 long extId,
                                  String operatorId,
                                  Date date) throws BadRequest;
 
@@ -28,7 +28,7 @@ public interface AnPublicationExtractor {
 
         private String providerId;
 
-        private String extId;
+        private long extId;
 
         private String stability;
 
@@ -43,18 +43,18 @@ public interface AnPublicationExtractor {
     @Data
     class IntensionPublication {
 
-        private String id;
+        private long id;
 
-        private String pubSet;
+        private long pubSet;
 
         @KeyFactor
         private String providerId;
 
         @KeyFactor
-        private String extId;
+        private long extId;
 
         @KeyFactor
-        private String intId;
+        private long intId;
 
         @KeyFactor
         private String stability;

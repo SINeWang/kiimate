@@ -21,9 +21,6 @@ import java.util.List;
 public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
     @Autowired
-    private AnExtensionExtractor extensionExtractor;
-
-    @Autowired
     private AnModelRestorer modelRestorer;
 
     @Autowired
@@ -32,10 +29,13 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     @Autowired
     private IntensionDai intensionDai;
 
-    private Receipt buildReceipt(final AnExtensionExtractor.Extension extension) throws NotFound {
+
+    @Override
+    public Receipt visit(ReadContext context, Form form) throws NotFound {
+        AnExtensionExtractor.Extension extension = ValueMapping.from(AnExtensionExtractor.Extension.class, form, context);
         ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
 
-        String extId = extension.getId();
+        long extId = extension.getId();
 
         ExtensionDai.Extension extensionRecord = extensionDai.loadLastExtension(channel);
 
@@ -49,13 +49,6 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         receipt.setIntensions(intensions);
         receipt.setSchema(modelRestorer.restoreAsMetaData(extId));
         return receipt;
-    }
-
-    @Override
-    public Receipt visit(ReadContext context, Form form) throws NotFound {
-        AnExtensionExtractor.Extension extension = ValueMapping.from(AnExtensionExtractor.Extension.class, form, context);
-        extensionExtractor.hashId(extension);
-        return buildReceipt(extension);
     }
 
 }

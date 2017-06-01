@@ -20,9 +20,9 @@ public interface RemoveIntensionApi {
     @EqualsAndHashCode(callSuper = false)
     class Form {
 
-        private String extId;
+        private long extId;
 
-        private String intId;
+        private long intId;
 
         private String ownerId;
 

@@ -29,8 +29,8 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     }
 
     @Override
-    public Publication fetchPublications(ChannelPubSet channel) {
-        return modelPublicationMapper.selectPublicationsByPubSet(channel.getPubSet());
+    public Publication fetchRootPublications(ChannelPubSet channel) {
+        return modelPublicationMapper.selectRootPublicationsByPubSet(channel.getPubSet());
     }
 
     @Override

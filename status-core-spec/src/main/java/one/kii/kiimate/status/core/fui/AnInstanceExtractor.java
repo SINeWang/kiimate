@@ -13,22 +13,22 @@ import java.util.Map;
 public interface AnInstanceExtractor {
 
     List<Instance> extract(WriteContext context,
-                           String subId,
+                           long subId,
                            Map<String, List<String>> values,
                            Map<String, IntensionDai.Intension> dict);
 
     @Data
     class Instance {
 
-        private String id;
+        private long id;
 
         private String ownerId;
 
-        private String subId;
+        private long subId;
 
-        private String intId;
+        private long intId;
 
-        private String extId;
+        private long extId;
 
         private String operatorId;
 

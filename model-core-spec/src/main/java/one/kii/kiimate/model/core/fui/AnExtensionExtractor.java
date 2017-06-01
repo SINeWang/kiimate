@@ -17,8 +17,6 @@ public interface AnExtensionExtractor {
 
     Extension extract(WriteContext context, DeclareExtensionApi.CommitForm commitForm) throws BadRequest;
 
-    void hashId(Extension extension);
-
     enum Visibility {
         PRIVATE,
         PROTECTED,
@@ -28,7 +26,9 @@ public interface AnExtensionExtractor {
     @Data
     class Extension {
 
-        private String id;
+        private long id;
+
+        private String commit;
 
         @KeyFactor
         private String ownerId;
@@ -45,7 +45,6 @@ public interface AnExtensionExtractor {
         @KeyFactor
         private String visibility;
 
-        @KeyFactor
         private Date beginTime;
     }
 

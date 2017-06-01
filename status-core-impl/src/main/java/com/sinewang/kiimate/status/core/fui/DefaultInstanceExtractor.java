@@ -1,15 +1,14 @@
 package com.sinewang.kiimate.status.core.fui;
 
 import com.google.common.base.CaseFormat;
+import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
-import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +22,11 @@ import java.util.Map;
 @Component
 public class DefaultInstanceExtractor implements AnInstanceExtractor {
 
+    private static final Eid64Generator setgen = new Eid64Generator(4);
     private static Logger logger = LoggerFactory.getLogger(DefaultInstanceExtractor.class);
 
-
     @Override
-    public List<Instance> extract(WriteContext context, String subId, Map<String, List<String>> map, Map<String, IntensionDai.Intension> fieldDict) {
+    public List<Instance> extract(WriteContext context, long subId, Map<String, List<String>> map, Map<String, IntensionDai.Intension> fieldDict) {
         List<Instance> instances = new ArrayList<>();
 
         for (String field : map.keySet()) {
@@ -37,14 +36,11 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
                 logger.warn("cannot find field [{}]", field);
                 continue;
             }
-            String intId = intension.getId();
+            long intId = intension.getId();
 
             String[] values = cleanUpValues(map.get(field).toArray(new String[0]));
-            String id = HashTools.hashHex(intId, context.getOwnerId());
-            String[] both = StringUtils.mergeStringArrays(new String[]{id}, values);
-            id = HashTools.hashHex(both);
             Instance instance = ValueMapping.from(Instance.class, context);
-            instance.setId(id);
+            instance.setId(setgen.born());
             instance.setSubId(subId);
             instance.setExtId(intension.getExtId());
             instance.setIntId(intId);

@@ -1,5 +1,6 @@
 package com.sinewang.kiimate.status.core.api;
 
+import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.PublishAssetApi;
 import one.kii.kiimate.status.core.dai.AssetPublicationDai;
@@ -22,6 +23,11 @@ import java.util.*;
  */
 @Component
 public class DefaultPublishAssetApi implements PublishAssetApi {
+
+    private static final Eid64Generator insgen = new Eid64Generator(5);
+
+
+    private static final Eid64Generator pubset = new Eid64Generator(6);
 
     @Autowired
     private AssetPublicationDai assetPublicationDai;
@@ -54,25 +60,17 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
 
         List<AssetPublicationDai.Entry> entries = new ArrayList<>();
 
-        final String publishAssetId = HashTools.hashHex(informal.getProviderId(), informal.getModelSubId());
 
-        List<String> instancesIds = new ArrayList<>();
         for (InstanceDai.Instance instance : instances) {
-            String id = HashTools.hashHex(publishAssetId, instance.getId());
             AssetPublicationDai.Entry record = ValueMapping.from(AssetPublicationDai.Entry.class, informal);
             record.setInsId(instance.getId());
-            record.setId(id);
+            record.setId(insgen.born());
             record.setVersion(informal.getVersion());
             entries.add(record);
-            instancesIds.add(id);
         }
 
-        String[] idArray = instancesIds.toArray(new String[0]);
-        Arrays.sort(idArray);
-        String pubSet = HashTools.hashHex(idArray);
-
         AssetPublicationDai.Record record = new AssetPublicationDai.Record();
-        record.setPubSet(pubSet);
+        record.setPubSet(pubset.born());
         record.setEntries(entries);
         record.setPrevious(previous);
 
@@ -80,7 +78,7 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
         Map map = new HashMap<>();
         ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, form);
         channel.setOwnerId(informal.getProviderId());
-        ModelSubscriptionDai.ModelSubscription modelSubscription =  modelSubscriptionDai.selectSubscription(channel);
+        ModelSubscriptionDai.ModelSubscription modelSubscription = modelSubscriptionDai.selectSubscription(channel);
         map.put("beginTime", date);
         return ValueMapping.from(Receipt.class, form, map, modelSubscription);
     }

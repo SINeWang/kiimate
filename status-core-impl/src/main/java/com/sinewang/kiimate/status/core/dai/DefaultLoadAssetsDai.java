@@ -43,7 +43,7 @@ public class DefaultLoadAssetsDai implements LoadAssetsDai {
     public Assets fetchAssets(ChannelModelSubId channel) throws NotFound {
         Assets assets = assetPublicationMapper.selectAssetsByProviderModelSubIdStabilityVersion(
                 channel.getOwnerId(),
-                channel.getModelSubId(),
+                channel.getSubId(),
                 channel.getStability(),
                 channel.getVersion());
         if (assets == null) {

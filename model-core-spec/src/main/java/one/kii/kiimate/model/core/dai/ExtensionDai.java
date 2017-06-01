@@ -26,7 +26,7 @@ public interface ExtensionDai {
 
     @Data
     class ChannelId{
-        String id;
+        long id;
         Date beginTime;
     }
 
@@ -36,7 +36,7 @@ public interface ExtensionDai {
     @Data
     class Extension {
 
-        private String id;
+        private long id;
 
         @KeyFactor
         private String ownerId;

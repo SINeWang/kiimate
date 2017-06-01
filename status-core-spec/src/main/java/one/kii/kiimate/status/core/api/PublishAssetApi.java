@@ -25,7 +25,7 @@ public interface PublishAssetApi {
 
         private String providerId;
 
-        private String subId;
+        private long subId;
 
         private String version;
 
@@ -37,7 +37,7 @@ public interface PublishAssetApi {
     @EqualsAndHashCode(callSuper = false)
     class Receipt {
 
-        private String pubSet;
+        private long pubSet;
 
         private String group;
 

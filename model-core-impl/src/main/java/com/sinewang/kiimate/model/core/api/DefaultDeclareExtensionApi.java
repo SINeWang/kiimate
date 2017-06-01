@@ -35,7 +35,7 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
             extensionDai.insertExtension(daiExtension);
             return ValueMapping.from(CommitReceipt.class, daiExtension);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
-            throw new Conflict(extension.getId());
+            throw new Conflict(extension.getCommit());
         }
     }
 

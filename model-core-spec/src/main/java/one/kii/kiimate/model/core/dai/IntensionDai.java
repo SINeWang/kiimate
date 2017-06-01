@@ -21,12 +21,12 @@ public interface IntensionDai {
 
     List<Intension> loadLastIntensions(ChannelPubSet channel);
 
-    void removeIntension(String intId);
+    void removeIntension(long intId);
 
     @Data
     class ChannelExtension {
 
-        String id;
+        long id;
 
         Date beginTime;
 
@@ -36,9 +36,9 @@ public interface IntensionDai {
     @Data
     class ChannelPubSet {
 
-        String id;
+        long id;
 
-        String pubSet;
+        long pubSet;
 
         Date beginTime;
 
@@ -49,10 +49,10 @@ public interface IntensionDai {
     @Data
     class Intension {
 
-        private String id;
+        private long id;
 
         @KeyFactor
-        private String extId;
+        private long extId;
 
         @KeyFactor
         private String field;
@@ -61,7 +61,7 @@ public interface IntensionDai {
 
         private String structure;
 
-        private String refPubSet;
+        private long refPubSet;
 
         private String visibility;
 
@@ -71,9 +71,9 @@ public interface IntensionDai {
     class IntensionDuplicated extends Exception {
 
         @Getter
-        private String intId;
+        private long intId;
 
-        public IntensionDuplicated(String intId) {
+        public IntensionDuplicated(long intId) {
             this.intId = intId;
         }
     }

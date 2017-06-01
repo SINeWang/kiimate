@@ -1,6 +1,7 @@
 package com.sinewang.kiimate.status.core.dai;
 
 import com.sinewang.kiimate.status.core.dai.mapper.InstanceMapper;
+import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.summer.beans.utils.HashTools;
 import org.springframework.beans.BeanUtils;
@@ -17,6 +18,10 @@ import java.util.List;
 
 @Component
 public class DefaultInstanceDai implements InstanceDai {
+
+    private static final Eid64Generator idgen = new Eid64Generator(7);
+
+    private static final Eid64Generator setgen = new Eid64Generator(8);
 
     @Autowired
     private InstanceMapper instanceMapper;
@@ -109,14 +114,13 @@ public class DefaultInstanceDai implements InstanceDai {
                         record.getSubId(),
                         record.getIntId(),
                         now);
-                String valueSetHash = HashTools.hashHex(values);
+                long set = setgen.born();
                 for (String value : values) {
                     Instance instance = new Instance();
                     BeanUtils.copyProperties(record, instance, "id");
-                    instance.setValueSetHash(valueSetHash);
+                    instance.setValueSet(set);
                     instance.setValue(value);
-                    String id = HashTools.hashHex(record.getId(), value);
-                    instance.setId(id);
+                    instance.setId(idgen.born());
                     insertInstance(instance, now);
                 }
             }
@@ -124,12 +128,12 @@ public class DefaultInstanceDai implements InstanceDai {
     }
 
     @Override
-    public List<Instance> selectLatestInstanceBySubId(String subId) {
+    public List<Instance> selectLatestInstanceBySubId(long subId) {
         return instanceMapper.selectLatestInstancesBySubId(subId);
     }
 
     @Override
-    public List<Instance> selectInstanceByPubSet(String pubSet) {
+    public List<Instance> selectInstanceByPubSet(long pubSet) {
         return instanceMapper.selectInstancesByPubSet(pubSet);
     }
 
@@ -146,7 +150,7 @@ public class DefaultInstanceDai implements InstanceDai {
                 instance.getIntId(),
                 instance.getField(),
                 instance.getValue(),
-                instance.getValueSetHash(),
+                instance.getValueSet(),
                 instance.getValueRefPath(),
                 instance.getValueRefPolicy(),
                 instance.getOperatorId(),

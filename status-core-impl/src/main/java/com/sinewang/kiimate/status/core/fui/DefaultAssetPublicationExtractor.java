@@ -18,7 +18,6 @@ public class DefaultAssetPublicationExtractor implements AssetPublicationExtract
         if (TREE_LATEST.equals(form.getStability())) {
             informal.setVersion(VERSION_HEAD);
         }
-        informal.setModelSubId(form.getSubId());
         return informal;
     }
 

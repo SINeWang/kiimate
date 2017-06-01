@@ -43,7 +43,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Intension intension : intensions) {
             if (intension.isSingle()) {
-                if (intension.getRefPubSet() != null) {
+                if (intension.getRefPubSet() != 0) {
                     IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
                     refPubSet.setPubSet(intension.getRefPubSet());
                     Map<String, Object> child = parseRaw(refPubSet, dict);
@@ -60,7 +60,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                     }
                 }
             } else {
-                if (intension.getRefPubSet() != null) {
+                if (intension.getRefPubSet() != 0) {
                     IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
                     refPubSet.setPubSet(intension.getRefPubSet());
                     Map<String, Object> child = parseTimed(refPubSet, dict);
@@ -91,7 +91,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Intension intension : intensions) {
             if (intension.isSingle()) {
-                if (intension.getRefPubSet() != null) {
+                if (intension.getRefPubSet() != 0) {
                     IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
                     refPubSet.setPubSet(intension.getRefPubSet());
                     Map<String, Object> child = parseTimed(refPubSet, dict);
@@ -111,7 +111,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                     }
                 }
             } else {
-                if (intension.getRefPubSet() != null) {
+                if (intension.getRefPubSet() != 0) {
                     IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
                     refPubSet.setPubSet(intension.getRefPubSet());
 
@@ -151,7 +151,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     private Map<String, List<InstanceDai.Instance>> dict(List<InstanceDai.Instance> instances) {
         Map<String, List<InstanceDai.Instance>> dict = new HashMap<>();
         for (InstanceDai.Instance instance : instances) {
-            if (instance.getValueSetHash() == null) {
+            if (instance.getValueSet() == 0) {
                 List<InstanceDai.Instance> values = new ArrayList<>();
                 values.add(instance);
                 dict.put(instance.getField(), values);

@@ -14,7 +14,7 @@ import java.util.List;
 public interface ExtensionMapper {
 
     void insertExtension(
-            @Param("id") String id,
+            @Param("id") long id,
             @Param("ownerId") String ownerId,
             @Param("group") String group,
             @Param("name") String name,
@@ -23,10 +23,10 @@ public interface ExtensionMapper {
             @Param("beginTime") Date beginTime);
 
     ExtensionDai.Extension selectLatestExtensionById(
-            @Param("id") String id);
+            @Param("id") long id);
 
     ExtensionDai.Extension selectLastExtensionByIdTime(
-            @Param("id") String id,
+            @Param("id") long id,
             @Param("beginTime") Date beginTime);
 
     List<ExtensionDai.Extension> selectExtensionsByOwnerGroup(
@@ -37,10 +37,10 @@ public interface ExtensionMapper {
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 
-    void deleteExtensionById(@Param("id") String id);
+    void deleteExtensionById(@Param("id") long id);
 
     void updateEndTimeExtensionById(
-            @Param("extId") String extId,
+            @Param("extId") long extId,
             @Param("endTime") Date endTime);
 
 }

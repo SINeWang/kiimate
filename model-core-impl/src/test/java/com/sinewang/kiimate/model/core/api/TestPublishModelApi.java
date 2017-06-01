@@ -2,12 +2,12 @@ package com.sinewang.kiimate.model.core.api;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
 import com.sinewang.kiimate.model.core.dai.mapper.ModelPublicationMapper;
+import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.kiimate.model.core.fui.AnStructureValidator;
-import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -34,49 +34,31 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = {TestPublishModelApi.class})
 public class TestPublishModelApi {
 
+    private static final Eid64Generator idgen = new Eid64Generator();
     @Autowired
     private PublishModelApi publishModelApi;
-
     @Autowired
     private ExtensionDai extensionDai;
-
     @Autowired
     private IntensionDai intensionDai;
-
     @Autowired
     private AnExtensionExtractor extensionExtractor;
-
     @Autowired
     private ExtensionMapper extensionMapper;
-
     @Autowired
     private ModelPublicationMapper modelPublicationMapper;
-
     private String providerId = "testProviderId";
-
     private String ownerId = "testOwnerId";
-
     private String group = "testGroup";
-
     private String name = "testName";
-
     private String tree = "testTree";
-
     private String visitorId = "testVisitorId";
-
     private String visibility = "protected";
-
     private String operatorId = "operatorId";
-
-    private String extId;
-
+    private long extId;
     private String[] fields = new String[]{"username", "password", "driver-class-name"};
-
-
     private String version = "1.0.0";
-
     private String requestId = "testRequestId";
-
 
     @Before
     public void before() {
@@ -86,7 +68,6 @@ public class TestPublishModelApi {
         extension1.setName(name);
         extension1.setTree(tree);
         extension1.setVisibility(visibility);
-        extensionExtractor.hashId(extension1);
 
         this.extId = extension1.getId();
 
@@ -124,8 +105,8 @@ public class TestPublishModelApi {
             intension.setVisibility(visibility);
             intension.setStructure(AnStructureValidator.Structure.STRING.name());
             intension.setField(field);
-            String intId = HashTools.hashHex(extId, field);
-            intension.setId(intId);
+
+            intension.setId(idgen.born());
             try {
                 intensionDai.insertIntension(intension);
             } catch (IntensionDai.IntensionDuplicated intensionDuplicated) {

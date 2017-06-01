@@ -30,7 +30,7 @@ public interface AssetPublicationDai {
     @Data
     class Record {
 
-        String pubSet;
+        long pubSet;
 
         List<Entry> entries;
 
@@ -39,13 +39,13 @@ public interface AssetPublicationDai {
 
     @Data
     class Entry {
-        String id;
+        long id;
 
         String providerId;
 
-        String modelSubId;
+        long subId;
 
-        String insId;
+        long insId;
 
         String version;
 

@@ -1,6 +1,7 @@
 package com.sinewang.kiimate.model.core.fui;
 
 import com.google.common.base.CaseFormat;
+import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.api.DeclareIntensionApi;
 import one.kii.kiimate.model.core.fui.AnIntensionExtractor;
 import one.kii.summer.beans.utils.HashTools;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultIntensionExtractor implements AnIntensionExtractor {
 
+    private static final Eid64Generator idgen = new Eid64Generator(1);
 
     @Override
     public Intension parseForm(DeclareIntensionApi.Form form) {
@@ -21,14 +23,8 @@ public class DefaultIntensionExtractor implements AnIntensionExtractor {
         form.setField(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getField()));
 
         Intension intension = ValueMapping.from(Intension.class, form);
-        hashId(intension);
+        intension.setId(idgen.born());
         return intension;
-    }
-
-    @Override
-    public void hashId(Intension intension) {
-        String id = HashTools.hashHex(intension);
-        intension.setId(id);
     }
 
 }

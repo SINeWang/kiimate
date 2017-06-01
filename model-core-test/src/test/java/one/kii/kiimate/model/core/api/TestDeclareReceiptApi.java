@@ -157,7 +157,7 @@ public class TestDeclareReceiptApi {
         } catch (Conflict conflict) {
             conflict.printStackTrace();
         }
-        String id = response.getId();
+        long id = response.getId();
         Assert.assertNotNull(id);
 
 

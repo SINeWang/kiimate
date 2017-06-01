@@ -15,11 +15,11 @@ import java.util.List;
 public interface AssetPublicationMapper {
 
     void insertAssetPublication(
-            @Param("id") String id,
-            @Param("pubSet") String pubSet,
+            @Param("id") long id,
+            @Param("pubSet") long pubSet,
             @Param("providerId") String providerId,
-            @Param("modelSubId") String modelSubId,
-            @Param("insId") String insId,
+            @Param("modelSubId") long subId,
+            @Param("insId") long insId,
             @Param("version") String version,
             @Param("visibility") String visibility,
             @Param("stability") String stability,
@@ -32,7 +32,7 @@ public interface AssetPublicationMapper {
                                            @Param("group") String group);
 
     LoadAssetsDai.Assets selectAsset(@Param("providerId") String providerId,
-                                     @Param("pubSet") String pubSet,
+                                     @Param("pubSet") long pubSet,
                                      @Param("stability") String stability,
                                      @Param("version") String version);
 
@@ -43,11 +43,11 @@ public interface AssetPublicationMapper {
                                                                         @Param("version") String version);
 
     LoadAssetsDai.Assets selectAssetsByProviderModelSubIdStabilityVersion(@Param("providerId") String providerId,
-                                                                          @Param("modelSubId") String group,
+                                                                          @Param("modelSubId") long subId,
                                                                           @Param("stability") String stability,
                                                                           @Param("version") String version);
 
     void revokeAsset(@Param("providerId") String providerId,
-                     @Param("pubSet") String pubSet,
+                     @Param("pubSet") long pubSet,
                      @Param("endTime") Date endTime);
 }

@@ -56,7 +56,7 @@ public class DefaultExtensionDai implements ExtensionDai {
         Extension lastExtension = extensionMapper.selectLatestExtensionById(extension.getId());
 
         if (lastExtension != null) {
-            throw new ExtensionDuplicated(extension.getId());
+            throw new ExtensionDuplicated(String.valueOf(extension.getId()));
         }
 
         try {

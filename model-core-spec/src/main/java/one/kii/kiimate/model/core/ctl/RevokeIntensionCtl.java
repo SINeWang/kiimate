@@ -38,8 +38,8 @@ public class RevokeIntensionCtl extends WriteController {
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @PathVariable(EXT_ID) String extId,
-            @PathVariable(INT_ID) String intId) {
+            @PathVariable(EXT_ID) long extId,
+            @PathVariable(INT_ID) long intId) {
         try {
             WriteContext context = buildContext(requestId, operatorId, ownerId);
 

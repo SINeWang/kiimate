@@ -38,7 +38,7 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
         try {
             intensionDai.insertIntension(daiRecord);
         } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
-            throw new Conflict(daiRecord.getId());
+            throw new Conflict("id");
         }
 
         IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();

@@ -20,7 +20,7 @@ public interface DeclareIntensionApi {
     @EqualsAndHashCode(callSuper = false)
     class Form {
 
-        private String extId;
+        private long extId;
 
         private String field;
 

@@ -1,9 +1,9 @@
 package com.sinewang.kiimate.model.core.api;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
+import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.api.SubscribeModelsApi;
 import one.kii.kiimate.model.core.fui.AnSubscribeModelExtractor;
-import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import org.junit.Test;
@@ -24,6 +24,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ComponentScan("com.sinewang.kiimate.model.core")
 @SpringBootTest(classes = {TestSubscribeModelsApi.class})
 public class TestSubscribeModelsApi {
+
+    private static final Eid64Generator idgen = new Eid64Generator();
+
 
     @Autowired
     private SubscribeModelsApi subscribeModelsApi;
@@ -58,6 +61,7 @@ public class TestSubscribeModelsApi {
 
         form.setSubSet(pubSet);
 
+        long id = idgen.born();
 
         AnSubscribeModelExtractor.ModelSubscription model = new AnSubscribeModelExtractor.ModelSubscription();
         model.setSubscriberId(subscriberId);
@@ -66,7 +70,6 @@ public class TestSubscribeModelsApi {
         model.setName(name);
         model.setTree(tree);
 
-        String id = HashTools.hashHex(model);
         modelSubscriptionMapper.deleteById(id);
 
         form.setGroup(group);

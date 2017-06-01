@@ -35,7 +35,7 @@ public class DefaultVisitModelApi implements VisitModelApi {
     @Override
     public Model visit(ReadContext context, VisitModelForm form) throws NotFound {
         ModelPublicationDai.ChannelPubSet pubSet = ValueMapping.from(ModelPublicationDai.ChannelPubSet.class, form);
-        ModelPublicationDai.Publication publication = modelPublicationDai.fetchPublications(pubSet);
+        ModelPublicationDai.Publication publication = modelPublicationDai.fetchRootPublications(pubSet);
 
         ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, publication);
         channel.setId(publication.getExtId());

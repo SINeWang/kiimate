@@ -8,6 +8,7 @@ import one.kii.kiimate.status.core.api.VisitStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
+import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
@@ -50,12 +51,11 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
     @Override
     public Receipt commit(WriteContext context, SubIdForm form) throws NotFound, Conflict {
+        ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, form);
 
-        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(
-                context.getOwnerId(), form.getSubId());
-
+        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(channel);
         if (model == null) {
-            throw new NotFound(new String[]{context.getOwnerId(), form.getSubId()});
+            throw new NotFound(KeyFactorTools.find(ModelSubscriptionDai.ChannelSubId.class));
         }
 
         Map<String, IntensionDai.Intension> dict = modelRestorer.restoreAsIntensionDict(model.getRootExtId());
@@ -67,7 +67,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         try {
             instanceDai.insert(record1);
         } catch (InstanceDai.InstanceDuplicated instanceDuplicated) {
-            throw new Conflict(form.getSubId());
+            throw new Conflict(KeyFactorTools.find(InstanceDai.Record.class));
         }
 
 
@@ -95,7 +95,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         if (subscription == null) {
             throw new NotFound(KeyFactorTools.find(ModelSubscriptionDai.ModelSubscription.class));
         }
-        String subId = subscription.getId();
+        long subId = subscription.getId();
         SubIdForm subIdForm = ValueMapping.from(SubIdForm.class, form);
         subIdForm.setSubId(subId);
         return commit(context, subIdForm);

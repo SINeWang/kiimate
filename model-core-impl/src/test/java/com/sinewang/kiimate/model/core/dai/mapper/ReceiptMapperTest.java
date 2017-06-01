@@ -28,19 +28,19 @@ public class ReceiptMapperTest {
 
     @Test
     public void testCRUD() {
-        String id = "12";
+        long id = 12;
 
         String ownerId = "testOwnerId";
         extensionMapper.deleteExtensionById(id);
 
-        ExtensionDai.Extension ext = extensionMapper.selectLatestExtensionById("12");
+        ExtensionDai.Extension ext = extensionMapper.selectLatestExtensionById(id);
         Assert.assertNull(ext);
 
         extensionMapper.insertExtension(id, ownerId, "12", "56", "78", "90", new Date());
         ExtensionDai.Extension ext1 = extensionMapper.selectLatestExtensionById(id);
         Assert.assertNotNull(ext1);
 
-        extensionMapper.deleteExtensionById("12");
+        extensionMapper.deleteExtensionById(id);
         Assert.assertNull(ext);
     }
 

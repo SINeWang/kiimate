@@ -11,15 +11,13 @@ public interface AnIntensionExtractor {
 
     Intension parseForm(DeclareIntensionApi.Form form);
 
-    void hashId(Intension intension);
-
     @Data
     class Intension {
 
-        private String id;
+        private long id;
 
         @KeyFactor
-        private String extId;
+        private long extId;
 
         @KeyFactor
         private String field;
@@ -28,7 +26,7 @@ public interface AnIntensionExtractor {
 
         private String structure;
 
-        private String refPubSet;
+        private long refPubSet;
 
         private boolean required;
 

@@ -34,7 +34,7 @@ public class DefaultSubscribeModelsApi implements SubscribeModelsApi {
             modelSubscriptionDai.save(subscription);
             return ValueMapping.from(Receipt.class, modelSubscription);
         } catch (ModelSubscriptionDai.DuplicatedSubscription duplicatedSubscription) {
-            throw new Conflict(subscription.getId());
+            throw new Conflict("id");
         }
     }
 

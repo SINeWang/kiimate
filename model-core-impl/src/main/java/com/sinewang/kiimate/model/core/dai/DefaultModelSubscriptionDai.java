@@ -53,7 +53,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public ModelPubSet getModelPubSetByOwnerSubscription(String owner, String subId) {
+    public ModelPubSet getModelPubSetByOwnerSubscription(String owner, long subId) {
         return modelSubscriptionMapper.selectModelPubSetByOwnerSubscription(owner, subId);
     }
 
@@ -83,8 +83,8 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public int countModelSubscriptions(String pubSetHash) {
-        return modelSubscriptionMapper.countModelSubscriptions(pubSetHash);
+    public int countModelSubscriptions(long pubSet) {
+        return modelSubscriptionMapper.countModelSubscriptions(pubSet);
     }
 
     @Override

@@ -73,7 +73,7 @@ public class DefaultIntensionDai implements IntensionDai {
 
 
     @Override
-    public void removeIntension(String intId) {
+    public void removeIntension(long intId) {
         Date now = new Date();
         intensionMapper.updateLatestIntensionEndTimeById(intId, now);
     }

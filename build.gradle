@@ -11,6 +11,7 @@ plugins {
 }
 
 ext {
+    deridVersion = '0.1.1'
     guavaVersion = '21.0'
     jacksondatabindVersion = '2.8.8'
     junitVersion = '4.12'
@@ -74,6 +75,7 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
         compile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-io", version: "${summerVersion}", changing: true
 
+
         compile("org.springframework:spring-tx:${springFrameworkVersion}")
         compile("org.springframework:spring-web:${springFrameworkVersion}")
 
@@ -102,6 +104,8 @@ configure(subprojects.findAll { it.name.endsWith("impl") }) {
 
         compile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-io", version: "${summerVersion}", changing: true
+
+        compile("one.kii.derid:derid64:${deridVersion}")
 
         compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
 

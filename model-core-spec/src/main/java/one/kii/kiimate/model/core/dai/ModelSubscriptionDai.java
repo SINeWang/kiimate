@@ -17,7 +17,7 @@ public interface ModelSubscriptionDai {
     @Transactional
     void save(ModelSubscription modelSubscription) throws DuplicatedSubscription;
 
-    ModelPubSet getModelPubSetByOwnerSubscription(String owner, String subId);
+    ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel);
 
     List<ModelSubscription> querySubscriptions(ClueGroup clue);
 
@@ -27,7 +27,7 @@ public interface ModelSubscriptionDai {
 
     ModelSubscription selectSubscription(ChannelSubId channel);
 
-    int countModelSubscriptions(String pubSet);
+    int countModelSubscriptions(long pubSet);
 
     @Data
     class ClueGroup{
@@ -50,8 +50,11 @@ public interface ModelSubscriptionDai {
 
     @Data
     class ChannelSubId {
+        @KeyFactor
         String ownerId;
-        String subId;
+
+        @KeyFactor
+        long subId;
     }
 
     @Data
@@ -61,17 +64,17 @@ public interface ModelSubscriptionDai {
 
     @Data
     class ModelPubSet {
-        String pubSet;
-        String rootExtId;
+        long pubSet;
+        long rootExtId;
         Date beginTime;
         Date endTime;
     }
 
     @Data
     class ModelSubscription {
-        private String id;
+        private long id;
 
-        private String subSet;
+        private long subSet;
 
         @KeyFactor
         private String subscriberId;
@@ -92,7 +95,7 @@ public interface ModelSubscriptionDai {
     class DuplicatedSubscription extends Exception {
 
         @Getter
-        private String subSetHash;
+        private long subSet;
 
         @Getter
         private String subscriberId;
@@ -106,9 +109,9 @@ public interface ModelSubscriptionDai {
         @Getter
         private String tree;
 
-        public DuplicatedSubscription(String subSetHash, String subscriberId, String group, String name, String tree) {
+        public DuplicatedSubscription(long subSet, String subscriberId, String group, String name, String tree) {
             super();
-            this.subSetHash = subSetHash;
+            this.subSet = subSet;
             this.subscriberId = subscriberId;
             this.group = group;
             this.name = name;
