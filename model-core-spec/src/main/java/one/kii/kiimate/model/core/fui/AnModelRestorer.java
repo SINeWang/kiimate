@@ -12,5 +12,5 @@ public interface AnModelRestorer {
 
     Map<String, Object> restoreAsMetaData(long extId);
 
-    Map<String, IntensionDai.Intension> restoreAsIntensionDict(long extId);
+    Map<String, IntensionDai.Record> restoreAsIntensionDict(long extId);
 }

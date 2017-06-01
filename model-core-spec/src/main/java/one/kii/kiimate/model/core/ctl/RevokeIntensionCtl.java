@@ -44,7 +44,7 @@ public class RevokeIntensionCtl extends WriteController {
             WriteContext context = buildContext(requestId, operatorId, ownerId);
 
             RemoveIntensionApi.Form form = new RemoveIntensionApi.Form();
-            form.setIntId(intId);
+            form.setId(intId);
             form.setExtId(extId);
             form.setOwnerId(ownerId);
 

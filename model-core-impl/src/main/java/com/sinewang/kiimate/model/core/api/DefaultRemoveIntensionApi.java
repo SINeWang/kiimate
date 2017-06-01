@@ -26,21 +26,16 @@ public class DefaultRemoveIntensionApi implements RemoveIntensionApi {
 
     @Override
     public Receipt commit(WriteContext context, Form form) throws Conflict {
+        IntensionDai.ChannelId channel = ValueMapping.from(IntensionDai.ChannelId.class, form);
+        intensionDai.forget(channel);
 
-        Receipt receipt = new Receipt();
-
-        intensionDai.removeIntension(form.getIntId());
-
-        IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
-        channel.setId(form.getExtId());
-
-        List<Intension> intensions = ValueMapping.from(Intension.class, intensionDai.loadLatestIntensions(channel));
-
-        receipt.setIntensions(intensions);
-
+        IntensionDai.ChannelExtension channelExtension = new IntensionDai.ChannelExtension();
+        channelExtension.setId(form.getExtId());
+        List<Intension> intensions = ValueMapping.from(Intension.class, intensionDai.loadLatest(channelExtension));
         Map<String, Object> schema = modelRestorer.restoreAsMetaData(form.getExtId());
+        Receipt receipt = new Receipt();
+        receipt.setIntensions(intensions);
         receipt.setSchema(schema);
-
         return receipt;
     }
 }

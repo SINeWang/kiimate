@@ -15,6 +15,7 @@ public interface ExtensionMapper {
 
     void insertExtension(
             @Param("id") long id,
+            @Param("commit") String commit,
             @Param("ownerId") String ownerId,
             @Param("group") String group,
             @Param("name") String name,
@@ -22,18 +23,31 @@ public interface ExtensionMapper {
             @Param("visibility") String visibility,
             @Param("beginTime") Date beginTime);
 
-    ExtensionDai.Extension selectLatestExtensionById(
+    ExtensionDai.Record selectLatestExtensionById(
             @Param("id") long id);
 
-    ExtensionDai.Extension selectLastExtensionByIdTime(
-            @Param("id") long id,
+    ExtensionDai.Record selectLastExtensionByOwnerGroupNameTree(
+            @Param("ownerId") String ownerId,
+            @Param("group") String group,
+            @Param("name") String name,
+            @Param("tree") String tree,
             @Param("beginTime") Date beginTime);
 
-    List<ExtensionDai.Extension> selectExtensionsByOwnerGroup(
+    List<ExtensionDai.Record> selectExtensionsByOwnerGroup(
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 
-    List<ExtensionDai.Extension> queryExtensionsByOwnerGroup(
+    ExtensionDai.Record selectLatestExtensionByOwnerGroupNameTree(
+            @Param("ownerId") String ownerId,
+            @Param("group") String group,
+            @Param("name") String name,
+            @Param("tree") String tree);
+
+    ExtensionDai.Record selectLastExtensionById(
+            @Param("id") long id,
+            @Param("beginTime") Date beginTime);
+
+    List<ExtensionDai.Record> queryExtensionsByOwnerGroup(
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 

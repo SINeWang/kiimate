@@ -18,12 +18,14 @@ public class DefaultIntensionExtractor implements AnIntensionExtractor {
     private static final Eid64Generator idgen = new Eid64Generator(1);
 
     @Override
-    public Intension parseForm(DeclareIntensionApi.Form form) {
+    public Intension extract(DeclareIntensionApi.Form form) {
 
         form.setField(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getField()));
 
         Intension intension = ValueMapping.from(Intension.class, form);
         intension.setId(idgen.born());
+        String commit = HashTools.hashHex(intension);
+        intension.setCommit(commit);
         return intension;
     }
 

@@ -14,13 +14,13 @@ import java.util.List;
 public interface ModelPublicationDai {
 
 
-    List<PublishedExtension> queryPublications(ClueGroup clue);
+    List<PublishedExtension> searchExtension(ClueGroup clue);
 
-    List<PublishedSnapshot> fetchPublishedSnapshotsByExtId(ChannelId channel);
+    List<PublishedSnapshot> loadSnapshot(ChannelId channel);
 
-    Publication fetchRootPublications(ChannelPubSet channel);
+    Publication loadRootPublications(ChannelPubSet channel);
 
-    List<Provider> getProviders(ClueId clue);
+    List<Provider> searchProviders(ClueId clue);
 
 
     @Transactional

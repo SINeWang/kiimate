@@ -21,7 +21,7 @@ public interface AnPublicationExtractor {
 
     List<IntensionPublication> extract(
             ExtensionPublication extensionPublication,
-            List<IntensionDai.Intension> intensions);
+            List<IntensionDai.Record> records);
 
     @Data
     class ExtensionPublication {

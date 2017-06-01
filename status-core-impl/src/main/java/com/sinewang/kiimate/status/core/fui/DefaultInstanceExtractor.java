@@ -26,23 +26,23 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     private static Logger logger = LoggerFactory.getLogger(DefaultInstanceExtractor.class);
 
     @Override
-    public List<Instance> extract(WriteContext context, long subId, Map<String, List<String>> map, Map<String, IntensionDai.Intension> fieldDict) {
+    public List<Instance> extract(WriteContext context, long subId, Map<String, List<String>> map, Map<String, IntensionDai.Record> fieldDict) {
         List<Instance> instances = new ArrayList<>();
 
         for (String field : map.keySet()) {
             String dictField = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, field);
-            IntensionDai.Intension intension = fieldDict.get(dictField);
-            if (intension == null) {
+            IntensionDai.Record record = fieldDict.get(dictField);
+            if (record == null) {
                 logger.warn("cannot find field [{}]", field);
                 continue;
             }
-            long intId = intension.getId();
+            long intId = record.getId();
 
             String[] values = cleanUpValues(map.get(field).toArray(new String[0]));
             Instance instance = ValueMapping.from(Instance.class, context);
             instance.setId(setgen.born());
             instance.setSubId(subId);
-            instance.setExtId(intension.getExtId());
+            instance.setExtId(record.getExtId());
             instance.setIntId(intId);
             instance.setField(dictField);
             instance.setValues(values);

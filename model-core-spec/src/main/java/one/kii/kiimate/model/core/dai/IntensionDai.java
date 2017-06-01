@@ -2,7 +2,7 @@ package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
 import lombok.Getter;
-import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.io.annotations.MustHave;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -15,13 +15,19 @@ public interface IntensionDai {
 
 
     @Transactional
-    void insertIntension(Intension intension) throws IntensionDuplicated;
+    void remember(Record record) throws IntensionDuplicated;
 
-    List<Intension> loadLatestIntensions(ChannelExtension channel);
+    List<Record> loadLatest(ChannelExtension channel);
 
-    List<Intension> loadLastIntensions(ChannelPubSet channel);
+    List<Record> loadLast(ChannelPubSet channel);
 
-    void removeIntension(long intId);
+    void forget(ChannelId channel);
+
+
+    @Data
+    class ChannelId {
+        long id;
+    }
 
     @Data
     class ChannelExtension {
@@ -42,29 +48,36 @@ public interface IntensionDai {
 
         Date beginTime;
 
-        Date endTime;
     }
 
 
     @Data
-    class Intension {
+    class Record {
 
+        @MustHave
         private long id;
 
-        @KeyFactor
+        @MustHave
+        private String commit;
+
+        @MustHave
         private long extId;
 
-        @KeyFactor
+        @MustHave
         private String field;
 
+        @MustHave
         private boolean single;
 
+        @MustHave
         private String structure;
 
         private long refPubSet;
 
+        @MustHave
         private String visibility;
 
+        @MustHave
         private boolean required;
     }
 

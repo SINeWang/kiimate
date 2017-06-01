@@ -34,14 +34,14 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
     }
 
     @Override
-    public List<IntensionPublication> extract(ExtensionPublication extension, List<IntensionDai.Intension> intensions) {
+    public List<IntensionPublication> extract(ExtensionPublication extension, List<IntensionDai.Record> records) {
 
         List<IntensionPublication> publications = new ArrayList<>();
 
         List<String> ids = new ArrayList<>();
-        for (IntensionDai.Intension intension : intensions) {
-            IntensionPublication publication = ValueMapping.from(IntensionPublication.class, intension, extension);
-            publication.setIntId(intension.getId());
+        for (IntensionDai.Record record : records) {
+            IntensionPublication publication = ValueMapping.from(IntensionPublication.class, record, extension);
+            publication.setIntId(record.getId());
             String id = HashTools.hashHex(publication);
             publication.setId(idgen.born());
             ids.add(id);

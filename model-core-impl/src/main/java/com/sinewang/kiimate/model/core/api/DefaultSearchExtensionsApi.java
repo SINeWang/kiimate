@@ -27,9 +27,9 @@ public class DefaultSearchExtensionsApi implements SearchExtensionsApi {
     public List<Extension> search(ReadContext context, QueryForm form) {
 
         ExtensionDai.ClueGroup clue = ValueMapping.from(ExtensionDai.ClueGroup.class, form);
-        List<ExtensionDai.Extension> extensionList = extensionDai.queryExtension(clue);
+        List<ExtensionDai.Record> recordList = extensionDai.search(clue);
 
-        List<Extension> extensions = ValueMapping.from(Extension.class, extensionList);
+        List<Extension> extensions = ValueMapping.from(Extension.class, recordList);
 
         List<Extension> list = new ArrayList<>();
         for (Extension extension : extensions) {

@@ -75,7 +75,7 @@ public class TestPublishModelApi {
         extensionMapper.deleteExtensionById(extId);
 
 
-        ExtensionDai.Extension extension = new ExtensionDai.Extension();
+        ExtensionDai.Record extension = new ExtensionDai.Record();
 
         extension.setGroup(group);
 
@@ -91,24 +91,24 @@ public class TestPublishModelApi {
         extension.setId(extId);
 
         try {
-            extensionDai.insertExtension(extension);
+            extensionDai.remember(extension);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             extensionDuplicated.printStackTrace();
         }
 
 
-        IntensionDai.Intension intension = new IntensionDai.Intension();
+        IntensionDai.Record record = new IntensionDai.Record();
 
         for (String field : fields) {
-            intension.setExtId(extId);
-            intension.setSingle(true);
-            intension.setVisibility(visibility);
-            intension.setStructure(AnStructureValidator.Structure.STRING.name());
-            intension.setField(field);
+            record.setExtId(extId);
+            record.setSingle(true);
+            record.setVisibility(visibility);
+            record.setStructure(AnStructureValidator.Structure.STRING.name());
+            record.setField(field);
 
-            intension.setId(idgen.born());
+            record.setId(idgen.born());
             try {
-                intensionDai.insertIntension(intension);
+                intensionDai.remember(record);
             } catch (IntensionDai.IntensionDuplicated intensionDuplicated) {
                 intensionDuplicated.printStackTrace();
             }

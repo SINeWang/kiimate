@@ -41,56 +41,50 @@ public class TestReceiptDai {
         extensionMapper.deleteExtensionById(testId);
     }
 
-    @Test(expected = NotFound.class)
-    public void testNull() throws NotFound {
-        extensionDai.loadLastExtension(null);
-    }
-
-
     @Test
     public void testFirstInsert() {
         extensionMapper.deleteExtensionById(testId);
 
-        ExtensionDai.Extension extension = new ExtensionDai.Extension();
-        extension.setGroup(testGroup);
-        extension.setOwnerId(testOwnerId);
-        extension.setName(testName);
-        extension.setTree(testTree);
-        extension.setVisibility(testVisibility);
-        extension.setId(testId);
+        ExtensionDai.Record record = new ExtensionDai.Record();
+        record.setGroup(testGroup);
+        record.setOwnerId(testOwnerId);
+        record.setName(testName);
+        record.setTree(testTree);
+        record.setVisibility(testVisibility);
+        record.setId(testId);
         try {
-            extensionDai.insertExtension(extension);
+            extensionDai.remember(record);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             //ignore
         }
         ExtensionDai.ChannelId extId = new ExtensionDai.ChannelId();
         extId.setId(testId);
 
-        ExtensionDai.Extension dbExtension = null;
+        ExtensionDai.Record dbRecord = null;
         try {
-            dbExtension = extensionDai.loadLastExtension(extId);
+            dbRecord = extensionDai.loadLast(extId);
         } catch (NotFound notFound) {
         }
 
-        Assert.assertEquals(dbExtension.getId(), testId);
-        Assert.assertEquals(dbExtension.getOwnerId(), testOwnerId);
-        Assert.assertEquals(dbExtension.getGroup(), testGroup);
-        Assert.assertEquals(dbExtension.getName(), testName);
-        Assert.assertEquals(dbExtension.getTree(), testTree);
-        Assert.assertEquals(dbExtension.getVisibility(), testVisibility);
+        Assert.assertEquals(dbRecord.getId(), testId);
+        Assert.assertEquals(dbRecord.getOwnerId(), testOwnerId);
+        Assert.assertEquals(dbRecord.getGroup(), testGroup);
+        Assert.assertEquals(dbRecord.getName(), testName);
+        Assert.assertEquals(dbRecord.getTree(), testTree);
+        Assert.assertEquals(dbRecord.getVisibility(), testVisibility);
     }
 
     @Test()
     public void testSecondInsert() {
-        ExtensionDai.Extension extension = new ExtensionDai.Extension();
-        extension.setGroup(testGroup);
-        extension.setOwnerId(testOwnerId);
-        extension.setName(testName);
-        extension.setTree(testTree);
-        extension.setVisibility(testVisibility);
-        extension.setId(testId);
+        ExtensionDai.Record record = new ExtensionDai.Record();
+        record.setGroup(testGroup);
+        record.setOwnerId(testOwnerId);
+        record.setName(testName);
+        record.setTree(testTree);
+        record.setVisibility(testVisibility);
+        record.setId(testId);
         try {
-            extensionDai.insertExtension(extension);
+            extensionDai.remember(record);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             extensionDuplicated.printStackTrace();
         }

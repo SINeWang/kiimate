@@ -15,7 +15,7 @@ public interface ModelSubscriptionDai {
 
 
     @Transactional
-    void save(ModelSubscription modelSubscription) throws DuplicatedSubscription;
+    void remember(ModelSubscription modelSubscription) throws DuplicatedSubscription;
 
     ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel);
 

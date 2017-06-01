@@ -16,6 +16,7 @@ public interface IntensionMapper {
 
 
     void insertIntension(@Param("id") long id,
+                         @Param("commit") String commit,
                          @Param("extId") long extId,
                          @Param("field") String field,
                          @Param("single") boolean single,
@@ -26,17 +27,16 @@ public interface IntensionMapper {
                          @Param("beginTime") Date beginTime);
 
 
-    List<IntensionDai.Intension> selectLatestIntensionsByExtId(@Param("extId") long extId);
+    List<IntensionDai.Record> selectLatestIntensionsByExtId(@Param("extId") long extId);
 
-    IntensionDai.Intension selectLastIntensionByExtIdField(@Param("extId") long extId, @Param("field") String field);
+    IntensionDai.Record selectLastIntensionByExtIdField(@Param("extId") long extId, @Param("field") String field);
 
-    IntensionDai.Intension selectLatestIntensionByExtIdField(@Param("extId") long extId, @Param("field") String field);
+    IntensionDai.Record selectLatestIntensionByExtIdField(@Param("extId") long extId, @Param("field") String field);
 
     List<String> selectLastFieldsByExtIdPubSet(
             @Param("extId") long extId,
             @Param("pubSet") long pubSet,
-            @Param("beginTime") Date beginTime,
-            @Param("endTime") Date endTime);
+            @Param("beginTime") Date beginTime);
 
     void updateLatestIntensionEndTimeById(@Param("id") long id, @Param("endTime") Date endTime);
 

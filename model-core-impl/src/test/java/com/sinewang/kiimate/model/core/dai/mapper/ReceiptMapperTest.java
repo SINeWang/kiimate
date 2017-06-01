@@ -1,5 +1,6 @@
 package com.sinewang.kiimate.model.core.dai.mapper;
 
+import one.kii.kiimate.model.core.dai.ExtensionDai;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import one.kii.kiimate.model.core.dai.ExtensionDai;
 
 import java.util.Date;
 
@@ -33,11 +33,11 @@ public class ReceiptMapperTest {
         String ownerId = "testOwnerId";
         extensionMapper.deleteExtensionById(id);
 
-        ExtensionDai.Extension ext = extensionMapper.selectLatestExtensionById(id);
+        ExtensionDai.Record ext = extensionMapper.selectLatestExtensionById(id);
         Assert.assertNull(ext);
 
-        extensionMapper.insertExtension(id, ownerId, "12", "56", "78", "90", new Date());
-        ExtensionDai.Extension ext1 = extensionMapper.selectLatestExtensionById(id);
+        extensionMapper.insertExtension(id, "sfsfsdf", ownerId, "12", "56", "78", "90", new Date());
+        ExtensionDai.Record ext1 = extensionMapper.selectLatestExtensionById(id);
         Assert.assertNotNull(ext1);
 
         extensionMapper.deleteExtensionById(id);

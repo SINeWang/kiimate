@@ -40,50 +40,50 @@ public class DefaultModelRestorer implements AnModelRestorer {
 
     private Map<String, Object> restoreAsMetaData(IntensionDai.ChannelExtension extension) {
         Map<String, Object> model = new HashMap<>();
-        List<IntensionDai.Intension> intensions = intensionDai.loadLatestIntensions(extension);
-        for (IntensionDai.Intension intension : intensions) {
-            long refPubSet = intension.getRefPubSet();
+        List<IntensionDai.Record> records = intensionDai.loadLatest(extension);
+        for (IntensionDai.Record record : records) {
+            long refPubSet = record.getRefPubSet();
             if (refPubSet != 0) {
                 ModelPublicationDai.ChannelPubSet pubset = new ModelPublicationDai.ChannelPubSet();
                 pubset.setPubSet(refPubSet);
-                ModelPublicationDai.Publication publication = modelPublicationDai.fetchRootPublications(pubset);
-                if (intension.isSingle()) {
-                    model.put(intension.getField(), restoreAsMetaData(publication.getExtId()));
+                ModelPublicationDai.Publication publication = modelPublicationDai.loadRootPublications(pubset);
+                if (record.isSingle()) {
+                    model.put(record.getField(), restoreAsMetaData(publication.getExtId()));
                 } else {
-                    model.put(intension.getField(), toArray(restoreAsMetaData(refPubSet)));
+                    model.put(record.getField(), toArray(restoreAsMetaData(refPubSet)));
                 }
             } else {
-                if (intension.isSingle()) {
-                    model.put(intension.getField(), intension.getStructure());
+                if (record.isSingle()) {
+                    model.put(record.getField(), record.getStructure());
                 } else {
-                    model.put(intension.getField(), toArray(intension.getStructure()));
+                    model.put(record.getField(), toArray(record.getStructure()));
                 }
             }
         }
         return model;
     }
 
-    public Map<String, IntensionDai.Intension> restoreAsIntensionDict(long extId) {
-        Map<String, IntensionDai.Intension> map = new HashMap<>();
+    public Map<String, IntensionDai.Record> restoreAsIntensionDict(long extId) {
+        Map<String, IntensionDai.Record> map = new HashMap<>();
         IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
         channel.setId(extId);
         restoreAsFieldDict(channel, map);
         return map;
     }
 
-    private void restoreAsFieldDict(IntensionDai.ChannelExtension extension, Map<String, IntensionDai.Intension> map) {
-        List<IntensionDai.Intension> intensions = intensionDai.loadLatestIntensions(extension);
-        for (IntensionDai.Intension intension : intensions) {
-            long refPubSet = intension.getRefPubSet();
+    private void restoreAsFieldDict(IntensionDai.ChannelExtension extension, Map<String, IntensionDai.Record> map) {
+        List<IntensionDai.Record> records = intensionDai.loadLatest(extension);
+        for (IntensionDai.Record record : records) {
+            long refPubSet = record.getRefPubSet();
             if (refPubSet != 0) {
                 ModelPublicationDai.ChannelPubSet pubset = new ModelPublicationDai.ChannelPubSet();
                 pubset.setPubSet(refPubSet);
-                ModelPublicationDai.Publication publication = modelPublicationDai.fetchRootPublications(pubset);
+                ModelPublicationDai.Publication publication = modelPublicationDai.loadRootPublications(pubset);
                 IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
                 channel.setId(publication.getExtId());
                 restoreAsFieldDict(channel, map);
             } else {
-                map.put(intension.getField(), intension);
+                map.put(record.getField(), record);
             }
         }
     }

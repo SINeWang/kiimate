@@ -26,24 +26,49 @@ public class DefaultExtensionDai implements ExtensionDai {
     private ExtensionMapper extensionMapper;
 
     @Override
-    public Extension loadLastExtension(ChannelId channel) throws NotFound {
-        if (channel == null) {
-            throw new NotFound(KeyFactorTools.find(ChannelId.class));
-        }
-        Extension extension;
+    public Record loadLast(ChannelCoordinate channel) throws NotFound {
+        Record record;
         if (channel.getBeginTime() == null) {
-            extension = extensionMapper.selectLatestExtensionById(channel.getId());
+            record = extensionMapper.selectLatestExtensionByOwnerGroupNameTree(
+                    channel.getOwnerId(),
+                    channel.getGroup(),
+                    channel.getName(),
+                    channel.getTree()
+            );
         } else {
-            extension = extensionMapper.selectLastExtensionByIdTime(channel.getId(), channel.getBeginTime());
+            record = extensionMapper.selectLastExtensionByOwnerGroupNameTree(
+                    channel.getOwnerId(),
+                    channel.getGroup(),
+                    channel.getName(),
+                    channel.getTree(),
+                    channel.getBeginTime());
         }
-        if (extension == null) {
-            throw new NotFound(KeyFactorTools.find(ChannelId.class));
+        if (record == null) {
+            throw new NotFound(KeyFactorTools.find(ChannelCoordinate.class));
         }
-        return extension;
+        return record;
     }
 
     @Override
-    public List<Extension> queryExtension(ClueGroup clue) {
+    public Record loadLast(ChannelId channel) throws NotFound {
+        Record record;
+        if (channel.getBeginTime() == null) {
+            record = extensionMapper.selectLatestExtensionById(
+                    channel.getId()
+            );
+        } else {
+            record = extensionMapper.selectLastExtensionById(
+                    channel.getId(),
+                    channel.getBeginTime());
+        }
+        if (record == null) {
+            throw new NotFound(KeyFactorTools.find(ChannelCoordinate.class));
+        }
+        return record;
+    }
+
+    @Override
+    public List<Record> search(ClueGroup clue) {
         return extensionMapper.queryExtensionsByOwnerGroup(
                 clue.getOwnerId(),
                 clue.getGroup());
@@ -51,26 +76,27 @@ public class DefaultExtensionDai implements ExtensionDai {
 
 
     @Override
-    public void insertExtension(Extension extension) throws ExtensionDuplicated {
+    public void remember(Record record) throws ExtensionDuplicated {
         Date now = new Date();
-        Extension lastExtension = extensionMapper.selectLatestExtensionById(extension.getId());
+        Record lastRecord = extensionMapper.selectLatestExtensionById(record.getId());
 
-        if (lastExtension != null) {
-            throw new ExtensionDuplicated(String.valueOf(extension.getId()));
+        if (lastRecord != null) {
+            throw new ExtensionDuplicated(String.valueOf(record.getId()));
         }
 
         try {
             extensionMapper.insertExtension(
-                    extension.getId(),
-                    extension.getOwnerId(),
-                    extension.getGroup(),
-                    extension.getName(),
-                    extension.getTree(),
-                    extension.getVisibility(),
+                    record.getId(),
+                    record.getCommit(),
+                    record.getOwnerId(),
+                    record.getGroup(),
+                    record.getName(),
+                    record.getTree(),
+                    record.getVisibility(),
                     now
             );
         } catch (DuplicateKeyException duplicated) {
-            logger.error("Duplicated-Key:{}", extension.getId());
+            logger.error("Duplicated-Key:{}", record.getId());
         }
     }
 }

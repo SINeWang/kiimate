@@ -2,7 +2,7 @@ package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
 import lombok.Getter;
-import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,42 +14,65 @@ import java.util.List;
  */
 public interface ExtensionDai {
 
-    Extension loadLastExtension(ChannelId channel) throws NotFound;
+    Record loadLast(ChannelCoordinate channel) throws NotFound;
 
-    List<Extension> queryExtension(ClueGroup clue);
+    Record loadLast(ChannelId channel) throws NotFound;
+
+    List<Record> search(ClueGroup clue);
+
+    @Transactional
+    void remember(Record record) throws ExtensionDuplicated;
 
     @Data
-    class ClueGroup{
+    class ClueGroup {
         String ownerId;
         String group;
     }
 
     @Data
-    class ChannelId{
+    class ChannelId {
+        @MustHave
         long id;
+        @MustHave
         Date beginTime;
     }
 
-    @Transactional
-    void insertExtension(Extension extension) throws ExtensionDuplicated;
+    @Data
+    class ChannelCoordinate {
+        @MustHave
+        String ownerId;
+        @MustHave
+        String group;
+        @MustHave
+        String name;
+        @MustHave
+        String tree;
+        @MustHave
+        Date beginTime;
+    }
 
     @Data
-    class Extension {
+    class Record {
 
+        @MustHave
         private long id;
 
-        @KeyFactor
+        @MustHave
+        private String commit;
+
+        @MustHave
         private String ownerId;
 
-        @KeyFactor
+        @MustHave
         private String group;
 
-        @KeyFactor
+        @MustHave
         private String name;
 
-        @KeyFactor
+        @MustHave
         private String tree;
 
+        @MustHave
         private String visibility;
 
         private Date beginTime;

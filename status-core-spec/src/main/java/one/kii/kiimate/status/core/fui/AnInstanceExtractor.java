@@ -15,7 +15,7 @@ public interface AnInstanceExtractor {
     List<Instance> extract(WriteContext context,
                            long subId,
                            Map<String, List<String>> values,
-                           Map<String, IntensionDai.Intension> dict);
+                           Map<String, IntensionDai.Record> dict);
 
     @Data
     class Instance {

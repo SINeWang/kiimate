@@ -35,29 +35,29 @@ public class DefaultVisitModelApi implements VisitModelApi {
     @Override
     public Model visit(ReadContext context, VisitModelForm form) throws NotFound {
         ModelPublicationDai.ChannelPubSet pubSet = ValueMapping.from(ModelPublicationDai.ChannelPubSet.class, form);
-        ModelPublicationDai.Publication publication = modelPublicationDai.fetchRootPublications(pubSet);
+        ModelPublicationDai.Publication publication = modelPublicationDai.loadRootPublications(pubSet);
 
         ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, publication);
         channel.setId(publication.getExtId());
-        ExtensionDai.Extension extension;
+        ExtensionDai.Record record;
         try {
-            extension = extensionDai.loadLastExtension(channel);
+            record = extensionDai.loadLast(channel);
         } catch (NotFound notFound) {
             throw notFound;
         }
 
-        IntensionDai.ChannelPubSet pubSet1 = ValueMapping.from(IntensionDai.ChannelPubSet.class, publication, extension);
+        IntensionDai.ChannelPubSet pubSet1 = ValueMapping.from(IntensionDai.ChannelPubSet.class, publication, record);
 
 
-        List<IntensionDai.Intension> intensionList = intensionDai.loadLastIntensions(pubSet1);
-        List<VisitModelApi.Intension> intensions = ValueMapping.from(VisitModelApi.Intension.class, intensionList);
+        List<IntensionDai.Record> recordList = intensionDai.loadLast(pubSet1);
+        List<VisitModelApi.Intension> intensions = ValueMapping.from(VisitModelApi.Intension.class, recordList);
 
 
         int subscriptions = modelSubscriptionDai.countModelSubscriptions(publication.getPubSet());
 
-        VisitModelApi.Model model = ValueMapping.from(VisitModelApi.Model.class, publication, extension);
+        VisitModelApi.Model model = ValueMapping.from(VisitModelApi.Model.class, publication, record);
 
-        model.setRootExtId(extension.getId());
+        model.setRootExtId(record.getId());
 
         model.setSubscriptions(subscriptions);
 

@@ -47,8 +47,8 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
 
         List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
-        List<IntensionDai.Intension> intensionList = intensionDai.loadLatestIntensions(rootExtension);
-        List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
+        List<IntensionDai.Record> recordList = intensionDai.loadLatest(rootExtension);
+        List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
 
 
         Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);

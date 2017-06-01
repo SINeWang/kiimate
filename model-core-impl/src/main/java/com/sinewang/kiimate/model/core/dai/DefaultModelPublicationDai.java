@@ -18,23 +18,23 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     private ModelPublicationMapper modelPublicationMapper;
 
     @Override
-    public List<PublishedExtension> queryPublications(ClueGroup clue) {
+    public List<PublishedExtension> searchExtension(ClueGroup clue) {
         return modelPublicationMapper.selectPublishedExtensionByGroupQuery(clue.getGroup());
     }
 
     @Override
-    public List<PublishedSnapshot> fetchPublishedSnapshotsByExtId(ChannelId channel) {
+    public List<PublishedSnapshot> loadSnapshot(ChannelId channel) {
         return modelPublicationMapper.selectPublishedSnapshotsByExtId(channel.getId());
 
     }
 
     @Override
-    public Publication fetchRootPublications(ChannelPubSet channel) {
+    public Publication loadRootPublications(ChannelPubSet channel) {
         return modelPublicationMapper.selectRootPublicationsByPubSet(channel.getPubSet());
     }
 
     @Override
-    public List<Provider> getProviders(ClueId clue) {
+    public List<Provider> searchProviders(ClueId clue) {
         return modelPublicationMapper.selectProvidersByProviderQuery(clue.getId());
     }
 

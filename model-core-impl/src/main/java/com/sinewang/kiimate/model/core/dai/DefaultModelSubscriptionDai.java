@@ -21,7 +21,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
 
 
     @Override
-    public void save(ModelSubscription modelSubscription) throws DuplicatedSubscription {
+    public void remember(ModelSubscription modelSubscription) throws DuplicatedSubscription {
         int count = modelSubscriptionMapper.countLatestSubscription(
                 modelSubscription.getSubSet(),
                 modelSubscription.getSubscriberId(),

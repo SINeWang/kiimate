@@ -4,8 +4,9 @@
 
 <mapper namespace="com.sinewang.kiimate.model.core.dai.mapper.IntensionMapper">
 
-    <resultMap id="Intension" type="one.kii.kiimate.model.core.dai.IntensionDai$Intension">
+    <resultMap id="Intension" type="one.kii.kiimate.model.core.dai.IntensionDai$Record">
         <result column="id" property="id"/>
+        <result column="commit" property="commit"/>
         <result column="ext_id" property="extId"/>
         <result column="field" property="field"/>
         <result column="is_single" property="single"/>
@@ -16,14 +17,14 @@
     </resultMap>
 
     <select id="selectLatestIntensionsByExtId" resultMap="Intension">
-        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.end_time IS NULL
     </select>
 
     <select id="selectLastIntensionByExtIdField" resultMap="Intension">
-        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
@@ -32,7 +33,7 @@
     </select>
 
     <select id="selectLatestIntensionByExtIdField" resultMap="Intension">
-        SELECT mint.id, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
@@ -60,9 +61,9 @@
 
     <insert id="insertIntension">
         INSERT INTO mm_m_int
-        (`id`, `ext_id`, `field`, `is_single`, `structure`, `ref_m_pub_set`, `visibility`, `is_required`, `begin_time`)
+        (`id`, `commit`, `ext_id`, `field`, `is_single`, `structure`, `ref_m_pub_set`, `visibility`, `is_required`, `begin_time`)
         VALUES
-        (#{id}, #{extId}, #{field}, #{single}, #{structure}, #{refPubSet}, #{visibility}, #{required}, #{beginTime})
+        (#{id}, #{commit}, #{extId}, #{field}, #{single}, #{structure}, #{refPubSet}, #{visibility}, #{required}, #{beginTime})
     </insert>
 
     <delete id="deleteIntensionsByExtId">

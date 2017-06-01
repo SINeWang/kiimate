@@ -163,13 +163,13 @@ public class TestDeclareReceiptApi {
 
         ExtensionDai.ChannelId extId = new ExtensionDai.ChannelId();
         extId.setId(id);
-        ExtensionDai.Extension extension = null;
+        ExtensionDai.Record record = null;
         try {
-            extension = extensionDai.loadLastExtension(extId);
+            record = extensionDai.loadLast(extId);
         } catch (NotFound notFound) {
         }
 
-        Assert.assertNotNull(extension);
+        Assert.assertNotNull(record);
 
         extensionMapper.deleteExtensionById(id);
     }

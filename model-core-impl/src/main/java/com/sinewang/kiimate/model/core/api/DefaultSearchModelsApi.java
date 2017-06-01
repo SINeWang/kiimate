@@ -33,7 +33,7 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
     public List<Provider> search(ReadContext context, QueryProvidersForm form) {
         ModelPublicationDai.ClueId id = ValueMapping.from(ModelPublicationDai.ClueId.class, form);
 
-        List<ModelPublicationDai.Provider> providerList = modelPublicationDai.getProviders(id);
+        List<ModelPublicationDai.Provider> providerList = modelPublicationDai.searchProviders(id);
         return ValueMapping.from(Provider.class, providerList);
     }
 
@@ -41,13 +41,13 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
     public List<Models> search(ReadContext context, QueryModelsForm form) {
         ModelPublicationDai.ClueGroup group = ValueMapping.from(ModelPublicationDai.ClueGroup.class, form);
 
-        List<ModelPublicationDai.PublishedExtension> extensions = modelPublicationDai.queryPublications(group);
+        List<ModelPublicationDai.PublishedExtension> extensions = modelPublicationDai.searchExtension(group);
         List<Models> models = new ArrayList<>();
         for (ModelPublicationDai.PublishedExtension extension : extensions) {
             ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
-            ExtensionDai.Extension lastExtension;
+            ExtensionDai.Record lastRecord;
             try {
-                lastExtension = extensionDai.loadLastExtension(channel);
+                lastRecord = extensionDai.loadLast(channel);
             } catch (NotFound notFound) {
                 continue;
             }
@@ -55,9 +55,9 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
 
             ModelPublicationDai.ChannelId id = ValueMapping.from(ModelPublicationDai.ChannelId.class, extension);
 
-            List<ModelPublicationDai.PublishedSnapshot> snapshotList = modelPublicationDai.fetchPublishedSnapshotsByExtId(id);
+            List<ModelPublicationDai.PublishedSnapshot> snapshotList = modelPublicationDai.loadSnapshot(id);
 
-            Models model = ValueMapping.from(Models.class, lastExtension, extension);
+            Models model = ValueMapping.from(Models.class, lastRecord, extension);
             for (ModelPublicationDai.PublishedSnapshot publishedSnapshot : snapshotList) {
                 int subscriptions = modelSubscriptionDai.countModelSubscriptions(publishedSnapshot.getPubSet());
 

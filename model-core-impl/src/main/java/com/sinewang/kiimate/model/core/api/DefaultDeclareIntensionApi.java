@@ -32,11 +32,11 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
     @Override
     public Receipt commit(WriteContext context, Form form) throws Conflict {
 
-        AnIntensionExtractor.Intension intension = anIntensionExtractor.parseForm(form);
+        AnIntensionExtractor.Intension intension = anIntensionExtractor.extract(form);
 
-        IntensionDai.Intension daiRecord = ValueMapping.from(IntensionDai.Intension.class, intension);
+        IntensionDai.Record record = ValueMapping.from(IntensionDai.Record.class, intension);
         try {
-            intensionDai.insertIntension(daiRecord);
+            intensionDai.remember(record);
         } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
             throw new Conflict("id");
         }
@@ -44,8 +44,8 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
         IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
         channel.setId(form.getExtId());
 
-        List<IntensionDai.Intension> intensionList = intensionDai.loadLatestIntensions(channel);
-        List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
+        List<IntensionDai.Record> recordList = intensionDai.loadLatest(channel);
+        List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
 
         Receipt receipt = new Receipt();
         receipt.setIntensions(intensions);

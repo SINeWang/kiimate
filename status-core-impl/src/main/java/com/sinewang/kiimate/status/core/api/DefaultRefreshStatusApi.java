@@ -8,7 +8,6 @@ import one.kii.kiimate.status.core.api.VisitStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
-import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
@@ -58,7 +57,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
             throw new NotFound(KeyFactorTools.find(ModelSubscriptionDai.ChannelSubId.class));
         }
 
-        Map<String, IntensionDai.Intension> dict = modelRestorer.restoreAsIntensionDict(model.getRootExtId());
+        Map<String, IntensionDai.Record> dict = modelRestorer.restoreAsIntensionDict(model.getRootExtId());
 
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, form.getSubId(), form.getMap(), dict);
 
@@ -75,8 +74,8 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
         List<InstanceDai.Instance> newInstances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
-        List<IntensionDai.Intension> intensionList = intensionDai.loadLatestIntensions(rootExtension);
-        List<VisitStatusApi.Intension> intensions = ValueMapping.from(VisitStatusApi.Intension.class, intensionList);
+        List<IntensionDai.Record> recordList = intensionDai.loadLatest(rootExtension);
+        List<VisitStatusApi.Intension> intensions = ValueMapping.from(VisitStatusApi.Intension.class, recordList);
 
 
         Map<String, Object> map = instanceTransformer.toTimedValue(newInstances, model);

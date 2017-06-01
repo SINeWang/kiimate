@@ -33,21 +33,19 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
     @Override
     public Receipt visit(ReadContext context, Form form) throws NotFound {
         AnExtensionExtractor.Extension extension = ValueMapping.from(AnExtensionExtractor.Extension.class, form, context);
-        ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
+        ExtensionDai.ChannelCoordinate channel = ValueMapping.from(ExtensionDai.ChannelCoordinate.class, extension);
 
-        long extId = extension.getId();
+        ExtensionDai.Record record = extensionDai.loadLast(channel);
 
-        ExtensionDai.Extension extensionRecord = extensionDai.loadLastExtension(channel);
-
-        Receipt receipt = ValueMapping.from(Receipt.class, extensionRecord);
+        Receipt receipt = ValueMapping.from(Receipt.class, record);
 
 
         IntensionDai.ChannelExtension channelExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, extension);
-        List<IntensionDai.Intension> intensionList = intensionDai.loadLatestIntensions(channelExtension);
+        List<IntensionDai.Record> recordList = intensionDai.loadLatest(channelExtension);
 
-        List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
+        List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
         receipt.setIntensions(intensions);
-        receipt.setSchema(modelRestorer.restoreAsMetaData(extId));
+        receipt.setSchema(modelRestorer.restoreAsMetaData(record.getId()));
         return receipt;
     }
 

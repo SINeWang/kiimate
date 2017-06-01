@@ -41,23 +41,23 @@ public class DefaultPublishModelApi implements PublishModelApi {
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
         ExtensionDai.ChannelId channelId = new ExtensionDai.ChannelId();
         channelId.setId(form.getExtId());
-        ExtensionDai.Extension extension = extensionDai.loadLastExtension(channelId);
+        ExtensionDai.Record record = extensionDai.loadLast(channelId);
 
         Date date = new Date();
 
-        AnPublicationExtractor.ExtensionPublication extensionPublication = publicationExtractor.extract(form, extension.getId(), context.getOperatorId(), date);
+        AnPublicationExtractor.ExtensionPublication extensionPublication = publicationExtractor.extract(form, record.getId(), context.getOperatorId(), date);
 
-        IntensionDai.ChannelExtension channel = ValueMapping.from(IntensionDai.ChannelExtension.class, extension);
+        IntensionDai.ChannelExtension channel = ValueMapping.from(IntensionDai.ChannelExtension.class, record);
 
-        List<IntensionDai.Intension> allIntensions = new ArrayList<>();
+        List<IntensionDai.Record> allRecords = new ArrayList<>();
 
-        List<IntensionDai.Intension> intensions = intensionDai.loadLatestIntensions(channel);
-        if (intensions.isEmpty()) {
-            throw new NotFound(new String[]{"intensions"});
+        List<IntensionDai.Record> records = intensionDai.loadLatest(channel);
+        if (records.isEmpty()) {
+            throw new NotFound(new String[]{"records"});
         }
-        allIntensions.addAll(intensions);
+        allRecords.addAll(records);
 
-        List<AnPublicationExtractor.IntensionPublication> publications = publicationExtractor.extract(extensionPublication, intensions);
+        List<AnPublicationExtractor.IntensionPublication> publications = publicationExtractor.extract(extensionPublication, records);
 
         List<ModelPublicationDai.Publication> publications1 = ValueMapping.from(ModelPublicationDai.Publication.class, publications);
 
@@ -73,7 +73,7 @@ public class DefaultPublishModelApi implements PublishModelApi {
 
         receipt.setCreatedAt(date);
 
-        List<Intension> snapshotIntensions = ValueMapping.from(Intension.class, allIntensions);
+        List<Intension> snapshotIntensions = ValueMapping.from(Intension.class, allRecords);
 
         receipt.setIntensions(snapshotIntensions);
 

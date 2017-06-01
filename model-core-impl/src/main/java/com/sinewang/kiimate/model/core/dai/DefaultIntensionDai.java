@@ -25,56 +25,58 @@ public class DefaultIntensionDai implements IntensionDai {
     private IntensionMapper intensionMapper;
 
     @Override
-    public void insertIntension(Intension intension) throws IntensionDuplicated {
+    public void remember(Record record) throws IntensionDuplicated {
         Date now = new Date();
 
-        Intension oldIntension = intensionMapper.selectLatestIntensionByExtIdField(intension.getExtId(), intension.getField());
-        if (oldIntension != null) {
-            throw new IntensionDai.IntensionDuplicated(intension.getId());
+        Record oldRecord = intensionMapper.selectLatestIntensionByExtIdField(record.getExtId(), record.getField());
+        if (oldRecord != null) {
+            throw new IntensionDai.IntensionDuplicated(record.getId());
         }
         try {
             intensionMapper.insertIntension(
-                    intension.getId(),
-                    intension.getExtId(),
-                    intension.getField(),
-                    intension.isSingle(),
-                    intension.getStructure(),
-                    intension.getRefPubSet(),
-                    intension.getVisibility(),
-                    intension.isRequired(),
+                    record.getId(),
+                    record.getCommit(),
+                    record.getExtId(),
+                    record.getField(),
+                    record.isSingle(),
+                    record.getStructure(),
+                    record.getRefPubSet(),
+                    record.getVisibility(),
+                    record.isRequired(),
                     now
             );
         } catch (DuplicateKeyException duplicated) {
-            logger.error("Duplicated-Key:{}", intension.getId());
-            throw new IntensionDai.IntensionDuplicated(intension.getId());
+            logger.error("Duplicated-Key:{}", record.getId());
+            throw new IntensionDai.IntensionDuplicated(record.getId());
         }
 
     }
 
     @Override
-    public List<Intension> loadLatestIntensions(ChannelExtension channel) {
+    public List<Record> loadLatest(ChannelExtension channel) {
         return intensionMapper.selectLatestIntensionsByExtId(channel.getId());
     }
 
     @Override
-    public List<Intension> loadLastIntensions(ChannelPubSet pubSet) {
+    public List<Record> loadLast(ChannelPubSet pubSet) {
         List<String> fields = intensionMapper.selectLastFieldsByExtIdPubSet(
                 pubSet.getId(),
                 pubSet.getPubSet(),
-                pubSet.getBeginTime(),
-                pubSet.getEndTime());
-        List<Intension> intensions = new ArrayList<>();
+                pubSet.getBeginTime());
+        List<Record> records = new ArrayList<>();
         for (String field : fields) {
-            Intension intension = intensionMapper.selectLastIntensionByExtIdField(pubSet.getId(), field);
-            intensions.add(intension);
+            Record record = intensionMapper.selectLastIntensionByExtIdField(pubSet.getId(), field);
+            records.add(record);
         }
-        return intensions;
+        return records;
     }
 
 
     @Override
-    public void removeIntension(long intId) {
+    public void forget(ChannelId channel) {
         Date now = new Date();
-        intensionMapper.updateLatestIntensionEndTimeById(intId, now);
+        intensionMapper.updateLatestIntensionEndTimeById(
+                channel.getId(),
+                now);
     }
 }

@@ -30,10 +30,10 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
 
         AnExtensionExtractor.Extension extension = extensionExtractor.extract(context, commitForm);
 
-        ExtensionDai.Extension daiExtension = ValueMapping.from(ExtensionDai.Extension.class, extension);
+        ExtensionDai.Record record = ValueMapping.from(ExtensionDai.Record.class, extension);
         try {
-            extensionDai.insertExtension(daiExtension);
-            return ValueMapping.from(CommitReceipt.class, daiExtension);
+            extensionDai.remember(record);
+            return ValueMapping.from(CommitReceipt.class, record);
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             throw new Conflict(extension.getCommit());
         }

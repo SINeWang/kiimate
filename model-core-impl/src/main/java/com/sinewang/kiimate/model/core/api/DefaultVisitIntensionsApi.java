@@ -35,14 +35,14 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
         ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
 
-        ExtensionDai.Extension dbExtension = extensionDai.loadLastExtension(channel);
+        ExtensionDai.Record dbRecord = extensionDai.loadLast(channel);
 
-        if (dbExtension == null) {
+        if (dbRecord == null) {
             throw new NotFound(new String[]{context.getOwnerId(), form.getGroup(), form.getName(), form.getTree()});
         }
 
         IntensionDai.ChannelExtension channel1 = ValueMapping.from(IntensionDai.ChannelExtension.class, extension);
-        List<IntensionDai.Intension> list = intensionDai.loadLatestIntensions(channel1);
+        List<IntensionDai.Record> list = intensionDai.loadLatest(channel1);
 
         List<Intension> intensions = ValueMapping.from(Intension.class, list);
 
