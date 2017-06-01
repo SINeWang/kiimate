@@ -49,12 +49,13 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
                 modelSubscription.getOperatorId(),
                 now
         );
-
     }
 
     @Override
-    public ModelPubSet getModelPubSetByOwnerSubscription(String owner, long subId) {
-        return modelSubscriptionMapper.selectModelPubSetByOwnerSubscription(owner, subId);
+    public ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel) {
+        return modelSubscriptionMapper.selectModelPubSetByOwnerSubscription(
+                channel.getOwnerId(),
+                channel.getSubId());
     }
 
     @Override

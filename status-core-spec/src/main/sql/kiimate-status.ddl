@@ -7,6 +7,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `mm_i_ins`;
 CREATE TABLE `mm_i_ins` (
   `id` varchar(160) NOT NULL,
+  `commit` varchar(160) NOT NULL,
   `owner_id` varchar(160) NOT NULL,
   `sub_id` varchar(160) NOT NULL,
   `ext_id` varchar(160) NOT NULL,

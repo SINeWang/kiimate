@@ -10,6 +10,11 @@ server:
 ---
 spring:
   profiles: dev
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.6.54/kiimate?autoReconnect=true
+    username: root
+    password: wave
 logging:
   level:
     com.sinewang.metamate.core.dai.mapper: DEBUG

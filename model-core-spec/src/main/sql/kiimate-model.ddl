@@ -21,7 +21,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `mm_m_ext`;
 CREATE TABLE `mm_m_ext` (
-  `id` varchar(160) NOT NULL COMMENT 'id = hash(owner_id, group, name, tree)',
+  `id` varchar(160) NOT NULL,
+  `commit` varchar(160) NOT NULL,
   `group` varchar(64) NOT NULL,
   `name` varchar(64) NOT NULL,
   `tree` varchar(64) NOT NULL,
@@ -37,7 +38,8 @@ CREATE TABLE `mm_m_ext` (
 -- ----------------------------
 DROP TABLE IF EXISTS `mm_m_int`;
 CREATE TABLE `mm_m_int` (
-  `id` varchar(160) NOT NULL COMMENT 'int_id = hash(ext_id, ref_id)',
+  `id` varchar(160) NOT NULL,
+  `commit` varchar(160) NOT NULL,
   `ext_id` varchar(160) NOT NULL,
   `field` varchar(64) NOT NULL DEFAULT '' COMMENT 'the alias name of ref_id ',
   `is_single` tinyint(1) NOT NULL,
@@ -70,7 +72,7 @@ CREATE TABLE `mm_m_crf` (
 -- ----------------------------
 DROP TABLE IF EXISTS `mm_m_pub`;
 CREATE TABLE `mm_m_pub` (
-  `id` varchar(160) NOT NULL COMMENT 'hash(pub_ext_id, int_id)',
+  `id` varchar(160) NOT NULL,
   `pub_set` varchar(160) DEFAULT NULL COMMENT ' hash all pubs id(sorted) at once',
   `provider_id` varchar(160) NOT NULL,
   `ext_id` varchar(160) NOT NULL,
@@ -88,7 +90,7 @@ CREATE TABLE `mm_m_pub` (
 -- ----------------------------
 DROP TABLE IF EXISTS `mm_m_sub`;
 CREATE TABLE `mm_m_sub` (
-  `id` varchar(160) NOT NULL COMMENT 'hash(subscriber_id, pub_set_hash, group, name, tree)',
+  `id` varchar(160) NOT NULL,
   `sub_set` varchar(160) NOT NULL COMMENT 'pub_set_hash',
   `subscriber_id` varchar(160) NOT NULL,
   `group` varchar(64) NOT NULL,
