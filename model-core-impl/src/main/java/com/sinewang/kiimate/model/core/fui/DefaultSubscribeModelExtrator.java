@@ -1,9 +1,9 @@
 package com.sinewang.kiimate.model.core.fui;
 
 import com.google.common.base.CaseFormat;
+import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.api.SubscribeModelsApi;
 import one.kii.kiimate.model.core.fui.AnSubscribeModelExtractor;
-import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import org.springframework.stereotype.Component;
@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor {
 
+    private static final Eid64Generator idgen = new Eid64Generator(6);
+
     @Override
     public ModelSubscription extract(SubscribeModelsApi.Form form, WriteContext context) {
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
@@ -23,9 +25,7 @@ public class DefaultSubscribeModelExtrator implements AnSubscribeModelExtractor 
         subscription.setSubscriberId(context.getOwnerId());
         subscription.setOperatorId(context.getOperatorId());
 
-        String id = HashTools.hashHex(subscription);
-
-        subscription.setId(id);
+        subscription.setId(idgen.born());
         return subscription;
     }
 }

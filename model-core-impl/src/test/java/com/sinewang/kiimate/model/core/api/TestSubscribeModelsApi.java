@@ -47,7 +47,7 @@ public class TestSubscribeModelsApi {
 
     private String requestId = "testRequestId";
 
-    private String pubSet = "testPubSetHash";
+    private long pubSet = 1;
 
     private String name = "testSubName";
 

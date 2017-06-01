@@ -16,10 +16,10 @@ public interface AnSubscribeModelExtractor {
     @Data
     class ModelSubscription {
 
-        private String id;
+        private long id;
 
         @KeyFactor
-        private String subSet;
+        private long subSet;
 
         @KeyFactor
         private String subscriberId;

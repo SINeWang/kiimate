@@ -40,6 +40,7 @@ public class VisitStatusCtrl extends ReadController {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
         VisitStatusApi.Form form = new VisitStatusApi.Form();
+        form.setOwnerId(ownerId);
         form.setSubId(subId);
         try {
             return ErestResponse.ok(requestId, api.visit(context, form));

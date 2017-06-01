@@ -18,7 +18,7 @@ public interface SubscribeModelsApi {
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Form {
-        private String subSet;
+        private long subSet;
         private String group;
         private String name;
         private String tree = TREE_MASTER;
@@ -27,8 +27,8 @@ public interface SubscribeModelsApi {
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Receipt {
-        private String id;
-        private String subSet;
+        private long id;
+        private long subSet;
         private String subscriberId;
         private String group;
         private String name;

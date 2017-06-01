@@ -36,7 +36,7 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
 
     @Override
     public Receipt visit(ReadContext context, Form form) throws NotFound {
-        ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, form);
+        ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, form, context);
 
         ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(channel);
         if (model == null) {

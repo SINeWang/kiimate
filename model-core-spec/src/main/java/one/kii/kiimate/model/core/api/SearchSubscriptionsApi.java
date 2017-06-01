@@ -17,9 +17,9 @@ public interface SearchSubscriptionsApi {
     @Data
     class Subscriptions {
 
-        String id;
+        long id;
 
-        String subSet;
+        long subSet;
 
         String subscriberId;
 

@@ -39,8 +39,7 @@ public class SearchSubscriptionsCtl extends ReadController {
 
         form.setGroup(query);
 
-        List<SearchSubscriptionsApi.Subscriptions> subscriptions = searchSubscriptionsApi.search(context, form);
-        return ErestResponse.ok(requestId, subscriptions);
+        return ErestResponse.ok(requestId, searchSubscriptionsApi.search(context, form));
     }
 
 
