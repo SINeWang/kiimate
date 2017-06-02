@@ -3,6 +3,8 @@ package one.kii.kiimate.model.core.dai;
 import lombok.Data;
 import lombok.Getter;
 import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.io.annotations.MustHave;
+import one.kii.summer.io.exception.NotFound;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -18,7 +20,7 @@ public interface ModelPublicationDai {
 
     List<PublishedSnapshot> loadSnapshot(ChannelId channel);
 
-    Publication loadRootPublications(ChannelPubSet channel);
+    Publication loadRootPublications(ChannelPubSet channel) throws NotFound;
 
     List<Provider> searchProviders(ClueId clue);
 
@@ -33,6 +35,8 @@ public interface ModelPublicationDai {
 
     @Data
     class ChannelPubSet {
+
+        @MustHave
         long pubSet;
     }
 

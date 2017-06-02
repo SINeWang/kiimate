@@ -4,6 +4,7 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
 import one.kii.summer.beans.utils.ValueMapping;
+import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,12 +35,12 @@ public class DefaultModelRestorer implements AnModelRestorer {
     }
 
     @Override
-    public Map<String, Object> restoreAsMetaData(IntensionDai.ChannelLatestExtension channel) {
+    public Map<String, Object> restoreAsMetaData(IntensionDai.ChannelLatestExtension channel) throws NotFound {
         IntensionDai.ChannelLastExtension last = ValueMapping.from(IntensionDai.ChannelLastExtension.class, channel);
         return restoreAsMetaData(last);
     }
 
-    public Map<String, Object> restoreAsMetaData(IntensionDai.ChannelLastExtension extension) {
+    public Map<String, Object> restoreAsMetaData(IntensionDai.ChannelLastExtension extension) throws NotFound {
         Map<String, Object> model = new HashMap<>();
         List<IntensionDai.Record> records = intensionDai.loadLast(extension);
         for (IntensionDai.Record record : records) {
@@ -68,13 +69,13 @@ public class DefaultModelRestorer implements AnModelRestorer {
     }
 
 
-    public Map<String, IntensionDai.Record> restoreAsIntensionDict(IntensionDai.ChannelLastExtension extension) {
+    public Map<String, IntensionDai.Record> restoreAsIntensionDict(IntensionDai.ChannelLastExtension extension) throws NotFound {
         Map<String, IntensionDai.Record> map = new HashMap<>();
         restoreAsFieldDict(extension, map);
         return map;
     }
 
-    private void restoreAsFieldDict(IntensionDai.ChannelLastExtension extension, Map<String, IntensionDai.Record> map) {
+    private void restoreAsFieldDict(IntensionDai.ChannelLastExtension extension, Map<String, IntensionDai.Record> map) throws NotFound {
         List<IntensionDai.Record> records = intensionDai.loadLast(extension);
         for (IntensionDai.Record record : records) {
             Long refPubSet = record.getRefPubSet();
