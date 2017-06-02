@@ -4,7 +4,7 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.VisitAssetApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
-import one.kii.kiimate.status.core.dai.StatusesDai;
+import one.kii.kiimate.status.core.dai.AssetsDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
@@ -22,7 +22,7 @@ import java.util.Map;
 public class DefaultVisitAssetApi implements VisitAssetApi {
 
     @Autowired
-    private StatusesDai statusesDai;
+    private AssetsDai assetsDai;
 
     @Autowired
     private InstanceDai instanceDai;
@@ -38,19 +38,19 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
 
     @Override
     public Asset visit(ReadContext context, PubSetForm form) throws NotFound {
-        StatusesDai.ChannelPubSet channel = ValueMapping.from(StatusesDai.ChannelPubSet.class, form, context);
-        StatusesDai.Status assetDb = statusesDai.load(channel);
+        AssetsDai.ChannelPubSet channel = ValueMapping.from(AssetsDai.ChannelPubSet.class, form, context);
+        AssetsDai.Asset assetDb = assetsDai.load(channel);
         return transform(context, assetDb);
     }
 
     @Override
     public Asset visit(ReadContext context, GroupNameForm form) throws NotFound {
-        StatusesDai.ChannelGroupName channel = ValueMapping.from(StatusesDai.ChannelGroupName.class, form, context);
-        StatusesDai.Status record = statusesDai.load(channel);
+        AssetsDai.ChannelGroupName channel = ValueMapping.from(AssetsDai.ChannelGroupName.class, form, context);
+        AssetsDai.Asset record = assetsDai.load(channel);
         return transform(context, record);
     }
 
-    private Asset transform(ReadContext context, StatusesDai.Status assetDb) throws NotFound {
+    private Asset transform(ReadContext context, AssetsDai.Asset assetDb) throws NotFound {
         InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, assetDb);
         List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusPubSet);
         Asset asset = ValueMapping.from(Asset.class, assetDb);

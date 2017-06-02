@@ -33,7 +33,7 @@ class Asset #FFFFFF {
     Subject visitor_id
     ---
     Model model
-    Status status
+    Status asset
     ---
     DateTime view_time
 }

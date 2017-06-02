@@ -1,6 +1,7 @@
 package one.kii.kiimate.status.core.ctl;
 
 import one.kii.kiimate.status.core.api.VisitAssetApi;
+import one.kii.kiimate.status.core.api.VisitStatusApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
@@ -24,6 +25,7 @@ public class VisitStatusCtl extends ReadController {
     public static final String OWNER_ID = "owner-id";
 
     public static final String PUB_SET = "pub-set";
+    public static final String SUB_ID = "sub-id";
 
     public static final String VERSION = "version";
 
@@ -35,6 +37,9 @@ public class VisitStatusCtl extends ReadController {
 
     @Autowired
     private VisitAssetApi api;
+
+    @Autowired
+    private VisitStatusApi visitStatusApi;
 
     @RequestMapping(value = "/{" + PUB_SET + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
     public ResponseEntity<VisitAssetApi.Asset> visit(
@@ -82,5 +87,24 @@ public class VisitStatusCtl extends ReadController {
             return ErestResponse.notFound(requestId, notFound.getKey());
         }
     }
+
+    @RequestMapping(value = "{" + SUB_ID + "}")
+    public ResponseEntity<VisitStatusApi.Receipt> visit(
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
+            @PathVariable(OWNER_ID) String ownerId,
+            @PathVariable(SUB_ID) Long subId) {
+        ReadContext context = buildContext(requestId, ownerId, visitorId);
+
+        VisitStatusApi.Form form = new VisitStatusApi.Form();
+        form.setOwnerId(ownerId);
+        form.setSubId(subId);
+        try {
+            return ErestResponse.ok(requestId, visitStatusApi.visit(context, form));
+        } catch (NotFound notFound) {
+            return ErestResponse.notFound(requestId, notFound.getKey());
+        }
+    }
+
 
 }

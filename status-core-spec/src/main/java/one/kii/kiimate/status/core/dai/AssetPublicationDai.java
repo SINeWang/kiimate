@@ -34,7 +34,7 @@ public interface AssetPublicationDai {
 
         List<Entry> entries;
 
-        StatusesDai.Status previous;
+        AssetsDai.Asset previous;
 
         String operatorId;
     }

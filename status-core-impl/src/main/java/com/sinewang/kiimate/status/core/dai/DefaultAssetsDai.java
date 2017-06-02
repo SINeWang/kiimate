@@ -1,7 +1,7 @@
 package com.sinewang.kiimate.status.core.dai;
 
-import com.sinewang.kiimate.status.core.dai.mapper.StatusesMapper;
-import one.kii.kiimate.status.core.dai.StatusesDai;
+import com.sinewang.kiimate.status.core.dai.mapper.AssetsMapper;
+import one.kii.kiimate.status.core.dai.AssetsDai;
 import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,56 +13,56 @@ import java.util.List;
  * Created by WangYanJiong on 27/05/2017.
  */
 @Component
-public class DefaultStatusesDai implements StatusesDai {
+public class DefaultAssetsDai implements AssetsDai {
 
     @Autowired
-    private StatusesMapper statusesMapper;
+    private AssetsMapper assetsMapper;
 
 
     @Override
-    public List<Status> query(ClueGroup clue) {
-        return statusesMapper.queryStatuses(
+    public List<Asset> query(ClueGroup clue) {
+        return assetsMapper.queryAssets(
                 clue.getOwnerId(),
                 clue.getGroup());
     }
 
     @Override
-    public Status load(ChannelPubSet channel) throws NotFound {
-        Status status = statusesMapper.selectStatus(
+    public Asset load(ChannelPubSet channel) throws NotFound {
+        Asset asset = assetsMapper.selectAsset(
                 channel.getOwnerId(),
                 channel.getPubSet(),
                 channel.getStability(),
                 channel.getVersion());
-        if (status == null) {
+        if (asset == null) {
             throw new NotFound(KeyFactorTools.find(ChannelPubSet.class));
         }
-        return status;
+        return asset;
     }
 
     @Override
-    public Status load(ChannelModelSubId channel) throws NotFound {
-        Status status = statusesMapper.selectStatusByProviderModelSubIdStabilityVersion(
+    public Asset load(ChannelModelSubId channel) throws NotFound {
+        Asset asset = assetsMapper.selectAssetByProviderModelSubIdStabilityVersion(
                 channel.getOwnerId(),
                 channel.getSubId(),
                 channel.getStability(),
                 channel.getVersion());
-        if (status == null) {
+        if (asset == null) {
             throw new NotFound(KeyFactorTools.find(ChannelModelSubId.class));
         }
-        return status;
+        return asset;
     }
 
     @Override
-    public Status load(ChannelGroupName channel) throws NotFound {
-        Status status = statusesMapper.selectStatusByProviderGroupNameStabilityVersion(
+    public Asset load(ChannelGroupName channel) throws NotFound {
+        Asset asset = assetsMapper.selectAssetByProviderGroupNameStabilityVersion(
                 channel.getOwnerId(),
                 channel.getGroup(),
                 channel.getName(),
                 channel.getStability(),
                 channel.getVersion());
-        if (status == null) {
+        if (asset == null) {
             throw new NotFound(KeyFactorTools.find(ChannelGroupName.class));
         }
-        return status;
+        return asset;
     }
 }

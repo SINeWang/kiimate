@@ -5,7 +5,7 @@ import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.PublishAssetApi;
 import one.kii.kiimate.status.core.dai.AssetPublicationDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
-import one.kii.kiimate.status.core.dai.StatusesDai;
+import one.kii.kiimate.status.core.dai.AssetsDai;
 import one.kii.kiimate.status.core.fui.AssetPublicationExtractor;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
@@ -38,7 +38,7 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
     private AssetPublicationExtractor assetPublicationExtractor;
 
     @Autowired
-    private StatusesDai statusesDai;
+    private AssetsDai assetsDai;
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
@@ -48,9 +48,9 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
 
         AssetPublicationExtractor.Informal informal = assetPublicationExtractor.extract(context, form);
 
-        StatusesDai.ChannelModelSubId channelModelSubId = ValueMapping.from(StatusesDai.ChannelModelSubId.class, informal);
+        AssetsDai.ChannelModelSubId channelModelSubId = ValueMapping.from(AssetsDai.ChannelModelSubId.class, informal);
         channelModelSubId.setOwnerId(informal.getProviderId());
-        StatusesDai.Status previous = statusesDai.load(channelModelSubId);
+        AssetsDai.Asset previous = assetsDai.load(channelModelSubId);
 
 
         InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, previous);
