@@ -18,7 +18,7 @@ public interface AssetPublicationExtractor {
     @Data
     class Informal {
         String providerId;
-        long subId;
+        Long subId;
         String version;
         String visibility;
         String stability;
@@ -26,10 +26,10 @@ public interface AssetPublicationExtractor {
 
     @Data
     class Formal {
-        long id;
-        long pubSet;
+        Long id;
+        Long pubSet;
         String providerId;
-        long subId;
+        Long subId;
         String version;
         String visibility;
         String stability;

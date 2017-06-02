@@ -15,13 +15,13 @@ public interface AnIntensionExtractor {
     @Data
     class Intension {
 
-        private long id;
+        private Long id;
 
         private String commit;
 
         @KeyFactor
         @MustHave
-        private long extId;
+        private Long extId;
 
         @KeyFactor
         @MustHave
@@ -35,14 +35,14 @@ public interface AnIntensionExtractor {
         private String structure;
 
         @KeyFactor
-        private long refPubSet;
+        private Long refPubSet;
 
         @KeyFactor
         @MustHave
-        private boolean required;
+        private Boolean required;
 
         @KeyFactor
         @MustHave
-        private boolean single;
+        private Boolean single;
     }
 }

@@ -27,7 +27,7 @@ public class DefaultInstanceDai implements InstanceDai {
     private InstanceMapper instanceMapper;
 
     @Override
-    public void insert(List<Record> records) throws InstanceDuplicated {
+    public void remember(List<Record> records) throws InstanceDuplicated {
         Date now = new Date();
         for (Record record : records) {
             String[] values = record.getValues();
@@ -128,12 +128,12 @@ public class DefaultInstanceDai implements InstanceDai {
     }
 
     @Override
-    public List<Instance> selectLatestInstanceBySubId(long subId) {
+    public List<Instance> selectLatestInstanceBySubId(Long subId) {
         return instanceMapper.selectLatestInstancesBySubId(subId);
     }
 
     @Override
-    public List<Instance> selectInstanceByPubSet(long pubSet) {
+    public List<Instance> selectInstanceByPubSet(Long pubSet) {
         return instanceMapper.selectInstancesByPubSet(pubSet);
     }
 
@@ -144,6 +144,7 @@ public class DefaultInstanceDai implements InstanceDai {
         }
         instanceMapper.insertInstance(
                 instance.getId(),
+                instance.getCommit(),
                 instance.getOwnerId(),
                 instance.getSubId(),
                 instance.getExtId(),

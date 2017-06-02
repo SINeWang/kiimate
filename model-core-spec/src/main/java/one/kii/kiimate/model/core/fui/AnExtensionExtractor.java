@@ -24,7 +24,7 @@ public interface AnExtensionExtractor {
     @Data
     class Extension {
 
-        private long id;
+        private Long id;
 
         private String commit;
 

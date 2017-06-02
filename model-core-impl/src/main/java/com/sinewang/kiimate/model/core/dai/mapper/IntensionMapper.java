@@ -15,31 +15,31 @@ import java.util.List;
 public interface IntensionMapper {
 
 
-    void insertIntension(@Param("id") long id,
+    void insertIntension(@Param("id") Long id,
                          @Param("commit") String commit,
-                         @Param("extId") long extId,
+                         @Param("extId") Long extId,
                          @Param("field") String field,
-                         @Param("single") boolean single,
+                         @Param("single") Boolean single,
                          @Param("structure") String structure,
-                         @Param("refPubSet") long refPubSet,
+                         @Param("refPubSet") Long refPubSet,
                          @Param("visibility") String visibility,
-                         @Param("required") boolean required,
+                         @Param("required") Boolean required,
                          @Param("beginTime") Date beginTime);
 
 
-    List<IntensionDai.Record> selectLatestIntensionsByExtId(@Param("extId") long extId);
+    List<IntensionDai.Record> selectLatestIntensionsByExtId(@Param("extId") Long extId);
 
-    IntensionDai.Record selectLastIntensionByExtIdField(@Param("extId") long extId, @Param("field") String field);
+    IntensionDai.Record selectLastIntensionByExtIdField(@Param("extId") Long extId, @Param("field") String field);
 
-    IntensionDai.Record selectLatestIntensionByExtIdField(@Param("extId") long extId, @Param("field") String field);
+    IntensionDai.Record selectLatestIntensionByExtIdField(@Param("extId") Long extId, @Param("field") String field);
 
     List<String> selectLastFieldsByExtIdPubSet(
-            @Param("extId") long extId,
-            @Param("pubSet") long pubSet,
+            @Param("extId") Long extId,
+            @Param("pubSet") Long pubSet,
             @Param("beginTime") Date beginTime);
 
-    void updateLatestIntensionEndTimeById(@Param("id") long id, @Param("endTime") Date endTime);
+    void updateLatestIntensionEndTimeById(@Param("id") Long id, @Param("endTime") Date endTime);
 
-    void deleteIntensionsByExtId(@Param("extId") long extId);
+    void deleteIntensionsByExtId(@Param("extId") Long extId);
 
 }

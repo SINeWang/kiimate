@@ -26,13 +26,13 @@ public interface IntensionDai {
 
     @Data
     class ChannelId {
-        long id;
+        Long id;
     }
 
     @Data
     class ChannelExtension {
 
-        long id;
+        Long id;
 
         Date beginTime;
     }
@@ -40,9 +40,9 @@ public interface IntensionDai {
     @Data
     class ChannelPubSet {
 
-        long extId;
+        Long extId;
 
-        long pubSet;
+        Long pubSet;
 
         Date beginTime;
 
@@ -53,38 +53,38 @@ public interface IntensionDai {
     class Record {
 
         @MustHave
-        private long id;
+        private Long id;
 
         @MustHave
         private String commit;
 
         @MustHave
-        private long extId;
+        private Long extId;
 
         @MustHave
         private String field;
 
         @MustHave
-        private boolean single;
+        private Boolean single;
 
         @MustHave
         private String structure;
 
-        private long refPubSet;
+        private Long refPubSet;
 
         @MustHave
         private String visibility;
 
         @MustHave
-        private boolean required;
+        private Boolean required;
     }
 
     class IntensionDuplicated extends Exception {
 
         @Getter
-        private long intId;
+        private Long intId;
 
-        public IntensionDuplicated(long intId) {
+        public IntensionDuplicated(Long intId) {
             this.intId = intId;
         }
     }

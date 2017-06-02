@@ -84,7 +84,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public int countModelSubscriptions(long pubSet) {
+    public Integer countModelSubscriptions(Long pubSet) {
         return modelSubscriptionMapper.countModelSubscriptions(pubSet);
     }
 

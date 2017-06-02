@@ -13,6 +13,7 @@ import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.utils.MustHaveTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,23 +55,27 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
         ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(channel);
         if (model == null) {
-            throw new NotFound(KeyFactorTools.find(ModelSubscriptionDai.ChannelSubId.class));
+            throw new NotFound(MustHaveTools.find(ModelSubscriptionDai.ChannelSubId.class));
         }
 
         Map<String, IntensionDai.Record> dict = modelRestorer.restoreAsIntensionDict(model.getRootExtId());
 
-        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, form.getSubId(), form.getMap(), dict);
+        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, form, dict);
 
         List<InstanceDai.Record> record1 = ValueMapping.from(InstanceDai.Record.class, instances);
 
         try {
-            instanceDai.insert(record1);
+            instanceDai.remember(record1);
         } catch (InstanceDai.InstanceDuplicated instanceDuplicated) {
             throw new Conflict(KeyFactorTools.find(InstanceDai.Record.class));
         }
 
 
+
         IntensionDai.ChannelExtension rootExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, model);
+
+        rootExtension.setId(model.getRootExtId());
+
 
         List<InstanceDai.Instance> newInstances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 

@@ -3,7 +3,9 @@ package com.sinewang.kiimate.status.core.fui;
 import com.google.common.base.CaseFormat;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.dai.IntensionDai;
+import one.kii.kiimate.status.core.api.RefreshStatusApi;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
+import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import org.slf4j.Logger;
@@ -26,9 +28,10 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     private static Logger logger = LoggerFactory.getLogger(DefaultInstanceExtractor.class);
 
     @Override
-    public List<Instance> extract(WriteContext context, long subId, Map<String, List<String>> map, Map<String, IntensionDai.Record> fieldDict) {
+    public List<Instance> extract(WriteContext context, RefreshStatusApi.SubIdForm form, Map<String, IntensionDai.Record> fieldDict) {
         List<Instance> instances = new ArrayList<>();
 
+        Map<String, List<String>> map = form.getMap();
         for (String field : map.keySet()) {
             String dictField = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, field);
             IntensionDai.Record record = fieldDict.get(dictField);
@@ -36,16 +39,17 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
                 logger.warn("cannot find field [{}]", field);
                 continue;
             }
-            long intId = record.getId();
+            Long intId = record.getId();
 
             String[] values = cleanUpValues(map.get(field).toArray(new String[0]));
             Instance instance = ValueMapping.from(Instance.class, context);
             instance.setId(setgen.born());
-            instance.setSubId(subId);
+            instance.setSubId(form.getSubId());
             instance.setExtId(record.getExtId());
             instance.setIntId(intId);
             instance.setField(dictField);
             instance.setValues(values);
+            instance.setCommit(HashTools.hashHex(instance));
             instances.add(instance);
         }
         return instances;

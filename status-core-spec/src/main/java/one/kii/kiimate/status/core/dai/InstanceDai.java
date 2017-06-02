@@ -2,6 +2,7 @@ package one.kii.kiimate.status.core.dai;
 
 import lombok.Data;
 import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.io.annotations.MustHave;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -13,30 +14,32 @@ import java.util.List;
 public interface InstanceDai {
 
     @Transactional
-    void insert(List<Record> records) throws InstanceDuplicated;
+    void remember(List<Record> records) throws InstanceDuplicated;
 
-    List<Instance> selectLatestInstanceBySubId(long subId);
+    List<Instance> selectLatestInstanceBySubId(Long subId);
 
-    List<Instance> selectInstanceByPubSet(long pubSet);
+    List<Instance> selectInstanceByPubSet(Long pubSet);
 
     @Data
     class Instance {
 
-        private long id;
+        private Long id;
+
+        private String commit;
 
         private String ownerId;
 
-        private long subId;
+        private Long subId;
 
-        private long extId;
+        private Long extId;
 
-        private long intId;
+        private Long intId;
 
         private String field;
 
         private String value;
 
-        private long valueSet;
+        private Long valueSet;
 
         private String valueRefPath;
 
@@ -52,21 +55,24 @@ public interface InstanceDai {
     class Record {
 
         @KeyFactor
-        private long id;
+        private Long id;
+
+        @MustHave
+        private String commit;
 
         private String ownerId;
 
-        private long subId;
+        private Long subId;
 
-        private long extId;
+        private Long extId;
 
-        private long intId;
+        private Long intId;
 
         private String field;
 
         private String[] values;
 
-        private long valueSet;
+        private Long valueSet;
 
         private String valueRefId;
 

@@ -14,7 +14,7 @@ import java.util.List;
 public interface ExtensionMapper {
 
     void insertExtension(
-            @Param("id") long id,
+            @Param("id") Long id,
             @Param("commit") String commit,
             @Param("ownerId") String ownerId,
             @Param("group") String group,
@@ -24,7 +24,7 @@ public interface ExtensionMapper {
             @Param("beginTime") Date beginTime);
 
     ExtensionDai.Record selectLatestExtensionById(
-            @Param("id") long id);
+            @Param("id") Long id);
 
     ExtensionDai.Record selectLastExtensionByOwnerGroupNameTree(
             @Param("ownerId") String ownerId,
@@ -44,17 +44,17 @@ public interface ExtensionMapper {
             @Param("tree") String tree);
 
     ExtensionDai.Record selectLastExtensionById(
-            @Param("id") long id,
+            @Param("id") Long id,
             @Param("beginTime") Date beginTime);
 
     List<ExtensionDai.Record> queryExtensionsByOwnerGroup(
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 
-    void deleteExtensionById(@Param("id") long id);
+    void deleteExtensionById(@Param("id") Long id);
 
     void updateEndTimeExtensionById(
-            @Param("extId") long extId,
+            @Param("extId") Long extId,
             @Param("endTime") Date endTime);
 
 }

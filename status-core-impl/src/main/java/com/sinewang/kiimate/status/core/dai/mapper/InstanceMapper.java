@@ -15,32 +15,33 @@ import java.util.List;
 public interface InstanceMapper {
 
 
-    void insertInstance(@Param("id") long id,
+    void insertInstance(@Param("id") Long id,
+                        @Param("commit") String commit,
                         @Param("ownerId") String ownerId,
-                        @Param("subId") long subId,
-                        @Param("extId") long extId,
-                        @Param("intId") long intId,
+                        @Param("subId") Long subId,
+                        @Param("extId") Long extId,
+                        @Param("intId") Long intId,
                         @Param("field") String field,
                         @Param("value") String value,
-                        @Param("valueSetHash") long valueSet,
+                        @Param("valueSetHash") Long valueSet,
                         @Param("valueRefPath") String valueRefPath,
                         @Param("valueRefPolicy") String valueRefPolicy,
                         @Param("operatorId") String operatorId,
                         @Param("beginTime") Date beginTime);
 
-    List<InstanceDai.Instance> selectLatestInstancesBySubId(@Param("subId") long subId);
+    List<InstanceDai.Instance> selectLatestInstancesBySubId(@Param("subId") Long subId);
 
-    List<InstanceDai.Instance> selectInstancesByPubSet(@Param("pubSet") long putSet);
+    List<InstanceDai.Instance> selectInstancesByPubSet(@Param("pubSet") Long putSet);
 
-    List<InstanceDai.Instance> selectLatestInstanceBySubIdIntId(@Param("subId") long subId,
-                                                                @Param("intId") long intId);
+    List<InstanceDai.Instance> selectLatestInstanceBySubIdIntId(@Param("subId") Long subId,
+                                                                @Param("intId") Long intId);
 
-    void updateInstanceEndTimeBySubIdIntId(@Param("subId") long subId,
-                                           @Param("intId") long intId,
+    void updateInstanceEndTimeBySubIdIntId(@Param("subId") Long subId,
+                                           @Param("intId") Long intId,
                                            @Param("endTime") Date endTime);
 
     void deleteInstanceByOwnerId(@Param("ownerId") String ownerId,
-                                 @Param("subId") long subId);
+                                 @Param("subId") Long subId);
 
 
 }

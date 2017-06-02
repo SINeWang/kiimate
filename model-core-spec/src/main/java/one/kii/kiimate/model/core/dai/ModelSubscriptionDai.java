@@ -3,6 +3,7 @@ package one.kii.kiimate.model.core.dai;
 import lombok.Data;
 import lombok.Getter;
 import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.io.annotations.MustHave;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -27,7 +28,7 @@ public interface ModelSubscriptionDai {
 
     ModelSubscription selectSubscription(ChannelSubId channel);
 
-    int countModelSubscriptions(long pubSet);
+    Integer countModelSubscriptions(Long pubSet);
 
     @Data
     class ClueGroup{
@@ -50,11 +51,12 @@ public interface ModelSubscriptionDai {
 
     @Data
     class ChannelSubId {
-        @KeyFactor
+
+        @MustHave
         String ownerId;
 
-        @KeyFactor
-        long subId;
+        @MustHave
+        Long subId;
     }
 
     @Data
@@ -64,17 +66,17 @@ public interface ModelSubscriptionDai {
 
     @Data
     class ModelPubSet {
-        long pubSet;
-        long rootExtId;
+        Long pubSet;
+        Long rootExtId;
         Date beginTime;
         Date endTime;
     }
 
     @Data
     class ModelSubscription {
-        private long id;
+        private Long id;
 
-        private long subSet;
+        private Long subSet;
 
         @KeyFactor
         private String subscriberId;
@@ -95,7 +97,7 @@ public interface ModelSubscriptionDai {
     class DuplicatedSubscription extends Exception {
 
         @Getter
-        private long subSet;
+        private Long subSet;
 
         @Getter
         private String subscriberId;
@@ -109,7 +111,7 @@ public interface ModelSubscriptionDai {
         @Getter
         private String tree;
 
-        public DuplicatedSubscription(long subSet, String subscriberId, String group, String name, String tree) {
+        public DuplicatedSubscription(Long subSet, String subscriberId, String group, String name, String tree) {
             super();
             this.subSet = subSet;
             this.subscriberId = subscriberId;

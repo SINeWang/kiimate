@@ -38,11 +38,11 @@ public class DefaultIntensionDai implements IntensionDai {
                     record.getCommit(),
                     record.getExtId(),
                     record.getField(),
-                    record.isSingle(),
+                    record.getSingle(),
                     record.getStructure(),
                     record.getRefPubSet(),
                     record.getVisibility(),
-                    record.isRequired(),
+                    record.getRequired(),
                     now
             );
         } catch (DuplicateKeyException duplicated) {

@@ -29,8 +29,8 @@ public class DefaultModelRestorer implements AnModelRestorer {
         return list;
     }
 
-    public Map<String, Object> restoreAsMetaData(long extId) {
-        if (extId == 0) {
+    public Map<String, Object> restoreAsMetaData(Long extId) {
+        if (extId == null) {
             return Collections.emptyMap();
         }
         IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
@@ -42,18 +42,18 @@ public class DefaultModelRestorer implements AnModelRestorer {
         Map<String, Object> model = new HashMap<>();
         List<IntensionDai.Record> records = intensionDai.loadLatest(extension);
         for (IntensionDai.Record record : records) {
-            long refPubSet = record.getRefPubSet();
-            if (refPubSet != 0) {
+            Long refPubSet = record.getRefPubSet();
+            if (refPubSet != null) {
                 ModelPublicationDai.ChannelPubSet pubset = new ModelPublicationDai.ChannelPubSet();
                 pubset.setPubSet(refPubSet);
                 ModelPublicationDai.Publication publication = modelPublicationDai.loadRootPublications(pubset);
-                if (record.isSingle()) {
+                if (record.getSingle()) {
                     model.put(record.getField(), restoreAsMetaData(publication.getExtId()));
                 } else {
                     model.put(record.getField(), toArray(restoreAsMetaData(refPubSet)));
                 }
             } else {
-                if (record.isSingle()) {
+                if (record.getSingle()) {
                     model.put(record.getField(), record.getStructure());
                 } else {
                     model.put(record.getField(), toArray(record.getStructure()));
@@ -63,7 +63,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
         return model;
     }
 
-    public Map<String, IntensionDai.Record> restoreAsIntensionDict(long extId) {
+    public Map<String, IntensionDai.Record> restoreAsIntensionDict(Long extId) {
         Map<String, IntensionDai.Record> map = new HashMap<>();
         IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
         channel.setId(extId);
@@ -74,8 +74,8 @@ public class DefaultModelRestorer implements AnModelRestorer {
     private void restoreAsFieldDict(IntensionDai.ChannelExtension extension, Map<String, IntensionDai.Record> map) {
         List<IntensionDai.Record> records = intensionDai.loadLatest(extension);
         for (IntensionDai.Record record : records) {
-            long refPubSet = record.getRefPubSet();
-            if (refPubSet != 0) {
+            Long refPubSet = record.getRefPubSet();
+            if (refPubSet != null) {
                 ModelPublicationDai.ChannelPubSet pubset = new ModelPublicationDai.ChannelPubSet();
                 pubset.setPubSet(refPubSet);
                 ModelPublicationDai.Publication publication = modelPublicationDai.loadRootPublications(pubset);
