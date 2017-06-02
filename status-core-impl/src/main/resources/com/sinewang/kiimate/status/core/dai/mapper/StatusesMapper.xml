@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sinewang.kiimate.status.core.dai.mapper.AssetPublicationMapper">
+<mapper namespace="com.sinewang.kiimate.status.core.dai.mapper.StatusesMapper">
 
     <resultMap id="Providers" type="one.kii.kiimate.status.core.dai.AssetPublicationDai$Providers">
         <result column="provider_id" property="id"/>
     </resultMap>
 
-    <resultMap id="Assets" type="one.kii.kiimate.status.core.dai.LoadAssetsDai$Assets">
+    <resultMap id="Assets" type="one.kii.kiimate.status.core.dai.StatusesDai$Status">
         <result column="pub_set" property="pubSet"/>
         <result column="provider_id" property="providerId"/>
         <result column="visibility" property="visibility"/>
@@ -17,7 +17,7 @@
         <result column="version" property="version"/>
     </resultMap>
 
-    <insert id="insertAssetPublication">
+    <insert id="insertStatus">
         INSERT INTO km_s_pub
         (id, pub_set, provider_id, m_sub_id, ins_id, version, visibility, stability, operator_id, begin_time)
         VALUES
@@ -30,7 +30,7 @@
         AND spub.end_time IS NULL
         GROUP BY spub.provider_id
     </select>
-    <select id="queryAssets" resultMap="Assets">
+    <select id="queryStatuses" resultMap="Assets">
         <bind name="group_pattern" value="'%' + group + '%'"/>
         SELECT ssub.pub_set, ssub.provider_id, ssub.visibility, ssub.m_sub_id, ssub.stability, ssub.version, msub.group, msub.name
         FROM km_s_pub ssub, mm_m_sub msub
@@ -40,7 +40,7 @@
         AND ssub.end_time IS NULL
         GROUP BY ssub.pub_set
     </select>
-    <select id="selectAsset" resultMap="Assets">
+    <select id="selectStatus" resultMap="Assets">
         SELECT ssub.pub_set, ssub.provider_id, ssub.visibility, ssub.m_sub_id, ssub.stability, ssub.version, msub.group, msub.name
         FROM km_s_pub ssub, mm_m_sub msub
         WHERE ssub.provider_id = #{providerId}
@@ -50,7 +50,7 @@
         AND ssub.end_time IS NULL
         GROUP BY ssub.pub_set
     </select>
-    <select id="selectAssetByProviderGroupNameStabilityVersion" resultMap="Assets">
+    <select id="selectStatusByProviderGroupNameStabilityVersion" resultMap="Assets">
         SELECT ssub.pub_set, ssub.provider_id, ssub.visibility, ssub.m_sub_id, ssub.stability, ssub.version, msub.group, msub.name
         FROM km_s_pub ssub, mm_m_sub msub
         WHERE ssub.provider_id = #{providerId}
@@ -62,7 +62,7 @@
         AND ssub.end_time IS NULL
         GROUP BY ssub.pub_set
     </select>
-    <select id="selectAssetsByProviderModelSubIdStabilityVersion" resultMap="Assets">
+    <select id="selectStatusByProviderModelSubIdStabilityVersion" resultMap="Assets">
         SELECT ssub.pub_set, ssub.provider_id, ssub.visibility, ssub.m_sub_id, ssub.stability, ssub.version, msub.group, msub.name
         FROM km_s_pub ssub, mm_m_sub msub
         WHERE ssub.provider_id = #{providerId}

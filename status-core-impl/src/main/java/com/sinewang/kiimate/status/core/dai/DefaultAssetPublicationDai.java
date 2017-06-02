@@ -1,8 +1,8 @@
 package com.sinewang.kiimate.status.core.dai;
 
-import com.sinewang.kiimate.status.core.dai.mapper.AssetPublicationMapper;
+import com.sinewang.kiimate.status.core.dai.mapper.StatusesMapper;
 import one.kii.kiimate.status.core.dai.AssetPublicationDai;
-import one.kii.kiimate.status.core.dai.LoadAssetsDai;
+import one.kii.kiimate.status.core.dai.StatusesDai;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,28 +17,28 @@ public class DefaultAssetPublicationDai implements AssetPublicationDai {
 
 
     @Autowired
-    private AssetPublicationMapper assetPublicationMapper;
+    private StatusesMapper statusesMapper;
 
 
     @Override
     public List<Providers> queryProviders(ClueId clue) {
-        return assetPublicationMapper.queryProviders(
+        return statusesMapper.queryProviders(
                 clue.getId());
     }
 
     @Override
     public Date save(Record record) {
         Date now = new Date();
-        LoadAssetsDai.Assets previous = record.getPrevious();
+        StatusesDai.Status previous = record.getPrevious();
         if (previous != null) {
-            assetPublicationMapper.revokeAsset(
+            statusesMapper.revokeAsset(
                     previous.getProviderId(),
                     previous.getPubSet(),
                     now
             );
         }
         for (Entry entry : record.getEntries()) {
-            assetPublicationMapper.insertAssetPublication(
+            statusesMapper.insertStatus(
                     entry.getId(),
                     record.getPubSet(),
                     entry.getProviderId(),

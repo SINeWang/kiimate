@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.SearchAssetsApi;
+import one.kii.kiimate.status.core.api.SearchStatusesApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.receiver.ErestResponse;
@@ -16,16 +16,16 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/api/v1/assets")
+@RequestMapping("/api/v1/statuses")
 @CrossOrigin(origins = "*")
-public class SearchAssetsCtl extends ReadController {
+public class SearchStatusesCtl extends ReadController {
 
     @Autowired
-    private SearchAssetsApi api;
+    private SearchStatusesApi api;
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<SearchAssetsApi.Assets>> exploreModels(
+    public ResponseEntity<List<SearchStatusesApi.Statuses>> exploreModels(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @RequestParam("q") String query,
@@ -33,11 +33,11 @@ public class SearchAssetsCtl extends ReadController {
 
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
-        SearchAssetsApi.QueryForm form = new SearchAssetsApi.QueryForm();
+        SearchStatusesApi.QueryForm form = new SearchStatusesApi.QueryForm();
 
         form.setQuery(query);
 
-        List<SearchAssetsApi.Assets> models = api.search(context, form);
+        List<SearchStatusesApi.Statuses> models = api.search(context, form);
         return ErestResponse.ok(requestId, models);
     }
 }

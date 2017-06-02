@@ -9,15 +9,15 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 27/05/2017.
  */
-public interface LoadAssetsDai {
+public interface StatusesDai {
 
-    List<Assets> queryAssets(ClueGroup clue);
+    List<Status> query(ClueGroup clue);
 
-    Assets loadAssets(ChannelGroupName channel) throws NotFound;
+    Status load(ChannelGroupName channel) throws NotFound;
 
-    Assets loadAssets(ChannelPubSet channel) throws NotFound;
+    Status load(ChannelPubSet channel) throws NotFound;
 
-    Assets loadAssets(ChannelModelSubId channel) throws NotFound;
+    Status load(ChannelModelSubId channel) throws NotFound;
 
     @Data
     class ClueGroup {
@@ -77,7 +77,7 @@ public interface LoadAssetsDai {
     }
 
     @Data
-    class Assets {
+    class Status {
 
         Long pubSet;
 

@@ -1,7 +1,7 @@
 package com.sinewang.kiimate.status.core.dai.mapper;
 
 import one.kii.kiimate.status.core.dai.AssetPublicationDai;
-import one.kii.kiimate.status.core.dai.LoadAssetsDai;
+import one.kii.kiimate.status.core.dai.StatusesDai;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,9 +12,9 @@ import java.util.List;
  * Created by WangYanJiong on 20/05/2017.
  */
 @Mapper
-public interface AssetPublicationMapper {
+public interface StatusesMapper {
 
-    void insertAssetPublication(
+    void insertStatus(
             @Param("id") long id,
             @Param("pubSet") long pubSet,
             @Param("providerId") String providerId,
@@ -29,24 +29,24 @@ public interface AssetPublicationMapper {
 
     List<AssetPublicationDai.Providers> queryProviders(@Param("providerId") String providerId);
 
-    List<LoadAssetsDai.Assets> queryAssets(@Param("providerId") String providerId,
+    List<StatusesDai.Status> queryStatuses(@Param("providerId") String providerId,
                                            @Param("group") String group);
 
-    LoadAssetsDai.Assets selectAsset(@Param("providerId") String providerId,
-                                     @Param("pubSet") long pubSet,
-                                     @Param("stability") String stability,
-                                     @Param("version") String version);
+    StatusesDai.Status selectStatus(@Param("providerId") String providerId,
+                                    @Param("pubSet") long pubSet,
+                                    @Param("stability") String stability,
+                                    @Param("version") String version);
 
-    LoadAssetsDai.Assets selectAssetByProviderGroupNameStabilityVersion(@Param("providerId") String providerId,
-                                                                        @Param("group") String group,
-                                                                        @Param("name") String name,
+    StatusesDai.Status selectStatusByProviderGroupNameStabilityVersion(@Param("providerId") String providerId,
+                                                                       @Param("group") String group,
+                                                                       @Param("name") String name,
+                                                                       @Param("stability") String stability,
+                                                                       @Param("version") String version);
+
+    StatusesDai.Status selectStatusByProviderModelSubIdStabilityVersion(@Param("providerId") String providerId,
+                                                                        @Param("modelSubId") long subId,
                                                                         @Param("stability") String stability,
                                                                         @Param("version") String version);
-
-    LoadAssetsDai.Assets selectAssetsByProviderModelSubIdStabilityVersion(@Param("providerId") String providerId,
-                                                                          @Param("modelSubId") long subId,
-                                                                          @Param("stability") String stability,
-                                                                          @Param("version") String version);
 
     void revokeAsset(@Param("providerId") String providerId,
                      @Param("pubSet") long pubSet,

@@ -14,14 +14,14 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.util.Map;
 
-import static one.kii.kiimate.status.core.ctl.VisitAssetCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.VisitStatusCtl.OWNER_ID;
 
 
 /**
  * Created by WangYanJiong on 23/05/2017.
  */
 @RestController
-@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/asset", method = RequestMethod.GET)
+@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/status", method = RequestMethod.GET)
 @CrossOrigin(origins = "*")
 public class VisitRawAssetCtl extends ReadController {
 

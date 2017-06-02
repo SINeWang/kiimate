@@ -13,8 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.status.core.ctl.PublishAssetCtl.OWNER_ID;
-import static one.kii.kiimate.status.core.ctl.PublishAssetCtl.STABILITY;
+import static one.kii.kiimate.status.core.ctl.PublishStatusCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.PublishStatusCtl.STABILITY;
 
 
 /**
@@ -22,9 +22,9 @@ import static one.kii.kiimate.status.core.ctl.PublishAssetCtl.STABILITY;
  */
 
 @RestController
-@RequestMapping("/api/v1/{" + OWNER_ID + "}/publications/assets/{" + STABILITY + "}")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/publications/status/{" + STABILITY + "}")
 @CrossOrigin(origins = "*")
-public class PublishAssetCtl extends WriteController {
+public class PublishStatusCtl extends WriteController {
 
     public static final String OWNER_ID = "owner-id";
 

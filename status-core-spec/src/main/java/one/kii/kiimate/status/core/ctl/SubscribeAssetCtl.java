@@ -13,7 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.status.core.ctl.PublishAssetCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.PublishStatusCtl.OWNER_ID;
 
 
 /**

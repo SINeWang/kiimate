@@ -3,9 +3,8 @@ package com.sinewang.kiimate.status.core.api;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.VisitRawAssetsApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
-import one.kii.kiimate.status.core.dai.LoadAssetsDai;
+import one.kii.kiimate.status.core.dai.StatusesDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
-import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
@@ -22,7 +21,7 @@ import java.util.Map;
 public class DefaultVisitRawAssetApi implements VisitRawAssetsApi {
 
     @Autowired
-    private LoadAssetsDai loadAssetsDai;
+    private StatusesDai statusesDai;
 
     @Autowired
     private InstanceDai instanceDai;
@@ -35,19 +34,19 @@ public class DefaultVisitRawAssetApi implements VisitRawAssetsApi {
 
     @Override
     public Map<String, Object> visit(ReadContext context, PubSetForm form) throws NotFound {
-        LoadAssetsDai.ChannelPubSet channel = ValueMapping.from(LoadAssetsDai.ChannelPubSet.class, form, context);
-        LoadAssetsDai.Assets assetDb = loadAssetsDai.loadAssets(channel);
+        StatusesDai.ChannelPubSet channel = ValueMapping.from(StatusesDai.ChannelPubSet.class, form, context);
+        StatusesDai.Status assetDb = statusesDai.load(channel);
         return transform(context, assetDb);
     }
 
     @Override
     public Map<String, Object> visit(ReadContext context, GroupNameForm form) throws NotFound {
-        LoadAssetsDai.ChannelGroupName channel = ValueMapping.from(LoadAssetsDai.ChannelGroupName.class, form, context);
-        LoadAssetsDai.Assets assetDb = loadAssetsDai.loadAssets(channel);
+        StatusesDai.ChannelGroupName channel = ValueMapping.from(StatusesDai.ChannelGroupName.class, form, context);
+        StatusesDai.Status assetDb = statusesDai.load(channel);
         return transform(context, assetDb);
     }
 
-    private Map<String, Object> transform(ReadContext context, LoadAssetsDai.Assets assetDb) throws NotFound {
+    private Map<String, Object> transform(ReadContext context, StatusesDai.Status assetDb) throws NotFound {
         InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, assetDb);
         List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusPubSet);
 

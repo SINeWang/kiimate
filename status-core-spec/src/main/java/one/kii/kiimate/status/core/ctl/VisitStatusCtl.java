@@ -10,16 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.status.core.ctl.VisitAssetCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.VisitStatusCtl.OWNER_ID;
 
 
 /**
  * Created by WangYanJiong on 21/05/2017.
  */
 @RestController
-@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/asset", method = RequestMethod.GET)
+@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/status", method = RequestMethod.GET)
 @CrossOrigin(origins = "*")
-public class VisitAssetCtl extends ReadController {
+public class VisitStatusCtl extends ReadController {
 
     public static final String OWNER_ID = "owner-id";
 

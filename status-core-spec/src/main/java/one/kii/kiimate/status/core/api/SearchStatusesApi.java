@@ -8,13 +8,13 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 20/05/2017.
  */
-public interface SearchAssetsApi {
+public interface SearchStatusesApi {
 
 
-    List<Assets> search(ReadContext context, QueryForm form);
+    List<Statuses> search(ReadContext context, QueryForm form);
 
     @Data
-    class Assets {
+    class Statuses {
         String pubSet;
         String ownerId;
         String visibility;
