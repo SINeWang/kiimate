@@ -14,22 +14,22 @@ import java.util.List;
 public interface ModelPublicationMapper {
 
     void insertPublication(
-            @Param("id") long id,
-            @Param("pubSet") long pubSet,
+            @Param("id") Long id,
+            @Param("pubSet") Long pubSet,
             @Param("providerId") String providerId,
-            @Param("extId") long extId,
-            @Param("intId") long intId,
+            @Param("extId") Long extId,
+            @Param("intId") Long intId,
             @Param("version") String version,
             @Param("stability") String stability,
             @Param("operatorId") String operatorId,
             @Param("createdAt") Date createdAt);
 
     int countPublicationByPubSet(
-            @Param("pubSet") long pubSet);
+            @Param("pubSet") Long pubSet);
 
     void deletePublicationByProviderIdExtIdPubVersion(
             @Param("providerId") String providerId,
-            @Param("extId") long extId,
+            @Param("extId") Long extId,
             @Param("stability") String stability,
             @Param("version") String version);
 
@@ -39,7 +39,7 @@ public interface ModelPublicationMapper {
 
     List<ModelPublicationDai.PublishedExtension> selectPublishedExtensionByGroupQuery(@Param("query") String query);
 
-    List<ModelPublicationDai.PublishedSnapshot> selectPublishedSnapshotsByExtId(@Param("extId") long extId);
+    List<ModelPublicationDai.PublishedSnapshot> selectPublishedSnapshotsByExtId(@Param("extId") Long extId);
 
-    ModelPublicationDai.Publication selectRootPublicationsByPubSet(@Param("pubSet") long pubSet);
+    ModelPublicationDai.Publication selectRootPublicationsByPubSet(@Param("pubSet") Long pubSet);
 }

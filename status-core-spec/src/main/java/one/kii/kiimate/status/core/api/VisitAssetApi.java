@@ -57,7 +57,7 @@ public interface VisitAssetApi {
 
         private String field;
 
-        private boolean single;
+        private Boolean single;
 
         private String structure;
 
@@ -65,7 +65,7 @@ public interface VisitAssetApi {
 
         private String visibility;
 
-        private boolean required;
+        private Boolean required;
     }
 
 }

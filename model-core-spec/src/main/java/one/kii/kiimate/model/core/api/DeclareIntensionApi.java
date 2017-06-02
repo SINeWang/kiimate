@@ -20,11 +20,11 @@ public interface DeclareIntensionApi {
     @EqualsAndHashCode(callSuper = false)
     class Form {
 
-        private long extId;
+        private Long extId;
 
         private String field;
 
-        private boolean single;
+        private Boolean single;
 
         private String structure;
 
@@ -32,7 +32,7 @@ public interface DeclareIntensionApi {
 
         private String visibility;
 
-        private boolean required;
+        private Boolean required;
     }
 
     @Data
@@ -51,7 +51,7 @@ public interface DeclareIntensionApi {
 
         private String field;
 
-        private boolean single;
+        private Boolean single;
 
         private String structure;
 
@@ -59,7 +59,7 @@ public interface DeclareIntensionApi {
 
         private String visibility;
 
-        private boolean required;
+        private Boolean required;
     }
 
 }

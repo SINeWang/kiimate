@@ -18,11 +18,11 @@ public interface VisitModelApi {
     @Data
     class Model {
 
-        int subscriptions;
+        Integer subscriptions;
 
         String providerId;
-        long pubSet;
-        long rootExtId;
+        String pubSet;
+        String rootExtId;
 
         String group;
         String name;
@@ -41,17 +41,17 @@ public interface VisitModelApi {
 
         private String field;
 
-        private boolean single;
+        private Boolean single;
 
         private String structure;
 
-        private long refPubSet;
+        private Long refPubSet;
 
         private String visibility;
     }
 
     @Data
     class VisitModelForm {
-        private long pubSet;
+        private Long pubSet;
     }
 }

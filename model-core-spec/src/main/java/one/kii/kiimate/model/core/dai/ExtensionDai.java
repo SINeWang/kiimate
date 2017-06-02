@@ -32,7 +32,7 @@ public interface ExtensionDai {
     @Data
     class ChannelId {
         @MustHave
-        long id;
+        Long id;
         @MustHave
         Date beginTime;
     }
@@ -55,7 +55,7 @@ public interface ExtensionDai {
     class Record {
 
         @MustHave
-        private long id;
+        private Long id;
 
         @MustHave
         private String commit;

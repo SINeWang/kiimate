@@ -31,7 +31,7 @@ public interface VisitExtensionApi {
 
     @Data
     class Receipt {
-        long id;
+        String id;
         String ownerId;
         String group;
         String name;
@@ -48,7 +48,7 @@ public interface VisitExtensionApi {
 
         private String field;
 
-        private boolean single;
+        private Boolean single;
 
         private String structure;
 
@@ -56,7 +56,7 @@ public interface VisitExtensionApi {
 
         private String visibility;
 
-        private boolean required;
+        private Boolean required;
     }
 
 }

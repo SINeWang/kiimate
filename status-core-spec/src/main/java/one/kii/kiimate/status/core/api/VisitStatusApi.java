@@ -20,12 +20,12 @@ public interface VisitStatusApi {
     @Data
     class Form {
         String ownerId;
-        long subId;
+        Long subId;
     }
 
     @Data
     class Receipt {
-        long subId;
+        String subId;
         String ownerId;
         List<Intension> intensions;
         Map<String, Object> map;
@@ -36,18 +36,18 @@ public interface VisitStatusApi {
     @Data
     class Intension {
 
-        private long id;
+        private Long id;
 
         private String field;
 
-        private boolean single;
+        private Boolean single;
 
         private String structure;
 
-        private long refPubSet;
+        private Long refPubSet;
 
         private String visibility;
 
-        private boolean required;
+        private Long required;
     }
 }

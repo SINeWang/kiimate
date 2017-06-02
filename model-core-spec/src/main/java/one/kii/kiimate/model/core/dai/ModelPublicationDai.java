@@ -53,18 +53,18 @@ public interface ModelPublicationDai {
 
     @Data
     class Publication {
-        long id;
+        Long id;
 
-        long pubSet;
+        Long pubSet;
 
         @KeyFactor
         String providerId;
 
         @KeyFactor
-        long extId;
+        Long extId;
 
         @KeyFactor
-        long intId;
+        Long intId;
 
         @KeyFactor
         String version;
@@ -79,7 +79,7 @@ public interface ModelPublicationDai {
 
     @Data
     class PublishedExtension {
-        long id;
+        Long id;
 
         @KeyFactor
         String providerId;
@@ -97,7 +97,7 @@ public interface ModelPublicationDai {
 
     @Data
     class PublishedSnapshot {
-        long pubSet;
+        Long pubSet;
         String stability;
         String version;
         Date beginTime;

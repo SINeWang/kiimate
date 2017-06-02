@@ -59,7 +59,7 @@ public class DefaultVisitModelApi implements VisitModelApi {
 
         VisitModelApi.Model model = ValueMapping.from(VisitModelApi.Model.class, publication, record);
 
-        model.setRootExtId(record.getId());
+        model.setRootExtId(String.valueOf(record.getId()));
 
         model.setSubscriptions(subscriptions);
 

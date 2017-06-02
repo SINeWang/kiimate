@@ -44,11 +44,12 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         }
 
         IntensionDai.ChannelExtension rootExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, model);
+        rootExtension.setId(model.getRootExtId());
 
         List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
-        List<IntensionDai.Record> recordList = intensionDai.loadLatest(rootExtension);
-        List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
+        List<IntensionDai.Record> records = intensionDai.loadLatest(rootExtension);
+        List<Intension> intensions = ValueMapping.from(Intension.class, records);
 
 
         Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);

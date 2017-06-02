@@ -22,9 +22,9 @@ public interface RemoveIntensionApi {
 
         String ownerId;
 
-        long extId;
+        Long extId;
 
-        long id;
+        Long id;
     }
 
     @Data
@@ -43,7 +43,7 @@ public interface RemoveIntensionApi {
 
         private String field;
 
-        private boolean single;
+        private Boolean single;
 
         private String structure;
 
@@ -51,7 +51,7 @@ public interface RemoveIntensionApi {
 
         private String visibility;
 
-        private boolean required;
+        private Boolean required;
     }
 
 }

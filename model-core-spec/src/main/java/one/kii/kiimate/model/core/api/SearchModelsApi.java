@@ -41,8 +41,8 @@ public interface SearchModelsApi {
 
     @Data
     class Snapshot {
-        int subscriptions;
-        long pubSet;
+        Integer subscriptions;
+        String pubSet;
         String stability;
         String version;
         Date beginTime;

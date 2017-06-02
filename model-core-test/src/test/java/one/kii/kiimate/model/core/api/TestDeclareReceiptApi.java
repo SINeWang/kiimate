@@ -157,12 +157,12 @@ public class TestDeclareReceiptApi {
         } catch (Conflict conflict) {
             conflict.printStackTrace();
         }
-        long id = response.getId();
+        String id = response.getId();
         Assert.assertNotNull(id);
 
 
         ExtensionDai.ChannelId extId = new ExtensionDai.ChannelId();
-        extId.setId(id);
+        extId.setId(Long.valueOf(id));
         ExtensionDai.Record record = null;
         try {
             record = extensionDai.loadLast(extId);
@@ -171,6 +171,6 @@ public class TestDeclareReceiptApi {
 
         Assert.assertNotNull(record);
 
-        extensionMapper.deleteExtensionById(id);
+        extensionMapper.deleteExtensionById(Long.valueOf(id));
     }
 }

@@ -90,7 +90,7 @@
         GROUP BY mpub.pub_set
     </select>
     <select id="selectPublishedSnapshotsByExtId" resultMap="PublishedSnapshot">
-        SELECT mpub.pub_set, mpub.version, mpub.stability, mpub.begin_time
+        SELECT mpub.id, mpub.pub_set, mpub.int_id, mpub.version, mpub.stability, mpub.begin_time
         FROM mm_m_pub mpub, mm_m_ext mext
         WHERE mpub.ext_id = mext.id
         AND mpub.ext_id = #{extId}

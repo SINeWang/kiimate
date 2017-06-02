@@ -27,7 +27,7 @@ public class VisitModelCtl extends ReadController {
     public ResponseEntity<VisitModelApi.Model> exploreModels(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable(PUB_SET) long pubSet) {
+            @PathVariable(PUB_SET) Long pubSet) {
 
         ReadContext context = buildContext(requestId, null, visitorId);
 

@@ -23,7 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = {TestReceiptDai.class})
 public class TestReceiptDai {
 
-    long testId = 11111;
+    Long testId = 11111L;
     String testOwnerId = "testOwnerId";
     String testGroup = "testGroup";
     String testName = "testName";
