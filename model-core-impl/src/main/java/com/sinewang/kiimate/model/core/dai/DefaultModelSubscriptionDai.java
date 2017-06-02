@@ -3,7 +3,7 @@ package com.sinewang.kiimate.model.core.dai;
 import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.summer.io.exception.NotFound;
-import one.kii.summer.io.utils.MustHaveTools;
+import one.kii.summer.io.validator.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -60,10 +60,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
         ModelPubSet record = modelSubscriptionMapper.selectModelPubSetByOwnerSubscription(
                 channel.getOwnerId(),
                 channel.getSubId());
-        if (record == null) {
-            throw new NotFound(MustHaveTools.find(ChannelSubId.class));
-        }
-        return record;
+        return NotNull.of(ModelPubSet.class, record);
     }
 
     @Override
@@ -81,10 +78,8 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
                 channel.getName(),
                 channel.getTree()
         );
-        if (record == null) {
-            throw new NotFound(MustHaveTools.find(ChannelGroupNameTree.class));
-        }
-        return record;
+        return NotNull.of(ModelSubscription.class, record);
+
     }
 
     @Override
@@ -93,10 +88,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
                 channel.getOwnerId(),
                 channel.getSubId()
         );
-        if (record == null) {
-            throw new NotFound(MustHaveTools.find(ChannelSubId.class));
-        }
-        return record;
+        return NotNull.of(ModelSubscription.class, record);
     }
 
     @Override

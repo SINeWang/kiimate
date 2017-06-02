@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,7 @@ import java.util.Map;
 public interface RemoveIntensionApi {
 
 
-    Receipt commit(WriteContext context, Form form) throws Conflict;
+    Receipt commit(WriteContext context, Form form) throws Conflict, NotFound;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

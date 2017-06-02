@@ -6,6 +6,7 @@ import one.kii.kiimate.model.core.fui.AnModelRestorer;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,7 @@ public class DefaultRemoveIntensionApi implements RemoveIntensionApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    public Receipt commit(WriteContext context, Form form) throws Conflict {
+    public Receipt commit(WriteContext context, Form form) throws Conflict, NotFound {
         IntensionDai.ChannelId channel = ValueMapping.from(IntensionDai.ChannelId.class, form);
         intensionDai.forget(channel);
 

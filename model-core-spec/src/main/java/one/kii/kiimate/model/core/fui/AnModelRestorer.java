@@ -2,6 +2,7 @@ package one.kii.kiimate.model.core.fui;
 
 
 import one.kii.kiimate.model.core.dai.IntensionDai;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 
 import java.util.Map;
