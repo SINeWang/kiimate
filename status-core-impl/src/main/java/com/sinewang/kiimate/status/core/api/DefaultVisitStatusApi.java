@@ -40,10 +40,11 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
 
         ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(channel);
 
-        IntensionDai.ChannelLatestExtension latestExtension = new IntensionDai.ChannelLatestExtension();
-        latestExtension.setId(model.getRootExtId());
+        IntensionDai.ChannelLastExtension last = new IntensionDai.ChannelLastExtension();
+        last.setId(model.getRootExtId());
+        last.setBeginTime(model.getBeginTime());
 
-        List<IntensionDai.Record> records = intensionDai.load(latestExtension);
+        List<IntensionDai.Record> records = intensionDai.loadLast(last);
         List<Intension> intensions = ValueMapping.from(Intension.class, records);
 
 
