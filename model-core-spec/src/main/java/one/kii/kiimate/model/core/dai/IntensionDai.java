@@ -17,7 +17,9 @@ public interface IntensionDai {
     @Transactional
     void remember(Record record) throws IntensionDuplicated;
 
-    List<Record> loadLatest(ChannelExtension channel);
+    List<Record> load(ChannelLatestExtension channel);
+
+    List<Record> loadLast(ChannelLastExtension channel);
 
     List<Record> loadLast(ChannelPubSet channel);
 
@@ -30,7 +32,14 @@ public interface IntensionDai {
     }
 
     @Data
-    class ChannelExtension {
+    class ChannelLatestExtension {
+
+        Long id;
+
+    }
+
+    @Data
+    class ChannelLastExtension {
 
         Long id;
 

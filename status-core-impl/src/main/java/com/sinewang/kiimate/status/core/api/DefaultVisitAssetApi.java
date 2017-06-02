@@ -40,14 +40,14 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
     @Override
     public Asset visit(ReadContext context, PubSetForm form) throws NotFound {
         LoadAssetsDai.ChannelPubSet channel = ValueMapping.from(LoadAssetsDai.ChannelPubSet.class, form, context);
-        LoadAssetsDai.Assets assetDb = loadAssetsDai.fetchAssets(channel);
+        LoadAssetsDai.Assets assetDb = loadAssetsDai.loadAssets(channel);
         return transform(context, assetDb);
     }
 
     @Override
     public Asset visit(ReadContext context, GroupNameForm form) throws NotFound {
         LoadAssetsDai.ChannelGroupName channel = ValueMapping.from(LoadAssetsDai.ChannelGroupName.class, form, context);
-        LoadAssetsDai.Assets assetDb = loadAssetsDai.fetchAssets(channel);
+        LoadAssetsDai.Assets assetDb = loadAssetsDai.loadAssets(channel);
         return transform(context, assetDb);
     }
 
@@ -63,9 +63,9 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
         ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(channel);
         Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);
 
-        IntensionDai.ChannelExtension extension = ValueMapping.from(IntensionDai.ChannelExtension.class, model);
+        IntensionDai.ChannelLastExtension rootExtension = ValueMapping.from(IntensionDai.ChannelLastExtension.class, model);
 
-        List<IntensionDai.Record> recordList = intensionDai.loadLatest(extension);
+        List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);
         List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
         asset.setIntensions(intensions);
         asset.setMap(map);

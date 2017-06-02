@@ -13,7 +13,6 @@ import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
-import one.kii.summer.io.utils.MustHaveTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,11 +53,13 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, form);
 
         ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(channel);
-        if (model == null) {
-            throw new NotFound(MustHaveTools.find(ModelSubscriptionDai.ChannelSubId.class));
-        }
 
-        Map<String, IntensionDai.Record> dict = modelRestorer.restoreAsIntensionDict(model.getRootExtId());
+
+        IntensionDai.ChannelLastExtension lastExtension = new IntensionDai.ChannelLastExtension();
+        lastExtension.setId(model.getRootExtId());
+        lastExtension.setBeginTime(model.getBeginTime());
+
+        Map<String, IntensionDai.Record> dict = modelRestorer.restoreAsIntensionDict(lastExtension);
 
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, form, dict);
 
@@ -71,15 +72,14 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         }
 
 
-
-        IntensionDai.ChannelExtension rootExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, model);
+        IntensionDai.ChannelLastExtension rootExtension = ValueMapping.from(IntensionDai.ChannelLastExtension.class, model);
 
         rootExtension.setId(model.getRootExtId());
 
 
         List<InstanceDai.Instance> newInstances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
-        List<IntensionDai.Record> recordList = intensionDai.loadLatest(rootExtension);
+        List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);
         List<VisitStatusApi.Intension> intensions = ValueMapping.from(VisitStatusApi.Intension.class, recordList);
 
 

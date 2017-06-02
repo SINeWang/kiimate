@@ -41,15 +41,15 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
             throw new Conflict("id");
         }
 
-        IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
+        IntensionDai.ChannelLatestExtension channel = new IntensionDai.ChannelLatestExtension();
         channel.setId(form.getExtId());
 
-        List<IntensionDai.Record> recordList = intensionDai.loadLatest(channel);
+        List<IntensionDai.Record> recordList = intensionDai.load(channel);
         List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
 
         Receipt receipt = new Receipt();
         receipt.setIntensions(intensions);
-        receipt.setSchema(modelRestorer.restoreAsMetaData(form.getExtId()));
+        receipt.setSchema(modelRestorer.restoreAsMetaData(channel));
         return receipt;
 
     }

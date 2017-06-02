@@ -39,18 +39,15 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, form, context);
 
         ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(channel);
-        if (model == null) {
-            throw new NotFound(KeyFactorTools.find(ModelSubscriptionDai.ChannelSubId.class));
-        }
 
-        IntensionDai.ChannelExtension rootExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, model);
-        rootExtension.setId(model.getRootExtId());
+        IntensionDai.ChannelLatestExtension latestExtension = new IntensionDai.ChannelLatestExtension();
+        latestExtension.setId(model.getRootExtId());
 
-        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
-
-        List<IntensionDai.Record> records = intensionDai.loadLatest(rootExtension);
+        List<IntensionDai.Record> records = intensionDai.load(latestExtension);
         List<Intension> intensions = ValueMapping.from(Intension.class, records);
 
+
+        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
 
         Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);
 

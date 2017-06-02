@@ -53,8 +53,20 @@ public class DefaultIntensionDai implements IntensionDai {
     }
 
     @Override
-    public List<Record> loadLatest(ChannelExtension channel) {
+    public List<Record> load(ChannelLatestExtension channel) {
         return intensionMapper.selectLatestIntensionsByExtId(channel.getId());
+    }
+
+
+    @Override
+    public List<Record> loadLast(ChannelLastExtension channel) {
+        if (channel.getBeginTime() == null) {
+            return intensionMapper.selectLatestIntensionsByExtId(channel.getId());
+        } else {
+            return intensionMapper.selectLastIntensionsByExtId(
+                    channel.getId(),
+                    channel.getBeginTime());
+        }
     }
 
     @Override

@@ -7,7 +7,6 @@ import one.kii.kiimate.status.core.dai.AssetPublicationDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.dai.LoadAssetsDai;
 import one.kii.kiimate.status.core.fui.AssetPublicationExtractor;
-import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -52,7 +51,7 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
         try {
             LoadAssetsDai.ChannelModelSubId channelModelSubId = ValueMapping.from(LoadAssetsDai.ChannelModelSubId.class, informal);
             channelModelSubId.setOwnerId(informal.getProviderId());
-            previous = loadAssetsDai.fetchAssets(channelModelSubId);
+            previous = loadAssetsDai.loadAssets(channelModelSubId);
         } catch (NotFound ignore) {
         }
 

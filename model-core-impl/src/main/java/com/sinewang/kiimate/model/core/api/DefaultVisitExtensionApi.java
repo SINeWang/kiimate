@@ -40,12 +40,12 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         Receipt receipt = ValueMapping.from(Receipt.class, record);
 
 
-        IntensionDai.ChannelExtension channelExtension = ValueMapping.from(IntensionDai.ChannelExtension.class, extension);
-        List<IntensionDai.Record> recordList = intensionDai.loadLatest(channelExtension);
+        IntensionDai.ChannelLatestExtension latest = ValueMapping.from(IntensionDai.ChannelLatestExtension.class, record);
+        List<IntensionDai.Record> records = intensionDai.load(latest);
 
-        List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
+        List<Intension> intensions = ValueMapping.from(Intension.class, records);
         receipt.setIntensions(intensions);
-        receipt.setSchema(modelRestorer.restoreAsMetaData(record.getId()));
+        receipt.setSchema(modelRestorer.restoreAsMetaData(latest));
         return receipt;
     }
 

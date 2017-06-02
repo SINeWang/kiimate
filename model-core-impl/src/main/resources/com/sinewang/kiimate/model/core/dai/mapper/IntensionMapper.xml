@@ -23,6 +23,16 @@
         AND mint.end_time IS NULL
     </select>
 
+    <select id="selectLastIntensionsByExtId" resultMap="Intension">
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
+        FROM mm_m_int mint
+        WHERE mint.ext_id = #{extId}
+        <![CDATA[
+        AND mint.begin_time <= #{beginTime}
+        AND ((mint.end_time >= #{beginTime}) OR mint.end_time IS NULL)
+        ]]>
+    </select>
+
     <select id="selectLastIntensionByExtIdField" resultMap="Intension">
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
         FROM mm_m_int mint

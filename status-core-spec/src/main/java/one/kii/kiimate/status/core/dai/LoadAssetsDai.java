@@ -13,11 +13,11 @@ public interface LoadAssetsDai {
 
     List<Assets> queryAssets(ClueGroup clue);
 
-    Assets fetchAssets(ChannelGroupName channel) throws NotFound;
+    Assets loadAssets(ChannelGroupName channel) throws NotFound;
 
-    Assets fetchAssets(ChannelPubSet channel) throws NotFound;
+    Assets loadAssets(ChannelPubSet channel) throws NotFound;
 
-    Assets fetchAssets(ChannelModelSubId channel) throws NotFound;
+    Assets loadAssets(ChannelModelSubId channel) throws NotFound;
 
     @Data
     class ClueGroup {

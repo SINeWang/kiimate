@@ -36,14 +36,14 @@ public class DefaultVisitRawAssetApi implements VisitRawAssetsApi {
     @Override
     public Map<String, Object> visit(ReadContext context, PubSetForm form) throws NotFound {
         LoadAssetsDai.ChannelPubSet channel = ValueMapping.from(LoadAssetsDai.ChannelPubSet.class, form, context);
-        LoadAssetsDai.Assets assetDb = loadAssetsDai.fetchAssets(channel);
+        LoadAssetsDai.Assets assetDb = loadAssetsDai.loadAssets(channel);
         return transform(context, assetDb);
     }
 
     @Override
     public Map<String, Object> visit(ReadContext context, GroupNameForm form) throws NotFound {
         LoadAssetsDai.ChannelGroupName channel = ValueMapping.from(LoadAssetsDai.ChannelGroupName.class, form, context);
-        LoadAssetsDai.Assets assetDb = loadAssetsDai.fetchAssets(channel);
+        LoadAssetsDai.Assets assetDb = loadAssetsDai.loadAssets(channel);
         return transform(context, assetDb);
     }
 

@@ -27,7 +27,7 @@ public class DefaultLoadAssetsDai implements LoadAssetsDai {
     }
 
     @Override
-    public Assets fetchAssets(ChannelPubSet channel) throws NotFound {
+    public Assets loadAssets(ChannelPubSet channel) throws NotFound {
         Assets assets = assetPublicationMapper.selectAsset(
                 channel.getOwnerId(),
                 channel.getPubSet(),
@@ -40,7 +40,7 @@ public class DefaultLoadAssetsDai implements LoadAssetsDai {
     }
 
     @Override
-    public Assets fetchAssets(ChannelModelSubId channel) throws NotFound {
+    public Assets loadAssets(ChannelModelSubId channel) throws NotFound {
         Assets assets = assetPublicationMapper.selectAssetsByProviderModelSubIdStabilityVersion(
                 channel.getOwnerId(),
                 channel.getSubId(),
@@ -53,7 +53,7 @@ public class DefaultLoadAssetsDai implements LoadAssetsDai {
     }
 
     @Override
-    public Assets fetchAssets(ChannelGroupName channel) throws NotFound {
+    public Assets loadAssets(ChannelGroupName channel) throws NotFound {
         Assets assets = assetPublicationMapper.selectAssetByProviderGroupNameStabilityVersion(
                 channel.getOwnerId(),
                 channel.getGroup(),

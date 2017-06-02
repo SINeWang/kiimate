@@ -3,10 +3,14 @@ package com.sinewang.kiimate.model.core.fui;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
+import one.kii.summer.beans.utils.ValueMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 08/04/2017.
@@ -29,28 +33,28 @@ public class DefaultModelRestorer implements AnModelRestorer {
         return list;
     }
 
-    public Map<String, Object> restoreAsMetaData(Long extId) {
-        if (extId == null) {
-            return Collections.emptyMap();
-        }
-        IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
-        channel.setId(extId);
-        return restoreAsMetaData(channel);
+    @Override
+    public Map<String, Object> restoreAsMetaData(IntensionDai.ChannelLatestExtension channel) {
+        IntensionDai.ChannelLastExtension last = ValueMapping.from(IntensionDai.ChannelLastExtension.class, channel);
+        return restoreAsMetaData(last);
     }
 
-    private Map<String, Object> restoreAsMetaData(IntensionDai.ChannelExtension extension) {
+    public Map<String, Object> restoreAsMetaData(IntensionDai.ChannelLastExtension extension) {
         Map<String, Object> model = new HashMap<>();
-        List<IntensionDai.Record> records = intensionDai.loadLatest(extension);
+        List<IntensionDai.Record> records = intensionDai.loadLast(extension);
         for (IntensionDai.Record record : records) {
             Long refPubSet = record.getRefPubSet();
             if (refPubSet != null) {
                 ModelPublicationDai.ChannelPubSet pubset = new ModelPublicationDai.ChannelPubSet();
                 pubset.setPubSet(refPubSet);
                 ModelPublicationDai.Publication publication = modelPublicationDai.loadRootPublications(pubset);
+                IntensionDai.ChannelLastExtension refExt = new IntensionDai.ChannelLastExtension();
+                refExt.setBeginTime(publication.getBeginTime());
+                refExt.setId(publication.getExtId());
                 if (record.getSingle()) {
-                    model.put(record.getField(), restoreAsMetaData(publication.getExtId()));
+                    model.put(record.getField(), restoreAsMetaData(refExt));
                 } else {
-                    model.put(record.getField(), toArray(restoreAsMetaData(refPubSet)));
+                    model.put(record.getField(), toArray(restoreAsMetaData(refExt)));
                 }
             } else {
                 if (record.getSingle()) {
@@ -63,24 +67,24 @@ public class DefaultModelRestorer implements AnModelRestorer {
         return model;
     }
 
-    public Map<String, IntensionDai.Record> restoreAsIntensionDict(Long extId) {
+
+    public Map<String, IntensionDai.Record> restoreAsIntensionDict(IntensionDai.ChannelLastExtension extension) {
         Map<String, IntensionDai.Record> map = new HashMap<>();
-        IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
-        channel.setId(extId);
-        restoreAsFieldDict(channel, map);
+        restoreAsFieldDict(extension, map);
         return map;
     }
 
-    private void restoreAsFieldDict(IntensionDai.ChannelExtension extension, Map<String, IntensionDai.Record> map) {
-        List<IntensionDai.Record> records = intensionDai.loadLatest(extension);
+    private void restoreAsFieldDict(IntensionDai.ChannelLastExtension extension, Map<String, IntensionDai.Record> map) {
+        List<IntensionDai.Record> records = intensionDai.loadLast(extension);
         for (IntensionDai.Record record : records) {
             Long refPubSet = record.getRefPubSet();
             if (refPubSet != null) {
                 ModelPublicationDai.ChannelPubSet pubset = new ModelPublicationDai.ChannelPubSet();
                 pubset.setPubSet(refPubSet);
                 ModelPublicationDai.Publication publication = modelPublicationDai.loadRootPublications(pubset);
-                IntensionDai.ChannelExtension channel = new IntensionDai.ChannelExtension();
+                IntensionDai.ChannelLastExtension channel = new IntensionDai.ChannelLastExtension();
                 channel.setId(publication.getExtId());
+                channel.setBeginTime(publication.getBeginTime());
                 restoreAsFieldDict(channel, map);
             } else {
                 map.put(record.getField(), record);

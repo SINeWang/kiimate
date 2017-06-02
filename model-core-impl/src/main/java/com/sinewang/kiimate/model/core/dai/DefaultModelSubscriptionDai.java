@@ -2,6 +2,8 @@ package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
+import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.utils.MustHaveTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -52,10 +54,16 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel) {
-        return modelSubscriptionMapper.selectModelPubSetByOwnerSubscription(
+    public ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel) throws NotFound {
+
+
+        ModelPubSet record = modelSubscriptionMapper.selectModelPubSetByOwnerSubscription(
                 channel.getOwnerId(),
                 channel.getSubId());
+        if (record == null) {
+            throw new NotFound(MustHaveTools.find(ChannelSubId.class));
+        }
+        return record;
     }
 
     @Override
@@ -66,21 +74,29 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public ModelSubscription selectSubscription(ChannelGroupNameTree channel) {
-        return modelSubscriptionMapper.selectSubscriptionByOwnerGroupNameTree(
+    public ModelSubscription selectSubscription(ChannelGroupNameTree channel) throws NotFound {
+        ModelSubscription record = modelSubscriptionMapper.selectSubscriptionByOwnerGroupNameTree(
                 channel.getOwnerId(),
                 channel.getGroup(),
                 channel.getName(),
                 channel.getTree()
         );
+        if (record == null) {
+            throw new NotFound(MustHaveTools.find(ChannelGroupNameTree.class));
+        }
+        return record;
     }
 
     @Override
-    public ModelSubscription selectSubscription(ChannelSubId channel) {
-        return modelSubscriptionMapper.selectByOwnerSubId(
+    public ModelSubscription selectSubscription(ChannelSubId channel) throws NotFound {
+        ModelSubscription record = modelSubscriptionMapper.selectByOwnerSubId(
                 channel.getOwnerId(),
                 channel.getSubId()
         );
+        if (record == null) {
+            throw new NotFound(MustHaveTools.find(ChannelSubId.class));
+        }
+        return record;
     }
 
     @Override

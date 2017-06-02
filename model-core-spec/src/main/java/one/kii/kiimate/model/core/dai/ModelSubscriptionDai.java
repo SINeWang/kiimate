@@ -2,8 +2,8 @@ package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
 import lombok.Getter;
-import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.annotations.MustHave;
+import one.kii.summer.io.exception.NotFound;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -18,34 +18,39 @@ public interface ModelSubscriptionDai {
     @Transactional
     void remember(ModelSubscription modelSubscription) throws DuplicatedSubscription;
 
-    ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel);
+    ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel) throws NotFound;
 
     List<ModelSubscription> querySubscriptions(ClueGroup clue);
 
     List<Subscribers> querySubscribers(ClueSubscriberId clue);
 
-    ModelSubscription selectSubscription(ChannelGroupNameTree channel);
+    ModelSubscription selectSubscription(ChannelGroupNameTree channel) throws NotFound;
 
-    ModelSubscription selectSubscription(ChannelSubId channel);
+    ModelSubscription selectSubscription(ChannelSubId channel) throws NotFound;
 
     Integer countModelSubscriptions(Long pubSet);
 
     @Data
-    class ClueGroup{
+    class ClueGroup {
         String ownerId;
         String group;
     }
 
     @Data
-    class ClueSubscriberId{
+    class ClueSubscriberId {
         String id;
     }
 
     @Data
-    class ChannelGroupNameTree{
+    class ChannelGroupNameTree {
+
+        @MustHave
         String ownerId;
+        @MustHave
         String group;
+        @MustHave
         String name;
+        @MustHave
         String tree;
     }
 
@@ -78,16 +83,12 @@ public interface ModelSubscriptionDai {
 
         private Long subSet;
 
-        @KeyFactor
         private String subscriberId;
 
-        @KeyFactor
         private String group;
 
-        @KeyFactor
         private String name;
 
-        @KeyFactor
         private String tree;
 
         private String operatorId;

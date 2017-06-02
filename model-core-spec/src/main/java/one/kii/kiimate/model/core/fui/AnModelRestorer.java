@@ -10,7 +10,9 @@ import java.util.Map;
  */
 public interface AnModelRestorer {
 
-    Map<String, Object> restoreAsMetaData(Long extId);
+    Map<String, Object> restoreAsMetaData(IntensionDai.ChannelLastExtension channel);
 
-    Map<String, IntensionDai.Record> restoreAsIntensionDict(Long extId);
+    Map<String, Object> restoreAsMetaData(IntensionDai.ChannelLatestExtension channel);
+
+    Map<String, IntensionDai.Record> restoreAsIntensionDict(IntensionDai.ChannelLastExtension channel);
 }

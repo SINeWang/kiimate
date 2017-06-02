@@ -47,11 +47,11 @@ public class DefaultPublishModelApi implements PublishModelApi {
 
         AnPublicationExtractor.ExtensionPublication extensionPublication = publicationExtractor.extract(form, record.getId(), context.getOperatorId(), date);
 
-        IntensionDai.ChannelExtension channel = ValueMapping.from(IntensionDai.ChannelExtension.class, record);
+        IntensionDai.ChannelLatestExtension latest = ValueMapping.from(IntensionDai.ChannelLatestExtension.class, record);
 
         List<IntensionDai.Record> allRecords = new ArrayList<>();
 
-        List<IntensionDai.Record> records = intensionDai.loadLatest(channel);
+        List<IntensionDai.Record> records = intensionDai.load(latest);
         if (records.isEmpty()) {
             throw new NotFound(new String[]{"records"});
         }

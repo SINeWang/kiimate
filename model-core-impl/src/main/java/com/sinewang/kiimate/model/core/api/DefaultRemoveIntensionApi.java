@@ -29,10 +29,10 @@ public class DefaultRemoveIntensionApi implements RemoveIntensionApi {
         IntensionDai.ChannelId channel = ValueMapping.from(IntensionDai.ChannelId.class, form);
         intensionDai.forget(channel);
 
-        IntensionDai.ChannelExtension channelExtension = new IntensionDai.ChannelExtension();
-        channelExtension.setId(form.getExtId());
-        List<Intension> intensions = ValueMapping.from(Intension.class, intensionDai.loadLatest(channelExtension));
-        Map<String, Object> schema = modelRestorer.restoreAsMetaData(form.getExtId());
+        IntensionDai.ChannelLatestExtension latest = new IntensionDai.ChannelLatestExtension();
+        latest.setId(form.getExtId());
+        List<Intension> intensions = ValueMapping.from(Intension.class, intensionDai.load(latest));
+        Map<String, Object> schema = modelRestorer.restoreAsMetaData(latest);
         Receipt receipt = new Receipt();
         receipt.setIntensions(intensions);
         receipt.setSchema(schema);
