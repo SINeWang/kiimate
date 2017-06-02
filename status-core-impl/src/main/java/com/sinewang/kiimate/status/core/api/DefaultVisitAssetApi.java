@@ -6,7 +6,6 @@ import one.kii.kiimate.status.core.api.VisitAssetApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.dai.LoadAssetsDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
-import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
@@ -52,19 +51,17 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
     }
 
     private Asset transform(ReadContext context, LoadAssetsDai.Assets assetDb) throws NotFound {
-        if (assetDb == null) {
-            throw new NotFound(KeyFactorTools.find(DefaultSearchAssetsApi.Assets.class));
-        }
-        List<InstanceDai.Instance> instances = instanceDai.selectInstanceByPubSet(assetDb.getPubSet());
+        InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, assetDb);
+        List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusPubSet);
         Asset asset = ValueMapping.from(Asset.class, assetDb);
 
 
-        ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, assetDb);
-        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(channel);
+        ModelSubscriptionDai.ChannelSubId modelSubId = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, assetDb);
+        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(modelSubId);
         Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);
 
         IntensionDai.ChannelLastExtension rootExtension = ValueMapping.from(IntensionDai.ChannelLastExtension.class, model);
-
+        rootExtension.setId(model.getRootExtId());
         List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);
         List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
         asset.setIntensions(intensions);

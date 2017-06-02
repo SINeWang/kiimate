@@ -23,6 +23,7 @@ public interface AssetPublicationMapper {
             @Param("version") String version,
             @Param("visibility") String visibility,
             @Param("stability") String stability,
+            @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime
     );
 

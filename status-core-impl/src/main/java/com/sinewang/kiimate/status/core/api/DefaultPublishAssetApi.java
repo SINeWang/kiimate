@@ -47,15 +47,15 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
 
         AssetPublicationExtractor.Informal informal = assetPublicationExtractor.extract(context, form);
-        LoadAssetsDai.Assets previous = null;
-        try {
-            LoadAssetsDai.ChannelModelSubId channelModelSubId = ValueMapping.from(LoadAssetsDai.ChannelModelSubId.class, informal);
-            channelModelSubId.setOwnerId(informal.getProviderId());
-            previous = loadAssetsDai.loadAssets(channelModelSubId);
-        } catch (NotFound ignore) {
-        }
 
-        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
+        LoadAssetsDai.ChannelModelSubId channelModelSubId = ValueMapping.from(LoadAssetsDai.ChannelModelSubId.class, informal);
+        channelModelSubId.setOwnerId(informal.getProviderId());
+        LoadAssetsDai.Assets previous = loadAssetsDai.loadAssets(channelModelSubId);
+
+
+        InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, previous);
+
+        List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusPubSet);
 
         List<AssetPublicationDai.Entry> entries = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
             entries.add(record);
         }
 
-        AssetPublicationDai.Record record = new AssetPublicationDai.Record();
+        AssetPublicationDai.Record record = ValueMapping.from(AssetPublicationDai.Record.class, context);
         record.setPubSet(pubset.born());
         record.setEntries(entries);
         record.setPrevious(previous);

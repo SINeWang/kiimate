@@ -5,7 +5,6 @@ import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.VisitStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
-import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
@@ -48,7 +47,8 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         List<Intension> intensions = ValueMapping.from(Intension.class, records);
 
 
-        List<InstanceDai.Instance> instances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
+        InstanceDai.ChannelModelSubId subId = ValueMapping.from(InstanceDai.ChannelModelSubId.class, form);
+        List<InstanceDai.Instance> instances = instanceDai.loadInstances(subId);
 
         Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);
 

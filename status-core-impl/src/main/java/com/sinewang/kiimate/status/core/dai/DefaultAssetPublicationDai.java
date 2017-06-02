@@ -47,6 +47,7 @@ public class DefaultAssetPublicationDai implements AssetPublicationDai {
                     entry.getVersion(),
                     entry.getVisibility(),
                     entry.getStability(),
+                    record.getOperatorId(),
                     now
             );
         }

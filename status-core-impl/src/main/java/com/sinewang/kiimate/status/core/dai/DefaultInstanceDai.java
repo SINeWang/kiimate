@@ -3,7 +3,6 @@ package com.sinewang.kiimate.status.core.dai;
 import com.sinewang.kiimate.status.core.dai.mapper.InstanceMapper;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.status.core.dai.InstanceDai;
-import one.kii.summer.beans.utils.HashTools;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -128,13 +127,13 @@ public class DefaultInstanceDai implements InstanceDai {
     }
 
     @Override
-    public List<Instance> selectLatestInstanceBySubId(Long subId) {
-        return instanceMapper.selectLatestInstancesBySubId(subId);
+    public List<Instance> loadInstances(ChannelModelSubId channel) {
+        return instanceMapper.selectLatestInstancesBySubId(channel.getSubId());
     }
 
     @Override
-    public List<Instance> selectInstanceByPubSet(Long pubSet) {
-        return instanceMapper.selectInstancesByPubSet(pubSet);
+    public List<Instance> loadInstances(ChannelStatusPubSet channel) {
+        return instanceMapper.selectInstancesByPubSet(channel.getPubSet());
     }
 
 

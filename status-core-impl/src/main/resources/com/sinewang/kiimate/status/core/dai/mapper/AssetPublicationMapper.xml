@@ -10,7 +10,7 @@
         <result column="pub_set" property="pubSet"/>
         <result column="provider_id" property="providerId"/>
         <result column="visibility" property="visibility"/>
-        <result column="m_sub_id" property="modelSubId"/>
+        <result column="m_sub_id" property="subId"/>
         <result column="group" property="group"/>
         <result column="name" property="name"/>
         <result column="stability" property="stability"/>
@@ -19,9 +19,9 @@
 
     <insert id="insertAssetPublication">
         INSERT INTO km_s_pub
-        (id, pub_set, provider_id, m_sub_id, ins_id, version, visibility, stability, begin_time)
+        (id, pub_set, provider_id, m_sub_id, ins_id, version, visibility, stability, operator_id, begin_time)
         VALUES
-        (#{id}, #{pubSet}, #{providerId}, #{modelSubId}, #{insId}, #{version}, #{visibility}, #{stability}, #{beginTime})
+        (#{id}, #{pubSet}, #{providerId}, #{modelSubId}, #{insId}, #{version}, #{visibility}, #{stability}, #{operatorId}, #{beginTime})
     </insert>
     <select id="queryProviders" resultMap="Providers">
         <bind name="provider_id_pattern" value="'%' + providerId + '%'"/>

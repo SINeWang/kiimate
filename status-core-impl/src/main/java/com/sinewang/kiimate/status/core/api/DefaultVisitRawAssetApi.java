@@ -48,10 +48,8 @@ public class DefaultVisitRawAssetApi implements VisitRawAssetsApi {
     }
 
     private Map<String, Object> transform(ReadContext context, LoadAssetsDai.Assets assetDb) throws NotFound {
-        if (assetDb == null) {
-            throw new NotFound(KeyFactorTools.find(LoadAssetsDai.Assets.class));
-        }
-        List<InstanceDai.Instance> instances = instanceDai.selectInstanceByPubSet(assetDb.getPubSet());
+        InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, assetDb);
+        List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusPubSet);
 
         ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, assetDb);
 

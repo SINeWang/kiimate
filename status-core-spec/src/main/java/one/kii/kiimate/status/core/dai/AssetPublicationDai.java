@@ -30,28 +30,31 @@ public interface AssetPublicationDai {
     @Data
     class Record {
 
-        long pubSet;
+        Long pubSet;
 
         List<Entry> entries;
 
         LoadAssetsDai.Assets previous;
+
+        String operatorId;
     }
 
     @Data
     class Entry {
-        long id;
+        Long id;
 
         String providerId;
 
-        long subId;
+        Long subId;
 
-        long insId;
+        Long insId;
 
         String version;
 
         String visibility;
 
         String stability;
+
     }
 
 

@@ -51,7 +51,7 @@ public interface LoadAssetsDai {
         String ownerId;
 
         @KeyFactor
-        long pubSet;
+        Long pubSet;
 
         @KeyFactor
         String stability;
@@ -67,7 +67,7 @@ public interface LoadAssetsDai {
         String ownerId;
 
         @KeyFactor
-        long subId;
+        Long subId;
 
         @KeyFactor
         String stability;
@@ -79,13 +79,13 @@ public interface LoadAssetsDai {
     @Data
     class Assets {
 
-        long pubSet;
+        Long pubSet;
 
         String providerId;
 
         String visibility;
 
-        long subId;
+        Long subId;
 
         String group;
 

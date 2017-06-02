@@ -76,8 +76,9 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
         rootExtension.setId(model.getRootExtId());
 
+        InstanceDai.ChannelModelSubId modelSubId = ValueMapping.from(InstanceDai.ChannelModelSubId.class, form);
 
-        List<InstanceDai.Instance> newInstances = instanceDai.selectLatestInstanceBySubId(form.getSubId());
+        List<InstanceDai.Instance> newInstances = instanceDai.loadInstances(modelSubId);
 
         List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);
         List<VisitStatusApi.Intension> intensions = ValueMapping.from(VisitStatusApi.Intension.class, recordList);
