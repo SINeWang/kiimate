@@ -2,7 +2,7 @@ package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.status.core.api.VisitFatStatusApi;
+import one.kii.kiimate.status.core.api.VisitRawStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.ValueMapping;
@@ -19,13 +19,10 @@ import java.util.Map;
  */
 
 @Component
-public class DefaultVisitFatStatusApi implements VisitFatStatusApi {
+public class DefaultVisitRawStatusApi implements VisitRawStatusApi {
 
     @Autowired
     private InstanceDai instanceDai;
-
-    @Autowired
-    private IntensionDai intensionDai;
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
@@ -34,7 +31,7 @@ public class DefaultVisitFatStatusApi implements VisitFatStatusApi {
     private InstanceTransformer instanceTransformer;
 
     @Override
-    public Receipt visit(ReadContext context, GroupNameTreeForm form) throws NotFound {
+    public Map<String, Object> visit(ReadContext context, GroupNameTreeForm form) throws NotFound {
         ModelSubscriptionDai.ChannelGroupNameTree channel = ValueMapping.from(ModelSubscriptionDai.ChannelGroupNameTree.class, form, context);
 
         ModelSubscriptionDai.ModelSubscription subscription = modelSubscriptionDai.selectSubscription(channel);
@@ -48,20 +45,10 @@ public class DefaultVisitFatStatusApi implements VisitFatStatusApi {
         IntensionDai.ChannelLastExtension last = ValueMapping.from(IntensionDai.ChannelLastExtension.class, modelPubSet);
         last.setId(modelPubSet.getRootExtId());
 
-        List<IntensionDai.Record> records = intensionDai.loadLast(last);
-        List<Intension> intensions = ValueMapping.from(Intension.class, records);
-
-
-        InstanceDai.ChannelModelSubId modelSubId = ValueMapping.from(InstanceDai.ChannelModelSubId.class, subId);
+        InstanceDai.ChannelModelSubId modelSubId = ValueMapping.from(InstanceDai.ChannelModelSubId.class, subscription);
         List<InstanceDai.Instance> instances = instanceDai.loadInstances(modelSubId);
 
-        Map<String, Object> map = instanceTransformer.toTimedValue(instances, modelPubSet);
-
-        Receipt receipt = ValueMapping.from(Receipt.class, form, context);
-        receipt.setMap(map);
-        receipt.setIntensions(intensions);
-
-        return receipt;
+        return instanceTransformer.toRawValue(instances, modelPubSet);
     }
 
 }

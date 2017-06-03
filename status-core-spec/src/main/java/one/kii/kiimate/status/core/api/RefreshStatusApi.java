@@ -37,8 +37,26 @@ public interface RefreshStatusApi {
     class Receipt {
         String subId;
         String ownerId;
-        List<VisitFatStatusApi.Intension> intensions;
+        List<Intension> intensions;
         Map<String, Object> map;
     }
 
+
+    @Data
+    class Intension {
+
+        private String id;
+
+        private String field;
+
+        private Boolean single;
+
+        private String structure;
+
+        private String refPubSet;
+
+        private String visibility;
+
+        private Boolean required;
+    }
 }

@@ -27,7 +27,7 @@ public interface InstanceDai {
 
     @Data
     class ChannelModelSubId {
-        Long subId;
+        Long id;
     }
 
     @Data

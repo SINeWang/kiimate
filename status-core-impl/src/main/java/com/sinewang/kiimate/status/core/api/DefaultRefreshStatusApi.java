@@ -4,7 +4,6 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
 import one.kii.kiimate.status.core.api.RefreshStatusApi;
-import one.kii.kiimate.status.core.api.VisitFatStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
@@ -81,8 +80,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         List<InstanceDai.Instance> newInstances = instanceDai.loadInstances(modelSubId);
 
         List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);
-        List<VisitFatStatusApi.Intension> intensions = ValueMapping.from(VisitFatStatusApi.Intension.class, recordList);
-
+        List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
 
         Map<String, Object> map = instanceTransformer.toTimedValue(newInstances, model);
 
