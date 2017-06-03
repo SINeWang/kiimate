@@ -53,6 +53,6 @@ public class SubscribeAssetCtl extends WriteController {
             String ownerId,
             SubscribeAssetApi.Form form) {
         WriteContext context = buildContext(requestId, operatorId, ownerId);
-        return CommitApiCaller.call(api, context, form);
+        return CommitApiCaller.sync(api, context, form);
     }
 }

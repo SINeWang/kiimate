@@ -1,10 +1,9 @@
 package one.kii.kiimate.status.core.ctl;
 
 import one.kii.kiimate.status.core.api.VisitFatAssetApi;
+import one.kii.summer.asdf.xi.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
-import one.kii.summer.io.exception.NotFound;
-import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +22,6 @@ public class VisitAssetCtl extends ReadController {
 
     public static final String OWNER_ID = "owner-id";
 
-    public static final String PUB_SET = "pub-set";
-
     public static final String VERSION = "version";
 
     public static final String STABILITY = "stability";
@@ -36,26 +33,6 @@ public class VisitAssetCtl extends ReadController {
     @Autowired
     private VisitFatAssetApi api;
 
-
-    @RequestMapping(value = "/{" + PUB_SET + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
-    public ResponseEntity<VisitFatAssetApi.Asset> visit(
-            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
-            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable(OWNER_ID) String ownerId,
-            @PathVariable(PUB_SET) String pubSet,
-            @PathVariable(STABILITY) String stability,
-            @PathVariable(VERSION) String version) {
-        ReadContext context = buildContext(requestId, ownerId, visitorId);
-        VisitFatAssetApi.PubSetForm form = new VisitFatAssetApi.PubSetForm();
-        form.setPubSet(pubSet);
-        form.setVersion(version);
-        form.setStability(stability);
-        try {
-            return ErestResponse.ok(requestId, api.visit(context, form));
-        } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKeys());
-        }
-    }
 
     @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
     public ResponseEntity<VisitFatAssetApi.Asset> visit(
@@ -77,11 +54,7 @@ public class VisitAssetCtl extends ReadController {
         if (null != version) {
             form.setVersion(version);
         }
-        try {
-            return ErestResponse.ok(requestId, api.visit(context, form));
-        } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKeys());
-        }
+        return VisitApiCaller.sync(api, context, form);
     }
 
 }

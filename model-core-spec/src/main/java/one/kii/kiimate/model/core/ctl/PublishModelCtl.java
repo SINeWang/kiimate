@@ -58,7 +58,7 @@ public class PublishModelCtl extends WriteController {
             PublishModelApi.Form form) {
         form.setStability(stability);
         WriteContext context = buildContext(requestId, operatorId, ownerId);
-        return CommitApiCaller.call(api, context, form);
+        return CommitApiCaller.sync(api, context, form);
     }
 
 

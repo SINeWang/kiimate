@@ -70,7 +70,7 @@ public class RefreshStatusCtl extends WriteController {
         RefreshStatusApi.SubIdForm form = new RefreshStatusApi.SubIdForm();
         form.setSubId(subId);
         form.setMap(map);
-        return CommitApiCaller.call(api, context, form);
+        return CommitApiCaller.sync(api, context, form);
     }
 
 

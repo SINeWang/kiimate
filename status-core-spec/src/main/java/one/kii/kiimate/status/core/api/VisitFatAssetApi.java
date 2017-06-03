@@ -1,6 +1,7 @@
 package one.kii.kiimate.status.core.api;
 
 import lombok.Data;
+import one.kii.summer.asdf.xi.VisitApi;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 
@@ -11,14 +12,12 @@ import java.util.Map;
  * Created by WangYanJiong on 21/05/2017.
  */
 
-public interface VisitFatAssetApi {
+public interface VisitFatAssetApi extends VisitApi<VisitFatAssetApi.Asset, ReadContext, VisitFatAssetApi.GroupNameForm> {
 
 
     String STABILITY_LATEST = "latest";
 
     String VERSION_HEAD = "HEAD";
-
-    Asset visit(ReadContext context, PubSetForm form) throws NotFound;
 
     Asset visit(ReadContext context, GroupNameForm form) throws NotFound;
 
@@ -34,13 +33,6 @@ public interface VisitFatAssetApi {
         List<Intension> intensions;
 
         Map<String, Object> map;
-    }
-
-    @Data
-    class PubSetForm {
-        String pubSet;
-        String stability;
-        String version;
     }
 
     @Data

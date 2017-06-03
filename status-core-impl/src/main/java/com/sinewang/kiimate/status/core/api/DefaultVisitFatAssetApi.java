@@ -3,8 +3,8 @@ package com.sinewang.kiimate.status.core.api;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.VisitFatAssetApi;
-import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.dai.AssetDai;
+import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
@@ -36,12 +36,6 @@ public class DefaultVisitFatAssetApi implements VisitFatAssetApi {
     @Autowired
     private InstanceTransformer instanceTransformer;
 
-    @Override
-    public Asset visit(ReadContext context, PubSetForm form) throws NotFound {
-        AssetDai.ChannelPubSet channel = ValueMapping.from(AssetDai.ChannelPubSet.class, form, context);
-        AssetDai.Asset assetDb = assetDai.load(channel);
-        return transform(context, assetDb);
-    }
 
     @Override
     public Asset visit(ReadContext context, GroupNameForm form) throws NotFound {

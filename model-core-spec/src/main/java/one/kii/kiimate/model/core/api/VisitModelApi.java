@@ -1,6 +1,7 @@
 package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
+import one.kii.summer.asdf.xi.VisitApi;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 31/05/2017.
  */
-public interface VisitModelApi {
+public interface VisitModelApi extends VisitApi<VisitModelApi.Model, ReadContext, VisitModelApi.VisitModelForm> {
 
 
     Model visit(ReadContext context, VisitModelForm form) throws NotFound;

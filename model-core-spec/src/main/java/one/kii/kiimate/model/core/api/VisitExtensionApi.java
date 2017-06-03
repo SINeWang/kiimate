@@ -1,6 +1,7 @@
 package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
+import one.kii.summer.asdf.xi.VisitApi;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 
@@ -11,7 +12,7 @@ import java.util.Map;
  * Created by WangYanJiong on 4/5/17.
  */
 
-public interface VisitExtensionApi {
+public interface VisitExtensionApi extends VisitApi<VisitExtensionApi.Receipt, ReadContext, VisitExtensionApi.Form> {
 
     String NAME_ROOT = "root";
 

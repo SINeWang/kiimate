@@ -51,7 +51,7 @@ public class DeclareExtensionCtl extends WriteController {
             String ownerId,
             DeclareExtensionApi.CommitForm form) {
         WriteContext context = buildContext(requestId, operatorId, ownerId);
-        return CommitApiCaller.call(api, context, form);
+        return CommitApiCaller.sync(api, context, form);
     }
 
 

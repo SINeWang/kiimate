@@ -45,7 +45,7 @@ public class RevokeIntensionCtl extends WriteController {
         form.setId(intId);
         form.setExtId(extId);
         form.setOwnerId(ownerId);
-        return CommitApiCaller.call(api, context, form);
+        return CommitApiCaller.sync(api, context, form);
     }
 
 }

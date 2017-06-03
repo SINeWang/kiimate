@@ -52,6 +52,6 @@ public class SubscribeModelCtl extends WriteController {
             SubscribeModelsApi.Form form) {
         WriteContext context = buildContext(requestId, ownerId, operatorId);
 
-        return CommitApiCaller.call(api, context, form);
+        return CommitApiCaller.sync(api, context, form);
     }
 }

@@ -2,6 +2,7 @@ package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import one.kii.summer.asdf.xi.VisitApi;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/v1")
-public interface VisitIntensionsApi {
+public interface VisitIntensionsApi extends VisitApi<VisitIntensionsApi.Receipt, ReadContext, VisitIntensionsApi.Form> {
 
     String VISIBILITY_PUBLIC = "public";
 

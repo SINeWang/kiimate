@@ -1,10 +1,9 @@
 package one.kii.kiimate.model.core.ctl;
 
 import one.kii.kiimate.model.core.api.VisitModelApi;
+import one.kii.summer.asdf.xi.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
-import one.kii.summer.io.exception.NotFound;
-import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,10 +33,7 @@ public class VisitModelCtl extends ReadController {
         VisitModelApi.VisitModelForm form = new VisitModelApi.VisitModelForm();
 
         form.setPubSet(pubSet);
-        try {
-            return ErestResponse.ok(requestId, api.visit(context, form));
-        } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKeys());
-        }
+
+        return VisitApiCaller.sync(api, context, form);
     }
 }

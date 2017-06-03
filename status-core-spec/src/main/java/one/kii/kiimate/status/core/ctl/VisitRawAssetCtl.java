@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
-import java.util.Map;
-
 import static one.kii.kiimate.status.core.ctl.VisitAssetCtl.OWNER_ID;
 
 
@@ -39,29 +37,8 @@ public class VisitRawAssetCtl extends ReadController {
 
     public static final String FORMAT_YML = "yml";
 
-
     @Autowired
     private VisitRawAssetApi api;
-
-    @RequestMapping(value = "/{" + PUB_SET + "}/{" + STABILITY + "}/{" + VERSION + ":.+}/raw")
-    public ResponseEntity<Map<String, Object>> visit(
-            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
-            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable(OWNER_ID) String ownerId,
-            @PathVariable(PUB_SET) String pubSet,
-            @PathVariable(STABILITY) String stability,
-            @PathVariable(VERSION) String version) {
-        ReadContext context = buildContext(requestId, ownerId, visitorId);
-        VisitRawAssetApi.PubSetForm form = new VisitRawAssetApi.PubSetForm();
-        form.setPubSet(pubSet);
-        form.setVersion(version);
-        form.setStability(stability);
-        try {
-            return ErestResponse.ok(requestId, api.visit(context, form));
-        } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKeys());
-        }
-    }
 
     @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}/raw")
     public ResponseEntity<?> visit(
