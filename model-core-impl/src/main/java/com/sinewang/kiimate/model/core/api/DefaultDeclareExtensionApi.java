@@ -36,7 +36,9 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
 
         extensionDai.remember(record);
 
-        return ValueMapping.from(CommitReceipt.class, record);
+        CommitReceipt receipt = ValueMapping.from(CommitReceipt.class, record);
+
+        return NotNull.of(CommitReceipt.class, receipt);
     }
 
 

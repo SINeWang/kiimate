@@ -1,7 +1,6 @@
 package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
-import lombok.Getter;
 import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.annotations.MustHave;
@@ -87,16 +86,5 @@ public interface ExtensionDai {
         private Date endTime;
 
     }
-
-    class ExtensionDuplicated extends Exception {
-
-        @Getter
-        private String extId;
-
-        public ExtensionDuplicated(String extId) {
-            this.extId = extId;
-        }
-    }
-
 
 }
