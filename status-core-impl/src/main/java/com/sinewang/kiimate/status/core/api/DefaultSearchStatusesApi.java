@@ -22,8 +22,8 @@ public class DefaultSearchStatusesApi implements SearchStatusesApi {
     public List<Statuses> search(ReadContext context, QueryForm form) {
         StatusDai.ClueGroup clue = ValueMapping.from(StatusDai.ClueGroup.class, context);
         clue.setGroup(form.getQuery());
-        List<StatusDai.Status> statuses = statusDai.query(clue);
+        List<StatusDai.Statuses> statuses = statusDai.query(clue);
         return ValueMapping.from(Statuses.class, statuses);
     }
-    
+
 }

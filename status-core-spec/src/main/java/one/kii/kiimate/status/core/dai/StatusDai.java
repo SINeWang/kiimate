@@ -14,7 +14,7 @@ public interface StatusDai {
     @Transactional
     Date save(Record record);
 
-    List<Status> query(ClueGroup clue);
+    List<Statuses> query(ClueGroup clue);
 
     @Data
     class ClueGroup {
@@ -35,7 +35,7 @@ public interface StatusDai {
     }
 
     @Data
-    class Status {
+    class Statuses {
 
         Long id;
 

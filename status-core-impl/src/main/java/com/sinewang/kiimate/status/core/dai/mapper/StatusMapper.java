@@ -26,7 +26,7 @@ public interface StatusMapper {
             @Param("beginTime") Date beginTime
     );
 
-    List<StatusDai.Status> queryStatuses(
+    List<StatusDai.Statuses> queryStatuses(
             @Param("ownerId") String ownerId,
             @Param("group") String group
     );

@@ -48,7 +48,7 @@ public class DefaultStatusDai implements StatusDai {
     }
 
     @Override
-    public List<Status> query(ClueGroup clue) {
+    public List<Statuses> query(ClueGroup clue) {
         return statusMapper.queryStatuses(
                 clue.getOwnerId(),
                 clue.getGroup());
