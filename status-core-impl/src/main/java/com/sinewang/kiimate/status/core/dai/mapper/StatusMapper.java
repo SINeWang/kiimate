@@ -1,9 +1,11 @@
 package com.sinewang.kiimate.status.core.dai.mapper;
 
+import one.kii.kiimate.status.core.dai.StatusDai;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 20/05/2017.
@@ -12,11 +14,11 @@ import java.util.Date;
 public interface StatusMapper {
 
     void insertStatus(
-            @Param("id") long id,
-            @Param("pubSet") long pubSet,
+            @Param("id") Long id,
+            @Param("pubSet") Long pubSet,
             @Param("providerId") String providerId,
-            @Param("modelSubId") long subId,
-            @Param("insId") long insId,
+            @Param("modelSubId") Long subId,
+            @Param("insId") Long insId,
             @Param("version") String version,
             @Param("visibility") String visibility,
             @Param("stability") String stability,
@@ -24,10 +26,14 @@ public interface StatusMapper {
             @Param("beginTime") Date beginTime
     );
 
+    List<StatusDai.Status> queryStatuses(
+            @Param("ownerId") String ownerId,
+            @Param("group") String group
+    );
 
     void revokeStatus(
             @Param("providerId") String providerId,
-            @Param("pubSet") long pubSet,
+            @Param("pubSet") Long pubSet,
             @Param("endTime") Date endTime);
 
 }

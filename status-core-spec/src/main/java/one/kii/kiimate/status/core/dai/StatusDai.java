@@ -14,6 +14,14 @@ public interface StatusDai {
     @Transactional
     Date save(Record record);
 
+    List<Status> query(ClueGroup clue);
+
+    @Data
+    class ClueGroup {
+        String ownerId;
+        String group;
+    }
+
     @Data
     class Record {
 
@@ -25,6 +33,25 @@ public interface StatusDai {
 
         String operatorId;
     }
+
+    @Data
+    class Status {
+
+        Long id;
+
+        Long subSet;
+
+        String ownerId;
+
+        String group;
+
+        String name;
+
+        String tree;
+
+        Date beginTime;
+    }
+
 
     @Data
     class Entry {

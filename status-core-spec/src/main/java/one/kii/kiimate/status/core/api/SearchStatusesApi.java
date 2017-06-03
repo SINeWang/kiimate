@@ -3,6 +3,7 @@ package one.kii.kiimate.status.core.api;
 import lombok.Data;
 import one.kii.summer.io.context.ReadContext;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,13 +16,13 @@ public interface SearchStatusesApi {
 
     @Data
     class Statuses {
-        String pubSet;
+        String id;
+        String subSet;
         String ownerId;
-        String visibility;
         String group;
         String name;
-        String stability;
-        String version;
+        String tree;
+        Date beginTime;
     }
 
     @Data

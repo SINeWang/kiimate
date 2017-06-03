@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sinewang.kiimate.status.core.dai.mapper.StatusMapper">
+    
+    <resultMap id="Status" type="one.kii.kiimate.status.core.dai.StatusDai$Status">
+        <result column="id" property="id"/>
+        <result column="group" property="group"/>
+        <result column="name" property="name"/>
+        <result column="tree" property="tree"/>
+        <result column="subscriber_id" property="ownerId"/>
+        <result column="sub_set" property="subSet"/>
+        <result column="begin_time" property="beginTime"/>
+    </resultMap>
 
     <insert id="insertStatus">
         INSERT INTO km_s_pub
@@ -15,4 +25,13 @@
         AND spub.provider_id = #{providerId}
         AND spub.pub_set = #{pubSet}
     </update>
+    <select id="queryStatuses" resultMap="Status">
+        <bind name="group_pattern" value="'%' + group + '%'"/>
+        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.begin_time
+        FROM mm_m_sub msub
+        WHERE msub.subscriber_id = #{ownerId}
+        AND msub.group LIKE #{group_pattern}
+        AND msub.end_time IS NULL
+        GROUP BY msub.sub_set
+    </select>
 </mapper>
