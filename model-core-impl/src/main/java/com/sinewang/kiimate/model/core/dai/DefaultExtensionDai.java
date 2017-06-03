@@ -3,14 +3,13 @@ package com.sinewang.kiimate.model.core.dai;
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.summer.beans.utils.KeyFactorTools;
+import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -76,27 +75,20 @@ public class DefaultExtensionDai implements ExtensionDai {
 
 
     @Override
-    public void remember(Record record) throws ExtensionDuplicated {
-        Date now = new Date();
-        Record lastRecord = extensionMapper.selectLatestExtensionById(record.getId());
-
+    public void remember(Record record) throws Conflict {
+        Record lastRecord = extensionMapper.selectExtensionByCommit(record.getCommit());
         if (lastRecord != null) {
-            throw new ExtensionDuplicated(String.valueOf(record.getId()));
+            throw new Conflict(KeyFactorTools.find(Record.class));
         }
-
-        try {
-            extensionMapper.insertExtension(
-                    record.getId(),
-                    record.getCommit(),
-                    record.getOwnerId(),
-                    record.getGroup(),
-                    record.getName(),
-                    record.getTree(),
-                    record.getVisibility(),
-                    now
-            );
-        } catch (DuplicateKeyException duplicated) {
-            logger.error("Duplicated-Key:{}", record.getId());
-        }
+        extensionMapper.insertExtension(
+                record.getId(),
+                record.getCommit(),
+                record.getOwnerId(),
+                record.getGroup(),
+                record.getName(),
+                record.getTree(),
+                record.getVisibility(),
+                record.getBeginTime()
+        );
     }
 }

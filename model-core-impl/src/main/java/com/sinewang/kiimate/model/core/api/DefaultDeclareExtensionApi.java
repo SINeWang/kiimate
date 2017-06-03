@@ -4,9 +4,12 @@ import one.kii.kiimate.model.core.api.DeclareExtensionApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.summer.beans.utils.ValueMapping;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.validator.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,17 +28,15 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     private AnExtensionExtractor extensionExtractor;
 
     @Override
-    public CommitReceipt commit(WriteContext context, CommitForm commitForm) throws BadRequest, Conflict {
+    public CommitReceipt commit(WriteContext context, CommitForm form) throws BadRequest, Conflict, NotFound {
 
-        AnExtensionExtractor.Extension extension = extensionExtractor.extract(context, commitForm);
+        ExtensionDai.Record record = extensionExtractor.extract(context, form);
 
-        ExtensionDai.Record record = ValueMapping.from(ExtensionDai.Record.class, extension);
-        try {
-            extensionDai.remember(record);
-            return ValueMapping.from(CommitReceipt.class, record);
-        } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
-            throw new Conflict(extension.getCommit());
-        }
+        NotNull.of(ExtensionDai.Record.class, MayHave.class, record);
+
+        extensionDai.remember(record);
+
+        return ValueMapping.from(CommitReceipt.class, record);
     }
 
 

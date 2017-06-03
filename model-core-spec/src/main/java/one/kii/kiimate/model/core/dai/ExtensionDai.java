@@ -2,7 +2,10 @@ package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
 import lombok.Getter;
+import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.annotations.MustHave;
+import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +24,7 @@ public interface ExtensionDai {
     List<Record> search(ClueGroup clue);
 
     @Transactional
-    void remember(Record record) throws ExtensionDuplicated;
+    void remember(Record record) throws Conflict;
 
     @Data
     class ClueGroup {
@@ -54,29 +57,33 @@ public interface ExtensionDai {
     @Data
     class Record {
 
-        @MustHave
         private Long id;
 
-        @MustHave
         private String commit;
 
-        @MustHave
+        @KeyFactor
         private String ownerId;
 
-        @MustHave
+        @KeyFactor
         private String group;
 
-        @MustHave
+        @KeyFactor
         private String name;
 
-        @MustHave
+        @KeyFactor
         private String tree;
 
-        @MustHave
+        @KeyFactor
         private String visibility;
 
+        @KeyFactor
+        private String operatorId;
+
+        @KeyFactor
         private Date beginTime;
 
+        @MayHave
+        @KeyFactor
         private Date endTime;
 
     }

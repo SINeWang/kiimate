@@ -26,6 +26,9 @@ public interface ExtensionMapper {
     ExtensionDai.Record selectLatestExtensionById(
             @Param("id") Long id);
 
+    ExtensionDai.Record selectExtensionByCommit(
+            @Param("commit") String commit);
+
     ExtensionDai.Record selectLastExtensionByOwnerGroupNameTree(
             @Param("ownerId") String ownerId,
             @Param("group") String group,

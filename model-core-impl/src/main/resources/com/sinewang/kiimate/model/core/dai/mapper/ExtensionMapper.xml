@@ -22,6 +22,12 @@
         AND mext.end_time IS NULL
     </select>
 
+    <select id="selectExtensionByCommit" resultMap="Extension">
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time
+        FROM mm_m_ext mext
+        WHERE mext.commit = #{commit}
+    </select>
+
     <select id="selectLastExtensionByOwnerGroupNameTree" resultMap="Extension">
         SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time
         FROM mm_m_ext mext

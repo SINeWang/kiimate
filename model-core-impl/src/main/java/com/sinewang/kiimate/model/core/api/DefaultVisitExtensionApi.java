@@ -3,7 +3,6 @@ package com.sinewang.kiimate.model.core.api;
 import one.kii.kiimate.model.core.api.VisitExtensionApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
-import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
@@ -32,13 +31,11 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
     @Override
     public Receipt visit(ReadContext context, Form form) throws NotFound {
-        AnExtensionExtractor.Extension extension = ValueMapping.from(AnExtensionExtractor.Extension.class, form, context);
-        ExtensionDai.ChannelCoordinate channel = ValueMapping.from(ExtensionDai.ChannelCoordinate.class, extension);
+        ExtensionDai.ChannelCoordinate channel = ValueMapping.from(ExtensionDai.ChannelCoordinate.class, form, context);
 
         ExtensionDai.Record record = extensionDai.loadLast(channel);
 
         Receipt receipt = ValueMapping.from(Receipt.class, record);
-
 
         IntensionDai.ChannelLatestExtension latest = ValueMapping.from(IntensionDai.ChannelLatestExtension.class, record);
         List<IntensionDai.Record> records = intensionDai.load(latest);

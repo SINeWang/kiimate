@@ -55,6 +55,8 @@ public class TestDeclareReceiptApi {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
             conflict.printStackTrace();
+        } catch (NotFound notFound) {
+            notFound.printStackTrace();
         }
         Assert.assertNull(response);
     }
@@ -73,6 +75,8 @@ public class TestDeclareReceiptApi {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
             conflict.printStackTrace();
+        } catch (NotFound notFound) {
+            notFound.printStackTrace();
         }
         Assert.assertNull(response);
     }
@@ -91,6 +95,8 @@ public class TestDeclareReceiptApi {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
             conflict.printStackTrace();
+        } catch (NotFound notFound) {
+            notFound.printStackTrace();
         }
         Assert.assertNull(response);
     }
@@ -109,6 +115,8 @@ public class TestDeclareReceiptApi {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
             conflict.printStackTrace();
+        } catch (NotFound notFound) {
+            notFound.printStackTrace();
         }
         Assert.assertNull(response);
     }
@@ -131,6 +139,8 @@ public class TestDeclareReceiptApi {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
             conflict.printStackTrace();
+        } catch (NotFound notFound) {
+            notFound.printStackTrace();
         }
         Assert.assertNull(response);
     }
@@ -156,6 +166,8 @@ public class TestDeclareReceiptApi {
             badRequest.printStackTrace();
         } catch (Conflict conflict) {
             conflict.printStackTrace();
+        } catch (NotFound notFound) {
+            notFound.printStackTrace();
         }
         String id = response.getId();
         Assert.assertNotNull(id);

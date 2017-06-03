@@ -26,6 +26,7 @@ public interface VisitIntensionsApi extends VisitApi<VisitIntensionsApi.Receipt,
         String group;
         String name;
         String tree;
+        String visibility = VISIBILITY_PUBLIC;
     }
 
 

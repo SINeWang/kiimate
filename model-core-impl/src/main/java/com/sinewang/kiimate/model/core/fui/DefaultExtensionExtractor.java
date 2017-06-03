@@ -3,6 +3,7 @@ package com.sinewang.kiimate.model.core.fui;
 import com.google.common.base.CaseFormat;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.api.DeclareExtensionApi;
+import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.beans.utils.ValueMapping;
@@ -10,6 +11,8 @@ import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.validator.Must;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 /**
  * Created by WangYanJiong on 25/03/2017.
@@ -21,34 +24,30 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
     private static final Eid64Generator idgen = new Eid64Generator(0);
 
     @Override
-    public Extension extract(WriteContext context, DeclareExtensionApi.CommitForm commitForm) throws BadRequest {
+    public ExtensionDai.Record extract(WriteContext context, DeclareExtensionApi.CommitForm form) throws BadRequest {
 
-        Must.have(commitForm);
-
-        commitForm.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getGroup()));
-        commitForm.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getName()));
-        commitForm.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getTree()));
-        commitForm.setVisibility(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, commitForm.getVisibility()));
-
-        Extension extension = ValueMapping.from(Extension.class, commitForm, context);
+        Must.have(form);
+        form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
+        form.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getName()));
+        form.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getTree()));
+        form.setVisibility(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getVisibility()));
+        ExtensionDai.Record record = ValueMapping.from(ExtensionDai.Record.class, form, context);
         try {
-            String visibility = commitForm.getVisibility();
+            String visibility = form.getVisibility();
             Visibility.valueOf(visibility.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new BadRequest("visibility");
         }
-        hash(extension);
-        extension.setId(idgen.born());
-        return extension;
+        hash(record);
+        record.setId(idgen.born());
+        return record;
     }
 
-    private void hash(Extension extension) {
-        extension.setOwnerId(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getOwnerId()));
-        extension.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getGroup()));
-        extension.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getName()));
-        extension.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getTree()));
-        extension.setVisibility(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, extension.getVisibility()));
-        extension.setCommit(HashTools.hashHex(extension));
+    private void hash(ExtensionDai.Record record) {
+        record.setBeginTime(new Date());
+        record.setOwnerId(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, record.getOwnerId()));
+        record.setOperatorId(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, record.getOperatorId()));
+        record.setCommit(HashTools.hashHex(record));
     }
 
 

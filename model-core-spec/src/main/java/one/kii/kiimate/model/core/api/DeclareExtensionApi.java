@@ -6,6 +6,7 @@ import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -15,7 +16,7 @@ public interface DeclareExtensionApi extends CommitApi<DeclareExtensionApi.Commi
 
     String TREE_MASTER = "master";
 
-    CommitReceipt commit(WriteContext context, CommitForm form) throws BadRequest, Conflict;
+    CommitReceipt commit(WriteContext context, CommitForm form) throws BadRequest, Conflict, NotFound;
 
     @Data
     class CommitForm {

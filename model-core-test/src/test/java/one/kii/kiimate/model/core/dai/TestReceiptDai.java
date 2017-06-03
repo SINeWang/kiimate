@@ -1,6 +1,7 @@
 package one.kii.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
+import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import org.junit.After;
 import org.junit.Assert;
@@ -54,8 +55,8 @@ public class TestReceiptDai {
         record.setId(testId);
         try {
             extensionDai.remember(record);
-        } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
-            //ignore
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
         }
         ExtensionDai.ChannelId extId = new ExtensionDai.ChannelId();
         extId.setId(testId);
@@ -85,8 +86,8 @@ public class TestReceiptDai {
         record.setId(testId);
         try {
             extensionDai.remember(record);
-        } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
-            extensionDuplicated.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
         }
     }
 

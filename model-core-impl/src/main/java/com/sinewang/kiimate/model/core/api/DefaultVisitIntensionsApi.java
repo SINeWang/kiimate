@@ -3,7 +3,6 @@ package com.sinewang.kiimate.model.core.api;
 import one.kii.kiimate.model.core.api.VisitIntensionsApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
-import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
@@ -29,9 +28,7 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
     @Override
     public Receipt visit(ReadContext context, Form form) throws NotFound {
 
-        AnExtensionExtractor.Extension extension = ValueMapping.from(AnExtensionExtractor.Extension.class, form);
-        extension.setOwnerId(context.getOwnerId());
-        extension.setVisibility(VISIBILITY_PUBLIC);
+        ExtensionDai.Record extension = ValueMapping.from(ExtensionDai.Record.class, form, context);
 
         ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
 

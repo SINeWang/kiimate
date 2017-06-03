@@ -62,14 +62,14 @@ public class TestPublishModelApi {
 
     @Before
     public void before() {
-        AnExtensionExtractor.Extension extension1 = new AnExtensionExtractor.Extension();
-        extension1.setOwnerId(ownerId);
-        extension1.setGroup(group);
-        extension1.setName(name);
-        extension1.setTree(tree);
-        extension1.setVisibility(visibility);
+        ExtensionDai.Record record = new ExtensionDai.Record();
+        record.setOwnerId(ownerId);
+        record.setGroup(group);
+        record.setName(name);
+        record.setTree(tree);
+        record.setVisibility(visibility);
 
-        this.extId = extension1.getId();
+        this.extId = record.getId();
 
         modelPublicationMapper.deletePublicationByProviderIdExtIdPubVersion(providerId, extId, "SNAPSHOT", version);
         extensionMapper.deleteExtensionById(extId);
@@ -92,23 +92,23 @@ public class TestPublishModelApi {
 
         try {
             extensionDai.remember(extension);
-        } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
-            extensionDuplicated.printStackTrace();
+        } catch (Conflict conflict) {
+            conflict.printStackTrace();
         }
 
 
-        IntensionDai.Record record = new IntensionDai.Record();
+        IntensionDai.Record intension = new IntensionDai.Record();
 
         for (String field : fields) {
-            record.setExtId(extId);
-            record.setSingle(true);
-            record.setVisibility(visibility);
-            record.setStructure(AnStructureValidator.Structure.STRING.name());
-            record.setField(field);
+            intension.setExtId(extId);
+            intension.setSingle(true);
+            intension.setVisibility(visibility);
+            intension.setStructure(AnStructureValidator.Structure.STRING.name());
+            intension.setField(field);
 
-            record.setId(idgen.born());
+            intension.setId(idgen.born());
             try {
-                intensionDai.remember(record);
+                intensionDai.remember(intension);
             } catch (IntensionDai.IntensionDuplicated intensionDuplicated) {
                 intensionDuplicated.printStackTrace();
             }
