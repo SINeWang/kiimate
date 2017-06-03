@@ -7,9 +7,12 @@ import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.beans.utils.ValueMapping;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
-import one.kii.summer.io.validator.Must;
+import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.validator.NotBadRequest;
+import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -24,9 +27,9 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
     private static final Eid64Generator idgen = new Eid64Generator(0);
 
     @Override
-    public ExtensionDai.Record extract(WriteContext context, DeclareExtensionApi.CommitForm form) throws BadRequest {
+    public ExtensionDai.Record extract(WriteContext context, DeclareExtensionApi.CommitForm form) throws BadRequest, NotFound {
 
-        Must.have(form);
+        NotBadRequest.from(form);
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
         form.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getName()));
         form.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getTree()));
@@ -40,7 +43,7 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         }
         hash(record);
         record.setId(idgen.born());
-        return record;
+        return NotBadResponse.of(ExtensionDai.Record.class, MayHave.class, record);
     }
 
     private void hash(ExtensionDai.Record record) {

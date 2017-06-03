@@ -3,6 +3,7 @@ package one.kii.kiimate.model.core.ctl;
 import one.kii.kiimate.model.core.api.SearchSubscriptionsApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,11 @@ public class SearchSubscriptionsCtl extends ReadController {
 
         form.setGroup(query);
 
-        return ErestResponse.ok(requestId, searchSubscriptionsApi.search(context, form));
+        try {
+            return ErestResponse.ok(requestId, searchSubscriptionsApi.search(context, form));
+        } catch (BadRequest badRequest) {
+            return ErestResponse.badRequest(requestId, badRequest.getKeys());
+        }
     }
 
 

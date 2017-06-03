@@ -21,7 +21,7 @@ ext {
     servletApiVersion = '3.1.0'
     springBootVersion = '1.5.3.RELEASE'
     springFrameworkVersion = '4.3.8.RELEASE'
-    summerVersion = '0.5.1'
+    summerVersion = '0.5.3'
 }
 
 scmVersion {

@@ -109,8 +109,8 @@ public class TestPublishModelApi {
             intension.setId(idgen.born());
             try {
                 intensionDai.remember(intension);
-            } catch (IntensionDai.IntensionDuplicated intensionDuplicated) {
-                intensionDuplicated.printStackTrace();
+            } catch (Conflict conflict) {
+                conflict.printStackTrace();
             }
         }
 

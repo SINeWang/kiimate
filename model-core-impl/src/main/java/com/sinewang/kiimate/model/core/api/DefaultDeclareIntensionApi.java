@@ -6,6 +6,7 @@ import one.kii.kiimate.model.core.fui.AnIntensionExtractor;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,11 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    public Receipt commit(WriteContext context, Form form) throws Conflict, NotFound {
+    public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
 
-        AnIntensionExtractor.Intension intension = anIntensionExtractor.extract(form);
+        IntensionDai.Record record = anIntensionExtractor.extract(context, form);
 
-        IntensionDai.Record record = ValueMapping.from(IntensionDai.Record.class, intension);
-        try {
-            intensionDai.remember(record);
-        } catch (IntensionDai.IntensionDuplicated extensionDuplicated) {
-            throw new Conflict("id");
-        }
+        intensionDai.remember(record);
 
         IntensionDai.ChannelLatestExtension channel = new IntensionDai.ChannelLatestExtension();
         channel.setId(form.getExtId());

@@ -1,8 +1,9 @@
 package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
-import lombok.Getter;
-import one.kii.summer.io.annotations.MustHave;
+import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.io.annotations.MayHave;
+import one.kii.summer.io.exception.Conflict;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -15,7 +16,7 @@ public interface IntensionDai {
 
 
     @Transactional
-    void remember(Record record) throws IntensionDuplicated;
+    void remember(Record record) throws Conflict;
 
     List<Record> load(ChannelLatestExtension channel);
 
@@ -61,40 +62,41 @@ public interface IntensionDai {
     @Data
     class Record {
 
-        @MustHave
         private Long id;
 
-        @MustHave
         private String commit;
 
-        @MustHave
+        @KeyFactor
         private Long extId;
 
-        @MustHave
+        @KeyFactor
         private String field;
 
-        @MustHave
+        @KeyFactor
         private Boolean single;
 
-        @MustHave
+        @KeyFactor
         private String structure;
 
+        @KeyFactor
+        @MayHave
         private Long refPubSet;
 
-        @MustHave
+        @KeyFactor
         private String visibility;
 
-        @MustHave
+        @KeyFactor
         private Boolean required;
+
+        @KeyFactor
+        private String operatorId;
+
+        @KeyFactor
+        private Date beginTime;
+
+        @KeyFactor
+        @MayHave
+        private Date endTime;
     }
 
-    class IntensionDuplicated extends Exception {
-
-        @Getter
-        private Long intId;
-
-        public IntensionDuplicated(Long intId) {
-            this.intId = intId;
-        }
-    }
 }

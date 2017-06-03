@@ -2,10 +2,11 @@ package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.IntensionMapper;
 import one.kii.kiimate.model.core.dai.IntensionDai;
+import one.kii.summer.beans.utils.KeyFactorTools;
+import one.kii.summer.io.exception.Conflict;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -25,30 +26,24 @@ public class DefaultIntensionDai implements IntensionDai {
     private IntensionMapper intensionMapper;
 
     @Override
-    public void remember(Record record) throws IntensionDuplicated {
-        Date now = new Date();
-
-        Record oldRecord = intensionMapper.selectLatestIntensionByExtIdField(record.getExtId(), record.getField());
+    public void remember(Record record) throws Conflict {
+        Record oldRecord = intensionMapper.selectIntensionByCommit(record.getCommit());
         if (oldRecord != null) {
-            throw new IntensionDai.IntensionDuplicated(record.getId());
+            throw new Conflict(KeyFactorTools.find(Record.class));
         }
-        try {
-            intensionMapper.insertIntension(
-                    record.getId(),
-                    record.getCommit(),
-                    record.getExtId(),
-                    record.getField(),
-                    record.getSingle(),
-                    record.getStructure(),
-                    record.getRefPubSet(),
-                    record.getVisibility(),
-                    record.getRequired(),
-                    now
-            );
-        } catch (DuplicateKeyException duplicated) {
-            logger.error("Duplicated-Key:{}", record.getId());
-            throw new IntensionDai.IntensionDuplicated(record.getId());
-        }
+        intensionMapper.insertIntension(
+                record.getId(),
+                record.getCommit(),
+                record.getExtId(),
+                record.getField(),
+                record.getSingle(),
+                record.getStructure(),
+                record.getRefPubSet(),
+                record.getVisibility(),
+                record.getRequired(),
+                record.getOperatorId(),
+                record.getBeginTime()
+        );
 
     }
 

@@ -3,7 +3,7 @@ package com.sinewang.kiimate.model.core.dai;
 import com.sinewang.kiimate.model.core.dai.mapper.ModelPublicationMapper;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.summer.io.exception.NotFound;
-import one.kii.summer.io.validator.NotNull;
+import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +33,7 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     @Override
     public Publication loadRootPublications(ChannelPubSet channel) throws NotFound {
         Publication publication = modelPublicationMapper.selectRootPublicationsByPubSet(channel.getPubSet());
-        return NotNull.of(Publication.class, publication);
+        return NotBadResponse.of(Publication.class, publication);
     }
 
     @Override

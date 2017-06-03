@@ -5,8 +5,8 @@ import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
-import one.kii.summer.io.validator.Must;
-import one.kii.summer.io.validator.NotNull;
+import one.kii.summer.io.validator.NotBadRequest;
+import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -61,11 +61,12 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
         ModelPubSet record = modelSubscriptionMapper.selectModelPubSetByOwnerSubscription(
                 channel.getOwnerId(),
                 channel.getId());
-        return NotNull.of(ModelPubSet.class, MayHave.class, record);
+        return NotBadResponse.of(ModelPubSet.class, MayHave.class, record);
     }
 
     @Override
-    public List<Status> querySubscriptions(ClueGroup clue) {
+    public List<Status> querySubscriptions(ClueGroup clue) throws BadRequest {
+        NotBadRequest.from(clue);
         return modelSubscriptionMapper.querySubscriptionsByOwnerGroup(
                 clue.getOwnerId(),
                 clue.getGroup());
@@ -73,24 +74,25 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
 
     @Override
     public Status selectSubscription(ChannelGroupNameTree channel) throws NotFound, BadRequest {
-        Must.have(channel);
+        NotBadRequest.from(channel);
         Status record = modelSubscriptionMapper.selectSubscriptionByOwnerGroupNameTree(
                 channel.getOwnerId(),
                 channel.getGroup(),
                 channel.getName(),
                 channel.getTree()
         );
-        return NotNull.of(Status.class, record);
+        return NotBadResponse.of(Status.class, record);
 
     }
 
     @Override
-    public Status selectSubscription(ChannelSubId channel) throws NotFound {
+    public Status selectSubscription(ChannelSubId channel) throws NotFound, BadRequest {
+        NotBadRequest.from(channel);
         Status record = modelSubscriptionMapper.selectByOwnerSubId(
                 channel.getOwnerId(),
                 channel.getId()
         );
-        return NotNull.of(Status.class, record);
+        return NotBadResponse.of(Status.class, record);
     }
 
     @Override

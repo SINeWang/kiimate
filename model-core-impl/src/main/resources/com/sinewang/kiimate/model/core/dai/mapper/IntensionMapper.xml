@@ -14,27 +14,29 @@
         <result column="ref_m_pub_set" property="refPubSet"/>
         <result column="visibility" property="visibility"/>
         <result column="is_required" property="required"/>
+        <result column="operator_id" property="operatorId"/>
     </resultMap>
 
     <select id="selectLatestIntensionsByExtId" resultMap="Intension">
-        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.end_time IS NULL
     </select>
 
     <select id="selectLastIntensionsByExtId" resultMap="Intension">
-        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.begin_time, mint.end_time
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         <![CDATA[
         AND mint.begin_time <= #{beginTime}
         AND ((mint.end_time >= #{beginTime}) OR mint.end_time IS NULL)
+
         ]]>
     </select>
 
     <select id="selectLastIntensionByExtIdField" resultMap="Intension">
-        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.begin_time, mint.end_time
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
@@ -43,7 +45,7 @@
     </select>
 
     <select id="selectLatestIntensionByExtIdField" resultMap="Intension">
-        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.begin_time, mint.end_time
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
@@ -62,6 +64,11 @@
         ]]>
         GROUP BY mint.field
     </select>
+    <select id="selectIntensionByCommit" resultMap="Intension">
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.begin_time, mint.end_time
+        FROM mm_m_int mint
+        WHERE mint.commit = #{commit}
+    </select>
 
     <update id="updateLatestIntensionEndTimeById">
         UPDATE mm_m_int mint
@@ -71,9 +78,9 @@
 
     <insert id="insertIntension">
         INSERT INTO mm_m_int
-        (`id`, `commit`, `ext_id`, `field`, `is_single`, `structure`, `ref_m_pub_set`, `visibility`, `is_required`, `begin_time`)
+        (`id`, `commit`, `ext_id`, `field`, `is_single`, `structure`, `ref_m_pub_set`, `visibility`, `is_required`, `operator_id`, `begin_time`)
         VALUES
-        (#{id}, #{commit}, #{extId}, #{field}, #{single}, #{structure}, #{refPubSet}, #{visibility}, #{required}, #{beginTime})
+        (#{id}, #{commit}, #{extId}, #{field}, #{single}, #{structure}, #{refPubSet}, #{visibility}, #{required}, #{operatorId}, #{beginTime})
     </insert>
 
     <delete id="deleteIntensionsByExtId">

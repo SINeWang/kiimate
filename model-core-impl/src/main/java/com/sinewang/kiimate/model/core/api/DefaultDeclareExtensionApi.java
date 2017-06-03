@@ -4,12 +4,12 @@ import one.kii.kiimate.model.core.api.DeclareExtensionApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.summer.beans.utils.ValueMapping;
-import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
-import one.kii.summer.io.validator.NotNull;
+import one.kii.summer.io.validator.NotBadRequest;
+import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,13 +32,13 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
 
         ExtensionDai.Record record = extensionExtractor.extract(context, form);
 
-        NotNull.of(ExtensionDai.Record.class, MayHave.class, record);
+        NotBadRequest.from(record);
 
         extensionDai.remember(record);
 
         CommitReceipt receipt = ValueMapping.from(CommitReceipt.class, record);
 
-        return NotNull.of(CommitReceipt.class, receipt);
+        return NotBadResponse.of(CommitReceipt.class, receipt);
     }
 
 

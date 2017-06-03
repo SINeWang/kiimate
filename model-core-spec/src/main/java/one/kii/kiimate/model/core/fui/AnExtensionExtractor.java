@@ -4,6 +4,7 @@ import one.kii.kiimate.model.core.api.DeclareExtensionApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.NotFound;
 
 
 /**
@@ -12,7 +13,7 @@ import one.kii.summer.io.exception.BadRequest;
 public interface AnExtensionExtractor {
 
 
-    ExtensionDai.Record extract(WriteContext context, DeclareExtensionApi.CommitForm commitForm) throws BadRequest;
+    ExtensionDai.Record extract(WriteContext context, DeclareExtensionApi.CommitForm commitForm) throws BadRequest, NotFound;
 
     enum Visibility {
         PRIVATE,

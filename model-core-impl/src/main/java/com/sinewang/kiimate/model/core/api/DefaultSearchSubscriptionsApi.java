@@ -4,6 +4,7 @@ import one.kii.kiimate.model.core.api.SearchSubscriptionsApi;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +21,7 @@ public class DefaultSearchSubscriptionsApi implements SearchSubscriptionsApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
-    public List<Subscriptions> search(ReadContext context, QueryForm form) {
+    public List<Subscriptions> search(ReadContext context, QueryForm form) throws BadRequest {
         ModelSubscriptionDai.ClueGroup clue = ValueMapping.from(ModelSubscriptionDai.ClueGroup.class, context, form);
         List<ModelSubscriptionDai.Status> list = modelSubscriptionDai.querySubscriptions(clue);
         return ValueMapping.from(Subscriptions.class, list);

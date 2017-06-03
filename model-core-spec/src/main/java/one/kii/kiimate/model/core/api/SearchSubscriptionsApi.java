@@ -2,6 +2,7 @@ package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public interface SearchSubscriptionsApi {
 
 
-    List<Subscriptions> search(ReadContext context, QueryForm form);
+    List<Subscriptions> search(ReadContext context, QueryForm form) throws BadRequest;
 
 
     @Data

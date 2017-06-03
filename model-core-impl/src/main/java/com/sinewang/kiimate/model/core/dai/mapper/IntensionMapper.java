@@ -25,6 +25,7 @@ public interface IntensionMapper {
             @Param("refPubSet") Long refPubSet,
             @Param("visibility") String visibility,
             @Param("required") Boolean required,
+            @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
 
@@ -43,6 +44,9 @@ public interface IntensionMapper {
     IntensionDai.Record selectLatestIntensionByExtIdField(
             @Param("extId") Long extId,
             @Param("field") String field);
+
+    IntensionDai.Record selectIntensionByCommit(
+            @Param("commit") String commit);
 
     List<String> selectLastFieldsByExtIdPubSet(
             @Param("extId") Long extId,

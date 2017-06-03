@@ -22,13 +22,13 @@ public interface ModelSubscriptionDai {
 
     ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel) throws NotFound;
 
-    List<Status> querySubscriptions(ClueGroup clue);
+    List<Status> querySubscriptions(ClueGroup clue) throws BadRequest;
 
     List<Subscribers> querySubscribers(ClueSubscriberId clue);
 
     Status selectSubscription(ChannelGroupNameTree channel) throws NotFound, BadRequest;
 
-    Status selectSubscription(ChannelSubId channel) throws NotFound;
+    Status selectSubscription(ChannelSubId channel) throws NotFound, BadRequest;
 
     Integer countModelSubscriptions(Long pubSet);
 

@@ -3,7 +3,9 @@ package one.kii.kiimate.model.core.api;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import one.kii.summer.asdf.xi.CommitApi;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.WriteContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 
@@ -16,7 +18,7 @@ import java.util.Map;
 public interface DeclareIntensionApi extends CommitApi<DeclareIntensionApi.Receipt, WriteContext, DeclareIntensionApi.Form> {
 
 
-    Receipt commit(WriteContext context, Form form) throws Conflict, NotFound;
+    Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound;
 
     @Data
     @EqualsAndHashCode(callSuper = false)
@@ -30,6 +32,7 @@ public interface DeclareIntensionApi extends CommitApi<DeclareIntensionApi.Recei
 
         private String structure;
 
+        @MayHave
         private String refPubSet;
 
         private String visibility;
