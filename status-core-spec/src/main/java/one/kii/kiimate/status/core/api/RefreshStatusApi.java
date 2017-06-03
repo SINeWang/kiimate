@@ -37,7 +37,7 @@ public interface RefreshStatusApi {
     class Receipt {
         String subId;
         String ownerId;
-        List<VisitStatusApi.Intension> intensions;
+        List<VisitFatStatusApi.Intension> intensions;
         Map<String, Object> map;
     }
 

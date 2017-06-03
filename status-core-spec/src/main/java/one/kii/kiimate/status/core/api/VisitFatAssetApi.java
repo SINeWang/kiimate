@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 21/05/2017.
  */
-public interface VisitAssetApi {
+public interface VisitFatAssetApi {
 
 
     String STABILITY_LATEST = "latest";

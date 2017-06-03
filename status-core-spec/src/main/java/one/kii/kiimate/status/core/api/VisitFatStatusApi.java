@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by WangYanJiong on 4/5/17.
  */
 
-public interface VisitStatusApi {
+public interface VisitFatStatusApi {
 
     String TREE_MASTER = "master";
 

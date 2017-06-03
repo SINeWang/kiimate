@@ -2,7 +2,7 @@ package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.status.core.api.VisitStatusApi;
+import one.kii.kiimate.status.core.api.VisitFatStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.ValueMapping;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 
 @Component
-public class DefaultVisitStatusApi implements VisitStatusApi {
+public class DefaultVisitFatStatusApi implements VisitFatStatusApi {
 
     @Autowired
     private InstanceDai instanceDai;

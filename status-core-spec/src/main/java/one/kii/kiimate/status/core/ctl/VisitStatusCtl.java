@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.VisitStatusApi;
+import one.kii.kiimate.status.core.api.VisitFatStatusApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
@@ -29,10 +29,10 @@ public class VisitStatusCtl extends ReadController {
     public static final String TREE = "tree";
 
     @Autowired
-    private VisitStatusApi api;
+    private VisitFatStatusApi api;
 
     @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + TREE + ":.+}")
-    public ResponseEntity<VisitStatusApi.Receipt> visit(
+    public ResponseEntity<VisitFatStatusApi.Receipt> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -41,7 +41,7 @@ public class VisitStatusCtl extends ReadController {
             @PathVariable(TREE) String tree) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
-        VisitStatusApi.GroupNameTreeForm form = new VisitStatusApi.GroupNameTreeForm();
+        VisitFatStatusApi.GroupNameTreeForm form = new VisitFatStatusApi.GroupNameTreeForm();
         form.setGroup(group);
         form.setName(name);
         if (null != name) {

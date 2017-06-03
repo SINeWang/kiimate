@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.VisitAssetApi;
+import one.kii.kiimate.status.core.api.VisitFatAssetApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
@@ -34,11 +34,11 @@ public class VisitAssetCtl extends ReadController {
     public static final String NAME = "name";
 
     @Autowired
-    private VisitAssetApi api;
+    private VisitFatAssetApi api;
 
 
     @RequestMapping(value = "/{" + PUB_SET + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
-    public ResponseEntity<VisitAssetApi.Asset> visit(
+    public ResponseEntity<VisitFatAssetApi.Asset> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -46,7 +46,7 @@ public class VisitAssetCtl extends ReadController {
             @PathVariable(STABILITY) String stability,
             @PathVariable(VERSION) String version) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
-        VisitAssetApi.PubSetForm form = new VisitAssetApi.PubSetForm();
+        VisitFatAssetApi.PubSetForm form = new VisitFatAssetApi.PubSetForm();
         form.setPubSet(pubSet);
         form.setVersion(version);
         form.setStability(stability);
@@ -58,7 +58,7 @@ public class VisitAssetCtl extends ReadController {
     }
 
     @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
-    public ResponseEntity<VisitAssetApi.Asset> visit(
+    public ResponseEntity<VisitFatAssetApi.Asset> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -68,7 +68,7 @@ public class VisitAssetCtl extends ReadController {
             @PathVariable(VERSION) String version) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
-        VisitAssetApi.GroupNameForm form = new VisitAssetApi.GroupNameForm();
+        VisitFatAssetApi.GroupNameForm form = new VisitFatAssetApi.GroupNameForm();
         form.setGroup(group);
         form.setName(name);
         if (null != stability) {
