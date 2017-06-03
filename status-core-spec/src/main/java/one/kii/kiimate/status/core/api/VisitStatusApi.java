@@ -4,7 +4,6 @@ import lombok.Data;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -14,14 +13,10 @@ import java.util.Map;
 
 public interface VisitStatusApi {
 
+    String TREE_MASTER = "master";
 
-    Receipt visit(ReadContext context, Form form) throws NotFound;
 
-    @Data
-    class Form {
-        String ownerId;
-        Long subId;
-    }
+    Receipt visit(ReadContext context, GroupNameTreeForm form) throws NotFound;
 
     @Data
     class Receipt {
@@ -31,7 +26,12 @@ public interface VisitStatusApi {
         Map<String, Object> map;
     }
 
-
+    @Data
+    class GroupNameTreeForm {
+        String group;
+        String name;
+        String tree = TREE_MASTER;
+    }
 
     @Data
     class Intension {

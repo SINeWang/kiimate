@@ -34,23 +34,28 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
     private InstanceTransformer instanceTransformer;
 
     @Override
-    public Receipt visit(ReadContext context, Form form) throws NotFound {
-        ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, form, context);
+    public Receipt visit(ReadContext context, GroupNameTreeForm form) throws NotFound {
+        ModelSubscriptionDai.ChannelGroupNameTree channel = ValueMapping.from(ModelSubscriptionDai.ChannelGroupNameTree.class, form, context);
 
-        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(channel);
+        ModelSubscriptionDai.ModelSubscription subscription = modelSubscriptionDai.selectSubscription(channel);
 
-        IntensionDai.ChannelLastExtension last = new IntensionDai.ChannelLastExtension();
-        last.setId(model.getRootExtId());
-        last.setBeginTime(model.getBeginTime());
+        ModelSubscriptionDai.ChannelSubId subId = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context);
+
+        subId.setSubId(subscription.getId());
+
+        ModelSubscriptionDai.ModelPubSet modelPubSet = modelSubscriptionDai.getModelPubSetByOwnerSubscription(subId);
+
+        IntensionDai.ChannelLastExtension last = ValueMapping.from(IntensionDai.ChannelLastExtension.class, modelPubSet);
+        last.setId(modelPubSet.getRootExtId());
 
         List<IntensionDai.Record> records = intensionDai.loadLast(last);
         List<Intension> intensions = ValueMapping.from(Intension.class, records);
 
 
-        InstanceDai.ChannelModelSubId subId = ValueMapping.from(InstanceDai.ChannelModelSubId.class, form);
-        List<InstanceDai.Instance> instances = instanceDai.loadInstances(subId);
+        InstanceDai.ChannelModelSubId modelSubId = ValueMapping.from(InstanceDai.ChannelModelSubId.class, subId);
+        List<InstanceDai.Instance> instances = instanceDai.loadInstances(modelSubId);
 
-        Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);
+        Map<String, Object> map = instanceTransformer.toTimedValue(instances, modelPubSet);
 
         Receipt receipt = ValueMapping.from(Receipt.class, form, context);
         receipt.setMap(map);
@@ -58,6 +63,5 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
 
         return receipt;
     }
-
 
 }

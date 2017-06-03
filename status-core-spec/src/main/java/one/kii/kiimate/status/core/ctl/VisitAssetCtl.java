@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.VisitRawAssetsApi;
+import one.kii.kiimate.status.core.api.VisitAssetApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
@@ -9,21 +9,17 @@ import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.yaml.snakeyaml.DumperOptions;
-import org.yaml.snakeyaml.Yaml;
-
-import java.util.Map;
 
 import static one.kii.kiimate.status.core.ctl.VisitAssetCtl.OWNER_ID;
 
 
 /**
- * Created by WangYanJiong on 23/05/2017.
+ * Created by WangYanJiong on 21/05/2017.
  */
 @RestController
 @RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/asset", method = RequestMethod.GET)
 @CrossOrigin(origins = "*")
-public class VisitRawAssetCtl extends ReadController {
+public class VisitAssetCtl extends ReadController {
 
     public static final String OWNER_ID = "owner-id";
 
@@ -37,14 +33,12 @@ public class VisitRawAssetCtl extends ReadController {
 
     public static final String NAME = "name";
 
-    public static final String FORMAT_YML = "yml";
-
-
     @Autowired
-    private VisitRawAssetsApi api;
+    private VisitAssetApi api;
 
-    @RequestMapping(value = "/{" + PUB_SET + "}/{" + STABILITY + "}/{" + VERSION + ":.+}/raw")
-    public ResponseEntity<Map<String, Object>> visit(
+
+    @RequestMapping(value = "/{" + PUB_SET + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
+    public ResponseEntity<VisitAssetApi.Asset> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -52,30 +46,29 @@ public class VisitRawAssetCtl extends ReadController {
             @PathVariable(STABILITY) String stability,
             @PathVariable(VERSION) String version) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
-        VisitRawAssetsApi.PubSetForm form = new VisitRawAssetsApi.PubSetForm();
+        VisitAssetApi.PubSetForm form = new VisitAssetApi.PubSetForm();
         form.setPubSet(pubSet);
         form.setVersion(version);
         form.setStability(stability);
         try {
             return ErestResponse.ok(requestId, api.visit(context, form));
         } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKey());
+            return ErestResponse.notFound(requestId, notFound.getKeys());
         }
     }
 
-    @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}/raw")
-    public ResponseEntity<?> visit(
+    @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
+    public ResponseEntity<VisitAssetApi.Asset> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(GROUP) String group,
             @PathVariable(NAME) String name,
             @PathVariable(STABILITY) String stability,
-            @PathVariable(VERSION) String version,
-            @RequestParam(value = FORMAT_YML, required = false) String yml) {
+            @PathVariable(VERSION) String version) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
-        VisitRawAssetsApi.GroupNameForm form = new VisitRawAssetsApi.GroupNameForm();
+        VisitAssetApi.GroupNameForm form = new VisitAssetApi.GroupNameForm();
         form.setGroup(group);
         form.setName(name);
         if (null != stability) {
@@ -85,18 +78,10 @@ public class VisitRawAssetCtl extends ReadController {
             form.setVersion(version);
         }
         try {
-            if (yml == null) {
-                return ErestResponse.ok(requestId, api.visit(context, form));
-            } else {
-                DumperOptions options = new DumperOptions();
-                options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-                Yaml yaml = new Yaml(options);
-                return ErestResponse.ok(requestId, yaml.dump(api.visit(context, form)));
-            }
+            return ErestResponse.ok(requestId, api.visit(context, form));
         } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKey());
+            return ErestResponse.notFound(requestId, notFound.getKeys());
         }
     }
-
 
 }
