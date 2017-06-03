@@ -3,13 +3,17 @@ package one.kii.kiimate.status.core.dai;
 import lombok.Data;
 import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.exception.NotFound;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by WangYanJiong on 27/05/2017.
  */
-public interface AssetsDai {
+public interface AssetDai {
+
+    List<Providers> queryProviders(ClueId clue);
 
     List<Asset> query(ClueGroup clue);
 
@@ -18,6 +22,40 @@ public interface AssetsDai {
     Asset load(ChannelPubSet channel) throws NotFound;
 
     Asset load(ChannelModelSubId channel) throws NotFound;
+
+    @Transactional
+    void save(Record record);
+
+    @Data
+    class Record {
+        String id;
+
+        @KeyFactor
+        String subscriberId;
+
+        @KeyFactor
+        String subSet;
+
+        String operatorId;
+
+        @KeyFactor
+        Date beginTime;
+    }
+
+    @Data
+    class Subscribers {
+        String id;
+    }
+    @Data
+    class ClueId {
+        String id;
+    }
+
+    @Data
+    class Providers {
+        String id;
+    }
+
 
     @Data
     class ClueGroup {

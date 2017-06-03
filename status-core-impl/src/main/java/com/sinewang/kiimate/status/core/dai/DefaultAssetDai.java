@@ -1,7 +1,7 @@
 package com.sinewang.kiimate.status.core.dai;
 
 import com.sinewang.kiimate.status.core.dai.mapper.AssetsMapper;
-import one.kii.kiimate.status.core.dai.AssetsDai;
+import one.kii.kiimate.status.core.dai.AssetDai;
 import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,31 @@ import java.util.List;
  * Created by WangYanJiong on 27/05/2017.
  */
 @Component
-public class DefaultAssetsDai implements AssetsDai {
+public class DefaultAssetDai implements AssetDai {
 
     @Autowired
     private AssetsMapper assetsMapper;
+
+
+    @Override
+    public void save(Record record) {
+        int count = assetsMapper.countById(record.getId());
+        if (count == 0) {
+            assetsMapper.insert(
+                    record.getId(),
+                    record.getSubscriberId(),
+                    record.getSubSet(),
+                    record.getOperatorId(),
+                    record.getBeginTime()
+            );
+        }
+    }
+
+    @Override
+    public List<Providers> queryProviders(ClueId clue) {
+        return assetsMapper.queryProviders(
+                clue.getId());
+    }
 
 
     @Override

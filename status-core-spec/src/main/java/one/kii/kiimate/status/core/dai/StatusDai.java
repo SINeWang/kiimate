@@ -9,23 +9,10 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 19/05/2017.
  */
-public interface AssetPublicationDai {
+public interface StatusDai {
 
     @Transactional
     Date save(Record record);
-
-    List<Providers> queryProviders(ClueId clue);
-
-    @Data
-    class ClueId{
-        String id;
-    }
-
-    @Data
-    class Providers {
-        String id;
-
-    }
 
     @Data
     class Record {
@@ -34,7 +21,7 @@ public interface AssetPublicationDai {
 
         List<Entry> entries;
 
-        AssetsDai.Asset previous;
+        AssetDai.Asset previous;
 
         String operatorId;
     }

@@ -1,7 +1,7 @@
 package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.status.core.api.SubscribeAssetApi;
-import one.kii.kiimate.status.core.dai.AssetSubscriptionDai;
+import one.kii.kiimate.status.core.dai.AssetDai;
 import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
@@ -20,13 +20,13 @@ import java.util.Date;
 public class DefaultSubscribeAssetApi implements SubscribeAssetApi {
 
     @Autowired
-    private AssetSubscriptionDai assetSubscriptionDai;
+    private AssetDai assetDai;
 
     @Override
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
 
 
-        AssetSubscriptionDai.Record record = ValueMapping.from(AssetSubscriptionDai.Record.class, form, context);
+        AssetDai.Record record = ValueMapping.from(AssetDai.Record.class, form, context);
 
         record.setSubscriberId(context.getOwnerId());
 
@@ -34,7 +34,7 @@ public class DefaultSubscribeAssetApi implements SubscribeAssetApi {
         String id = HashTools.hashHex(record);
         record.setId(id);
 
-        assetSubscriptionDai.save(record);
+        assetDai.save(record);
 
         return ValueMapping.from(Receipt.class, record);
 

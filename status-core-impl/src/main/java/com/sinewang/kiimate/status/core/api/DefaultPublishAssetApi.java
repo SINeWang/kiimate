@@ -3,9 +3,9 @@ package com.sinewang.kiimate.status.core.api;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.PublishAssetApi;
-import one.kii.kiimate.status.core.dai.AssetPublicationDai;
+import one.kii.kiimate.status.core.dai.StatusDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
-import one.kii.kiimate.status.core.dai.AssetsDai;
+import one.kii.kiimate.status.core.dai.AssetDai;
 import one.kii.kiimate.status.core.fui.AssetPublicationExtractor;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
@@ -29,7 +29,7 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
     private static final Eid64Generator pubset = new Eid64Generator(6);
 
     @Autowired
-    private AssetPublicationDai assetPublicationDai;
+    private StatusDai statusDai;
 
     @Autowired
     private InstanceDai instanceDai;
@@ -38,7 +38,7 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
     private AssetPublicationExtractor assetPublicationExtractor;
 
     @Autowired
-    private AssetsDai assetsDai;
+    private AssetDai assetDai;
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
@@ -48,32 +48,32 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
 
         AssetPublicationExtractor.Informal informal = assetPublicationExtractor.extract(context, form);
 
-        AssetsDai.ChannelModelSubId channelModelSubId = ValueMapping.from(AssetsDai.ChannelModelSubId.class, informal);
+        AssetDai.ChannelModelSubId channelModelSubId = ValueMapping.from(AssetDai.ChannelModelSubId.class, informal);
         channelModelSubId.setOwnerId(informal.getProviderId());
-        AssetsDai.Asset previous = assetsDai.load(channelModelSubId);
+        AssetDai.Asset previous = assetDai.load(channelModelSubId);
 
 
         InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, previous);
 
         List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusPubSet);
 
-        List<AssetPublicationDai.Entry> entries = new ArrayList<>();
+        List<StatusDai.Entry> entries = new ArrayList<>();
 
 
         for (InstanceDai.Instance instance : instances) {
-            AssetPublicationDai.Entry record = ValueMapping.from(AssetPublicationDai.Entry.class, informal);
+            StatusDai.Entry record = ValueMapping.from(StatusDai.Entry.class, informal);
             record.setInsId(instance.getId());
             record.setId(insgen.born());
             record.setVersion(informal.getVersion());
             entries.add(record);
         }
 
-        AssetPublicationDai.Record record = ValueMapping.from(AssetPublicationDai.Record.class, context);
+        StatusDai.Record record = ValueMapping.from(StatusDai.Record.class, context);
         record.setPubSet(pubset.born());
         record.setEntries(entries);
         record.setPrevious(previous);
 
-        Date date = assetPublicationDai.save(record);
+        Date date = statusDai.save(record);
         Map map = new HashMap<>();
         ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, form);
         channel.setOwnerId(informal.getProviderId());
