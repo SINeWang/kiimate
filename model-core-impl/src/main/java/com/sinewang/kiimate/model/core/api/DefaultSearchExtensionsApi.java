@@ -18,7 +18,7 @@ public class DefaultSearchExtensionsApi implements SearchExtensionsApi {
 
     static final private String PREFIX_RELEASE = "release";
 
-    static final private String PREFIX_SNAPSHOT = "snapshot";
+    static final private String PREFIX_MILESTONE = "milestone";
 
     @Autowired
     private ExtensionDai extensionDai;
@@ -36,7 +36,7 @@ public class DefaultSearchExtensionsApi implements SearchExtensionsApi {
             if (extension.getTree().startsWith(PREFIX_RELEASE)) {
                 continue;
             }
-            if (extension.getTree().startsWith(PREFIX_SNAPSHOT)) {
+            if (extension.getTree().startsWith(PREFIX_MILESTONE)) {
                 continue;
             }
             list.add(extension);
