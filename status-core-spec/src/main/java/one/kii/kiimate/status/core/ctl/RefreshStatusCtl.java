@@ -4,6 +4,7 @@ import one.kii.kiimate.status.core.api.RefreshStatusApi;
 import one.kii.summer.beans.utils.MultiValueMapTools;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.receiver.ErestResponse;
@@ -100,7 +101,7 @@ public class RefreshStatusCtl extends WriteController {
         } catch (NotFound notFound) {
             return ErestResponse.notFound(requestId, notFound.getKey());
         } catch (Conflict conflict) {
-            return ErestResponse.conflict(requestId, conflict.getKeys()[0]);
+            return ErestResponse.conflict(requestId, conflict.getKeys());
         }
     }
 
@@ -123,7 +124,9 @@ public class RefreshStatusCtl extends WriteController {
         } catch (NotFound notFound) {
             return ErestResponse.notFound(requestId, notFound.getKey());
         } catch (Conflict conflict) {
-            return ErestResponse.conflict(requestId, conflict.getKeys()[0]);
+            return ErestResponse.conflict(requestId, conflict.getKeys());
+        } catch (BadRequest badRequest) {
+            return ErestResponse.badRequest(requestId, badRequest.getFields());
         }
     }
 

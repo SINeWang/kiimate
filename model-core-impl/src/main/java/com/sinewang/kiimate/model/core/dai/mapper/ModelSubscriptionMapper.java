@@ -34,7 +34,7 @@ public interface ModelSubscriptionMapper {
 
     int countModelSubscriptions(@Param("subSet") Long subSet);
 
-    List<ModelSubscriptionDai.ModelSubscription> querySubscriptionsByOwnerGroup(
+    List<ModelSubscriptionDai.Status> querySubscriptionsByOwnerGroup(
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 
@@ -42,7 +42,7 @@ public interface ModelSubscriptionMapper {
             @Param("ownerId") String ownerId,
             @Param("subId") Long subId);
 
-    ModelSubscriptionDai.ModelSubscription selectSubscriptionByOwnerGroupNameTree(
+    ModelSubscriptionDai.Status selectSubscriptionByOwnerGroupNameTree(
             @Param("ownerId") String ownerId,
             @Param("group") String group,
             @Param("name") String name,
@@ -52,7 +52,7 @@ public interface ModelSubscriptionMapper {
     List<ModelSubscriptionDai.Subscribers> querySubscriberId(@Param("subscriberId") String subscriberId);
 
 
-    ModelSubscriptionDai.ModelSubscription selectByOwnerSubId(
+    ModelSubscriptionDai.Status selectByOwnerSubId(
             @Param("ownerId") String ownerId,
             @Param("subId") Long subId);
 }

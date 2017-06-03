@@ -2,6 +2,7 @@ package one.kii.kiimate.status.core.api;
 
 import lombok.Data;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 
 import java.util.Map;
@@ -15,7 +16,7 @@ public interface VisitRawStatusApi {
     String TREE_MASTER = "master";
 
 
-    Map<String, Object> visit(ReadContext context, GroupNameTreeForm form) throws NotFound;
+    Map<String, Object> visit(ReadContext context, GroupNameTreeForm form) throws NotFound, BadRequest;
 
     @Data
     class GroupNameTreeForm {

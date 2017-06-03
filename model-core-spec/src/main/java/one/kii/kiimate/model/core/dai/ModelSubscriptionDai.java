@@ -3,6 +3,7 @@ package one.kii.kiimate.model.core.dai;
 import lombok.Data;
 import lombok.Getter;
 import one.kii.summer.io.annotations.MustHave;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,17 +17,17 @@ public interface ModelSubscriptionDai {
 
 
     @Transactional
-    void remember(ModelSubscription modelSubscription) throws DuplicatedSubscription;
+    void remember(Status status) throws DuplicatedSubscription;
 
     ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel) throws NotFound;
 
-    List<ModelSubscription> querySubscriptions(ClueGroup clue);
+    List<Status> querySubscriptions(ClueGroup clue);
 
     List<Subscribers> querySubscribers(ClueSubscriberId clue);
 
-    ModelSubscription selectSubscription(ChannelGroupNameTree channel) throws NotFound;
+    Status selectSubscription(ChannelGroupNameTree channel) throws NotFound, BadRequest;
 
-    ModelSubscription selectSubscription(ChannelSubId channel) throws NotFound;
+    Status selectSubscription(ChannelSubId channel) throws NotFound;
 
     Integer countModelSubscriptions(Long pubSet);
 
@@ -78,7 +79,7 @@ public interface ModelSubscriptionDai {
     }
 
     @Data
-    class ModelSubscription {
+    class Status {
         private Long id;
 
         private Long subSet;

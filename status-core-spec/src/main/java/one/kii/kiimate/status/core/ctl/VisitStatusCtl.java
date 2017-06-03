@@ -4,6 +4,7 @@ import one.kii.kiimate.status.core.api.VisitFatStatusApi;
 import one.kii.kiimate.status.core.api.VisitRawStatusApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.ReadController;
@@ -61,7 +62,9 @@ public class VisitStatusCtl extends ReadController {
         try {
             return ErestResponse.ok(requestId, api.visit(context, form));
         } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKey());
+            return ErestResponse.notFound(requestId, notFound.getKeys());
+        } catch (BadRequest badRequest) {
+            return ErestResponse.notFound(requestId, badRequest.getFields());
         }
     }
 

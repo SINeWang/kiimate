@@ -28,7 +28,7 @@ public class DefaultSubscribeModelsApi implements SubscribeModelsApi {
         AnSubscribeModelExtractor.ModelSubscription modelSubscription = subscribeModelExtractor.extract(
                 form, context);
 
-        ModelSubscriptionDai.ModelSubscription subscription = ValueMapping.from(ModelSubscriptionDai.ModelSubscription.class, modelSubscription);
+        ModelSubscriptionDai.Status subscription = ValueMapping.from(ModelSubscriptionDai.Status.class, modelSubscription);
 
         try {
             modelSubscriptionDai.remember(subscription);

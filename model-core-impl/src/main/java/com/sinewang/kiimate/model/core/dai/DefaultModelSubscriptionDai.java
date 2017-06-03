@@ -2,7 +2,9 @@ package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.validator.Must;
 import one.kii.summer.io.validator.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,32 +25,32 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
 
 
     @Override
-    public void remember(ModelSubscription modelSubscription) throws DuplicatedSubscription {
+    public void remember(Status status) throws DuplicatedSubscription {
         int count = modelSubscriptionMapper.countLatestSubscription(
-                modelSubscription.getSubSet(),
-                modelSubscription.getSubscriberId(),
-                modelSubscription.getGroup(),
-                modelSubscription.getName(),
-                modelSubscription.getTree()
+                status.getSubSet(),
+                status.getSubscriberId(),
+                status.getGroup(),
+                status.getName(),
+                status.getTree()
         );
         if (count > 0) {
             throw new DuplicatedSubscription(
-                    modelSubscription.getSubSet(),
-                    modelSubscription.getSubscriberId(),
-                    modelSubscription.getGroup(),
-                    modelSubscription.getName(),
-                    modelSubscription.getTree()
+                    status.getSubSet(),
+                    status.getSubscriberId(),
+                    status.getGroup(),
+                    status.getName(),
+                    status.getTree()
             );
         }
         Date now = new Date();
         modelSubscriptionMapper.insertSubscription(
-                modelSubscription.getId(),
-                modelSubscription.getSubSet(),
-                modelSubscription.getSubscriberId(),
-                modelSubscription.getGroup(),
-                modelSubscription.getName(),
-                modelSubscription.getTree(),
-                modelSubscription.getOperatorId(),
+                status.getId(),
+                status.getSubSet(),
+                status.getSubscriberId(),
+                status.getGroup(),
+                status.getName(),
+                status.getTree(),
+                status.getOperatorId(),
                 now
         );
     }
@@ -62,31 +64,32 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public List<ModelSubscription> querySubscriptions(ClueGroup clue) {
+    public List<Status> querySubscriptions(ClueGroup clue) {
         return modelSubscriptionMapper.querySubscriptionsByOwnerGroup(
                 clue.getOwnerId(),
                 clue.getGroup());
     }
 
     @Override
-    public ModelSubscription selectSubscription(ChannelGroupNameTree channel) throws NotFound {
-        ModelSubscription record = modelSubscriptionMapper.selectSubscriptionByOwnerGroupNameTree(
+    public Status selectSubscription(ChannelGroupNameTree channel) throws NotFound, BadRequest {
+        Must.have(channel);
+        Status record = modelSubscriptionMapper.selectSubscriptionByOwnerGroupNameTree(
                 channel.getOwnerId(),
                 channel.getGroup(),
                 channel.getName(),
                 channel.getTree()
         );
-        return NotNull.of(ModelSubscription.class, record);
+        return NotNull.of(Status.class, record);
 
     }
 
     @Override
-    public ModelSubscription selectSubscription(ChannelSubId channel) throws NotFound {
-        ModelSubscription record = modelSubscriptionMapper.selectByOwnerSubId(
+    public Status selectSubscription(ChannelSubId channel) throws NotFound {
+        Status record = modelSubscriptionMapper.selectByOwnerSubId(
                 channel.getOwnerId(),
                 channel.getId()
         );
-        return NotNull.of(ModelSubscription.class, record);
+        return NotNull.of(Status.class, record);
     }
 
     @Override
