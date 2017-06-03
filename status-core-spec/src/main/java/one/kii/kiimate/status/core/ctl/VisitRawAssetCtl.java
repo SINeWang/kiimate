@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.VisitRawAssetsApi;
+import one.kii.kiimate.status.core.api.VisitRawAssetApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.NotFound;
@@ -41,7 +41,7 @@ public class VisitRawAssetCtl extends ReadController {
 
 
     @Autowired
-    private VisitRawAssetsApi api;
+    private VisitRawAssetApi api;
 
     @RequestMapping(value = "/{" + PUB_SET + "}/{" + STABILITY + "}/{" + VERSION + ":.+}/raw")
     public ResponseEntity<Map<String, Object>> visit(
@@ -52,7 +52,7 @@ public class VisitRawAssetCtl extends ReadController {
             @PathVariable(STABILITY) String stability,
             @PathVariable(VERSION) String version) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
-        VisitRawAssetsApi.PubSetForm form = new VisitRawAssetsApi.PubSetForm();
+        VisitRawAssetApi.PubSetForm form = new VisitRawAssetApi.PubSetForm();
         form.setPubSet(pubSet);
         form.setVersion(version);
         form.setStability(stability);
@@ -75,7 +75,7 @@ public class VisitRawAssetCtl extends ReadController {
             @RequestParam(value = FORMAT_YML, required = false) String yml) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
-        VisitRawAssetsApi.GroupNameForm form = new VisitRawAssetsApi.GroupNameForm();
+        VisitRawAssetApi.GroupNameForm form = new VisitRawAssetApi.GroupNameForm();
         form.setGroup(group);
         form.setName(name);
         if (null != stability) {

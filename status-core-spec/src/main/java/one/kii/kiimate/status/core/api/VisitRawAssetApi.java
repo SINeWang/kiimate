@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 23/05/2017.
  */
-public interface VisitRawAssetsApi {
+public interface VisitRawAssetApi {
 
 
     String STABILITY_LATEST = "latest";

@@ -1,7 +1,7 @@
 package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.status.core.api.VisitRawAssetsApi;
+import one.kii.kiimate.status.core.api.VisitRawAssetApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.dai.AssetDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by WangYanJiong on 23/05/2017.
  */
 @Component
-public class DefaultVisitRawAssetApi implements VisitRawAssetsApi {
+public class DefaultVisitRawAssetApi implements VisitRawAssetApi {
 
     @Autowired
     private AssetDai assetDai;
