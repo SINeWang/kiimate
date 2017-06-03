@@ -1,0 +1,47 @@
+package one.kii.kiimate.status.core.api;
+
+import lombok.Data;
+import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.NotFound;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by WangYanJiong on 03/06/2017.
+ */
+public interface VisitFatStatusApi {
+
+
+    Status visit(ReadContext context, SubIdForm form) throws NotFound;
+
+    @Data
+    class Status {
+        List<Intension> intensions;
+        Map<String, Object> map;
+    }
+
+    @Data
+    class SubIdForm {
+        String id;
+    }
+
+    @Data
+    class Intension {
+
+        private String id;
+
+        private String field;
+
+        private Boolean single;
+
+        private String structure;
+
+        private String refPubSet;
+
+        private String visibility;
+
+        private Boolean required;
+    }
+
+}

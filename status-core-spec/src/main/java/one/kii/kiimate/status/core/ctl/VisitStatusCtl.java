@@ -1,5 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
+import one.kii.kiimate.status.core.api.VisitFatStatusApi;
 import one.kii.kiimate.status.core.api.VisitRawStatusApi;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
@@ -21,16 +22,21 @@ import static one.kii.kiimate.status.core.ctl.VisitStatusCtl.OWNER_ID;
 @CrossOrigin(origins = "*")
 public class VisitStatusCtl extends ReadController {
 
-    public static final String OWNER_ID = "owner-id";
+    static final String OWNER_ID = "owner-id";
 
-    public static final String GROUP = "group";
+    static final String GROUP = "group";
 
-    public static final String NAME = "name";
+    static final String NAME = "name";
 
-    public static final String TREE = "tree";
+    static final String TREE = "tree";
+
+    static final String SUB_ID = "sub-id";
 
     @Autowired
     private VisitRawStatusApi api;
+
+    @Autowired
+    private VisitFatStatusApi fatStatusApi;
 
     @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + TREE + ":.+}")
     public ResponseEntity<?> visit(
@@ -54,6 +60,24 @@ public class VisitStatusCtl extends ReadController {
         }
         try {
             return ErestResponse.ok(requestId, api.visit(context, form));
+        } catch (NotFound notFound) {
+            return ErestResponse.notFound(requestId, notFound.getKey());
+        }
+    }
+
+    @RequestMapping(value = "/{" + SUB_ID + "}")
+    public ResponseEntity<?> visit(
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
+            @PathVariable(OWNER_ID) String ownerId,
+            @PathVariable(SUB_ID) String subId) {
+
+        ReadContext context = buildContext(requestId, ownerId, visitorId);
+
+        VisitFatStatusApi.SubIdForm form = new VisitFatStatusApi.SubIdForm();
+        form.setId(subId);
+        try {
+            return ErestResponse.ok(requestId, fatStatusApi.visit(context, form));
         } catch (NotFound notFound) {
             return ErestResponse.notFound(requestId, notFound.getKey());
         }
