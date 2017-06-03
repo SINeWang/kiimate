@@ -1,11 +1,9 @@
 package one.kii.kiimate.model.core.ctl;
 
-import one.kii.kiimate.model.core.api.RemoveIntensionApi;
+import one.kii.kiimate.model.core.api.RevokeIntensionApi;
+import one.kii.summer.asdf.xi.CommitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
-import one.kii.summer.io.exception.Conflict;
-import one.kii.summer.io.exception.NotFound;
-import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.WriteController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,32 +29,23 @@ public class RevokeIntensionCtl extends WriteController {
     public static final String EXT_ID = "ext-id";
 
     @Autowired
-    private RemoveIntensionApi api;
+    private RevokeIntensionApi api;
 
 
     @RequestMapping(method = RequestMethod.PATCH)
-    public ResponseEntity<RemoveIntensionApi.Receipt> commit(
+    public ResponseEntity<RevokeIntensionApi.Receipt> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(EXT_ID) Long extId,
             @PathVariable(INT_ID) Long intId) {
-        try {
-            WriteContext context = buildContext(requestId, operatorId, ownerId);
+        WriteContext context = buildContext(requestId, operatorId, ownerId);
 
-            RemoveIntensionApi.Form form = new RemoveIntensionApi.Form();
-            form.setId(intId);
-            form.setExtId(extId);
-            form.setOwnerId(ownerId);
-
-            RemoveIntensionApi.Receipt receipt = api.commit(context, form);
-
-            return ErestResponse.created(requestId, receipt);
-        } catch (Conflict conflict) {
-            return ErestResponse.conflict(requestId, conflict.getKeys());
-        } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKeys());
-        }
+        RevokeIntensionApi.Form form = new RevokeIntensionApi.Form();
+        form.setId(intId);
+        form.setExtId(extId);
+        form.setOwnerId(ownerId);
+        return CommitApiCaller.call(api, context, form);
     }
 
 }

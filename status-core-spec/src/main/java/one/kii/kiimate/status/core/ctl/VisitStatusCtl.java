@@ -64,7 +64,7 @@ public class VisitStatusCtl extends ReadController {
         } catch (NotFound notFound) {
             return ErestResponse.notFound(requestId, notFound.getKeys());
         } catch (BadRequest badRequest) {
-            return ErestResponse.notFound(requestId, badRequest.getFields());
+            return ErestResponse.notFound(requestId, badRequest.getKeys());
         }
     }
 
@@ -82,7 +82,7 @@ public class VisitStatusCtl extends ReadController {
         try {
             return ErestResponse.ok(requestId, fatStatusApi.visit(context, form));
         } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKey());
+            return ErestResponse.notFound(requestId, notFound.getKeys());
         }
     }
 

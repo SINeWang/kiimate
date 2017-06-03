@@ -2,6 +2,7 @@ package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
 import lombok.Getter;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
@@ -75,6 +76,7 @@ public interface ModelSubscriptionDai {
         Long pubSet;
         Long rootExtId;
         Date beginTime;
+        @MayHave
         Date endTime;
     }
 

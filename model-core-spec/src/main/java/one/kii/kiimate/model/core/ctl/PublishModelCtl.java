@@ -1,12 +1,9 @@
 package one.kii.kiimate.model.core.ctl;
 
 import one.kii.kiimate.model.core.api.PublishModelApi;
+import one.kii.summer.asdf.xi.CommitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
-import one.kii.summer.io.exception.BadRequest;
-import one.kii.summer.io.exception.Conflict;
-import one.kii.summer.io.exception.NotFound;
-import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.WriteController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -60,16 +57,8 @@ public class PublishModelCtl extends WriteController {
             String stability,
             PublishModelApi.Form form) {
         form.setStability(stability);
-        try {
-            WriteContext context = buildContext(requestId, operatorId, ownerId);
-            return ErestResponse.created(requestId, api.commit(context, form));
-        } catch (BadRequest badRequest) {
-            return ErestResponse.badRequest(requestId, badRequest.getFields());
-        } catch (Conflict conflict) {
-            return ErestResponse.conflict(requestId, conflict.getKeys());
-        } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKeys());
-        }
+        WriteContext context = buildContext(requestId, operatorId, ownerId);
+        return CommitApiCaller.call(api, context, form);
     }
 
 

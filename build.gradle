@@ -21,7 +21,7 @@ ext {
     servletApiVersion = '3.1.0'
     springBootVersion = '1.5.3.RELEASE'
     springFrameworkVersion = '4.3.8.RELEASE'
-    summerVersion = '0.4.11'
+    summerVersion = '0.5.0'
 }
 
 scmVersion {
@@ -72,6 +72,7 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
 
         compile("org.springframework.boot:spring-boot-devtools:${springBootVersion}")
 
+        compile group: "one.kii.summer", name: "summer-asdf", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-beans", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-io", version: "${summerVersion}", changing: true
 

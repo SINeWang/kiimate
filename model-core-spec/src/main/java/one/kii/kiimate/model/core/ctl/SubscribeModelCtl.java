@@ -1,10 +1,9 @@
 package one.kii.kiimate.model.core.ctl;
 
 import one.kii.kiimate.model.core.api.SubscribeModelsApi;
+import one.kii.summer.asdf.xi.CommitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
-import one.kii.summer.io.exception.Conflict;
-import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.WriteController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -51,13 +50,8 @@ public class SubscribeModelCtl extends WriteController {
             String operatorId,
             String ownerId,
             SubscribeModelsApi.Form form) {
-        try {
+        WriteContext context = buildContext(requestId, ownerId, operatorId);
 
-            WriteContext context = buildContext(requestId, ownerId, operatorId);
-
-            return ErestResponse.created(requestId, api.commit(context, form));
-        } catch (Conflict conflict) {
-            return ErestResponse.conflict(requestId, conflict.getKeys());
-        }
+        return CommitApiCaller.call(api, context, form);
     }
 }

@@ -1,11 +1,9 @@
 package one.kii.kiimate.model.core.ctl;
 
 import one.kii.kiimate.model.core.api.DeclareIntensionApi;
+import one.kii.summer.asdf.xi.CommitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
-import one.kii.summer.io.exception.Conflict;
-import one.kii.summer.io.exception.NotFound;
-import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.WriteController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -54,15 +52,9 @@ public class DeclareIntensionCtl extends WriteController {
             String operatorId,
             String ownerId,
             DeclareIntensionApi.Form form) {
-        try {
-            WriteContext context = buildContext(requestId, operatorId, ownerId);
+        WriteContext context = buildContext(requestId, operatorId, ownerId);
 
-            return ErestResponse.created(requestId, api.commit(context, form));
-        } catch (Conflict conflict) {
-            return ErestResponse.conflict(requestId, conflict.getKeys());
-        } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKeys());
-        }
+        return CommitApiCaller.call(api, context, form);
     }
 
 

@@ -1,6 +1,6 @@
 package com.sinewang.kiimate.model.core.api;
 
-import one.kii.kiimate.model.core.api.RemoveIntensionApi;
+import one.kii.kiimate.model.core.api.RevokeIntensionApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
 import one.kii.summer.beans.utils.ValueMapping;
@@ -17,7 +17,7 @@ import java.util.Map;
  * Created by WangYanJiong on 09/05/2017.
  */
 @Component
-public class DefaultRemoveIntensionApi implements RemoveIntensionApi {
+public class DefaultRevokeIntensionApi implements RevokeIntensionApi {
 
     @Autowired
     private IntensionDai intensionDai;

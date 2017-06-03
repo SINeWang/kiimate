@@ -1,7 +1,7 @@
 package one.kii.kiimate.status.core.fui;
 
 import lombok.Data;
-import one.kii.kiimate.status.core.api.PublishAssetApi;
+import one.kii.kiimate.status.core.api.PublishStatusApi;
 import one.kii.summer.io.context.WriteContext;
 
 /**
@@ -13,7 +13,7 @@ public interface AssetPublicationExtractor {
 
     String VERSION_HEAD = "HEAD";
 
-    Informal extract(WriteContext context, PublishAssetApi.Form form);
+    Informal extract(WriteContext context, PublishStatusApi.Form form);
 
     @Data
     class Informal {

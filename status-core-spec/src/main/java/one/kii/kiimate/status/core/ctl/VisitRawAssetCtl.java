@@ -59,7 +59,7 @@ public class VisitRawAssetCtl extends ReadController {
         try {
             return ErestResponse.ok(requestId, api.visit(context, form));
         } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKey());
+            return ErestResponse.notFound(requestId, notFound.getKeys());
         }
     }
 
@@ -94,7 +94,7 @@ public class VisitRawAssetCtl extends ReadController {
                 return ErestResponse.ok(requestId, yaml.dump(api.visit(context, form)));
             }
         } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKey());
+            return ErestResponse.notFound(requestId, notFound.getKeys());
         }
     }
 

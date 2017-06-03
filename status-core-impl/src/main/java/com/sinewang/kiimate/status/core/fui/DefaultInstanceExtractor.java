@@ -42,9 +42,8 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
             Long intId = record.getId();
 
             String[] values = cleanUpValues(map.get(field).toArray(new String[0]));
-            Instance instance = ValueMapping.from(Instance.class, context);
+            Instance instance = ValueMapping.from(Instance.class, context, form);
             instance.setId(setgen.born());
-            instance.setSubId(form.getSubId());
             instance.setExtId(record.getExtId());
             instance.setIntId(intId);
             instance.setField(dictField);

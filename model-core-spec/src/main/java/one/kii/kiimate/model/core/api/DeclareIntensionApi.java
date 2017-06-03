@@ -2,6 +2,7 @@ package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import one.kii.summer.asdf.xi.CommitApi;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
@@ -12,7 +13,7 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
-public interface DeclareIntensionApi {
+public interface DeclareIntensionApi extends CommitApi<DeclareIntensionApi.Receipt, WriteContext, DeclareIntensionApi.Form> {
 
 
     Receipt commit(WriteContext context, Form form) throws Conflict, NotFound;

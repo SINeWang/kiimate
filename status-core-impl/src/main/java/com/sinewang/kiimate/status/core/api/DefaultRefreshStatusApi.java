@@ -10,7 +10,6 @@ import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
-import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import org.slf4j.Logger;
@@ -90,19 +89,6 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         receipt.setIntensions(intensions);
 
         return receipt;
-    }
-
-    @Override
-    public Receipt commit(WriteContext context, GroupNameTreeForm form) throws NotFound, Conflict, BadRequest {
-        ModelSubscriptionDai.ChannelGroupNameTree channel = ValueMapping.from(ModelSubscriptionDai.ChannelGroupNameTree.class, form, context);
-        ModelSubscriptionDai.Status subscription = modelSubscriptionDai.selectSubscription(channel);
-        if (subscription == null) {
-            throw new NotFound(KeyFactorTools.find(ModelSubscriptionDai.Status.class));
-        }
-        long subId = subscription.getId();
-        SubIdForm subIdForm = ValueMapping.from(SubIdForm.class, form);
-        subIdForm.setSubId(subId);
-        return commit(context, subIdForm);
     }
 
 }

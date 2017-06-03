@@ -1,8 +1,8 @@
 package one.kii.kiimate.status.core.api;
 
 import lombok.Data;
+import one.kii.summer.asdf.xi.CommitApi;
 import one.kii.summer.io.context.WriteContext;
-import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.util.MultiValueMap;
@@ -14,25 +14,16 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
-public interface RefreshStatusApi {
+public interface RefreshStatusApi extends CommitApi<RefreshStatusApi.Receipt, WriteContext, RefreshStatusApi.SubIdForm> {
 
     Receipt commit(WriteContext context, SubIdForm form) throws NotFound, Conflict;
 
-    Receipt commit(WriteContext context, GroupNameTreeForm form) throws NotFound, Conflict, BadRequest;
-
     @Data
     class SubIdForm {
-        Long subId;
+        String subId;
         MultiValueMap<String, String> map;
     }
 
-    @Data
-    class GroupNameTreeForm {
-        String group;
-        String name;
-        String tree;
-        MultiValueMap<String, String> map;
-    }
 
     @Data
     class Receipt {

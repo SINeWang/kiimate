@@ -2,6 +2,7 @@ package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.validator.Must;
@@ -60,7 +61,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
         ModelPubSet record = modelSubscriptionMapper.selectModelPubSetByOwnerSubscription(
                 channel.getOwnerId(),
                 channel.getId());
-        return NotNull.of(ModelPubSet.class, record);
+        return NotNull.of(ModelPubSet.class, MayHave.class, record);
     }
 
     @Override

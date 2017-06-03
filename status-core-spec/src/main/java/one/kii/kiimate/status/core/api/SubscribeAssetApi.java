@@ -2,6 +2,7 @@ package one.kii.kiimate.status.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import one.kii.summer.asdf.xi.CommitApi;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -12,7 +13,7 @@ import java.util.Date;
 /**
  * Created by WangYanJiong on 22/05/2017.
  */
-public interface SubscribeAssetApi {
+public interface SubscribeAssetApi extends CommitApi<SubscribeAssetApi.Receipt, WriteContext, SubscribeAssetApi.Form> {
 
 
     Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound;

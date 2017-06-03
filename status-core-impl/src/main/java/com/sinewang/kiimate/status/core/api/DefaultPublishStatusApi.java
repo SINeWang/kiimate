@@ -2,7 +2,7 @@ package com.sinewang.kiimate.status.core.api;
 
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.status.core.api.PublishAssetApi;
+import one.kii.kiimate.status.core.api.PublishStatusApi;
 import one.kii.kiimate.status.core.dai.StatusDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.dai.AssetDai;
@@ -21,7 +21,7 @@ import java.util.*;
  * Created by WangYanJiong on 19/05/2017.
  */
 @Component
-public class DefaultPublishAssetApi implements PublishAssetApi {
+public class DefaultPublishStatusApi implements PublishStatusApi {
 
     private static final Eid64Generator insgen = new Eid64Generator(5);
 

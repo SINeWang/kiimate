@@ -7,7 +7,6 @@ import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
-import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,11 +36,6 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
         } catch (ExtensionDai.ExtensionDuplicated extensionDuplicated) {
             throw new Conflict(extension.getCommit());
         }
-    }
-
-    @Override
-    public CancelReceipt cancel(WriteContext context, CancelForm form) throws BadRequest, NotFound {
-        return null;
     }
 
 
