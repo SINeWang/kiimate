@@ -13,7 +13,7 @@ import java.util.Map;
 public interface VisitFatStatusApi {
 
 
-    Status visit(ReadContext context, SubIdForm form) throws NotFound;
+    Status visit(ReadContext context, StatusIdForm form) throws NotFound;
 
     @Data
     class Status {
@@ -22,7 +22,7 @@ public interface VisitFatStatusApi {
     }
 
     @Data
-    class SubIdForm {
+    class StatusIdForm {
         String id;
     }
 

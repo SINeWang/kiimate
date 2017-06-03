@@ -55,11 +55,9 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
 
     @Override
     public ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel) throws NotFound {
-
-
         ModelPubSet record = modelSubscriptionMapper.selectModelPubSetByOwnerSubscription(
                 channel.getOwnerId(),
-                channel.getSubId());
+                channel.getId());
         return NotNull.of(ModelPubSet.class, record);
     }
 
@@ -86,7 +84,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     public ModelSubscription selectSubscription(ChannelSubId channel) throws NotFound {
         ModelSubscription record = modelSubscriptionMapper.selectByOwnerSubId(
                 channel.getOwnerId(),
-                channel.getSubId()
+                channel.getId()
         );
         return NotNull.of(ModelSubscription.class, record);
     }

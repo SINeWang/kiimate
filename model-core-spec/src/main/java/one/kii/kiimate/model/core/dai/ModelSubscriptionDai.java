@@ -61,7 +61,7 @@ public interface ModelSubscriptionDai {
         String ownerId;
 
         @MustHave
-        Long subId;
+        Long id;
     }
 
     @Data

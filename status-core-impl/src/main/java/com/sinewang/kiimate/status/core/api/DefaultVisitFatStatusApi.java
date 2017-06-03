@@ -33,14 +33,13 @@ public class DefaultVisitFatStatusApi implements VisitFatStatusApi {
     private InstanceTransformer instanceTransformer;
 
     @Override
-    public Status visit(ReadContext context, SubIdForm form) throws NotFound {
-        InstanceDai.ChannelModelSubId subId = ValueMapping.from(InstanceDai.ChannelModelSubId.class, form);
+    public Status visit(ReadContext context, StatusIdForm form) throws NotFound {
+        InstanceDai.ChannelStatusId id = ValueMapping.from(InstanceDai.ChannelStatusId.class, form);
 
-        List<InstanceDai.Instance> instances = instanceDai.loadInstances(subId);
+        List<InstanceDai.Instance> instances = instanceDai.loadInstances(id);
 
+        ModelSubscriptionDai.ChannelSubId modelSubId = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, id);
 
-        ModelSubscriptionDai.ChannelSubId modelSubId = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, form);
-        modelSubId.setSubId(subId.getId());
         ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(modelSubId);
 
         Status status = ValueMapping.from(Status.class, model);

@@ -74,7 +74,7 @@ public class VisitStatusCtl extends ReadController {
 
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
-        VisitFatStatusApi.SubIdForm form = new VisitFatStatusApi.SubIdForm();
+        VisitFatStatusApi.StatusIdForm form = new VisitFatStatusApi.StatusIdForm();
         form.setId(subId);
         try {
             return ErestResponse.ok(requestId, fatStatusApi.visit(context, form));

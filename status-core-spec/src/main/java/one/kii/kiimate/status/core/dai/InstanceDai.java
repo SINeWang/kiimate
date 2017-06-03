@@ -16,7 +16,7 @@ public interface InstanceDai {
     @Transactional
     void remember(List<Record> records) throws InstanceDuplicated;
 
-    List<Instance> loadInstances(ChannelModelSubId channel);
+    List<Instance> loadInstances(ChannelStatusId channel);
 
     List<Instance> loadInstances(ChannelStatusPubSet channel);
 
@@ -26,7 +26,7 @@ public interface InstanceDai {
     }
 
     @Data
-    class ChannelModelSubId {
+    class ChannelStatusId {
         Long id;
     }
 

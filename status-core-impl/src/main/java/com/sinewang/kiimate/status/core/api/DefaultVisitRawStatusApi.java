@@ -1,6 +1,5 @@
 package com.sinewang.kiimate.status.core.api;
 
-import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.VisitRawStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
@@ -36,17 +35,12 @@ public class DefaultVisitRawStatusApi implements VisitRawStatusApi {
 
         ModelSubscriptionDai.ModelSubscription subscription = modelSubscriptionDai.selectSubscription(channel);
 
-        ModelSubscriptionDai.ChannelSubId subId = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context);
-
-        subId.setSubId(subscription.getId());
+        ModelSubscriptionDai.ChannelSubId subId = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, subscription);
 
         ModelSubscriptionDai.ModelPubSet modelPubSet = modelSubscriptionDai.getModelPubSetByOwnerSubscription(subId);
 
-        IntensionDai.ChannelLastExtension last = ValueMapping.from(IntensionDai.ChannelLastExtension.class, modelPubSet);
-        last.setId(modelPubSet.getRootExtId());
-
-        InstanceDai.ChannelModelSubId modelSubId = ValueMapping.from(InstanceDai.ChannelModelSubId.class, subscription);
-        List<InstanceDai.Instance> instances = instanceDai.loadInstances(modelSubId);
+        InstanceDai.ChannelStatusId statusId = ValueMapping.from(InstanceDai.ChannelStatusId.class, subscription);
+        List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusId);
 
         return instanceTransformer.toRawValue(instances, modelPubSet);
     }
