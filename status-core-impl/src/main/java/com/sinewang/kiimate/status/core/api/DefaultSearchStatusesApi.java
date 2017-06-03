@@ -1,7 +1,6 @@
 package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.status.core.api.SearchStatusesApi;
-import one.kii.kiimate.status.core.dai.AssetDai;
 import one.kii.kiimate.status.core.dai.StatusDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
@@ -26,6 +25,5 @@ public class DefaultSearchStatusesApi implements SearchStatusesApi {
         List<StatusDai.Status> statuses = statusDai.query(clue);
         return ValueMapping.from(Statuses.class, statuses);
     }
-
-
+    
 }
