@@ -3,6 +3,7 @@ package com.sinewang.kiimate.model.core.dai;
 import com.sinewang.kiimate.model.core.dai.mapper.IntensionMapper;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.summer.beans.utils.KeyFactorTools;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,8 +49,12 @@ public class DefaultIntensionDai implements IntensionDai {
     }
 
     @Override
-    public List<Record> load(ChannelLatestExtension channel) {
-        return intensionMapper.selectLatestIntensionsByExtId(channel.getId());
+    public List<Record> load(ChannelLatestExtension channel) throws BadRequest {
+        List<Record> records = intensionMapper.selectLatestIntensionsByExtId(channel.getId());
+        if (records.isEmpty()) {
+            throw new BadRequest("id");
+        }
+        return records;
     }
 
 

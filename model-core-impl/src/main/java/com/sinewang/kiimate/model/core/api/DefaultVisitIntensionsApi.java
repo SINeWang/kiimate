@@ -5,6 +5,7 @@ import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
 
 
     @Override
-    public Receipt visit(ReadContext context, Form form) throws NotFound {
+    public Receipt visit(ReadContext context, Form form) throws BadRequest, NotFound {
 
         ExtensionDai.Record extension = ValueMapping.from(ExtensionDai.Record.class, form, context);
 

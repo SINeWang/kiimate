@@ -3,6 +3,7 @@ package one.kii.kiimate.model.core.dai;
 import lombok.Data;
 import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.annotations.MayHave;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,7 @@ public interface IntensionDai {
     @Transactional
     void remember(Record record) throws Conflict;
 
-    List<Record> load(ChannelLatestExtension channel);
+    List<Record> load(ChannelLatestExtension channel) throws BadRequest;
 
     List<Record> loadLast(ChannelLastExtension channel);
 

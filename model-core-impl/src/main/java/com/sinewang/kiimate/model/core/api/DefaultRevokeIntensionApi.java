@@ -5,6 +5,7 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class DefaultRevokeIntensionApi implements RevokeIntensionApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    public Receipt commit(WriteContext context, Form form) throws Conflict, NotFound {
+    public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
         IntensionDai.ChannelId channel = ValueMapping.from(IntensionDai.ChannelId.class, form);
         intensionDai.forget(channel);
 

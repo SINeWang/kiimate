@@ -42,9 +42,6 @@ public class DefaultPublishModelApi implements PublishModelApi {
         List<IntensionDai.Record> allRecords = new ArrayList<>();
 
         List<IntensionDai.Record> records = intensionDai.load(latest);
-        if (records.isEmpty()) {
-            throw new NotFound(new String[]{"records"});
-        }
         allRecords.addAll(records);
 
         List<ModelPublicationDai.Record> publications = publicationExtractor.extract(context, form, records);

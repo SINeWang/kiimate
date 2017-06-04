@@ -7,7 +7,6 @@ import one.kii.summer.io.context.ReadContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,10 +14,6 @@ import java.util.List;
  */
 @Component
 public class DefaultSearchExtensionsApi implements SearchExtensionsApi {
-
-    static final private String PREFIX_RELEASE = "release";
-
-    static final private String PREFIX_MILESTONE = "milestone";
 
     @Autowired
     private ExtensionDai extensionDai;
@@ -29,19 +24,7 @@ public class DefaultSearchExtensionsApi implements SearchExtensionsApi {
         ExtensionDai.ClueGroup clue = ValueMapping.from(ExtensionDai.ClueGroup.class, form);
         List<ExtensionDai.Record> recordList = extensionDai.search(clue);
 
-        List<Extension> extensions = ValueMapping.from(Extension.class, recordList);
-
-        List<Extension> list = new ArrayList<>();
-        for (Extension extension : extensions) {
-            if (extension.getTree().startsWith(PREFIX_RELEASE)) {
-                continue;
-            }
-            if (extension.getTree().startsWith(PREFIX_MILESTONE)) {
-                continue;
-            }
-            list.add(extension);
-        }
-        return list;
+        return ValueMapping.from(Extension.class, recordList);
 
     }
 

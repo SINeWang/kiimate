@@ -3,6 +3,7 @@ package one.kii.kiimate.model.core.api;
 import lombok.Data;
 import one.kii.summer.asdf.xi.VisitApi;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface VisitExtensionApi extends VisitApi<VisitExtensionApi.Receipt, R
 
     String VISIBILITY_PUBLIC = "public";
 
-    Receipt visit(ReadContext context, Form form) throws NotFound;
+    Receipt visit(ReadContext context, Form form) throws BadRequest, NotFound;
 
     @Data
     class Form {

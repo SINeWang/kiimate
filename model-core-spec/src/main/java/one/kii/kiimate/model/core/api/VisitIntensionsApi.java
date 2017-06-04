@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import one.kii.summer.asdf.xi.VisitApi;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,7 @@ public interface VisitIntensionsApi extends VisitApi<VisitIntensionsApi.Receipt,
 
     String VISIBILITY_PUBLIC = "public";
 
-    Receipt visit(ReadContext context, Form form) throws NotFound;
+    Receipt visit(ReadContext context, Form form) throws BadRequest, NotFound;
 
     @Data
     class Form {
