@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by WangYanJiong on 21/05/2017.
  */
 
-public interface VisitFatAssetApi extends VisitApi<VisitFatAssetApi.Asset, ReadContext, VisitFatAssetApi.GroupNameForm> {
+public interface VisitFatAssetApi extends VisitApi {
 
 
     String STABILITY_LATEST = "latest";
@@ -22,6 +22,8 @@ public interface VisitFatAssetApi extends VisitApi<VisitFatAssetApi.Asset, ReadC
     String VERSION_HEAD = "HEAD";
 
     Asset visit(ReadContext context, GroupNameForm form) throws BadRequest, NotFound, Panic;
+
+    Asset visit(ReadContext context, OwnerIdForm form) throws BadRequest, NotFound, Panic;
 
     @Data
     class Asset {
@@ -43,6 +45,12 @@ public interface VisitFatAssetApi extends VisitApi<VisitFatAssetApi.Asset, ReadC
         String name;
         String stability = STABILITY_LATEST;
         String version = VERSION_HEAD;
+    }
+
+    @Data
+    class OwnerIdForm {
+        String ownerId;
+        String id;
     }
 
     @Data

@@ -47,14 +47,14 @@
         GROUP BY ssub.id
     </select>
     <select id="selectAsset" resultMap="Assets">
-        SELECT ssub.pub_set, ssub.provider_id, ssub.visibility, ssub.m_sub_id, ssub.stability, ssub.version, msub.group, msub.name
-        FROM km_s_pub ssub, mm_m_sub msub
-        WHERE ssub.provider_id = #{providerId}
-        AND ssub.pub_set  = #{pubSet}
-        AND ssub.version = #{version}
-        AND ssub.m_sub_id = msub.id
+        SELECT ssub.id, ssub.subscriber_id, msub.group, msub.name, spub.stability, spub.version, ssub.begin_time, ssub.end_time
+        FROM km_s_sub ssub, km_s_pub spub, mm_m_sub msub
+        WHERE spub.pub_set = ssub.sub_set
+        AND spub.m_sub_id = msub.id
+        AND ssub.id = #{id}
+        AND ssub.subscriber_id = #{subscriberId}
         AND ssub.end_time IS NULL
-        GROUP BY ssub.pub_set
+        GROUP BY ssub.id
     </select>
     <select id="selectAssetByProviderGroupNameStabilityVersion" resultMap="Assets">
         SELECT ssub.pub_set, ssub.provider_id, ssub.visibility, ssub.m_sub_id, ssub.stability, ssub.version, msub.group, msub.name

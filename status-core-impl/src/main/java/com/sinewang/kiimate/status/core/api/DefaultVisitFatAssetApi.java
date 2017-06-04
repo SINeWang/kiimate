@@ -46,6 +46,13 @@ public class DefaultVisitFatAssetApi implements VisitFatAssetApi {
         return transform(context, record);
     }
 
+    @Override
+    public Asset visit(ReadContext context, OwnerIdForm form) throws BadRequest, NotFound, Panic {
+        AssetDai.ChannelOwnerId channel = ValueMapping.from(AssetDai.ChannelOwnerId.class, form, context);
+        AssetDai.Assets record = assetDai.load(channel);
+        return transform(context, record);
+    }
+
     private Asset transform(ReadContext context, AssetDai.Assets assetDb) throws BadRequest, Panic {
         InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, assetDb);
         List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusPubSet);
@@ -64,5 +71,14 @@ public class DefaultVisitFatAssetApi implements VisitFatAssetApi {
         asset.setMap(map);
         asset.setOwnerId(context.getOwnerId());
         return asset;
+    }
+
+    @Override
+    public Object visit(ReadContext readContext, Object o) throws BadRequest, NotFound, Panic {
+        if (o instanceof OwnerIdForm) {
+            return visit(readContext, (OwnerIdForm) o);
+        } else {
+            return visit(readContext, (GroupNameForm) o);
+        }
     }
 }

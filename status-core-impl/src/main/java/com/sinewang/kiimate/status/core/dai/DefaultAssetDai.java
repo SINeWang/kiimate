@@ -2,10 +2,8 @@ package com.sinewang.kiimate.status.core.dai;
 
 import com.sinewang.kiimate.status.core.dai.mapper.AssetsMapper;
 import one.kii.kiimate.status.core.dai.AssetDai;
-import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
-import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
@@ -63,12 +61,10 @@ public class DefaultAssetDai implements AssetDai {
     }
 
     @Override
-    public Assets load(ChannelPubSet channel) throws Panic {
+    public Assets load(ChannelOwnerId channel) throws Panic {
         Assets asset = assetsMapper.selectAsset(
                 channel.getOwnerId(),
-                channel.getPubSet(),
-                channel.getStability(),
-                channel.getVersion());
+                channel.getId());
         return NotBadResponse.of(Assets.class, MayHave.class, asset);
     }
 

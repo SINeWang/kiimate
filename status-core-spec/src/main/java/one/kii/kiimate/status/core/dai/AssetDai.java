@@ -21,7 +21,7 @@ public interface AssetDai {
 
     Assets load(ChannelGroupName channel) throws Panic;
 
-    Assets load(ChannelPubSet channel) throws Panic;
+    Assets load(ChannelOwnerId channel) throws Panic;
 
     Assets load(ChannelModelSubId channel) throws Panic;
 
@@ -99,19 +99,14 @@ public interface AssetDai {
     }
 
     @Data
-    class ChannelPubSet {
+    class ChannelOwnerId {
 
         @KeyFactor
         String ownerId;
 
         @KeyFactor
-        Long pubSet;
+        Long id;
 
-        @KeyFactor
-        String stability;
-
-        @KeyFactor
-        String version;
     }
 
     @Data

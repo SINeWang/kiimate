@@ -22,13 +22,15 @@ public class VisitAssetCtl extends ReadController {
 
     public static final String OWNER_ID = "owner-id";
 
-    public static final String VERSION = "version";
-
-    public static final String STABILITY = "stability";
-
     public static final String GROUP = "group";
 
     public static final String NAME = "name";
+
+    public static final String STABILITY = "stability";
+
+    public static final String VERSION = "version";
+
+    public static final String ID = "id";
 
     @Autowired
     private VisitFatAssetApi api;
@@ -54,6 +56,20 @@ public class VisitAssetCtl extends ReadController {
         if (null != version) {
             form.setVersion(version);
         }
+        return VisitApiCaller.sync(api, context, form);
+    }
+
+    @RequestMapping(value = "/{" + ID + "}")
+    public ResponseEntity<VisitFatAssetApi.Asset> visit(
+            @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
+            @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
+            @PathVariable(OWNER_ID) String ownerId,
+            @PathVariable(ID) String id) {
+        ReadContext context = buildContext(requestId, ownerId, visitorId);
+
+        VisitFatAssetApi.OwnerIdForm form = new VisitFatAssetApi.OwnerIdForm();
+        form.setId(id);
+        form.setOwnerId(ownerId);
         return VisitApiCaller.sync(api, context, form);
     }
 

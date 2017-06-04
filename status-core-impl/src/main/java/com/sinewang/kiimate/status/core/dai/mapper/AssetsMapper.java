@@ -21,10 +21,8 @@ public interface AssetsMapper {
             @Param("group") String group);
 
     AssetDai.Assets selectAsset(
-            @Param("providerId") String providerId,
-            @Param("pubSet") long pubSet,
-            @Param("stability") String stability,
-            @Param("version") String version);
+            @Param("subscriberId") String subscriberId,
+            @Param("id") Long id);
 
     AssetDai.Assets selectAssetByProviderGroupNameStabilityVersion(
             @Param("providerId") String providerId,
