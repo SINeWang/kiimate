@@ -28,6 +28,7 @@ CREATE TABLE `mm_m_ext` (
   `tree` varchar(64) NOT NULL,
   `owner_id` varchar(160) NOT NULL,
   `visibility` varchar(16) NOT NULL COMMENT 'the visibility of scope',
+  `operator_id` varchar(160) NOT NULL,
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`,`begin_time`)
@@ -47,6 +48,7 @@ CREATE TABLE `mm_m_int` (
   `structure` varchar(16) DEFAULT NULL,
   `ref_m_pub_set` varchar(160),
   `is_required` tinyint(1) NOT NULL,
+  `operator_id` varchar(160) NOT NULL,
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`,`begin_time`)
