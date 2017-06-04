@@ -2,7 +2,9 @@ package one.kii.kiimate.status.core.dai;
 
 import lombok.Data;
 import one.kii.summer.beans.annotations.KeyFactor;
-import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.annotations.MayHave;
+import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -15,19 +17,32 @@ public interface AssetDai {
 
     List<Providers> queryProviders(ClueId clue);
 
-    List<Asset> query(ClueGroup clue);
+    List<Assets> query(ClueGroup clue) throws BadRequest;
 
-    Asset load(ChannelGroupName channel) throws NotFound;
+    Assets load(ChannelGroupName channel) throws Panic;
 
-    Asset load(ChannelPubSet channel) throws NotFound;
+    Assets load(ChannelPubSet channel) throws Panic;
 
-    Asset load(ChannelModelSubId channel) throws NotFound;
+    Assets load(ChannelModelSubId channel) throws Panic;
 
     @Transactional
-    void save(Record record);
+    void remember(Subscription subscription);
+
+    @Transactional
+    Date remember(Publication publication);
 
     @Data
-    class Record {
+    class Publication {
+
+        Long pubSet;
+
+        List<StatusDai.Entry> entries;
+
+        String operatorId;
+    }
+
+    @Data
+    class Subscription {
         String id;
 
         @KeyFactor
@@ -46,6 +61,7 @@ public interface AssetDai {
     class Subscribers {
         String id;
     }
+
     @Data
     class ClueId {
         String id;
@@ -115,15 +131,11 @@ public interface AssetDai {
     }
 
     @Data
-    class Asset {
+    class Assets {
 
-        Long pubSet;
+        Long id;
 
-        String providerId;
-
-        String visibility;
-
-        Long subId;
+        String ownerId;
 
         String group;
 
@@ -132,6 +144,11 @@ public interface AssetDai {
         String stability;
 
         String version;
+
+        Date beginTime;
+
+        @MayHave
+        Date endTime;
     }
 
 }

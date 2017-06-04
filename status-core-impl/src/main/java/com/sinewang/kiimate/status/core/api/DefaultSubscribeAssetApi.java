@@ -26,17 +26,17 @@ public class DefaultSubscribeAssetApi implements SubscribeAssetApi {
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
 
 
-        AssetDai.Record record = ValueMapping.from(AssetDai.Record.class, form, context);
+        AssetDai.Subscription subscription = ValueMapping.from(AssetDai.Subscription.class, form, context);
 
-        record.setSubscriberId(context.getOwnerId());
+        subscription.setSubscriberId(context.getOwnerId());
 
-        record.setBeginTime(new Date());
-        String id = HashTools.hashHex(record);
-        record.setId(id);
+        subscription.setBeginTime(new Date());
+        String id = HashTools.hashHex(subscription);
+        subscription.setId(id);
 
-        assetDai.save(record);
+        assetDai.remember(subscription);
 
-        return ValueMapping.from(Receipt.class, record);
+        return ValueMapping.from(Receipt.class, subscription);
 
     }
 

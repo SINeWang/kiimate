@@ -2,10 +2,10 @@ package com.sinewang.kiimate.status.core.api;
 
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.status.core.api.PublishStatusApi;
-import one.kii.kiimate.status.core.dai.StatusDai;
-import one.kii.kiimate.status.core.dai.InstanceDai;
+import one.kii.kiimate.status.core.api.PublishAssetApi;
 import one.kii.kiimate.status.core.dai.AssetDai;
+import one.kii.kiimate.status.core.dai.InstanceDai;
+import one.kii.kiimate.status.core.dai.StatusDai;
 import one.kii.kiimate.status.core.fui.AssetPublicationExtractor;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
@@ -22,7 +22,7 @@ import java.util.*;
  * Created by WangYanJiong on 19/05/2017.
  */
 @Component
-public class DefaultPublishStatusApi implements PublishStatusApi {
+public class DefaultPublishAssetApi implements PublishAssetApi {
 
     private static final Eid64Generator insgen = new Eid64Generator(5);
 
@@ -30,16 +30,13 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
     private static final Eid64Generator pubset = new Eid64Generator(6);
 
     @Autowired
-    private StatusDai statusDai;
+    private AssetDai assetDai;
 
     @Autowired
     private InstanceDai instanceDai;
 
     @Autowired
     private AssetPublicationExtractor assetPublicationExtractor;
-
-    @Autowired
-    private AssetDai assetDai;
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
@@ -51,7 +48,7 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
 
         AssetDai.ChannelModelSubId channelModelSubId = ValueMapping.from(AssetDai.ChannelModelSubId.class, informal);
         channelModelSubId.setOwnerId(informal.getProviderId());
-        AssetDai.Asset previous = assetDai.load(channelModelSubId);
+        AssetDai.Assets previous = assetDai.load(channelModelSubId);
 
 
         InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, previous);
@@ -69,12 +66,11 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
             entries.add(record);
         }
 
-        StatusDai.Record record = ValueMapping.from(StatusDai.Record.class, context);
+        AssetDai.Publication record = ValueMapping.from(AssetDai.Publication.class, context);
         record.setPubSet(pubset.born());
         record.setEntries(entries);
-        record.setPrevious(previous);
 
-        Date date = statusDai.save(record);
+        Date date = assetDai.remember(record);
         Map map = new HashMap<>();
         ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, form);
         channel.setOwnerId(informal.getProviderId());

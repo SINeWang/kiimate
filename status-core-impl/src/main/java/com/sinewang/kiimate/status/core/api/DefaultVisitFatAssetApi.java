@@ -42,11 +42,11 @@ public class DefaultVisitFatAssetApi implements VisitFatAssetApi {
     @Override
     public Asset visit(ReadContext context, GroupNameForm form) throws BadRequest, NotFound, Panic {
         AssetDai.ChannelGroupName channel = ValueMapping.from(AssetDai.ChannelGroupName.class, form, context);
-        AssetDai.Asset record = assetDai.load(channel);
+        AssetDai.Assets record = assetDai.load(channel);
         return transform(context, record);
     }
 
-    private Asset transform(ReadContext context, AssetDai.Asset assetDb) throws BadRequest, Panic {
+    private Asset transform(ReadContext context, AssetDai.Assets assetDb) throws BadRequest, Panic {
         InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, assetDb);
         List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusPubSet);
         Asset asset = ValueMapping.from(Asset.class, assetDb);

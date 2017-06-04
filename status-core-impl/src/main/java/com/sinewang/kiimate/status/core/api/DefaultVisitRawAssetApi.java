@@ -38,11 +38,11 @@ public class DefaultVisitRawAssetApi implements VisitRawAssetApi {
     @Override
     public Map<String, Object> visit(ReadContext context, GroupNameForm form) throws BadRequest, NotFound, Panic {
         AssetDai.ChannelGroupName channel = ValueMapping.from(AssetDai.ChannelGroupName.class, form, context);
-        AssetDai.Asset assetDb = assetDai.load(channel);
+        AssetDai.Assets assetDb = assetDai.load(channel);
         return transform(context, assetDb);
     }
 
-    private Map<String, Object> transform(ReadContext context, AssetDai.Asset assetDb) throws Panic, BadRequest {
+    private Map<String, Object> transform(ReadContext context, AssetDai.Assets assetDb) throws Panic, BadRequest {
         InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, assetDb);
         List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusPubSet);
 

@@ -6,15 +6,16 @@
         <result column="provider_id" property="id"/>
     </resultMap>
 
-    <resultMap id="Assets" type="one.kii.kiimate.status.core.dai.AssetDai$Asset">
-        <result column="pub_set" property="pubSet"/>
-        <result column="provider_id" property="providerId"/>
-        <result column="visibility" property="visibility"/>
-        <result column="m_sub_id" property="subId"/>
+
+    <resultMap id="Assets" type="one.kii.kiimate.status.core.dai.AssetDai$Assets">
+        <result column="id" property="id"/>
+        <result column="subscriber_id" property="ownerId"/>
         <result column="group" property="group"/>
         <result column="name" property="name"/>
         <result column="stability" property="stability"/>
         <result column="version" property="version"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
     </resultMap>
 
 
@@ -37,13 +38,13 @@
     </select>
     <select id="queryAssets" resultMap="Assets">
         <bind name="group_pattern" value="'%' + group + '%'"/>
-        SELECT ssub.pub_set, ssub.provider_id, ssub.visibility, ssub.m_sub_id, ssub.stability, ssub.version, msub.group, msub.name
-        FROM km_s_pub ssub, mm_m_sub msub
-        WHERE ssub.provider_id = #{providerId}
-        AND ssub.m_sub_id = msub.id
+        SELECT ssub.id, ssub.subscriber_id, msub.group, msub.name, spub.stability, spub.version, ssub.begin_time, ssub.end_time
+        FROM km_s_sub ssub, km_s_pub spub, mm_m_sub msub
+        WHERE spub.pub_set = ssub.sub_set
+        AND spub.m_sub_id = msub.id
         AND msub.group LIKE #{group_pattern}
         AND ssub.end_time IS NULL
-        GROUP BY ssub.pub_set
+        GROUP BY ssub.id
     </select>
     <select id="selectAsset" resultMap="Assets">
         SELECT ssub.pub_set, ssub.provider_id, ssub.visibility, ssub.m_sub_id, ssub.stability, ssub.version, msub.group, msub.name

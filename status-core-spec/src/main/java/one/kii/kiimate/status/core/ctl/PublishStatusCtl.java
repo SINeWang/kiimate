@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.PublishStatusApi;
+import one.kii.kiimate.status.core.api.PublishAssetApi;
 import one.kii.summer.asdf.xi.CommitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
@@ -29,35 +29,35 @@ public class PublishStatusCtl extends WriteController {
 
 
     @Autowired
-    private PublishStatusApi api;
+    private PublishAssetApi api;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<PublishStatusApi.Receipt> commitForm(
+    public ResponseEntity<PublishAssetApi.Receipt> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(STABILITY) String publication,
-            @ModelAttribute PublishStatusApi.Form form) {
+            @ModelAttribute PublishAssetApi.Form form) {
         return commit(requestId, operatorId, ownerId, publication, form);
     }
 
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<PublishStatusApi.Receipt> commitJson(
+    public ResponseEntity<PublishAssetApi.Receipt> commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(STABILITY) String publication,
-            @RequestBody PublishStatusApi.Form form) {
+            @RequestBody PublishAssetApi.Form form) {
         return commit(requestId, operatorId, ownerId, publication, form);
     }
 
-    private ResponseEntity<PublishStatusApi.Receipt> commit(
+    private ResponseEntity<PublishAssetApi.Receipt> commit(
             String requestId,
             String operatorId,
             String ownerId,
             String stability,
-            PublishStatusApi.Form form) {
+            PublishAssetApi.Form form) {
         form.setStability(stability);
 
         WriteContext context = buildContext(requestId, operatorId, ownerId);

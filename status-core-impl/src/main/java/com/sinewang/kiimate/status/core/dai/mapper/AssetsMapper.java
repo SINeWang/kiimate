@@ -13,33 +13,39 @@ import java.util.List;
 @Mapper
 public interface AssetsMapper {
 
-    List<AssetDai.Providers> queryProviders(@Param("providerId") String providerId);
+    List<AssetDai.Providers> queryProviders(
+            @Param("providerId") String providerId);
 
-    List<AssetDai.Asset> queryAssets(@Param("providerId") String providerId,
-                                     @Param("group") String group);
+    List<AssetDai.Assets> queryAssets(
+            @Param("providerId") String providerId,
+            @Param("group") String group);
 
-    AssetDai.Asset selectAsset(@Param("providerId") String providerId,
-                               @Param("pubSet") long pubSet,
-                               @Param("stability") String stability,
-                               @Param("version") String version);
+    AssetDai.Assets selectAsset(
+            @Param("providerId") String providerId,
+            @Param("pubSet") long pubSet,
+            @Param("stability") String stability,
+            @Param("version") String version);
 
-    AssetDai.Asset selectAssetByProviderGroupNameStabilityVersion(@Param("providerId") String providerId,
-                                                                  @Param("group") String group,
-                                                                  @Param("name") String name,
-                                                                  @Param("stability") String stability,
-                                                                  @Param("version") String version);
+    AssetDai.Assets selectAssetByProviderGroupNameStabilityVersion(
+            @Param("providerId") String providerId,
+            @Param("group") String group,
+            @Param("name") String name,
+            @Param("stability") String stability,
+            @Param("version") String version);
 
-    AssetDai.Asset selectAssetByProviderModelSubIdStabilityVersion(@Param("providerId") String providerId,
-                                                                   @Param("modelSubId") long subId,
-                                                                   @Param("stability") String stability,
-                                                                   @Param("version") String version);
+    AssetDai.Assets selectAssetByProviderModelSubIdStabilityVersion(
+            @Param("providerId") String providerId,
+            @Param("modelSubId") long subId,
+            @Param("stability") String stability,
+            @Param("version") String version);
 
 
-    void insert(@Param("id") String id,
-                @Param("subscriberId") String subscriberId,
-                @Param("subSet") String subSet,
-                @Param("operatorId") String operatorId,
-                @Param("beginTime") Date beginTime);
+    void insert(
+            @Param("id") String id,
+            @Param("subscriberId") String subscriberId,
+            @Param("subSet") String subSet,
+            @Param("operatorId") String operatorId,
+            @Param("beginTime") Date beginTime);
 
     int countById(@Param("id") String id);
 

@@ -1,7 +1,6 @@
 package one.kii.kiimate.status.core.dai;
 
 import lombok.Data;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -11,8 +10,6 @@ import java.util.List;
  */
 public interface StatusDai {
 
-    @Transactional
-    Date save(Record record);
 
     List<Statuses> query(ClueGroup clue);
 
@@ -22,17 +19,6 @@ public interface StatusDai {
         String group;
     }
 
-    @Data
-    class Record {
-
-        Long pubSet;
-
-        List<Entry> entries;
-
-        AssetDai.Asset previous;
-
-        String operatorId;
-    }
 
     @Data
     class Statuses {

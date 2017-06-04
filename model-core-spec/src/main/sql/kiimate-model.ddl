@@ -32,7 +32,7 @@ CREATE TABLE `mm_m_ext` (
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`,`begin_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='record of concept';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='subscription of concept';
 
 -- ----------------------------
 --  Table structure for `mm_m_int`
@@ -52,7 +52,7 @@ CREATE TABLE `mm_m_int` (
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`,`begin_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='record of concept';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='subscription of concept';
 
 
 -- ----------------------------
@@ -67,7 +67,7 @@ CREATE TABLE `mm_m_crf` (
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='cross-reference of record';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='cross-reference of subscription';
 
 -- ----------------------------
 --  Table structure for `mm_m_pub`

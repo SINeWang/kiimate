@@ -28,11 +28,6 @@ public class RefreshStatusCtl extends WriteController {
 
     static final String SUB_ID = "sub-id";
 
-    static final String GROUP = "group";
-
-    static final String NAME = "name";
-
-    static final String TREE = "tree";
 
     @Autowired
     private RefreshStatusApi api;

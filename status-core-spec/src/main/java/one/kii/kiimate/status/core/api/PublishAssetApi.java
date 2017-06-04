@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * Created by WangYanJiong on 19/05/2017.
  */
-public interface PublishStatusApi extends CommitApi<PublishStatusApi.Receipt, WriteContext, PublishStatusApi.Form> {
+public interface PublishAssetApi extends CommitApi<PublishAssetApi.Receipt, WriteContext, PublishAssetApi.Form> {
 
     Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic;
 
@@ -22,11 +22,11 @@ public interface PublishStatusApi extends CommitApi<PublishStatusApi.Receipt, Wr
     @EqualsAndHashCode(callSuper = false)
     class Form {
 
-        private String stability;
-
         private String providerId;
 
         private Long subId;
+
+        private String stability;
 
         private String version;
 
