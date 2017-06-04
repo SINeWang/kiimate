@@ -33,7 +33,6 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
             ModelPublicationDai.Record publication = ValueMapping.from(ModelPublicationDai.Record.class, record);
             publication.setIntId(record.getId());
             publication.setId(idgen.born());
-            publication.setCommit(HashTools.hashHex(publication));
             publication.setPubSet(pubSet);
             publications.add(publication);
         }

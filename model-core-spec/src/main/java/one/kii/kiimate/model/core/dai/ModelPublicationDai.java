@@ -62,8 +62,6 @@ public interface ModelPublicationDai {
 
         Long pubSet;
 
-        String commit;
-
         @KeyFactor
         String providerId;
 
