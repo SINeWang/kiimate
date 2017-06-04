@@ -2,6 +2,7 @@ package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.Panic;
 
 import java.util.Date;
 import java.util.List;
@@ -12,14 +13,7 @@ import java.util.List;
 public interface SearchModelsApi {
 
 
-    List<Provider> search(ReadContext context, QueryProvidersForm form);
-
-    List<Models> search(ReadContext context, QueryModelsForm form);
-
-    @Data
-    class Provider {
-        String providerId;
-    }
+    List<Models> search(ReadContext context, QueryModelsForm form) throws Panic;
 
     @Data
     class Models {
@@ -32,11 +26,6 @@ public interface SearchModelsApi {
         String id;
 
         List<Snapshot> snapshots;
-    }
-
-    @Data
-    class QueryProvidersForm {
-        private String id;
     }
 
     @Data

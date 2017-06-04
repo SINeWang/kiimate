@@ -5,6 +5,7 @@ import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -19,13 +20,13 @@ public interface IntensionDai {
     @Transactional
     void remember(Record record) throws Conflict;
 
-    List<Record> load(ChannelLatestExtension channel) throws BadRequest;
+    List<Record> load(ChannelLatestExtension channel) throws BadRequest, Panic;
 
-    List<Record> loadLast(ChannelLastExtension channel);
+    List<Record> loadLast(ChannelLastExtension channel) throws BadRequest, Panic;
 
-    List<Record> loadLast(ChannelPubSet channel);
+    List<Record> loadLast(ChannelPubSet channel) throws BadRequest, Panic;
 
-    void forget(ChannelId channel);
+    void forget(ChannelId channel) throws BadRequest;
 
 
     @Data

@@ -5,6 +5,7 @@ import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,12 +52,8 @@ public class TestDeclareReceiptApi {
         DeclareExtensionApi.CommitReceipt response = null;
         try {
             response = declareExtensionApi.commit(context, commitForm);
-        } catch (BadRequest badRequest) {
-            badRequest.printStackTrace();
-        } catch (Conflict conflict) {
-            conflict.printStackTrace();
-        } catch (NotFound notFound) {
-            notFound.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         Assert.assertNull(response);
     }
@@ -71,12 +68,8 @@ public class TestDeclareReceiptApi {
         DeclareExtensionApi.CommitReceipt response = null;
         try {
             response = declareExtensionApi.commit(context, commitForm);
-        } catch (BadRequest badRequest) {
-            badRequest.printStackTrace();
-        } catch (Conflict conflict) {
-            conflict.printStackTrace();
-        } catch (NotFound notFound) {
-            notFound.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         Assert.assertNull(response);
     }
@@ -91,12 +84,8 @@ public class TestDeclareReceiptApi {
         DeclareExtensionApi.CommitReceipt response = null;
         try {
             response = declareExtensionApi.commit(context, commitForm);
-        } catch (BadRequest badRequest) {
-            badRequest.printStackTrace();
-        } catch (Conflict conflict) {
-            conflict.printStackTrace();
-        } catch (NotFound notFound) {
-            notFound.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         Assert.assertNull(response);
     }
@@ -111,12 +100,8 @@ public class TestDeclareReceiptApi {
         DeclareExtensionApi.CommitReceipt response = null;
         try {
             response = declareExtensionApi.commit(context, commitForm);
-        } catch (BadRequest badRequest) {
-            badRequest.printStackTrace();
-        } catch (Conflict conflict) {
-            conflict.printStackTrace();
-        } catch (NotFound notFound) {
-            notFound.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         Assert.assertNull(response);
     }
@@ -135,12 +120,8 @@ public class TestDeclareReceiptApi {
         DeclareExtensionApi.CommitReceipt response = null;
         try {
             response = declareExtensionApi.commit(context, commitForm);
-        } catch (BadRequest badRequest) {
-            badRequest.printStackTrace();
-        } catch (Conflict conflict) {
-            conflict.printStackTrace();
-        } catch (NotFound notFound) {
-            notFound.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         Assert.assertNull(response);
     }
@@ -162,12 +143,8 @@ public class TestDeclareReceiptApi {
         DeclareExtensionApi.CommitReceipt response = null;
         try {
             response = declareExtensionApi.commit(context, commitForm);
-        } catch (BadRequest badRequest) {
-            badRequest.printStackTrace();
-        } catch (Conflict conflict) {
-            conflict.printStackTrace();
-        } catch (NotFound notFound) {
-            notFound.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         String id = response.getId();
         Assert.assertNotNull(id);
@@ -178,7 +155,8 @@ public class TestDeclareReceiptApi {
         ExtensionDai.Record record = null;
         try {
             record = extensionDai.loadLast(extId);
-        } catch (NotFound notFound) {
+        } catch (Panic panic) {
+            panic.printStackTrace();
         }
 
         Assert.assertNotNull(record);

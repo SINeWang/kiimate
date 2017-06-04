@@ -8,6 +8,7 @@ import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     private AnExtensionExtractor extensionExtractor;
 
     @Override
-    public CommitReceipt commit(WriteContext context, CommitForm form) throws BadRequest, Conflict, NotFound {
+    public CommitReceipt commit(WriteContext context, CommitForm form) throws BadRequest, Conflict, NotFound, Panic {
 
         ExtensionDai.Record record = extensionExtractor.extract(context, form);
 

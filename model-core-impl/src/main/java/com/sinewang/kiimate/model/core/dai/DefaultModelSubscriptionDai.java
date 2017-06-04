@@ -4,7 +4,7 @@ import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
-import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel) throws NotFound {
+    public ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel) throws Panic {
         ModelPubSet record = modelSubscriptionMapper.selectModelPubSetByOwnerSubscription(
                 channel.getOwnerId(),
                 channel.getId());
@@ -73,7 +73,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public Status selectSubscription(ChannelGroupNameTree channel) throws NotFound, BadRequest {
+    public Status selectSubscription(ChannelGroupNameTree channel) throws Panic, BadRequest {
         NotBadRequest.from(channel);
         Status record = modelSubscriptionMapper.selectSubscriptionByOwnerGroupNameTree(
                 channel.getOwnerId(),
@@ -86,7 +86,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public Status selectSubscription(ChannelSubId channel) throws NotFound, BadRequest {
+    public Status selectSubscription(ChannelSubId channel) throws Panic, BadRequest {
         NotBadRequest.from(channel);
         Status record = modelSubscriptionMapper.selectByOwnerSubId(
                 channel.getOwnerId(),

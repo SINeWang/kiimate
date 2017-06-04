@@ -6,6 +6,7 @@ import one.kii.summer.asdf.xi.VisitApi;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +21,7 @@ public interface VisitIntensionsApi extends VisitApi<VisitIntensionsApi.Receipt,
 
     String VISIBILITY_PUBLIC = "public";
 
-    Receipt visit(ReadContext context, Form form) throws BadRequest, NotFound;
+    Receipt visit(ReadContext context, Form form) throws BadRequest, NotFound, Panic;
 
     @Data
     class Form {

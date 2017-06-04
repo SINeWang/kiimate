@@ -8,6 +8,7 @@ import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,7 @@ public class DefaultRevokeIntensionApi implements RevokeIntensionApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
+    public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic {
         IntensionDai.ChannelId channel = ValueMapping.from(IntensionDai.ChannelId.class, form);
         intensionDai.forget(channel);
 

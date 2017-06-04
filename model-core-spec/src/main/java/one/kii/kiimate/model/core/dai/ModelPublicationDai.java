@@ -6,6 +6,7 @@ import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -21,7 +22,7 @@ public interface ModelPublicationDai {
 
     List<PublishedSnapshot> loadSnapshot(ChannelId channel);
 
-    Record loadRootPublications(ChannelPubSet channel) throws NotFound;
+    Record loadRootPublications(ChannelPubSet channel) throws NotFound, Panic;
 
     List<Provider> searchProviders(ClueId clue);
 

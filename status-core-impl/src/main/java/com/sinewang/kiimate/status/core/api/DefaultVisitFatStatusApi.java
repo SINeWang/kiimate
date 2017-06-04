@@ -7,7 +7,9 @@ import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +35,7 @@ public class DefaultVisitFatStatusApi implements VisitFatStatusApi {
     private InstanceTransformer instanceTransformer;
 
     @Override
-    public Status visit(ReadContext context, StatusIdForm form) throws NotFound {
+    public Status visit(ReadContext context, StatusIdForm form) throws BadRequest, NotFound, Panic {
         InstanceDai.ChannelStatusId id = ValueMapping.from(InstanceDai.ChannelStatusId.class, form);
 
         List<InstanceDai.Instance> instances = instanceDai.loadInstances(id);

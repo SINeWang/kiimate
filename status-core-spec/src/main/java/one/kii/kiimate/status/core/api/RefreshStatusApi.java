@@ -3,8 +3,10 @@ package one.kii.kiimate.status.core.api;
 import lombok.Data;
 import one.kii.summer.asdf.xi.CommitApi;
 import one.kii.summer.io.context.WriteContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.util.MultiValueMap;
 
 import java.util.List;
@@ -16,7 +18,7 @@ import java.util.Map;
  */
 public interface RefreshStatusApi extends CommitApi<RefreshStatusApi.Receipt, WriteContext, RefreshStatusApi.SubIdForm> {
 
-    Receipt commit(WriteContext context, SubIdForm form) throws NotFound, Conflict;
+    Receipt commit(WriteContext context, SubIdForm form) throws BadRequest, Conflict, NotFound, Panic;
 
     @Data
     class SubIdForm {

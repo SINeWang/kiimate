@@ -1,9 +1,12 @@
 package one.kii.kiimate.status.core.ctl;
 
 import one.kii.kiimate.status.core.api.VisitRawAssetApi;
+import one.kii.summer.asdf.xi.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,12 +66,18 @@ public class VisitRawAssetCtl extends ReadController {
         }
         try {
             if (yml == null) {
-                return ErestResponse.ok(requestId, api.visit(context, form));
+                return VisitApiCaller.sync(api, context, form);
             } else {
                 DumperOptions options = new DumperOptions();
                 options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-                Yaml yaml = new Yaml(options);
-                return ErestResponse.ok(requestId, yaml.dump(api.visit(context, form)));
+                try {
+                    Yaml yaml = new Yaml(options);
+                    return ErestResponse.ok(requestId, yaml.dump(api.visit(context, form)));
+                } catch (BadRequest badRequest) {
+                    return ErestResponse.badRequest(requestId, badRequest.getKeys());
+                } catch (Panic panic) {
+                    return ErestResponse.badRequest(requestId, panic.getKeys());
+                }
             }
         } catch (NotFound notFound) {
             return ErestResponse.notFound(requestId, notFound.getKeys());

@@ -5,6 +5,7 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.Panic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class DefaultIntensionDai implements IntensionDai {
     }
 
     @Override
-    public List<Record> load(ChannelLatestExtension channel) throws BadRequest {
+    public List<Record> load(ChannelLatestExtension channel) throws BadRequest, Panic {
         List<Record> records = intensionMapper.selectLatestIntensionsByExtId(channel.getId());
         if (records.isEmpty()) {
             throw new BadRequest("id");

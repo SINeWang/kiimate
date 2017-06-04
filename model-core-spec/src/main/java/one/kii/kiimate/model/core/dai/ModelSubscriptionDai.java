@@ -5,7 +5,7 @@ import lombok.Getter;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.exception.BadRequest;
-import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -20,15 +20,15 @@ public interface ModelSubscriptionDai {
     @Transactional
     void remember(Status status) throws DuplicatedSubscription;
 
-    ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel) throws NotFound;
+    ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel) throws Panic;
 
     List<Status> querySubscriptions(ClueGroup clue) throws BadRequest;
 
     List<Subscribers> querySubscribers(ClueSubscriberId clue);
 
-    Status selectSubscription(ChannelGroupNameTree channel) throws NotFound, BadRequest;
+    Status selectSubscription(ChannelGroupNameTree channel) throws Panic, BadRequest;
 
-    Status selectSubscription(ChannelSubId channel) throws NotFound, BadRequest;
+    Status selectSubscription(ChannelSubId channel) throws Panic, BadRequest;
 
     Integer countModelSubscriptions(Long pubSet);
 

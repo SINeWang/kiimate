@@ -7,6 +7,7 @@ import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import java.util.Map;
 public interface RevokeIntensionApi extends CommitApi<RevokeIntensionApi.Receipt, WriteContext, RevokeIntensionApi.Form> {
 
 
-    Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound;
+    Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

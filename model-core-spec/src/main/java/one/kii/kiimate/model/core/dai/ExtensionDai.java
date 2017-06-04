@@ -5,7 +5,7 @@ import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.exception.Conflict;
-import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -16,9 +16,9 @@ import java.util.List;
  */
 public interface ExtensionDai {
 
-    Record loadLast(ChannelCoordinate channel) throws NotFound;
+    Record loadLast(ChannelCoordinate channel) throws Panic;
 
-    Record loadLast(ChannelId channel) throws NotFound;
+    Record loadLast(ChannelId channel) throws Panic;
 
     List<Record> search(ClueGroup clue);
 

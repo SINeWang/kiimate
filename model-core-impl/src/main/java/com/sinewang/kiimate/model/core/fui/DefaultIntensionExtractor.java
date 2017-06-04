@@ -9,8 +9,8 @@ import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.WriteContext;
-import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +24,7 @@ public class DefaultIntensionExtractor implements AnIntensionExtractor {
     private static final Eid64Generator idgen = new Eid64Generator(1);
 
     @Override
-    public IntensionDai.Record extract(WriteContext context, DeclareIntensionApi.Form form) throws BadRequest, NotFound {
+    public IntensionDai.Record extract(WriteContext context, DeclareIntensionApi.Form form) throws NotFound, Panic {
 
         form.setField(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getField()));
 

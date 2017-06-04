@@ -9,6 +9,7 @@ import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +33,7 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
     private AnModelRestorer modelRestorer;
 
     @Override
-    public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
+    public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic {
 
         IntensionDai.Record record = anIntensionExtractor.extract(context, form);
 

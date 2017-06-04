@@ -8,6 +8,7 @@ import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +32,7 @@ public class DefaultVisitRawStatusApi implements VisitRawStatusApi {
     private InstanceTransformer instanceTransformer;
 
     @Override
-    public Map<String, Object> visit(ReadContext context, GroupNameTreeForm form) throws NotFound, BadRequest {
+    public Map<String, Object> visit(ReadContext context, GroupNameTreeForm form) throws NotFound, BadRequest,Panic {
         ModelSubscriptionDai.ChannelGroupNameTree channel = ValueMapping.from(ModelSubscriptionDai.ChannelGroupNameTree.class, form, context);
 
         ModelSubscriptionDai.Status subscription = modelSubscriptionDai.selectSubscription(channel);

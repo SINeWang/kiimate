@@ -7,7 +7,9 @@ import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,13 +36,13 @@ public class DefaultVisitRawAssetApi implements VisitRawAssetApi {
 
 
     @Override
-    public Map<String, Object> visit(ReadContext context, GroupNameForm form) throws NotFound {
+    public Map<String, Object> visit(ReadContext context, GroupNameForm form) throws BadRequest, NotFound, Panic {
         AssetDai.ChannelGroupName channel = ValueMapping.from(AssetDai.ChannelGroupName.class, form, context);
         AssetDai.Asset assetDb = assetDai.load(channel);
         return transform(context, assetDb);
     }
 
-    private Map<String, Object> transform(ReadContext context, AssetDai.Asset assetDb) throws NotFound {
+    private Map<String, Object> transform(ReadContext context, AssetDai.Asset assetDb) throws Panic, BadRequest {
         InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, assetDb);
         List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusPubSet);
 

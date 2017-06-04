@@ -2,6 +2,7 @@ package one.kii.kiimate.status.core.ctl;
 
 import one.kii.kiimate.status.core.api.VisitFatStatusApi;
 import one.kii.kiimate.status.core.api.VisitRawStatusApi;
+import one.kii.summer.asdf.xi.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -59,13 +60,8 @@ public class VisitStatusCtl extends ReadController {
         if (null != tree) {
             form.setTree(tree);
         }
-        try {
-            return ErestResponse.ok(requestId, api.visit(context, form));
-        } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKeys());
-        } catch (BadRequest badRequest) {
-            return ErestResponse.notFound(requestId, badRequest.getKeys());
-        }
+        return VisitApiCaller.sync(api, context, form);
+
     }
 
     @RequestMapping(value = "/{" + SUB_ID + "}")
@@ -79,11 +75,8 @@ public class VisitStatusCtl extends ReadController {
 
         VisitFatStatusApi.StatusIdForm form = new VisitFatStatusApi.StatusIdForm();
         form.setId(subId);
-        try {
-            return ErestResponse.ok(requestId, fatStatusApi.visit(context, form));
-        } catch (NotFound notFound) {
-            return ErestResponse.notFound(requestId, notFound.getKeys());
-        }
+
+        return VisitApiCaller.sync(fatStatusApi, context, form);
     }
 
 }

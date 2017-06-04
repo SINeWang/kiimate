@@ -5,6 +5,8 @@ import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.ValueMapping;
+import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +25,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     private IntensionDai intensionDai;
 
     @Override
-    public Map<String, Object> toTimedValue(List<InstanceDai.Instance> instancesList, ModelSubscriptionDai.ModelPubSet model) {
+    public Map<String, Object> toTimedValue(List<InstanceDai.Instance> instancesList, ModelSubscriptionDai.ModelPubSet model) throws Panic, BadRequest {
         Map<String, List<InstanceDai.Instance>> dict = dict(instancesList);
         IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
         extension.setExtId(model.getRootExtId());
@@ -31,14 +33,14 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     }
 
     @Override
-    public Map<String, Object> toRawValue(List<InstanceDai.Instance> instancesList, ModelSubscriptionDai.ModelPubSet model) {
+    public Map<String, Object> toRawValue(List<InstanceDai.Instance> instancesList, ModelSubscriptionDai.ModelPubSet model) throws Panic, BadRequest {
         Map<String, List<InstanceDai.Instance>> dict = dict(instancesList);
         IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
         extension.setExtId(model.getRootExtId());
         return parseRaw(extension, dict);
     }
 
-    private Map<String, Object> parseRaw(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Instance>> dict) {
+    private Map<String, Object> parseRaw(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Instance>> dict) throws Panic, BadRequest {
         List<IntensionDai.Record> records = intensionDai.loadLast(pubSet);
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Record record : records) {
@@ -86,7 +88,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     }
 
 
-    private Map<String, Object> parseTimed(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Instance>> dict) {
+    private Map<String, Object> parseTimed(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Instance>> dict) throws Panic, BadRequest {
         List<IntensionDai.Record> records = intensionDai.loadLast(pubSet);
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Record record : records) {

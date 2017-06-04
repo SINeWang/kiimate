@@ -3,7 +3,9 @@ package one.kii.kiimate.model.core.api;
 import lombok.Data;
 import one.kii.summer.asdf.xi.VisitApi;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
 public interface VisitModelApi extends VisitApi<VisitModelApi.Model, ReadContext, VisitModelApi.VisitModelForm> {
 
 
-    Model visit(ReadContext context, VisitModelForm form) throws NotFound;
+    Model visit(ReadContext context, VisitModelForm form) throws BadRequest, NotFound, Panic;
 
     @Data
     class Model {

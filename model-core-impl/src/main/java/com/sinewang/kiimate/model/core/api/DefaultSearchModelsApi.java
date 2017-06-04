@@ -6,7 +6,7 @@ import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
-import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,15 +30,7 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
     private ExtensionDai extensionDai;
 
     @Override
-    public List<Provider> search(ReadContext context, QueryProvidersForm form) {
-        ModelPublicationDai.ClueId id = ValueMapping.from(ModelPublicationDai.ClueId.class, form);
-
-        List<ModelPublicationDai.Provider> providerList = modelPublicationDai.searchProviders(id);
-        return ValueMapping.from(Provider.class, providerList);
-    }
-
-    @Override
-    public List<Models> search(ReadContext context, QueryModelsForm form) {
+    public List<Models> search(ReadContext context, QueryModelsForm form) throws Panic {
         ModelPublicationDai.ClueGroup group = ValueMapping.from(ModelPublicationDai.ClueGroup.class, form);
 
         List<ModelPublicationDai.PublishedExtension> extensions = modelPublicationDai.searchExtension(group);
@@ -46,11 +38,7 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
         for (ModelPublicationDai.PublishedExtension extension : extensions) {
             ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
             ExtensionDai.Record lastRecord;
-            try {
-                lastRecord = extensionDai.loadLast(channel);
-            } catch (NotFound notFound) {
-                continue;
-            }
+            lastRecord = extensionDai.loadLast(channel);
             List<Snapshot> snapshots = new ArrayList<>();
 
             ModelPublicationDai.ChannelId id = ValueMapping.from(ModelPublicationDai.ChannelId.class, extension);

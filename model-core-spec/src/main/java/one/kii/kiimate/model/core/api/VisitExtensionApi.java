@@ -5,6 +5,7 @@ import one.kii.summer.asdf.xi.VisitApi;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public interface VisitExtensionApi extends VisitApi<VisitExtensionApi.Receipt, R
 
     String VISIBILITY_PUBLIC = "public";
 
-    Receipt visit(ReadContext context, Form form) throws BadRequest, NotFound;
+    Receipt visit(ReadContext context, Form form) throws BadRequest, NotFound, Panic;
 
     @Data
     class Form {

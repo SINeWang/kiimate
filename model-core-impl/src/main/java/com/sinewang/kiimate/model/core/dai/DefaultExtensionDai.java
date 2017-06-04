@@ -3,8 +3,11 @@ package com.sinewang.kiimate.model.core.dai;
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.summer.beans.utils.KeyFactorTools;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.validator.NotBadResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +28,7 @@ public class DefaultExtensionDai implements ExtensionDai {
     private ExtensionMapper extensionMapper;
 
     @Override
-    public Record loadLast(ChannelCoordinate channel) throws NotFound {
+    public Record loadLast(ChannelCoordinate channel) throws Panic {
         Record record;
         if (channel.getBeginTime() == null) {
             record = extensionMapper.selectLatestExtensionByOwnerGroupNameTree(
@@ -42,14 +45,11 @@ public class DefaultExtensionDai implements ExtensionDai {
                     channel.getTree(),
                     channel.getBeginTime());
         }
-        if (record == null) {
-            throw new NotFound(KeyFactorTools.find(ChannelCoordinate.class));
-        }
-        return record;
+        return NotBadResponse.of(Record.class, MayHave.class, record);
     }
 
     @Override
-    public Record loadLast(ChannelId channel) throws NotFound {
+    public Record loadLast(ChannelId channel) throws Panic {
         Record record;
         if (channel.getBeginTime() == null) {
             record = extensionMapper.selectLatestExtensionById(
@@ -60,10 +60,7 @@ public class DefaultExtensionDai implements ExtensionDai {
                     channel.getId(),
                     channel.getBeginTime());
         }
-        if (record == null) {
-            throw new NotFound(KeyFactorTools.find(ChannelCoordinate.class));
-        }
-        return record;
+        return NotBadResponse.of(Record.class, MayHave.class, record);
     }
 
     @Override

@@ -2,7 +2,6 @@ package one.kii.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
 import one.kii.summer.io.exception.Conflict;
-import one.kii.summer.io.exception.NotFound;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -64,7 +63,8 @@ public class TestReceiptDai {
         ExtensionDai.Record dbRecord = null;
         try {
             dbRecord = extensionDai.loadLast(extId);
-        } catch (NotFound notFound) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         Assert.assertEquals(dbRecord.getId(), testId);

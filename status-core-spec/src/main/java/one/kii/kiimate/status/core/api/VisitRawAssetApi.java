@@ -3,7 +3,9 @@ package one.kii.kiimate.status.core.api;
 import lombok.Data;
 import one.kii.summer.asdf.xi.VisitApi;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 
 import java.util.Map;
 
@@ -17,7 +19,7 @@ public interface VisitRawAssetApi extends VisitApi<Map<String, Object>, ReadCont
 
     String VERSION_HEAD = "HEAD";
 
-    Map<String, Object> visit(ReadContext context, GroupNameForm form) throws NotFound;
+    Map<String, Object> visit(ReadContext context, GroupNameForm form) throws BadRequest, NotFound, Panic;
 
     @Data
     class PubSetForm {

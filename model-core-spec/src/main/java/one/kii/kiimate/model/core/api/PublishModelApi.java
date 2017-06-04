@@ -8,6 +8,7 @@ import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
 public interface PublishModelApi extends CommitApi<PublishModelApi.Receipt, WriteContext, PublishModelApi.Form> {
 
 
-    Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound;
+    Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

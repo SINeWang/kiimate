@@ -3,7 +3,9 @@ package one.kii.kiimate.status.core.api;
 import lombok.Data;
 import one.kii.summer.asdf.xi.VisitApi;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +21,7 @@ public interface VisitFatAssetApi extends VisitApi<VisitFatAssetApi.Asset, ReadC
 
     String VERSION_HEAD = "HEAD";
 
-    Asset visit(ReadContext context, GroupNameForm form) throws NotFound;
+    Asset visit(ReadContext context, GroupNameForm form) throws BadRequest, NotFound, Panic;
 
     @Data
     class Asset {

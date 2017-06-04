@@ -6,11 +6,13 @@
 
     <resultMap id="Extension" type="one.kii.kiimate.model.core.dai.ExtensionDai$Record">
         <result column="id" property="id"/>
+        <result column="commit" property="commit"/>
         <result column="group" property="group"/>
         <result column="name" property="name"/>
         <result column="tree" property="tree"/>
         <result column="owner_id" property="ownerId"/>
         <result column="visibility" property="visibility"/>
+        <result column="operator_id" property="operatorId"/>
         <result column="begin_time" property="beginTime"/>
         <result column="end_time" property="endTime"/>
     </resultMap>

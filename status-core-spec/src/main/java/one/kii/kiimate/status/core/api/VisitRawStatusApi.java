@@ -5,6 +5,7 @@ import one.kii.summer.asdf.xi.VisitApi;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public interface VisitRawStatusApi extends VisitApi<Map<String, Object>, ReadCon
     String TREE_MASTER = "master";
 
 
-    Map<String, Object> visit(ReadContext context, GroupNameTreeForm form) throws NotFound, BadRequest;
+    Map<String, Object> visit(ReadContext context, GroupNameTreeForm form) throws NotFound, BadRequest, Panic;
 
     @Data
     class GroupNameTreeForm {

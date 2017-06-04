@@ -8,9 +8,7 @@ import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
 import one.kii.summer.io.context.WriteContext;
-import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
-import one.kii.summer.io.exception.NotFound;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -130,14 +128,9 @@ public class TestPublishModelApi {
         PublishModelApi.Receipt receipt = null;
         try {
             receipt = publishModelApi.commit(context, form);
-        } catch (BadRequest badRequest) {
-            badRequest.printStackTrace();
-        } catch (Conflict conflict) {
-            conflict.printStackTrace();
-        } catch (NotFound notFound) {
-            notFound.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
 
         Assert.assertNotNull(receipt);
         Assert.assertEquals(version, receipt.getVersion());

@@ -10,7 +10,7 @@ import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
-import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,7 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
     private static final Eid64Generator idgen = new Eid64Generator(0);
 
     @Override
-    public ExtensionDai.Record extract(WriteContext context, DeclareExtensionApi.CommitForm form) throws BadRequest, NotFound {
+    public ExtensionDai.Record extract(WriteContext context, DeclareExtensionApi.CommitForm form) throws BadRequest, Panic {
 
         NotBadRequest.from(form);
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));

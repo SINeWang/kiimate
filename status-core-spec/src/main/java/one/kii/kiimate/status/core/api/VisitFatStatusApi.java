@@ -3,7 +3,9 @@ package one.kii.kiimate.status.core.api;
 import lombok.Data;
 import one.kii.summer.asdf.xi.VisitApi;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +16,7 @@ import java.util.Map;
 public interface VisitFatStatusApi extends VisitApi<VisitFatStatusApi.Status, ReadContext, VisitFatStatusApi.StatusIdForm> {
 
 
-    Status visit(ReadContext context, StatusIdForm form) throws NotFound;
+    Status visit(ReadContext context, StatusIdForm form) throws BadRequest, NotFound, Panic;
 
     @Data
     class Status {
