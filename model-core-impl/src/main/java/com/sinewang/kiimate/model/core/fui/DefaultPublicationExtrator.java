@@ -3,14 +3,14 @@ package com.sinewang.kiimate.model.core.fui;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
+import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.fui.AnPublicationExtractor;
 import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.beans.utils.ValueMapping;
-import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.context.WriteContext;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,35 +25,19 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
     private static final Eid64Generator setgen = new Eid64Generator(3);
 
     @Override
-    public ExtensionPublication extract(PublishModelApi.Form form, long extId, String operatorId, Date date) throws BadRequest {
-        ExtensionPublication extensionPublication = ValueMapping.from(ExtensionPublication.class, form);
-        extensionPublication.setExtId(extId);
-        extensionPublication.setOperatorId(operatorId);
-        extensionPublication.setBeginTime(date);
-        return extensionPublication;
-    }
+    public List<ModelPublicationDai.Record> extract(WriteContext context, PublishModelApi.Form form, List<IntensionDai.Record> records) {
 
-    @Override
-    public List<IntensionPublication> extract(ExtensionPublication extension, List<IntensionDai.Record> records) {
-
-        List<IntensionPublication> publications = new ArrayList<>();
-
-        List<String> ids = new ArrayList<>();
+        List<ModelPublicationDai.Record> publications = new ArrayList<>();
+        Long pubSet = setgen.born();
         for (IntensionDai.Record record : records) {
-            IntensionPublication publication = ValueMapping.from(IntensionPublication.class, record, extension);
+            ModelPublicationDai.Record publication = ValueMapping.from(ModelPublicationDai.Record.class, record);
             publication.setIntId(record.getId());
-            String id = HashTools.hashHex(publication);
             publication.setId(idgen.born());
-            ids.add(id);
+            publication.setCommit(HashTools.hashHex(publication));
+            publication.setPubSet(pubSet);
             publications.add(publication);
         }
 
-        long pubSet = setgen.born();
-
-        for (IntensionPublication publication : publications) {
-            publication.setPubSet(pubSet);
-        }
         return publications;
     }
-
 }

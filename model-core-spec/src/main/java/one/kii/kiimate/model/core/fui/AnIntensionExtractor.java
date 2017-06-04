@@ -1,6 +1,5 @@
 package one.kii.kiimate.model.core.fui;
 
-import com.sun.tools.corba.se.idl.constExpr.Not;
 import one.kii.kiimate.model.core.api.DeclareIntensionApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.summer.io.context.WriteContext;

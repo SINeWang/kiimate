@@ -9,7 +9,6 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -50,8 +49,6 @@ public interface PublishModelApi extends CommitApi<PublishModelApi.Receipt, Writ
         private String ownerId;
 
         private String version;
-
-        private Date createdAt;
 
     }
 

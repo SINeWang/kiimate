@@ -7,7 +7,6 @@ import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
-import one.kii.kiimate.model.core.fui.AnStructureValidator;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -103,7 +102,7 @@ public class TestPublishModelApi {
             intension.setExtId(extId);
             intension.setSingle(true);
             intension.setVisibility(visibility);
-            intension.setStructure(AnStructureValidator.Structure.STRING.name());
+            intension.setStructure("string");
             intension.setField(field);
 
             intension.setId(idgen.born());

@@ -1,7 +1,6 @@
 package com.sinewang.kiimate.model.core.api;
 
 import one.kii.kiimate.model.core.api.PublishModelApi;
-import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.fui.AnPublicationExtractor;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,22 +30,14 @@ public class DefaultPublishModelApi implements PublishModelApi {
     private IntensionDai intensionDai;
 
     @Autowired
-    private ExtensionDai extensionDai;
-
-    @Autowired
     private ModelPublicationDai modelPublicationDai;
 
 
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
-        ExtensionDai.ChannelId channelId = new ExtensionDai.ChannelId();
-        channelId.setId(form.getExtId());
-        ExtensionDai.Record record = extensionDai.loadLast(channelId);
 
-        Date date = new Date();
 
-        AnPublicationExtractor.ExtensionPublication extensionPublication = publicationExtractor.extract(form, record.getId(), context.getOperatorId(), date);
-
-        IntensionDai.ChannelLatestExtension latest = ValueMapping.from(IntensionDai.ChannelLatestExtension.class, record);
+        IntensionDai.ChannelLatestExtension latest = new IntensionDai.ChannelLatestExtension();
+        latest.setId(form.getExtId());
 
         List<IntensionDai.Record> allRecords = new ArrayList<>();
 
@@ -57,29 +47,19 @@ public class DefaultPublishModelApi implements PublishModelApi {
         }
         allRecords.addAll(records);
 
-        List<AnPublicationExtractor.IntensionPublication> publications = publicationExtractor.extract(extensionPublication, records);
-
-        List<ModelPublicationDai.Publication> publications1 = ValueMapping.from(ModelPublicationDai.Publication.class, publications);
+        List<ModelPublicationDai.Record> publications = publicationExtractor.extract(context, form, records);
 
         try {
-            modelPublicationDai.save(publications1);
+            modelPublicationDai.save(publications);
         } catch (ModelPublicationDai.DuplicatedPublication duplicatedPublication) {
             throw new Conflict(KeyFactorTools.find(Form.class));
         }
 
-        Receipt receipt = new Receipt();
-
-        receipt.setVersion(form.getVersion());
-
-        receipt.setCreatedAt(date);
+        Receipt receipt = ValueMapping.from(Receipt.class, form, context);
 
         List<Intension> snapshotIntensions = ValueMapping.from(Intension.class, allRecords);
 
         receipt.setIntensions(snapshotIntensions);
-
-        receipt.setProviderId(form.getProviderId());
-
-        receipt.setOwnerId(context.getOwnerId());
 
         return receipt;
 

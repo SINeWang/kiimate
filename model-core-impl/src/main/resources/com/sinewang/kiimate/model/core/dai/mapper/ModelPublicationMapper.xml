@@ -4,7 +4,7 @@
 
 <mapper namespace="com.sinewang.kiimate.model.core.dai.mapper.ModelPublicationMapper">
 
-    <resultMap id="Publication" type="one.kii.kiimate.model.core.dai.ModelPublicationDai$Publication">
+    <resultMap id="Publication" type="one.kii.kiimate.model.core.dai.ModelPublicationDai.Record">
         <result column="id" property="id"/>
         <result column="pub_set" property="pubSet"/>
         <result column="provider_id" property="providerId"/>

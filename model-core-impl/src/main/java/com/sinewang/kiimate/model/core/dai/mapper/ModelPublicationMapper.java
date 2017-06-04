@@ -41,5 +41,5 @@ public interface ModelPublicationMapper {
 
     List<ModelPublicationDai.PublishedSnapshot> selectPublishedSnapshotsByExtId(@Param("extId") Long extId);
 
-    ModelPublicationDai.Publication selectRootPublicationsByPubSet(@Param("pubSet") Long pubSet);
+    ModelPublicationDai.Record selectRootPublicationsByPubSet(@Param("pubSet") Long pubSet);
 }

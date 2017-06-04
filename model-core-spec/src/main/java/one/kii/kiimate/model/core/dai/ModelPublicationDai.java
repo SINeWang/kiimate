@@ -3,6 +3,7 @@ package one.kii.kiimate.model.core.dai;
 import lombok.Data;
 import lombok.Getter;
 import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.exception.NotFound;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +21,13 @@ public interface ModelPublicationDai {
 
     List<PublishedSnapshot> loadSnapshot(ChannelId channel);
 
-    Publication loadRootPublications(ChannelPubSet channel) throws NotFound;
+    Record loadRootPublications(ChannelPubSet channel) throws NotFound;
 
     List<Provider> searchProviders(ClueId clue);
 
 
     @Transactional
-    void save(List<Publication> publication) throws DuplicatedPublication;
+    void save(List<Record> record) throws DuplicatedPublication;
 
     @Data
     class ClueGroup {
@@ -56,10 +57,12 @@ public interface ModelPublicationDai {
     }
 
     @Data
-    class Publication {
+    class Record {
         Long id;
 
         Long pubSet;
+
+        String commit;
 
         @KeyFactor
         String providerId;
@@ -76,9 +79,15 @@ public interface ModelPublicationDai {
         @KeyFactor
         String stability;
 
+        @KeyFactor
         String operatorId;
 
+        @KeyFactor
         Date beginTime;
+
+        @KeyFactor
+        @MayHave
+        Date endTime;
     }
 
     @Data

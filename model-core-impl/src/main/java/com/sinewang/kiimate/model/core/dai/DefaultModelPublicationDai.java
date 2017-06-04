@@ -31,9 +31,9 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     }
 
     @Override
-    public Publication loadRootPublications(ChannelPubSet channel) throws NotFound {
-        Publication publication = modelPublicationMapper.selectRootPublicationsByPubSet(channel.getPubSet());
-        return NotBadResponse.of(Publication.class, publication);
+    public Record loadRootPublications(ChannelPubSet channel) throws NotFound {
+        Record record = modelPublicationMapper.selectRootPublicationsByPubSet(channel.getPubSet());
+        return NotBadResponse.of(Record.class, record);
     }
 
     @Override
@@ -42,22 +42,22 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     }
 
     @Override
-    public void save(List<Publication> publications) throws DuplicatedPublication {
-        int count = modelPublicationMapper.countPublicationByPubSet(publications.get(0).getPubSet());
+    public void save(List<Record> records) throws DuplicatedPublication {
+        int count = modelPublicationMapper.countPublicationByPubSet(records.get(0).getPubSet());
         if (count > 0) {
-            throw new DuplicatedPublication(publications.get(0).getPubSet());
+            throw new DuplicatedPublication(records.get(0).getPubSet());
         }
-        for (Publication publication : publications) {
+        for (Record record : records) {
             modelPublicationMapper.insertPublication(
-                    publication.getId(),
-                    publication.getPubSet(),
-                    publication.getProviderId(),
-                    publication.getExtId(),
-                    publication.getIntId(),
-                    publication.getVersion(),
-                    publication.getStability(),
-                    publication.getOperatorId(),
-                    publication.getBeginTime()
+                    record.getId(),
+                    record.getPubSet(),
+                    record.getProviderId(),
+                    record.getExtId(),
+                    record.getIntId(),
+                    record.getVersion(),
+                    record.getStability(),
+                    record.getOperatorId(),
+                    record.getBeginTime()
             );
         }
     }

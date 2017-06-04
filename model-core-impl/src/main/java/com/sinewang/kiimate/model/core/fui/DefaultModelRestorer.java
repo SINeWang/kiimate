@@ -48,7 +48,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
             if (refPubSet != null) {
                 ModelPublicationDai.ChannelPubSet pubset = new ModelPublicationDai.ChannelPubSet();
                 pubset.setPubSet(refPubSet);
-                ModelPublicationDai.Publication publication = modelPublicationDai.loadRootPublications(pubset);
+                ModelPublicationDai.Record publication = modelPublicationDai.loadRootPublications(pubset);
                 IntensionDai.ChannelLastExtension refExt = new IntensionDai.ChannelLastExtension();
                 refExt.setBeginTime(publication.getBeginTime());
                 refExt.setId(publication.getExtId());
@@ -82,7 +82,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
             if (refPubSet != null) {
                 ModelPublicationDai.ChannelPubSet pubset = new ModelPublicationDai.ChannelPubSet();
                 pubset.setPubSet(refPubSet);
-                ModelPublicationDai.Publication publication = modelPublicationDai.loadRootPublications(pubset);
+                ModelPublicationDai.Record publication = modelPublicationDai.loadRootPublications(pubset);
                 IntensionDai.ChannelLastExtension channel = new IntensionDai.ChannelLastExtension();
                 channel.setId(publication.getExtId());
                 channel.setBeginTime(publication.getBeginTime());
