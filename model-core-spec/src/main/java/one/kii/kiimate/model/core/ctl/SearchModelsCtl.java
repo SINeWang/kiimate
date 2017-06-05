@@ -1,10 +1,9 @@
 package one.kii.kiimate.model.core.ctl;
 
 import one.kii.kiimate.model.core.api.SearchModelsApi;
+import one.kii.summer.asdf.xi.SearchApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
-import one.kii.summer.io.exception.Panic;
-import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ import java.util.List;
 public class SearchModelsCtl extends ReadController {
 
     @Autowired
-    private SearchModelsApi searchModelsApi;
+    private SearchModelsApi api;
 
 
     @RequestMapping(method = RequestMethod.GET)
@@ -38,11 +37,7 @@ public class SearchModelsCtl extends ReadController {
         form.setGroup(query);
 
 
-        try {
-            return ErestResponse.ok(requestId, searchModelsApi.search(context, form));
-        } catch (Panic panic) {
-            return ErestResponse.panic(requestId, panic.getKeys());
-        }
+        return SearchApiCaller.sync(api, context, form);
 
     }
 }

@@ -1,6 +1,7 @@
 package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
+import one.kii.summer.asdf.xi.SearchApi;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.Panic;
 
@@ -10,7 +11,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 02/05/2017.
  */
-public interface SearchModelsApi {
+public interface SearchModelsApi extends SearchApi<List<SearchModelsApi.Models>, ReadContext, SearchModelsApi.QueryModelsForm> {
 
 
     List<Models> search(ReadContext context, QueryModelsForm form) throws Panic;
