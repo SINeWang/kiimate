@@ -54,7 +54,7 @@ public class TestReceiptDai {
         record.setId(testId);
         try {
             extensionDai.remember(record);
-        } catch (Conflict conflict) {
+        } catch (Exception conflict) {
             conflict.printStackTrace();
         }
         ExtensionDai.ChannelId extId = new ExtensionDai.ChannelId();
@@ -86,7 +86,7 @@ public class TestReceiptDai {
         record.setId(testId);
         try {
             extensionDai.remember(record);
-        } catch (Conflict conflict) {
+        } catch (Exception conflict) {
             conflict.printStackTrace();
         }
     }

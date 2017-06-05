@@ -28,7 +28,6 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
 
     @Override
     public ExtensionDai.Record extract(WriteContext context, DeclareExtensionApi.CommitForm form) throws BadRequest, Panic {
-
         NotBadRequest.from(form);
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
         form.setName(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getName()));

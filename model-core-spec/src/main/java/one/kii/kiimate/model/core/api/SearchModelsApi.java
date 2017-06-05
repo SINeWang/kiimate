@@ -3,6 +3,7 @@ package one.kii.kiimate.model.core.api;
 import lombok.Data;
 import one.kii.summer.asdf.xi.SearchApi;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
 
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.List;
 public interface SearchModelsApi extends SearchApi<SearchModelsApi.Models, ReadContext, SearchModelsApi.QueryModelsForm> {
 
 
-    List<Models> search(ReadContext context, QueryModelsForm form) throws Panic;
+    List<Models> search(ReadContext context, QueryModelsForm form) throws BadRequest, Panic;
 
     @Data
     class Models {

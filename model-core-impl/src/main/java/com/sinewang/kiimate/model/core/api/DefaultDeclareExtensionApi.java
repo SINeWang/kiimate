@@ -33,8 +33,6 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
 
         ExtensionDai.Record record = extensionExtractor.extract(context, form);
 
-        NotBadRequest.from(record);
-
         extensionDai.remember(record);
 
         CommitReceipt receipt = ValueMapping.from(CommitReceipt.class, record);

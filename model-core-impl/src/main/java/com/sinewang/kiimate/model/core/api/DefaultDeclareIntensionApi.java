@@ -34,7 +34,6 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
 
     @Override
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic {
-
         IntensionDai.Record record = anIntensionExtractor.extract(context, form);
 
         intensionDai.remember(record);

@@ -2,14 +2,17 @@ package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
+import one.kii.kiimate.status.core.api.VisitFatAssetApi;
 import one.kii.kiimate.status.core.api.VisitFatStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.ValueMapping;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -53,6 +56,6 @@ public class DefaultVisitFatStatusApi implements VisitFatStatusApi {
         List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
         status.setIntensions(intensions);
         status.setMap(map);
-        return status;
+        return NotBadResponse.of(Status.class, MayHave.class, status);
     }
 }

@@ -18,7 +18,7 @@ public interface IntensionDai {
 
 
     @Transactional
-    void remember(Record record) throws Conflict;
+    void remember(Record record) throws Conflict, BadRequest;
 
     List<Record> load(ChannelLatestExtension channel) throws BadRequest, Panic;
 
@@ -46,6 +46,7 @@ public interface IntensionDai {
 
         Long id;
 
+        @MayHave
         Date beginTime;
     }
 

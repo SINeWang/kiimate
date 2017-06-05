@@ -2,7 +2,6 @@ package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
 import one.kii.summer.asdf.xi.CommitApi;
-import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -22,16 +21,12 @@ public interface DeclareExtensionApi extends CommitApi<DeclareExtensionApi.Commi
     @Data
     class CommitForm {
 
-        @MustHave
         private String group;
 
-        @MustHave
         private String name;
 
-        @MustHave
         private String tree = TREE_MASTER;
 
-        @MustHave
         private String visibility;
     }
 

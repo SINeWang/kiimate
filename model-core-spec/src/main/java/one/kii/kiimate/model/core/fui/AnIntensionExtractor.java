@@ -3,6 +3,7 @@ package one.kii.kiimate.model.core.fui;
 import one.kii.kiimate.model.core.api.DeclareIntensionApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.summer.io.context.WriteContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 
@@ -11,6 +12,6 @@ import one.kii.summer.io.exception.Panic;
  */
 public interface AnIntensionExtractor {
 
-    IntensionDai.Record extract(WriteContext context, DeclareIntensionApi.Form form) throws NotFound, Panic;
+    IntensionDai.Record extract(WriteContext context, DeclareIntensionApi.Form form) throws NotFound, Panic, BadRequest;
 
 }

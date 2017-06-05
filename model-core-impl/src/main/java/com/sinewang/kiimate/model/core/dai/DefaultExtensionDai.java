@@ -4,8 +4,10 @@ import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.io.annotations.MayHave;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +29,9 @@ public class DefaultExtensionDai implements ExtensionDai {
     private ExtensionMapper extensionMapper;
 
     @Override
-    public Record loadLast(ChannelCoordinate channel) throws Panic {
+    public Record loadLast(ChannelCoordinate channel) throws Panic, BadRequest {
+        NotBadRequest.from(channel);
+
         Record record;
         if (channel.getBeginTime() == null) {
             record = extensionMapper.selectLatestExtensionByOwnerGroupNameTree(
@@ -48,7 +52,9 @@ public class DefaultExtensionDai implements ExtensionDai {
     }
 
     @Override
-    public Record loadLast(ChannelId channel) throws Panic {
+    public Record loadLast(ChannelId channel) throws Panic, BadRequest {
+        NotBadRequest.from(channel);
+
         Record record;
         if (channel.getBeginTime() == null) {
             record = extensionMapper.selectLatestExtensionById(
@@ -63,7 +69,9 @@ public class DefaultExtensionDai implements ExtensionDai {
     }
 
     @Override
-    public List<Record> search(ClueGroup clue) {
+    public List<Record> search(ClueGroup clue) throws BadRequest {
+        NotBadRequest.from(clue);
+
         return extensionMapper.queryExtensionsByOwnerGroup(
                 clue.getOwnerId(),
                 clue.getGroup());
@@ -71,7 +79,9 @@ public class DefaultExtensionDai implements ExtensionDai {
 
 
     @Override
-    public void remember(Record record) throws Conflict {
+    public void remember(Record record) throws Conflict, BadRequest {
+        NotBadRequest.from(record);
+
         Record lastRecord = extensionMapper.selectExtensionByCommit(record.getCommit());
         if (lastRecord != null) {
             throw new Conflict(KeyFactorTools.find(Record.class));

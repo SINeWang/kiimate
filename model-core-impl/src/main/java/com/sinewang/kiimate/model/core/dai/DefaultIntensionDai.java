@@ -6,8 +6,7 @@ import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import one.kii.summer.io.validator.NotBadRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,13 +21,13 @@ import java.util.List;
 @Component
 public class DefaultIntensionDai implements IntensionDai {
 
-    private final Logger logger = LoggerFactory.getLogger(DefaultIntensionDai.class);
 
     @Autowired
     private IntensionMapper intensionMapper;
 
     @Override
-    public void remember(Record record) throws Conflict {
+    public void remember(Record record) throws Conflict, BadRequest {
+        NotBadRequest.from(record);
         Record oldRecord = intensionMapper.selectIntensionByCommit(record.getCommit());
         if (oldRecord != null) {
             throw new Conflict(KeyFactorTools.find(Record.class));
@@ -51,6 +50,7 @@ public class DefaultIntensionDai implements IntensionDai {
 
     @Override
     public List<Record> load(ChannelLatestExtension channel) throws BadRequest, Panic {
+        NotBadRequest.from(channel);
         List<Record> records = intensionMapper.selectLatestIntensionsByExtId(channel.getId());
         if (records.isEmpty()) {
             throw new BadRequest("id");
@@ -60,7 +60,8 @@ public class DefaultIntensionDai implements IntensionDai {
 
 
     @Override
-    public List<Record> loadLast(ChannelLastExtension channel) {
+    public List<Record> loadLast(ChannelLastExtension channel) throws BadRequest {
+        NotBadRequest.from(channel);
         if (channel.getBeginTime() == null) {
             return intensionMapper.selectLatestIntensionsByExtId(channel.getId());
         } else {
@@ -71,15 +72,16 @@ public class DefaultIntensionDai implements IntensionDai {
     }
 
     @Override
-    public List<Record> loadLast(ChannelPubSet pubSet) {
+    public List<Record> loadLast(ChannelPubSet channel) throws BadRequest {
+        NotBadRequest.from(channel);
         List<String> fields = intensionMapper.selectLastFieldsByExtIdPubSet(
-                pubSet.getExtId(),
-                pubSet.getPubSet(),
-                pubSet.getBeginTime());
+                channel.getExtId(),
+                channel.getPubSet(),
+                channel.getBeginTime());
         List<Record> records = new ArrayList<>();
         for (String field : fields) {
             Record record = intensionMapper.selectLastIntensionByExtIdField(
-                    pubSet.getExtId(),
+                    channel.getExtId(),
                     field);
             records.add(record);
         }
@@ -88,7 +90,8 @@ public class DefaultIntensionDai implements IntensionDai {
 
 
     @Override
-    public void forget(ChannelId channel) {
+    public void forget(ChannelId channel) throws BadRequest {
+        NotBadRequest.from(channel);
         Date now = new Date();
         intensionMapper.updateLatestIntensionEndTimeById(
                 channel.getId(),

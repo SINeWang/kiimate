@@ -6,6 +6,7 @@ import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -30,7 +31,7 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
     private ExtensionDai extensionDai;
 
     @Override
-    public List<Models> search(ReadContext context, QueryModelsForm form) throws Panic {
+    public List<Models> search(ReadContext context, QueryModelsForm form)  throws BadRequest, Panic {
         ModelPublicationDai.ClueGroup group = ValueMapping.from(ModelPublicationDai.ClueGroup.class, form);
 
         List<ModelPublicationDai.PublishedExtension> extensions = modelPublicationDai.searchExtension(group);

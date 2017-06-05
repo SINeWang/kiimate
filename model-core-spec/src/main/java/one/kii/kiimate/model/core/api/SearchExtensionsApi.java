@@ -3,6 +3,7 @@ package one.kii.kiimate.model.core.api;
 import lombok.Data;
 import one.kii.summer.asdf.xi.SearchApi;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public interface SearchExtensionsApi extends SearchApi<SearchExtensionsApi.Extension, ReadContext, SearchExtensionsApi.QueryForm> {
 
 
-    List<Extension> search(ReadContext context, QueryForm form);
+    List<Extension> search(ReadContext context, QueryForm form) throws BadRequest;
 
 
     @Data

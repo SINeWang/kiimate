@@ -1,11 +1,8 @@
 package one.kii.kiimate.model.core.api;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
+import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.summer.io.context.WriteContext;
-import one.kii.summer.io.exception.BadRequest;
-import one.kii.summer.io.exception.Conflict;
-import one.kii.summer.io.exception.NotFound;
-import one.kii.summer.io.exception.Panic;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import one.kii.kiimate.model.core.dai.ExtensionDai;
 
 
 /**
@@ -155,7 +151,7 @@ public class TestDeclareReceiptApi {
         ExtensionDai.Record record = null;
         try {
             record = extensionDai.loadLast(extId);
-        } catch (Panic panic) {
+        } catch (Exception panic) {
             panic.printStackTrace();
         }
 

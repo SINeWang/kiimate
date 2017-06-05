@@ -89,7 +89,7 @@ public class TestPublishModelApi {
 
         try {
             extensionDai.remember(extension);
-        } catch (Conflict conflict) {
+        } catch (Exception conflict) {
             conflict.printStackTrace();
         }
 
@@ -106,7 +106,7 @@ public class TestPublishModelApi {
             intension.setId(idgen.born());
             try {
                 intensionDai.remember(intension);
-            } catch (Conflict conflict) {
+            } catch (Exception conflict) {
                 conflict.printStackTrace();
             }
         }
