@@ -17,7 +17,8 @@ spring:
     password: wave
 logging:
   level:
-    com.sinewang.metamate.core.dai.mapper: DEBUG
+    com.sinewang: DEBUG
+    one.kii: DEBUG
 ---
 spring:
   profiles: prod
