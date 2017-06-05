@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 02/05/2017.
  */
-public interface SearchModelsApi extends SearchApi<List<SearchModelsApi.Models>, ReadContext, SearchModelsApi.QueryModelsForm> {
+public interface SearchModelsApi extends SearchApi<SearchModelsApi.Models, ReadContext, SearchModelsApi.QueryModelsForm> {
 
 
     List<Models> search(ReadContext context, QueryModelsForm form) throws Panic;

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 10/05/2017.
  */
-public interface SearchSubscriptionsApi extends SearchApi<List<SearchSubscriptionsApi.Subscriptions>, ReadContext, SearchSubscriptionsApi.QueryForm> {
+public interface SearchSubscriptionsApi extends SearchApi<SearchSubscriptionsApi.Subscriptions, ReadContext, SearchSubscriptionsApi.QueryForm> {
 
 
     List<Subscriptions> search(ReadContext context, QueryForm form) throws BadRequest;

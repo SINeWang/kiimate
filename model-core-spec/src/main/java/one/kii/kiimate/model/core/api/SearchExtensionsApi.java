@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 02/05/2017.
  */
-public interface SearchExtensionsApi extends SearchApi<List<SearchExtensionsApi.Extension>, ReadContext, SearchExtensionsApi.QueryForm> {
+public interface SearchExtensionsApi extends SearchApi<SearchExtensionsApi.Extension, ReadContext, SearchExtensionsApi.QueryForm> {
 
 
     List<Extension> search(ReadContext context, QueryForm form);

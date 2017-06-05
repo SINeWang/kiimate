@@ -1,10 +1,9 @@
 package one.kii.kiimate.status.core.ctl;
 
 import one.kii.kiimate.status.core.api.SearchAssetsApi;
+import one.kii.summer.asdf.xi.SearchApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
-import one.kii.summer.io.exception.BadRequest;
-import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,10 +35,6 @@ public class SearchAssetsCtl extends ReadController {
         form.setGroup(query);
         form.setOwnerId(ownerId);
 
-        try {
-            return ErestResponse.ok(requestId, api.search(context, form));
-        } catch (BadRequest badRequest) {
-            return ErestResponse.badRequest(requestId, badRequest.getKeys());
-        }
+        return SearchApiCaller.sync(api, context, form);
     }
 }

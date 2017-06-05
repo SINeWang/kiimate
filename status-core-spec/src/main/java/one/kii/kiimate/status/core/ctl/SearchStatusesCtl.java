@@ -1,9 +1,9 @@
 package one.kii.kiimate.status.core.ctl;
 
 import one.kii.kiimate.status.core.api.SearchStatusesApi;
+import one.kii.summer.asdf.xi.SearchApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
-import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +37,6 @@ public class SearchStatusesCtl extends ReadController {
 
         form.setQuery(query);
 
-        List<SearchStatusesApi.Statuses> models = api.search(context, form);
-        return ErestResponse.ok(requestId, models);
+        return SearchApiCaller.sync(api, context, form);
     }
 }
