@@ -27,15 +27,12 @@ public interface VisitFatAssetApi extends VisitApi {
 
     @Data
     class Asset {
-        String pubSet;
         String ownerId;
-        String visibility;
         String group;
         String name;
         String stability;
         String version;
         List<Intension> intensions;
-
         Map<String, Object> map;
     }
 

@@ -54,8 +54,8 @@ public class DefaultVisitFatAssetApi implements VisitFatAssetApi {
     }
 
     private Asset transform(ReadContext context, AssetDai.Assets assetDb) throws BadRequest, Panic {
-        InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, assetDb);
-        List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusPubSet);
+        InstanceDai.ChannelAssetId id = ValueMapping.from(InstanceDai.ChannelAssetId.class, assetDb);
+        List<InstanceDai.Instance> instances = instanceDai.loadInstances(id);
         Asset asset = ValueMapping.from(Asset.class, assetDb);
 
 

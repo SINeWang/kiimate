@@ -29,7 +29,7 @@ public interface InstanceMapper {
                         @Param("operatorId") String operatorId,
                         @Param("beginTime") Date beginTime);
 
-    List<InstanceDai.Instance> selectLatestInstancesBySubId(@Param("subId") Long subId);
+    List<InstanceDai.Instance> selectLatestInstancesByAssetId(@Param("subId") Long subId);
 
     List<InstanceDai.Instance> selectInstancesByPubSet(@Param("pubSet") Long putSet);
 

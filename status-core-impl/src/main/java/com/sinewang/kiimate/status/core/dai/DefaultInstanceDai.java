@@ -127,8 +127,8 @@ public class DefaultInstanceDai implements InstanceDai {
     }
 
     @Override
-    public List<Instance> loadInstances(ChannelStatusId channel) {
-        return instanceMapper.selectLatestInstancesBySubId(channel.getId());
+    public List<Instance> loadInstances(ChannelAssetId channel) {
+        return instanceMapper.selectLatestInstancesByAssetId(channel.getId());
     }
 
     @Override
