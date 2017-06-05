@@ -36,13 +36,13 @@ public class DefaultVisitFatStatusApi implements VisitFatStatusApi {
 
     @Override
     public Status visit(ReadContext context, StatusIdForm form) throws BadRequest, NotFound, Panic {
-        InstanceDai.ChannelAssetId id = ValueMapping.from(InstanceDai.ChannelAssetId.class, form);
+        InstanceDai.ChannelStatusId id = ValueMapping.from(InstanceDai.ChannelStatusId.class, form);
 
         List<InstanceDai.Instance> instances = instanceDai.loadInstances(id);
 
-        ModelSubscriptionDai.ChannelSubId modelSubId = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, id);
+        ModelSubscriptionDai.StatusId statusId = ValueMapping.from(ModelSubscriptionDai.StatusId.class, context, id);
 
-        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(modelSubId);
+        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByStatusId(statusId);
 
         Status status = ValueMapping.from(Status.class, model);
         Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);

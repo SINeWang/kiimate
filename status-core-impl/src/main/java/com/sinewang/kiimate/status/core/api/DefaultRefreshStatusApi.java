@@ -51,9 +51,9 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
     @Override
     public Receipt commit(WriteContext context, SubIdForm form) throws BadRequest, Conflict, NotFound, Panic {
-        ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, form);
+        ModelSubscriptionDai.StatusId channel = ValueMapping.from(ModelSubscriptionDai.StatusId.class, context, form);
 
-        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(channel);
+        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByStatusId(channel);
 
 
         IntensionDai.ChannelLastExtension lastExtension = new IntensionDai.ChannelLastExtension();

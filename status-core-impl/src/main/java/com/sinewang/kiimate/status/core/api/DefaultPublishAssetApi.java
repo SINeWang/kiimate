@@ -48,12 +48,12 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
 
         AssetDai.ChannelModelSubId channelModelSubId = ValueMapping.from(AssetDai.ChannelModelSubId.class, informal);
         channelModelSubId.setOwnerId(informal.getProviderId());
-        AssetDai.Assets previous = assetDai.load(channelModelSubId);
 
 
-        InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, previous);
+        InstanceDai.ChannelStatusId id = new InstanceDai.ChannelStatusId();
+        id.setId(form.getSubId());
 
-        List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusPubSet);
+        List<InstanceDai.Instance> instances = instanceDai.loadInstances(id);
 
         List<StatusDai.Entry> entries = new ArrayList<>();
 
@@ -72,8 +72,7 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
 
         Date date = assetDai.remember(record);
         Map map = new HashMap<>();
-        ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, form);
-        channel.setOwnerId(informal.getProviderId());
+        ModelSubscriptionDai.StatusId channel = ValueMapping.from(ModelSubscriptionDai.StatusId.class, form);
         ModelSubscriptionDai.Status status = modelSubscriptionDai.selectSubscription(channel);
         map.put("beginTime", date);
         return ValueMapping.from(Receipt.class, form, map, status);

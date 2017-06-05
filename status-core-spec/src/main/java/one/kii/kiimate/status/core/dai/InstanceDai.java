@@ -18,17 +18,19 @@ public interface InstanceDai {
 
     List<Instance> loadInstances(ChannelAssetId channel);
 
-    List<Instance> loadInstances(ChannelStatusPubSet channel);
+    List<Instance> loadInstances(ChannelStatusId channel);
 
-    @Data
-    class ChannelStatusPubSet {
-        Long pubSet;
-    }
 
     @Data
     class ChannelAssetId {
         Long id;
     }
+
+    @Data
+    class ChannelStatusId {
+        Long id;
+    }
+
 
     @Data
     class Instance {

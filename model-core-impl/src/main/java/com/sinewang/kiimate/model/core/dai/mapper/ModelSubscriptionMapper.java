@@ -38,8 +38,10 @@ public interface ModelSubscriptionMapper {
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 
-    ModelSubscriptionDai.ModelPubSet selectModelPubSetByOwnerSubscription(
-            @Param("ownerId") String ownerId,
+    ModelSubscriptionDai.ModelPubSet selectModelPubSetByAssetId(
+            @Param("subId") Long subId);
+
+    ModelSubscriptionDai.ModelPubSet selectModelPubSetByStatusId(
             @Param("subId") Long subId);
 
     ModelSubscriptionDai.Status selectSubscriptionByOwnerGroupNameTree(
@@ -52,7 +54,6 @@ public interface ModelSubscriptionMapper {
     List<ModelSubscriptionDai.Subscribers> querySubscriberId(@Param("subscriberId") String subscriberId);
 
 
-    ModelSubscriptionDai.Status selectByOwnerSubId(
-            @Param("ownerId") String ownerId,
+    ModelSubscriptionDai.Status selectBySubId(
             @Param("subId") Long subId);
 }

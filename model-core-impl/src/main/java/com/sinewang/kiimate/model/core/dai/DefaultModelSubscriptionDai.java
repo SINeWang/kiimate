@@ -57,9 +57,8 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel) throws Panic {
-        ModelPubSet record = modelSubscriptionMapper.selectModelPubSetByOwnerSubscription(
-                channel.getOwnerId(),
+    public ModelPubSet getModelPubSetByStatusId(StatusId channel) throws Panic {
+        ModelPubSet record = modelSubscriptionMapper.selectModelPubSetByStatusId(
                 channel.getId());
         return NotBadResponse.of(ModelPubSet.class, MayHave.class, record);
     }
@@ -86,11 +85,9 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public Status selectSubscription(ChannelSubId channel) throws Panic, BadRequest {
+    public Status selectSubscription(StatusId channel) throws Panic, BadRequest {
         NotBadRequest.from(channel);
-        Status record = modelSubscriptionMapper.selectByOwnerSubId(
-                channel.getOwnerId(),
-                channel.getId()
+        Status record = modelSubscriptionMapper.selectBySubId(channel.getId()
         );
         return NotBadResponse.of(Status.class, record);
     }

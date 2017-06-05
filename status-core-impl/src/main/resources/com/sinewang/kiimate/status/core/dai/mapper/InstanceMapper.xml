@@ -29,12 +29,12 @@
         AND ssub.end_time is NULL
     </select>
 
-    <select id="selectInstancesByPubSet" resultMap="Instance">
+    <select id="selectLatestInstancesByStatusId" resultMap="Instance">
         SELECT mins.id, mins.commit, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_path, mins.value_ref_policy, mins.operator_id, mins.begin_time
-        FROM mm_i_ins mins, km_s_pub spub
-        WHERE spub.pub_set = #{pubSet}
-        AND mins.id = spub.ins_id
-        AND spub.end_time IS NULL
+        FROM mm_i_ins mins, mm_m_sub msub
+        WHERE msub.id = #{subId}
+        AND mins.sub_id = msub.id
+        AND msub.end_time IS NULL
     </select>
 
     <select id="selectLatestInstanceBySubIdIntId" resultMap="Instance">

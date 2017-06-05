@@ -22,13 +22,6 @@ public interface VisitRawAssetApi extends VisitApi<Map<String, Object>, ReadCont
     Map<String, Object> visit(ReadContext context, GroupNameForm form) throws BadRequest, NotFound, Panic;
 
     @Data
-    class PubSetForm {
-        String pubSet;
-        String stability;
-        String version;
-    }
-
-    @Data
     class GroupNameForm {
         String group;
         String name;

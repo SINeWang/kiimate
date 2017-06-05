@@ -36,7 +36,7 @@ public class ReceiptMapperTest {
         ExtensionDai.Record ext = extensionMapper.selectLatestExtensionById(id);
         Assert.assertNull(ext);
 
-        extensionMapper.insertExtension(id, "sfsfsdf", ownerId, "12", "56", "78", "90", new Date());
+        extensionMapper.insertExtension(id, "sfsfsdf", ownerId, "12", "56", "78", "90", "somebody", new Date());
         ExtensionDai.Record ext1 = extensionMapper.selectLatestExtensionById(id);
         Assert.assertNotNull(ext1);
 

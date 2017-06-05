@@ -20,7 +20,7 @@ public interface ModelSubscriptionDai {
     @Transactional
     void remember(Status status) throws DuplicatedSubscription;
 
-    ModelPubSet getModelPubSetByOwnerSubscription(ChannelSubId channel) throws Panic;
+    ModelPubSet getModelPubSetByStatusId(StatusId channel) throws Panic;
 
     List<Status> querySubscriptions(ClueGroup clue) throws BadRequest;
 
@@ -28,7 +28,7 @@ public interface ModelSubscriptionDai {
 
     Status selectSubscription(ChannelGroupNameTree channel) throws Panic, BadRequest;
 
-    Status selectSubscription(ChannelSubId channel) throws Panic, BadRequest;
+    Status selectSubscription(StatusId channel) throws Panic, BadRequest;
 
     Integer countModelSubscriptions(Long pubSet);
 
@@ -57,10 +57,7 @@ public interface ModelSubscriptionDai {
     }
 
     @Data
-    class ChannelSubId {
-
-        @MustHave
-        String ownerId;
+    class StatusId {
 
         @MustHave
         Long id;

@@ -132,8 +132,8 @@ public class DefaultInstanceDai implements InstanceDai {
     }
 
     @Override
-    public List<Instance> loadInstances(ChannelStatusPubSet channel) {
-        return instanceMapper.selectInstancesByPubSet(channel.getPubSet());
+    public List<Instance> loadInstances(ChannelStatusId channel) {
+        return instanceMapper.selectLatestInstancesByStatusId(channel.getId());
     }
 
 

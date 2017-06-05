@@ -31,7 +31,7 @@ public interface InstanceMapper {
 
     List<InstanceDai.Instance> selectLatestInstancesByAssetId(@Param("subId") Long subId);
 
-    List<InstanceDai.Instance> selectInstancesByPubSet(@Param("pubSet") Long putSet);
+    List<InstanceDai.Instance> selectLatestInstancesByStatusId(@Param("subId") Long subId);
 
     List<InstanceDai.Instance> selectLatestInstanceBySubIdIntId(@Param("subId") Long subId,
                                                                 @Param("intId") Long intId);

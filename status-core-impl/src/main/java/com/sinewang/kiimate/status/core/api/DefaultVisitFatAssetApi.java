@@ -59,8 +59,8 @@ public class DefaultVisitFatAssetApi implements VisitFatAssetApi {
         Asset asset = ValueMapping.from(Asset.class, assetDb);
 
 
-        ModelSubscriptionDai.ChannelSubId modelSubId = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, assetDb);
-        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(modelSubId);
+        ModelSubscriptionDai.StatusId modelSubId = ValueMapping.from(ModelSubscriptionDai.StatusId.class, context, assetDb);
+        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByStatusId(modelSubId);
         Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);
 
         IntensionDai.ChannelLastExtension rootExtension = ValueMapping.from(IntensionDai.ChannelLastExtension.class, model);

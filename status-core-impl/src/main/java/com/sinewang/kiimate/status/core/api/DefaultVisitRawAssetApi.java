@@ -39,16 +39,16 @@ public class DefaultVisitRawAssetApi implements VisitRawAssetApi {
     public Map<String, Object> visit(ReadContext context, GroupNameForm form) throws BadRequest, NotFound, Panic {
         AssetDai.ChannelGroupName channel = ValueMapping.from(AssetDai.ChannelGroupName.class, form, context);
         AssetDai.Assets assetDb = assetDai.load(channel);
-        return transform(context, assetDb);
-    }
 
-    private Map<String, Object> transform(ReadContext context, AssetDai.Assets assetDb) throws Panic, BadRequest {
-        InstanceDai.ChannelStatusPubSet statusPubSet = ValueMapping.from(InstanceDai.ChannelStatusPubSet.class, assetDb);
-        List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusPubSet);
+        InstanceDai.ChannelAssetId id = ValueMapping.from(InstanceDai.ChannelAssetId.class, assetDb);
 
-        ModelSubscriptionDai.ChannelSubId channel = ValueMapping.from(ModelSubscriptionDai.ChannelSubId.class, context, assetDb);
+        List<InstanceDai.Instance> instances = instanceDai.loadInstances(id);
 
-        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByOwnerSubscription(channel);
+        ModelSubscriptionDai.StatusId statusId = new ModelSubscriptionDai.StatusId();
+
+        statusId.setId(instances.get(0).getSubId());
+
+        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByStatusId(statusId);
         return instanceTransformer.toRawValue(instances, model);
     }
 }
