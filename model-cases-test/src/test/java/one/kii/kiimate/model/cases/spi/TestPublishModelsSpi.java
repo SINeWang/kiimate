@@ -44,7 +44,7 @@ public class TestPublishModelsSpi {
         PublishModelsSpi.Receipt receipt = null;
         try {
             receipt = publishModelsSpi.commit(form);
-        } catch (Panic panic) {
+        } catch (Exception panic) {
             panic.printStackTrace();
         }
 
@@ -57,7 +57,7 @@ public class TestPublishModelsSpi {
         String extensionJson = null;
         try {
             extensionJson = visitExtensionSpi.visit(form2);
-        } catch (Panic panic) {
+        } catch (Exception panic) {
             panic.printStackTrace();
         }
 
