@@ -22,7 +22,7 @@ public interface RefreshStatusApi extends CommitApi<RefreshStatusApi.Receipt, Wr
 
     @Data
     class SubIdForm {
-        String subId;
+        String id;
         MultiValueMap<String, String> map;
     }
 

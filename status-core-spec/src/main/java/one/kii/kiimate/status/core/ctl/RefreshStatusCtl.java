@@ -63,7 +63,7 @@ public class RefreshStatusCtl extends WriteController {
             MultiValueMap<String, String> map) {
         WriteContext context = buildContext(requestId, ownerId, operatorId);
         RefreshStatusApi.SubIdForm form = new RefreshStatusApi.SubIdForm();
-        form.setSubId(subId);
+        form.setId(subId);
         form.setMap(map);
         return CommitApiCaller.sync(api, context, form);
     }

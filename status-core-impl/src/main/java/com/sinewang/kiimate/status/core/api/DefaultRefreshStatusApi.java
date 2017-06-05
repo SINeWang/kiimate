@@ -67,6 +67,9 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         List<InstanceDai.Record> record1 = ValueMapping.from(InstanceDai.Record.class, instances);
 
         try {
+            for(InstanceDai.Record record: record1){
+                record.setSubId(channel.getId());
+            }
             instanceDai.remember(record1);
         } catch (InstanceDai.InstanceDuplicated instanceDuplicated) {
             throw new Conflict(KeyFactorTools.find(InstanceDai.Record.class));
@@ -75,11 +78,12 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
         IntensionDai.ChannelLastExtension rootExtension = ValueMapping.from(IntensionDai.ChannelLastExtension.class, model);
 
+
         rootExtension.setId(model.getRootExtId());
 
-        InstanceDai.ChannelAssetId modelSubId = ValueMapping.from(InstanceDai.ChannelAssetId.class, form);
 
-        List<InstanceDai.Instance> newInstances = instanceDai.loadInstances(modelSubId);
+        InstanceDai.ChannelStatusId id = ValueMapping.from(InstanceDai.ChannelStatusId.class, channel);
+        List<InstanceDai.Instance> newInstances = instanceDai.loadInstances(id);
 
         List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);
         List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
