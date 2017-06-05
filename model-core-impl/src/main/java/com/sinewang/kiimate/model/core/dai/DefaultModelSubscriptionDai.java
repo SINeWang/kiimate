@@ -87,9 +87,8 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     @Override
     public Status selectSubscription(StatusId channel) throws Panic, BadRequest {
         NotBadRequest.from(channel);
-        Status record = modelSubscriptionMapper.selectBySubId(channel.getId()
-        );
-        return NotBadResponse.of(Status.class, record);
+        Status record = modelSubscriptionMapper.selectBySubId(channel.getId());
+        return NotBadResponse.of(Status.class, MayHave.class, record);
     }
 
     @Override

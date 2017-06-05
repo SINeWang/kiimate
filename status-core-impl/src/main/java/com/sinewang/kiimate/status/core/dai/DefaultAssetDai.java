@@ -10,7 +10,6 @@ import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public class DefaultAssetDai implements AssetDai {
     public void remember(Subscription subscription) {
         int count = assetsMapper.countById(subscription.getId());
         if (count == 0) {
-            assetsMapper.insert(
+            assetsMapper.insertSubscription(
                     subscription.getId(),
                     subscription.getSubscriberId(),
                     subscription.getSubSet(),
@@ -38,10 +37,21 @@ public class DefaultAssetDai implements AssetDai {
     }
 
     @Override
-    public Date remember(Publication publication) {
-        Date now = new Date();
-
-        return now;
+    public void remember(Publication publication, List<Entry> entries) {
+        for (Entry entry : entries) {
+            assetsMapper.insertPublication(
+                    entry.getId(),
+                    publication.getPubSet(),
+                    publication.getProviderId(),
+                    publication.getModelSubId(),
+                    entry.getInsId(),
+                    publication.getVersion(),
+                    publication.getStability(),
+                    publication.getVisibility(),
+                    publication.getOperatorId(),
+                    publication.getBeginTime()
+            );
+        }
     }
 
 
@@ -69,16 +79,12 @@ public class DefaultAssetDai implements AssetDai {
     }
 
     @Override
-    public Assets load(ChannelModelSubId channel) throws Panic {
-        Assets asset = assetsMapper.selectAssetByProviderModelSubIdStabilityVersion(
-                channel.getOwnerId(),
-                channel.getSubId(),
-                channel.getStability(),
-                channel.getVersion());
-        return NotBadResponse.of(Assets.class, MayHave.class, asset);
+    public Publication load(ChannelSubscriptionId channel) throws Panic {
+        Publication publication = assetsMapper.selectPublication(
+                channel.getId());
+        return NotBadResponse.of(Publication.class, MayHave.class, publication);
     }
 
-    @Override
     public Assets load(ChannelGroupName channel) throws Panic {
         Assets asset = assetsMapper.selectAssetByProviderGroupNameStabilityVersion(
                 channel.getOwnerId(),

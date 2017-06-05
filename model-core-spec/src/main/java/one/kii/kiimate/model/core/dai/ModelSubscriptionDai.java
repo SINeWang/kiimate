@@ -93,6 +93,11 @@ public interface ModelSubscriptionDai {
 
         private String operatorId;
 
+        private Date beginTime;
+
+        @MayHave
+        private Date endTime;
+
     }
 
     class DuplicatedSubscription extends Exception {

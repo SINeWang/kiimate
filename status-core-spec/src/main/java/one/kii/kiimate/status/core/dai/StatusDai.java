@@ -1,6 +1,7 @@
 package one.kii.kiimate.status.core.dai;
 
 import lombok.Data;
+import one.kii.summer.io.annotations.MayHave;
 
 import java.util.Date;
 import java.util.List;
@@ -36,25 +37,9 @@ public interface StatusDai {
         String tree;
 
         Date beginTime;
-    }
 
-
-    @Data
-    class Entry {
-        Long id;
-
-        String providerId;
-
-        Long subId;
-
-        Long insId;
-
-        String version;
-
-        String visibility;
-
-        String stability;
-
+        @MayHave
+        Date endTime;
     }
 
 

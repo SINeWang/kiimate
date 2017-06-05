@@ -10,6 +10,7 @@
         <result column="subscriber_id" property="ownerId"/>
         <result column="sub_set" property="subSet"/>
         <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
     </resultMap>
 
     <insert id="insertStatus">
@@ -27,7 +28,7 @@
     </update>
     <select id="queryStatuses" resultMap="Status">
         <bind name="group_pattern" value="'%' + group + '%'"/>
-        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.begin_time
+        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.begin_time, msub.end_time
         FROM mm_m_sub msub
         WHERE msub.subscriber_id = #{ownerId}
         AND msub.group LIKE #{group_pattern}

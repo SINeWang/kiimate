@@ -23,23 +23,50 @@ public interface AssetDai {
 
     Assets load(ChannelOwnerId channel) throws Panic;
 
-    Assets load(ChannelModelSubId channel) throws Panic;
+    Publication load(ChannelSubscriptionId channel) throws Panic;
 
     @Transactional
     void remember(Subscription subscription);
 
     @Transactional
-    Date remember(Publication publication);
+    void remember(Publication publication, List<Entry> entries);
 
     @Data
     class Publication {
 
         Long pubSet;
 
-        List<StatusDai.Entry> entries;
+        String providerId;
+
+        Long modelSubId;
 
         String operatorId;
+
+        String version;
+
+        String visibility;
+
+        String stability;
+
+        Date beginTime;
+
+        @MayHave
+        Date endTime;
     }
+
+    @Data
+    class Entry {
+
+        Long id;
+
+        Long insId;
+    }
+
+    @Data
+    class ChannelSubscriptionId {
+        Long id;
+    }
+
 
     @Data
     class Subscription {

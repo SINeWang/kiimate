@@ -13,8 +13,13 @@ import java.util.List;
 @Mapper
 public interface AssetsMapper {
 
+    AssetDai.Publication selectPublication(
+            @Param("id") Long id
+    );
+
     List<AssetDai.Providers> queryProviders(
-            @Param("providerId") String providerId);
+            @Param("providerId") String providerId
+    );
 
     List<AssetDai.Assets> queryAssets(
             @Param("providerId") String providerId,
@@ -31,21 +36,25 @@ public interface AssetsMapper {
             @Param("stability") String stability,
             @Param("version") String version);
 
-    AssetDai.Assets selectAssetByProviderModelSubIdStabilityVersion(
-            @Param("providerId") String providerId,
-            @Param("modelSubId") long subId,
-            @Param("stability") String stability,
-            @Param("version") String version);
-
-
-    void insert(
+    void insertSubscription(
             @Param("id") String id,
             @Param("subscriberId") String subscriberId,
             @Param("subSet") String subSet,
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
-    int countById(@Param("id") String id);
+    void insertPublication(
+            @Param("id") Long id,
+            @Param("pubSet") Long pubSet,
+            @Param("providerId") String providerId,
+            @Param("modelSubId") Long modelSubId,
+            @Param("insId") Long insId,
+            @Param("version") String version,
+            @Param("stability") String stability,
+            @Param("visibility") String visibility,
+            @Param("operatorId") String operatorId,
+            @Param("beginTime") Date beginTime);
 
+    int countById(@Param("id") String id);
 
 }

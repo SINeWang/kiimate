@@ -33,10 +33,10 @@ public class DefaultVisitFatAssetApi implements VisitFatAssetApi {
     private IntensionDai intensionDai;
 
     @Autowired
-    private ModelSubscriptionDai modelSubscriptionDai;
+    private InstanceTransformer instanceTransformer;
 
     @Autowired
-    private InstanceTransformer instanceTransformer;
+    private ModelSubscriptionDai modelSubscriptionDai;
 
 
     @Override
@@ -59,8 +59,13 @@ public class DefaultVisitFatAssetApi implements VisitFatAssetApi {
         Asset asset = ValueMapping.from(Asset.class, assetDb);
 
 
-        ModelSubscriptionDai.StatusId modelSubId = ValueMapping.from(ModelSubscriptionDai.StatusId.class, context, assetDb);
-        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByStatusId(modelSubId);
+        AssetDai.ChannelSubscriptionId assetId = ValueMapping.from(AssetDai.ChannelSubscriptionId.class, assetDb);
+        AssetDai.Publication publication = assetDai.load(assetId);
+        ModelSubscriptionDai.StatusId statusId = new ModelSubscriptionDai.StatusId();
+        statusId.setId(publication.getModelSubId());
+
+        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByStatusId(statusId);
+
         Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);
 
         IntensionDai.ChannelLastExtension rootExtension = ValueMapping.from(IntensionDai.ChannelLastExtension.class, model);

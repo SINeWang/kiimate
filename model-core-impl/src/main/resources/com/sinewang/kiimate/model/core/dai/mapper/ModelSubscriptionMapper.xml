@@ -12,6 +12,8 @@
         <result column="name" property="name"/>
         <result column="tree" property="tree"/>
         <result column="operator_id" property="operatorId"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
     </resultMap>
 
     <resultMap id="Subscribers" type="one.kii.kiimate.model.core.dai.ModelSubscriptionDai$Subscribers">
@@ -55,7 +57,7 @@
 
     <select id="querySubscriptionsByOwnerGroup" resultMap="Subscription">
         <bind name="group_pattern" value="'%' + group + '%'"/>
-        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id
+        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id, msub.begin_time, msub.end_time
         FROM mm_m_sub msub
         WHERE msub.subscriber_id = #{ownerId}
         AND msub.group LIKE #{group_pattern}
@@ -90,7 +92,7 @@
         GROUP BY msub.subscriber_id
     </select>
     <select id="selectSubscriptionByOwnerGroupNameTree" resultMap="Subscription">
-        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id
+        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id, msub.begin_time, msub.end_time
         FROM mm_m_sub msub
         WHERE msub.subscriber_id = #{ownerId}
         AND msub.group = #{group}
@@ -99,7 +101,7 @@
         AND msub.end_time IS NULL
     </select>
     <select id="selectBySubId" resultMap="Subscription">
-        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id
+        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id, msub.begin_time, msub.end_time
         FROM mm_m_sub msub
         WHERE msub.id = #{subId}
         AND msub.end_time IS NULL

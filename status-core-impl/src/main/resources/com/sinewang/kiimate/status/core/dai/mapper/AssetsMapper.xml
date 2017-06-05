@@ -18,12 +18,30 @@
         <result column="end_time" property="endTime"/>
     </resultMap>
 
+    <resultMap id="Publicaiton" type="one.kii.kiimate.status.core.dai.AssetDai$Publication">
+        <result column="pub_set" property="pubSet"/>
+        <result column="provider_id" property="providerId"/>
+        <result column="m_sub_id" property="modelSubId"/>
+        <result column="visibility" property="visibility"/>
+        <result column="stability" property="stability"/>
+        <result column="version" property="version"/>
+        <result column="operator_id" property="operatorId"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
+    </resultMap>
 
-    <insert id="insert">
+
+    <insert id="insertSubscription">
         INSERT INTO km_s_sub
         (id, subscriber_id, sub_set, operator_id, begin_time)
         VALUES
         (#{id}, #{subscriberId}, #{subSet}, #{operatorId}, #{beginTime})
+    </insert>
+    <insert id="insertPublication">
+        INSERT INTO km_s_pub
+        (id, pub_set, provider_id, m_sub_id, ins_id, version, visibility, stability, operator_id, begin_time)
+        VALUES
+        (#{id}, #{pubSet}, #{providerId}, #{modelSubId}, #{insId}, #{version}, #{visibility}, #{stability}, #{operatorId}, #{beginTime})
     </insert>
     <select id="countById" resultType="int">
         SELECT count(id) FROM km_s_sub WHERE id = #{id}
@@ -68,15 +86,12 @@
         AND ssub.end_time IS NULL
         GROUP BY ssub.pub_set
     </select>
-    <select id="selectAssetByProviderModelSubIdStabilityVersion" resultMap="Assets">
-        SELECT ssub.pub_set, ssub.provider_id, ssub.visibility, ssub.m_sub_id, ssub.stability, ssub.version, msub.group, msub.name
-        FROM km_s_pub ssub, mm_m_sub msub
-        WHERE ssub.provider_id = #{providerId}
-        AND ssub.m_sub_id = msub.id
-        AND msub.id = #{modelSubId}
-        AND ssub.stability = #{stability}
-        AND ssub.version = #{version}
+    <select id="selectPublication" resultMap="Publicaiton">
+        SELECT spub.pub_set, spub.provider_id, spub.m_sub_id, spub.visibility, spub.stability, spub.version, spub.operator_id, spub.begin_time, spub.end_time
+        FROM km_s_pub spub, km_s_sub ssub
+        WHERE ssub.id = #{id}
+        AND ssub.sub_set = spub.pub_set
+        GROUP BY ssub.id
         AND ssub.end_time IS NULL
-        GROUP BY ssub.pub_set
     </select>
 </mapper>

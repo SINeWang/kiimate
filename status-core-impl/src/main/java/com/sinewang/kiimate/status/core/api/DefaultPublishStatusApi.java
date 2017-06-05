@@ -2,10 +2,9 @@ package com.sinewang.kiimate.status.core.api;
 
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.status.core.api.PublishAssetApi;
+import one.kii.kiimate.status.core.api.PublishStatusApi;
 import one.kii.kiimate.status.core.dai.AssetDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
-import one.kii.kiimate.status.core.dai.StatusDai;
 import one.kii.kiimate.status.core.fui.AssetPublicationExtractor;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
@@ -16,13 +15,15 @@ import one.kii.summer.io.exception.Panic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 19/05/2017.
  */
 @Component
-public class DefaultPublishAssetApi implements PublishAssetApi {
+public class DefaultPublishStatusApi implements PublishStatusApi {
 
     private static final Eid64Generator insgen = new Eid64Generator(5);
 
@@ -50,31 +51,28 @@ public class DefaultPublishAssetApi implements PublishAssetApi {
         channelModelSubId.setOwnerId(informal.getProviderId());
 
 
-        InstanceDai.ChannelStatusId id = new InstanceDai.ChannelStatusId();
-        id.setId(form.getSubId());
+        InstanceDai.ChannelStatusId id = ValueMapping.from(InstanceDai.ChannelStatusId.class, form);
 
         List<InstanceDai.Instance> instances = instanceDai.loadInstances(id);
 
-        List<StatusDai.Entry> entries = new ArrayList<>();
+        List<AssetDai.Entry> entries = new ArrayList<>();
 
 
         for (InstanceDai.Instance instance : instances) {
-            StatusDai.Entry record = ValueMapping.from(StatusDai.Entry.class, informal);
+            AssetDai.Entry record = new AssetDai.Entry();
             record.setInsId(instance.getId());
             record.setId(insgen.born());
-            record.setVersion(informal.getVersion());
             entries.add(record);
         }
 
-        AssetDai.Publication record = ValueMapping.from(AssetDai.Publication.class, context);
+        AssetDai.Publication record = ValueMapping.from(AssetDai.Publication.class, form, context);
         record.setPubSet(pubset.born());
-        record.setEntries(entries);
+        record.setBeginTime(new Date());
+        record.setModelSubId(form.getId());
 
-        Date date = assetDai.remember(record);
-        Map map = new HashMap<>();
+        assetDai.remember(record, entries);
         ModelSubscriptionDai.StatusId channel = ValueMapping.from(ModelSubscriptionDai.StatusId.class, form);
         ModelSubscriptionDai.Status status = modelSubscriptionDai.selectSubscription(channel);
-        map.put("beginTime", date);
-        return ValueMapping.from(Receipt.class, form, map, status);
+        return ValueMapping.from(Receipt.class, form, status, record);
     }
 }
