@@ -61,6 +61,9 @@ CREATE TABLE km_s_sub
   id VARCHAR(160) NOT NULL,
   subscriber_id VARCHAR(32) NOT NULL,
   sub_set VARCHAR(160) NOT NULL,
+  `group` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `tree` varchar(64) NOT NULL,
   operator_id VARCHAR(32) NOT NULL,
   begin_time datetime NOT NULL,
   end_time datetime null
