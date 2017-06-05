@@ -23,8 +23,8 @@ public interface InstanceMapper {
                         @Param("intId") Long intId,
                         @Param("field") String field,
                         @Param("value") String value,
-                        @Param("valueSetHash") Long valueSet,
-                        @Param("valueRefPath") String valueRefPath,
+                        @Param("valueSet") Long valueSet,
+                        @Param("valueRefId") String valueRefId,
                         @Param("valueRefPolicy") String valueRefPolicy,
                         @Param("operatorId") String operatorId,
                         @Param("beginTime") Date beginTime);

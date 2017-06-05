@@ -53,7 +53,7 @@ public interface InstanceDai {
 
         private Long valueSet;
 
-        private String valueRefPath;
+        private String valueRefId;
 
         private String valueRefPolicy;
 
