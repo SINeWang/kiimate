@@ -44,13 +44,13 @@
     </select>
 
     <select id="selectExtensionsByOwnerGroup" resultMap="Extension">
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.operator_id, mext.begin_time, mext.end_time
         FROM mm_m_ext mext
         WHERE mext.owner_id = #{ownerId} AND mext.group = #{group} AND mext.end_time IS NULL
     </select>
     
     <select id="selectLatestExtensionByOwnerGroupNameTree" resultMap="Extension">
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.operator_id, mext.begin_time, mext.end_time
         FROM mm_m_ext mext
         WHERE mext.owner_id = #{ownerId}
         AND mext.group = #{group}
@@ -60,7 +60,7 @@
     </select>
 
     <select id="selectLastExtensionById" resultMap="Extension">
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.operator_id, mext.begin_time, mext.end_time
         FROM mm_m_ext mext
         WHERE mext.id = #{id}
         <![CDATA[
@@ -72,7 +72,7 @@
 
     <select id="queryExtensionsByOwnerGroup" resultMap="Extension">
         <bind name="group_pattern" value="'%' + group + '%'"/>
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.operator_id, mext.begin_time, mext.end_time
         FROM mm_m_ext mext
         WHERE mext.owner_id = #{ownerId}
         AND mext.`group` LIKE #{group_pattern}
@@ -82,9 +82,9 @@
 
     <insert id="insertExtension">
         INSERT INTO mm_m_ext
-        (`id`, `commit`, `group`, `name`, `tree`, `owner_id`, `visibility`, `begin_time`)
+        (`id`, `commit`, `group`, `name`, `tree`, `owner_id`, `visibility`,`operator_id`,`begin_time`)
         VALUES
-        (#{id}, #{commit}, #{group}, #{name}, #{tree}, #{ownerId}, #{visibility}, #{beginTime})
+        (#{id}, #{commit}, #{group}, #{name}, #{tree}, #{ownerId}, #{visibility}, #{operatorId}, #{beginTime})
     </insert>
 
     <update id="updateEndTimeExtensionById">

@@ -5,7 +5,6 @@ import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.Conflict;
-import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.slf4j.Logger;
@@ -85,6 +84,7 @@ public class DefaultExtensionDai implements ExtensionDai {
                 record.getName(),
                 record.getTree(),
                 record.getVisibility(),
+                record.getOperatorId(),
                 record.getBeginTime()
         );
     }

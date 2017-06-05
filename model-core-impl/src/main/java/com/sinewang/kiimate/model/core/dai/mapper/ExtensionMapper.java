@@ -21,6 +21,7 @@ public interface ExtensionMapper {
             @Param("name") String name,
             @Param("tree") String tree,
             @Param("visibility") String visibility,
+            @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
     ExtensionDai.Record selectLatestExtensionById(
