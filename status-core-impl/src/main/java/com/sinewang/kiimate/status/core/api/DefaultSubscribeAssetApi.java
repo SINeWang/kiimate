@@ -8,6 +8,7 @@ import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.validator.NotBadRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +28,7 @@ public class DefaultSubscribeAssetApi implements SubscribeAssetApi {
 
     @Override
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
+        NotBadRequest.from(form);
 
         AssetDai.Subscription subscription = ValueMapping.from(AssetDai.Subscription.class, form, context);
 

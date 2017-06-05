@@ -26,7 +26,7 @@ public interface AssetDai {
     Publication load(ChannelSubscriptionId channel) throws Panic;
 
     @Transactional
-    void remember(Subscription subscription);
+    void remember(Subscription subscription) throws BadRequest;
 
     @Transactional
     void remember(Publication publication, List<Entry> entries);

@@ -23,7 +23,8 @@ public class DefaultAssetDai implements AssetDai {
 
 
     @Override
-    public void remember(Subscription subscription) {
+    public void remember(Subscription subscription) throws BadRequest {
+        NotBadRequest.from(subscription);
         assetsMapper.insertSubscription(
                 subscription.getId(),
                 subscription.getSubscriberId(),
