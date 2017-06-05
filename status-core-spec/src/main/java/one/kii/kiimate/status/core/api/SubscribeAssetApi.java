@@ -3,6 +3,7 @@ package one.kii.kiimate.status.core.api;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import one.kii.summer.asdf.xi.CommitApi;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -24,9 +25,11 @@ public interface SubscribeAssetApi extends CommitApi<SubscribeAssetApi.Receipt, 
 
         private String subSet;
 
-        private String stability;
+        private String group;
 
-        private String version;
+        private String name;
+
+        private String tree;
 
     }
 
@@ -36,11 +39,20 @@ public interface SubscribeAssetApi extends CommitApi<SubscribeAssetApi.Receipt, 
 
         private String id;
 
-        private String subSet;
-
         private String subscriberId;
 
+        private String subSet;
+
+        private String group;
+
+        private String name;
+
+        private String tree;
+
         private Date beginTime;
+
+        @MayHave
+        private Date endTime;
 
     }
 

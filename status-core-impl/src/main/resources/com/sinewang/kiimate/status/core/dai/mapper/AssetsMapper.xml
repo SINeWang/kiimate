@@ -43,9 +43,6 @@
         VALUES
         (#{id}, #{pubSet}, #{providerId}, #{modelSubId}, #{insId}, #{version}, #{visibility}, #{stability}, #{operatorId}, #{beginTime})
     </insert>
-    <select id="countById" resultType="int">
-        SELECT count(id) FROM km_s_sub WHERE id = #{id}
-    </select>
 
     <select id="queryProviders" resultMap="Providers">
         <bind name="provider_id_pattern" value="'%' + providerId + '%'"/>

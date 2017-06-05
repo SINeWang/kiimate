@@ -24,17 +24,18 @@ public class DefaultAssetDai implements AssetDai {
 
     @Override
     public void remember(Subscription subscription) {
-        int count = assetsMapper.countById(subscription.getId());
-        if (count == 0) {
-            assetsMapper.insertSubscription(
-                    subscription.getId(),
-                    subscription.getSubscriberId(),
-                    subscription.getSubSet(),
-                    subscription.getOperatorId(),
-                    subscription.getBeginTime()
-            );
-        }
+        assetsMapper.insertSubscription(
+                subscription.getId(),
+                subscription.getSubscriberId(),
+                subscription.getSubSet(),
+                subscription.getGroup(),
+                subscription.getName(),
+                subscription.getTree(),
+                subscription.getOperatorId(),
+                subscription.getBeginTime()
+        );
     }
+
 
     @Override
     public void remember(Publication publication, List<Entry> entries) {

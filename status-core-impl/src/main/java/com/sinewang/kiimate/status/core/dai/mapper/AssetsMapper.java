@@ -37,9 +37,12 @@ public interface AssetsMapper {
             @Param("version") String version);
 
     void insertSubscription(
-            @Param("id") String id,
+            @Param("id") Long id,
             @Param("subscriberId") String subscriberId,
             @Param("subSet") String subSet,
+            @Param("group") String group,
+            @Param("name") String name,
+            @Param("tree") String tree,
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
@@ -55,6 +58,5 @@ public interface AssetsMapper {
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
-    int countById(@Param("id") String id);
 
 }

@@ -70,17 +70,20 @@ public interface AssetDai {
 
     @Data
     class Subscription {
-        String id;
+        Long id;
 
-        @KeyFactor
         String subscriberId;
 
-        @KeyFactor
         String subSet;
+
+        String group;
+
+        String name;
+
+        String tree;
 
         String operatorId;
 
-        @KeyFactor
         Date beginTime;
     }
 
