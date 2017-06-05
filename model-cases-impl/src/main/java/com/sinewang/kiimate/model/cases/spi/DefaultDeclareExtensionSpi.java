@@ -28,23 +28,11 @@ public class DefaultDeclareExtensionSpi implements DeclareExtensionSpi {
     }
 
     @Override
-    public Receipt commit(Form form) throws Panic {
+    public Receipt commit(Form form) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(form.getOwnerId());
 
-        try {
-            return erest.execute(url, form, Receipt.class, form.getOwnerId());
-        } catch (Conflict conflict) {
-            Receipt receipt = new Receipt();
-            receipt.setId(conflict.getKeys()[0]);
-            return receipt;
-        } catch (NotFound notFound) {
-            logger.error("not-found:{}", notFound.getKey());
-            throw new Panic();
-        } catch (BadRequest | Forbidden | Panic panic) {
-            logger.error("", panic);
-            throw new Panic();
-        }
+        return erest.execute(url, form, Receipt.class, form.getOwnerId());
     }
 }

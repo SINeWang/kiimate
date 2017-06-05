@@ -64,14 +64,14 @@
 
     <select id="selectModelPubSetByOwnerSubscription" resultMap="ModelPubSet">
         SELECT mext.id, mpub.pub_set, mpub.begin_time, mpub.end_time
-        FROM mm_m_sub msub, mm_m_pub mpub, mm_m_ext mext
+        FROM mm_m_pub mpub, mm_m_sub msub, mm_m_ext mext, km_s_sub ssub, km_s_pub spub
         WHERE mext.id = mpub.ext_id
-        AND mpub.pub_set = msub.sub_set
-        AND mext.name = 'root'
-        AND msub.subscriber_id = #{ownerId} AND msub.id = #{subId}
-        AND msub.end_time IS NULL
-        AND mpub.end_time IS NULL
-        AND mext.end_time IS NULL
+        AND ssub.id = #{subId}
+        AND ssub.subscriber_id = #{ownerId}
+        AND ssub.sub_set = spub.pub_set
+        AND spub.m_sub_id = msub.id
+        AND msub.sub_set = mpub.pub_set
+        AND ssub.end_time IS NULL
         GROUP BY mext.id
     </select>
 

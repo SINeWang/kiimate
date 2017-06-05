@@ -24,35 +24,23 @@ public class DefaultDeclareIntensionSpi implements DeclareIntensionSpi {
     }
 
     @Override
-    public String commit(PrimitiveIntensionForm form) throws Panic {
+    public String commit(PrimitiveIntensionForm form) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(form.getOwnerId());
 
-        try {
-            IntensionReceipt receipt = erest.execute(url, form, IntensionReceipt.class, form.getOwnerId());
-            return receipt.getId();
-        } catch (Conflict conflict) {
-            return conflict.getKeys()[0];
-        } catch (BadRequest | NotFound | Forbidden | Panic panic) {
-            throw new Panic();
-        }
+        IntensionReceipt receipt = erest.execute(url, form, IntensionReceipt.class, form.getOwnerId());
+        return receipt.getId();
     }
 
     @Override
-    public String commit(ImportIntensionForm form) throws Panic {
+    public String commit(ImportIntensionForm form) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
         String url = baseUrl + URI;
 
         ErestPost erest = new ErestPost(form.getOwnerId());
 
-        try {
-            IntensionReceipt receipt = erest.execute(url, form, IntensionReceipt.class, form.getOwnerId());
-            return receipt.getExtId();
-        } catch (Conflict conflict) {
-            return conflict.getKeys()[0];
-        } catch (BadRequest | NotFound | Forbidden | Panic panic) {
-            throw new Panic();
-        }
+        IntensionReceipt receipt = erest.execute(url, form, IntensionReceipt.class, form.getOwnerId());
+        return receipt.getExtId();
     }
 
 

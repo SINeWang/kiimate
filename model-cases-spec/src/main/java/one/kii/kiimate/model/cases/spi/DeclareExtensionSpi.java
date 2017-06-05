@@ -1,7 +1,7 @@
 package one.kii.kiimate.model.cases.spi;
 
 import lombok.Data;
-import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.exception.*;
 
 /**
  * Created by WangYanJiong on 4/7/17.
@@ -13,7 +13,7 @@ public interface DeclareExtensionSpi {
     String VISIBILITY_PUBLIC = "public";
 
 
-    Receipt commit(Form form) throws Panic;
+    Receipt commit(Form form) throws Panic, Conflict, BadRequest, NotFound, Forbidden;
 
     @Data
     class Form {

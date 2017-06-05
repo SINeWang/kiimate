@@ -3,7 +3,7 @@ package com.sinewang.kiimate.model.cases.spi;
 import one.kii.kiimate.model.cases.spi.DeclareExtensionSpi;
 import one.kii.kiimate.model.cases.spi.DeclareIntensionSpi;
 import one.kii.kiimate.model.cases.spi.PublishModelsSpi;
-import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.exception.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +30,11 @@ public class DefaultPublishModelsSpi implements PublishModelsSpi {
     private DeclareIntensionSpi declareIntensionSpi;
 
     @Override
-    public <T> Receipt commit(Form<T> form) throws Panic {
+    public <T> Receipt commit(Form<T> form) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
         return publish(form.getOwnerId(), form.getGroup(), NAME_ROOT, form.getKlass());
     }
 
-    private <T> Receipt publish(String ownerId, String group, String name, Class<T> klass) throws Panic {
+    private <T> Receipt publish(String ownerId, String group, String name, Class<T> klass) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
         if (String.class.getName().equals(klass.getName()) || klass.isPrimitive()) {
             throw new IllegalArgumentException("Class is ILLEGAL:" + klass.getName());
         }

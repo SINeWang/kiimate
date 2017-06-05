@@ -2,7 +2,7 @@ package one.kii.kiimate.model.cases.spi;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.exception.*;
 
 /**
  * Created by WangYanJiong on 4/7/17.
@@ -11,9 +11,9 @@ public interface DeclareIntensionSpi {
 
     String VISIBILITY_PUBLIC = "public";
 
-    String commit(PrimitiveIntensionForm form) throws Panic;
+    String commit(PrimitiveIntensionForm form) throws Panic, Conflict, BadRequest, NotFound, Forbidden;
 
-    String commit(ImportIntensionForm form) throws Panic;
+    String commit(ImportIntensionForm form) throws Panic, Conflict, BadRequest, NotFound, Forbidden;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

@@ -35,37 +35,19 @@ public class DefaultVisitExtensionSpi implements VisitExtensionSpi {
     }
 
     @Override
-    public String visit(GroupForm form) throws Panic {
+    public String visit(GroupForm form) throws Panic, NotFound, BadRequest {
         String url = baseUrl + URI;
 
         ErestGetBasic erest = new ErestGetBasic(visitorId);
-        try {
-            return erest.execute(url, String.class, ownerId, form.getGroup(), NAME_ROOT, TREE);
-        } catch (NotFound notFound) {
-            notFound.printStackTrace();
-        } catch (BadRequest badRequest) {
-            badRequest.printStackTrace();
-        } catch (Panic panic) {
-            panic.printStackTrace();
-        }
-        throw new Panic();
+        return erest.execute(url, String.class, ownerId, form.getGroup(), NAME_ROOT, TREE);
     }
 
     @Override
-    public String visit(GroupNameForm form) throws Panic {
+    public String visit(GroupNameForm form) throws Panic, NotFound, BadRequest {
         String url = baseUrl + URI;
 
         ErestGetBasic erest = new ErestGetBasic(visitorId);
 
-        try {
-            return erest.execute(url, String.class, ownerId, form.getGroup(), form.getName(), TREE);
-        } catch (NotFound notFound) {
-            notFound.printStackTrace();
-        } catch (BadRequest badRequest) {
-            badRequest.printStackTrace();
-        } catch (Panic panic) {
-            panic.printStackTrace();
-        }
-        throw new Panic();
+        return erest.execute(url, String.class, ownerId, form.getGroup(), form.getName(), TREE);
     }
 }
