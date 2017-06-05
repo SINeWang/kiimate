@@ -1,6 +1,5 @@
 package one.kii.kiimate.model.cases.spi;
 
-import one.kii.summer.io.exception.Panic;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +43,7 @@ public class TestCreateMultiValueModelSpi {
         PublishModelsSpi.Receipt receipt = null;
         try {
             receipt = publishModelsSpi.commit(form);
-        } catch (Panic panic) {
+        } catch (Exception panic) {
             panic.printStackTrace();
         }
 
@@ -57,7 +56,7 @@ public class TestCreateMultiValueModelSpi {
         String extensionJson = null;
         try {
             extensionJson = visitExtensionSpi.visit(form2);
-        } catch (Panic panic) {
+        } catch (Exception panic) {
             panic.printStackTrace();
         }
 
