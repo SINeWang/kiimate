@@ -1,9 +1,9 @@
 package one.kii.kiimate.subject.core.ctl;
 
 import one.kii.kiimate.subject.core.api.SearchSubjectsApi;
+import one.kii.summer.asdf.xi.SearchApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
-import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +44,6 @@ public class SearchSubjectsCtl extends ReadController {
         form.setAccessType(SearchSubjectsApi.AccessType.valueOf(accessType.toUpperCase()));
         form.setObjectType(SearchSubjectsApi.ObjectType.valueOf(objectType.toUpperCase()));
 
-        return ErestResponse.ok(requestId, api.search(context, form));
+        return SearchApiCaller.sync(api, context, form);
     }
 }
