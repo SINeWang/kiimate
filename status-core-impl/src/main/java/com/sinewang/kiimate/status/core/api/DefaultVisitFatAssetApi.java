@@ -7,7 +7,6 @@ import one.kii.kiimate.status.core.dai.AssetDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.ValueMapping;
-import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
@@ -77,7 +76,7 @@ public class DefaultVisitFatAssetApi implements VisitFatAssetApi {
         asset.setIntensions(intensions);
         asset.setMap(map);
         asset.setOwnerId(context.getOwnerId());
-        return NotBadResponse.of(Asset.class, MayHave.class, asset);
+        return NotBadResponse.of(asset);
     }
 
     @Override

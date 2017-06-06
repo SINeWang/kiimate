@@ -2,16 +2,18 @@ package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
+import one.kii.summer.beans.utils.ConflictFinder;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 4/6/17.
@@ -26,24 +28,12 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
 
 
     @Override
-    public void remember(Status status) throws DuplicatedSubscription {
-        int count = modelSubscriptionMapper.countLatestSubscription(
-                status.getSubSet(),
-                status.getSubscriberId(),
-                status.getGroup(),
-                status.getName(),
-                status.getTree()
-        );
+    public void remember(Status status) throws Conflict {
+        Map<String, Object> map = ConflictFinder.find(status);
+        int count = modelSubscriptionMapper.countByConflictKeys(map);
         if (count > 0) {
-            throw new DuplicatedSubscription(
-                    status.getSubSet(),
-                    status.getSubscriberId(),
-                    status.getGroup(),
-                    status.getName(),
-                    status.getTree()
-            );
+            throw new Conflict(map.keySet().toArray(new String[0]));
         }
-        Date now = new Date();
         modelSubscriptionMapper.insertSubscription(
                 status.getId(),
                 status.getSubSet(),
@@ -52,7 +42,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
                 status.getName(),
                 status.getTree(),
                 status.getOperatorId(),
-                now
+                status.getBeginTime()
         );
     }
 
@@ -60,7 +50,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     public ModelPubSet getModelPubSetByStatusId(StatusId channel) throws Panic {
         ModelPubSet record = modelSubscriptionMapper.selectModelPubSetByStatusId(
                 channel.getId());
-        return NotBadResponse.of(ModelPubSet.class, MayHave.class, record);
+        return NotBadResponse.of(record);
     }
 
     @Override
@@ -80,7 +70,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
                 channel.getName(),
                 channel.getTree()
         );
-        return NotBadResponse.of(Status.class, record);
+        return NotBadResponse.of(record);
 
     }
 
@@ -88,7 +78,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     public Status selectSubscription(StatusId channel) throws Panic, BadRequest {
         NotBadRequest.from(channel);
         Status record = modelSubscriptionMapper.selectBySubId(channel.getId());
-        return NotBadResponse.of(Status.class, MayHave.class, record);
+        return NotBadResponse.of(record);
     }
 
     @Override

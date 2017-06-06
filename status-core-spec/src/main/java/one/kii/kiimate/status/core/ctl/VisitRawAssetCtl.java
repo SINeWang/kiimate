@@ -1,7 +1,7 @@
 package one.kii.kiimate.status.core.ctl;
 
 import one.kii.kiimate.status.core.api.VisitRawAssetApi;
-import one.kii.summer.asdf.xi.VisitApiCaller;
+import one.kii.summer.asdf.api.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;

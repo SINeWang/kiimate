@@ -2,7 +2,6 @@ package com.sinewang.kiimate.status.core.dai;
 
 import com.sinewang.kiimate.status.core.dai.mapper.AssetsMapper;
 import one.kii.kiimate.status.core.dai.AssetDai;
-import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
@@ -77,14 +76,14 @@ public class DefaultAssetDai implements AssetDai {
         Assets asset = assetsMapper.selectAsset(
                 channel.getOwnerId(),
                 channel.getId());
-        return NotBadResponse.of(Assets.class, MayHave.class, asset);
+        return NotBadResponse.of(asset);
     }
 
     @Override
     public Publication load(ChannelSubscriptionId channel) throws Panic {
         Publication publication = assetsMapper.selectPublication(
                 channel.getId());
-        return NotBadResponse.of(Publication.class, MayHave.class, publication);
+        return NotBadResponse.of(publication);
     }
 
     public Assets load(ChannelGroupName channel) throws Panic {
@@ -94,6 +93,6 @@ public class DefaultAssetDai implements AssetDai {
                 channel.getName(),
                 channel.getStability(),
                 channel.getVersion());
-        return NotBadResponse.of(Assets.class, MayHave.class, asset);
+        return NotBadResponse.of(asset);
     }
 }

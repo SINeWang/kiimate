@@ -33,12 +33,12 @@ public class DefaultIntensionExtractor implements AnIntensionExtractor {
 
         form.setField(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getField()));
 
-        IntensionDai.Record intension = ValueMapping.from(IntensionDai.Record.class, context, form);
+        IntensionDai.Record record = ValueMapping.from(IntensionDai.Record.class, context, form);
 
-        intension.setId(idgen.born());
-        intension.setCommit(HashTools.hashHex(intension));
-        intension.setBeginTime(new Date());
-        return NotBadResponse.of(IntensionDai.Record.class, MayHave.class, intension);
+        record.setId(idgen.born());
+        record.setCommit(HashTools.hashHex(record));
+        record.setBeginTime(new Date());
+        return NotBadResponse.of(record);
     }
 
 }

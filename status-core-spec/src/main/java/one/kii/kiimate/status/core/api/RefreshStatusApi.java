@@ -1,7 +1,7 @@
 package one.kii.kiimate.status.core.api;
 
 import lombok.Data;
-import one.kii.summer.asdf.xi.CommitApi;
+import one.kii.summer.asdf.api.CommitApi;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;

@@ -2,10 +2,12 @@ package com.sinewang.kiimate.model.core.api;
 
 import one.kii.kiimate.model.core.api.SubscribeModelsApi;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.model.core.fui.AnSubscribeModelExtractor;
+import one.kii.kiimate.model.core.fui.AnStatusExtractor;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,25 +19,22 @@ import org.springframework.stereotype.Component;
 public class DefaultSubscribeModelsApi implements SubscribeModelsApi {
 
     @Autowired
-    private AnSubscribeModelExtractor subscribeModelExtractor;
+    private AnStatusExtractor subscribeModelExtractor;
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
-    public Receipt commit(WriteContext context, Form form) throws Conflict {
+    public Receipt commit(WriteContext context, Form form) throws Conflict, Panic {
 
-        AnSubscribeModelExtractor.ModelSubscription modelSubscription = subscribeModelExtractor.extract(
-                form, context);
 
-        ModelSubscriptionDai.Status subscription = ValueMapping.from(ModelSubscriptionDai.Status.class, modelSubscription);
+        ModelSubscriptionDai.Status status = subscribeModelExtractor.extract(form, context);
 
-        try {
-            modelSubscriptionDai.remember(subscription);
-            return ValueMapping.from(Receipt.class, modelSubscription);
-        } catch (ModelSubscriptionDai.DuplicatedSubscription duplicatedSubscription) {
-            throw new Conflict("id");
-        }
+        modelSubscriptionDai.remember(status);
+
+        Receipt receipt = ValueMapping.from(Receipt.class, status);
+
+        return NotBadResponse.of(receipt);
     }
 
 

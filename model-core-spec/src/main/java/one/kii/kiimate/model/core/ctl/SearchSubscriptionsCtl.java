@@ -1,7 +1,7 @@
 package one.kii.kiimate.model.core.ctl;
 
 import one.kii.kiimate.model.core.api.SearchSubscriptionsApi;
-import one.kii.summer.asdf.xi.SearchApiCaller;
+import one.kii.summer.asdf.api.SearchApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.receiver.ReadController;

@@ -1,9 +1,8 @@
 package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
-import lombok.Getter;
 import one.kii.kiimate.model.core.api.PublishModelApi;
-import one.kii.summer.beans.annotations.CommitFactor;
+import one.kii.summer.beans.annotations.Unique;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.exception.Conflict;
@@ -65,28 +64,26 @@ public interface ModelPublicationDai {
 
         Long pubSet;
 
-        @CommitFactor
+        @Unique
         String providerId;
 
-        @CommitFactor
+        @Unique
         Long extId;
 
-        @CommitFactor
+        @Unique
         Long intId;
 
-        @CommitFactor
+        @Unique
         String version;
 
-        @CommitFactor
+        @Unique
         String stability;
 
-        @CommitFactor
         String operatorId;
 
-        @CommitFactor
         Date beginTime;
 
-        @CommitFactor
+        @Unique
         @MayHave
         Date endTime;
     }
@@ -115,13 +112,4 @@ public interface ModelPublicationDai {
     }
 
 
-    class DuplicatedPublication extends Exception {
-
-        @Getter
-        private Long pubSet;
-
-        public DuplicatedPublication(long pubSet) {
-            this.pubSet = pubSet;
-        }
-    }
 }

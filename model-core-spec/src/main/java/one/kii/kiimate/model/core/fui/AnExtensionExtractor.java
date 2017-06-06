@@ -13,7 +13,8 @@ import one.kii.summer.io.exception.Panic;
 public interface AnExtensionExtractor {
 
 
-    ExtensionDai.Record extract(WriteContext context, DeclareExtensionApi.CommitForm commitForm) throws BadRequest, Panic;
+    ExtensionDai.Record extract(WriteContext context,
+                                DeclareExtensionApi.CommitForm commitForm) throws BadRequest, Panic;
 
     enum Visibility {
         PRIVATE,

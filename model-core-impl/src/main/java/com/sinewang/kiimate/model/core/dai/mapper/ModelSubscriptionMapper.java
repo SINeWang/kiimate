@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 05/04/2017.
@@ -13,12 +14,7 @@ import java.util.List;
 @Mapper
 public interface ModelSubscriptionMapper {
 
-    int countLatestSubscription(
-            @Param("subSet") Long subSet,
-            @Param("subscriberId") String subscriberId,
-            @Param("group") String group,
-            @Param("name") String name,
-            @Param("tree") String tree);
+    int countByConflictKeys(Map<String, Object> map);
 
     void insertSubscription(
             @Param("id") Long id,

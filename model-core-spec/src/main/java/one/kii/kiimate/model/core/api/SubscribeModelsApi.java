@@ -2,9 +2,10 @@ package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.asdf.xi.CommitApi;
+import one.kii.summer.asdf.api.CommitApi;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.Panic;
 
 /**
  * Created by WangYanJiong on 4/6/17.
@@ -14,7 +15,7 @@ public interface SubscribeModelsApi extends CommitApi<SubscribeModelsApi.Receipt
 
     String TREE_MASTER = "master";
 
-    Receipt commit(WriteContext context, Form form) throws Conflict;
+    Receipt commit(WriteContext context, Form form) throws Conflict, Panic;
 
     @Data
     @EqualsAndHashCode(callSuper = false)

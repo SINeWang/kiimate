@@ -2,8 +2,8 @@ package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import one.kii.summer.asdf.xi.CommitApi;
-import one.kii.summer.beans.annotations.ConflictFactor;
+import one.kii.summer.asdf.api.CommitApi;
+import one.kii.summer.beans.annotations.Unique;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -25,16 +25,16 @@ public interface PublishModelApi extends CommitApi<PublishModelApi.Receipt, Writ
     @EqualsAndHashCode(callSuper = false)
     class Form {
 
-        @ConflictFactor
+        @Unique
         private String providerId;
 
-        @ConflictFactor
+        @Unique
         private Long extId;
 
-        @ConflictFactor
+        @Unique
         private String stability;
 
-        @ConflictFactor
+        @Unique
         private String version;
 
     }
@@ -44,7 +44,9 @@ public interface PublishModelApi extends CommitApi<PublishModelApi.Receipt, Writ
     class Receipt {
 
         List<Intension> intensions;
+
         private String pubSet;
+
         private String providerId;
 
         private String ownerId;

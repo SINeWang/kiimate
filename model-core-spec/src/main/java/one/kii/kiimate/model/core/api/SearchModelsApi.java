@@ -1,7 +1,7 @@
 package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
-import one.kii.summer.asdf.xi.SearchApi;
+import one.kii.summer.asdf.api.SearchApi;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;

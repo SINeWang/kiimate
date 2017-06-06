@@ -1,10 +1,10 @@
 package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
-import lombok.Getter;
+import one.kii.summer.beans.annotations.Unique;
 import one.kii.summer.io.annotations.MayHave;
-import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +18,7 @@ public interface ModelSubscriptionDai {
 
 
     @Transactional
-    void remember(Status status) throws DuplicatedSubscription;
+    void remember(Status status) throws Conflict;
 
     ModelPubSet getModelPubSetByStatusId(StatusId channel) throws Panic;
 
@@ -46,20 +46,22 @@ public interface ModelSubscriptionDai {
     @Data
     class ChannelGroupNameTree {
 
-        @MustHave
+
         String ownerId;
-        @MustHave
+
+
         String group;
-        @MustHave
+
         String name;
-        @MustHave
+
+
         String tree;
     }
 
     @Data
     class StatusId {
 
-        @MustHave
+
         Long id;
     }
 
@@ -79,52 +81,32 @@ public interface ModelSubscriptionDai {
 
     @Data
     class Status {
+
         private Long id;
 
+        @Unique
         private Long subSet;
 
+        @Unique
         private String subscriberId;
 
+        @Unique
         private String group;
 
+        @Unique
         private String name;
 
+        @Unique
         private String tree;
 
         private String operatorId;
 
         private Date beginTime;
 
+        @Unique
         @MayHave
         private Date endTime;
 
     }
 
-    class DuplicatedSubscription extends Exception {
-
-        @Getter
-        private Long subSet;
-
-        @Getter
-        private String subscriberId;
-
-        @Getter
-        private String group;
-
-        @Getter
-        private String name;
-
-        @Getter
-        private String tree;
-
-        public DuplicatedSubscription(Long subSet, String subscriberId, String group, String name, String tree) {
-            super();
-            this.subSet = subSet;
-            this.subscriberId = subscriberId;
-            this.group = group;
-            this.name = name;
-            this.tree = tree;
-        }
-
-    }
 }

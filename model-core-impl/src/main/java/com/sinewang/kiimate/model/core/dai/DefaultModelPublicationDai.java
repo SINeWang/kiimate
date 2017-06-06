@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 05/04/2017.
@@ -38,7 +39,7 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     @Override
     public Record loadRootPublications(ChannelPubSet channel) throws NotFound, Panic {
         Record record = modelPublicationMapper.selectRootPublicationsByPubSet(channel.getPubSet());
-        return NotBadResponse.of(Record.class, MayHave.class, record);
+        return NotBadResponse.of(record);
     }
 
     @Override
@@ -48,14 +49,10 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
 
     @Override
     public void save(List<Record> records, PublishModelApi.Form form) throws Conflict {
-        int count = modelPublicationMapper.countPublicationByKeyFactor(
-                form.getProviderId(),
-                form.getExtId(),
-                form.getStability(),
-                form.getVersion()
-        );
+        Map<String, Object> map = ConflictFinder.find(form);
+        int count = modelPublicationMapper.countPublicationByKeyFactor(map);
         if (count > 0) {
-            throw new Conflict(ConflictFinder.find(PublishModelApi.Form.class));
+            throw new Conflict(map.keySet());
         }
         for (Record record : records) {
             modelPublicationMapper.insertPublication(

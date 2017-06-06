@@ -6,7 +6,6 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.fui.AnPublicationExtractor;
 import one.kii.summer.beans.utils.ValueMapping;
-import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -54,7 +53,7 @@ public class DefaultPublishModelApi implements PublishModelApi {
 
         receipt.setIntensions(intensions);
 
-        return NotBadResponse.of(Receipt.class, MayHave.class, receipt);
+        return NotBadResponse.of(receipt);
 
     }
 

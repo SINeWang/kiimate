@@ -41,7 +41,7 @@
     </delete>
 
 
-    <select id="countLatestSubscription" resultType="int">
+    <select id="countByConflictKeys" resultType="int">
         SELECT count(msub.id) FROM mm_m_sub msub
         WHERE msub.sub_set = #{subSet} AND msub.subscriber_id = #{subscriberId}
         AND msub.group = #{group} AND msub.name = #{name} AND msub.tree = #{tree}

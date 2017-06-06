@@ -9,7 +9,6 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,7 +36,7 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
 
         CommitReceipt receipt = ValueMapping.from(CommitReceipt.class, record);
 
-        return NotBadResponse.of(CommitReceipt.class, receipt);
+        return NotBadResponse.of(receipt);
     }
 
 

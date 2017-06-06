@@ -49,7 +49,7 @@ public class DefaultExtensionDai implements ExtensionDai {
                     channel.getTree(),
                     channel.getBeginTime());
         }
-        return NotBadResponse.of(Record.class, MayHave.class, record);
+        return NotBadResponse.of(record);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class DefaultExtensionDai implements ExtensionDai {
                     channel.getId(),
                     channel.getBeginTime());
         }
-        return NotBadResponse.of(Record.class, MayHave.class, record);
+        return NotBadResponse.of(record);
     }
 
     @Override

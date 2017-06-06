@@ -1,7 +1,7 @@
 package one.kii.kiimate.status.core.ctl;
 
 import one.kii.kiimate.status.core.api.RefreshStatusApi;
-import one.kii.summer.asdf.xi.CommitApiCaller;
+import one.kii.summer.asdf.api.CommitApiCaller;
 import one.kii.summer.beans.utils.MultiValueMapTools;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;

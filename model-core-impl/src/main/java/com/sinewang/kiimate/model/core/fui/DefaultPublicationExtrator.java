@@ -6,7 +6,6 @@ import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.fui.AnPublicationExtractor;
 import one.kii.summer.beans.utils.ValueMapping;
-import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
@@ -35,7 +34,7 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
             publication.setIntId(record.getId());
             publication.setId(idgen.born());
             publication.setBeginTime(now);
-            NotBadResponse.of(ModelPublicationDai.Record.class, MayHave.class, publication);
+            NotBadResponse.of(publication);
             publications.add(publication);
         }
         return publications;

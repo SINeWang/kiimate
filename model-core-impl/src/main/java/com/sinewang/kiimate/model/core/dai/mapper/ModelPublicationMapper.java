@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 05/04/2017.
@@ -24,11 +25,7 @@ public interface ModelPublicationMapper {
             @Param("operatorId") String operatorId,
             @Param("createdAt") Date createdAt);
 
-    int countPublicationByKeyFactor(
-            @Param("providerId") String providerId,
-            @Param("extId") Long extId,
-            @Param("stability") String stability,
-            @Param("version") String version);
+    int countPublicationByKeyFactor(Map<String, Object> map);
 
     void deletePublicationByProviderIdExtIdPubVersion(
             @Param("providerId") String providerId,

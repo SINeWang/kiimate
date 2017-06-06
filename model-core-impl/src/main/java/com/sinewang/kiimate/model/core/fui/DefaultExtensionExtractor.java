@@ -42,7 +42,7 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         }
         hash(record);
         record.setId(idgen.born());
-        return NotBadResponse.of(ExtensionDai.Record.class, MayHave.class, record);
+        return NotBadResponse.of(record);
     }
 
     private void hash(ExtensionDai.Record record) {
