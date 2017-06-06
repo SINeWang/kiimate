@@ -17,13 +17,20 @@ public interface SearchStatusesApi extends SearchApi<SearchStatusesApi.Statuses,
 
     @Data
     class Statuses {
+
         String id;
-        String subSet;
-        String ownerId;
-        String group;
-        String name;
-        String tree;
+
+        Long pubSet;
+
+        String providerId;
+
+        String stability;
+
+        String version;
+
         Date beginTime;
+
+        Date endTime;
     }
 
     @Data

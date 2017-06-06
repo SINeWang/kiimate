@@ -16,6 +16,8 @@ import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
  * Created by WangYanJiong on 25/03/2017.
  */
@@ -31,10 +33,11 @@ public class DefaultIntensionExtractor implements AnIntensionExtractor {
 
         form.setField(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getField()));
 
-        IntensionDai.Record intension = ValueMapping.from(IntensionDai.Record.class, form);
+        IntensionDai.Record intension = ValueMapping.from(IntensionDai.Record.class, context, form);
 
         intension.setId(idgen.born());
         intension.setCommit(HashTools.hashHex(intension));
+        intension.setBeginTime(new Date());
         return NotBadResponse.of(IntensionDai.Record.class, MayHave.class, intension);
     }
 

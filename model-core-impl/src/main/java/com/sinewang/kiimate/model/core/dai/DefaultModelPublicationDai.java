@@ -1,8 +1,11 @@
 package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ModelPublicationMapper;
+import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
+import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.io.annotations.MayHave;
+import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
@@ -33,7 +36,7 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     }
 
     @Override
-    public Record loadRootPublications(ChannelPubSet channel) throws NotFound,Panic {
+    public Record loadRootPublications(ChannelPubSet channel) throws NotFound, Panic {
         Record record = modelPublicationMapper.selectRootPublicationsByPubSet(channel.getPubSet());
         return NotBadResponse.of(Record.class, MayHave.class, record);
     }
@@ -44,10 +47,15 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     }
 
     @Override
-    public void save(List<Record> records) throws DuplicatedPublication {
-        int count = modelPublicationMapper.countPublicationByPubSet(records.get(0).getPubSet());
+    public void save(List<Record> records, PublishModelApi.Form form) throws Conflict {
+        int count = modelPublicationMapper.countPublicationByKeyFactor(
+                form.getProviderId(),
+                form.getExtId(),
+                form.getStability(),
+                form.getVersion()
+        );
         if (count > 0) {
-            throw new DuplicatedPublication(records.get(0).getPubSet());
+            throw new Conflict(KeyFactorTools.find(PublishModelApi.Form.class));
         }
         for (Record record : records) {
             modelPublicationMapper.insertPublication(

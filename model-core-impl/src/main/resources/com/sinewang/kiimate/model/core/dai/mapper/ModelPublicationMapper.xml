@@ -50,11 +50,15 @@
         AND end_time IS NULL
     </select>
 
-    <select id="countPublicationByPubSet" resultType="int">
-        SELECT COUNT(mpub.id)
+    <select id="countPublicationByKeyFactor" resultType="int">
+        SELECT COUNT(mpub.ext_id)
         FROM  mm_m_pub mpub
-        WHERE mpub.pub_set = #{pubSet}
+        WHERE mpub.provider_id = #{providerId}
+        AND mpub.ext_id = #{extId}
+        AND mpub.stability = #{stability}
+        AND mpub.version = #{version}
         AND mpub.end_time IS NULL
+        GROUP BY mpub.ext_id
     </select>
 
     <delete id="deletePublicationByProviderIdExtIdPubVersion">

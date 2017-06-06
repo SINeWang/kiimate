@@ -4,11 +4,10 @@
     
     <resultMap id="Status" type="one.kii.kiimate.status.core.dai.StatusDai$Statuses">
         <result column="id" property="id"/>
-        <result column="group" property="group"/>
-        <result column="name" property="name"/>
-        <result column="tree" property="tree"/>
-        <result column="subscriber_id" property="ownerId"/>
-        <result column="sub_set" property="subSet"/>
+        <result column="provider_id" property="providerId"/>
+        <result column="pub_set" property="pubSet"/>
+        <result column="stability" property="stability"/>
+        <result column="version" property="version"/>
         <result column="begin_time" property="beginTime"/>
         <result column="end_time" property="endTime"/>
     </resultMap>
@@ -28,11 +27,12 @@
     </update>
     <select id="queryStatuses" resultMap="Status">
         <bind name="group_pattern" value="'%' + group + '%'"/>
-        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.begin_time, msub.end_time
-        FROM mm_m_sub msub
-        WHERE msub.subscriber_id = #{ownerId}
+        SELECT spub.id, spub.pub_set, spub.provider_id, spub.stability, spub.version, spub.begin_time, spub.end_time
+        FROM km_s_pub spub, mm_m_sub msub
+        WHERE spub.m_sub_id = msub.id
+        AND spub.provider_id = #{ownerId}
         AND msub.group LIKE #{group_pattern}
-        AND msub.end_time IS NULL
-        GROUP BY msub.sub_set
+        AND spub.end_time IS NULL
+        GROUP BY spub.pub_set
     </select>
 </mapper>

@@ -26,15 +26,13 @@ public interface StatusDai {
 
         Long id;
 
-        Long subSet;
+        Long pubSet;
 
-        String ownerId;
+        String providerId;
 
-        String group;
+        String stability;
 
-        String name;
-
-        String tree;
+        String version;
 
         Date beginTime;
 

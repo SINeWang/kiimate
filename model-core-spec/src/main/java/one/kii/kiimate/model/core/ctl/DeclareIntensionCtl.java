@@ -33,7 +33,7 @@ public class DeclareIntensionCtl extends WriteController {
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @ModelAttribute DeclareIntensionApi.Form form) {
-        return commit(requestId, operatorId, ownerId, form);
+        return commit(requestId, ownerId, operatorId, form);
     }
 
 
@@ -43,16 +43,16 @@ public class DeclareIntensionCtl extends WriteController {
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @RequestBody DeclareIntensionApi.Form form) {
-        return commit(requestId, operatorId, ownerId, form);
+        return commit(requestId, ownerId, operatorId, form);
     }
 
 
     private ResponseEntity<DeclareIntensionApi.Receipt> commit(
             String requestId,
-            String operatorId,
             String ownerId,
+            String operatorId,
             DeclareIntensionApi.Form form) {
-        WriteContext context = buildContext(requestId, operatorId, ownerId);
+        WriteContext context = buildContext(requestId, ownerId, operatorId);
 
         return CommitApiCaller.sync(api, context, form);
     }

@@ -24,8 +24,11 @@ public interface ModelPublicationMapper {
             @Param("operatorId") String operatorId,
             @Param("createdAt") Date createdAt);
 
-    int countPublicationByPubSet(
-            @Param("pubSet") Long pubSet);
+    int countPublicationByKeyFactor(
+            @Param("providerId") String providerId,
+            @Param("extId") Long extId,
+            @Param("stability") String stability,
+            @Param("version") String version);
 
     void deletePublicationByProviderIdExtIdPubVersion(
             @Param("providerId") String providerId,

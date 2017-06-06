@@ -2,9 +2,11 @@ package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
 import lombok.Getter;
+import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.summer.beans.annotations.KeyFactor;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.annotations.MustHave;
+import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +30,7 @@ public interface ModelPublicationDai {
 
 
     @Transactional
-    void save(List<Record> record) throws DuplicatedPublication;
+    void save(List<Record> record, PublishModelApi.Form form) throws Conflict;
 
     @Data
     class ClueGroup {
@@ -39,12 +41,12 @@ public interface ModelPublicationDai {
     class ChannelPubSet {
 
         @MustHave
-        long pubSet;
+        Long pubSet;
     }
 
     @Data
     class ChannelId {
-        long id;
+        Long id;
     }
 
     @Data
@@ -119,7 +121,7 @@ public interface ModelPublicationDai {
     class DuplicatedPublication extends Exception {
 
         @Getter
-        private long pubSet;
+        private Long pubSet;
 
         public DuplicatedPublication(long pubSet) {
             this.pubSet = pubSet;
