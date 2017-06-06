@@ -6,6 +6,7 @@
         <result column="id" property="id"/>
         <result column="provider_id" property="providerId"/>
         <result column="pub_set" property="pubSet"/>
+        <result column="group" property="group"/>
         <result column="stability" property="stability"/>
         <result column="version" property="version"/>
         <result column="begin_time" property="beginTime"/>
@@ -27,7 +28,8 @@
     </update>
     <select id="queryStatuses" resultMap="Status">
         <bind name="group_pattern" value="'%' + group + '%'"/>
-        SELECT spub.id, spub.pub_set, spub.provider_id, spub.stability, spub.version, spub.begin_time, spub.end_time
+        SELECT msub.id, spub.pub_set, spub.provider_id, spub.stability, spub.version, spub.begin_time, spub.end_time,
+        msub.group, msub.name
         FROM km_s_pub spub, mm_m_sub msub
         WHERE spub.m_sub_id = msub.id
         AND spub.provider_id = #{ownerId}

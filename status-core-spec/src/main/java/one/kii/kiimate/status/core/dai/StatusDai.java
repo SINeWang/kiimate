@@ -30,6 +30,10 @@ public interface StatusDai {
 
         String providerId;
 
+        String group;
+
+        String name;
+
         String stability;
 
         String version;
