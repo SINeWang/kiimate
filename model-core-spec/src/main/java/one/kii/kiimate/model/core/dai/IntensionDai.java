@@ -1,7 +1,8 @@
 package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
-import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.beans.annotations.CommitFactor;
+import one.kii.summer.beans.annotations.ConflictFactor;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -69,36 +70,45 @@ public interface IntensionDai {
 
         private String commit;
 
-        @KeyFactor
+        @CommitFactor
+        @ConflictFactor
         private Long extId;
 
-        @KeyFactor
+        @CommitFactor
+        @ConflictFactor
         private String field;
 
-        @KeyFactor
+        @CommitFactor
+        @ConflictFactor
         private Boolean single;
 
-        @KeyFactor
+        @CommitFactor
+        @ConflictFactor
         private String structure;
 
-        @KeyFactor
+        @CommitFactor
         @MayHave
+        @ConflictFactor
         private Long refPubSet;
 
-        @KeyFactor
+        @CommitFactor
+        @ConflictFactor
         private String visibility;
 
-        @KeyFactor
+        @CommitFactor
+        @ConflictFactor
         private Boolean required;
 
-        @KeyFactor
+        @CommitFactor
+        @ConflictFactor
         private String operatorId;
 
-        @KeyFactor
+        @CommitFactor
         private Date beginTime;
 
-        @KeyFactor
+        @CommitFactor
         @MayHave
+        @ConflictFactor
         private Date endTime;
     }
 

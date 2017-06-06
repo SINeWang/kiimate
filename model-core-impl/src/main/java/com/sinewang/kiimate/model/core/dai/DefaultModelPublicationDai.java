@@ -3,7 +3,7 @@ package com.sinewang.kiimate.model.core.dai;
 import com.sinewang.kiimate.model.core.dai.mapper.ModelPublicationMapper;
 import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
-import one.kii.summer.beans.utils.KeyFactorTools;
+import one.kii.summer.beans.utils.ConflictFinder;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
@@ -55,7 +55,7 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
                 form.getVersion()
         );
         if (count > 0) {
-            throw new Conflict(KeyFactorTools.find(PublishModelApi.Form.class));
+            throw new Conflict(ConflictFinder.find(PublishModelApi.Form.class));
         }
         for (Record record : records) {
             modelPublicationMapper.insertPublication(

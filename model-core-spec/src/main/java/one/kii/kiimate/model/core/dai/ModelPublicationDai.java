@@ -3,7 +3,7 @@ package one.kii.kiimate.model.core.dai;
 import lombok.Data;
 import lombok.Getter;
 import one.kii.kiimate.model.core.api.PublishModelApi;
-import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.beans.annotations.CommitFactor;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.exception.Conflict;
@@ -65,28 +65,28 @@ public interface ModelPublicationDai {
 
         Long pubSet;
 
-        @KeyFactor
+        @CommitFactor
         String providerId;
 
-        @KeyFactor
+        @CommitFactor
         Long extId;
 
-        @KeyFactor
+        @CommitFactor
         Long intId;
 
-        @KeyFactor
+        @CommitFactor
         String version;
 
-        @KeyFactor
+        @CommitFactor
         String stability;
 
-        @KeyFactor
+        @CommitFactor
         String operatorId;
 
-        @KeyFactor
+        @CommitFactor
         Date beginTime;
 
-        @KeyFactor
+        @CommitFactor
         @MayHave
         Date endTime;
     }
@@ -95,13 +95,10 @@ public interface ModelPublicationDai {
     class PublishedExtension {
         Long id;
 
-        @KeyFactor
         String providerId;
 
-        @KeyFactor
         String group;
 
-        @KeyFactor
         String name;
 
         String operatorId;

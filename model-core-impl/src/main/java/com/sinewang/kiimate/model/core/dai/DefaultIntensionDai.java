@@ -2,7 +2,7 @@ package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.IntensionMapper;
 import one.kii.kiimate.model.core.dai.IntensionDai;
-import one.kii.summer.beans.utils.KeyFactorTools;
+import one.kii.summer.beans.utils.ConflictFinder;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 3/27/17.
@@ -28,9 +29,10 @@ public class DefaultIntensionDai implements IntensionDai {
     @Override
     public void remember(Record record) throws Conflict, BadRequest {
         NotBadRequest.from(record);
+        Map<String, Object> conflicts = ConflictFinder.find(record);
         Record oldRecord = intensionMapper.selectIntensionByCommit(record.getCommit());
         if (oldRecord != null) {
-            throw new Conflict(KeyFactorTools.find(Record.class));
+            throw new Conflict(conflicts.keySet().toArray(new String[0]));
         }
         intensionMapper.insertIntension(
                 record.getId(),

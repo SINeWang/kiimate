@@ -2,7 +2,7 @@ package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
-import one.kii.summer.beans.utils.KeyFactorTools;
+import one.kii.summer.beans.utils.ConflictFinder;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -81,10 +82,10 @@ public class DefaultExtensionDai implements ExtensionDai {
     @Override
     public void remember(Record record) throws Conflict, BadRequest {
         NotBadRequest.from(record);
-
-        Record lastRecord = extensionMapper.selectExtensionByCommit(record.getCommit());
+        Map<String, Object> conflicts = ConflictFinder.find(record);
+        Record lastRecord = extensionMapper.selectExtensionByConflictFactor(conflicts);
         if (lastRecord != null) {
-            throw new Conflict(KeyFactorTools.find(Record.class));
+            throw new Conflict(conflicts.keySet().toArray(new String[0]));
         }
         extensionMapper.insertExtension(
                 record.getId(),

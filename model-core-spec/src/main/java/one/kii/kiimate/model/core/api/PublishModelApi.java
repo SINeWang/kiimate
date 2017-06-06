@@ -3,7 +3,7 @@ package one.kii.kiimate.model.core.api;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import one.kii.summer.asdf.xi.CommitApi;
-import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.beans.annotations.ConflictFactor;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -25,16 +25,16 @@ public interface PublishModelApi extends CommitApi<PublishModelApi.Receipt, Writ
     @EqualsAndHashCode(callSuper = false)
     class Form {
 
-        @KeyFactor
+        @ConflictFactor
         private String providerId;
 
-        @KeyFactor
+        @ConflictFactor
         private Long extId;
 
-        @KeyFactor
+        @ConflictFactor
         private String stability;
 
-        @KeyFactor
+        @ConflictFactor
         private String version;
 
     }

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -27,8 +28,7 @@ public interface ExtensionMapper {
     ExtensionDai.Record selectLatestExtensionById(
             @Param("id") Long id);
 
-    ExtensionDai.Record selectExtensionByCommit(
-            @Param("commit") String commit);
+    ExtensionDai.Record selectExtensionByConflictFactor(Map<String, Object> map);
 
     ExtensionDai.Record selectLastExtensionByOwnerGroupNameTree(
             @Param("ownerId") String ownerId,

@@ -1,7 +1,8 @@
 package one.kii.kiimate.model.core.dai;
 
 import lombok.Data;
-import one.kii.summer.beans.annotations.KeyFactor;
+import one.kii.summer.beans.annotations.CommitFactor;
+import one.kii.summer.beans.annotations.ConflictFactor;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -64,29 +65,35 @@ public interface ExtensionDai {
 
         private String commit;
 
-        @KeyFactor
+        @ConflictFactor
+        @CommitFactor
         private String ownerId;
 
-        @KeyFactor
+        @ConflictFactor
+        @CommitFactor
         private String group;
 
-        @KeyFactor
+        @ConflictFactor
+        @CommitFactor
         private String name;
 
-        @KeyFactor
+        @ConflictFactor
+        @CommitFactor
         private String tree;
 
-        @KeyFactor
+        @ConflictFactor
+        @CommitFactor
         private String visibility;
 
-        @KeyFactor
+        @CommitFactor
         private String operatorId;
 
-        @KeyFactor
+        @CommitFactor
         private Date beginTime;
 
         @MayHave
-        @KeyFactor
+        @CommitFactor
+        @ConflictFactor
         private Date endTime;
 
     }

@@ -1,8 +1,6 @@
 package one.kii.kiimate.status.core.dai;
 
 import lombok.Data;
-import one.kii.summer.beans.annotations.KeyFactor;
-import one.kii.summer.io.annotations.MustHave;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -66,10 +64,8 @@ public interface InstanceDai {
     @Data
     class Record {
 
-        @KeyFactor
         private Long id;
 
-        @MustHave
         private String commit;
 
         private String ownerId;
