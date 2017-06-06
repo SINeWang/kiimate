@@ -12,6 +12,7 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -73,6 +74,7 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
         assetDai.remember(record, entries);
         ModelSubscriptionDai.StatusId channel = ValueMapping.from(ModelSubscriptionDai.StatusId.class, form);
         ModelSubscriptionDai.Status status = modelSubscriptionDai.selectSubscription(channel);
-        return ValueMapping.from(Receipt.class, form, status, record);
+        Receipt receipt =  ValueMapping.from(Receipt.class, form, status, record);
+        return NotBadResponse.of(receipt);
     }
 }
