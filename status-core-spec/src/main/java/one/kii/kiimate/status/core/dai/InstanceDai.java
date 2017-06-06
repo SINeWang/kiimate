@@ -1,6 +1,7 @@
 package one.kii.kiimate.status.core.dai;
 
 import lombok.Data;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.Conflict;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -83,9 +84,16 @@ public interface InstanceDai {
 
         private Long valueSet;
 
+        private String valueRefPolicy;
+
         private String valueRefId;
 
         private String operatorId;
+
+        private Date beginTime;
+
+        @MayHave
+        private Date endTime;
 
     }
 

@@ -4,6 +4,7 @@ import com.google.common.base.CaseFormat;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.status.core.api.RefreshStatusApi;
+import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.beans.utils.ValueMapping;
@@ -28,8 +29,8 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     private static Logger logger = LoggerFactory.getLogger(DefaultInstanceExtractor.class);
 
     @Override
-    public List<Instance> extract(WriteContext context, RefreshStatusApi.SubIdForm form, Map<String, IntensionDai.Record> fieldDict) {
-        List<Instance> instances = new ArrayList<>();
+    public List<InstanceDai.Instance> extract(WriteContext context, RefreshStatusApi.SubIdForm form, Map<String, IntensionDai.Record> fieldDict) {
+        List<InstanceDai.Instance> instances = new ArrayList<>();
 
         Map<String, List<String>> map = form.getMap();
         for (String field : map.keySet()) {
@@ -42,7 +43,7 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
             Long intId = record.getId();
 
             String[] values = cleanUpValues(map.get(field).toArray(new String[0]));
-            Instance instance = ValueMapping.from(Instance.class, context, form);
+            InstanceDai.Instance instance = ValueMapping.from(InstanceDai.Instance.class, context, form);
             instance.setId(setgen.born());
             instance.setExtId(record.getExtId());
             instance.setIntId(intId);

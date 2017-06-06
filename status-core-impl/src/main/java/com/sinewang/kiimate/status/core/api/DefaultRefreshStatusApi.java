@@ -61,7 +61,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
         Map<String, IntensionDai.Record> dict = modelRestorer.restoreAsIntensionDict(lastExtension);
 
-        List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, form, dict);
+        List<InstanceDai.Instance> instances = instanceExtractor.extract(context, form, dict);
 
         List<InstanceDai.Instance> record21 = ValueMapping.from(InstanceDai.Instance.class, instances);
 
