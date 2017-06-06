@@ -3,6 +3,7 @@ package one.kii.kiimate.subject.core.api;
 import lombok.Data;
 import one.kii.summer.asdf.api.SearchApi;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface SearchSubjectsApi extends SearchApi<SearchSubjectsApi.Subjects, ReadContext, SearchSubjectsApi.Form> {
 
-    List<Subjects> search(ReadContext context, Form form);
+    List<Subjects> search(ReadContext context, Form form) throws BadRequest;
 
 
     enum ObjectType {

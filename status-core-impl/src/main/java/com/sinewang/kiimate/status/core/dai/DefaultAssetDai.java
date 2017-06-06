@@ -57,9 +57,9 @@ public class DefaultAssetDai implements AssetDai {
 
 
     @Override
-    public List<Providers> queryProviders(ClueId clue) {
-        return assetsMapper.queryProviders(
-                clue.getId());
+    public List<Providers> queryProviders(ClueId clue) throws BadRequest {
+        NotBadRequest.from(clue);
+        return assetsMapper.queryProviders(clue.getId());
     }
 
 

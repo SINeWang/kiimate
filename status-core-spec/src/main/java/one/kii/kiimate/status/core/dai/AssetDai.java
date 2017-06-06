@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface AssetDai {
 
-    List<Providers> queryProviders(ClueId clue);
+    List<Providers> queryProviders(ClueId clue) throws BadRequest;
 
     List<Assets> query(ClueGroup clue) throws BadRequest;
 

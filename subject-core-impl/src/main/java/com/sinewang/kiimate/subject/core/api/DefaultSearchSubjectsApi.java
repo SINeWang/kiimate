@@ -7,6 +7,7 @@ import one.kii.kiimate.status.core.dai.AssetDai;
 import one.kii.kiimate.subject.core.api.SearchSubjectsApi;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
+import one.kii.summer.io.exception.BadRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +34,7 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
     private AssetDai assetDai;
 
     @Override
-    public List<Subjects> search(ReadContext context, Form form) {
+    public List<Subjects> search(ReadContext context, Form form) throws BadRequest {
         switch (form.getObjectType()) {
             case EXTENSION:
                 switch (form.getAccessType()) {
