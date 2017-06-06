@@ -53,12 +53,12 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
 
         InstanceDai.ChannelStatusId id = ValueMapping.from(InstanceDai.ChannelStatusId.class, form);
 
-        List<InstanceDai.Instance> instances = instanceDai.loadInstances(id);
+        List<InstanceDai.Record> records = instanceDai.loadInstances(id);
 
         List<AssetDai.Entry> entries = new ArrayList<>();
 
 
-        for (InstanceDai.Instance instance : instances) {
+        for (InstanceDai.Record instance : records) {
             AssetDai.Entry record = new AssetDai.Entry();
             record.setInsId(instance.getId());
             record.setId(insgen.born());

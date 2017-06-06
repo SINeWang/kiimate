@@ -42,9 +42,9 @@ public class DefaultVisitRawStatusApi implements VisitRawStatusApi {
         ModelSubscriptionDai.ModelPubSet modelPubSet = modelSubscriptionDai.getModelPubSetByStatusId(subId);
 
         InstanceDai.ChannelAssetId statusId = ValueMapping.from(InstanceDai.ChannelAssetId.class, subscription);
-        List<InstanceDai.Instance> instances = instanceDai.loadInstances(statusId);
+        List<InstanceDai.Record> records = instanceDai.loadInstances(statusId);
 
-        return instanceTransformer.toRawValue(instances, modelPubSet);
+        return instanceTransformer.toRawValue(records, modelPubSet);
     }
 
 }

@@ -1,6 +1,7 @@
 package one.kii.kiimate.status.core.dai;
 
 import lombok.Data;
+import one.kii.summer.io.exception.Conflict;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -12,11 +13,11 @@ import java.util.List;
 public interface InstanceDai {
 
     @Transactional
-    void remember(List<Record> records) throws InstanceDuplicated;
+    void remember(List<Instance> instances) throws Conflict;
 
-    List<Instance> loadInstances(ChannelAssetId channel);
+    List<Record> loadInstances(ChannelAssetId channel);
 
-    List<Instance> loadInstances(ChannelStatusId channel);
+    List<Record> loadInstances(ChannelStatusId channel);
 
 
     @Data
@@ -31,7 +32,7 @@ public interface InstanceDai {
 
 
     @Data
-    class Instance {
+    class Record {
 
         private Long id;
 
@@ -62,7 +63,7 @@ public interface InstanceDai {
     }
 
     @Data
-    class Record {
+    class Instance {
 
         private Long id;
 
@@ -86,12 +87,6 @@ public interface InstanceDai {
 
         private String operatorId;
 
-    }
-
-    class InstanceDuplicated extends Exception {
-        public InstanceDuplicated(String message, Throwable e) {
-            super(message, e);
-        }
     }
 
 }

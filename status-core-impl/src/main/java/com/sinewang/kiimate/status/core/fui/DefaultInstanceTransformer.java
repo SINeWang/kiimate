@@ -25,22 +25,22 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     private IntensionDai intensionDai;
 
     @Override
-    public Map<String, Object> toTimedValue(List<InstanceDai.Instance> instancesList, ModelSubscriptionDai.ModelPubSet model) throws Panic, BadRequest {
-        Map<String, List<InstanceDai.Instance>> dict = dict(instancesList);
+    public Map<String, Object> toTimedValue(List<InstanceDai.Record> instancesList, ModelSubscriptionDai.ModelPubSet model) throws Panic, BadRequest {
+        Map<String, List<InstanceDai.Record>> dict = dict(instancesList);
         IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
         extension.setExtId(model.getRootExtId());
         return parseTimed(extension, dict);
     }
 
     @Override
-    public Map<String, Object> toRawValue(List<InstanceDai.Instance> instancesList, ModelSubscriptionDai.ModelPubSet model) throws Panic, BadRequest {
-        Map<String, List<InstanceDai.Instance>> dict = dict(instancesList);
+    public Map<String, Object> toRawValue(List<InstanceDai.Record> instancesList, ModelSubscriptionDai.ModelPubSet model) throws Panic, BadRequest {
+        Map<String, List<InstanceDai.Record>> dict = dict(instancesList);
         IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
         extension.setExtId(model.getRootExtId());
         return parseRaw(extension, dict);
     }
 
-    private Map<String, Object> parseRaw(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Instance>> dict) throws Panic, BadRequest {
+    private Map<String, Object> parseRaw(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Record>> dict) throws Panic, BadRequest {
         List<IntensionDai.Record> records = intensionDai.loadLast(pubSet);
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Record record : records) {
@@ -53,7 +53,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                         result.put(record.getField(), child);
                     }
                 } else {
-                    List<InstanceDai.Instance> instances = dict.get(record.getField());
+                    List<InstanceDai.Record> instances = dict.get(record.getField());
                     if (instances != null && !instances.isEmpty()) {
                         Object value = dict.get(record.getField()).get(0).getValue();
                         if (value != null) {
@@ -70,9 +70,9 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                         addComplexValueToList(result, record, child);
                     }
                 } else {
-                    List<InstanceDai.Instance> instances = dict.get(record.getField());
+                    List<InstanceDai.Record> instances = dict.get(record.getField());
                     if (instances != null && !instances.isEmpty()) {
-                        for (InstanceDai.Instance instance : instances) {
+                        for (InstanceDai.Record instance : instances) {
                             if (instance.getValue() != null) {
                                 result.computeIfAbsent(instance.getField(), key -> new ArrayList<>());
                                 List values = (List) result.get(record.getField());
@@ -88,7 +88,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     }
 
 
-    private Map<String, Object> parseTimed(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Instance>> dict) throws Panic, BadRequest {
+    private Map<String, Object> parseTimed(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Record>> dict) throws Panic, BadRequest {
         List<IntensionDai.Record> records = intensionDai.loadLast(pubSet);
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Record record : records) {
@@ -101,7 +101,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                         result.put(record.getField(), child);
                     }
                 } else {
-                    List<InstanceDai.Instance> instances = dict.get(record.getField());
+                    List<InstanceDai.Record> instances = dict.get(record.getField());
                     if (instances != null && !instances.isEmpty()) {
                         Object value = dict.get(record.getField()).get(0).getValue();
                         if (value != null) {
@@ -120,9 +120,9 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                     Map<String, Object> child = parseTimed(refPubSet, dict);
                     addComplexValueToList(result, record, child);
                 } else {
-                    List<InstanceDai.Instance> instances = dict.get(record.getField());
+                    List<InstanceDai.Record> instances = dict.get(record.getField());
                     if (instances != null && !instances.isEmpty()) {
-                        for (InstanceDai.Instance instance : instances) {
+                        for (InstanceDai.Record instance : instances) {
                             if (instance.getValue() != null) {
                                 Object v = instance.getValue();
                                 TimedValue tv = new TimedValue();
@@ -150,17 +150,17 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
         }
     }
 
-    private Map<String, List<InstanceDai.Instance>> dict(List<InstanceDai.Instance> instances) {
-        Map<String, List<InstanceDai.Instance>> dict = new HashMap<>();
-        for (InstanceDai.Instance instance : instances) {
-            if (instance.getValueSet() == null) {
-                List<InstanceDai.Instance> values = new ArrayList<>();
-                values.add(instance);
-                dict.put(instance.getField(), values);
+    private Map<String, List<InstanceDai.Record>> dict(List<InstanceDai.Record> records) {
+        Map<String, List<InstanceDai.Record>> dict = new HashMap<>();
+        for (InstanceDai.Record record : records) {
+            if (record.getValueSet() == null) {
+                List<InstanceDai.Record> values = new ArrayList<>();
+                values.add(record);
+                dict.put(record.getField(), values);
             } else {
-                dict.computeIfAbsent(instance.getField(), key -> new ArrayList<>());
-                List<InstanceDai.Instance> values = dict.get(instance.getField());
-                values.add(instance);
+                dict.computeIfAbsent(record.getField(), key -> new ArrayList<>());
+                List<InstanceDai.Record> values = dict.get(record.getField());
+                values.add(record);
             }
         }
         return dict;

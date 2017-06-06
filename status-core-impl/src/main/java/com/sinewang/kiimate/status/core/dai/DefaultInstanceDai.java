@@ -3,6 +3,7 @@ package com.sinewang.kiimate.status.core.dai;
 import com.sinewang.kiimate.status.core.dai.mapper.InstanceMapper;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.status.core.dai.InstanceDai;
+import one.kii.summer.io.exception.Conflict;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,36 +27,36 @@ public class DefaultInstanceDai implements InstanceDai {
     private InstanceMapper instanceMapper;
 
     @Override
-    public void remember(List<Record> records) throws InstanceDuplicated {
+    public void remember(List<Instance> instances) throws Conflict {
         Date now = new Date();
-        for (Record record : records) {
-            String[] values = record.getValues();
+        for (Instance instance : instances) {
+            String[] values = instance.getValues();
             {
                 if (values.length == 1) {
                     if (values[0].isEmpty()) {
                         instanceMapper.updateInstanceEndTimeBySubIdIntId(
-                                record.getSubId(),
-                                record.getIntId(),
+                                instance.getSubId(),
+                                instance.getIntId(),
                                 now);
                         continue;
                     }
                     boolean refresh = false;
                     boolean insert = false;
 
-                    List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceBySubIdIntId(
-                            record.getSubId(),
-                            record.getIntId());
-                    if (latestInstanceList.size() == 0) {
+                    List<Record> latestRecordList = instanceMapper.selectLatestInstanceBySubIdIntId(
+                            instance.getSubId(),
+                            instance.getIntId());
+                    if (latestRecordList.size() == 0) {
                         insert = true;
-                    } else if (latestInstanceList.size() == 1) {
-                        Instance latestInstance = latestInstanceList.get(0);
-                        if (latestInstance.getValue().equals(values[0])) {
+                    } else if (latestRecordList.size() == 1) {
+                        Record latestRecord = latestRecordList.get(0);
+                        if (latestRecord.getValue().equals(values[0])) {
                             continue;
                         } else {
                             refresh = true;
                             insert = true;
                         }
-                    } else if (latestInstanceList.size() > 1) {
+                    } else if (latestRecordList.size() > 1) {
                         refresh = true;
                         insert = true;
                     }
@@ -63,15 +64,15 @@ public class DefaultInstanceDai implements InstanceDai {
 
                     if (refresh) {
                         instanceMapper.updateInstanceEndTimeBySubIdIntId(
-                                record.getSubId(),
-                                record.getIntId(),
+                                instance.getSubId(),
+                                instance.getIntId(),
                                 now);
                     }
                     if (insert) {
-                        Instance instance = new Instance();
-                        BeanUtils.copyProperties(record, instance);
-                        instance.setValue(values[0]);
-                        insertInstance(instance, now);
+                        Record record = new Record();
+                        BeanUtils.copyProperties(instance, record);
+                        record.setValue(values[0]);
+                        insertInstance(record, now);
                     }
                     continue;
                 }
@@ -79,18 +80,18 @@ public class DefaultInstanceDai implements InstanceDai {
 
             {
 
-                List<Instance> latestInstanceList = instanceMapper.selectLatestInstanceBySubIdIntId(
-                        record.getSubId(),
-                        record.getIntId());
+                List<Record> latestRecordList = instanceMapper.selectLatestInstanceBySubIdIntId(
+                        instance.getSubId(),
+                        instance.getIntId());
                 boolean refresh = false;
-                if (values.length != latestInstanceList.size()) {
+                if (values.length != latestRecordList.size()) {
                     refresh = true;
                     Arrays.sort(values);
                 } else {
                     Arrays.sort(values);
                     String[] latestValues = new String[values.length];
                     for (int i = 0; i < latestValues.length; i++) {
-                        latestValues[i] = latestInstanceList.get(i).getValue();
+                        latestValues[i] = latestRecordList.get(i).getValue();
                     }
                     Arrays.sort(latestValues);
 
@@ -110,50 +111,50 @@ public class DefaultInstanceDai implements InstanceDai {
                     continue;
                 }
                 instanceMapper.updateInstanceEndTimeBySubIdIntId(
-                        record.getSubId(),
-                        record.getIntId(),
+                        instance.getSubId(),
+                        instance.getIntId(),
                         now);
                 long set = setgen.born();
                 for (String value : values) {
-                    Instance instance = new Instance();
-                    BeanUtils.copyProperties(record, instance, "id");
-                    instance.setValueSet(set);
-                    instance.setValue(value);
-                    instance.setId(idgen.born());
-                    insertInstance(instance, now);
+                    Record record = new Record();
+                    BeanUtils.copyProperties(instance, record, "id");
+                    record.setValueSet(set);
+                    record.setValue(value);
+                    record.setId(idgen.born());
+                    insertInstance(record, now);
                 }
             }
         }
     }
 
     @Override
-    public List<Instance> loadInstances(ChannelAssetId channel) {
+    public List<Record> loadInstances(ChannelAssetId channel) {
         return instanceMapper.selectLatestInstancesByAssetId(channel.getId());
     }
 
     @Override
-    public List<Instance> loadInstances(ChannelStatusId channel) {
+    public List<Record> loadInstances(ChannelStatusId channel) {
         return instanceMapper.selectLatestInstancesByStatusId(channel.getId());
     }
 
 
-    private void insertInstance(Instance instance, Date beginTime) {
-        if (instance.getValue().isEmpty()) {
+    private void insertInstance(Record record, Date beginTime) {
+        if (record.getValue().isEmpty()) {
             return;
         }
         instanceMapper.insertInstance(
-                instance.getId(),
-                instance.getCommit(),
-                instance.getOwnerId(),
-                instance.getSubId(),
-                instance.getExtId(),
-                instance.getIntId(),
-                instance.getField(),
-                instance.getValue(),
-                instance.getValueSet(),
-                instance.getValueRefId(),
-                instance.getValueRefPolicy(),
-                instance.getOperatorId(),
+                record.getId(),
+                record.getCommit(),
+                record.getOwnerId(),
+                record.getSubId(),
+                record.getExtId(),
+                record.getIntId(),
+                record.getField(),
+                record.getValue(),
+                record.getValueSet(),
+                record.getValueRefId(),
+                record.getValueRefPolicy(),
+                record.getOperatorId(),
                 beginTime);
     }
 }

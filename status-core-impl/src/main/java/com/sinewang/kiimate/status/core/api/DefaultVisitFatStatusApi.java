@@ -2,7 +2,6 @@ package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.status.core.api.VisitFatAssetApi;
 import one.kii.kiimate.status.core.api.VisitFatStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
@@ -41,14 +40,14 @@ public class DefaultVisitFatStatusApi implements VisitFatStatusApi {
     public Status visit(ReadContext context, StatusIdForm form) throws BadRequest, NotFound, Panic {
         InstanceDai.ChannelStatusId id = ValueMapping.from(InstanceDai.ChannelStatusId.class, form);
 
-        List<InstanceDai.Instance> instances = instanceDai.loadInstances(id);
+        List<InstanceDai.Record> records = instanceDai.loadInstances(id);
 
         ModelSubscriptionDai.StatusId statusId = ValueMapping.from(ModelSubscriptionDai.StatusId.class, context, id);
 
         ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByStatusId(statusId);
 
         Status status = ValueMapping.from(Status.class, model);
-        Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);
+        Map<String, Object> map = instanceTransformer.toTimedValue(records, model);
 
         IntensionDai.ChannelLastExtension rootExtension = ValueMapping.from(IntensionDai.ChannelLastExtension.class, model);
         rootExtension.setId(model.getRootExtId());

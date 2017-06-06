@@ -15,9 +15,9 @@ import java.util.Map;
  */
 public interface InstanceTransformer {
 
-    Map<String, Object> toTimedValue(List<InstanceDai.Instance> instancesList, ModelSubscriptionDai.ModelPubSet model) throws Panic, BadRequest;
+    Map<String, Object> toTimedValue(List<InstanceDai.Record> instancesList, ModelSubscriptionDai.ModelPubSet model) throws Panic, BadRequest;
 
-    Map<String, Object> toRawValue(List<InstanceDai.Instance> instancesList, ModelSubscriptionDai.ModelPubSet pubSet) throws Panic, BadRequest;
+    Map<String, Object> toRawValue(List<InstanceDai.Record> instancesList, ModelSubscriptionDai.ModelPubSet pubSet) throws Panic, BadRequest;
 
     @Data
     class TimedValue {

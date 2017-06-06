@@ -7,7 +7,6 @@ import one.kii.kiimate.status.core.api.RefreshStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
-import one.kii.summer.beans.utils.KeyFactorTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -64,16 +63,12 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
         List<AnInstanceExtractor.Instance> instances = instanceExtractor.extract(context, form, dict);
 
-        List<InstanceDai.Record> record1 = ValueMapping.from(InstanceDai.Record.class, instances);
+        List<InstanceDai.Instance> record21 = ValueMapping.from(InstanceDai.Instance.class, instances);
 
-        try {
-            for(InstanceDai.Record record: record1){
-                record.setSubId(channel.getId());
-            }
-            instanceDai.remember(record1);
-        } catch (InstanceDai.InstanceDuplicated instanceDuplicated) {
-            throw new Conflict(KeyFactorTools.find(InstanceDai.Record.class));
+        for (InstanceDai.Instance instance : record21) {
+            instance.setSubId(channel.getId());
         }
+        instanceDai.remember(record21);
 
 
         IntensionDai.ChannelLastExtension rootExtension = ValueMapping.from(IntensionDai.ChannelLastExtension.class, model);
@@ -83,12 +78,12 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
 
         InstanceDai.ChannelStatusId id = ValueMapping.from(InstanceDai.ChannelStatusId.class, channel);
-        List<InstanceDai.Instance> newInstances = instanceDai.loadInstances(id);
+        List<InstanceDai.Record> newRecords = instanceDai.loadInstances(id);
 
         List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);
         List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
 
-        Map<String, Object> map = instanceTransformer.toTimedValue(newInstances, model);
+        Map<String, Object> map = instanceTransformer.toTimedValue(newRecords, model);
 
         Receipt receipt = ValueMapping.from(Receipt.class, form, context);
         receipt.setMap(map);

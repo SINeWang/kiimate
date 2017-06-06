@@ -42,13 +42,13 @@ public class DefaultVisitRawAssetApi implements VisitRawAssetApi {
 
         InstanceDai.ChannelAssetId id = ValueMapping.from(InstanceDai.ChannelAssetId.class, assetDb);
 
-        List<InstanceDai.Instance> instances = instanceDai.loadInstances(id);
+        List<InstanceDai.Record> records = instanceDai.loadInstances(id);
 
         ModelSubscriptionDai.StatusId statusId = new ModelSubscriptionDai.StatusId();
 
-        statusId.setId(instances.get(0).getSubId());
+        statusId.setId(records.get(0).getSubId());
 
         ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByStatusId(statusId);
-        return instanceTransformer.toRawValue(instances, model);
+        return instanceTransformer.toRawValue(records, model);
     }
 }

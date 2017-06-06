@@ -57,7 +57,7 @@ public class DefaultVisitFatAssetApi implements VisitFatAssetApi {
 
     private Asset transform(ReadContext context, AssetDai.Assets assetDb) throws BadRequest, Panic {
         InstanceDai.ChannelAssetId id = ValueMapping.from(InstanceDai.ChannelAssetId.class, assetDb);
-        List<InstanceDai.Instance> instances = instanceDai.loadInstances(id);
+        List<InstanceDai.Record> records = instanceDai.loadInstances(id);
         Asset asset = ValueMapping.from(Asset.class, assetDb);
 
 
@@ -68,7 +68,7 @@ public class DefaultVisitFatAssetApi implements VisitFatAssetApi {
 
         ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByStatusId(statusId);
 
-        Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);
+        Map<String, Object> map = instanceTransformer.toTimedValue(records, model);
 
         IntensionDai.ChannelLastExtension rootExtension = ValueMapping.from(IntensionDai.ChannelLastExtension.class, model);
         rootExtension.setId(model.getRootExtId());
