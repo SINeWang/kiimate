@@ -85,7 +85,7 @@ public class DefaultExtensionDai implements ExtensionDai {
         Map<String, Object> conflicts = ConflictFinder.find(record);
         Record lastRecord = extensionMapper.selectExtensionByConflictFactor(conflicts);
         if (lastRecord != null) {
-            throw new Conflict(conflicts.keySet().toArray(new String[0]));
+            throw new Conflict(conflicts.keySet());
         }
         extensionMapper.insertExtension(
                 record.getId(),

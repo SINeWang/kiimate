@@ -13,6 +13,7 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.xyz.ViewUpWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +78,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         rootExtension.setId(model.getRootExtId());
 
 
-        InstanceDai.ChannelStatusId id = ValueMapping.from(InstanceDai.ChannelStatusId.class, channel);
+        ViewUpWithId id = ValueMapping.from(ViewUpWithId.class, channel);
         List<InstanceDai.Record> newRecords = instanceDai.loadInstances(id);
 
         List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);

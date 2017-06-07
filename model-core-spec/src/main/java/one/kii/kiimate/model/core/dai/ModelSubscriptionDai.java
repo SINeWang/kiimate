@@ -49,19 +49,15 @@ public interface ModelSubscriptionDai {
 
         String ownerId;
 
-
         String group;
 
         String name;
-
 
         String tree;
     }
 
     @Data
     class StatusId {
-
-
         Long id;
     }
 

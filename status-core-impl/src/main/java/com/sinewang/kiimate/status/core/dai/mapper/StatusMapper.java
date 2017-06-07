@@ -1,6 +1,6 @@
 package com.sinewang.kiimate.status.core.dai.mapper;
 
-import one.kii.kiimate.status.core.dai.StatusDai;
+import one.kii.summer.xyz.ViewDownInsight;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,9 +26,26 @@ public interface StatusMapper {
             @Param("beginTime") Date beginTime
     );
 
-    List<StatusDai.Statuses> queryStatuses(
+    List<ViewDownInsight> queryStatuses(
             @Param("ownerId") String ownerId,
             @Param("group") String group
+    );
+
+    ViewDownInsight selectLast(
+            @Param("providerId") String providerId,
+            @Param("group") String group,
+            @Param("name") String name,
+            @Param("stability") String stability,
+            @Param("version") String version,
+            @Param("beginTime") Date beginTime
+    );
+
+    ViewDownInsight selectLatest(
+            @Param("providerId") String providerId,
+            @Param("group") String group,
+            @Param("name") String name,
+            @Param("stability") String stability,
+            @Param("version") String version
     );
 
     void revokeStatus(

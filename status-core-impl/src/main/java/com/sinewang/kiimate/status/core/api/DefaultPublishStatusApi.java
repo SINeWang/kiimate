@@ -13,6 +13,7 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.summer.xyz.ViewUpWithId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -38,21 +39,13 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
     private InstanceDai instanceDai;
 
     @Autowired
-    private AssetPublicationExtractor assetPublicationExtractor;
-
-    @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic {
 
-        AssetPublicationExtractor.Informal informal = assetPublicationExtractor.extract(context, form);
 
-        AssetDai.ChannelModelSubId channelModelSubId = ValueMapping.from(AssetDai.ChannelModelSubId.class, informal);
-        channelModelSubId.setOwnerId(informal.getProviderId());
-
-
-        InstanceDai.ChannelStatusId id = ValueMapping.from(InstanceDai.ChannelStatusId.class, form);
+        ViewUpWithId id = ValueMapping.from(ViewUpWithId.class, form);
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(id);
 
@@ -74,7 +67,7 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
         assetDai.remember(record, entries);
         ModelSubscriptionDai.StatusId channel = ValueMapping.from(ModelSubscriptionDai.StatusId.class, form);
         ModelSubscriptionDai.Status status = modelSubscriptionDai.selectSubscription(channel);
-        Receipt receipt =  ValueMapping.from(Receipt.class, form, status, record);
+        Receipt receipt = ValueMapping.from(Receipt.class, form, status, record);
         return NotBadResponse.of(receipt);
     }
 }

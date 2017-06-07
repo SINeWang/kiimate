@@ -1,9 +1,11 @@
 package one.kii.kiimate.status.core.dai;
 
 import lombok.Data;
-import one.kii.summer.io.annotations.MayHave;
+import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.Panic;
+import one.kii.summer.xyz.ViewDownInsight;
+import one.kii.summer.xyz.ViewDownWithXyz;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,37 +14,14 @@ import java.util.List;
 public interface StatusDai {
 
 
-    List<Statuses> query(ClueGroup clue);
+    List<ViewDownInsight> searchDownstream(ClueGroup clue) throws BadRequest, Panic;
+
+    ViewDownInsight loadDownstream(ViewDownWithXyz providerXyz) throws Panic, BadRequest;
 
     @Data
     class ClueGroup {
         String ownerId;
         String group;
     }
-
-
-    @Data
-    class Statuses {
-
-        Long id;
-
-        Long pubSet;
-
-        String providerId;
-
-        String group;
-
-        String name;
-
-        String stability;
-
-        String version;
-
-        Date beginTime;
-
-        @MayHave
-        Date endTime;
-    }
-
 
 }

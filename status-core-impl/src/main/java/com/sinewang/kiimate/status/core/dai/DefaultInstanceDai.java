@@ -4,6 +4,7 @@ import com.sinewang.kiimate.status.core.dai.mapper.InstanceMapper;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.xyz.ViewUpWithId;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -133,7 +134,7 @@ public class DefaultInstanceDai implements InstanceDai {
     }
 
     @Override
-    public List<Record> loadInstances(ChannelStatusId channel) {
+    public List<Record> loadInstances(ViewUpWithId channel) {
         return instanceMapper.selectLatestInstancesByStatusId(channel.getId());
     }
 

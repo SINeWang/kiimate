@@ -3,6 +3,7 @@ package one.kii.kiimate.status.core.dai;
 import lombok.Data;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.xyz.ViewUpWithId;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -18,7 +19,7 @@ public interface InstanceDai {
 
     List<Record> loadInstances(ChannelAssetId channel);
 
-    List<Record> loadInstances(ChannelStatusId channel);
+    List<Record> loadInstances(ViewUpWithId channel);
 
 
     @Data

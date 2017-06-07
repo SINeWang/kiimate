@@ -6,6 +6,7 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.xyz.ViewUpWithId;
 
 import java.util.List;
 import java.util.Map;
@@ -13,21 +14,17 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 03/06/2017.
  */
-public interface VisitFatStatusApi extends VisitApi<VisitFatStatusApi.Status, ReadContext, VisitFatStatusApi.StatusIdForm> {
+public interface VisitInstanceApi extends VisitApi<VisitInstanceApi.Instance, ReadContext, ViewUpWithId> {
 
 
-    Status visit(ReadContext context, StatusIdForm form) throws BadRequest, NotFound, Panic;
+    Instance visit(ReadContext context, ViewUpWithId form) throws BadRequest, NotFound, Panic;
 
     @Data
-    class Status {
+    class Instance {
         List<Intension> intensions;
         Map<String, Object> map;
     }
 
-    @Data
-    class StatusIdForm {
-        String id;
-    }
 
     @Data
     class Intension {
