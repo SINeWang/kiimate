@@ -10,6 +10,7 @@ import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
 import one.kii.summer.xyz.VisitUpInsight;
 import one.kii.summer.xyz.VisitUpWithId;
+import one.kii.summer.xyz.VisitUpWithXyz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -52,6 +53,17 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
         VisitUpInsight record = modelSubscriptionMapper.selectModelPubSetByStatusId(
                 channel.getSubscriberId(),
                 channel.getId()
+        );
+        return NotBadResponse.of(record);
+    }
+
+    @Override
+    public VisitUpInsight getModelPubSetByXyz(VisitUpWithXyz channel) throws Panic {
+        VisitUpInsight record = modelSubscriptionMapper.selectModelPubSetByGroupNameTree(
+                channel.getSubscriberId(),
+                channel.getGroup(),
+                channel.getName(),
+                channel.getTree()
         );
         return NotBadResponse.of(record);
     }

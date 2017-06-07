@@ -90,6 +90,19 @@
         AND msub.end_time IS NULL
         GROUP BY mext.id
     </select>
+    <select id="selectModelPubSetByGroupNameTree" resultMap="ModelPubSet">
+        SELECT msub.id, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.begin_time, msub.end_time,
+        mext.id root_ext_id, mpub.pub_set, mpub.provider_id
+        FROM mm_m_pub mpub, mm_m_sub msub, mm_m_ext mext
+        WHERE mext.id = mpub.ext_id
+        AND msub.sub_set = mpub.pub_set
+        AND msub.group = #{group}
+        AND msub.name = #{name}
+        AND msub.tree = #{tree}
+        AND msub.end_time IS NULL
+        GROUP BY mext.id
+    </select>
+
 
     <select id="querySubscriberId" resultMap="Subscribers">
         <bind name="subscriberId_pattern" value="'%' + subscriberId + '%'"/>

@@ -39,6 +39,12 @@ public interface ModelSubscriptionMapper {
             @Param("subscriberId") String subscribreId,
             @Param("id") Long subId);
 
+    VisitUpInsight selectModelPubSetByGroupNameTree(
+            @Param("subscriberId") String subscribreId,
+            @Param("group") String group,
+            @Param("name") String name,
+            @Param("tree") String tree);
+
     List<ModelSubscriptionDai.Subscribers> querySubscriberId(@Param("subscriberId") String subscriberId);
 
 
