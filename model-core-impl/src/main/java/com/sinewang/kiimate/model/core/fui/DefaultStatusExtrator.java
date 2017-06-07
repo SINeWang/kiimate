@@ -11,6 +11,8 @@ import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
  * Created by WangYanJiong on 4/6/17.
  */
@@ -21,14 +23,15 @@ public class DefaultStatusExtrator implements AnStatusExtractor {
     private static final Eid64Generator idgen = new Eid64Generator(6);
 
     @Override
-    public ModelSubscriptionDai.Status extract(SubscribeModelsApi.Form form, WriteContext context) throws Panic {
+    public ModelSubscriptionDai.Instance extract(SubscribeModelsApi.Form form, WriteContext context) throws Panic {
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
 
-        ModelSubscriptionDai.Status status = ValueMapping.from(ModelSubscriptionDai.Status.class, form);
-        status.setSubscriberId(context.getOwnerId());
-        status.setOperatorId(context.getOperatorId());
+        ModelSubscriptionDai.Instance instance = ValueMapping.from(ModelSubscriptionDai.Instance.class, form);
+        instance.setSubscriberId(context.getOwnerId());
+        instance.setOperatorId(context.getOperatorId());
 
-        status.setId(idgen.born());
-        return NotBadResponse.of(status);
+        instance.setId(idgen.born());
+        instance.setBeginTime(new Date());
+        return NotBadResponse.of(instance);
     }
 }

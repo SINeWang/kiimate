@@ -26,7 +26,7 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
 
     @Override
     public List<PublishedExtension> searchExtension(ClueGroup clue) {
-        return modelPublicationMapper.selectPublishedExtensionByGroupQuery(clue.getGroup());
+        return modelPublicationMapper.selectPublishedExtensionByGroupQuery( clue.getGroup());
     }
 
     @Override

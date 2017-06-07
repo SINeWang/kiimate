@@ -28,11 +28,11 @@ public class DefaultSubscribeModelsApi implements SubscribeModelsApi {
     public Receipt commit(WriteContext context, Form form) throws Conflict, Panic {
 
 
-        ModelSubscriptionDai.Status status = subscribeModelExtractor.extract(form, context);
+        ModelSubscriptionDai.Instance instance = subscribeModelExtractor.extract(form, context);
 
-        modelSubscriptionDai.remember(status);
+        modelSubscriptionDai.remember(instance);
 
-        Receipt receipt = ValueMapping.from(Receipt.class, status);
+        Receipt receipt = ValueMapping.from(Receipt.class, instance);
 
         return NotBadResponse.of(receipt);
     }

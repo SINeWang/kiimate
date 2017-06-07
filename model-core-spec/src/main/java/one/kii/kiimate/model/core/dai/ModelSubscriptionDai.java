@@ -21,17 +21,17 @@ public interface ModelSubscriptionDai {
 
 
     @Transactional
-    void remember(Status status) throws Conflict;
+    void remember(Instance instance) throws Conflict;
 
     VisitUpInsight getModelPubSetByStatusId(VisitUpWithId channel) throws Panic;
 
     VisitUpInsight getModelPubSetByXyz(VisitUpWithXyz channel) throws Panic;
 
-    List<Status> querySubscriptions(ClueGroup clue) throws BadRequest, Panic;
+    List<Instance> querySubscriptions(ClueGroup clue) throws BadRequest, Panic;
 
     List<Subscribers> querySubscribers(ClueSubscriberId clue) throws Panic;
 
-    Status selectSubscription(VisitUpWithId channel) throws Panic, BadRequest;
+    Instance selectSubscription(VisitUpWithId channel) throws Panic, BadRequest;
 
     Integer countModelSubscriptions(Long pubSet);
 
@@ -54,7 +54,7 @@ public interface ModelSubscriptionDai {
 
 
     @Data
-    class Status {
+    class Instance {
 
         private Long id;
 

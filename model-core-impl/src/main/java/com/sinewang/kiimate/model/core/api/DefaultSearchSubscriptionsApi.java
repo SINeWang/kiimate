@@ -24,7 +24,7 @@ public class DefaultSearchSubscriptionsApi implements SearchSubscriptionsApi {
     @Override
     public List<Subscriptions> search(ReadContext context, QueryForm form) throws BadRequest, Panic {
         ModelSubscriptionDai.ClueGroup clue = ValueMapping.from(ModelSubscriptionDai.ClueGroup.class, context, form);
-        List<ModelSubscriptionDai.Status> list = modelSubscriptionDai.querySubscriptions(clue);
+        List<ModelSubscriptionDai.Instance> list = modelSubscriptionDai.querySubscriptions(clue);
         return ValueMapping.from(Subscriptions.class, list);
     }
 }

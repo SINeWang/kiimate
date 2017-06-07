@@ -11,6 +11,6 @@ import one.kii.summer.io.exception.Panic;
 
 public interface AnStatusExtractor {
 
-    ModelSubscriptionDai.Status extract(SubscribeModelsApi.Form form, WriteContext context) throws Panic;
+    ModelSubscriptionDai.Instance extract(SubscribeModelsApi.Form form, WriteContext context) throws Panic;
 
 }

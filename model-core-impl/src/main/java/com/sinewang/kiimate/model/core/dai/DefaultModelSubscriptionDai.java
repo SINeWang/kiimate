@@ -30,21 +30,21 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
 
 
     @Override
-    public void remember(Status status) throws Conflict {
-        Map<String, Object> map = ConflictFinder.find(status);
+    public void remember(Instance instance) throws Conflict {
+        Map<String, Object> map = ConflictFinder.find(instance);
         int count = modelSubscriptionMapper.countByConflictKeys(map);
         if (count > 0) {
             throw new Conflict(map.keySet().toArray(new String[0]));
         }
         modelSubscriptionMapper.insertSubscription(
-                status.getId(),
-                status.getSubSet(),
-                status.getSubscriberId(),
-                status.getGroup(),
-                status.getName(),
-                status.getTree(),
-                status.getOperatorId(),
-                status.getBeginTime()
+                instance.getId(),
+                instance.getSubSet(),
+                instance.getSubscriberId(),
+                instance.getGroup(),
+                instance.getName(),
+                instance.getTree(),
+                instance.getOperatorId(),
+                instance.getBeginTime()
         );
     }
 
@@ -69,18 +69,18 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public List<Status> querySubscriptions(ClueGroup clue) throws BadRequest, Panic {
+    public List<Instance> querySubscriptions(ClueGroup clue) throws BadRequest, Panic {
         NotBadRequest.from(clue);
-        List<Status> list = modelSubscriptionMapper.querySubscriptionsByOwnerGroup(
+        List<Instance> list = modelSubscriptionMapper.querySubscriptionsByOwnerGroup(
                 clue.getOwnerId(),
                 clue.getGroup());
         return NotBadResponse.of(list);
     }
 
     @Override
-    public Status selectSubscription(VisitUpWithId channel) throws Panic, BadRequest {
+    public Instance selectSubscription(VisitUpWithId channel) throws Panic, BadRequest {
         NotBadRequest.from(channel);
-        Status record = modelSubscriptionMapper.selectBySubId(
+        Instance record = modelSubscriptionMapper.selectBySubId(
                 channel.getSubscriberId(),
                 channel.getId());
         return NotBadResponse.of(record);
