@@ -21,8 +21,6 @@ public interface IntensionDai {
     @Transactional
     void remember(Record record) throws Conflict, BadRequest;
 
-    List<Record> load(ChannelLatestExtension channel) throws BadRequest, Panic;
-
     List<Record> loadLast(ChannelLastExtension channel) throws BadRequest, Panic;
 
     List<Record> loadLast(ChannelPubSet channel) throws BadRequest, Panic;
@@ -33,13 +31,6 @@ public interface IntensionDai {
     @Data
     class ChannelId {
         Long id;
-    }
-
-    @Data
-    class ChannelLatestExtension {
-
-        Long id;
-
     }
 
     @Data

@@ -7,6 +7,7 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
+import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -51,30 +52,21 @@ public class DefaultIntensionDai implements IntensionDai {
     }
 
     @Override
-    public List<Record> load(ChannelLatestExtension channel) throws BadRequest, Panic {
+    public List<Record> loadLast(ChannelLastExtension channel) throws BadRequest, Panic {
         NotBadRequest.from(channel);
-        List<Record> records = intensionMapper.selectLatestIntensionsByExtId(channel.getId());
-        if (records.isEmpty()) {
-            throw new BadRequest("id");
-        }
-        return records;
-    }
-
-
-    @Override
-    public List<Record> loadLast(ChannelLastExtension channel) throws BadRequest {
-        NotBadRequest.from(channel);
+        List<Record> records;
         if (channel.getBeginTime() == null) {
-            return intensionMapper.selectLatestIntensionsByExtId(channel.getId());
+            records = intensionMapper.selectLatestIntensionsByExtId(channel.getId());
         } else {
-            return intensionMapper.selectLastIntensionsByExtId(
+            records = intensionMapper.selectLastIntensionsByExtId(
                     channel.getId(),
                     channel.getBeginTime());
         }
+        return NotBadResponse.of(records);
     }
 
     @Override
-    public List<Record> loadLast(ChannelPubSet channel) throws BadRequest {
+    public List<Record> loadLast(ChannelPubSet channel) throws BadRequest, Panic {
         NotBadRequest.from(channel);
         List<String> fields = intensionMapper.selectLastFieldsByExtIdPubSet(
                 channel.getExtId(),
@@ -87,7 +79,7 @@ public class DefaultIntensionDai implements IntensionDai {
                     field);
             records.add(record);
         }
-        return records;
+        return NotBadResponse.of(records);
     }
 
 

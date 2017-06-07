@@ -32,9 +32,9 @@ public class DefaultRevokeIntensionApi implements RevokeIntensionApi {
         IntensionDai.ChannelId channel = ValueMapping.from(IntensionDai.ChannelId.class, form);
         intensionDai.forget(channel);
 
-        IntensionDai.ChannelLatestExtension latest = new IntensionDai.ChannelLatestExtension();
+        IntensionDai.ChannelLastExtension latest = new IntensionDai.ChannelLastExtension();
         latest.setId(form.getExtId());
-        List<Intension> intensions = ValueMapping.from(Intension.class, intensionDai.load(latest));
+        List<Intension> intensions = ValueMapping.from(Intension.class, intensionDai.loadLast(latest));
         Map<String, Object> schema = modelRestorer.restoreAsMetaData(latest);
         Receipt receipt = new Receipt();
         receipt.setIntensions(intensions);

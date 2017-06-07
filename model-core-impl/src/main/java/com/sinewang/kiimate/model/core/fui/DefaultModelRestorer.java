@@ -36,11 +36,6 @@ public class DefaultModelRestorer implements AnModelRestorer {
         return list;
     }
 
-    @Override
-    public Map<String, Object> restoreAsMetaData(IntensionDai.ChannelLatestExtension channel) throws BadRequest, NotFound, Panic {
-        IntensionDai.ChannelLastExtension last = ValueMapping.from(IntensionDai.ChannelLastExtension.class, channel);
-        return restoreAsMetaData(last);
-    }
 
     public Map<String, Object> restoreAsMetaData(IntensionDai.ChannelLastExtension extension) throws BadRequest, NotFound, Panic {
         Map<String, Object> model = new HashMap<>();

@@ -40,8 +40,8 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
             throw new NotFound(new String[]{context.getOwnerId(), form.getGroup(), form.getName(), form.getTree()});
         }
 
-        IntensionDai.ChannelLatestExtension channel1 = ValueMapping.from(IntensionDai.ChannelLatestExtension.class, extension);
-        List<IntensionDai.Record> list = intensionDai.load(channel1);
+        IntensionDai.ChannelLastExtension channel1 = ValueMapping.from(IntensionDai.ChannelLastExtension.class, extension);
+        List<IntensionDai.Record> list = intensionDai.loadLast(channel1);
 
         List<Intension> intensions = ValueMapping.from(Intension.class, list);
 

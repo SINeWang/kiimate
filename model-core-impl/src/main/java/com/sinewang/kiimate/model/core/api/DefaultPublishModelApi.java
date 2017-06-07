@@ -35,10 +35,10 @@ public class DefaultPublishModelApi implements PublishModelApi {
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic {
 
 
-        IntensionDai.ChannelLatestExtension latest = new IntensionDai.ChannelLatestExtension();
-        latest.setId(form.getExtId());
+        IntensionDai.ChannelLastExtension channel = new IntensionDai.ChannelLastExtension();
+        channel.setId(form.getExtId());
 
-        List<IntensionDai.Record> records = intensionDai.load(latest);
+        List<IntensionDai.Record> records = intensionDai.loadLast(channel);
 
         ModelPublicationDai.ChannelPubSet pubSet = new ModelPublicationDai.ChannelPubSet();
         pubSet.setPubSet(setgen.born());
