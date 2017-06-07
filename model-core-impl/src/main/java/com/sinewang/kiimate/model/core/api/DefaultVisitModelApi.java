@@ -36,27 +36,22 @@ public class DefaultVisitModelApi implements VisitModelApi {
 
     @Override
     public Model visit(ReadContext context, VisitModelForm form) throws BadRequest, NotFound, Panic {
-        ModelPublicationDai.ChannelPubSet pubSet = ValueMapping.from(ModelPublicationDai.ChannelPubSet.class, form);
-        ModelPublicationDai.Record publication = modelPublicationDai.loadRootPublications(pubSet);
-
-        ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, publication);
-        channel.setId(publication.getExtId());
-        ExtensionDai.Record record = extensionDai.loadLast(channel);
-
-        IntensionDai.ChannelPubSet pubSet1 = ValueMapping.from(IntensionDai.ChannelPubSet.class, publication, record);
-
-        pubSet1.setExtId(record.getId());
 
 
-        List<IntensionDai.Record> recordList = intensionDai.loadLast(pubSet1);
+        ExtensionDai.ChannelSet channelSet = ValueMapping.from(ExtensionDai.ChannelSet.class, form);
+        ExtensionDai.Record record = extensionDai.loadLast(channelSet);
+
+        IntensionDai.ChannelExtensionId extensionId = new IntensionDai.ChannelExtensionId();
+        extensionId.setBeginTime(record.getEndTime());
+        extensionId.setId(record.getId());
+
+        List<IntensionDai.Record> recordList = intensionDai.loadLast(extensionId);
         List<VisitModelApi.Intension> intensions = ValueMapping.from(VisitModelApi.Intension.class, recordList);
 
 
-        int subscriptions = modelSubscriptionDai.countModelSubscriptions(publication.getPubSet());
+        int subscriptions = modelSubscriptionDai.countModelSubscriptions(channelSet.getSet());
 
-        VisitModelApi.Model model = ValueMapping.from(VisitModelApi.Model.class, publication, record);
-
-        model.setRootExtId(String.valueOf(record.getId()));
+        VisitModelApi.Model model = ValueMapping.from(VisitModelApi.Model.class, record);
 
         model.setSubscriptions(subscriptions);
 

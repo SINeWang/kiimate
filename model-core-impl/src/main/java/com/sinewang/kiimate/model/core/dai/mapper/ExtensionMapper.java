@@ -28,6 +28,13 @@ public interface ExtensionMapper {
     ExtensionDai.Record selectLatestExtensionById(
             @Param("id") Long id);
 
+    ExtensionDai.Record selectLatestExtensionBySet(
+            @Param("set") Long set);
+
+    ExtensionDai.Record selectLastExtensionBySet(
+            @Param("set") Long set,
+            @Param("beginTime") Date beginTime);
+
     ExtensionDai.Record selectExtensionByConflictFactor(Map<String, Object> map);
 
     ExtensionDai.Record selectLastExtensionByOwnerGroupNameTree(

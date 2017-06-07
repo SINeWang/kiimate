@@ -25,7 +25,6 @@ public interface VisitModelApi extends VisitApi<VisitModelApi.Model, ReadContext
 
         String providerId;
         String pubSet;
-        String rootExtId;
 
         String group;
         String name;
@@ -55,6 +54,6 @@ public interface VisitModelApi extends VisitApi<VisitModelApi.Model, ReadContext
 
     @Data
     class VisitModelForm {
-        private Long pubSet;
+        private Long set;
     }
 }

@@ -70,6 +70,23 @@ public class DefaultExtensionDai implements ExtensionDai {
     }
 
     @Override
+    public Record loadLast(ChannelSet channel) throws Panic, BadRequest {
+        NotBadRequest.from(channel);
+
+        Record record;
+        if (channel.getBeginTime() == null) {
+            record = extensionMapper.selectLatestExtensionBySet(
+                    channel.getSet()
+            );
+        } else {
+            record = extensionMapper.selectLastExtensionBySet(
+                    channel.getSet(),
+                    channel.getBeginTime());
+        }
+        return NotBadResponse.of(record);
+    }
+
+    @Override
     public List<Record> search(ClueGroup clue) throws BadRequest {
         NotBadRequest.from(clue);
 

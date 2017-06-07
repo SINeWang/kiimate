@@ -26,13 +26,13 @@ public class VisitModelCtl extends ReadController {
     public ResponseEntity<VisitModelApi.Model> exploreModels(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable(PUB_SET) Long pubSet) {
+            @PathVariable(PUB_SET) Long set) {
 
         ReadContext context = buildContext(requestId, null, visitorId);
 
         VisitModelApi.VisitModelForm form = new VisitModelApi.VisitModelForm();
 
-        form.setPubSet(pubSet);
+        form.setSet(set);
 
         return VisitApiCaller.sync(api, context, form);
     }

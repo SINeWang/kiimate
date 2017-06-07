@@ -21,6 +21,8 @@ public interface ExtensionDai {
 
     Record loadLast(ChannelId channel) throws Panic, BadRequest;
 
+    Record loadLast(ChannelSet channel) throws Panic, BadRequest;
+
     List<Record> search(ClueGroup clue) throws BadRequest;
 
     @Transactional
@@ -38,6 +40,14 @@ public interface ExtensionDai {
     class ChannelId {
 
         Long id;
+
+        @MayHave
+        Date beginTime;
+    }
+
+    @Data
+    class ChannelSet {
+        Long set;
 
         @MayHave
         Date beginTime;

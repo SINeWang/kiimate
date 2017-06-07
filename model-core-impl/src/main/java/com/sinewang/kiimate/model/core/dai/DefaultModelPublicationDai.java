@@ -37,7 +37,7 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
 
     @Override
     public Record loadRootPublications(ChannelPubSet channel) throws NotFound, Panic {
-        Record record = modelPublicationMapper.selectRootPublicationsByPubSet(channel.getPubSet());
+        Record record = modelPublicationMapper.selectPublicationsByPubSet(channel.getPubSet());
         return NotBadResponse.of(record);
     }
 

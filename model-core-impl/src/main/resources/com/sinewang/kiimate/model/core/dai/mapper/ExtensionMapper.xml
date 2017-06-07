@@ -18,14 +18,32 @@
     </resultMap>
 
     <select id="selectLatestExtensionById" resultMap="Extension">
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext
         WHERE mext.id = #{id}
         AND mext.end_time IS NULL
     </select>
+    <select id="selectLatestExtensionBySet" resultMap="Extension">
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
+        FROM mm_m_ext mext, mm_m_pub mpub
+        WHERE mpub.pub_set = #{set}
+        AND mpub.ext_id = mext.id
+        AND mext.end_time IS NULL
+    </select>
+
+    <select id="selectLastExtensionBySet" resultMap="Extension">
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
+        FROM mm_m_ext mext, mm_m_pub mpub
+        WHERE mpub.pub_set = #{set}
+        AND mpub.ext_id = mext.id
+        <![CDATA[
+        AND mext.begin_time <= #{beginTime}
+        AND (mext.end_time >= #{beginTime} OR mext.end_time IS NULL)
+        ]]>
+    </select>
 
     <select id="selectExtensionByConflictFactor" resultMap="Extension">
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext
         WHERE mext.group = #{group}
         AND mext.name = #{name}
@@ -36,7 +54,7 @@
     </select>
 
     <select id="selectLastExtensionByOwnerGroupNameTree" resultMap="Extension">
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext
         WHERE mext.group = #{group}
         AND mext.name = #{name}
@@ -49,13 +67,13 @@
     </select>
 
     <select id="selectExtensionsByOwnerGroup" resultMap="Extension">
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.operator_id, mext.begin_time, mext.end_time
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext
         WHERE mext.owner_id = #{ownerId} AND mext.group = #{group} AND mext.end_time IS NULL
     </select>
     
     <select id="selectLatestExtensionByOwnerGroupNameTree" resultMap="Extension">
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.operator_id, mext.begin_time, mext.end_time
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext
         WHERE mext.owner_id = #{ownerId}
         AND mext.group = #{group}
@@ -65,7 +83,7 @@
     </select>
 
     <select id="selectLastExtensionById" resultMap="Extension">
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.operator_id, mext.begin_time, mext.end_time
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext
         WHERE mext.id = #{id}
         <![CDATA[
@@ -77,13 +95,12 @@
 
     <select id="queryExtensionsByOwnerGroup" resultMap="Extension">
         <bind name="group_pattern" value="'%' + group + '%'"/>
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.operator_id, mext.begin_time, mext.end_time
+        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext
         WHERE mext.owner_id = #{ownerId}
         AND mext.`group` LIKE #{group_pattern}
         AND mext.end_time IS NULL
     </select>
-
 
     <insert id="insertExtension">
         INSERT INTO mm_m_ext
