@@ -20,9 +20,9 @@
         <result column="subscriber_id" property="id"/>
     </resultMap>
 
-    <resultMap id="ModelPubSet" type="one.kii.kiimate.model.core.dai.ModelSubscriptionDai$ModelPubSet">
-        <result column="pub_set" property="pubSet"/>
-        <result column="id" property="rootExtId"/>
+    <resultMap id="ModelPubSet" type="one.kii.summer.xyz.VisitUpInsight">
+        <result column="pub_set" property="set"/>
+        <result column="id" property="rootId"/>
         <result column="begin_time" property="beginTime"/>
         <result column="end_time" property="endTime"/>
     </resultMap>
@@ -103,7 +103,8 @@
     <select id="selectBySubId" resultMap="Subscription">
         SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id, msub.begin_time, msub.end_time
         FROM mm_m_sub msub
-        WHERE msub.id = #{subId}
+        WHERE msub.id = #{id}
+        WHERE msub.subscriber_id = #{subscriberId}
         AND msub.end_time IS NULL
     </select>
 

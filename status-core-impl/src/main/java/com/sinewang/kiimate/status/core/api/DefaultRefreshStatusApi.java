@@ -14,6 +14,7 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.summer.xyz.VisitUpInsight;
 import one.kii.summer.xyz.VisitUpWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,31 +53,29 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
     @Override
     public Receipt commit(WriteContext context, SubIdForm form) throws BadRequest, Conflict, NotFound, Panic {
-        ModelSubscriptionDai.StatusId channel = ValueMapping.from(ModelSubscriptionDai.StatusId.class, context, form);
+        VisitUpWithId channel = ValueMapping.from(VisitUpWithId.class, context, form);
 
-        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByStatusId(channel);
+        VisitUpInsight model = modelSubscriptionDai.getModelPubSetByStatusId(channel);
 
 
         IntensionDai.ChannelLastExtension lastExtension = new IntensionDai.ChannelLastExtension();
-        lastExtension.setId(model.getRootExtId());
+        lastExtension.setId(model.getRootId());
         lastExtension.setBeginTime(model.getBeginTime());
 
         Map<String, IntensionDai.Record> dict = modelRestorer.restoreAsIntensionDict(lastExtension);
 
         List<InstanceDai.Instance> instances = instanceExtractor.extract(context, form, dict);
 
-        List<InstanceDai.Instance> record21 = ValueMapping.from(InstanceDai.Instance.class, instances);
-
-        for (InstanceDai.Instance instance : record21) {
+        for (InstanceDai.Instance instance : instances) {
             instance.setSubId(channel.getId());
         }
-        instanceDai.remember(record21);
+        instanceDai.remember(instances);
 
 
         IntensionDai.ChannelLastExtension rootExtension = ValueMapping.from(IntensionDai.ChannelLastExtension.class, model);
 
 
-        rootExtension.setId(model.getRootExtId());
+        rootExtension.setId(model.getRootId());
 
 
         VisitUpWithId id = ValueMapping.from(VisitUpWithId.class, channel);

@@ -65,7 +65,7 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
         record.setModelSubId(form.getId());
 
         assetDai.remember(record, entries);
-        ModelSubscriptionDai.StatusId channel = ValueMapping.from(ModelSubscriptionDai.StatusId.class, form);
+        VisitUpWithId channel = ValueMapping.from(VisitUpWithId.class, form);
         ModelSubscriptionDai.Status status = modelSubscriptionDai.selectSubscription(channel);
         Receipt receipt = ValueMapping.from(Receipt.class, form, status, record);
         return NotBadResponse.of(receipt);

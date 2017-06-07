@@ -11,6 +11,7 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.summer.xyz.VisitUpInsight;
 import one.kii.summer.xyz.VisitUpWithId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -40,16 +41,15 @@ public class DefaultVisitInstanceApi implements VisitInstanceApi {
     public Instance visit(ReadContext context, VisitUpWithId form) throws BadRequest, NotFound, Panic {
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(form);
+        VisitUpWithId statusId = ValueMapping.from(VisitUpWithId.class, context, form);
 
-        ModelSubscriptionDai.StatusId statusId = ValueMapping.from(ModelSubscriptionDai.StatusId.class, context, form);
-
-        ModelSubscriptionDai.ModelPubSet model = modelSubscriptionDai.getModelPubSetByStatusId(statusId);
-
+        VisitUpInsight model = modelSubscriptionDai.getModelPubSetByStatusId(statusId);
         Instance instance = ValueMapping.from(Instance.class, model);
-        Map<String, Object> map = instanceTransformer.toTimedValue(records, model);
 
+        Map<String, Object> map = instanceTransformer.toTimedValue(records, model);
         IntensionDai.ChannelLastExtension rootExtension = ValueMapping.from(IntensionDai.ChannelLastExtension.class, model);
-        rootExtension.setId(model.getRootExtId());
+        rootExtension.setId(model.getRootId());
+
         List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);
         List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
         instance.setIntensions(intensions);

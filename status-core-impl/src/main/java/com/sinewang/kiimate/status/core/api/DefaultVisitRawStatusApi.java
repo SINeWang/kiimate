@@ -12,6 +12,7 @@ import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.xyz.VisitDownInsight;
 import one.kii.summer.xyz.VisitDownWithXyz;
+import one.kii.summer.xyz.VisitUpInsight;
 import one.kii.summer.xyz.VisitUpWithId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -44,13 +45,12 @@ public class DefaultVisitRawStatusApi implements VisitRawStatusApi {
 
         VisitDownInsight downsights = statusDai.loadDownstream(form);
 
-        ModelSubscriptionDai.StatusId statusId1 = ValueMapping.from(ModelSubscriptionDai.StatusId.class, downsights);
+        VisitUpWithId id = ValueMapping.from(VisitUpWithId.class, downsights);
+        id.setSubscriberId(downsights.getProviderId());
 
-        ModelSubscriptionDai.ModelPubSet modelPubSet = modelSubscriptionDai.getModelPubSetByStatusId(statusId1);
+        VisitUpInsight modelPubSet = modelSubscriptionDai.getModelPubSetByStatusId(id);
 
-        VisitUpWithId upId = ValueMapping.from(VisitUpWithId.class, downsights);
-        upId.setSubscriberId(downsights.getProviderId());
-        List<InstanceDai.Record> records = instanceDai.loadInstances(upId);
+        List<InstanceDai.Record> records = instanceDai.loadInstances(id);
 
         return instanceTransformer.toRawValue(records, modelPubSet);
     }

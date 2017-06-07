@@ -4,6 +4,7 @@ import lombok.Data;
 import one.kii.summer.asdf.api.SearchApi;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.Panic;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface SearchSubjectsApi extends SearchApi<SearchSubjectsApi.Subjects, ReadContext, SearchSubjectsApi.Form> {
 
-    List<Subjects> search(ReadContext context, Form form) throws BadRequest;
+    List<Subjects> search(ReadContext context, Form form) throws BadRequest, Panic;
 
 
     enum ObjectType {

@@ -3,12 +3,13 @@ package com.sinewang.kiimate.model.core.dai;
 import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.summer.beans.utils.ConflictFinder;
-import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.summer.xyz.VisitUpInsight;
+import one.kii.summer.xyz.VisitUpWithId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -47,37 +48,29 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public ModelPubSet getModelPubSetByStatusId(StatusId channel) throws Panic {
-        ModelPubSet record = modelSubscriptionMapper.selectModelPubSetByStatusId(
-                channel.getId());
-        return NotBadResponse.of(record);
-    }
-
-    @Override
-    public List<Status> querySubscriptions(ClueGroup clue) throws BadRequest {
-        NotBadRequest.from(clue);
-        return modelSubscriptionMapper.querySubscriptionsByOwnerGroup(
-                clue.getOwnerId(),
-                clue.getGroup());
-    }
-
-    @Override
-    public Status selectSubscription(ChannelGroupNameTree channel) throws Panic, BadRequest {
-        NotBadRequest.from(channel);
-        Status record = modelSubscriptionMapper.selectSubscriptionByOwnerGroupNameTree(
-                channel.getOwnerId(),
-                channel.getGroup(),
-                channel.getName(),
-                channel.getTree()
+    public VisitUpInsight getModelPubSetByStatusId(VisitUpWithId channel) throws Panic {
+        VisitUpInsight record = modelSubscriptionMapper.selectModelPubSetByStatusId(
+                channel.getSubscriberId(),
+                channel.getId()
         );
         return NotBadResponse.of(record);
-
     }
 
     @Override
-    public Status selectSubscription(StatusId channel) throws Panic, BadRequest {
+    public List<Status> querySubscriptions(ClueGroup clue) throws BadRequest, Panic {
+        NotBadRequest.from(clue);
+        List<Status> list = modelSubscriptionMapper.querySubscriptionsByOwnerGroup(
+                clue.getOwnerId(),
+                clue.getGroup());
+        return NotBadResponse.of(list);
+    }
+
+    @Override
+    public Status selectSubscription(VisitUpWithId channel) throws Panic, BadRequest {
         NotBadRequest.from(channel);
-        Status record = modelSubscriptionMapper.selectBySubId(channel.getId());
+        Status record = modelSubscriptionMapper.selectBySubId(
+                channel.getSubscriberId(),
+                channel.getId());
         return NotBadResponse.of(record);
     }
 
@@ -87,9 +80,10 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public List<Subscribers> querySubscribers(ClueSubscriberId clue) {
-        return modelSubscriptionMapper.querySubscriberId(
+    public List<Subscribers> querySubscribers(ClueSubscriberId clue) throws Panic {
+        List<Subscribers> list = modelSubscriptionMapper.querySubscriberId(
                 clue.getId());
+        return NotBadResponse.of(list);
     }
 
 

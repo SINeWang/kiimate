@@ -4,6 +4,7 @@ import lombok.Data;
 import one.kii.summer.asdf.api.SearchApi;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.Panic;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public interface SearchSubscriptionsApi extends SearchApi<SearchSubscriptionsApi.Subscriptions, ReadContext, SearchSubscriptionsApi.QueryForm> {
 
 
-    List<Subscriptions> search(ReadContext context, QueryForm form) throws BadRequest;
+    List<Subscriptions> search(ReadContext context, QueryForm form) throws BadRequest, Panic;
 
 
     @Data

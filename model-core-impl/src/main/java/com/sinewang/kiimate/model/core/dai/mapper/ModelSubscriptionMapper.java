@@ -1,6 +1,7 @@
 package com.sinewang.kiimate.model.core.dai.mapper;
 
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
+import one.kii.summer.xyz.VisitUpInsight;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -34,22 +35,14 @@ public interface ModelSubscriptionMapper {
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 
-    ModelSubscriptionDai.ModelPubSet selectModelPubSetByAssetId(
-            @Param("subId") Long subId);
-
-    ModelSubscriptionDai.ModelPubSet selectModelPubSetByStatusId(
-            @Param("subId") Long subId);
-
-    ModelSubscriptionDai.Status selectSubscriptionByOwnerGroupNameTree(
-            @Param("ownerId") String ownerId,
-            @Param("group") String group,
-            @Param("name") String name,
-            @Param("tree") String tree);
-
+    VisitUpInsight selectModelPubSetByStatusId(
+            @Param("subscriberId") String subscribreId,
+            @Param("id") Long subId);
 
     List<ModelSubscriptionDai.Subscribers> querySubscriberId(@Param("subscriberId") String subscriberId);
 
 
     ModelSubscriptionDai.Status selectBySubId(
-            @Param("subId") Long subId);
+            @Param("subscriberId") String subscriberId,
+            @Param("id") Long id);
 }

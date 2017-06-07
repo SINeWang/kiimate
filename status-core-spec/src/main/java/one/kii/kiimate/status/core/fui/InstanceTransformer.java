@@ -5,6 +5,7 @@ import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.xyz.VisitUpInsight;
 
 import java.util.Date;
 import java.util.List;
@@ -15,9 +16,9 @@ import java.util.Map;
  */
 public interface InstanceTransformer {
 
-    Map<String, Object> toTimedValue(List<InstanceDai.Record> instancesList, ModelSubscriptionDai.ModelPubSet model) throws Panic, BadRequest;
+    Map<String, Object> toTimedValue(List<InstanceDai.Record> instancesList, VisitUpInsight model) throws Panic, BadRequest;
 
-    Map<String, Object> toRawValue(List<InstanceDai.Record> instancesList, ModelSubscriptionDai.ModelPubSet pubSet) throws Panic, BadRequest;
+    Map<String, Object> toRawValue(List<InstanceDai.Record> instancesList, VisitUpInsight pubSet) throws Panic, BadRequest;
 
     @Data
     class TimedValue {

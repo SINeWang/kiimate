@@ -6,6 +6,8 @@ import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.xyz.VisitUpInsight;
+import one.kii.summer.xyz.VisitUpWithId;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -20,15 +22,13 @@ public interface ModelSubscriptionDai {
     @Transactional
     void remember(Status status) throws Conflict;
 
-    ModelPubSet getModelPubSetByStatusId(StatusId channel) throws Panic;
+    VisitUpInsight getModelPubSetByStatusId(VisitUpWithId channel) throws Panic;
 
-    List<Status> querySubscriptions(ClueGroup clue) throws BadRequest;
+    List<Status> querySubscriptions(ClueGroup clue) throws BadRequest, Panic;
 
-    List<Subscribers> querySubscribers(ClueSubscriberId clue);
+    List<Subscribers> querySubscribers(ClueSubscriberId clue) throws Panic;
 
-    Status selectSubscription(ChannelGroupNameTree channel) throws Panic, BadRequest;
-
-    Status selectSubscription(StatusId channel) throws Panic, BadRequest;
+    Status selectSubscription(VisitUpWithId channel) throws Panic, BadRequest;
 
     Integer countModelSubscriptions(Long pubSet);
 
@@ -43,37 +43,12 @@ public interface ModelSubscriptionDai {
         String id;
     }
 
-    @Data
-    class ChannelGroupNameTree {
-
-
-        String ownerId;
-
-        String group;
-
-        String name;
-
-        String tree;
-    }
-
-    @Data
-    class StatusId {
-        Long id;
-    }
 
     @Data
     class Subscribers {
         String id;
     }
 
-    @Data
-    class ModelPubSet {
-        Long pubSet;
-        Long rootExtId;
-        Date beginTime;
-        @MayHave
-        Date endTime;
-    }
 
     @Data
     class Status {
