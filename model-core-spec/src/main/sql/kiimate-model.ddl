@@ -1,74 +1,107 @@
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
-CREATE TABLE mm_m_ext
-(
-  id         VARCHAR(160) NOT NULL,
-  `group`    VARCHAR(64)  NOT NULL,
-  name       VARCHAR(64)  NOT NULL,
-  tree       VARCHAR(64)  NOT NULL,
-  owner_id   VARCHAR(160) NOT NULL,
-  visibility VARCHAR(16)  NOT NULL
-  COMMENT 'the visibility of scope',
-  begin_time DATETIME     NOT NULL,
-  end_time   DATETIME     NULL,
-  commit     VARCHAR(160) NOT NULL,
-  PRIMARY KEY (id, begin_time)
-)
-  COMMENT 'extension of concept';
+-- -- ----------------------------
+-- --  Table structure for `mm_m_tag`
+-- -- ----------------------------
+-- DROP TABLE IF EXISTS `mm_m_tag`;
+-- CREATE TABLE `mm_m_tag` (
+--   `id` varchar(160) NOT NULL COMMENT 'id = hash(owner_id, ext_id, int_id, name)',
+--   `owner_id` varchar(160) NOT NULL,
+--   `ext_id` varchar(160) NOT NULL,
+--   `int_id` varchar(160) NOT NULL,
+--   `name` varchar(64) NOT NULL COMMENT 'tag_name',
+--   `visibility` varchar(16) NOT NULL,
+--   `created_at` datetime NOT NULL,
+--   UNIQUE KEY `mm_m_tag_id_uindex` (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='model_tag';
 
-CREATE TABLE mm_m_int
-(
-  id            VARCHAR(160)           NOT NULL,
-  ext_id        VARCHAR(160)           NOT NULL,
-  field         VARCHAR(64) DEFAULT '' NOT NULL
-  COMMENT 'the alias name of ref_id ',
-  is_single     TINYINT(1)             NOT NULL,
-  visibility    VARCHAR(16)            NOT NULL
-  COMMENT 'the visibility of scope',
-  structure     VARCHAR(16)            NULL,
-  ref_m_pub_set VARCHAR(160)           NULL,
-  is_required   TINYINT(1)             NOT NULL,
-  begin_time    DATETIME               NOT NULL,
-  end_time      DATETIME               NULL,
-  commit        VARCHAR(160)           NOT NULL,
-  operator_id   VARCHAR(32)            NOT NULL,
-  PRIMARY KEY (id, begin_time)
-)
-  COMMENT 'record of concept';
+-- ----------------------------
+--  Table structure for `mm_m_ext`
+-- ----------------------------
+DROP TABLE IF EXISTS `mm_m_ext`;
+CREATE TABLE `mm_m_ext` (
+  `id` varchar(160) NOT NULL,
+  `commit` varchar(160) NOT NULL,
+  `group` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `tree` varchar(64) NOT NULL,
+  `owner_id` varchar(160) NOT NULL,
+  `visibility` varchar(16) NOT NULL COMMENT 'the visibility of scope',
+  `operator_id` varchar(160) NOT NULL,
+  `begin_time` datetime NOT NULL,
+  `end_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`begin_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='subscription of concept';
 
-CREATE TABLE mm_m_pub
-(
-  id          VARCHAR(160) NOT NULL
-    PRIMARY KEY,
-  pub_set     VARCHAR(160) NULL
-  COMMENT ' hash all pubs id(sorted) at once',
-  provider_id VARCHAR(160) NOT NULL,
-  ext_id      VARCHAR(160) NOT NULL,
-  int_id      VARCHAR(160) NOT NULL,
-  version     VARCHAR(64)  NOT NULL,
-  stability   VARCHAR(64)  NOT NULL,
-  operator_id VARCHAR(160) NOT NULL,
-  begin_time  DATETIME     NOT NULL,
-  end_time    DATETIME     NULL
-)
-  COMMENT 'model extensionPublication';
+-- ----------------------------
+--  Table structure for `mm_m_int`
+-- ----------------------------
+DROP TABLE IF EXISTS `mm_m_int`;
+CREATE TABLE `mm_m_int` (
+  `id` varchar(160) NOT NULL,
+  `commit` varchar(160) NOT NULL,
+  `ext_id` varchar(160) NOT NULL,
+  `field` varchar(64) NOT NULL DEFAULT '' COMMENT 'the alias name of ref_id ',
+  `is_single` tinyint(1) NOT NULL,
+  `visibility` varchar(16) NOT NULL COMMENT 'the visibility of scope',
+  `structure` varchar(16) DEFAULT NULL,
+  `ref_m_pub_set` varchar(160),
+  `is_required` tinyint(1) NOT NULL,
+  `operator_id` varchar(160) NOT NULL,
+  `begin_time` datetime NOT NULL,
+  `end_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`begin_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='subscription of concept';
 
-CREATE TABLE mm_m_sub
-(
-  id            VARCHAR(160) NOT NULL,
-  sub_set       VARCHAR(160) NOT NULL
-  COMMENT 'pub_set_hash',
-  subscriber_id VARCHAR(160) NOT NULL,
-  `group`       VARCHAR(64)  NOT NULL,
-  name          VARCHAR(64)  NOT NULL,
-  tree          VARCHAR(64)  NOT NULL,
-  operator_id   VARCHAR(64)  NOT NULL,
-  begin_time    DATETIME     NOT NULL,
-  end_time      DATETIME     NULL,
-  PRIMARY KEY (id, begin_time)
-)
-  COMMENT 'model subscribe';
 
+-- ----------------------------
+--  Table structure for `mm_m_crf`
+-- ----------------------------
+DROP TABLE IF EXISTS `mm_m_crf`;
+CREATE TABLE `mm_m_crf` (
+  `id` varchar(160) NOT NULL COMMENT 'id = hash(int_id, exc_field, inc_field)',
+  `int_id` varchar(160) NOT NULL,
+  `exc_field` varchar(64) DEFAULT NULL,
+  `inc_field` varchar(64) DEFAULT NULL,
+  `begin_time` datetime NOT NULL,
+  `end_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='cross-reference of subscription';
+
+-- ----------------------------
+--  Table structure for `mm_m_pub`
+-- ----------------------------
+DROP TABLE IF EXISTS `mm_m_pub`;
+CREATE TABLE `mm_m_pub` (
+  `id` varchar(160) NOT NULL,
+  `pub_set` varchar(160) DEFAULT NULL COMMENT ' hash all pubs id(sorted) at once',
+  `provider_id` varchar(160) NOT NULL,
+  `ext_id` varchar(160) NOT NULL,
+  `int_id` varchar(160) NOT NULL,
+  `version` varchar(64) NOT NULL,
+  `stability` varchar(64) NOT NULL,
+  `operator_id` varchar(160) NOT NULL,
+  `begin_time` datetime NOT NULL,
+  `end_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='model extensionPublication';
+
+-- ----------------------------
+--  Table structure for `mm_m_sub`
+-- ----------------------------
+DROP TABLE IF EXISTS `mm_m_sub`;
+CREATE TABLE `mm_m_sub` (
+  `id` varchar(160) NOT NULL,
+  `sub_set` varchar(160) NOT NULL COMMENT 'pub_set_hash',
+  `subscriber_id` varchar(160) NOT NULL,
+  `group` varchar(64) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `tree` varchar(64) NOT NULL,
+  `operator_id` varchar(64) NOT NULL,
+  `begin_time` datetime NOT NULL,
+  `end_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`,`begin_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='model subscribe';
 
 SET FOREIGN_KEY_CHECKS = 1;
