@@ -1,7 +1,6 @@
 package com.sinewang.kiimate.status.core.api;
 
 import one.kii.derid.derid64.Eid64Generator;
-import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.PublishStatusApi;
 import one.kii.kiimate.status.core.dai.AssetDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
@@ -36,9 +35,6 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
 
     @Autowired
     private InstanceDai instanceDai;
-
-    @Autowired
-    private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic {
