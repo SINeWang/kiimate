@@ -122,13 +122,11 @@ public interface AssetDai {
 
         Long id;
 
-        String ownerId;
+        String subscriberId;
 
-        String group;
+        String providerId;
 
-        String name;
-
-        String stability;
+        String set;
 
         String version;
 

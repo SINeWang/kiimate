@@ -128,10 +128,6 @@ public class DefaultInstanceDai implements InstanceDai {
         }
     }
 
-    @Override
-    public List<Record> loadInstances(ChannelAssetId channel) {
-        return instanceMapper.selectLatestInstancesByAssetId(channel.getId());
-    }
 
     @Override
     public List<Record> loadInstances(VisitUpWithId channel) {

@@ -12,10 +12,9 @@
 
     <resultMap id="Assets" type="one.kii.kiimate.status.core.dai.AssetDai$Assets">
         <result column="id" property="id"/>
-        <result column="subscriber_id" property="ownerId"/>
-        <result column="group" property="group"/>
-        <result column="name" property="name"/>
-        <result column="stability" property="stability"/>
+        <result column="subscriber_id" property="subscriberId"/>
+        <result column="sub_set" property="set"/>
+        <result column="provider_id" property="providerId"/>
         <result column="version" property="version"/>
         <result column="begin_time" property="beginTime"/>
         <result column="end_time" property="endTime"/>
@@ -50,10 +49,10 @@
     </select>
 
     <select id="selectAsset" resultMap="Assets">
-        SELECT ssub.id, ssub.subscriber_id, msub.group, msub.name, spub.stability, spub.version, ssub.begin_time, ssub.end_time
-        FROM km_s_sub ssub, km_s_pub spub, mm_m_sub msub
+        SELECT ssub.id, ssub.subscriber_id, ssub.sub_set, ssub.begin_time, ssub.end_time,
+        spub.provider_id
+        FROM km_s_sub ssub, km_s_pub spub
         WHERE spub.pub_set = ssub.sub_set
-        AND spub.m_sub_id = msub.id
         AND ssub.id = #{id}
         AND ssub.subscriber_id = #{subscriberId}
         AND ssub.end_time IS NULL

@@ -20,15 +20,6 @@
         <result column="begin_time" property="beginTime"/>
     </resultMap>
 
-    <select id="selectLatestInstancesByAssetId" resultMap="Instance">
-        SELECT mins.id, mins.commit, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_id, mins.value_ref_policy, mins.operator_id, mins.begin_time
-        FROM mm_i_ins mins, km_s_sub ssub, km_s_pub spub
-        WHERE ssub.id = #{subId}
-        AND ssub.sub_set = spub.pub_set
-        AND spub.ins_id = mins.id
-        AND ssub.end_time is NULL
-    </select>
-
     <select id="selectLatestInstancesByStatusId" resultMap="Instance">
         SELECT mins.id, mins.commit, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_id, mins.value_ref_policy, mins.operator_id, mins.begin_time
         FROM mm_i_ins mins, mm_m_sub msub

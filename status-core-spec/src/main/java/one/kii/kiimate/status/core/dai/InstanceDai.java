@@ -17,15 +17,7 @@ public interface InstanceDai {
     @Transactional
     void remember(List<Instance> instances) throws Conflict;
 
-    List<Record> loadInstances(ChannelAssetId channel);
-
     List<Record> loadInstances(VisitUpWithId channel);
-
-
-    @Data
-    class ChannelAssetId {
-        Long id;
-    }
 
     @Data
     class Record {

@@ -1,5 +1,6 @@
 package com.sinewang.kiimate.status.core.api;
 
+import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.VisitStatusApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
@@ -34,13 +35,16 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
     private StatusDai statusDai;
 
     @Autowired
+    private IntensionDai intensionDai;
+
+    @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Autowired
     private InstanceTransformer instanceTransformer;
 
     @Override
-    public Map<String, Object> visit(ReadContext context, VisitDownWithXyz form) throws NotFound, BadRequest, Panic {
+    public Status visit(ReadContext context, VisitDownWithXyz form) throws NotFound, BadRequest, Panic {
 
 
         VisitDownInsight downsights = statusDai.loadDownstream(form);
@@ -52,7 +56,18 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(id);
 
-        return instanceTransformer.toRawValue(records, modelPubSet);
+        IntensionDai.ChannelPubSet pubSet = ValueMapping.from(IntensionDai.ChannelPubSet.class, modelPubSet);
+        pubSet.setPubSet(modelPubSet.getSet());
+        pubSet.setExtId(modelPubSet.getRootId());
+        List<IntensionDai.Record> intensionList = intensionDai.loadLast(pubSet);
+
+        List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
+
+        Map<String, Object> map = instanceTransformer.toTimedValue(records, modelPubSet);
+        Status status = ValueMapping.from(Status.class, downsights, form, modelPubSet);
+        status.setMap(map);
+        status.setIntensions(intensions);
+        return status;
     }
 
 }

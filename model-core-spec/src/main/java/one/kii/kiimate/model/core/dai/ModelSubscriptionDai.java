@@ -8,6 +8,7 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.xyz.VisitUpInsight;
 import one.kii.summer.xyz.VisitUpWithId;
+import one.kii.summer.xyz.VisitUpWithXyz;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -23,6 +24,8 @@ public interface ModelSubscriptionDai {
     void remember(Status status) throws Conflict;
 
     VisitUpInsight getModelPubSetByStatusId(VisitUpWithId channel) throws Panic;
+
+    VisitUpInsight getModelPubSetByXyz(VisitUpWithXyz channel) throws Panic;
 
     List<Status> querySubscriptions(ClueGroup clue) throws BadRequest, Panic;
 

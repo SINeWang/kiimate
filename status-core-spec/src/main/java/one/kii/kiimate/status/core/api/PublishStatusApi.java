@@ -41,10 +41,6 @@ public interface PublishStatusApi extends CommitApi<PublishStatusApi.Receipt, Wr
 
         private String pubSet;
 
-        private String group;
-
-        private String name;
-
         private String providerId;
 
         private String version;
