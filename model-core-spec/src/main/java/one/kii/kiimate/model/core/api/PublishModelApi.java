@@ -1,7 +1,6 @@
 package one.kii.kiimate.model.core.api;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import one.kii.summer.asdf.api.CommitApi;
 import one.kii.summer.beans.annotations.Unique;
 import one.kii.summer.io.context.WriteContext;
@@ -22,7 +21,6 @@ public interface PublishModelApi extends CommitApi<PublishModelApi.Receipt, Writ
     Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic;
 
     @Data
-    @EqualsAndHashCode(callSuper = false)
     class Form {
 
         @Unique
@@ -40,7 +38,6 @@ public interface PublishModelApi extends CommitApi<PublishModelApi.Receipt, Writ
     }
 
     @Data
-    @EqualsAndHashCode(callSuper = false)
     class Receipt {
 
         List<Intension> intensions;
@@ -56,7 +53,6 @@ public interface PublishModelApi extends CommitApi<PublishModelApi.Receipt, Writ
     }
 
     @Data
-    @EqualsAndHashCode(callSuper = false)
     class Intension {
 
         String field;

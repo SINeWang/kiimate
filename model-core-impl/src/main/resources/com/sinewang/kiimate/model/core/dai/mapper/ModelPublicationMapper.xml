@@ -50,7 +50,7 @@
         AND end_time IS NULL
     </select>
 
-    <select id="countPublicationByKeyFactor" resultType="int">
+    <select id="countByConflictKey" resultType="int">
         SELECT COUNT(mpub.ext_id)
         FROM  mm_m_pub mpub
         WHERE mpub.provider_id = #{providerId}
