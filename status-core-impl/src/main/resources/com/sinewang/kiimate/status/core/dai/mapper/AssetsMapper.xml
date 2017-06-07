@@ -5,6 +5,9 @@
     <resultMap id="Providers" type="one.kii.kiimate.status.core.dai.AssetDai$Providers">
         <result column="provider_id" property="id"/>
     </resultMap>
+    <resultMap id="Subscribers" type="one.kii.kiimate.status.core.dai.AssetDai$Subscribers">
+        <result column="subscriber_id" property="id"/>
+    </resultMap>
 
 
     <resultMap id="Assets" type="one.kii.kiimate.status.core.dai.AssetDai$Assets">
@@ -17,19 +20,6 @@
         <result column="begin_time" property="beginTime"/>
         <result column="end_time" property="endTime"/>
     </resultMap>
-
-    <resultMap id="Publicaiton" type="one.kii.kiimate.status.core.dai.AssetDai$Publication">
-        <result column="pub_set" property="pubSet"/>
-        <result column="provider_id" property="providerId"/>
-        <result column="m_sub_id" property="modelSubId"/>
-        <result column="visibility" property="visibility"/>
-        <result column="stability" property="stability"/>
-        <result column="version" property="version"/>
-        <result column="operator_id" property="operatorId"/>
-        <result column="begin_time" property="beginTime"/>
-        <result column="end_time" property="endTime"/>
-    </resultMap>
-
 
     <insert id="insertSubscription">
         INSERT INTO km_s_sub
@@ -51,16 +41,14 @@
         AND spub.end_time IS NULL
         GROUP BY spub.provider_id
     </select>
-    <select id="queryAssets" resultMap="Assets">
-        <bind name="group_pattern" value="'%' + group + '%'"/>
-        SELECT ssub.id, ssub.subscriber_id, msub.group, msub.name, spub.stability, spub.version, ssub.begin_time, ssub.end_time
-        FROM km_s_sub ssub, km_s_pub spub, mm_m_sub msub
-        WHERE spub.pub_set = ssub.sub_set
-        AND spub.m_sub_id = msub.id
-        AND msub.group LIKE #{group_pattern}
+    <select id="querySubscribers" resultMap="Subscribers">
+        <bind name="subscriber_id_pattern" value="'%' + subscriberId + '%'"/>
+        SELECT ssub.subscriber_id FROM km_s_sub ssub
+        WHERE ssub.subscriber_id LIKE #{subscriber_id_pattern}
         AND ssub.end_time IS NULL
-        GROUP BY ssub.id
+        GROUP BY ssub.provider_id
     </select>
+
     <select id="selectAsset" resultMap="Assets">
         SELECT ssub.id, ssub.subscriber_id, msub.group, msub.name, spub.stability, spub.version, ssub.begin_time, ssub.end_time
         FROM km_s_sub ssub, km_s_pub spub, mm_m_sub msub
@@ -70,25 +58,5 @@
         AND ssub.subscriber_id = #{subscriberId}
         AND ssub.end_time IS NULL
         GROUP BY ssub.id
-    </select>
-    <select id="selectAssetByProviderGroupNameStabilityVersion" resultMap="Assets">
-        SELECT ssub.pub_set, ssub.provider_id, ssub.visibility, ssub.m_sub_id, ssub.stability, ssub.version, msub.group, msub.name
-        FROM km_s_pub ssub, mm_m_sub msub
-        WHERE ssub.provider_id = #{providerId}
-        AND ssub.m_sub_id = msub.id
-        AND msub.group = #{group}
-        AND msub.name = #{name}
-        AND ssub.stability = #{stability}
-        AND ssub.version = #{version}
-        AND ssub.end_time IS NULL
-        GROUP BY ssub.pub_set
-    </select>
-    <select id="selectPublication" resultMap="Publicaiton">
-        SELECT spub.pub_set, spub.provider_id, spub.m_sub_id, spub.visibility, spub.stability, spub.version, spub.operator_id, spub.begin_time, spub.end_time
-        FROM km_s_pub spub, km_s_sub ssub
-        WHERE ssub.id = #{id}
-        AND ssub.sub_set = spub.pub_set
-        GROUP BY ssub.id
-        AND ssub.end_time IS NULL
     </select>
 </mapper>

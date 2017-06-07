@@ -13,28 +13,17 @@ import java.util.List;
 @Mapper
 public interface AssetsMapper {
 
-    AssetDai.Publication selectPublication(
-            @Param("id") Long id
-    );
-
     List<AssetDai.Providers> queryProviders(
             @Param("providerId") String providerId
     );
 
-    List<AssetDai.Assets> queryAssets(
-            @Param("providerId") String providerId,
-            @Param("group") String group);
+    List<AssetDai.Subscribers> querySubscribers(
+            @Param("subscriberId") String subscriberId
+    );
 
     AssetDai.Assets selectAsset(
             @Param("subscriberId") String subscriberId,
             @Param("id") Long id);
-
-    AssetDai.Assets selectAssetByProviderGroupNameStabilityVersion(
-            @Param("providerId") String providerId,
-            @Param("group") String group,
-            @Param("name") String name,
-            @Param("stability") String stability,
-            @Param("version") String version);
 
     void insertSubscription(
             @Param("id") Long id,

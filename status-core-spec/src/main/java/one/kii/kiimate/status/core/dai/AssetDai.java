@@ -4,6 +4,7 @@ import lombok.Data;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.xyz.VisitUpWithId;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -16,13 +17,7 @@ public interface AssetDai {
 
     List<Providers> queryProviders(ClueId clue) throws BadRequest;
 
-    List<Assets> query(ClueGroup clue) throws BadRequest;
-
-    Assets load(ChannelGroupName channel) throws Panic;
-
-    Assets load(ChannelOwnerId channel) throws Panic;
-
-    Publication load(ChannelSubscriptionId channel) throws Panic;
+    Assets load(VisitUpWithId channel) throws Panic;
 
     @Transactional
     void remember(Subscription subscription) throws BadRequest;
@@ -59,11 +54,6 @@ public interface AssetDai {
         Long id;
 
         Long insId;
-    }
-
-    @Data
-    class ChannelSubscriptionId {
-        Long id;
     }
 
 
@@ -123,30 +113,6 @@ public interface AssetDai {
 
         String stability;
 
-
-        String version;
-    }
-
-    @Data
-    class ChannelOwnerId {
-
-
-        String ownerId;
-
-
-        Long id;
-
-    }
-
-    @Data
-    class ChannelModelSubId {
-
-
-        String ownerId;
-
-        Long subId;
-
-        String stability;
 
         String version;
     }
