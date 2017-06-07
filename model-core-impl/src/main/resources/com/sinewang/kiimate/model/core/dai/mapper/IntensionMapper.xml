@@ -27,7 +27,7 @@
     </select>
 
     <select id="selectLastIntensionsByExtId" resultMap="Intension">
-        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.begin_time,  mint.begin_time, mint.end_time
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time,  mint.begin_time, mint.end_time
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         <![CDATA[
@@ -38,7 +38,7 @@
     </select>
 
     <select id="selectLastIntensionByExtIdField" resultMap="Intension">
-        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.begin_time, mint.end_time
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
@@ -47,7 +47,7 @@
     </select>
 
     <select id="selectLatestIntensionByExtIdField" resultMap="Intension">
-        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.begin_time, mint.end_time
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
@@ -67,7 +67,7 @@
         GROUP BY mint.field
     </select>
     <select id="selectIntensionByCommit" resultMap="Intension">
-        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.begin_time, mint.end_time
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
         FROM mm_m_int mint
         WHERE mint.commit = #{commit}
     </select>

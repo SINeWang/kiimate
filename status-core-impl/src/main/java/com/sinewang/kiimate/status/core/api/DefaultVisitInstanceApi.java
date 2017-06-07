@@ -46,12 +46,12 @@ public class DefaultVisitInstanceApi implements VisitInstanceApi {
         VisitUpInsight model = modelSubscriptionDai.getModelPubSetByStatusId(statusId);
         Instance instance = ValueMapping.from(Instance.class, model);
 
-        Map<String, Object> map = instanceTransformer.toTimedValue(records, model);
         IntensionDai.ChannelExtensionId rootExtension = ValueMapping.from(IntensionDai.ChannelExtensionId.class, model);
         rootExtension.setId(model.getRootId());
-
         List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);
         List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
+
+        Map<String, Object> map = instanceTransformer.toTimedValue(records, model);
         instance.setIntensions(intensions);
         instance.setMap(map);
         return NotBadResponse.of(instance);

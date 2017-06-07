@@ -78,15 +78,6 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public Instance selectSubscription(VisitUpWithId channel) throws Panic, BadRequest {
-        NotBadRequest.from(channel);
-        Instance record = modelSubscriptionMapper.selectBySubId(
-                channel.getSubscriberId(),
-                channel.getId());
-        return NotBadResponse.of(record);
-    }
-
-    @Override
     public Integer countModelSubscriptions(Long pubSet) {
         return modelSubscriptionMapper.countModelSubscriptions(pubSet);
     }

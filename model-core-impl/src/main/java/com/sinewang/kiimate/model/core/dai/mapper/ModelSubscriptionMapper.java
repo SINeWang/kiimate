@@ -47,8 +47,4 @@ public interface ModelSubscriptionMapper {
 
     List<ModelSubscriptionDai.Subscribers> querySubscriberId(@Param("subscriberId") String subscriberId);
 
-
-    ModelSubscriptionDai.Instance selectBySubId(
-            @Param("subscriberId") String subscriberId,
-            @Param("id") Long id);
 }

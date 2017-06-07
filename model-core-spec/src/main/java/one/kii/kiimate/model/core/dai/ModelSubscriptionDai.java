@@ -31,8 +31,6 @@ public interface ModelSubscriptionDai {
 
     List<Subscribers> querySubscribers(ClueSubscriberId clue) throws Panic;
 
-    Instance selectSubscription(VisitUpWithId channel) throws Panic, BadRequest;
-
     Integer countModelSubscriptions(Long pubSet);
 
     @Data
