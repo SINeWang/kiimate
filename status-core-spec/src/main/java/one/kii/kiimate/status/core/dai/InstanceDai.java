@@ -3,6 +3,7 @@ package one.kii.kiimate.status.core.dai;
 import lombok.Data;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.Panic;
 import one.kii.summer.xyz.VisitUpWithId;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ public interface InstanceDai {
     @Transactional
     void remember(List<Instance> instances) throws Conflict;
 
-    List<Record> loadInstances(VisitUpWithId channel);
+    List<Record> loadInstances(VisitUpWithId channel) throws Panic;
 
     @Data
     class Record {
@@ -38,10 +39,13 @@ public interface InstanceDai {
 
         private String value;
 
+        @MayHave
         private Long valueSet;
 
+        @MayHave
         private String valueRefId;
 
+        @MayHave
         private String valueRefPolicy;
 
         private String operatorId;

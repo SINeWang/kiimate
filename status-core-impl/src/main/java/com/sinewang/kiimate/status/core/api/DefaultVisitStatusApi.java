@@ -53,6 +53,7 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         id.setSubscriberId(downsights.getProviderId());
 
         VisitUpInsight modelPubSet = modelSubscriptionDai.getModelPubSetByStatusId(id);
+        id.setBeginTime(downsights.getBeginTime());
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(id);
 

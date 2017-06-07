@@ -4,6 +4,8 @@ import com.sinewang.kiimate.status.core.dai.mapper.InstanceMapper;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.validator.NotBadResponse;
 import one.kii.summer.xyz.VisitUpWithId;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,11 +132,21 @@ public class DefaultInstanceDai implements InstanceDai {
 
 
     @Override
-    public List<Record> loadInstances(VisitUpWithId channel) {
-        return instanceMapper.selectLatestInstancesByStatusId(
-                channel.getSubscriberId(),
-                channel.getId()
-        );
+    public List<Record> loadInstances(VisitUpWithId channel) throws Panic {
+        List<Record> records;
+        if (channel.getBeginTime() == null) {
+            records = instanceMapper.selectLatestInstancesByStatusId(
+                    channel.getSubscriberId(),
+                    channel.getId()
+            );
+        } else {
+            records = instanceMapper.selectLastInstancesByStatusId(
+                    channel.getSubscriberId(),
+                    channel.getId(),
+                    channel.getBeginTime()
+            );
+        }
+        return NotBadResponse.of(records);
     }
 
 
