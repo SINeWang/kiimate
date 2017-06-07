@@ -58,7 +58,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         VisitUpInsight model = modelSubscriptionDai.getModelPubSetByStatusId(channel);
 
 
-        IntensionDai.ChannelLastExtension lastExtension = new IntensionDai.ChannelLastExtension();
+        IntensionDai.ChannelExtensionId lastExtension = new IntensionDai.ChannelExtensionId();
         lastExtension.setId(model.getRootId());
         lastExtension.setBeginTime(model.getBeginTime());
 
@@ -72,7 +72,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         instanceDai.remember(instances);
 
 
-        IntensionDai.ChannelLastExtension rootExtension = ValueMapping.from(IntensionDai.ChannelLastExtension.class, model);
+        IntensionDai.ChannelExtensionId rootExtension = ValueMapping.from(IntensionDai.ChannelExtensionId.class, model);
 
 
         rootExtension.setId(model.getRootId());

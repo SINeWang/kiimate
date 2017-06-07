@@ -3,7 +3,6 @@ package com.sinewang.kiimate.model.core.fui;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
-import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
@@ -37,7 +36,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
     }
 
 
-    public Map<String, Object> restoreAsMetaData(IntensionDai.ChannelLastExtension extension) throws BadRequest, NotFound, Panic {
+    public Map<String, Object> restoreAsMetaData(IntensionDai.ChannelExtensionId extension) throws BadRequest, NotFound, Panic {
         Map<String, Object> model = new HashMap<>();
         List<IntensionDai.Record> records = intensionDai.loadLast(extension);
         for (IntensionDai.Record record : records) {
@@ -46,7 +45,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
                 ModelPublicationDai.ChannelPubSet pubset = new ModelPublicationDai.ChannelPubSet();
                 pubset.setPubSet(refPubSet);
                 ModelPublicationDai.Record publication = modelPublicationDai.loadRootPublications(pubset);
-                IntensionDai.ChannelLastExtension refExt = new IntensionDai.ChannelLastExtension();
+                IntensionDai.ChannelExtensionId refExt = new IntensionDai.ChannelExtensionId();
                 refExt.setBeginTime(publication.getBeginTime());
                 refExt.setId(publication.getExtId());
                 if (record.getSingle()) {
@@ -66,13 +65,13 @@ public class DefaultModelRestorer implements AnModelRestorer {
     }
 
 
-    public Map<String, IntensionDai.Record> restoreAsIntensionDict(IntensionDai.ChannelLastExtension extension) throws BadRequest, NotFound, Panic {
+    public Map<String, IntensionDai.Record> restoreAsIntensionDict(IntensionDai.ChannelExtensionId extension) throws BadRequest, NotFound, Panic {
         Map<String, IntensionDai.Record> map = new HashMap<>();
         restoreAsFieldDict(extension, map);
         return map;
     }
 
-    private void restoreAsFieldDict(IntensionDai.ChannelLastExtension extension, Map<String, IntensionDai.Record> map) throws BadRequest, NotFound, Panic {
+    private void restoreAsFieldDict(IntensionDai.ChannelExtensionId extension, Map<String, IntensionDai.Record> map) throws BadRequest, NotFound, Panic {
         List<IntensionDai.Record> records = intensionDai.loadLast(extension);
         for (IntensionDai.Record record : records) {
             Long refPubSet = record.getRefPubSet();
@@ -80,7 +79,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
                 ModelPublicationDai.ChannelPubSet pubset = new ModelPublicationDai.ChannelPubSet();
                 pubset.setPubSet(refPubSet);
                 ModelPublicationDai.Record publication = modelPublicationDai.loadRootPublications(pubset);
-                IntensionDai.ChannelLastExtension channel = new IntensionDai.ChannelLastExtension();
+                IntensionDai.ChannelExtensionId channel = new IntensionDai.ChannelExtensionId();
                 channel.setId(publication.getExtId());
                 channel.setBeginTime(publication.getBeginTime());
                 restoreAsFieldDict(channel, map);

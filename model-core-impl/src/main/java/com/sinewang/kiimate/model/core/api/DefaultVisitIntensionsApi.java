@@ -30,17 +30,11 @@ public class DefaultVisitIntensionsApi implements VisitIntensionsApi {
     @Override
     public Receipt visit(ReadContext context, Form form) throws BadRequest, NotFound, Panic {
 
-        ExtensionDai.Record extension = ValueMapping.from(ExtensionDai.Record.class, form, context);
+        ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, form, context);
 
-        ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
+        ExtensionDai.Record extension = extensionDai.loadLast(channel);
 
-        ExtensionDai.Record dbRecord = extensionDai.loadLast(channel);
-
-        if (dbRecord == null) {
-            throw new NotFound(new String[]{context.getOwnerId(), form.getGroup(), form.getName(), form.getTree()});
-        }
-
-        IntensionDai.ChannelLastExtension channel1 = ValueMapping.from(IntensionDai.ChannelLastExtension.class, extension);
+        IntensionDai.ChannelExtensionId channel1 = ValueMapping.from(IntensionDai.ChannelExtensionId.class, extension);
         List<IntensionDai.Record> list = intensionDai.loadLast(channel1);
 
         List<Intension> intensions = ValueMapping.from(Intension.class, list);

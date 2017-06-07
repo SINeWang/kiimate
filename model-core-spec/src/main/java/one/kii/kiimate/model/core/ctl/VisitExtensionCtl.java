@@ -27,8 +27,6 @@ public class VisitExtensionCtl extends ReadController {
 
     static String TREE_MASTER = "master";
 
-    static String VISIBILITY_PUBLIC = "public";
-
     @Autowired
     private VisitExtensionApi api;
 

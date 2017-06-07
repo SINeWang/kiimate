@@ -38,7 +38,7 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
 
         intensionDai.remember(record);
 
-        IntensionDai.ChannelLastExtension channel = new IntensionDai.ChannelLastExtension();
+        IntensionDai.ChannelExtensionId channel = new IntensionDai.ChannelExtensionId();
         channel.setId(form.getExtId());
 
         List<IntensionDai.Record> recordList = intensionDai.loadLast(channel);

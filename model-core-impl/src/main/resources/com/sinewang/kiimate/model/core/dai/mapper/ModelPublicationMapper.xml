@@ -58,7 +58,6 @@
         AND mpub.stability = #{stability}
         AND mpub.version = #{version}
         AND mpub.end_time IS NULL
-        GROUP BY mpub.ext_id
     </select>
 
     <delete id="deletePublicationByProviderIdExtIdPubVersion">

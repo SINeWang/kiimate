@@ -52,7 +52,7 @@ public class DefaultIntensionDai implements IntensionDai {
     }
 
     @Override
-    public List<Record> loadLast(ChannelLastExtension channel) throws BadRequest, Panic {
+    public List<Record> loadLast(ChannelExtensionId channel) throws BadRequest, Panic {
         NotBadRequest.from(channel);
         List<Record> records;
         if (channel.getBeginTime() == null) {

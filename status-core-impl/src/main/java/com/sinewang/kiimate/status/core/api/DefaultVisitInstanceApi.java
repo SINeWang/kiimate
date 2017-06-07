@@ -47,7 +47,7 @@ public class DefaultVisitInstanceApi implements VisitInstanceApi {
         Instance instance = ValueMapping.from(Instance.class, model);
 
         Map<String, Object> map = instanceTransformer.toTimedValue(records, model);
-        IntensionDai.ChannelLastExtension rootExtension = ValueMapping.from(IntensionDai.ChannelLastExtension.class, model);
+        IntensionDai.ChannelExtensionId rootExtension = ValueMapping.from(IntensionDai.ChannelExtensionId.class, model);
         rootExtension.setId(model.getRootId());
 
         List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);

@@ -15,8 +15,6 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 3/23/17.
  */
-@RestController
-@RequestMapping("/v1")
 public interface VisitIntensionsApi extends VisitApi<VisitIntensionsApi.Receipt, ReadContext, VisitIntensionsApi.Form> {
 
     String VISIBILITY_PUBLIC = "public";
@@ -33,7 +31,6 @@ public interface VisitIntensionsApi extends VisitApi<VisitIntensionsApi.Receipt,
 
 
     @Data
-    @EqualsAndHashCode(callSuper = false)
     class Receipt {
 
         private String extId;
@@ -50,7 +47,6 @@ public interface VisitIntensionsApi extends VisitApi<VisitIntensionsApi.Receipt,
     }
 
     @Data
-    @EqualsAndHashCode(callSuper = false)
     class Intension {
 
         private String id;

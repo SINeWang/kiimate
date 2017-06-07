@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface AnModelRestorer {
 
-    Map<String, Object> restoreAsMetaData(IntensionDai.ChannelLastExtension channel) throws BadRequest, NotFound, Panic;
+    Map<String, Object> restoreAsMetaData(IntensionDai.ChannelExtensionId channel) throws BadRequest, NotFound, Panic;
 
-    Map<String, IntensionDai.Record> restoreAsIntensionDict(IntensionDai.ChannelLastExtension channel) throws NotFound, BadRequest, Panic;
+    Map<String, IntensionDai.Record> restoreAsIntensionDict(IntensionDai.ChannelExtensionId channel) throws NotFound, BadRequest, Panic;
 }
