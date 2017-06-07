@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.VisitRawStatusApi;
+import one.kii.kiimate.status.core.api.VisitStatusApi;
 import one.kii.summer.asdf.api.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
@@ -32,7 +32,7 @@ public class VisitStatusCtl extends ReadController {
     static final String VERSION = "version";
 
     @Autowired
-    private VisitRawStatusApi api;
+    private VisitStatusApi api;
 
     @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
     public ResponseEntity<?> visit(

@@ -29,6 +29,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
         Map<String, List<InstanceDai.Record>> dict = dict(instancesList);
         IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
         extension.setExtId(model.getRootId());
+        extension.setPubSet(model.getSet());
         return parseTimed(extension, dict);
     }
 
@@ -37,6 +38,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
         Map<String, List<InstanceDai.Record>> dict = dict(instancesList);
         IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
         extension.setExtId(model.getRootId());
+        extension.setPubSet(model.getSet());
         return parseRaw(extension, dict);
     }
 

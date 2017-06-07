@@ -13,7 +13,7 @@ import java.util.Map;
  * Created by WangYanJiong on 4/5/17.
  */
 
-public interface VisitRawStatusApi extends VisitApi<Map<String, Object>, ReadContext, VisitDownWithXyz> {
+public interface VisitStatusApi extends VisitApi<Map<String, Object>, ReadContext, VisitDownWithXyz> {
 
 
     Map<String, Object> visit(ReadContext context, VisitDownWithXyz form) throws NotFound, BadRequest, Panic;

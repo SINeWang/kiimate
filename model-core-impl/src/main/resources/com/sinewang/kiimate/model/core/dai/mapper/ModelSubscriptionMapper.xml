@@ -22,9 +22,14 @@
 
     <resultMap id="ModelPubSet" type="one.kii.summer.xyz.VisitUpInsight">
         <result column="pub_set" property="set"/>
-        <result column="id" property="rootId"/>
+        <result column="root_ext_id" property="rootId"/>
         <result column="begin_time" property="beginTime"/>
         <result column="end_time" property="endTime"/>
+        <result column="provider_id" property="providerId"/>
+        <result column="subscriber_id" property="subscriberId"/>
+        <result column="group" property="group"/>
+        <result column="name" property="name"/>
+        <result column="tree" property="tree"/>
     </resultMap>
 
     <insert id="insertSubscription">
@@ -76,10 +81,11 @@
         GROUP BY mext.id
     </select>
     <select id="selectModelPubSetByStatusId" resultMap="ModelPubSet">
-      SELECT mext.id, mpub.pub_set, mpub.begin_time, mpub.end_time
+        SELECT msub.id, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.begin_time, msub.end_time,
+        mext.id root_ext_id, mpub.pub_set, mpub.provider_id
         FROM mm_m_pub mpub, mm_m_sub msub, mm_m_ext mext
         WHERE mext.id = mpub.ext_id
-        AND msub.id = #{subId}
+        AND msub.id = #{id}
         AND msub.sub_set = mpub.pub_set
         AND msub.end_time IS NULL
         GROUP BY mext.id
