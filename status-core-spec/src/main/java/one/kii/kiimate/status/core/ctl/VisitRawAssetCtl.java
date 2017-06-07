@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
-import static one.kii.kiimate.status.core.ctl.VisitAssetCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.VisitAssetCtl.SUBSCRIBER_ID;
 
 
 /**
  * Created by WangYanJiong on 23/05/2017.
  */
 @RestController
-@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/asset", method = RequestMethod.GET)
+@RequestMapping(value = "/api/v1/{" + SUBSCRIBER_ID + "}/asset", method = RequestMethod.GET)
 @CrossOrigin(origins = "*")
 public class VisitRawAssetCtl extends ReadController {
 

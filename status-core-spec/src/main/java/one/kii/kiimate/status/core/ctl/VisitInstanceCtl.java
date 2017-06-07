@@ -33,12 +33,12 @@ public class VisitInstanceCtl extends ReadController {
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(SUBSCRIBER_ID) String subscriberId,
-            @PathVariable(ID) String id) {
+            @PathVariable(ID) Long id) {
 
         ReadContext context = buildContext(requestId, subscriberId, visitorId);
 
         ViewUpWithId form = new ViewUpWithId();
-        form.setId(Long.valueOf(id));
+        form.setId(id);
         form.setSubscriberId(subscriberId);
 
         return VisitApiCaller.sync(api, context, form);

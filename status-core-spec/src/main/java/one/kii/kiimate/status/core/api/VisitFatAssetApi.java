@@ -6,6 +6,8 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.xyz.ViewUpWithId;
+import one.kii.summer.xyz.ViewUpWithXyz;
 
 import java.util.List;
 import java.util.Map;
@@ -17,13 +19,9 @@ import java.util.Map;
 public interface VisitFatAssetApi extends VisitApi {
 
 
-    String STABILITY_LATEST = "latest";
+    Asset visit(ReadContext context, ViewUpWithXyz form) throws BadRequest, NotFound, Panic;
 
-    String VERSION_HEAD = "HEAD";
-
-    Asset visit(ReadContext context, GroupNameForm form) throws BadRequest, NotFound, Panic;
-
-    Asset visit(ReadContext context, OwnerIdForm form) throws BadRequest, NotFound, Panic;
+    Asset visit(ReadContext context, ViewUpWithId form) throws BadRequest, NotFound, Panic;
 
     @Data
     class Asset {
@@ -36,19 +34,6 @@ public interface VisitFatAssetApi extends VisitApi {
         Map<String, Object> map;
     }
 
-    @Data
-    class GroupNameForm {
-        String group;
-        String name;
-        String stability = STABILITY_LATEST;
-        String version = VERSION_HEAD;
-    }
-
-    @Data
-    class OwnerIdForm {
-        String ownerId;
-        String id;
-    }
 
     @Data
     class Intension {

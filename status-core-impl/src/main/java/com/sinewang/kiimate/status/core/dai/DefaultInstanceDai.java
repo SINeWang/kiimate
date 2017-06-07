@@ -135,7 +135,10 @@ public class DefaultInstanceDai implements InstanceDai {
 
     @Override
     public List<Record> loadInstances(ViewUpWithId channel) {
-        return instanceMapper.selectLatestInstancesByStatusId(channel.getId());
+        return instanceMapper.selectLatestInstancesByStatusId(
+                channel.getSubscriberId(),
+                channel.getId()
+        );
     }
 
 

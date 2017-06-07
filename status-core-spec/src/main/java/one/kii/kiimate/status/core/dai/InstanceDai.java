@@ -28,12 +28,6 @@ public interface InstanceDai {
     }
 
     @Data
-    class ChannelStatusId {
-        Long id;
-    }
-
-
-    @Data
     class Record {
 
         private Long id;

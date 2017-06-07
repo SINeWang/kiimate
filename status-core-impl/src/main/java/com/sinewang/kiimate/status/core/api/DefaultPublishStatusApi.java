@@ -45,6 +45,7 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
 
 
         ViewUpWithId id = ValueMapping.from(ViewUpWithId.class, form);
+        id.setSubscriberId(form.getProviderId());
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(id);
 

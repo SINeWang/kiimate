@@ -5,22 +5,24 @@ import one.kii.summer.asdf.api.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.receiver.ReadController;
+import one.kii.summer.xyz.ViewUpWithId;
+import one.kii.summer.xyz.ViewUpWithXyz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.status.core.ctl.VisitAssetCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.VisitAssetCtl.SUBSCRIBER_ID;
 
 
 /**
  * Created by WangYanJiong on 21/05/2017.
  */
 @RestController
-@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/asset", method = RequestMethod.GET)
+@RequestMapping(value = "/api/v1/{" + SUBSCRIBER_ID + "}/asset", method = RequestMethod.GET)
 @CrossOrigin(origins = "*")
 public class VisitAssetCtl extends ReadController {
 
-    public static final String OWNER_ID = "owner-id";
+    public static final String SUBSCRIBER_ID = "subscriber-id";
 
     public static final String GROUP = "group";
 
@@ -40,22 +42,18 @@ public class VisitAssetCtl extends ReadController {
     public ResponseEntity<VisitFatAssetApi.Asset> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable(OWNER_ID) String ownerId,
+            @PathVariable(SUBSCRIBER_ID) String subscriberId,
             @PathVariable(GROUP) String group,
             @PathVariable(NAME) String name,
             @PathVariable(STABILITY) String stability,
             @PathVariable(VERSION) String version) {
-        ReadContext context = buildContext(requestId, ownerId, visitorId);
+        ReadContext context = buildContext(requestId, subscriberId, visitorId);
 
-        VisitFatAssetApi.GroupNameForm form = new VisitFatAssetApi.GroupNameForm();
+        ViewUpWithXyz form = new ViewUpWithXyz();
         form.setGroup(group);
         form.setName(name);
-        if (null != stability) {
-            form.setStability(stability);
-        }
-        if (null != version) {
-            form.setVersion(version);
-        }
+        form.setStability(stability);
+        form.setVersion(version);
         return VisitApiCaller.sync(api, context, form);
     }
 
@@ -63,13 +61,12 @@ public class VisitAssetCtl extends ReadController {
     public ResponseEntity<VisitFatAssetApi.Asset> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable(OWNER_ID) String ownerId,
-            @PathVariable(ID) String id) {
-        ReadContext context = buildContext(requestId, ownerId, visitorId);
-
-        VisitFatAssetApi.OwnerIdForm form = new VisitFatAssetApi.OwnerIdForm();
+            @PathVariable(SUBSCRIBER_ID) String subscriberId,
+            @PathVariable(ID) Long id) {
+        ReadContext context = buildContext(requestId, subscriberId, visitorId);
+        ViewUpWithId form = new ViewUpWithId();
         form.setId(id);
-        form.setOwnerId(ownerId);
+        form.setSubscriberId(subscriberId);
         return VisitApiCaller.sync(api, context, form);
     }
 
