@@ -5,7 +5,7 @@ import one.kii.summer.asdf.api.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.receiver.ReadController;
-import one.kii.summer.xyz.ViewDownWithXyz;
+import one.kii.summer.xyz.VisitDownWithXyz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,12 +31,8 @@ public class VisitStatusCtl extends ReadController {
 
     static final String VERSION = "version";
 
-    static final String SET = "set";
-
     @Autowired
     private VisitRawStatusApi api;
-
-
 
     @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}")
     public ResponseEntity<?> visit(
@@ -50,7 +46,7 @@ public class VisitStatusCtl extends ReadController {
 
         ReadContext context = buildContext(requestId, providerId, visitorId);
 
-        ViewDownWithXyz form = new ViewDownWithXyz();
+        VisitDownWithXyz form = new VisitDownWithXyz();
         form.setProviderId(providerId);
         form.setGroup(group);
         form.setName(name);

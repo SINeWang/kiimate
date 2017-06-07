@@ -3,8 +3,8 @@ package one.kii.kiimate.status.core.dai;
 import lombok.Data;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.ViewDownInsight;
-import one.kii.summer.xyz.ViewDownWithXyz;
+import one.kii.summer.xyz.VisitDownInsight;
+import one.kii.summer.xyz.VisitDownWithXyz;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
 public interface StatusDai {
 
 
-    List<ViewDownInsight> searchDownstream(ClueGroup clue) throws BadRequest, Panic;
+    List<VisitDownInsight> searchDownstream(ClueGroup clue) throws BadRequest, Panic;
 
-    ViewDownInsight loadDownstream(ViewDownWithXyz providerXyz) throws Panic, BadRequest;
+    VisitDownInsight loadDownstream(VisitDownWithXyz providerXyz) throws Panic, BadRequest;
 
     @Data
     class ClueGroup {

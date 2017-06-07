@@ -6,8 +6,8 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
-import one.kii.summer.xyz.ViewDownInsight;
-import one.kii.summer.xyz.ViewDownWithXyz;
+import one.kii.summer.xyz.VisitDownInsight;
+import one.kii.summer.xyz.VisitDownWithXyz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,18 +25,18 @@ public class DefaultStatusDai implements StatusDai {
 
 
     @Override
-    public List<ViewDownInsight> searchDownstream(ClueGroup clue) throws BadRequest, Panic {
+    public List<VisitDownInsight> searchDownstream(ClueGroup clue) throws BadRequest, Panic {
         NotBadRequest.from(clue);
-        List<ViewDownInsight> list = statusMapper.queryStatuses(
+        List<VisitDownInsight> list = statusMapper.queryStatuses(
                 clue.getOwnerId(),
                 clue.getGroup());
         return NotBadResponse.of(list);
     }
 
     @Override
-    public ViewDownInsight loadDownstream(ViewDownWithXyz channel) throws Panic, BadRequest {
+    public VisitDownInsight loadDownstream(VisitDownWithXyz channel) throws Panic, BadRequest {
         NotBadRequest.from(channel);
-        ViewDownInsight statuses;
+        VisitDownInsight statuses;
         if (channel.getBeginTime() == null) {
             statuses = statusMapper.selectLatest(
                     channel.getProviderId(),

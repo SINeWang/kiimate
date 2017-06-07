@@ -20,7 +20,6 @@ public interface SubscribeAssetApi extends CommitApi<SubscribeAssetApi.Receipt, 
     Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound;
 
     @Data
-    @EqualsAndHashCode(callSuper = false)
     class Form {
 
         private String subSet;
@@ -34,7 +33,6 @@ public interface SubscribeAssetApi extends CommitApi<SubscribeAssetApi.Receipt, 
     }
 
     @Data
-    @EqualsAndHashCode(callSuper = false)
     class Receipt {
 
         private String id;

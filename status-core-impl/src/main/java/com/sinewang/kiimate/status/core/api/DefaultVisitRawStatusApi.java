@@ -10,9 +10,9 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.ViewDownInsight;
-import one.kii.summer.xyz.ViewDownWithXyz;
-import one.kii.summer.xyz.ViewUpWithId;
+import one.kii.summer.xyz.VisitDownInsight;
+import one.kii.summer.xyz.VisitDownWithXyz;
+import one.kii.summer.xyz.VisitUpWithId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,17 +39,17 @@ public class DefaultVisitRawStatusApi implements VisitRawStatusApi {
     private InstanceTransformer instanceTransformer;
 
     @Override
-    public Map<String, Object> visit(ReadContext context, ViewDownWithXyz form) throws NotFound, BadRequest, Panic {
+    public Map<String, Object> visit(ReadContext context, VisitDownWithXyz form) throws NotFound, BadRequest, Panic {
 
 
-        ViewDownInsight downsights = statusDai.loadDownstream(form);
+        VisitDownInsight downsights = statusDai.loadDownstream(form);
 
         ModelSubscriptionDai.StatusId statusId1 = ValueMapping.from(ModelSubscriptionDai.StatusId.class, downsights);
 
         ModelSubscriptionDai.ModelPubSet modelPubSet = modelSubscriptionDai.getModelPubSetByStatusId(statusId1);
 
-        ViewUpWithId upId = ValueMapping.from(ViewUpWithId.class, downsights);
-
+        VisitUpWithId upId = ValueMapping.from(VisitUpWithId.class, downsights);
+        upId.setSubscriberId(downsights.getProviderId());
         List<InstanceDai.Record> records = instanceDai.loadInstances(upId);
 
         return instanceTransformer.toRawValue(records, modelPubSet);

@@ -1,7 +1,6 @@
 package one.kii.kiimate.status.core.api;
 
 import lombok.Data;
-
 import one.kii.summer.asdf.api.SearchApi;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.ReadContext;

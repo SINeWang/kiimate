@@ -11,7 +11,7 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
-import one.kii.summer.xyz.ViewUpWithId;
+import one.kii.summer.xyz.VisitUpWithId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +37,7 @@ public class DefaultVisitInstanceApi implements VisitInstanceApi {
     private InstanceTransformer instanceTransformer;
 
     @Override
-    public Instance visit(ReadContext context, ViewUpWithId form) throws BadRequest, NotFound, Panic {
+    public Instance visit(ReadContext context, VisitUpWithId form) throws BadRequest, NotFound, Panic {
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(form);
 

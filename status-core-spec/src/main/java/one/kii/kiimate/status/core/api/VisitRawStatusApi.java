@@ -5,7 +5,7 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.ViewDownWithXyz;
+import one.kii.summer.xyz.VisitDownWithXyz;
 
 import java.util.Map;
 
@@ -13,9 +13,9 @@ import java.util.Map;
  * Created by WangYanJiong on 4/5/17.
  */
 
-public interface VisitRawStatusApi extends VisitApi<Map<String, Object>, ReadContext, ViewDownWithXyz> {
+public interface VisitRawStatusApi extends VisitApi<Map<String, Object>, ReadContext, VisitDownWithXyz> {
 
 
-    Map<String, Object> visit(ReadContext context, ViewDownWithXyz form) throws NotFound, BadRequest, Panic;
+    Map<String, Object> visit(ReadContext context, VisitDownWithXyz form) throws NotFound, BadRequest, Panic;
 
 }

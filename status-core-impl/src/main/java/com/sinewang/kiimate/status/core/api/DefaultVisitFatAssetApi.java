@@ -12,8 +12,8 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
-import one.kii.summer.xyz.ViewUpWithId;
-import one.kii.summer.xyz.ViewUpWithXyz;
+import one.kii.summer.xyz.VisitUpWithId;
+import one.kii.summer.xyz.VisitUpWithXyz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -43,14 +43,14 @@ public class DefaultVisitFatAssetApi implements VisitFatAssetApi {
 
 
     @Override
-    public Asset visit(ReadContext context, ViewUpWithXyz form) throws BadRequest, NotFound, Panic {
+    public Asset visit(ReadContext context, VisitUpWithXyz form) throws BadRequest, NotFound, Panic {
         AssetDai.ChannelGroupName channel = ValueMapping.from(AssetDai.ChannelGroupName.class, form, context);
         AssetDai.Assets record = assetDai.load(channel);
         return transform(context, record);
     }
 
     @Override
-    public Asset visit(ReadContext context, ViewUpWithId form) throws BadRequest, NotFound, Panic {
+    public Asset visit(ReadContext context, VisitUpWithId form) throws BadRequest, NotFound, Panic {
         AssetDai.ChannelOwnerId channel = ValueMapping.from(AssetDai.ChannelOwnerId.class, form, context);
         AssetDai.Assets record = assetDai.load(channel);
         return transform(context, record);
@@ -83,10 +83,10 @@ public class DefaultVisitFatAssetApi implements VisitFatAssetApi {
 
     @Override
     public Object visit(ReadContext readContext, Object o) throws BadRequest, NotFound, Panic {
-        if (o instanceof ViewUpWithId) {
-            return visit(readContext, (ViewUpWithId) o);
+        if (o instanceof VisitUpWithXyz) {
+            return visit(readContext, (VisitUpWithXyz) o);
         } else {
-            return visit(readContext, (ViewUpWithXyz) o);
+            return visit(readContext, (VisitUpWithId) o);
         }
     }
 }

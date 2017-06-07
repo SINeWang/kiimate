@@ -13,7 +13,8 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.ViewUpWithId;
+import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.summer.xyz.VisitUpWithId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,8 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         rootExtension.setId(model.getRootExtId());
 
 
-        ViewUpWithId id = ValueMapping.from(ViewUpWithId.class, channel);
+        VisitUpWithId id = ValueMapping.from(VisitUpWithId.class, channel);
+        id.setSubscriberId(context.getOwnerId());
         List<InstanceDai.Record> newRecords = instanceDai.loadInstances(id);
 
         List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);
@@ -90,7 +92,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         receipt.setMap(map);
         receipt.setIntensions(intensions);
 
-        return receipt;
+        return NotBadResponse.of(receipt);
     }
 
 }

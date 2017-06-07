@@ -6,7 +6,7 @@ import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.ViewDownInsight;
+import one.kii.summer.xyz.VisitDownInsight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ public class DefaultSearchStatusesApi implements SearchStatusesApi {
     public List<Statuses> search(ReadContext context, QueryForm form) throws BadRequest, Panic {
         StatusDai.ClueGroup clue = ValueMapping.from(StatusDai.ClueGroup.class, context);
         clue.setGroup(form.getQuery());
-        List<ViewDownInsight> statuses = statusDai.searchDownstream(clue);
+        List<VisitDownInsight> statuses = statusDai.searchDownstream(clue);
         return ValueMapping.from(Statuses.class, statuses);
     }
 

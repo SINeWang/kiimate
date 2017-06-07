@@ -9,6 +9,7 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.xyz.VisitUpWithXyz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +33,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
 
     @Override
-    public Receipt visit(ReadContext context, Form form) throws BadRequest, NotFound, Panic {
+    public Receipt visit(ReadContext context, VisitUpWithXyz form) throws BadRequest, NotFound, Panic {
         ExtensionDai.ChannelCoordinate channel = ValueMapping.from(ExtensionDai.ChannelCoordinate.class, form, context);
 
         ExtensionDai.Record record = extensionDai.loadLast(channel);

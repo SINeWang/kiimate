@@ -6,8 +6,8 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.ViewUpWithId;
-import one.kii.summer.xyz.ViewUpWithXyz;
+import one.kii.summer.xyz.VisitUpWithId;
+import one.kii.summer.xyz.VisitUpWithXyz;
 
 import java.util.List;
 import java.util.Map;
@@ -19,9 +19,9 @@ import java.util.Map;
 public interface VisitFatAssetApi extends VisitApi {
 
 
-    Asset visit(ReadContext context, ViewUpWithXyz form) throws BadRequest, NotFound, Panic;
+    Asset visit(ReadContext context, VisitUpWithXyz form) throws BadRequest, NotFound, Panic;
 
-    Asset visit(ReadContext context, ViewUpWithId form) throws BadRequest, NotFound, Panic;
+    Asset visit(ReadContext context, VisitUpWithId form) throws BadRequest, NotFound, Panic;
 
     @Data
     class Asset {

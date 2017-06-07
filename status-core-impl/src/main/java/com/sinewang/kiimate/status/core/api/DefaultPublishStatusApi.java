@@ -12,7 +12,7 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
-import one.kii.summer.xyz.ViewUpWithId;
+import one.kii.summer.xyz.VisitUpWithId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -44,7 +44,7 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic {
 
 
-        ViewUpWithId id = ValueMapping.from(ViewUpWithId.class, form);
+        VisitUpWithId id = ValueMapping.from(VisitUpWithId.class, form);
         id.setSubscriberId(form.getProviderId());
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(id);

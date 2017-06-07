@@ -29,7 +29,7 @@ public interface RefreshStatusApi extends CommitApi<RefreshStatusApi.Receipt, Wr
 
     @Data
     class Receipt {
-        String subId;
+        String id;
         String ownerId;
         List<Intension> intensions;
         Map<String, Object> map;

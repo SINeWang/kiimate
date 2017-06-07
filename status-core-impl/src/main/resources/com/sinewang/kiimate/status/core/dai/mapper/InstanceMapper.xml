@@ -33,7 +33,7 @@
         SELECT mins.id, mins.commit, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_id, mins.value_ref_policy, mins.operator_id, mins.begin_time
         FROM mm_i_ins mins, mm_m_sub msub
         WHERE msub.id = #{subId}
-        AND mins.subscriber_id = #{subscriberId}
+        AND mins.owner_id = #{subscriberId}
         AND mins.sub_id = msub.id
         AND msub.end_time IS NULL
     </select>

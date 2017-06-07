@@ -6,6 +6,7 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.xyz.VisitUpWithXyz;
 
 import java.util.List;
 import java.util.Map;
@@ -14,23 +15,11 @@ import java.util.Map;
  * Created by WangYanJiong on 4/5/17.
  */
 
-public interface VisitExtensionApi extends VisitApi<VisitExtensionApi.Receipt, ReadContext, VisitExtensionApi.Form> {
+public interface VisitExtensionApi extends VisitApi<VisitExtensionApi.Receipt, ReadContext, VisitUpWithXyz> {
 
-    String NAME_ROOT = "root";
 
-    String TREE_MASTER = "master";
+    Receipt visit(ReadContext context, VisitUpWithXyz form) throws BadRequest, NotFound, Panic;
 
-    String VISIBILITY_PUBLIC = "public";
-
-    Receipt visit(ReadContext context, Form form) throws BadRequest, NotFound, Panic;
-
-    @Data
-    class Form {
-        String group;
-        String name = NAME_ROOT;
-        String tree = TREE_MASTER;
-        String visibility = VISIBILITY_PUBLIC;
-    }
 
     @Data
     class Receipt {
