@@ -2,7 +2,9 @@ package com.sinewang.kiimate.status.core.dai;
 
 import com.sinewang.kiimate.status.core.dai.mapper.AssetsMapper;
 import one.kii.kiimate.status.core.dai.AssetDai;
+import one.kii.summer.beans.utils.ConflictFinder;
 import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 27/05/2017.
@@ -39,7 +42,12 @@ public class DefaultAssetDai implements AssetDai {
 
 
     @Override
-    public void remember(Publication publication, List<Entry> entries) {
+    public void remember(Publication publication, List<Entry> entries) throws Conflict {
+        Map<String, Object> map = ConflictFinder.find(publication);
+        Integer count = assetsMapper.countByConflictKey(map);
+        if (count > 0) {
+            throw new Conflict(map.keySet());
+        }
         for (Entry entry : entries) {
             assetsMapper.insertPublication(
                     entry.getId(),

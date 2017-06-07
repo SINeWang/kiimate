@@ -58,4 +58,14 @@
         AND ssub.end_time IS NULL
         GROUP BY ssub.id
     </select>
+    <select id="countByConflictKey" resultType="java.lang.Integer">
+        SELECT COUNT(pub_set)
+        FROM km_s_pub spub
+        WHERE spub.provider_id = #{providerId}
+        AND spub.m_sub_id = #{modelSubId}
+        AND spub.version = #{version}
+        AND spub.visibility = #{visibility}
+        AND spub.stability = #{stability}
+        AND spub.end_time IS NULL
+    </select>
 </mapper>

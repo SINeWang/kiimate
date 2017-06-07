@@ -1,8 +1,10 @@
 package one.kii.kiimate.status.core.dai;
 
 import lombok.Data;
+import one.kii.summer.beans.annotations.Unique;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.xyz.VisitUpWithId;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,24 +25,29 @@ public interface AssetDai {
     void remember(Subscription subscription) throws BadRequest;
 
     @Transactional
-    void remember(Publication publication, List<Entry> entries);
+    void remember(Publication publication, List<Entry> entries) throws Conflict;
 
     @Data
     class Publication {
 
         Long pubSet;
 
+        @Unique
         String providerId;
 
+        @Unique
         Long modelSubId;
 
-        String operatorId;
-
+        @Unique
         String version;
 
+        @Unique
         String visibility;
 
+        @Unique
         String stability;
+
+        String operatorId;
 
         Date beginTime;
 

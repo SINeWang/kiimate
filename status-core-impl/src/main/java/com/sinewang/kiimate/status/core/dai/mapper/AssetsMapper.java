@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 20/05/2017.
@@ -47,5 +48,6 @@ public interface AssetsMapper {
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
+    int countByConflictKey(Map<String, Object> map);
 
 }
