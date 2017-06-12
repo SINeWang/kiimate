@@ -91,7 +91,6 @@ public interface ExtensionDai {
         @Commit
         private String tree;
 
-        @Unique
         @Commit
         private String visibility;
 

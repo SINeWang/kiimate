@@ -33,7 +33,6 @@
         <![CDATA[
         AND mint.begin_time <= #{beginTime}
         AND ((mint.end_time >= #{beginTime}) OR mint.end_time IS NULL)
-
         ]]>
     </select>
 

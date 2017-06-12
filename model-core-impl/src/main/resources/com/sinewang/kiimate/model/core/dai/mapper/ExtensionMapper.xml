@@ -49,8 +49,12 @@
         AND mext.name = #{name}
         AND mext.tree = #{tree}
         AND mext.owner_id = #{ownerId}
-        AND mext.visibility = #{visibility}
-        AND mext.end_time = #{endTime}
+        <if test="endTime == null">
+            AND mext.end_time IS NULL
+        </if>
+        <if test="endTime != null">
+            AND mext.end_time = #{endTime}
+        </if>
     </select>
 
     <select id="selectLastExtensionByOwnerGroupNameTree" resultMap="Extension">
