@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created by WangYanJiong on 4/7/17.
  */
-@ConfigurationProperties(prefix = "metamate")
+@ConfigurationProperties(prefix = "kiimate")
 @Component
 public class DefaultDeclareExtensionSpi implements DeclareExtensionSpi {
 
