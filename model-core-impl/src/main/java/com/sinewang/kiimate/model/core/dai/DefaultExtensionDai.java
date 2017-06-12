@@ -39,7 +39,7 @@ public class DefaultExtensionDai implements ExtensionDai {
                 channel.getGroup(),
                 channel.getName(),
                 channel.getTree(),
-                channel.getBeginTime());
+                channel.getEndTime());
         logger.debug("after-loadLast: Record:{}", record);
         if (record == null) {
             throw new NotFound(UniqueFinder.find(channel));

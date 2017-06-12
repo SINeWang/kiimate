@@ -64,16 +64,21 @@ public interface ExtensionDai {
     @Data
     class ChannelName {
 
+        @Unique
         String ownerId;
 
+        @Unique
         String group;
 
+        @Unique
         String name;
 
+        @Unique
         String tree;
 
+        @Unique
         @MayHave
-        Date beginTime;
+        Date endTime;
     }
 
     @Data

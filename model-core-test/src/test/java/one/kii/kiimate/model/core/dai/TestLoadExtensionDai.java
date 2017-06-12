@@ -59,7 +59,7 @@ public class TestLoadExtensionDai {
 
 
     @Test
-    public void testLoad() throws BadRequest, Panic, Conflict, NotFound {
+    public void testLoadById() throws BadRequest, Panic, Conflict, NotFound {
         dai.remember(normalRecord);
         ExtensionDai.ChannelId id = new ExtensionDai.ChannelId();
         id.setId(ID);
@@ -73,7 +73,29 @@ public class TestLoadExtensionDai {
         } catch (NotFound notFound) {
             Assert.assertEquals(String.valueOf(ID), notFound.getReasons().getFirst("id"));
         }
+    }
 
+    @Test
+    public void testLoadByName() throws BadRequest, Panic, Conflict, NotFound {
+        dai.remember(normalRecord);
+        ExtensionDai.ChannelName name = new ExtensionDai.ChannelName();
+        name.setOwnerId("testOwnerId");
+        name.setGroup("testGroup");
+        name.setName("testName");
+        name.setTree("testTree");
+
+        ExtensionDai.Record record = null;
+        record = dai.loadLast(name);
+        Assert.assertNotNull(record);
+
+        dai.forget(ID);
+        try {
+            dai.loadLast(name);
+        } catch (NotFound notFound) {
+            Assert.assertEquals("testName", notFound.getReasons().getFirst("name"));
+            Assert.assertEquals("testGroup", notFound.getReasons().getFirst("group"));
+            Assert.assertEquals("testOwnerId", notFound.getReasons().getFirst("ownerId"));
+        }
     }
 
     @After
