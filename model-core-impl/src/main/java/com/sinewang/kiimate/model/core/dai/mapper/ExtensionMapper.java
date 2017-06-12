@@ -35,7 +35,7 @@ public interface ExtensionMapper {
 
     ExtensionDai.Record selectExtensionByConflictFactor(Map<String, Object> map);
 
-    ExtensionDai.Record selectLastExtensionByOwnerGroupNameTree(
+    ExtensionDai.Record selectLastExtensionByName(
             @Param("ownerId") String ownerId,
             @Param("group") String group,
             @Param("name") String name,

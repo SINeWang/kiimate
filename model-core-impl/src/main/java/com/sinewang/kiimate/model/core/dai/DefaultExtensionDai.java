@@ -33,7 +33,7 @@ public class DefaultExtensionDai implements ExtensionDai {
     public Record loadLast(ChannelName channel) throws Panic, BadRequest {
         logger.debug("before-loadLast: ChannelName:{}", channel);
         NotBadRequest.from(channel);
-        Record record = extensionMapper.selectLastExtensionByOwnerGroupNameTree(
+        Record record = extensionMapper.selectLastExtensionByName(
                 channel.getOwnerId(),
                 channel.getGroup(),
                 channel.getName(),

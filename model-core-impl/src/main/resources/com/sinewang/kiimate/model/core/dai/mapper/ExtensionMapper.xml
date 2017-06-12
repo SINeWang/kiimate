@@ -48,7 +48,7 @@
         </if>
     </select>
 
-    <select id="selectLastExtensionByOwnerGroupNameTree" resultMap="Extension">
+    <select id="selectLastExtensionByName" resultMap="Extension">
         SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext
         WHERE mext.group = #{group}
