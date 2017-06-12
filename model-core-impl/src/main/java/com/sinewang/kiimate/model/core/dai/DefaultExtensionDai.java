@@ -51,7 +51,7 @@ public class DefaultExtensionDai implements ExtensionDai {
 
         Record record = extensionMapper.selectLastExtensionById(
                 channel.getId(),
-                channel.getBeginTime());
+                channel.getEndTime());
         logger.debug("after-loadLast: Record:{}", record);
 
         return NotBadResponse.of(record);
@@ -64,7 +64,7 @@ public class DefaultExtensionDai implements ExtensionDai {
 
         Record record = extensionMapper.selectLastExtensionBySet(
                 channel.getSet(),
-                channel.getBeginTime());
+                channel.getEndTime());
         logger.debug("after-loadLast: Record:{}", record);
 
         return NotBadResponse.of(record);

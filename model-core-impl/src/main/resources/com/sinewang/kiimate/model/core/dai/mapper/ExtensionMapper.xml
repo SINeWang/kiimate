@@ -27,11 +27,11 @@
         </if>
         <if test="endTime != null">
             <![CDATA[
-            AND mext.begin_time <= #{beginTime}
-            AND (mext.end_time >= #{beginTime} OR mext.end_time IS NULL)
+            AND mext.end_time >= #{endTime}
+            ORDER BY mext.begin_time DESC
+            LIMIT 0, 1
             ]]>
         </if>
-        GROUP BY mext.id
     </select>
     <select id="selectExtensionByConflictFactor" resultMap="Extension">
         SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
@@ -70,13 +70,12 @@
         SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext
         WHERE mext.id = #{id}
-        <if test="beginTime == null">
+        <if test="endTime == null">
             AND mext.end_time IS NULL
         </if>
-        <if test="beginTime != null">
-            AND mext.end_time = #{endTime}
+        <if test="endTime != null">
             <![CDATA[
-            AND mext.begin_time <= #{beginTime}
+            AND mext.end_time >= #{end_time}
             ]]>
             ORDER BY mext.begin_time DESC
             LIMIT 0, 1

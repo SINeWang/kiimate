@@ -45,7 +45,7 @@ public interface ExtensionDai {
         Long id;
 
         @MayHave
-        Date beginTime;
+        Date endTime;
     }
 
     @Data
@@ -53,7 +53,7 @@ public interface ExtensionDai {
         Long set;
 
         @MayHave
-        Date beginTime;
+        Date endTime;
     }
 
     @Data

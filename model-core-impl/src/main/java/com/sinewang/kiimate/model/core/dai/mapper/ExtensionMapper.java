@@ -27,7 +27,11 @@ public interface ExtensionMapper {
 
     ExtensionDai.Record selectLastExtensionBySet(
             @Param("set") Long set,
-            @Param("endTime") Date beginTime);
+            @Param("endTime") Date endTime);
+
+    ExtensionDai.Record selectLastExtensionById(
+            @Param("id") Long id,
+            @Param("endTime") Date endTime);
 
     ExtensionDai.Record selectExtensionByConflictFactor(Map<String, Object> map);
 
@@ -38,9 +42,7 @@ public interface ExtensionMapper {
             @Param("tree") String tree,
             @Param("beginTime") Date beginTime);
 
-    ExtensionDai.Record selectLastExtensionById(
-            @Param("id") Long id,
-            @Param("beginTime") Date beginTime);
+
 
     List<ExtensionDai.Record> queryExtensionsByOwnerGroup(
             @Param("ownerId") String ownerId,
