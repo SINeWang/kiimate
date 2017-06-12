@@ -10,6 +10,9 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.summer.xyz.VisitDownInsight;
+import one.kii.summer.xyz.VisitDownWithSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -50,13 +53,16 @@ public class DefaultVisitModelApi implements VisitModelApi {
 
 
         int subscriptions = modelSubscriptionDai.countModelSubscriptions(channelSet.getSet());
+        VisitDownWithSet set = new VisitDownWithSet();
+        set.setProviderId(record.getOwnerId());
+        set.setPubSet(form.getSet());
 
-        VisitModelApi.Model model = ValueMapping.from(VisitModelApi.Model.class, record);
+        VisitDownInsight downInsight = modelSubscriptionDai.selectModelBySet(set);
+        VisitModelApi.Model model = ValueMapping.from(VisitModelApi.Model.class,downInsight, record);
 
         model.setSubscriptions(subscriptions);
-
         model.setIntensions(intensions);
 
-        return model;
+        return NotBadResponse.of(model);
     }
 }

@@ -24,7 +24,7 @@ public interface VisitModelApi extends VisitApi<VisitModelApi.Model, ReadContext
         Integer subscriptions;
 
         String providerId;
-        String pubSet;
+        String set;
 
         String group;
         String name;

@@ -1,6 +1,8 @@
 package com.sinewang.kiimate.model.core.dai.mapper;
 
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
+import one.kii.summer.xyz.VisitDownInsight;
+import one.kii.summer.xyz.VisitDownWithSet;
 import one.kii.summer.xyz.VisitUpInsight;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -46,5 +48,7 @@ public interface ModelSubscriptionMapper {
             @Param("tree") String tree);
 
     List<ModelSubscriptionDai.Subscribers> querySubscriberId(@Param("subscriberId") String subscriberId);
+
+    VisitDownInsight selectModelBySet(VisitDownWithSet view);
 
 }

@@ -32,6 +32,18 @@
         <result column="tree" property="tree"/>
     </resultMap>
 
+    <resultMap id="ModelDownstreamInSight" type="one.kii.summer.xyz.VisitDownInsight">
+        <result column="id" property="id"/>
+        <result column="pub_set" property="set"/>
+        <result column="provider_id" property="providerId"/>
+        <result column="group" property="group"/>
+        <result column="name" property="name"/>
+        <result column="stability" property="stability"/>
+        <result column="version" property="version"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
+    </resultMap>
+
     <insert id="insertSubscription">
         INSERT INTO mm_m_sub
         (id, sub_set, subscriber_id, `group`, `name`, `tree`, operator_id, begin_time)
@@ -100,6 +112,15 @@
         AND msub.name = #{name}
         AND msub.tree = #{tree}
         AND msub.end_time IS NULL
+        GROUP BY mext.id
+    </select>
+
+    <select id="selectModelBySet" resultMap="ModelDownstreamInSight">
+        SELECT mext.id, mpub.pub_set, mpub.provider_id, mext.group, mext.name, mpub.stability, mpub.version, mpub.begin_time, mpub.end_time
+        FROM mm_m_pub mpub, mm_m_sub msub, mm_m_ext mext
+        WHERE mext.id = mpub.ext_id
+        AND mpub.provider_id = #{providerId}
+        AND mpub.pub_set = #{pubSet}
         GROUP BY mext.id
     </select>
 

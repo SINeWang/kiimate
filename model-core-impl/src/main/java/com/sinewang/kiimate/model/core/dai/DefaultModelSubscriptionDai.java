@@ -8,9 +8,7 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
-import one.kii.summer.xyz.VisitUpInsight;
-import one.kii.summer.xyz.VisitUpWithId;
-import one.kii.summer.xyz.VisitUpWithXyz;
+import one.kii.summer.xyz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -64,6 +62,14 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
                 channel.getGroup(),
                 channel.getName(),
                 channel.getTree()
+        );
+        return NotBadResponse.of(record);
+    }
+
+    @Override
+    public VisitDownInsight selectModelBySet(VisitDownWithSet channel) throws Panic {
+        VisitDownInsight record = modelSubscriptionMapper.selectModelBySet(
+                channel
         );
         return NotBadResponse.of(record);
     }
