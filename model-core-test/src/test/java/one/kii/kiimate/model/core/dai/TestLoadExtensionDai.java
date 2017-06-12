@@ -1,8 +1,9 @@
 package one.kii.kiimate.model.core.dai;
 
-import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,56 +28,47 @@ import java.util.Date;
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.kiimate")
 @MapperScan("com.sinewang.kiimate")
-@SpringBootTest(classes = {TestExtensionDai.class})
+@SpringBootTest(classes = {TestLoadExtensionDai.class})
 @EnableAutoConfiguration
-public class TestExtensionDai {
+public class TestLoadExtensionDai {
 
     @Autowired
     private ExtensionDai dai;
 
-    private ExtensionDai.Record badRequestRecord;
 
     private ExtensionDai.Record normalRecord;
 
 
+    private Long ID = 100000L;
+
+
     @Before
     public void before() {
-        badRequestRecord = new ExtensionDai.Record();
-        badRequestRecord.setBeginTime(new Date());
-        badRequestRecord.setEndTime(null);
-        badRequestRecord.setGroup("testGroup");
-        badRequestRecord.setName("testName");
-        badRequestRecord.setId(100000L);
-        badRequestRecord.setOperatorId("testOperator");
-        badRequestRecord.setVisibility("testVisibility");
-        badRequestRecord.setOwnerId("testOwner");
-        badRequestRecord.setTree("testTree");
-
-        normalRecord = ValueMapping.from(ExtensionDai.Record.class, badRequestRecord);
+        normalRecord = new ExtensionDai.Record();
+        normalRecord.setBeginTime(new Date());
+        normalRecord.setEndTime(null);
+        normalRecord.setGroup("testGroup");
+        normalRecord.setName("testName");
+        normalRecord.setId(ID);
+        normalRecord.setOperatorId("testOperator");
+        normalRecord.setVisibility("testVisibility");
+        normalRecord.setOwnerId("testOwner");
+        normalRecord.setTree("testTree");
         normalRecord.setCommit("0x0");
     }
 
 
-    @Test
-    public void testRemember() throws BadRequest {
-        try {
-            dai.remember(badRequestRecord);
-        } catch (Conflict conflict) {
+    @Test(expected = NotFound.class)
+    public void testLoad() throws BadRequest, Panic, Conflict {
+        dai.remember(normalRecord);
+        ExtensionDai.ChannelId id = new ExtensionDai.ChannelId();
+        id.setId(ID);
+        ExtensionDai.Record record = null;
+        record = dai.loadLast(id);
+        Assert.assertNotNull(record);
 
-        } catch (BadRequest badRequest) {
-            Assert.assertEquals(1, badRequest.getKeys().length);
-        }
-
-        try {
-            dai.remember(normalRecord);
-        } catch (Conflict conflict) {
-        }
-
-        try {
-            dai.remember(normalRecord);
-        } catch (Conflict conflict) {
-            Assert.assertEquals(5, conflict.getKeys().length);
-        }
+        dai.forget(ID);
+        dai.loadLast(id);
 
     }
 
