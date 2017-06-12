@@ -31,9 +31,9 @@ public class DefaultIntensionDai implements IntensionDai {
     public void remember(Record record) throws Conflict, BadRequest {
         NotBadRequest.from(record);
         Map<String, Object> conflicts = ConflictFinder.find(record);
-        Record oldRecord = intensionMapper.selectIntensionByCommit(record.getCommit());
+        Record oldRecord = intensionMapper.selectIntensionByConflictKey(conflicts);
         if (oldRecord != null) {
-            throw new Conflict(conflicts.keySet().toArray(new String[0]));
+            throw new Conflict(conflicts.keySet());
         }
         intensionMapper.insertIntension(
                 record.getId(),

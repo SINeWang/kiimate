@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by WangYanJiong on 3/27/17.
@@ -45,8 +46,8 @@ public interface IntensionMapper {
             @Param("extId") Long extId,
             @Param("field") String field);
 
-    IntensionDai.Record selectIntensionByCommit(
-            @Param("commit") String commit);
+    IntensionDai.Record selectIntensionByConflictKey(
+            Map<String, Object> map);
 
     List<String> selectLastFieldsByExtIdPubSet(
             @Param("extId") Long extId,

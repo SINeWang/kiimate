@@ -23,25 +23,22 @@
         WHERE mext.id = #{id}
         AND mext.end_time IS NULL
     </select>
-    <select id="selectLatestExtensionBySet" resultMap="Extension">
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
-        FROM mm_m_ext mext, mm_m_pub mpub
-        WHERE mpub.pub_set = #{set}
-        AND mpub.ext_id = mext.id
-        AND mext.end_time IS NULL
-    </select>
-
     <select id="selectLastExtensionBySet" resultMap="Extension">
         SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext, mm_m_pub mpub
         WHERE mpub.pub_set = #{set}
         AND mpub.ext_id = mext.id
-        <![CDATA[
-        AND mext.begin_time <= #{beginTime}
-        AND (mext.end_time >= #{beginTime} OR mext.end_time IS NULL)
-        ]]>
+        <if test="endTime == null">
+            AND mext.end_time IS NULL
+        </if>
+        <if test="endTime != null">
+            <![CDATA[
+            AND mext.begin_time <= #{beginTime}
+            AND (mext.end_time >= #{beginTime} OR mext.end_time IS NULL)
+            ]]>
+        </if>
+        GROUP BY mext.id
     </select>
-
     <select id="selectExtensionByConflictFactor" resultMap="Extension">
         SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext
@@ -102,7 +99,7 @@
         SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext
         WHERE mext.owner_id = #{ownerId}
-        AND mext.`group` LIKE #{group_pattern}
+        AND mext.group LIKE #{group_pattern}
         AND mext.end_time IS NULL
     </select>
 

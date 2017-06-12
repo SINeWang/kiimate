@@ -3,7 +3,6 @@ package com.sinewang.kiimate.model.core.dai;
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.summer.beans.utils.ConflictFinder;
-import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
@@ -73,16 +72,9 @@ public class DefaultExtensionDai implements ExtensionDai {
     public Record loadLast(ChannelSet channel) throws Panic, BadRequest {
         NotBadRequest.from(channel);
 
-        Record record;
-        if (channel.getBeginTime() == null) {
-            record = extensionMapper.selectLatestExtensionBySet(
-                    channel.getSet()
-            );
-        } else {
-            record = extensionMapper.selectLastExtensionBySet(
-                    channel.getSet(),
-                    channel.getBeginTime());
-        }
+        Record record = extensionMapper.selectLastExtensionBySet(
+                channel.getSet(),
+                channel.getBeginTime());
         return NotBadResponse.of(record);
     }
 

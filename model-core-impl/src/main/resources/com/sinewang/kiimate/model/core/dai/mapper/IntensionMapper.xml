@@ -65,10 +65,22 @@
         ]]>
         GROUP BY mint.field
     </select>
-    <select id="selectIntensionByCommit" resultMap="Intension">
+    <select id="selectIntensionByConflictKey" resultMap="Intension">
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
         FROM mm_m_int mint
-        WHERE mint.commit = #{commit}
+        WHERE mint.ext_id = #{extId}
+        AND mint.field = #{field}
+        AND mint.is_single = #{single}
+        AND mint.structure = #{structure}
+        <if test="refPubSet == null">
+            AND mint.ref_m_pub_set IS NULL
+        </if>
+        <if test="refPubSet != null">
+            AND mint.ref_m_pub_set = #{refPubSet}
+        </if>
+        AND mint.visibility = #{visibility}
+        AND mint.is_required = #{required}
+        AND mint.end_time IS NULL
     </select>
 
     <update id="updateLatestIntensionEndTimeById">
