@@ -47,9 +47,9 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Record record : records) {
             if (record.getSingle()) {
-                if (record.getRefPubSet() != null) {
+                if (record.getRefSet() != null) {
                     IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
-                    refPubSet.setPubSet(record.getRefPubSet());
+                    refPubSet.setPubSet(record.getRefSet());
                     Map<String, Object> child = parseRaw(refPubSet, dict);
                     if (!child.isEmpty()) {
                         result.put(record.getField(), child);
@@ -64,9 +64,9 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                     }
                 }
             } else {
-                if (record.getRefPubSet() != null) {
+                if (record.getRefSet() != null) {
                     IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
-                    refPubSet.setPubSet(record.getRefPubSet());
+                    refPubSet.setPubSet(record.getRefSet());
                     Map<String, Object> child = parseTimed(refPubSet, dict);
                     if (!child.isEmpty()) {
                         addComplexValueToList(result, record, child);
@@ -95,9 +95,9 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Record record : records) {
             if (record.getSingle()) {
-                if (record.getRefPubSet() != null) {
+                if (record.getRefSet() != null) {
                     IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
-                    refPubSet.setPubSet(record.getRefPubSet());
+                    refPubSet.setPubSet(record.getRefSet());
                     Map<String, Object> child = parseTimed(refPubSet, dict);
                     if (!child.isEmpty()) {
                         result.put(record.getField(), child);
@@ -115,9 +115,9 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                     }
                 }
             } else {
-                if (record.getRefPubSet() != null) {
+                if (record.getRefSet() != null) {
                     IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
-                    refPubSet.setPubSet(record.getRefPubSet());
+                    refPubSet.setPubSet(record.getRefSet());
 
                     Map<String, Object> child = parseTimed(refPubSet, dict);
                     addComplexValueToList(result, record, child);

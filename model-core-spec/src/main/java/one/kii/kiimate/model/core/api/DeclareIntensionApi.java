@@ -34,7 +34,7 @@ public interface DeclareIntensionApi extends CommitApi<DeclareIntensionApi.Recei
         private String structure;
 
         @MayHave
-        private String refPubSet;
+        private String refSet;
 
         private String visibility;
 
@@ -61,7 +61,7 @@ public interface DeclareIntensionApi extends CommitApi<DeclareIntensionApi.Recei
 
         private String structure;
 
-        private String refPubSet;
+        private String refSet;
 
         private String visibility;
 

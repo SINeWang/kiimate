@@ -57,7 +57,7 @@ public interface VisitIntensionsApi extends VisitApi<VisitIntensionsApi.Receipt,
 
         private String structure;
 
-        private String refPubSet;
+        private String refSet;
 
         private String visibility;
 

@@ -44,7 +44,7 @@ public interface VisitExtensionApi extends VisitApi<VisitExtensionApi.Receipt, R
 
         private String structure;
 
-        private String refPubSet;
+        private String refSet;
 
         private String visibility;
 

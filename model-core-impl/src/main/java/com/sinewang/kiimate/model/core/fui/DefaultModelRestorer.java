@@ -40,7 +40,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
         Map<String, Object> model = new HashMap<>();
         List<IntensionDai.Record> records = intensionDai.loadLast(extension);
         for (IntensionDai.Record record : records) {
-            Long refPubSet = record.getRefPubSet();
+            Long refPubSet = record.getRefSet();
             if (refPubSet != null) {
                 ModelPublicationDai.ChannelPubSet pubset = new ModelPublicationDai.ChannelPubSet();
                 pubset.setPubSet(refPubSet);
@@ -74,7 +74,7 @@ public class DefaultModelRestorer implements AnModelRestorer {
     private void restoreAsFieldDict(IntensionDai.ChannelExtensionId extension, Map<String, IntensionDai.Record> map) throws BadRequest, NotFound, Panic {
         List<IntensionDai.Record> records = intensionDai.loadLast(extension);
         for (IntensionDai.Record record : records) {
-            Long refPubSet = record.getRefPubSet();
+            Long refPubSet = record.getRefSet();
             if (refPubSet != null) {
                 ModelPublicationDai.ChannelPubSet pubset = new ModelPublicationDai.ChannelPubSet();
                 pubset.setPubSet(refPubSet);

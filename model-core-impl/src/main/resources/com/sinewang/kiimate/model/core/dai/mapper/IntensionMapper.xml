@@ -11,7 +11,7 @@
         <result column="field" property="field"/>
         <result column="is_single" property="single"/>
         <result column="structure" property="structure"/>
-        <result column="ref_m_pub_set" property="refPubSet"/>
+        <result column="ref_m_pub_set" property="refSet"/>
         <result column="visibility" property="visibility"/>
         <result column="is_required" property="required"/>
         <result column="operator_id" property="operatorId"/>
@@ -93,7 +93,7 @@
         INSERT INTO mm_m_int
         (`id`, `commit`, `ext_id`, `field`, `is_single`, `structure`, `ref_m_pub_set`, `visibility`, `is_required`, `operator_id`, `begin_time`)
         VALUES
-        (#{id}, #{commit}, #{extId}, #{field}, #{single}, #{structure}, #{refPubSet}, #{visibility}, #{required}, #{operatorId}, #{beginTime})
+        (#{id}, #{commit}, #{extId}, #{field}, #{single}, #{structure}, #{refSet}, #{visibility}, #{required}, #{operatorId}, #{beginTime})
     </insert>
 
     <delete id="deleteIntensionsByExtId">

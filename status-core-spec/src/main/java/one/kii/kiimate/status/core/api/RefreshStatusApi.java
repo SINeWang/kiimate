@@ -47,7 +47,7 @@ public interface RefreshStatusApi extends CommitApi<RefreshStatusApi.Receipt, Wr
 
         private String structure;
 
-        private String refPubSet;
+        private String refSet;
 
         private String visibility;
 

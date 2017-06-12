@@ -37,7 +37,7 @@ public interface VisitInstanceApi extends VisitApi<VisitInstanceApi.Instance, Re
 
         private String structure;
 
-        private String refPubSet;
+        private String refSet;
 
         private String visibility;
 

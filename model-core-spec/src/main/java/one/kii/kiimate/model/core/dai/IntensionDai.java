@@ -80,7 +80,7 @@ public interface IntensionDai {
         @Unique
         @Commit
         @MayHave
-        private Long refPubSet;
+        private Long refSet;
 
         @Unique
         @Commit

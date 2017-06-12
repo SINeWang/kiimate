@@ -42,7 +42,7 @@ public class DefaultIntensionDai implements IntensionDai {
                 record.getField(),
                 record.getSingle(),
                 record.getStructure(),
-                record.getRefPubSet(),
+                record.getRefSet(),
                 record.getVisibility(),
                 record.getRequired(),
                 record.getOperatorId(),

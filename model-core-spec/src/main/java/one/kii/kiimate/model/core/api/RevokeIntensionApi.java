@@ -51,7 +51,7 @@ public interface RevokeIntensionApi extends CommitApi<RevokeIntensionApi.Receipt
 
         private String structure;
 
-        private String refPubSet;
+        private String refSet;
 
         private String visibility;
 

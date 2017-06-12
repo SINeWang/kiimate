@@ -47,7 +47,7 @@ public interface VisitStatusApi extends VisitApi<VisitStatusApi.Status, ReadCont
 
         private String structure;
 
-        private String refPubSet;
+        private String refSet;
 
         private String visibility;
 
