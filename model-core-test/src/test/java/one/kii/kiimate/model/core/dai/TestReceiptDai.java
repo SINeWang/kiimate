@@ -1,7 +1,6 @@
 package one.kii.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
-import one.kii.summer.io.exception.Conflict;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.Date;
 
 /**
  * Created by WangYanJiong on 3/24/17.
@@ -38,12 +39,12 @@ public class TestReceiptDai {
 
     @Before
     public void setup() {
-        extensionMapper.deleteExtensionById(testId);
+        extensionMapper.revoke(testId, new Date());
     }
 
     @Test
     public void testFirstInsert() {
-        extensionMapper.deleteExtensionById(testId);
+        extensionMapper.revoke(testId, new Date());
 
         ExtensionDai.Record record = new ExtensionDai.Record();
         record.setGroup(testGroup);
@@ -93,7 +94,7 @@ public class TestReceiptDai {
 
     @After
     public void cleanUp() {
-        extensionMapper.deleteExtensionById(testId);
+        extensionMapper.revoke(testId, new Date());
     }
 
 }

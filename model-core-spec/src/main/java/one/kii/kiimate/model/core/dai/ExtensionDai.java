@@ -17,16 +17,18 @@ import java.util.List;
  */
 public interface ExtensionDai {
 
-    Record loadLast(ChannelCoordinate channel) throws Panic, BadRequest;
+    Record loadLast(ChannelName channel) throws Panic, BadRequest;
 
     Record loadLast(ChannelId channel) throws Panic, BadRequest;
 
     Record loadLast(ChannelSet channel) throws Panic, BadRequest;
 
-    List<Record> search(ClueGroup clue) throws BadRequest;
+    List<Record> search(ClueGroup clue) throws BadRequest, Panic;
 
     @Transactional
     void remember(Record record) throws Conflict, BadRequest;
+
+    void forget(Long id);
 
     @Data
     class ClueGroup {
@@ -35,6 +37,7 @@ public interface ExtensionDai {
 
         String group;
     }
+
 
     @Data
     class ChannelId {
@@ -54,7 +57,7 @@ public interface ExtensionDai {
     }
 
     @Data
-    class ChannelCoordinate {
+    class ChannelName {
 
         String ownerId;
 

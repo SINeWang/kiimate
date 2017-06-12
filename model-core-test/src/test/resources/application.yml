@@ -1,11 +1,11 @@
 spring:
+  profiles: common
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://mysql.sinewang.com/metamate?autoReconnect=true
+    url: jdbc:mysql://192.168.6.54/kiimate?autoReconnect=true
     username: root
     password: wave
-server:
-  port: 9090
 logging:
   level:
-    com.sinewang.metamate.core.dai.mapper: DEBUG
+    com.sinewang: DEBUG
+    one.kii: DEBUG

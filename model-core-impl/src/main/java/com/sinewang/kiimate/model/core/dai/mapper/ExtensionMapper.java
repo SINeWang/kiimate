@@ -25,9 +25,6 @@ public interface ExtensionMapper {
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
-    ExtensionDai.Record selectLatestExtensionById(
-            @Param("id") Long id);
-
     ExtensionDai.Record selectLastExtensionBySet(
             @Param("set") Long set,
             @Param("endTime") Date beginTime);
@@ -41,16 +38,6 @@ public interface ExtensionMapper {
             @Param("tree") String tree,
             @Param("beginTime") Date beginTime);
 
-    List<ExtensionDai.Record> selectExtensionsByOwnerGroup(
-            @Param("ownerId") String ownerId,
-            @Param("group") String group);
-
-    ExtensionDai.Record selectLatestExtensionByOwnerGroupNameTree(
-            @Param("ownerId") String ownerId,
-            @Param("group") String group,
-            @Param("name") String name,
-            @Param("tree") String tree);
-
     ExtensionDai.Record selectLastExtensionById(
             @Param("id") Long id,
             @Param("beginTime") Date beginTime);
@@ -59,7 +46,8 @@ public interface ExtensionMapper {
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 
-    void deleteExtensionById(@Param("id") Long id);
+    void revoke(@Param("id") Long id,
+                @Param("endTime") Date endTime);
 
     void updateEndTimeExtensionById(
             @Param("extId") Long extId,

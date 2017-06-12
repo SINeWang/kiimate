@@ -77,6 +77,8 @@ configure(subprojects.findAll { it.name.endsWith("spec") }) {
         compile group: "one.kii.summer", name: "summer-io", version: "${summerVersion}", changing: true
         compile group: "one.kii.summer", name: "summer-zoom", version: "${summerVersion}", changing: true
 
+        testCompile("one.kii.derid:derid64:${deridVersion}")
+
 
         compile("org.springframework:spring-tx:${springFrameworkVersion}")
         compile("org.springframework:spring-web:${springFrameworkVersion}")

@@ -5,6 +5,7 @@ import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.Panic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +21,7 @@ public class DefaultSearchExtensionsApi implements SearchExtensionsApi {
     private ExtensionDai extensionDai;
 
     @Override
-    public List<Extension> search(ReadContext context, QueryForm form) throws BadRequest {
+    public List<Extension> search(ReadContext context, QueryForm form) throws BadRequest, Panic {
 
         ExtensionDai.ClueGroup clue = ValueMapping.from(ExtensionDai.ClueGroup.class, form);
         List<ExtensionDai.Record> recordList = extensionDai.search(clue);

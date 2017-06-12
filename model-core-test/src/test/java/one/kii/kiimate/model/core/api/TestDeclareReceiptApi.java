@@ -13,6 +13,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Date;
+
 
 /**
  * Created by WangYanJiong on 3/24/17.
@@ -157,6 +159,6 @@ public class TestDeclareReceiptApi {
 
         Assert.assertNotNull(record);
 
-        extensionMapper.deleteExtensionById(Long.valueOf(id));
+        extensionMapper.revoke(Long.valueOf(id), new Date());
     }
 }

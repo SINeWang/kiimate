@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,70 +30,69 @@ public class DefaultExtensionDai implements ExtensionDai {
     private ExtensionMapper extensionMapper;
 
     @Override
-    public Record loadLast(ChannelCoordinate channel) throws Panic, BadRequest {
+    public Record loadLast(ChannelName channel) throws Panic, BadRequest {
+        logger.debug("before-loadLast: ChannelName:{}", channel);
         NotBadRequest.from(channel);
+        Record record = extensionMapper.selectLastExtensionByOwnerGroupNameTree(
+                channel.getOwnerId(),
+                channel.getGroup(),
+                channel.getName(),
+                channel.getTree(),
+                channel.getBeginTime());
+        logger.debug("after-loadLast: Record:{}", record);
 
-        Record record;
-        if (channel.getBeginTime() == null) {
-            record = extensionMapper.selectLatestExtensionByOwnerGroupNameTree(
-                    channel.getOwnerId(),
-                    channel.getGroup(),
-                    channel.getName(),
-                    channel.getTree()
-            );
-        } else {
-            record = extensionMapper.selectLastExtensionByOwnerGroupNameTree(
-                    channel.getOwnerId(),
-                    channel.getGroup(),
-                    channel.getName(),
-                    channel.getTree(),
-                    channel.getBeginTime());
-        }
         return NotBadResponse.of(record);
     }
 
     @Override
     public Record loadLast(ChannelId channel) throws Panic, BadRequest {
+        logger.debug("before-loadLast: ChannelId:{}", channel);
         NotBadRequest.from(channel);
 
-        Record record;
-        if (channel.getBeginTime() == null) {
-            record = extensionMapper.selectLatestExtensionById(
-                    channel.getId()
-            );
-        } else {
-            record = extensionMapper.selectLastExtensionById(
-                    channel.getId(),
-                    channel.getBeginTime());
-        }
+        Record record = extensionMapper.selectLastExtensionById(
+                channel.getId(),
+                channel.getBeginTime());
+        logger.debug("after-loadLast: Record:{}", record);
+
         return NotBadResponse.of(record);
     }
 
     @Override
     public Record loadLast(ChannelSet channel) throws Panic, BadRequest {
+        logger.debug("before-loadLast: ChannelSet:{}", channel);
         NotBadRequest.from(channel);
 
         Record record = extensionMapper.selectLastExtensionBySet(
                 channel.getSet(),
                 channel.getBeginTime());
+        logger.debug("after-loadLast: Record:{}", record);
+
         return NotBadResponse.of(record);
     }
 
     @Override
-    public List<Record> search(ClueGroup clue) throws BadRequest {
+    public List<Record> search(ClueGroup clue) throws BadRequest, Panic {
+        logger.debug("before-search: ClueGroup:{}", clue);
         NotBadRequest.from(clue);
 
-        return extensionMapper.queryExtensionsByOwnerGroup(
+        List<Record> list = extensionMapper.queryExtensionsByOwnerGroup(
                 clue.getOwnerId(),
                 clue.getGroup());
+        logger.debug("after-loadLast: List<Record>:{}", list);
+
+        return NotBadResponse.of(list);
     }
 
 
     @Override
     public void remember(Record record) throws Conflict, BadRequest {
+        logger.debug("before-remember: Record:{}", record);
+
         NotBadRequest.from(record);
         Map<String, Object> conflicts = ConflictFinder.find(record);
         Record lastRecord = extensionMapper.selectExtensionByConflictFactor(conflicts);
+        logger.debug("after-lastRecord: Record:{}", record);
+
         if (lastRecord != null) {
             throw new Conflict(conflicts.keySet());
         }
@@ -107,5 +107,15 @@ public class DefaultExtensionDai implements ExtensionDai {
                 record.getOperatorId(),
                 record.getBeginTime()
         );
+    }
+
+    @Override
+    public void forget(Long id) {
+        logger.debug("before-forget: Id:{}", id);
+        extensionMapper.revoke(
+                id,
+                new Date()
+        );
+
     }
 }

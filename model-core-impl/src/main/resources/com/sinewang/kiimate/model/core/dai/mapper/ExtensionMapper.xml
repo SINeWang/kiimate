@@ -17,12 +17,6 @@
         <result column="end_time" property="endTime"/>
     </resultMap>
 
-    <select id="selectLatestExtensionById" resultMap="Extension">
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
-        FROM mm_m_ext mext
-        WHERE mext.id = #{id}
-        AND mext.end_time IS NULL
-    </select>
     <select id="selectLastExtensionBySet" resultMap="Extension">
         SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext, mm_m_pub mpub
@@ -46,10 +40,10 @@
         AND mext.name = #{name}
         AND mext.tree = #{tree}
         AND mext.owner_id = #{ownerId}
-        <if test="endTime == null">
+        <if test="beginTime == null">
             AND mext.end_time IS NULL
         </if>
-        <if test="endTime != null">
+        <if test="beginTime != null">
             AND mext.end_time = #{endTime}
         </if>
     </select>
@@ -60,38 +54,33 @@
         WHERE mext.group = #{group}
         AND mext.name = #{name}
         AND mext.tree = #{tree}
-        <![CDATA[
-        AND mext.begin_time <= #{beginTime}
+        <if test="beginTime != null">
+            <![CDATA[
+            AND mext.begin_time <= #{beginTime}
+            ORDER BY mext.begin_time DESC
+            LIMIT 0, 1
         ]]>
-        ORDER BY mext.begin_time DESC
-        LIMIT 0, 1
-    </select>
-
-    <select id="selectExtensionsByOwnerGroup" resultMap="Extension">
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
-        FROM mm_m_ext mext
-        WHERE mext.owner_id = #{ownerId} AND mext.group = #{group} AND mext.end_time IS NULL
-    </select>
-    
-    <select id="selectLatestExtensionByOwnerGroupNameTree" resultMap="Extension">
-        SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
-        FROM mm_m_ext mext
-        WHERE mext.owner_id = #{ownerId}
-        AND mext.group = #{group}
-        AND mext.name = #{name}
-        AND mext.tree = #{tree}
-        AND mext.end_time IS NULL
+        </if>
+        <if test="beginTime == null">
+            AND mext.end_time IS NULL
+        </if>
     </select>
 
     <select id="selectLastExtensionById" resultMap="Extension">
         SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM mm_m_ext mext
         WHERE mext.id = #{id}
-        <![CDATA[
-        AND mext.begin_time <= #{beginTime}
-        ]]>
-        ORDER BY mext.begin_time DESC
-        LIMIT 0, 1
+        <if test="beginTime == null">
+            AND mext.end_time IS NULL
+        </if>
+        <if test="beginTime != null">
+            AND mext.end_time = #{endTime}
+            <![CDATA[
+            AND mext.begin_time <= #{beginTime}
+            ]]>
+            ORDER BY mext.begin_time DESC
+            LIMIT 0, 1
+        </if>
     </select>
 
     <select id="queryExtensionsByOwnerGroup" resultMap="Extension">
@@ -116,8 +105,10 @@
         WHERE mext.id = #{extId}
     </update>
 
-    <delete id="deleteExtensionById">
-        DELETE FROM mm_m_ext
+    <delete id="revoke">
+        UPDATE mm_m_ext
+        SET end_time = #{endTime}
         WHERE id = #{id}
+        AND end_time IS NULL
     </delete>
 </mapper>

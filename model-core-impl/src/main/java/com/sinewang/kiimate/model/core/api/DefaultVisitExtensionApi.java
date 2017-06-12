@@ -10,7 +10,6 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.zoom.ZoomInByName;
-import one.kii.summer.zoom.ZoomOutByName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +34,7 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
     @Override
     public Receipt visit(ReadContext context, ZoomInByName form) throws BadRequest, NotFound, Panic {
-        ExtensionDai.ChannelCoordinate channel = ValueMapping.from(ExtensionDai.ChannelCoordinate.class, form, context);
+        ExtensionDai.ChannelName channel = ValueMapping.from(ExtensionDai.ChannelName.class, form, context);
 
         ExtensionDai.Record record = extensionDai.loadLast(channel);
 
