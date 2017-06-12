@@ -120,7 +120,7 @@
         FROM mm_m_pub mpub, mm_m_sub msub, mm_m_ext mext
         WHERE mext.id = mpub.ext_id
         AND mpub.provider_id = #{providerId}
-        AND mpub.pub_set = #{pubSet}
+        AND mpub.pub_set = #{set}
         GROUP BY mext.id
     </select>
 

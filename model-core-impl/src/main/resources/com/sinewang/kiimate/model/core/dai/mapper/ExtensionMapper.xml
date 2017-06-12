@@ -32,6 +32,7 @@
             LIMIT 0, 1
             ]]>
         </if>
+        GROUP BY mext.id
     </select>
     <select id="selectExtensionByConflictFactor" resultMap="Extension">
         SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
