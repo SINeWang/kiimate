@@ -58,7 +58,7 @@ public class TestExtensionDai {
 
 
     @Test
-    public void test() throws BadRequest {
+    public void testRemember() throws BadRequest {
         try {
             dai.remember(badRequestRecord);
         } catch (Conflict conflict) {
@@ -70,6 +70,12 @@ public class TestExtensionDai {
         try {
             dai.remember(normalRecord);
         } catch (Conflict conflict) {
+        }
+
+        try {
+            dai.remember(normalRecord);
+        } catch (Conflict conflict) {
+            Assert.assertEquals(5, conflict.getKeys().length);
         }
 
     }
