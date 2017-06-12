@@ -32,28 +32,27 @@ import java.util.Date;
 @EnableAutoConfiguration
 public class TestLoadExtensionDai {
 
+    private static String TEST_GROUP = "testGroup";
+    private static String TEST_NAME = "testName";
+    private static String TEST_TREE = "testTree";
+    private static String TEST_OWNER = "testOwner";
     @Autowired
     private ExtensionDai dai;
-
-
     private ExtensionDai.Record normalRecord;
-
-
     private Long ID = 100000L;
-
 
     @Before
     public void before() {
         normalRecord = new ExtensionDai.Record();
         normalRecord.setBeginTime(new Date());
         normalRecord.setEndTime(null);
-        normalRecord.setGroup("testGroup");
-        normalRecord.setName("testName");
+        normalRecord.setGroup(TEST_GROUP);
+        normalRecord.setName(TEST_NAME);
         normalRecord.setId(ID);
         normalRecord.setOperatorId("testOperator");
         normalRecord.setVisibility("testVisibility");
-        normalRecord.setOwnerId("testOwner");
-        normalRecord.setTree("testTree");
+        normalRecord.setOwnerId(TEST_OWNER);
+        normalRecord.setTree(TEST_TREE);
         normalRecord.setCommit("0x0");
     }
 
@@ -63,7 +62,7 @@ public class TestLoadExtensionDai {
         dai.remember(normalRecord);
         ExtensionDai.ChannelId id = new ExtensionDai.ChannelId();
         id.setId(ID);
-        ExtensionDai.Record record = null;
+        ExtensionDai.Record record;
         record = dai.loadLast(id);
         Assert.assertNotNull(record);
 
@@ -79,12 +78,12 @@ public class TestLoadExtensionDai {
     public void testLoadByName() throws BadRequest, Panic, Conflict, NotFound {
         dai.remember(normalRecord);
         ExtensionDai.ChannelName name = new ExtensionDai.ChannelName();
-        name.setOwnerId("testOwnerId");
-        name.setGroup("testGroup");
-        name.setName("testName");
-        name.setTree("testTree");
+        name.setOwnerId(TEST_OWNER);
+        name.setGroup(TEST_GROUP);
+        name.setName(TEST_NAME);
+        name.setTree(TEST_TREE);
 
-        ExtensionDai.Record record = null;
+        ExtensionDai.Record record;
         record = dai.loadLast(name);
         Assert.assertNotNull(record);
 
@@ -92,9 +91,9 @@ public class TestLoadExtensionDai {
         try {
             dai.loadLast(name);
         } catch (NotFound notFound) {
-            Assert.assertEquals("testName", notFound.getReasons().getFirst("name"));
-            Assert.assertEquals("testGroup", notFound.getReasons().getFirst("group"));
-            Assert.assertEquals("testOwnerId", notFound.getReasons().getFirst("ownerId"));
+            Assert.assertEquals(TEST_NAME, notFound.getReasons().getFirst("name"));
+            Assert.assertEquals(TEST_GROUP, notFound.getReasons().getFirst("group"));
+            Assert.assertEquals(TEST_OWNER, notFound.getReasons().getFirst("ownerId"));
         }
     }
 
