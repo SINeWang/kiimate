@@ -54,14 +54,14 @@
         WHERE mext.group = #{group}
         AND mext.name = #{name}
         AND mext.tree = #{tree}
-        <if test="beginTime != null">
+        <if test="endTime != null">
             <![CDATA[
-            AND mext.begin_time <= #{beginTime}
+            AND mext.end_time >= #{endTime}
             ORDER BY mext.begin_time DESC
             LIMIT 0, 1
         ]]>
         </if>
-        <if test="beginTime == null">
+        <if test="endTime == null">
             AND mext.end_time IS NULL
         </if>
     </select>

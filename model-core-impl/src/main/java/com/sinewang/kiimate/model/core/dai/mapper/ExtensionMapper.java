@@ -40,7 +40,7 @@ public interface ExtensionMapper {
             @Param("group") String group,
             @Param("name") String name,
             @Param("tree") String tree,
-            @Param("beginTime") Date beginTime);
+            @Param("endTime") Date endTime);
 
 
 
