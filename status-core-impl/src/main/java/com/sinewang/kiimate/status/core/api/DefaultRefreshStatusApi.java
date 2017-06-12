@@ -14,8 +14,8 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
-import one.kii.summer.xyz.VisitUpInsight;
-import one.kii.summer.xyz.VisitUpWithId;
+import one.kii.summer.zoom.InsideView;
+import one.kii.summer.zoom.ZoomInById;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,9 +53,9 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
     @Override
     public Receipt commit(WriteContext context, SubIdForm form) throws BadRequest, Conflict, NotFound, Panic {
-        VisitUpWithId channel = ValueMapping.from(VisitUpWithId.class, context, form);
+        ZoomInById channel = ValueMapping.from(ZoomInById.class, context, form);
 
-        VisitUpInsight model = modelSubscriptionDai.getModelPubSetByStatusId(channel);
+        InsideView model = modelSubscriptionDai.getModelPubSetByStatusId(channel);
 
 
         IntensionDai.ChannelExtensionId lastExtension = new IntensionDai.ChannelExtensionId();
@@ -78,7 +78,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         rootExtension.setId(model.getRootId());
 
 
-        VisitUpWithId id = ValueMapping.from(VisitUpWithId.class, channel);
+        ZoomInById id = ValueMapping.from(ZoomInById.class, channel);
         id.setSubscriberId(context.getOwnerId());
         List<InstanceDai.Record> newRecords = instanceDai.loadInstances(id);
 

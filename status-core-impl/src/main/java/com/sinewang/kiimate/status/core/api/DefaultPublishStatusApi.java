@@ -11,7 +11,7 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
-import one.kii.summer.xyz.VisitUpWithId;
+import one.kii.summer.zoom.ZoomInById;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -40,7 +40,7 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic {
 
 
-        VisitUpWithId id = ValueMapping.from(VisitUpWithId.class, form);
+        ZoomInById id = ValueMapping.from(ZoomInById.class, form);
         id.setSubscriberId(form.getProviderId());
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(id);

@@ -4,7 +4,7 @@ import lombok.Data;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.VisitUpWithId;
+import one.kii.summer.zoom.ZoomInById;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -18,7 +18,7 @@ public interface InstanceDai {
     @Transactional
     void remember(List<Instance> instances) throws Conflict;
 
-    List<Record> loadInstances(VisitUpWithId channel) throws Panic;
+    List<Record> loadInstances(ZoomInById channel) throws Panic;
 
     @Data
     class Record {

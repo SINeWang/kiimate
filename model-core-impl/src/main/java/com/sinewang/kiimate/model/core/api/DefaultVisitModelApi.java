@@ -3,7 +3,6 @@ package com.sinewang.kiimate.model.core.api;
 import one.kii.kiimate.model.core.api.VisitModelApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
-import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
@@ -11,8 +10,8 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
-import one.kii.summer.xyz.VisitDownInsight;
-import one.kii.summer.xyz.VisitDownWithSet;
+import one.kii.summer.zoom.OutsideView;
+import one.kii.summer.zoom.ZoomOutBySet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,9 +22,6 @@ import java.util.List;
  */
 @Component
 public class DefaultVisitModelApi implements VisitModelApi {
-
-    @Autowired
-    private ModelPublicationDai modelPublicationDai;
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
@@ -53,12 +49,12 @@ public class DefaultVisitModelApi implements VisitModelApi {
 
 
         int subscriptions = modelSubscriptionDai.countModelSubscriptions(channelSet.getSet());
-        VisitDownWithSet set = new VisitDownWithSet();
+        ZoomOutBySet set = new ZoomOutBySet();
         set.setProviderId(record.getOwnerId());
-        set.setPubSet(form.getSet());
+        set.setSet(form.getSet());
 
-        VisitDownInsight downInsight = modelSubscriptionDai.selectModelBySet(set);
-        VisitModelApi.Model model = ValueMapping.from(VisitModelApi.Model.class,downInsight, record);
+        OutsideView downInsight = modelSubscriptionDai.selectModelBySet(set);
+        VisitModelApi.Model model = ValueMapping.from(VisitModelApi.Model.class, downInsight, record);
 
         model.setSubscriptions(subscriptions);
         model.setIntensions(intensions);

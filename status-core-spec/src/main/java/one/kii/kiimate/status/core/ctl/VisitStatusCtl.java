@@ -5,7 +5,7 @@ import one.kii.summer.asdf.api.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.receiver.ReadController;
-import one.kii.summer.xyz.VisitDownWithXyz;
+import one.kii.summer.zoom.ZoomOutByName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +46,7 @@ public class VisitStatusCtl extends ReadController {
 
         ReadContext context = buildContext(requestId, providerId, visitorId);
 
-        VisitDownWithXyz form = new VisitDownWithXyz();
+        ZoomOutByName form = new ZoomOutByName();
         form.setProviderId(providerId);
         form.setGroup(group);
         form.setName(name);

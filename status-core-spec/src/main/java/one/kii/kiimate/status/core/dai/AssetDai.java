@@ -6,7 +6,7 @@ import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.VisitUpWithId;
+import one.kii.summer.zoom.ZoomInById;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -19,7 +19,7 @@ public interface AssetDai {
 
     List<Providers> queryProviders(ClueId clue) throws BadRequest;
 
-    Assets load(VisitUpWithId channel) throws Panic;
+    Assets load(ZoomInById channel) throws Panic;
 
     @Transactional
     void remember(Subscription subscription) throws BadRequest;

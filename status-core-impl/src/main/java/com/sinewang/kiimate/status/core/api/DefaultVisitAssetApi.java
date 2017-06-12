@@ -10,9 +10,9 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.VisitUpInsight;
-import one.kii.summer.xyz.VisitUpWithId;
-import one.kii.summer.xyz.VisitUpWithXyz;
+import one.kii.summer.zoom.InsideView;
+import one.kii.summer.zoom.ZoomInById;
+import one.kii.summer.zoom.ZoomInByName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,16 +39,16 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
     private InstanceTransformer instanceTransformer;
 
     @Override
-    public Map<String, Object> visit(ReadContext context, VisitUpWithId form) throws NotFound, BadRequest, Panic {
+    public Map<String, Object> visit(ReadContext context, ZoomInById form) throws NotFound, BadRequest, Panic {
 
 
         AssetDai.Assets assets = assetDai.load(form);
 
-        VisitUpWithXyz channel = ValueMapping.from(VisitUpWithXyz.class, assets);
+        ZoomInByName channel = ValueMapping.from(ZoomInByName.class, assets);
 
-        VisitUpInsight modelPubSet = modelSubscriptionDai.getModelPubSetByXyz(channel);
+        InsideView modelPubSet = modelSubscriptionDai.getModelPubSetByXyz(channel);
 
-        VisitUpWithId instanceChannel = ValueMapping.from(VisitUpWithId.class, modelPubSet);
+        ZoomInById instanceChannel = ValueMapping.from(ZoomInById.class, modelPubSet);
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(instanceChannel);
 

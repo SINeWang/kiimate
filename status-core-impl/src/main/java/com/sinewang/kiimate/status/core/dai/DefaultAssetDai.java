@@ -8,7 +8,7 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
-import one.kii.summer.xyz.VisitUpWithId;
+import one.kii.summer.zoom.ZoomInById;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -72,7 +72,7 @@ public class DefaultAssetDai implements AssetDai {
     }
 
     @Override
-    public Assets load(VisitUpWithId channel) throws Panic {
+    public Assets load(ZoomInById channel) throws Panic {
         Assets asset = assetsMapper.selectAsset(
                 channel.getSubscriberId(),
                 channel.getId());

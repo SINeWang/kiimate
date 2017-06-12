@@ -11,10 +11,10 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.VisitDownInsight;
-import one.kii.summer.xyz.VisitDownWithXyz;
-import one.kii.summer.xyz.VisitUpInsight;
-import one.kii.summer.xyz.VisitUpWithId;
+import one.kii.summer.zoom.InsideView;
+import one.kii.summer.zoom.OutsideView;
+import one.kii.summer.zoom.ZoomInById;
+import one.kii.summer.zoom.ZoomOutByName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -44,16 +44,16 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
     private InstanceTransformer instanceTransformer;
 
     @Override
-    public Status visit(ReadContext context, VisitDownWithXyz form) throws NotFound, BadRequest, Panic {
+    public Status visit(ReadContext context, ZoomOutByName form) throws NotFound, BadRequest, Panic {
 
 
-        VisitDownInsight downsights = statusDai.loadDownstream(form);
+        OutsideView outside = statusDai.loadDownstream(form);
 
-        VisitUpWithId id = ValueMapping.from(VisitUpWithId.class, downsights);
-        id.setSubscriberId(downsights.getProviderId());
+        ZoomInById id = ValueMapping.from(ZoomInById.class, outside);
+        id.setSubscriberId(outside.getProviderId());
 
-        VisitUpInsight modelPubSet = modelSubscriptionDai.getModelPubSetByStatusId(id);
-        id.setBeginTime(downsights.getBeginTime());
+        InsideView modelPubSet = modelSubscriptionDai.getModelPubSetByStatusId(id);
+        id.setBeginTime(outside.getBeginTime());
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(id);
 
@@ -65,7 +65,7 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
 
         Map<String, Object> map = instanceTransformer.toTimedValue(records, modelPubSet);
-        Status status = ValueMapping.from(Status.class, downsights, form, modelPubSet);
+        Status status = ValueMapping.from(Status.class, outside, form, modelPubSet);
         status.setMap(map);
         status.setIntensions(intensions);
         return status;

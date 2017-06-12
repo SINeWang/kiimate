@@ -29,10 +29,6 @@ public interface InstanceMapper {
                         @Param("operatorId") String operatorId,
                         @Param("beginTime") Date beginTime);
 
-    List<InstanceDai.Record> selectLatestInstancesByStatusId(
-            @Param("subscriberId") String subscriberId,
-            @Param("subId") Long subId);
-
     List<InstanceDai.Record> selectLastInstancesByStatusId(
             @Param("subscriberId") String subscriberId,
             @Param("subId") Long subId,

@@ -5,7 +5,7 @@ import one.kii.summer.asdf.api.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.receiver.ReadController;
-import one.kii.summer.xyz.VisitUpWithXyz;
+import one.kii.summer.zoom.ZoomInByName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +40,7 @@ public class VisitExtensionCtl extends ReadController {
             @PathVariable("tree") String tree) {
 
         ReadContext context = buildContext(requestId, visitorId, ownerId);
-        VisitUpWithXyz form = new VisitUpWithXyz();
+        ZoomInByName form = new ZoomInByName();
         form.setGroup(group);
         form.setName(name);
         form.setTree(tree);
@@ -58,7 +58,7 @@ public class VisitExtensionCtl extends ReadController {
 
         ReadContext context = buildContext(requestId, visitorId, ownerId);
 
-        VisitUpWithXyz form = new VisitUpWithXyz();
+        ZoomInByName form = new ZoomInByName();
         form.setGroup(group);
         form.setName(name);
         form.setTree(TREE_MASTER);
@@ -76,7 +76,7 @@ public class VisitExtensionCtl extends ReadController {
 
         ReadContext context = buildContext(requestId, visitorId, ownerId);
 
-        VisitUpWithXyz form = new VisitUpWithXyz();
+        ZoomInByName form = new ZoomInByName();
         form.setGroup(group);
         form.setName(NAME_ROOT);
         form.setTree(TREE_MASTER);

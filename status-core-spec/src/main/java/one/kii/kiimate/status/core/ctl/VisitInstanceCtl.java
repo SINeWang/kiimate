@@ -5,7 +5,7 @@ import one.kii.summer.asdf.api.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.receiver.ReadController;
-import one.kii.summer.xyz.VisitUpWithId;
+import one.kii.summer.zoom.ZoomInById;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +37,7 @@ public class VisitInstanceCtl extends ReadController {
 
         ReadContext context = buildContext(requestId, subscriberId, visitorId);
 
-        VisitUpWithId form = new VisitUpWithId();
+        ZoomInById form = new ZoomInById();
         form.setId(id);
         form.setSubscriberId(subscriberId);
 

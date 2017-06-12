@@ -6,7 +6,7 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.VisitUpWithXyz;
+import one.kii.summer.zoom.ZoomInByName;
 
 import java.util.List;
 import java.util.Map;
@@ -15,10 +15,10 @@ import java.util.Map;
  * Created by WangYanJiong on 4/5/17.
  */
 
-public interface VisitExtensionApi extends VisitApi<VisitExtensionApi.Receipt, ReadContext, VisitUpWithXyz> {
+public interface VisitExtensionApi extends VisitApi<VisitExtensionApi.Receipt, ReadContext, ZoomInByName> {
 
 
-    Receipt visit(ReadContext context, VisitUpWithXyz form) throws BadRequest, NotFound, Panic;
+    Receipt visit(ReadContext context, ZoomInByName form) throws BadRequest, NotFound, Panic;
 
 
     @Data

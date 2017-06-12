@@ -6,7 +6,7 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.VisitDownWithXyz;
+import one.kii.summer.zoom.ZoomOutByName;
 
 import java.util.Date;
 import java.util.List;
@@ -16,10 +16,10 @@ import java.util.Map;
  * Created by WangYanJiong on 4/5/17.
  */
 
-public interface VisitStatusApi extends VisitApi<VisitStatusApi.Status, ReadContext, VisitDownWithXyz> {
+public interface VisitStatusApi extends VisitApi<VisitStatusApi.Status, ReadContext, ZoomOutByName> {
 
 
-    Status visit(ReadContext context, VisitDownWithXyz form) throws NotFound, BadRequest, Panic;
+    Status visit(ReadContext context, ZoomOutByName form) throws NotFound, BadRequest, Panic;
 
     @Data
     class Status {

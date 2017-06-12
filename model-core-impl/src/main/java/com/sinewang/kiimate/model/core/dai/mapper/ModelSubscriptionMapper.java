@@ -1,9 +1,9 @@
 package com.sinewang.kiimate.model.core.dai.mapper;
 
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.summer.xyz.VisitDownInsight;
-import one.kii.summer.xyz.VisitDownWithSet;
-import one.kii.summer.xyz.VisitUpInsight;
+import one.kii.summer.zoom.InsideView;
+import one.kii.summer.zoom.OutsideView;
+import one.kii.summer.zoom.ZoomOutBySet;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -37,11 +37,11 @@ public interface ModelSubscriptionMapper {
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 
-    VisitUpInsight selectModelPubSetByStatusId(
+    InsideView selectModelPubSetByStatusId(
             @Param("subscriberId") String subscribreId,
             @Param("id") Long subId);
 
-    VisitUpInsight selectModelPubSetByGroupNameTree(
+    InsideView selectModelPubSetByGroupNameTree(
             @Param("subscriberId") String subscribreId,
             @Param("group") String group,
             @Param("name") String name,
@@ -49,6 +49,6 @@ public interface ModelSubscriptionMapper {
 
     List<ModelSubscriptionDai.Subscribers> querySubscriberId(@Param("subscriberId") String subscriberId);
 
-    VisitDownInsight selectModelBySet(VisitDownWithSet view);
+    OutsideView selectModelBySet(ZoomOutBySet view);
 
 }

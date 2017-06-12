@@ -11,8 +11,8 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
-import one.kii.summer.xyz.VisitUpInsight;
-import one.kii.summer.xyz.VisitUpWithId;
+import one.kii.summer.zoom.InsideView;
+import one.kii.summer.zoom.ZoomInById;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -38,12 +38,12 @@ public class DefaultVisitInstanceApi implements VisitInstanceApi {
     private InstanceTransformer instanceTransformer;
 
     @Override
-    public Instance visit(ReadContext context, VisitUpWithId form) throws BadRequest, NotFound, Panic {
+    public Instance visit(ReadContext context, ZoomInById form) throws BadRequest, NotFound, Panic {
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(form);
-        VisitUpWithId statusId = ValueMapping.from(VisitUpWithId.class, context, form);
+        ZoomInById statusId = ValueMapping.from(ZoomInById.class, context, form);
 
-        VisitUpInsight model = modelSubscriptionDai.getModelPubSetByStatusId(statusId);
+        InsideView model = modelSubscriptionDai.getModelPubSetByStatusId(statusId);
         Instance instance = ValueMapping.from(Instance.class, model);
 
         IntensionDai.ChannelExtensionId rootExtension = ValueMapping.from(IntensionDai.ChannelExtensionId.class, model);

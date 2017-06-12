@@ -6,7 +6,7 @@ import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.VisitUpInsight;
+import one.kii.summer.zoom.InsideView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     private IntensionDai intensionDai;
 
     @Override
-    public Map<String, Object> toTimedValue(List<InstanceDai.Record> instancesList, VisitUpInsight model) throws Panic, BadRequest {
+    public Map<String, Object> toTimedValue(List<InstanceDai.Record> instancesList, InsideView model) throws Panic, BadRequest {
         Map<String, List<InstanceDai.Record>> dict = dict(instancesList);
         IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
         extension.setExtId(model.getRootId());
@@ -34,7 +34,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     }
 
     @Override
-    public Map<String, Object> toRawValue(List<InstanceDai.Record> instancesList, VisitUpInsight model) throws Panic, BadRequest {
+    public Map<String, Object> toRawValue(List<InstanceDai.Record> instancesList, InsideView model) throws Panic, BadRequest {
         Map<String, List<InstanceDai.Record>> dict = dict(instancesList);
         IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
         extension.setExtId(model.getRootId());

@@ -6,7 +6,7 @@ import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.xyz.*;
+import one.kii.summer.zoom.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -21,11 +21,11 @@ public interface ModelSubscriptionDai {
     @Transactional
     void remember(Instance instance) throws Conflict;
 
-    VisitUpInsight getModelPubSetByStatusId(VisitUpWithId channel) throws Panic;
+    InsideView getModelPubSetByStatusId(ZoomInById channel) throws Panic;
 
-    VisitUpInsight getModelPubSetByXyz(VisitUpWithXyz channel) throws Panic;
+    InsideView getModelPubSetByXyz(ZoomInByName channel) throws Panic;
 
-    VisitDownInsight selectModelBySet(VisitDownWithSet channel) throws Panic;
+    OutsideView selectModelBySet(ZoomOutBySet channel) throws Panic;
 
     List<Instance> querySubscriptions(ClueGroup clue) throws BadRequest, Panic;
 

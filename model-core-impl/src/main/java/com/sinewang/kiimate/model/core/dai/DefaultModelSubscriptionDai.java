@@ -8,7 +8,7 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
-import one.kii.summer.xyz.*;
+import one.kii.summer.zoom.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -47,8 +47,8 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public VisitUpInsight getModelPubSetByStatusId(VisitUpWithId channel) throws Panic {
-        VisitUpInsight record = modelSubscriptionMapper.selectModelPubSetByStatusId(
+    public InsideView getModelPubSetByStatusId(ZoomInById channel) throws Panic {
+        InsideView record = modelSubscriptionMapper.selectModelPubSetByStatusId(
                 channel.getSubscriberId(),
                 channel.getId()
         );
@@ -56,8 +56,8 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public VisitUpInsight getModelPubSetByXyz(VisitUpWithXyz channel) throws Panic {
-        VisitUpInsight record = modelSubscriptionMapper.selectModelPubSetByGroupNameTree(
+    public InsideView getModelPubSetByXyz(ZoomInByName channel) throws Panic {
+        InsideView record = modelSubscriptionMapper.selectModelPubSetByGroupNameTree(
                 channel.getSubscriberId(),
                 channel.getGroup(),
                 channel.getName(),
@@ -67,8 +67,8 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public VisitDownInsight selectModelBySet(VisitDownWithSet channel) throws Panic {
-        VisitDownInsight record = modelSubscriptionMapper.selectModelBySet(
+    public OutsideView selectModelBySet(ZoomOutBySet channel) throws Panic {
+        OutsideView record = modelSubscriptionMapper.selectModelBySet(
                 channel
         );
         return NotBadResponse.of(record);

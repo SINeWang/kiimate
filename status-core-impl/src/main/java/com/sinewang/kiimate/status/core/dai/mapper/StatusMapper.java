@@ -1,6 +1,6 @@
 package com.sinewang.kiimate.status.core.dai.mapper;
 
-import one.kii.summer.xyz.VisitDownInsight;
+import one.kii.summer.zoom.OutsideView;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,12 +26,12 @@ public interface StatusMapper {
             @Param("beginTime") Date beginTime
     );
 
-    List<VisitDownInsight> queryStatuses(
+    List<OutsideView> queryStatuses(
             @Param("ownerId") String ownerId,
             @Param("group") String group
     );
 
-    VisitDownInsight selectLast(
+    OutsideView selectLast(
             @Param("providerId") String providerId,
             @Param("group") String group,
             @Param("name") String name,
@@ -40,7 +40,7 @@ public interface StatusMapper {
             @Param("beginTime") Date beginTime
     );
 
-    VisitDownInsight selectLatest(
+    OutsideView selectLatest(
             @Param("providerId") String providerId,
             @Param("group") String group,
             @Param("name") String name,

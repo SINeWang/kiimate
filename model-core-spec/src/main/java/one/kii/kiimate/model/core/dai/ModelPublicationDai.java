@@ -4,7 +4,6 @@ import lombok.Data;
 import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.summer.beans.annotations.Unique;
 import one.kii.summer.io.annotations.MayHave;
-import one.kii.summer.io.annotations.MustHave;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
@@ -39,7 +38,6 @@ public interface ModelPublicationDai {
     @Data
     class ChannelPubSet {
 
-        @MustHave
         Long pubSet;
     }
 
