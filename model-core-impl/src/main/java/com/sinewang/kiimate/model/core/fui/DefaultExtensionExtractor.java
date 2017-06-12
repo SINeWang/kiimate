@@ -34,12 +34,6 @@ public class DefaultExtensionExtractor implements AnExtensionExtractor {
         form.setTree(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getTree()));
         form.setVisibility(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getVisibility()));
         ExtensionDai.Record record = ValueMapping.from(ExtensionDai.Record.class, form, context);
-        try {
-            String visibility = form.getVisibility();
-            Visibility.valueOf(visibility.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new BadRequest("visibility");
-        }
         hash(record);
         record.setId(idgen.born());
         return NotBadResponse.of(record);

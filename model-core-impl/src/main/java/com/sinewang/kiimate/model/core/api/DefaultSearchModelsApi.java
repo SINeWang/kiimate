@@ -7,11 +7,13 @@ import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
+import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,7 +33,7 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
     private ExtensionDai extensionDai;
 
     @Override
-    public List<Models> search(ReadContext context, QueryModelsForm form)  throws BadRequest, Panic {
+    public List<Models> search(ReadContext context, QueryModelsForm form) throws BadRequest, Panic {
         ModelPublicationDai.ClueGroup group = ValueMapping.from(ModelPublicationDai.ClueGroup.class, form);
 
         List<ModelPublicationDai.PublishedExtension> extensions = modelPublicationDai.searchExtension(group);
@@ -39,7 +41,11 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
         for (ModelPublicationDai.PublishedExtension extension : extensions) {
             ExtensionDai.ChannelId channel = ValueMapping.from(ExtensionDai.ChannelId.class, extension);
             ExtensionDai.Record lastRecord;
-            lastRecord = extensionDai.loadLast(channel);
+            try {
+                lastRecord = extensionDai.loadLast(channel);
+            } catch (NotFound notFound) {
+                return Collections.emptyList();
+            }
             List<Snapshot> snapshots = new ArrayList<>();
 
             ModelPublicationDai.ChannelId id = ValueMapping.from(ModelPublicationDai.ChannelId.class, extension);

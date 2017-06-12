@@ -2,7 +2,7 @@ package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.IntensionMapper;
 import one.kii.kiimate.model.core.dai.IntensionDai;
-import one.kii.summer.beans.utils.ConflictFinder;
+import one.kii.summer.beans.utils.UniqueFinder;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
@@ -10,6 +10,7 @@ import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,8 +31,8 @@ public class DefaultIntensionDai implements IntensionDai {
     @Override
     public void remember(Record record) throws Conflict, BadRequest {
         NotBadRequest.from(record);
-        Map<String, Object> conflicts = ConflictFinder.find(record);
-        Record oldRecord = intensionMapper.selectIntensionByConflictKey(conflicts);
+        MultiValueMap<String, String> conflicts = UniqueFinder.find(record);
+        Record oldRecord = intensionMapper.selectIntensionByConflictKey(conflicts.toSingleValueMap());
         if (oldRecord != null) {
             throw new Conflict(conflicts.keySet());
         }

@@ -3,13 +3,14 @@ package com.sinewang.kiimate.model.core.dai;
 import com.sinewang.kiimate.model.core.dai.mapper.ModelPublicationMapper;
 import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
-import one.kii.summer.beans.utils.ConflictFinder;
+import one.kii.summer.beans.utils.UniqueFinder;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
 
 import java.util.List;
 import java.util.Map;
@@ -48,8 +49,8 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
 
     @Override
     public void save(List<Record> records, PublishModelApi.Form form) throws Conflict {
-        Map<String, Object> map = ConflictFinder.find(form);
-        int count = modelPublicationMapper.countByConflictKey(map);
+        MultiValueMap<String, String> map = UniqueFinder.find(form);
+        int count = modelPublicationMapper.countByConflictKey(map.toSingleValueMap());
         if (count > 0) {
             throw new Conflict(map.keySet());
         }

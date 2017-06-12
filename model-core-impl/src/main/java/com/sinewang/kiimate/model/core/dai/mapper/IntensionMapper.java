@@ -47,7 +47,7 @@ public interface IntensionMapper {
             @Param("field") String field);
 
     IntensionDai.Record selectIntensionByConflictKey(
-            Map<String, Object> map);
+            Map<String, String> map);
 
     List<String> selectLastFieldsByExtIdPubSet(
             @Param("extId") Long extId,

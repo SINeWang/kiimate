@@ -6,6 +6,7 @@ import one.kii.summer.beans.annotations.Unique;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +18,9 @@ import java.util.List;
  */
 public interface ExtensionDai {
 
-    Record loadLast(ChannelName channel) throws Panic, BadRequest;
+    Record loadLast(ChannelName channel) throws Panic, BadRequest, NotFound;
 
-    Record loadLast(ChannelId channel) throws Panic, BadRequest;
+    Record loadLast(ChannelId channel) throws Panic, BadRequest, NotFound;
 
     Record loadLast(ChannelSet channel) throws Panic, BadRequest;
 
@@ -42,17 +43,21 @@ public interface ExtensionDai {
     @Data
     class ChannelId {
 
+        @Unique
         Long id;
 
+        @Unique
         @MayHave
         Date endTime;
     }
 
     @Data
     class ChannelSet {
+        @Unique
         Long set;
 
         @MayHave
+        @Unique
         Date endTime;
     }
 

@@ -58,8 +58,8 @@ public class TestLoadExtensionDai {
     }
 
 
-    @Test(expected = NotFound.class)
-    public void testLoad() throws BadRequest, Panic, Conflict {
+    @Test
+    public void testLoad() throws BadRequest, Panic, Conflict, NotFound {
         dai.remember(normalRecord);
         ExtensionDai.ChannelId id = new ExtensionDai.ChannelId();
         id.setId(ID);
@@ -68,7 +68,11 @@ public class TestLoadExtensionDai {
         Assert.assertNotNull(record);
 
         dai.forget(ID);
-        dai.loadLast(id);
+        try {
+            dai.loadLast(id);
+        } catch (NotFound notFound) {
+            Assert.assertEquals(String.valueOf(ID), notFound.getReasons().getFirst("id"));
+        }
 
     }
 

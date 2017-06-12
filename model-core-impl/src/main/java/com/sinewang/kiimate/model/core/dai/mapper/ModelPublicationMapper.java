@@ -25,7 +25,7 @@ public interface ModelPublicationMapper {
             @Param("operatorId") String operatorId,
             @Param("createdAt") Date createdAt);
 
-    int countByConflictKey(Map<String, Object> map);
+    int countByConflictKey(Map<String, String> map);
 
     void deletePublicationByProviderIdExtIdPubVersion(
             @Param("providerId") String providerId,

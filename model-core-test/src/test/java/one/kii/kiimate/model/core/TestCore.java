@@ -1,7 +1,6 @@
 package one.kii.kiimate.model.core;
 
 import one.kii.kiimate.model.core.api.TestDeclareReceiptApi;
-import one.kii.kiimate.model.core.dai.TestReceiptDai;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
@@ -16,7 +15,6 @@ import org.springframework.test.context.BootstrapWith;
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.kiimate.model.core")
 @Suite.SuiteClasses({
-        TestDeclareReceiptApi.class,
-        TestReceiptDai.class})
+        TestDeclareReceiptApi.class})
 public class TestCore {
 }

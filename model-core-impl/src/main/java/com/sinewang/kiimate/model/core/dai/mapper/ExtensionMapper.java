@@ -33,7 +33,7 @@ public interface ExtensionMapper {
             @Param("id") Long id,
             @Param("endTime") Date endTime);
 
-    ExtensionDai.Record selectExtensionByConflictFactor(Map<String, Object> map);
+    ExtensionDai.Record selectExtensionByConflictFactor(Map<String, String> map);
 
     ExtensionDai.Record selectLastExtensionByName(
             @Param("ownerId") String ownerId,

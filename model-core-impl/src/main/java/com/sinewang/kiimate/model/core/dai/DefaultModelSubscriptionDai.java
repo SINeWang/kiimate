@@ -2,7 +2,7 @@ package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.summer.beans.utils.ConflictFinder;
+import one.kii.summer.beans.utils.UniqueFinder;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
@@ -11,6 +11,7 @@ import one.kii.summer.io.validator.NotBadResponse;
 import one.kii.summer.zoom.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
 
 import java.util.List;
 import java.util.Map;
@@ -29,8 +30,8 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
 
     @Override
     public void remember(Instance instance) throws Conflict {
-        Map<String, Object> map = ConflictFinder.find(instance);
-        int count = modelSubscriptionMapper.countByConflictKeys(map);
+        MultiValueMap<String, String> map = UniqueFinder.find(instance);
+        int count = modelSubscriptionMapper.countByConflictKeys(map.toSingleValueMap());
         if (count > 0) {
             throw new Conflict(map.keySet().toArray(new String[0]));
         }

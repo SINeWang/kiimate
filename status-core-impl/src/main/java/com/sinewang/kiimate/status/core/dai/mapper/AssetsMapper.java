@@ -48,6 +48,6 @@ public interface AssetsMapper {
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
-    int countByConflictKey(Map<String, Object> map);
+    int countByConflictKey(Map<String, String> map);
 
 }

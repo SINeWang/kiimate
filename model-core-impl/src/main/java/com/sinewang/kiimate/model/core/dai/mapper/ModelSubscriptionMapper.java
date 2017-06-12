@@ -17,7 +17,7 @@ import java.util.Map;
 @Mapper
 public interface ModelSubscriptionMapper {
 
-    int countByConflictKeys(Map<String, Object> map);
+    int countByConflictKeys(Map<String, String> map);
 
     void insertSubscription(
             @Param("id") Long id,

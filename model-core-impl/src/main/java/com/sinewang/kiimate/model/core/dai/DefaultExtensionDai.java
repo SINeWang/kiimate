@@ -2,9 +2,10 @@ package com.sinewang.kiimate.model.core.dai;
 
 import com.sinewang.kiimate.model.core.dai.mapper.ExtensionMapper;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
-import one.kii.summer.beans.utils.ConflictFinder;
+import one.kii.summer.beans.utils.UniqueFinder;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
@@ -12,10 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by WangYanJiong on 3/23/17.
@@ -30,7 +31,7 @@ public class DefaultExtensionDai implements ExtensionDai {
     private ExtensionMapper extensionMapper;
 
     @Override
-    public Record loadLast(ChannelName channel) throws Panic, BadRequest {
+    public Record loadLast(ChannelName channel) throws Panic, BadRequest, NotFound {
         logger.debug("before-loadLast: ChannelName:{}", channel);
         NotBadRequest.from(channel);
         Record record = extensionMapper.selectLastExtensionByName(
@@ -40,12 +41,14 @@ public class DefaultExtensionDai implements ExtensionDai {
                 channel.getTree(),
                 channel.getBeginTime());
         logger.debug("after-loadLast: Record:{}", record);
-
+        if (record == null) {
+            throw new NotFound(UniqueFinder.find(channel));
+        }
         return NotBadResponse.of(record);
     }
 
     @Override
-    public Record loadLast(ChannelId channel) throws Panic, BadRequest {
+    public Record loadLast(ChannelId channel) throws Panic, BadRequest, NotFound {
         logger.debug("before-loadLast: ChannelId:{}", channel);
         NotBadRequest.from(channel);
 
@@ -53,7 +56,9 @@ public class DefaultExtensionDai implements ExtensionDai {
                 channel.getId(),
                 channel.getEndTime());
         logger.debug("after-loadLast: Record:{}", record);
-
+        if(record == null){
+            throw new NotFound(UniqueFinder.find(channel));
+        }
         return NotBadResponse.of(record);
     }
 
@@ -89,8 +94,8 @@ public class DefaultExtensionDai implements ExtensionDai {
         logger.debug("before-remember: Record:{}", record);
 
         NotBadRequest.from(record);
-        Map<String, Object> conflicts = ConflictFinder.find(record);
-        Record lastRecord = extensionMapper.selectExtensionByConflictFactor(conflicts);
+        MultiValueMap<String, String> conflicts = UniqueFinder.find(record);
+        Record lastRecord = extensionMapper.selectExtensionByConflictFactor(conflicts.toSingleValueMap());
         logger.debug("after-lastRecord: Record:{}", record);
 
         if (lastRecord != null) {
