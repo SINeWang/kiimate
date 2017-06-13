@@ -1,4 +1,4 @@
-package one.kii.kiimate.model.core.api;
+package one.kii.kiimate.status.core.api;
 
 import lombok.Data;
 import one.kii.summer.asdf.api.SearchApi;
@@ -11,14 +11,14 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 10/05/2017.
  */
-public interface SearchSubscriptionsApi extends SearchApi<SearchSubscriptionsApi.Subscriptions, ReadContext, SearchSubscriptionsApi.QueryForm> {
+public interface SearchInstancesApi extends SearchApi<SearchInstancesApi.Instance, ReadContext, SearchInstancesApi.QueryForm> {
 
 
-    List<Subscriptions> search(ReadContext context, QueryForm form) throws BadRequest, Panic;
+    List<Instance> search(ReadContext context, QueryForm form) throws BadRequest, Panic;
 
 
     @Data
-    class Subscriptions {
+    class Instance {
 
         String id;
 

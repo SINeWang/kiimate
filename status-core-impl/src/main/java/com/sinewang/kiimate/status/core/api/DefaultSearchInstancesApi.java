@@ -1,7 +1,7 @@
-package com.sinewang.kiimate.model.core.api;
+package com.sinewang.kiimate.status.core.api;
 
-import one.kii.kiimate.model.core.api.SearchSubscriptionsApi;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
+import one.kii.kiimate.status.core.api.SearchInstancesApi;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -16,15 +16,15 @@ import java.util.List;
  */
 
 @Component
-public class DefaultSearchSubscriptionsApi implements SearchSubscriptionsApi {
+public class DefaultSearchInstancesApi implements SearchInstancesApi {
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Override
-    public List<Subscriptions> search(ReadContext context, QueryForm form) throws BadRequest, Panic {
+    public List<Instance> search(ReadContext context, QueryForm form) throws BadRequest, Panic {
         ModelSubscriptionDai.ClueGroup clue = ValueMapping.from(ModelSubscriptionDai.ClueGroup.class, context, form);
         List<ModelSubscriptionDai.Instance> list = modelSubscriptionDai.querySubscriptions(clue);
-        return ValueMapping.from(Subscriptions.class, list);
+        return ValueMapping.from(Instance.class, list);
     }
 }

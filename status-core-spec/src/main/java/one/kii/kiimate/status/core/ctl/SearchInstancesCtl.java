@@ -1,6 +1,6 @@
-package one.kii.kiimate.model.core.ctl;
+package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.model.core.api.SearchSubscriptionsApi;
+import one.kii.kiimate.status.core.api.SearchInstancesApi;
 import one.kii.summer.asdf.api.SearchApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
@@ -11,31 +11,31 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static one.kii.kiimate.model.core.ctl.SearchSubscriptionsCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.SearchInstancesCtl.OWNER_ID;
 
 /**
  * Created by WangYanJiong on 02/05/2017.
  */
 
 @RestController
-@RequestMapping("/api/v1/{" + OWNER_ID + "}/subscriptions")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/instances")
 @CrossOrigin(origins = "*")
-public class SearchSubscriptionsCtl extends ReadController {
+public class SearchInstancesCtl extends ReadController {
 
     public static final String OWNER_ID = "owner-id";
 
     @Autowired
-    private SearchSubscriptionsApi api;
+    private SearchInstancesApi api;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<SearchSubscriptionsApi.Subscriptions>> search(
+    public ResponseEntity<List<SearchInstancesApi.Instance>> search(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
             @RequestParam("q") String query) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
-        SearchSubscriptionsApi.QueryForm form = new SearchSubscriptionsApi.QueryForm();
+        SearchInstancesApi.QueryForm form = new SearchInstancesApi.QueryForm();
 
         form.setGroup(query);
 
