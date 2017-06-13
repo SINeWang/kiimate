@@ -29,9 +29,11 @@ public interface ModelSubscriptionMapper {
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
-    void deleteById(@Param("id") Long id);
+    void deleteById(
+            @Param("id") Long id);
 
-    int countModelSubscriptions(@Param("subSet") Long subSet);
+    int countModelSubscriptions(
+            @Param("subSet") Long subSet);
 
     List<ModelSubscriptionDai.Instance> querySubscriptionsByOwnerGroup(
             @Param("ownerId") String ownerId,
@@ -47,7 +49,8 @@ public interface ModelSubscriptionMapper {
             @Param("name") String name,
             @Param("tree") String tree);
 
-    List<ModelSubscriptionDai.Subscribers> querySubscriberId(@Param("subscriberId") String subscriberId);
+    List<ModelSubscriptionDai.Subscribers> querySubscriberId(
+            @Param("subscriberId") String subscriberId);
 
     OutsideView selectModelBySet(ZoomOutBySet view);
 

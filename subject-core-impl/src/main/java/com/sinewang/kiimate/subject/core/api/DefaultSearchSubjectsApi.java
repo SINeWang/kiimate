@@ -2,7 +2,7 @@ package com.sinewang.kiimate.subject.core.api;
 
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.model.core.dai.OwnersDai;
+import one.kii.kiimate.model.core.dai.ExtensionProvidersDai;
 import one.kii.kiimate.status.core.dai.AssetDai;
 import one.kii.kiimate.subject.core.api.SearchSubjectsApi;
 import one.kii.summer.beans.utils.ValueMapping;
@@ -23,7 +23,7 @@ import java.util.List;
 public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
 
     @Autowired
-    private OwnersDai ownersDai;
+    private ExtensionProvidersDai extensionProvidersDai;
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
@@ -40,17 +40,17 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
             case EXTENSION:
                 switch (form.getAccessType()) {
                     case OWNER:
-                        OwnersDai.ClueId clue = new OwnersDai.ClueId();
+                        ExtensionProvidersDai.ClueId clue = new ExtensionProvidersDai.ClueId();
                         clue.setId(form.getGroup());
-                        List<OwnersDai.Owners> subjects = ownersDai.queryOwners(clue);
+                        List<ExtensionProvidersDai.Providers> subjects = extensionProvidersDai.queryProviders(clue);
                         return ValueMapping.from(Subjects.class, subjects);
                 }
             case INTENSION:
                 switch (form.getAccessType()) {
                     case OWNER:
-                        OwnersDai.ClueId clue = new OwnersDai.ClueId();
+                        ExtensionProvidersDai.ClueId clue = new ExtensionProvidersDai.ClueId();
                         clue.setId(form.getGroup());
-                        List<OwnersDai.Owners> subjects = ownersDai.queryOwners(clue);
+                        List<ExtensionProvidersDai.Providers> subjects = extensionProvidersDai.queryProviders(clue);
                         return ValueMapping.from(Subjects.class, subjects);
                 }
             case MODEL:

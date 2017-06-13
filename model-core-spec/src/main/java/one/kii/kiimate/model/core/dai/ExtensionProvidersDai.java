@@ -7,10 +7,10 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 08/05/2017.
  */
-public interface OwnersDai {
+public interface ExtensionProvidersDai {
 
 
-    List<Owners> queryOwners(ClueId clue);
+    List<Providers> queryProviders(ClueId clue);
 
     @Data
     class ClueId {
@@ -18,7 +18,7 @@ public interface OwnersDai {
     }
 
     @Data
-    class Owners {
+    class Providers {
         String id;
     }
 }

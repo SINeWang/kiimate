@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sinewang.kiimate.model.core.dai.mapper.OwnersMapper">
+<mapper namespace="com.sinewang.kiimate.model.core.dai.mapper.ExtensionProvidersMapper">
 
-    <resultMap id="Owners" type="one.kii.kiimate.model.core.dai.OwnersDai$Owners">
+    <resultMap id="Owners" type="one.kii.kiimate.model.core.dai.ExtensionProvidersDai$Providers">
         <result column="owner_id" property="id"/>
     </resultMap>
 
     <select id="queryOwners" resultMap="Owners">
         <bind name="ownerId_pattern" value="'%' + ownerId + '%'"/>
         SELECT DISTINCT(owner_id)
-        FROM mm_m_ext m_ext
-        WHERE m_ext.owner_id LIKE #{ownerId_pattern}
+        FROM mm_m_ext mext
+        WHERE mext.owner_id LIKE #{ownerId_pattern}
+        AND mext.end_time IS NULL
     </select>
 </mapper>

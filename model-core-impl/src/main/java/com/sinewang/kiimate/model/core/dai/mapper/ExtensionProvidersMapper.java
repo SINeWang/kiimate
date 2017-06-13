@@ -1,6 +1,6 @@
 package com.sinewang.kiimate.model.core.dai.mapper;
 
-import one.kii.kiimate.model.core.dai.OwnersDai;
+import one.kii.kiimate.model.core.dai.ExtensionProvidersDai;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 @Mapper
-public interface OwnersMapper {
+public interface ExtensionProvidersMapper {
 
-    List<OwnersDai.Owners> queryOwners(@Param("ownerId") String ownerId);
+    List<ExtensionProvidersDai.Providers> queryOwners(@Param("ownerId") String ownerId);
 }
