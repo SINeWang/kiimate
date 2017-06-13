@@ -37,15 +37,7 @@ public interface StatusMapper {
             @Param("name") String name,
             @Param("stability") String stability,
             @Param("version") String version,
-            @Param("beginTime") Date beginTime
-    );
-
-    OutsideView selectLatest(
-            @Param("providerId") String providerId,
-            @Param("group") String group,
-            @Param("name") String name,
-            @Param("stability") String stability,
-            @Param("version") String version
+            @Param("endTime") Date endTime
     );
 
     void revokeStatus(

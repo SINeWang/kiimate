@@ -30,24 +30,9 @@ public class TestRefreshStatusSpi {
     private RefreshStatusSpi refreshStatusSpi;
 
     @Test
-    public void testGntForm() {
-        RefreshStatusSpi.NameForm<Token1> form = new RefreshStatusSpi.NameForm<>();
-        form.setOwnerId("wangyj");
-        form.setGroup("test-token");
-        form.setName("default");
-        form.setTree("master");
-        form.setObject(new Token1());
-        try {
-            refreshStatusSpi.commit(form);
-        } catch (Panic | Forbidden | BadRequest | NotFound | Conflict oops) {
-            oops.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testSubIdForm() {
+    public void testIdForm() {
         RefreshStatusSpi.IdForm<Token2> form = new RefreshStatusSpi.IdForm<>();
-        form.setSubId("48982345f8c901d266ced0cfb6cd471654b2105fd18bbd512d5b266358dcbace");
+        form.setId(2507760519997292545L);
         form.setOwnerId("wangyj");
         form.setObject(new Token2());
         try {

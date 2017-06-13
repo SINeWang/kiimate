@@ -36,14 +36,16 @@ public class TestVisitRawStatusSpi {
     public void test() {
         VisitRawStatusSpi.LatestForm form = new VisitRawStatusSpi.LatestForm();
         form.setName("default");
-        form.setGroup("token");
+        form.setGroup("git.euler.one");
         form.setOwnerId("wangyj");
+        form.setVersion("2");
+        form.setStability("release");
         try {
             Data data = spi.visit(Data.class, form);
             Assert.assertNotNull(data);
             Assert.assertEquals("default", data.getName());
-            Assert.assertEquals("token", data.getGroup());
-            Assert.assertEquals("wangyj", data.getOwnerId());
+            Assert.assertEquals("git.euler.one", data.getGroup());
+            Assert.assertEquals("wangyj", data.getProviderId());
         } catch (BadRequest badRequest) {
             badRequest.printStackTrace();
         } catch (Panic panic) {
@@ -55,37 +57,20 @@ public class TestVisitRawStatusSpi {
 
 
     public static class Data {
-        String pubSet;
-        String ownerId;
-        String visibility;
+
+        String providerId;
         String group;
         String name;
         String stability;
         String version;
         Map<String, Object> map;
 
-        public String getPubSet() {
-            return pubSet;
+        public String getProviderId() {
+            return providerId;
         }
 
-        public void setPubSet(String pubSet) {
-            this.pubSet = pubSet;
-        }
-
-        public String getOwnerId() {
-            return ownerId;
-        }
-
-        public void setOwnerId(String ownerId) {
-            this.ownerId = ownerId;
-        }
-
-        public String getVisibility() {
-            return visibility;
-        }
-
-        public void setVisibility(String visibility) {
-            this.visibility = visibility;
+        public void setProviderId(String providerId) {
+            this.providerId = providerId;
         }
 
         public String getGroup() {

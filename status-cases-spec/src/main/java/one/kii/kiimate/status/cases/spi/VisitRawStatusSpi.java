@@ -10,7 +10,7 @@ import one.kii.summer.io.exception.Panic;
  */
 public interface VisitRawStatusSpi {
 
-    String STABILITY_LATEST = "latest";
+    String STABILITY_RELEASE = "release";
 
     String VERSION_HEAD = "HEAD";
 
@@ -18,8 +18,8 @@ public interface VisitRawStatusSpi {
 
     @Data
     class LatestForm {
-        final String stability = STABILITY_LATEST;
-        final String version = VERSION_HEAD;
+        String stability = STABILITY_RELEASE;
+        String version = VERSION_HEAD;
         String ownerId;
         String group;
         String name;

@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.status.core.ctl.RefreshStatusCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.RefreshInstanceCtl.OWNER_ID;
 
 
 /**
@@ -20,9 +20,9 @@ import static one.kii.kiimate.status.core.ctl.RefreshStatusCtl.OWNER_ID;
  */
 
 @RestController
-@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/status", method = RequestMethod.PUT)
+@RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/instance", method = RequestMethod.PUT)
 @CrossOrigin(origins = "*")
-public class RefreshStatusCtl extends WriteController {
+public class RefreshInstanceCtl extends WriteController {
 
     static final String OWNER_ID = "owner-id";
 

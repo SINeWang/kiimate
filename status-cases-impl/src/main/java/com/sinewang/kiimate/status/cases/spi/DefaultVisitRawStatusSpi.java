@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultVisitRawStatusSpi implements VisitRawStatusSpi {
 
-    private static String URI = "/{owner-id}/raw-asset/{group}/{name}/{stability}/{version}";
+    private static String URI = "/{owner-id}/status/{group}/{name}/{stability}/{version}";
 
     @Value("${kiimate.url}")
     private String url;

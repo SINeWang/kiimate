@@ -37,19 +37,6 @@
         AND spub.end_time IS NULL
         GROUP BY spub.pub_set
     </select>
-    <select id="selectLatest" resultMap="Statuses">
-        SELECT msub.id, spub.pub_set, spub.provider_id, spub.stability, spub.version, spub.begin_time, spub.end_time,
-        msub.group, msub.name
-        FROM km_s_pub spub, mm_m_sub msub
-        WHERE spub.m_sub_id = msub.id
-        AND spub.provider_id = #{providerId}
-        AND msub.group = #{group}
-        AND msub.name = #{name}
-        AND spub.stability = #{stability}
-        AND spub.version = #{version}
-        AND spub.end_time IS NULL
-        GROUP BY spub.pub_set
-    </select>
     <select id="selectLast" resultMap="Statuses">
         SELECT msub.id, spub.pub_set, spub.provider_id, spub.stability, spub.version, spub.begin_time, spub.end_time,
         msub.group, msub.name
@@ -60,10 +47,15 @@
         AND msub.name = #{name}
         AND spub.stability = #{stability}
         AND spub.version = #{version}
-        <![CDATA[
-        AND spub.begin_time <= #{beginTime}
-        AND ((spub.end_time >= #{beginTime}) OR mint.end_time IS NULL)
-        ]]>
+        <if test="endTime != null">
+            <![CDATA[
+            AND spub.end_time >= #{endTime}
+            AND spub.begin_time <= #{endTime}
+            ]]>
+        </if>
+        <if test="endTime == null">
+            AND spub.end_time IS NULL
+        </if>
         GROUP BY spub.pub_set
     </select>
 </mapper>

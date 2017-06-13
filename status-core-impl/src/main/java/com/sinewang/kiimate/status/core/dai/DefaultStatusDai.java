@@ -36,25 +36,14 @@ public class DefaultStatusDai implements StatusDai {
     @Override
     public OutsideView loadDownstream(ZoomOutByName channel) throws Panic, BadRequest {
         NotBadRequest.from(channel);
-        OutsideView statuses;
-        if (channel.getBeginTime() == null) {
-            statuses = statusMapper.selectLatest(
-                    channel.getProviderId(),
-                    channel.getGroup(),
-                    channel.getName(),
-                    channel.getStability(),
-                    channel.getVersion()
-            );
-        } else {
-            statuses = statusMapper.selectLast(
-                    channel.getProviderId(),
-                    channel.getGroup(),
-                    channel.getName(),
-                    channel.getStability(),
-                    channel.getVersion(),
-                    channel.getBeginTime()
-            );
-        }
+        OutsideView statuses = statusMapper.selectLast(
+                channel.getProviderId(),
+                channel.getGroup(),
+                channel.getName(),
+                channel.getStability(),
+                channel.getVersion(),
+                channel.getEndTime());
+
         return NotBadResponse.of(statuses);
     }
 }

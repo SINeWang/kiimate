@@ -32,10 +32,8 @@ public class TestSaveMultiValueStatusSpi {
 
     @Test
     public void test() {
-        RefreshStatusSpi.NameForm nameForm = new RefreshStatusSpi.NameForm();
-        nameForm.setGroup("test-sub-multi-value-group");
-        nameForm.setName("default");
-        nameForm.setTree("master");
+        RefreshStatusSpi.IdForm nameForm = new RefreshStatusSpi.IdForm();
+        nameForm.setId(2507760519997292545L);
         nameForm.setObject(conf);
         try {
             refreshStatusSpi.commit(nameForm);

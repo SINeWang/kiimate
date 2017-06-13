@@ -18,22 +18,13 @@ import java.util.List;
 @Component
 public class DefaultRefreshStatusSpi implements RefreshStatusSpi {
 
-    private static String URI_SUB_ID = "/{ownerId}/status/{sub-id}";
-
-    private static String URI_SUB_GNT = "/{ownerId}/status/{group}/{name}/{tree}";
+    private static String URI_SUB_ID = "/{ownerId}/instance/{sub-id}";
 
     @Value("${kiimate.url}")
     private String url;
 
     @Value("${kiimate.operator-id}")
     private String operatorId;
-
-    @Override
-    public void commit(NameForm form) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        extractAsMap(form.getObject(), map);
-        saveInstance(form, map);
-    }
 
     @Override
     public void commit(IdForm form) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
@@ -86,15 +77,10 @@ public class DefaultRefreshStatusSpi implements RefreshStatusSpi {
         }
     }
 
-    private void saveInstance(NameForm form, MultiValueMap<String, String> map) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
-        String urlTemplate = url + URI_SUB_GNT;
-        ErestPut put = new ErestPut(operatorId);
-        put.execute(urlTemplate, map, null, form.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
-    }
 
     private void saveInstance(IdForm form, MultiValueMap<String, String> map) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
         String urlTemplate = url + URI_SUB_ID;
         ErestPut put = new ErestPut(operatorId);
-        put.execute(urlTemplate, map, null, form.getOwnerId(), form.getSubId());
+        put.execute(urlTemplate, map, null, form.getOwnerId(), form.getId());
     }
 }
