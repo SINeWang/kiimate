@@ -46,13 +46,13 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
 
         ZoomInByName channel = ValueMapping.from(ZoomInByName.class, assets);
 
-        InsideView modelPubSet = modelSubscriptionDai.getModelPubSetByXyz(channel);
+        InsideView modelSub = modelSubscriptionDai.loadModelSubByName(channel);
 
-        ZoomInById instanceChannel = ValueMapping.from(ZoomInById.class, modelPubSet);
+        ZoomInById instanceChannel = ValueMapping.from(ZoomInById.class, modelSub);
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(instanceChannel);
 
-        return instanceTransformer.toRawValue(records, modelPubSet);
+        return instanceTransformer.toRawValue(records, modelSub);
     }
 
 }

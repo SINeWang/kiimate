@@ -22,7 +22,7 @@ public interface SearchSubscriptionsApi extends SearchApi<SearchSubscriptionsApi
 
         String id;
 
-        String subSet;
+        String set;
 
         String subscriberId;
 

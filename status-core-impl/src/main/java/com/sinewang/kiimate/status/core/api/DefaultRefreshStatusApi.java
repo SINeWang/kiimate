@@ -55,7 +55,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
     public Receipt commit(WriteContext context, SubIdForm form) throws BadRequest, Conflict, NotFound, Panic {
         ZoomInById channel = ValueMapping.from(ZoomInById.class, context, form);
 
-        InsideView model = modelSubscriptionDai.getModelPubSetByStatusId(channel);
+        InsideView model = modelSubscriptionDai.loadModelSubById(channel);
 
 
         IntensionDai.ChannelExtensionId lastExtension = new IntensionDai.ChannelExtensionId();

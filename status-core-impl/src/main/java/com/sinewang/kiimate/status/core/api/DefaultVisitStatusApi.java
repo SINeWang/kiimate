@@ -52,7 +52,7 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         ZoomInById id = ValueMapping.from(ZoomInById.class, outside);
         id.setSubscriberId(outside.getProviderId());
 
-        InsideView modelPubSet = modelSubscriptionDai.getModelPubSetByStatusId(id);
+        InsideView modelPubSet = modelSubscriptionDai.loadModelSubById(id);
         id.setBeginTime(outside.getBeginTime());
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(id);

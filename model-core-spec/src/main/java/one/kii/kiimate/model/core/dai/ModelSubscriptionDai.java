@@ -21,9 +21,9 @@ public interface ModelSubscriptionDai {
     @Transactional
     void remember(Instance instance) throws Conflict;
 
-    InsideView getModelPubSetByStatusId(ZoomInById channel) throws Panic;
+    InsideView loadModelSubById(ZoomInById channel) throws Panic;
 
-    InsideView getModelPubSetByXyz(ZoomInByName channel) throws Panic;
+    InsideView loadModelSubByName(ZoomInByName channel) throws Panic;
 
     OutsideView selectModelBySet(ZoomOutBySet channel) throws Panic;
 

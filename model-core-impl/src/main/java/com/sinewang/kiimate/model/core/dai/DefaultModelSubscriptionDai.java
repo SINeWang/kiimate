@@ -48,7 +48,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public InsideView getModelPubSetByStatusId(ZoomInById channel) throws Panic {
+    public InsideView loadModelSubById(ZoomInById channel) throws Panic {
         InsideView record = modelSubscriptionMapper.selectModelPubSetByStatusId(
                 channel.getSubscriberId(),
                 channel.getId()
@@ -57,7 +57,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public InsideView getModelPubSetByXyz(ZoomInByName channel) throws Panic {
+    public InsideView loadModelSubByName(ZoomInByName channel) throws Panic {
         InsideView record = modelSubscriptionMapper.selectModelPubSetByGroupNameTree(
                 channel.getSubscriberId(),
                 channel.getGroup(),

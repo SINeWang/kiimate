@@ -43,7 +43,7 @@ public class DefaultVisitInstanceApi implements VisitInstanceApi {
         List<InstanceDai.Record> instances = instanceDai.loadInstances(form);
         ZoomInById statusId = ValueMapping.from(ZoomInById.class, context, form);
 
-        InsideView model = modelSubscriptionDai.getModelPubSetByStatusId(statusId);
+        InsideView model = modelSubscriptionDai.loadModelSubById(statusId);
         Instance instance = ValueMapping.from(Instance.class, model);
 
         IntensionDai.ChannelPubSet set = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
