@@ -64,18 +64,8 @@ public class DefaultIntensionDai implements IntensionDai {
     @Override
     public List<Record> loadLast(ChannelPubSet channel) throws BadRequest, Panic {
         NotBadRequest.from(channel);
-        List<String> fields = intensionMapper.selectLastFieldsByExtIdPubSet(
-                channel.getExtId(),
-                channel.getPubSet(),
-                channel.getBeginTime(),
-                channel.getEndTime());
-        List<Record> records = new ArrayList<>();
-        for (String field : fields) {
-            Record record = intensionMapper.selectLastIntensionByExtIdField(
-                    channel.getExtId(),
-                    field);
-            records.add(record);
-        }
+        List<Record> records = intensionMapper.selectLastIntensionBySet(
+                channel.getSet());
         return NotBadResponse.of(records);
     }
 

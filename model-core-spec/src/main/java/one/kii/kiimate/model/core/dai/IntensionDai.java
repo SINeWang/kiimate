@@ -48,14 +48,7 @@ public interface IntensionDai {
     @Data
     class ChannelPubSet {
 
-        Long extId;
-
-        Long pubSet;
-
-        Date beginTime;
-
-        @MayHave
-        Date endTime;
+        Long set;
 
     }
 

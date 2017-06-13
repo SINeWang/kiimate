@@ -47,8 +47,8 @@ public class DefaultVisitInstanceApi implements VisitInstanceApi {
         Instance instance = ValueMapping.from(Instance.class, model);
 
         IntensionDai.ChannelPubSet set = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
-        set.setPubSet(model.getSet());
-        set.setExtId(model.getRootId());
+        set.setSet(model.getSet());
+
         List<IntensionDai.Record> records = intensionDai.loadLast(set);
         List<Intension> intensions = ValueMapping.from(Intension.class, records);
 

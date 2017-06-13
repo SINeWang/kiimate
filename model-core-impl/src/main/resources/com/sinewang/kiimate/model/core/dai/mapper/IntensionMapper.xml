@@ -42,13 +42,11 @@
         LIMIT 0,1
     </select>
 
-    <select id="selectLastIntensionByExtIdField" resultMap="Intension">
+    <select id="selectLastIntensionBySet" resultMap="Intension">
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
-        FROM mm_m_int mint
-        WHERE mint.ext_id = #{extId}
-        AND mint.field = #{field}
-        ORDER BY mint.begin_time DESC
-        LIMIT 0,1
+        FROM mm_m_int mint, mm_m_pub mpub
+        WHERE mpub.pub_set = #{set}
+        AND mint.id = mpub.int_id
     </select>
 
     <select id="selectLatestIntensionByExtIdField" resultMap="Intension">
@@ -57,23 +55,6 @@
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
         AND mint.end_time IS NULL
-    </select>
-    <select id="selectLastFieldsByExtIdPubSet" resultType="java.lang.String">
-        SELECT mint.field
-        FROM mm_m_int mint, mm_m_pub mpub
-        WHERE mpub.pub_set = #{pubSet}
-        AND mpub.ext_id = mint.ext_id
-        AND mpub.int_id = mint.id
-        AND mint.ext_id = #{extId}
-        <if test="endTime != null">
-            <![CDATA[
-            AND mint.end_time >= #{endTime}
-            ]]>
-        </if>
-        <if test="endTime == null">
-            AND ((mint.end_time >= #{beginTime}) OR mint.end_time IS NULL)
-        </if>
-        GROUP BY mint.field
     </select>
     <select id="selectIntensionByConflictKey" resultMap="Intension">
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time

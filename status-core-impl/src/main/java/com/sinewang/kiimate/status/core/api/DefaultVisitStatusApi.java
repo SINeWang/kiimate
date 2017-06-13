@@ -58,8 +58,8 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         List<InstanceDai.Record> records = instanceDai.loadInstances(id);
 
         IntensionDai.ChannelPubSet pubSet = ValueMapping.from(IntensionDai.ChannelPubSet.class, modelPubSet);
-        pubSet.setPubSet(modelPubSet.getSet());
-        pubSet.setExtId(modelPubSet.getRootId());
+        pubSet.setSet(modelPubSet.getSet());
+
         List<IntensionDai.Record> intensionList = intensionDai.loadLast(pubSet);
 
         List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
