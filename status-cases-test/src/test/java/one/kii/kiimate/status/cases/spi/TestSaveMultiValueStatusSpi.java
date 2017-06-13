@@ -21,9 +21,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang.statemate")
-@SpringBootTest(classes = {TestSaveMultiValueStateSpi.class})
+@SpringBootTest(classes = {TestSaveMultiValueStatusSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class TestSaveMultiValueStateSpi {
+public class TestSaveMultiValueStatusSpi {
 
     private ThisIsAMultiValueSpringBootConfiguration conf = new ThisIsAMultiValueSpringBootConfiguration();
 
@@ -32,13 +32,13 @@ public class TestSaveMultiValueStateSpi {
 
     @Test
     public void test() {
-        RefreshStatusSpi.GroupNameTreeForm groupNameTreeForm = new RefreshStatusSpi.GroupNameTreeForm();
-        groupNameTreeForm.setGroup("test-sub-multi-value-group");
-        groupNameTreeForm.setName("default");
-        groupNameTreeForm.setTree("master");
-        groupNameTreeForm.setObject(conf);
+        RefreshStatusSpi.NameForm nameForm = new RefreshStatusSpi.NameForm();
+        nameForm.setGroup("test-sub-multi-value-group");
+        nameForm.setName("default");
+        nameForm.setTree("master");
+        nameForm.setObject(conf);
         try {
-            refreshStatusSpi.commit(groupNameTreeForm);
+            refreshStatusSpi.commit(nameForm);
         } catch (Panic | Forbidden | BadRequest | NotFound | Conflict oops) {
             oops.printStackTrace();
         }

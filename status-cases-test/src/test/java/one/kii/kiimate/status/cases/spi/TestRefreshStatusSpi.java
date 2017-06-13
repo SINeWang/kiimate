@@ -21,9 +21,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang")
-@SpringBootTest(classes = {TestRefreshStateSpi.class})
+@SpringBootTest(classes = {TestRefreshStatusSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class TestRefreshStateSpi {
+public class TestRefreshStatusSpi {
 
 
     @Autowired
@@ -31,7 +31,7 @@ public class TestRefreshStateSpi {
 
     @Test
     public void testGntForm() {
-        RefreshStatusSpi.GroupNameTreeForm<Token1> form = new RefreshStatusSpi.GroupNameTreeForm<>();
+        RefreshStatusSpi.NameForm<Token1> form = new RefreshStatusSpi.NameForm<>();
         form.setOwnerId("wangyj");
         form.setGroup("test-token");
         form.setName("default");
@@ -46,7 +46,7 @@ public class TestRefreshStateSpi {
 
     @Test
     public void testSubIdForm() {
-        RefreshStatusSpi.SubIdForm<Token2> form = new RefreshStatusSpi.SubIdForm<>();
+        RefreshStatusSpi.IdForm<Token2> form = new RefreshStatusSpi.IdForm<>();
         form.setSubId("48982345f8c901d266ced0cfb6cd471654b2105fd18bbd512d5b266358dcbace");
         form.setOwnerId("wangyj");
         form.setObject(new Token2());

@@ -29,14 +29,14 @@ public class DefaultRefreshStatusSpi implements RefreshStatusSpi {
     private String operatorId;
 
     @Override
-    public void commit(GroupNameTreeForm form) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
+    public void commit(NameForm form) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         extractAsMap(form.getObject(), map);
         saveInstance(form, map);
     }
 
     @Override
-    public void commit(SubIdForm form) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
+    public void commit(IdForm form) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         extractAsMap(form.getObject(), map);
         saveInstance(form, map);
@@ -86,13 +86,13 @@ public class DefaultRefreshStatusSpi implements RefreshStatusSpi {
         }
     }
 
-    private void saveInstance(GroupNameTreeForm form, MultiValueMap<String, String> map) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
+    private void saveInstance(NameForm form, MultiValueMap<String, String> map) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
         String urlTemplate = url + URI_SUB_GNT;
         ErestPut put = new ErestPut(operatorId);
         put.execute(urlTemplate, map, null, form.getOwnerId(), form.getGroup(), form.getName(), form.getTree());
     }
 
-    private void saveInstance(SubIdForm form, MultiValueMap<String, String> map) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
+    private void saveInstance(IdForm form, MultiValueMap<String, String> map) throws Panic, Conflict, BadRequest, NotFound, Forbidden {
         String urlTemplate = url + URI_SUB_ID;
         ErestPut put = new ErestPut(operatorId);
         put.execute(urlTemplate, map, null, form.getOwnerId(), form.getSubId());

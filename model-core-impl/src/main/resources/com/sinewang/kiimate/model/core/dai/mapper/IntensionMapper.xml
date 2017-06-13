@@ -39,7 +39,6 @@
             AND mint.end_time IS NULL
         </if>
         ORDER BY mint.begin_time DESC
-        LIMIT 0,1
     </select>
 
     <select id="selectLastIntensionBySet" resultMap="Intension">

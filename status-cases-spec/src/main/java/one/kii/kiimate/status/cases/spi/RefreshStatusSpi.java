@@ -11,12 +11,12 @@ public interface RefreshStatusSpi {
 
     String TREE_MASTER = "master";
 
-    <T> void commit(GroupNameTreeForm<T> form) throws Panic, Conflict, BadRequest, NotFound, Forbidden;
+    <T> void commit(NameForm<T> form) throws Panic, Conflict, BadRequest, NotFound, Forbidden;
 
-    <T> void commit(SubIdForm<T> form) throws Panic, Conflict, BadRequest, NotFound, Forbidden;
+    <T> void commit(IdForm<T> form) throws Panic, Conflict, BadRequest, NotFound, Forbidden;
 
     @Data
-    class GroupNameTreeForm<T> {
+    class NameForm<T> {
         String ownerId;
         String group;
         String name;
@@ -25,7 +25,7 @@ public interface RefreshStatusSpi {
     }
 
     @Data
-    class SubIdForm<T> {
+    class IdForm<T> {
         String ownerId;
         String subId;
         T object;

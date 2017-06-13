@@ -23,7 +23,7 @@ public interface IntensionMapper {
             @Param("field") String field,
             @Param("single") Boolean single,
             @Param("structure") String structure,
-            @Param("refPubSet") Long refPubSet,
+            @Param("refSet") Long refSet,
             @Param("visibility") String visibility,
             @Param("required") Boolean required,
             @Param("operatorId") String operatorId,
