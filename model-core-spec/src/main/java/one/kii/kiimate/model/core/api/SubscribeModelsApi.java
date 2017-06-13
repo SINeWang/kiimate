@@ -20,7 +20,7 @@ public interface SubscribeModelsApi extends CommitApi<SubscribeModelsApi.Receipt
     @Data
     @EqualsAndHashCode(callSuper = false)
     class Form {
-        private Long subSet;
+        private Long set;
         private String group;
         private String name;
         private String tree = TREE_MASTER;
@@ -30,7 +30,7 @@ public interface SubscribeModelsApi extends CommitApi<SubscribeModelsApi.Receipt
     @EqualsAndHashCode(callSuper = false)
     class Receipt {
         private String id;
-        private String subSet;
+        private String set;
         private String subscriberId;
         private String group;
         private String name;

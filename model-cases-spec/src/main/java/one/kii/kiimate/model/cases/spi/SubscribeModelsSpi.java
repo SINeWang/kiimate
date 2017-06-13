@@ -15,13 +15,13 @@ public interface SubscribeModelsSpi {
         String subscriberId;
         String group;
         String name;
-        String pubSet;
+        Long set;
     }
 
     @Data
     class Receipt {
         private String id;
-        private String subSet;
+        private String set;
         private String subscriberId;
         private String group;
         private String name;

@@ -36,7 +36,7 @@ public class TestSubscribeModelsSpi {
         form.setSubscriberId("wangyj");
         form.setGroup("test-token");
         form.setName("default");
-        form.setPubSet("33df86613e40cadbb399e9e4ef478108fd1a7b17b5b325cc8ca809acaf2c1850");
+        form.setSet(10000L);
         SubscribeModelsSpi.Receipt receipt = null;
         try {
             receipt = subscribeModelsSpi.commit(form);

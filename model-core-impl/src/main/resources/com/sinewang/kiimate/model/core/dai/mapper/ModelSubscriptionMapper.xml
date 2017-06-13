@@ -6,7 +6,7 @@
 
     <resultMap id="Subscription" type="one.kii.kiimate.model.core.dai.ModelSubscriptionDai$Instance">
         <result column="id" property="id"/>
-        <result column="sub_set" property="subSet"/>
+        <result column="sub_set" property="set"/>
         <result column="subscriber_id" property="subscriberId"/>
         <result column="group" property="group"/>
         <result column="name" property="name"/>

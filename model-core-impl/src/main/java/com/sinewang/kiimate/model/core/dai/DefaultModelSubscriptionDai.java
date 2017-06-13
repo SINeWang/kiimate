@@ -37,7 +37,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
         }
         modelSubscriptionMapper.insertSubscription(
                 instance.getId(),
-                instance.getSubSet(),
+                instance.getSet(),
                 instance.getSubscriberId(),
                 instance.getGroup(),
                 instance.getName(),

@@ -57,7 +57,7 @@ public interface ModelSubscriptionDai {
         private Long id;
 
         @Unique
-        private Long subSet;
+        private Long set;
 
         @Unique
         private String subscriberId;

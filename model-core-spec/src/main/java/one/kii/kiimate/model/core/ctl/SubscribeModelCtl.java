@@ -28,7 +28,7 @@ public class SubscribeModelCtl extends WriteController {
     private SubscribeModelsApi api;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<SubscribeModelsApi.Receipt> commitForm(
+    public ResponseEntity<?> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -37,7 +37,7 @@ public class SubscribeModelCtl extends WriteController {
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<SubscribeModelsApi.Receipt> commitJson(
+    public ResponseEntity<?> commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -45,7 +45,7 @@ public class SubscribeModelCtl extends WriteController {
         return commit(requestId, operatorId, ownerId, form);
     }
 
-    private ResponseEntity<SubscribeModelsApi.Receipt> commit(
+    private ResponseEntity<?> commit(
             String requestId,
             String operatorId,
             String ownerId,
