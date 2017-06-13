@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     @Override
     public List<InstanceDai.Instance> extract(WriteContext context, RefreshStatusApi.SubIdForm form, Map<String, IntensionDai.Record> fieldDict) {
         List<InstanceDai.Instance> instances = new ArrayList<>();
-
+        Date now = new Date();
         Map<String, List<String>> map = form.getMap();
         for (String field : map.keySet()) {
             String dictField = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, field);
@@ -49,6 +50,7 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
             instance.setIntId(intId);
             instance.setField(dictField);
             instance.setValues(values);
+            instance.setBeginTime(now);
             instance.setCommit(HashTools.hashHex(instance));
             instances.add(instance);
         }

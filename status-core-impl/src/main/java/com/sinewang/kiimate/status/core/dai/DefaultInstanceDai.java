@@ -136,7 +136,8 @@ public class DefaultInstanceDai implements InstanceDai {
         List<Record> records = instanceMapper.selectLastInstancesByStatusId(
                 channel.getSubscriberId(),
                 channel.getId(),
-                channel.getBeginTime()
+                channel.getBeginTime(),
+                channel.getEndTime()
         );
         return NotBadResponse.of(records);
     }

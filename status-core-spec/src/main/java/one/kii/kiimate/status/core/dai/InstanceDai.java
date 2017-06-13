@@ -1,6 +1,7 @@
 package one.kii.kiimate.status.core.dai;
 
 import lombok.Data;
+import one.kii.summer.beans.annotations.Commit;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
@@ -52,6 +53,9 @@ public interface InstanceDai {
 
         private Date beginTime;
 
+        @MayHave
+        private Date endTime;
+
     }
 
     @Data
@@ -61,28 +65,40 @@ public interface InstanceDai {
 
         private String commit;
 
+        @Commit
         private String ownerId;
 
+        @Commit
         private Long subId;
 
+        @Commit
         private Long extId;
 
+        @Commit
         private Long intId;
 
+        @Commit
         private String field;
 
+        @Commit
         private String[] values;
 
+        @Commit
         private Long valueSet;
 
+        @Commit
         private String valueRefPolicy;
 
+        @Commit
         private String valueRefId;
 
+        @Commit
         private String operatorId;
 
+        @Commit
         private Date beginTime;
 
+        @Commit
         @MayHave
         private Date endTime;
 

@@ -40,18 +40,19 @@ public class DefaultVisitInstanceApi implements VisitInstanceApi {
     @Override
     public Instance visit(ReadContext context, ZoomInById form) throws BadRequest, NotFound, Panic {
 
-        List<InstanceDai.Record> records = instanceDai.loadInstances(form);
+        List<InstanceDai.Record> instances = instanceDai.loadInstances(form);
         ZoomInById statusId = ValueMapping.from(ZoomInById.class, context, form);
 
         InsideView model = modelSubscriptionDai.getModelPubSetByStatusId(statusId);
         Instance instance = ValueMapping.from(Instance.class, model);
 
-        IntensionDai.ChannelExtensionId rootExtension = ValueMapping.from(IntensionDai.ChannelExtensionId.class, model);
-        rootExtension.setId(model.getRootId());
-        List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);
-        List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
+        IntensionDai.ChannelPubSet set = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
+        set.setPubSet(model.getSet());
+        set.setExtId(model.getRootId());
+        List<IntensionDai.Record> records = intensionDai.loadLast(set);
+        List<Intension> intensions = ValueMapping.from(Intension.class, records);
 
-        Map<String, Object> map = instanceTransformer.toTimedValue(records, model);
+        Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);
         instance.setIntensions(intensions);
         instance.setMap(map);
         return NotBadResponse.of(instance);

@@ -35,7 +35,8 @@ public interface IntensionMapper {
 
     List<IntensionDai.Record> selectLastIntensionsByExtId(
             @Param("extId") Long extId,
-            @Param("beginTime") Date beginTime);
+            @Param("beginTime") Date beginTime,
+            @Param("endTime") Date endTime);
 
 
     IntensionDai.Record selectLastIntensionByExtIdField(
@@ -52,7 +53,8 @@ public interface IntensionMapper {
     List<String> selectLastFieldsByExtIdPubSet(
             @Param("extId") Long extId,
             @Param("pubSet") Long pubSet,
-            @Param("beginTime") Date beginTime);
+            @Param("beginTime") Date beginTime,
+            @Param("endTime") Date endTime);
 
     void updateLatestIntensionEndTimeById(
             @Param("id") Long id,

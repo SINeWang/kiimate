@@ -41,7 +41,8 @@ public class DefaultVisitModelApi implements VisitModelApi {
         ExtensionDai.Record record = extensionDai.loadLast(channelSet);
 
         IntensionDai.ChannelExtensionId extensionId = new IntensionDai.ChannelExtensionId();
-        extensionId.setBeginTime(record.getEndTime());
+        extensionId.setBeginTime(record.getBeginTime());
+        extensionId.setEndTime(record.getEndTime());
         extensionId.setId(record.getId());
 
         List<IntensionDai.Record> recordList = intensionDai.loadLast(extensionId);

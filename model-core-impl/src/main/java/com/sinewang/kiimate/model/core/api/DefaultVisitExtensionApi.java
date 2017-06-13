@@ -41,7 +41,8 @@ public class DefaultVisitExtensionApi implements VisitExtensionApi {
         Receipt receipt = ValueMapping.from(Receipt.class, record);
 
         IntensionDai.ChannelExtensionId latest = ValueMapping.from(IntensionDai.ChannelExtensionId.class, record);
-        latest.setBeginTime(record.getEndTime());
+        latest.setBeginTime(record.getBeginTime());
+        latest.setEndTime(record.getEndTime());
         List<IntensionDai.Record> records = intensionDai.loadLast(latest);
 
         List<Intension> intensions = ValueMapping.from(Intension.class, records);

@@ -15,34 +15,39 @@ import java.util.List;
 public interface InstanceMapper {
 
 
-    void insertInstance(@Param("id") Long id,
-                        @Param("commit") String commit,
-                        @Param("ownerId") String ownerId,
-                        @Param("subId") Long subId,
-                        @Param("extId") Long extId,
-                        @Param("intId") Long intId,
-                        @Param("field") String field,
-                        @Param("value") String value,
-                        @Param("valueSet") Long valueSet,
-                        @Param("valueRefId") String valueRefId,
-                        @Param("valueRefPolicy") String valueRefPolicy,
-                        @Param("operatorId") String operatorId,
-                        @Param("beginTime") Date beginTime);
+    void insertInstance(
+            @Param("id") Long id,
+            @Param("commit") String commit,
+            @Param("ownerId") String ownerId,
+            @Param("subId") Long subId,
+            @Param("extId") Long extId,
+            @Param("intId") Long intId,
+            @Param("field") String field,
+            @Param("value") String value,
+            @Param("valueSet") Long valueSet,
+            @Param("valueRefId") String valueRefId,
+            @Param("valueRefPolicy") String valueRefPolicy,
+            @Param("operatorId") String operatorId,
+            @Param("beginTime") Date beginTime);
 
     List<InstanceDai.Record> selectLastInstancesByStatusId(
             @Param("subscriberId") String subscriberId,
             @Param("subId") Long subId,
-            @Param("beginTime") Date beginTime);
+            @Param("beginTime") Date beginTime,
+            @Param("endTime") Date endTime);
 
-    List<InstanceDai.Record> selectLatestInstanceBySubIdIntId(@Param("subId") Long subId,
-                                                              @Param("intId") Long intId);
+    List<InstanceDai.Record> selectLatestInstanceBySubIdIntId(
+            @Param("subId") Long subId,
+            @Param("intId") Long intId);
 
-    void updateInstanceEndTimeBySubIdIntId(@Param("subId") Long subId,
-                                           @Param("intId") Long intId,
-                                           @Param("endTime") Date endTime);
+    void updateInstanceEndTimeBySubIdIntId(
+            @Param("subId") Long subId,
+            @Param("intId") Long intId,
+            @Param("endTime") Date endTime);
 
-    void deleteInstanceByOwnerId(@Param("ownerId") String ownerId,
-                                 @Param("subId") Long subId);
+    void deleteInstanceByOwnerId(
+            @Param("ownerId") String ownerId,
+            @Param("subId") Long subId);
 
 
 }

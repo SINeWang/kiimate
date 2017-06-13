@@ -15,7 +15,6 @@ import org.springframework.util.MultiValueMap;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by WangYanJiong on 3/27/17.
@@ -55,14 +54,10 @@ public class DefaultIntensionDai implements IntensionDai {
     @Override
     public List<Record> loadLast(ChannelExtensionId channel) throws BadRequest, Panic {
         NotBadRequest.from(channel);
-        List<Record> records;
-        if (channel.getBeginTime() == null) {
-            records = intensionMapper.selectLatestIntensionsByExtId(channel.getId());
-        } else {
-            records = intensionMapper.selectLastIntensionsByExtId(
-                    channel.getId(),
-                    channel.getBeginTime());
-        }
+        List<Record> records = intensionMapper.selectLastIntensionsByExtId(
+                channel.getId(),
+                channel.getBeginTime(),
+                channel.getEndTime());
         return NotBadResponse.of(records);
     }
 
@@ -72,7 +67,8 @@ public class DefaultIntensionDai implements IntensionDai {
         List<String> fields = intensionMapper.selectLastFieldsByExtIdPubSet(
                 channel.getExtId(),
                 channel.getPubSet(),
-                channel.getBeginTime());
+                channel.getBeginTime(),
+                channel.getEndTime());
         List<Record> records = new ArrayList<>();
         for (String field : fields) {
             Record record = intensionMapper.selectLastIntensionByExtIdField(

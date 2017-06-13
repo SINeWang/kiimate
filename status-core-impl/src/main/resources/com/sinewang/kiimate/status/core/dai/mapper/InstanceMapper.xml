@@ -18,26 +18,27 @@
         <result column="value_ref_policy" property="valueRefPolicy"/>
         <result column="operator_id" property="operatorId"/>
         <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
     </resultMap>
 
     <select id="selectLastInstancesByStatusId" resultMap="Instance">
-        SELECT mins.id, mins.commit, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_id, mins.value_ref_policy, mins.operator_id, mins.begin_time
+        SELECT mins.id, mins.commit, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_id, mins.value_ref_policy, mins.operator_id, mins.begin_time, mins.end_time
         FROM mm_i_ins mins, mm_m_sub msub
         WHERE msub.id = #{subId}
         AND msub.subscriber_id = #{subscriberId}
         AND mins.sub_id = msub.id
-        <if test="beginTime != null">
+        <if test="endTime != null and beginTime != null">
             <![CDATA[
             AND mins.begin_time <= #{beginTime}
             AND ((mins.end_time >= #{beginTime}) OR mins.end_time IS NULL)
             ]]>
         </if>
-        <if test="beginTime == null">
+        <if test="endTime == null">
             AND mins.end_time IS NULL
         </if>
     </select>
     <select id="selectLatestInstanceBySubIdIntId" resultMap="Instance">
-        SELECT mins.id, mins.commit, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_id, mins.value_ref_policy, mins.operator_id, mins.begin_time
+        SELECT mins.id, mins.commit, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_id, mins.value_ref_policy, mins.operator_id, mins.begin_time, mins.end_time
         FROM mm_i_ins mins
         WHERE mins.sub_id = #{subId}
         AND mins.int_id = #{intId}

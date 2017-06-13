@@ -30,10 +30,16 @@
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time,  mint.begin_time, mint.end_time
         FROM mm_m_int mint
         WHERE mint.ext_id = #{extId}
-        <![CDATA[
-        AND mint.begin_time <= #{beginTime}
-        AND ((mint.end_time >= #{beginTime}) OR mint.end_time IS NULL)
-        ]]>
+        <if test="endTime != null">
+            <![CDATA[
+            AND mint.end_time >= #{endTime}
+            ]]>
+        </if>
+        <if test="endTime == null">
+            AND mint.end_time IS NULL
+        </if>
+        ORDER BY mint.begin_time DESC
+        LIMIT 0,1
     </select>
 
     <select id="selectLastIntensionByExtIdField" resultMap="Intension">
@@ -59,10 +65,14 @@
         AND mpub.ext_id = mint.ext_id
         AND mpub.int_id = mint.id
         AND mint.ext_id = #{extId}
-        <![CDATA[
-        AND mint.begin_time <= #{beginTime}
-        AND ((mint.end_time >= #{beginTime}) OR mint.end_time IS NULL)
-        ]]>
+        <if test="endTime != null">
+            <![CDATA[
+            AND mint.end_time >= #{endTime}
+            ]]>
+        </if>
+        <if test="endTime == null">
+            AND ((mint.end_time >= #{beginTime}) OR mint.end_time IS NULL)
+        </if>
         GROUP BY mint.field
     </select>
     <select id="selectIntensionByConflictKey" resultMap="Intension">

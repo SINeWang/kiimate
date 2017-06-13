@@ -40,6 +40,9 @@ public interface IntensionDai {
 
         @MayHave
         Date beginTime;
+
+        @MayHave
+        Date endTime;
     }
 
     @Data
@@ -50,6 +53,9 @@ public interface IntensionDai {
         Long pubSet;
 
         Date beginTime;
+
+        @MayHave
+        Date endTime;
 
     }
 

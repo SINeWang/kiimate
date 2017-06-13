@@ -117,7 +117,7 @@
 
     <select id="selectModelBySet" resultMap="OutsideView">
         SELECT mext.id, mpub.pub_set, mpub.provider_id, mext.group, mext.name, mpub.stability, mpub.version, mpub.begin_time, mpub.end_time
-        FROM mm_m_pub mpub, mm_m_sub msub, mm_m_ext mext
+        FROM mm_m_pub mpub, mm_m_ext mext
         WHERE mext.id = mpub.ext_id
         AND mpub.provider_id = #{providerId}
         AND mpub.pub_set = #{set}

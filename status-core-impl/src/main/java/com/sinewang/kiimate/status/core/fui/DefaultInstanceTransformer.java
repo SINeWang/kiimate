@@ -91,38 +91,38 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
 
 
     private Map<String, Object> parseTimed(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Record>> dict) throws Panic, BadRequest {
-        List<IntensionDai.Record> records = intensionDai.loadLast(pubSet);
+        List<IntensionDai.Record> intensions = intensionDai.loadLast(pubSet);
         Map<String, Object> result = new HashMap<>();
-        for (IntensionDai.Record record : records) {
-            if (record.getSingle()) {
-                if (record.getRefSet() != null) {
+        for (IntensionDai.Record intension : intensions) {
+            if (intension.getSingle()) {
+                if (intension.getRefSet() != null) {
                     IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
-                    refPubSet.setPubSet(record.getRefSet());
+                    refPubSet.setPubSet(intension.getRefSet());
                     Map<String, Object> child = parseTimed(refPubSet, dict);
                     if (!child.isEmpty()) {
-                        result.put(record.getField(), child);
+                        result.put(intension.getField(), child);
                     }
                 } else {
-                    List<InstanceDai.Record> instances = dict.get(record.getField());
+                    List<InstanceDai.Record> instances = dict.get(intension.getField());
                     if (instances != null && !instances.isEmpty()) {
-                        Object value = dict.get(record.getField()).get(0).getValue();
+                        Object value = dict.get(intension.getField()).get(0).getValue();
                         if (value != null) {
                             TimedValue tv = new TimedValue();
                             tv.setValue(value);
-                            tv.setTime(dict.get(record.getField()).get(0).getBeginTime());
-                            result.put(record.getField(), tv);
+                            tv.setTime(dict.get(intension.getField()).get(0).getBeginTime());
+                            result.put(intension.getField(), tv);
                         }
                     }
                 }
             } else {
-                if (record.getRefSet() != null) {
+                if (intension.getRefSet() != null) {
                     IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
-                    refPubSet.setPubSet(record.getRefSet());
+                    refPubSet.setPubSet(intension.getRefSet());
 
                     Map<String, Object> child = parseTimed(refPubSet, dict);
-                    addComplexValueToList(result, record, child);
+                    addComplexValueToList(result, intension, child);
                 } else {
-                    List<InstanceDai.Record> instances = dict.get(record.getField());
+                    List<InstanceDai.Record> instances = dict.get(intension.getField());
                     if (instances != null && !instances.isEmpty()) {
                         for (InstanceDai.Record instance : instances) {
                             if (instance.getValue() != null) {
@@ -131,7 +131,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                                 tv.setValue(v);
                                 tv.setTime(instance.getBeginTime());
                                 result.computeIfAbsent(instance.getField(), key -> new ArrayList<>());
-                                List values = (List) result.get(record.getField());
+                                List values = (List) result.get(intension.getField());
                                 values.add(tv);
                             }
                         }
