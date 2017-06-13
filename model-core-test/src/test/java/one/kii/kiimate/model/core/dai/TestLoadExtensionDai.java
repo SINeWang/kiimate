@@ -19,6 +19,7 @@ import org.springframework.test.context.BootstrapWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by WangYanJiong on 12/06/2017.
@@ -39,16 +40,14 @@ public class TestLoadExtensionDai {
     @Autowired
     private ExtensionDai dai;
     private ExtensionDai.Record normalRecord;
-    private Long ID = 100000L;
+    private AtomicLong ID = new AtomicLong(1000L);
 
     @Before
     public void before() {
         normalRecord = new ExtensionDai.Record();
-        normalRecord.setBeginTime(new Date());
         normalRecord.setEndTime(null);
         normalRecord.setGroup(TEST_GROUP);
         normalRecord.setName(TEST_NAME);
-        normalRecord.setId(ID);
         normalRecord.setOperatorId("testOperator");
         normalRecord.setVisibility("testVisibility");
         normalRecord.setOwnerId(TEST_OWNER);
@@ -59,23 +58,29 @@ public class TestLoadExtensionDai {
 
     @Test
     public void testLoadById() throws BadRequest, Panic, Conflict, NotFound {
+        Long id1 = ID.addAndGet(1);
+        normalRecord.setId(id1);
+        normalRecord.setBeginTime(new Date());
         dai.remember(normalRecord);
         ExtensionDai.ChannelId id = new ExtensionDai.ChannelId();
-        id.setId(ID);
+        id.setId(id1);
         ExtensionDai.Record record;
         record = dai.loadLast(id);
         Assert.assertNotNull(record);
 
-        dai.forget(ID);
+        dai.forget(id1);
         try {
             dai.loadLast(id);
         } catch (NotFound notFound) {
-            Assert.assertEquals(String.valueOf(ID), notFound.getReasons().getFirst("id"));
+            Assert.assertEquals(String.valueOf(id1), notFound.getReasons().getFirst("id"));
         }
     }
 
     @Test
     public void testLoadByName() throws BadRequest, Panic, Conflict, NotFound {
+        Long id1 = ID.addAndGet(2);
+        normalRecord.setId(id1);
+        normalRecord.setBeginTime(new Date());
         dai.remember(normalRecord);
         ExtensionDai.ChannelName name = new ExtensionDai.ChannelName();
         name.setOwnerId(TEST_OWNER);
@@ -87,7 +92,7 @@ public class TestLoadExtensionDai {
         record = dai.loadLast(name);
         Assert.assertNotNull(record);
 
-        dai.forget(ID);
+        dai.forget(id1);
         try {
             dai.loadLast(name);
         } catch (NotFound notFound) {
