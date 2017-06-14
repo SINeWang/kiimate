@@ -21,14 +21,14 @@
 
     <select id="selectLatestIntensionsByExtId" resultMap="Intension">
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
-        FROM mm_m_int mint
+        FROM km_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.end_time IS NULL
     </select>
 
     <select id="selectLastIntensionsByExtId" resultMap="Intension">
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time,  mint.begin_time, mint.end_time
-        FROM mm_m_int mint
+        FROM km_m_int mint
         WHERE mint.ext_id = #{extId}
         <if test="endTime != null">
             <![CDATA[
@@ -43,21 +43,21 @@
 
     <select id="selectLastIntensionBySet" resultMap="Intension">
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
-        FROM mm_m_int mint, mm_m_pub mpub
+        FROM km_m_int mint, km_m_pub mpub
         WHERE mpub.pub_set = #{set}
         AND mint.id = mpub.int_id
     </select>
 
     <select id="selectLatestIntensionByExtIdField" resultMap="Intension">
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
-        FROM mm_m_int mint
+        FROM km_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
         AND mint.end_time IS NULL
     </select>
     <select id="selectIntensionByConflictKey" resultMap="Intension">
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
-        FROM mm_m_int mint
+        FROM km_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
         AND mint.is_single = #{single}
@@ -74,20 +74,20 @@
     </select>
 
     <update id="updateLatestIntensionEndTimeById">
-        UPDATE mm_m_int mint
+        UPDATE km_m_int mint
         SET mint.end_time = #{endTime}
         WHERE mint.id = #{id}
     </update>
 
     <insert id="insertIntension">
-        INSERT INTO mm_m_int
+        INSERT INTO km_m_int
         (`id`, `commit`, `ext_id`, `field`, `is_single`, `structure`, `ref_m_pub_set`, `visibility`, `is_required`, `operator_id`, `begin_time`)
         VALUES
         (#{id}, #{commit}, #{extId}, #{field}, #{single}, #{structure}, #{refSet}, #{visibility}, #{required}, #{operatorId}, #{beginTime})
     </insert>
 
     <delete id="deleteIntensionsByExtId">
-        DELETE FROM mm_m_int
+        DELETE FROM km_m_int
         WHERE ext_id = #{extId}
     </delete>
 

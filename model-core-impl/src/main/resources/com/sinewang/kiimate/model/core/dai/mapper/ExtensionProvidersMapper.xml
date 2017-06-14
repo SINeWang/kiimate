@@ -9,7 +9,7 @@
     <select id="queryOwners" resultMap="Owners">
         <bind name="ownerId_pattern" value="'%' + ownerId + '%'"/>
         SELECT DISTINCT(owner_id)
-        FROM mm_m_ext mext
+        FROM km_m_ext mext
         WHERE mext.owner_id LIKE #{ownerId_pattern}
         AND mext.end_time IS NULL
     </select>

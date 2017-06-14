@@ -37,7 +37,7 @@
     </resultMap>
 
     <insert id="insertPublication">
-        INSERT INTO mm_m_pub
+        INSERT INTO km_m_pub
         (id, pub_set, provider_id, ext_id, int_id, version, stability, operator_id, begin_time)
         VALUES
         (#{id}, #{pubSet}, #{providerId}, #{extId}, #{intId}, #{version}, #{stability}, #{operatorId}, #{createdAt})
@@ -45,14 +45,14 @@
 
     <select id="selectPublicationsByProviderIdExtIdPubVersion" resultMap="Publication">
         SELECT id, pub_set, provider_id, ext_id, int_id, version, stability, operator_id, begin_time
-        FROM  mm_m_pub
+        FROM  km_m_pub
         WHERE pub_ext_id = #{pubExtId}
         AND end_time IS NULL
     </select>
 
     <select id="countByConflictKey" resultType="int">
         SELECT COUNT(mpub.ext_id)
-        FROM  mm_m_pub mpub
+        FROM  km_m_pub mpub
         WHERE mpub.provider_id = #{providerId}
         AND mpub.ext_id = #{extId}
         AND mpub.stability = #{stability}
@@ -62,14 +62,14 @@
 
     <delete id="deletePublicationByProviderIdExtIdPubVersion">
         DELETE
-        FROM  mm_m_pub
+        FROM  km_m_pub
         WHERE provider_id = #{providerId} AND ext_id = #{extId} AND stability = #{stability} AND version = #{version}
     </delete>
 
     <select id="selectProvidersByProviderQuery" resultMap="Provider">
         <bind name="query_pattern" value="'%' + query + '%'"/>
         SELECT DISTINCT(provider_id)
-        FROM mm_m_pub
+        FROM km_m_pub
         WHERE provider_id LIKE #{query_pattern}
         ORDER BY provider_id ASC
     </select>
@@ -77,7 +77,7 @@
     <select id="selectPublishedExtensionByGroupQuery" resultMap="PublishedExtension">
         <bind name="query_pattern" value="'%' + query + '%'"/>
         SELECT mext.id, mpub.provider_id, mext.group, mext.name, mpub.operator_id, mpub.begin_time
-        FROM mm_m_pub mpub, mm_m_ext mext
+        FROM km_m_pub mpub, km_m_ext mext
         WHERE mpub.ext_id = mext.id
         AND mext.`group` LIKE #{query_pattern}
         AND mpub.end_time IS NULL
@@ -85,7 +85,7 @@
     </select>
     <select id="selectPublicationsByPubSet" resultMap="Publication">
         SELECT mpub.id, mpub.pub_set, mpub.provider_id, mpub.ext_id, mpub.int_id, mpub.version, mpub.stability, mpub.operator_id, mpub.begin_time
-        FROM mm_m_pub mpub, mm_m_ext mext
+        FROM km_m_pub mpub, km_m_ext mext
         WHERE mpub.ext_id = mext.id
         AND mpub.pub_set = #{pubSet}
         AND mpub.end_time IS NULL
@@ -93,7 +93,7 @@
     </select>
     <select id="selectPublishedSnapshotsByExtId" resultMap="PublishedSnapshot">
         SELECT mpub.id, mpub.pub_set, mpub.int_id, mpub.version, mpub.stability, mpub.begin_time
-        FROM mm_m_pub mpub, mm_m_ext mext
+        FROM km_m_pub mpub, km_m_ext mext
         WHERE mpub.ext_id = mext.id
         AND mpub.ext_id = #{extId}
         AND mpub.end_time IS NULL
@@ -102,7 +102,7 @@
 
     <delete id="deletePublicationByProviderId">
         DELETE
-        FROM  mm_m_pub
+        FROM  km_m_pub
         WHERE provider_id = #{providerId}
     </delete>
 </mapper>

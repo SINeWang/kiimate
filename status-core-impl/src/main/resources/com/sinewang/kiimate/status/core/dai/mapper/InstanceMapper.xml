@@ -23,7 +23,7 @@
 
     <select id="selectLastInstancesByStatusId" resultMap="Instance">
         SELECT mins.id, mins.commit, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_id, mins.value_ref_policy, mins.operator_id, mins.begin_time, mins.end_time
-        FROM mm_i_ins mins, mm_m_sub msub
+        FROM km_i_ins mins, km_m_sub msub
         WHERE msub.id = #{subId}
         AND msub.subscriber_id = #{subscriberId}
         AND mins.sub_id = msub.id
@@ -39,20 +39,20 @@
     </select>
     <select id="selectLatestInstanceBySubIdIntId" resultMap="Instance">
         SELECT mins.id, mins.commit, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_id, mins.value_ref_policy, mins.operator_id, mins.begin_time, mins.end_time
-        FROM mm_i_ins mins
+        FROM km_i_ins mins
         WHERE mins.sub_id = #{subId}
         AND mins.int_id = #{intId}
         AND mins.end_time IS NULL
     </select>
 
     <update id="updateInstanceEndTimeBySubIdIntId">
-        UPDATE mm_i_ins mins
+        UPDATE km_i_ins mins
         SET mins.end_time = #{endTime}
         WHERE mins.sub_id = #{subId} AND mins.int_id = #{intId} AND mins.end_time IS NULL
     </update>
 
     <insert id="insertInstance">
-        INSERT INTO mm_i_ins
+        INSERT INTO km_i_ins
         (`id`, `commit`, `owner_id`, `sub_id`, `ext_id`, `int_id`, `field`,  `value`, `value_set`, `value_ref_id`, `value_ref_policy`, `operator_id`, `begin_time`)
         VALUES
         (#{id}, #{commit}, #{ownerId}, #{subId}, #{extId}, #{intId}, #{field}, #{value}, #{valueSet}, #{valueRefId}, #{valueRefPolicy}, #{operatorId}, #{beginTime})
@@ -60,7 +60,7 @@
 
     <delete id="deleteInstanceByOwnerId">
         DELETE FROM
-        mm_i_ins
+        km_i_ins
         WHERE owner_id = #{ownerId}
     </delete>
 

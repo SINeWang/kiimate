@@ -45,7 +45,7 @@
     </resultMap>
 
     <insert id="insertSubscription">
-        INSERT INTO mm_m_sub
+        INSERT INTO km_m_sub
         (id, sub_set, subscriber_id, `group`, `name`, `tree`, operator_id, begin_time)
         VALUES
         (#{id}, #{subSet}, #{subscriberId}, #{group}, #{name}, #{tree}, #{operatorId}, #{beginTime})
@@ -53,13 +53,13 @@
 
     <delete id="deleteById">
         DELETE FROM
-        mm_m_sub
+        km_m_sub
         WHERE id = #{id}
     </delete>
 
 
     <select id="countByConflictKeys" resultType="int">
-        SELECT count(msub.id) FROM mm_m_sub msub
+        SELECT count(msub.id) FROM km_m_sub msub
         WHERE msub.sub_set = #{subSet} AND msub.subscriber_id = #{subscriberId}
         AND msub.group = #{group} AND msub.name = #{name} AND msub.tree = #{tree}
         AND msub.end_time IS NULL
@@ -67,7 +67,7 @@
 
     <select id="countModelSubscriptions" resultType="int">
         SELECT count(msub.id)
-        FROM mm_m_sub msub
+        FROM km_m_sub msub
         WHERE msub.sub_set = #{subSet}
         AND end_time IS NULL
     </select>
@@ -75,7 +75,7 @@
     <select id="querySubscriptionsByOwnerGroup" resultMap="Subscription">
         <bind name="group_pattern" value="'%' + group + '%'"/>
         SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id, msub.begin_time, msub.end_time
-        FROM mm_m_sub msub
+        FROM km_m_sub msub
         WHERE msub.subscriber_id = #{ownerId}
         AND msub.group LIKE #{group_pattern}
         AND msub.end_time IS NULL
@@ -83,7 +83,7 @@
 
     <select id="selectModelPubSetByAssetId" resultMap="InsideView">
         SELECT mext.id, mpub.pub_set, mpub.begin_time, mpub.end_time
-        FROM mm_m_pub mpub, mm_m_sub msub, mm_m_ext mext, km_s_sub ssub, km_s_pub spub
+        FROM km_m_pub mpub, km_m_sub msub, km_m_ext mext, km_s_sub ssub, km_s_pub spub
         WHERE mext.id = mpub.ext_id
         AND ssub.id = #{subId}
         AND ssub.sub_set = spub.pub_set
@@ -95,7 +95,7 @@
     <select id="selectModelPubSetByStatusId" resultMap="InsideView">
         SELECT msub.id, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.begin_time, msub.end_time,
         mext.id root_ext_id, mpub.pub_set, mpub.provider_id
-        FROM mm_m_pub mpub, mm_m_sub msub, mm_m_ext mext
+        FROM km_m_pub mpub, km_m_sub msub, km_m_ext mext
         WHERE mext.id = mpub.ext_id
         AND msub.id = #{id}
         AND msub.sub_set = mpub.pub_set
@@ -105,7 +105,7 @@
     <select id="selectModelPubSetByGroupNameTree" resultMap="InsideView">
         SELECT msub.id, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.begin_time, msub.end_time,
         mext.id root_ext_id, mpub.pub_set, mpub.provider_id
-        FROM mm_m_pub mpub, mm_m_sub msub, mm_m_ext mext
+        FROM km_m_pub mpub, km_m_sub msub, km_m_ext mext
         WHERE mext.id = mpub.ext_id
         AND msub.sub_set = mpub.pub_set
         AND msub.group = #{group}
@@ -117,7 +117,7 @@
 
     <select id="selectModelBySet" resultMap="OutsideView">
         SELECT mext.id, mpub.pub_set, mpub.provider_id, mext.group, mext.name, mpub.stability, mpub.version, mpub.begin_time, mpub.end_time
-        FROM mm_m_pub mpub, mm_m_ext mext
+        FROM km_m_pub mpub, km_m_ext mext
         WHERE mext.id = mpub.ext_id
         AND mpub.provider_id = #{providerId}
         AND mpub.pub_set = #{set}
@@ -127,13 +127,13 @@
 
     <select id="querySubscriberId" resultMap="Subscribers">
         <bind name="subscriberId_pattern" value="'%' + subscriberId + '%'"/>
-        SELECT msub.subscriber_id FROM mm_m_sub msub
+        SELECT msub.subscriber_id FROM km_m_sub msub
         WHERE subscriber_id LIKE #{subscriberId_pattern}
         GROUP BY msub.subscriber_id
     </select>
     <select id="selectSubscriptionByOwnerGroupNameTree" resultMap="Subscription">
         SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id, msub.begin_time, msub.end_time
-        FROM mm_m_sub msub
+        FROM km_m_sub msub
         WHERE msub.subscriber_id = #{ownerId}
         AND msub.group = #{group}
         AND msub.name = #{name}
@@ -142,7 +142,7 @@
     </select>
     <select id="selectBySubId" resultMap="Subscription">
         SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id, msub.begin_time, msub.end_time
-        FROM mm_m_sub msub
+        FROM km_m_sub msub
         WHERE msub.id = #{id}
         WHERE msub.subscriber_id = #{subscriberId}
         AND msub.end_time IS NULL

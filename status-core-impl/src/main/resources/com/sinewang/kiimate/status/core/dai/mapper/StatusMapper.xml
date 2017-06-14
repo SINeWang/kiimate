@@ -30,7 +30,7 @@
         <bind name="group_pattern" value="'%' + group + '%'"/>
         SELECT msub.id, spub.pub_set, spub.provider_id, spub.stability, spub.version, spub.begin_time, spub.end_time,
         msub.group, msub.name
-        FROM km_s_pub spub, mm_m_sub msub
+        FROM km_s_pub spub, km_m_sub msub
         WHERE spub.m_sub_id = msub.id
         AND spub.provider_id = #{ownerId}
         AND msub.group LIKE #{group_pattern}
@@ -40,7 +40,7 @@
     <select id="selectLast" resultMap="Statuses">
         SELECT msub.id, spub.pub_set, spub.provider_id, spub.stability, spub.version, spub.begin_time, spub.end_time,
         msub.group, msub.name
-        FROM km_s_pub spub, mm_m_sub msub
+        FROM km_s_pub spub, km_m_sub msub
         WHERE spub.m_sub_id = msub.id
         AND spub.provider_id = #{providerId}
         AND msub.group = #{group}
