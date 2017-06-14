@@ -1,9 +1,9 @@
 package one.kii.kiimate.model.core.dai;
 
+import one.kii.derid.derid64.Eid64Generator;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
-import one.kii.summer.io.exception.Panic;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -32,13 +32,11 @@ import java.util.Date;
 @EnableAutoConfiguration
 public class TestRememberExtensionDai {
 
+    private static final Eid64Generator idgen = new Eid64Generator(1);
     @Autowired
     private ExtensionDai dai;
-
     private ExtensionDai.Record badRequestRecord;
-
     private ExtensionDai.Record normalRecord;
-
 
     @Before
     public void before() {
@@ -47,7 +45,7 @@ public class TestRememberExtensionDai {
         badRequestRecord.setEndTime(null);
         badRequestRecord.setGroup("testGroup");
         badRequestRecord.setName("testName");
-        badRequestRecord.setId(100000L);
+        badRequestRecord.setId(idgen.born());
         badRequestRecord.setOperatorId("testOperator");
         badRequestRecord.setVisibility("testVisibility");
         badRequestRecord.setOwnerId("testOwner");
