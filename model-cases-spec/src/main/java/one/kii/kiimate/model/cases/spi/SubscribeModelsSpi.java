@@ -20,8 +20,8 @@ public interface SubscribeModelsSpi {
 
     @Data
     class Receipt {
-        private String id;
-        private String set;
+        private Long id;
+        private Long set;
         private String subscriberId;
         private String group;
         private String name;
