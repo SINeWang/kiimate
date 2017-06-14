@@ -60,9 +60,14 @@
 
     <select id="countByConflictKeys" resultType="int">
         SELECT count(msub.id) FROM km_m_sub msub
-        WHERE msub.sub_set = #{subSet} AND msub.subscriber_id = #{subscriberId}
+        WHERE msub.sub_set = #{set} AND msub.subscriber_id = #{subscriberId}
         AND msub.group = #{group} AND msub.name = #{name} AND msub.tree = #{tree}
-        AND msub.end_time IS NULL
+        <if test="endTime == null">
+          AND msub.end_time IS NULL
+        </if>
+        <if test="endTime != null">
+          AND msub.end_time = #{endTime}
+        </if>
     </select>
 
     <select id="countModelSubscriptions" resultType="int">

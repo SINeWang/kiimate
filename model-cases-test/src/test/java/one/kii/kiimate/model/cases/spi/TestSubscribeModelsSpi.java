@@ -1,5 +1,6 @@
 package one.kii.kiimate.model.cases.spi;
 
+import one.kii.derid.derid64.Eid64Generator;
 import one.kii.summer.io.exception.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,13 +31,16 @@ public class TestSubscribeModelsSpi {
     @Autowired
     private SubscribeModelsSpi subscribeModelsSpi;
 
+    private static final Eid64Generator idgen = new Eid64Generator(0);
+
+
     @Test
     public void test() {
         SubscribeModelsSpi.Form form = new SubscribeModelsSpi.Form();
         form.setSubscriberId("wangyj");
         form.setGroup("test-token");
         form.setName("default");
-        form.setSet(10000L);
+        form.setSet(idgen.born());
         SubscribeModelsSpi.Receipt receipt = null;
         try {
             receipt = subscribeModelsSpi.commit(form);
@@ -44,5 +48,14 @@ public class TestSubscribeModelsSpi {
             panic.printStackTrace();
         }
         Assert.assertNotNull(receipt);
+
+
+        try {
+            receipt = subscribeModelsSpi.commit(form);
+        } catch (Conflict conflict) {
+            Assert.assertNotNull(conflict);
+        } catch (Panic | Forbidden | NotFound | BadRequest oops) {
+            oops.printStackTrace();
+        }
     }
 }
