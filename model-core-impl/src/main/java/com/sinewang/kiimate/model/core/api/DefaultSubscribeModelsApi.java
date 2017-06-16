@@ -8,6 +8,8 @@ import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.summer.zoom.InsideView;
+import one.kii.summer.zoom.ZoomInByName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +35,13 @@ public class DefaultSubscribeModelsApi implements SubscribeModelsApi {
         try {
             modelSubscriptionDai.remember(instance);
         } catch (Conflict ignore) {
+            ZoomInByName zoomInByName = ValueMapping.from(ZoomInByName.class, form);
+
+            zoomInByName.setSubscriberId(context.getOwnerId());
+
+            InsideView insideView = modelSubscriptionDai.loadModelSubByName(zoomInByName);
+
+            instance.setId(insideView.getId());
         }
 
         Receipt receipt = ValueMapping.from(Receipt.class, instance);
