@@ -33,7 +33,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
         MultiValueMap<String, String> map = UniqueFinder.find(instance);
         int count = modelSubscriptionMapper.countByConflictKeys(map.toSingleValueMap());
         if (count > 0) {
-            throw new Conflict(map.keySet().toArray(new String[0]));
+            throw new Conflict(map.keySet());
         }
         modelSubscriptionMapper.insertSubscription(
                 instance.getId(),

@@ -22,3 +22,5 @@ logging:
 ---
 spring:
   profiles: prod
+  datasource:
+    url: jdbc:mysql://10.10.10.44:33307/kiimate?autoReconnect=true
