@@ -30,7 +30,10 @@ public class DefaultSubscribeModelsApi implements SubscribeModelsApi {
 
         ModelSubscriptionDai.Instance instance = subscribeModelExtractor.extract(form, context);
 
-        modelSubscriptionDai.remember(instance);
+        try {
+            modelSubscriptionDai.remember(instance);
+        } catch (Conflict ignore) {
+        }
 
         Receipt receipt = ValueMapping.from(Receipt.class, instance);
 
