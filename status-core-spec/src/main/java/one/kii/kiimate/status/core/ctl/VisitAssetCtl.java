@@ -21,10 +21,7 @@ import static one.kii.kiimate.status.core.ctl.VisitStatusCtl.PROVIDER_ID;
 @CrossOrigin(origins = "*")
 public class VisitAssetCtl extends ReadController {
 
-    public static final String SUBSCRIBER_ID = "owner-id";
-
     public static final String ASSET_ID = "asset-id";
-
 
     @Autowired
     private VisitAssetApi api;
