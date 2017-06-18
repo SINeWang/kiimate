@@ -47,14 +47,23 @@
         AND msub.name = #{name}
         AND spub.stability = #{stability}
         AND spub.version = #{version}
-        <if test="endTime != null">
+        <if test="beginTime != null and endTime != null">
             <![CDATA[
-            AND spub.end_time >= #{endTime}
-            AND spub.begin_time <= #{endTime}
+            AND spub.begin_time <= #{beginTime}
+            AND ((spub.end_time >= #{endTime}) OR (spub.end_time IS NULL))
             ]]>
         </if>
-        <if test="endTime == null">
-            AND spub.end_time IS NULL
+        <if test="beginTime == null and endTime != null">
+            <![CDATA[
+            AND spub.begin_time <= #{endTime}
+            AND ((spub.end_time >= #{endTime}) OR (spub.end_time IS NULL))
+            ]]>
+        </if>
+        <if test="beginTime != null and endTime == null">
+            <![CDATA[
+            AND spub.begin_time >= #{beginTime}
+            AND ((spub.end_time >= #{beginTime}) OR (spub.end_time IS NULL))
+            ]]>
         </if>
         GROUP BY spub.pub_set
     </select>
