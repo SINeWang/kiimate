@@ -54,7 +54,7 @@ public class DefaultSearchModelsApi implements SearchModelsApi {
 
             Models model = ValueMapping.from(Models.class, lastRecord, extension);
             for (ModelPublicationDai.PublishedSnapshot publishedSnapshot : snapshotList) {
-                int subscriptions = modelSubscriptionDai.countModelSubscriptions(publishedSnapshot.getPubSet());
+                int subscriptions = modelSubscriptionDai.countModelSubscriptions(publishedSnapshot.getSet());
 
 
                 Snapshot snapshot = ValueMapping.from(Snapshot.class, publishedSnapshot);

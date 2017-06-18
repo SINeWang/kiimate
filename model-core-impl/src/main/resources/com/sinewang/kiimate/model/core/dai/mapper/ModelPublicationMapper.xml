@@ -6,7 +6,7 @@
 
     <resultMap id="Publication" type="one.kii.kiimate.model.core.dai.ModelPublicationDai$Record">
         <result column="id" property="id"/>
-        <result column="pub_set" property="pubSet"/>
+        <result column="pub_set" property="set"/>
         <result column="provider_id" property="providerId"/>
         <result column="ext_id" property="extId"/>
         <result column="int_id" property="intId"/>
@@ -26,7 +26,7 @@
     </resultMap>
 
     <resultMap id="PublishedSnapshot" type="one.kii.kiimate.model.core.dai.ModelPublicationDai$PublishedSnapshot">
-        <result column="pub_set" property="pubSet"/>
+        <result column="pub_set" property="set"/>
         <result column="stability" property="stability"/>
         <result column="version" property="version"/>
         <result column="begin_time" property="beginTime"/>
@@ -83,11 +83,11 @@
         AND mpub.end_time IS NULL
         GROUP BY mpub.provider_id, mext.group,  mext.name
     </select>
-    <select id="selectPublicationsByPubSet" resultMap="Publication">
+    <select id="selectPublicationsBySet" resultMap="Publication">
         SELECT mpub.id, mpub.pub_set, mpub.provider_id, mpub.ext_id, mpub.int_id, mpub.version, mpub.stability, mpub.operator_id, mpub.begin_time
         FROM km_m_pub mpub, km_m_ext mext
         WHERE mpub.ext_id = mext.id
-        AND mpub.pub_set = #{pubSet}
+        AND mpub.pub_set = #{set}
         AND mpub.end_time IS NULL
         GROUP BY mpub.pub_set
     </select>

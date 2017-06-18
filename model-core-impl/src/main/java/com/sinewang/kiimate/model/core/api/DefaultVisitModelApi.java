@@ -3,6 +3,7 @@ package com.sinewang.kiimate.model.core.api;
 import one.kii.kiimate.model.core.api.VisitModelApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
+import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
@@ -27,6 +28,9 @@ public class DefaultVisitModelApi implements VisitModelApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Autowired
+    private ModelPublicationDai modelPublicationDai;
+
+    @Autowired
     private ExtensionDai extensionDai;
 
     @Autowired
@@ -37,13 +41,13 @@ public class DefaultVisitModelApi implements VisitModelApi {
     public Model visit(ReadContext context, VisitModelForm form) throws BadRequest, NotFound, Panic {
 
 
-        ExtensionDai.ChannelSet channelSet = ValueMapping.from(ExtensionDai.ChannelSet.class, form);
-        ExtensionDai.Record record = extensionDai.loadLast(channelSet);
+        ModelPublicationDai.ChannelSet channelSet = ValueMapping.from(ModelPublicationDai.ChannelSet.class, form);
+        ModelPublicationDai.Record record = modelPublicationDai.loadRootPublications(channelSet);
 
         IntensionDai.ChannelExtensionId extensionId = new IntensionDai.ChannelExtensionId();
-        extensionId.setBeginTime(record.getBeginTime());
-        extensionId.setEndTime(record.getEndTime());
-        extensionId.setId(record.getId());
+        extensionId.setBeginTime(null);
+        extensionId.setEndTime(record.getBeginTime());
+        extensionId.setId(record.getExtId());
 
         List<IntensionDai.Record> recordList = intensionDai.loadLast(extensionId);
         List<VisitModelApi.Intension> intensions = ValueMapping.from(VisitModelApi.Intension.class, recordList);
@@ -51,7 +55,7 @@ public class DefaultVisitModelApi implements VisitModelApi {
 
         int subscriptions = modelSubscriptionDai.countModelSubscriptions(channelSet.getSet());
         ZoomOutBySet set = new ZoomOutBySet();
-        set.setProviderId(record.getOwnerId());
+        set.setProviderId(record.getProviderId());
         set.setSet(form.getSet());
 
         OutsideView downInsight = modelSubscriptionDai.selectModelBySet(set);

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by WangYanJiong on 05/04/2017.
@@ -37,8 +36,8 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     }
 
     @Override
-    public Record loadRootPublications(ChannelPubSet channel) throws NotFound, Panic {
-        Record record = modelPublicationMapper.selectPublicationsByPubSet(channel.getPubSet());
+    public Record loadRootPublications(ChannelSet channel) throws NotFound, Panic {
+        Record record = modelPublicationMapper.selectPublicationsBySet(channel.getSet());
         return NotBadResponse.of(record);
     }
 
@@ -57,7 +56,7 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
         for (Record record : records) {
             modelPublicationMapper.insertPublication(
                     record.getId(),
-                    record.getPubSet(),
+                    record.getSet(),
                     record.getProviderId(),
                     record.getExtId(),
                     record.getIntId(),

@@ -22,7 +22,7 @@ public interface ModelPublicationDai {
 
     List<PublishedSnapshot> loadSnapshot(ChannelId channel);
 
-    Record loadRootPublications(ChannelPubSet channel) throws NotFound, Panic;
+    Record loadRootPublications(ChannelSet channel) throws NotFound, Panic;
 
     List<Provider> searchProviders(ClueId clue);
 
@@ -36,9 +36,9 @@ public interface ModelPublicationDai {
     }
 
     @Data
-    class ChannelPubSet {
+    class ChannelSet {
 
-        Long pubSet;
+        Long set;
     }
 
     @Data
@@ -60,7 +60,7 @@ public interface ModelPublicationDai {
     class Record {
         Long id;
 
-        Long pubSet;
+        Long set;
 
         @Unique
         String providerId;
@@ -103,7 +103,7 @@ public interface ModelPublicationDai {
 
     @Data
     class PublishedSnapshot {
-        Long pubSet;
+        Long set;
         String stability;
         String version;
         Date beginTime;

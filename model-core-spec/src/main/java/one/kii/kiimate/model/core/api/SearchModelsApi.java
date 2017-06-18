@@ -34,7 +34,7 @@ public interface SearchModelsApi extends SearchApi<SearchModelsApi.Models, ReadC
     @Data
     class Snapshot {
         Integer subscriptions;
-        String pubSet;
+        String set;
         String stability;
         String version;
         Date beginTime;

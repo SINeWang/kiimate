@@ -63,7 +63,7 @@ public class DefaultExtensionDai implements ExtensionDai {
     }
 
     @Override
-    public Record loadLast(ChannelSet channel) throws Panic, BadRequest {
+    public Record  loadLast(ChannelSet channel) throws Panic, BadRequest {
         logger.debug("before-loadLast: ChannelSet:{}", channel);
         NotBadRequest.from(channel);
 

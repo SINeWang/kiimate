@@ -40,8 +40,8 @@ public class DefaultPublishModelApi implements PublishModelApi {
 
         List<IntensionDai.Record> records = intensionDai.loadLast(channel);
 
-        ModelPublicationDai.ChannelPubSet pubSet = new ModelPublicationDai.ChannelPubSet();
-        pubSet.setPubSet(setgen.born());
+        ModelPublicationDai.ChannelSet pubSet = new ModelPublicationDai.ChannelSet();
+        pubSet.setSet(setgen.born());
 
         List<ModelPublicationDai.Record> publications = publicationExtractor.extract(context, form, records, pubSet);
 

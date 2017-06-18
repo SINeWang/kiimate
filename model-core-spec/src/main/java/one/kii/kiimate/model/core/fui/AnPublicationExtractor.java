@@ -17,7 +17,7 @@ public interface AnPublicationExtractor {
             WriteContext context,
             PublishModelApi.Form form,
             List<IntensionDai.Record> records,
-            ModelPublicationDai.ChannelPubSet pubSet) throws Panic;
+            ModelPublicationDai.ChannelSet pubSet) throws Panic;
 
 
 }

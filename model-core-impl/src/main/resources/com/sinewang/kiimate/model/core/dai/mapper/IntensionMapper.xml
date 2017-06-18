@@ -30,13 +30,23 @@
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time,  mint.begin_time, mint.end_time
         FROM km_m_int mint
         WHERE mint.ext_id = #{extId}
-        <if test="endTime != null">
+        <if test="beginTime != null and endTime != null">
             <![CDATA[
-            AND mint.end_time >= #{endTime}
+            AND mint.begin_time <= #{beginTime}
+            AND ((mint.end_time >= #{endTime}) OR (mint.end_time IS NULL))
             ]]>
         </if>
-        <if test="endTime == null">
-            AND mint.end_time IS NULL
+        <if test="beginTime == null and endTime != null">
+            <![CDATA[
+            AND mint.begin_time <= #{endTime}
+            AND ((mint.end_time >= #{endTime}) OR (mint.end_time IS NULL))
+            ]]>
+        </if>
+        <if test="beginTime != null and endTime == null">
+            <![CDATA[
+            AND mint.begin_time >= #{beginTime}
+            AND ((mint.end_time >= #{beginTime}) OR (mint.end_time IS NULL))
+            ]]>
         </if>
         ORDER BY mint.begin_time DESC
     </select>

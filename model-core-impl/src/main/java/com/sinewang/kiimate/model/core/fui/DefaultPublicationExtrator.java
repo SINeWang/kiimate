@@ -26,7 +26,7 @@ public class DefaultPublicationExtrator implements AnPublicationExtractor {
 
 
     @Override
-    public List<ModelPublicationDai.Record> extract(WriteContext context, PublishModelApi.Form form, List<IntensionDai.Record> instances, ModelPublicationDai.ChannelPubSet pubSet) throws Panic {
+    public List<ModelPublicationDai.Record> extract(WriteContext context, PublishModelApi.Form form, List<IntensionDai.Record> instances, ModelPublicationDai.ChannelSet pubSet) throws Panic {
         Date now = new Date();
         List<ModelPublicationDai.Record> publications = new ArrayList<>();
         for (IntensionDai.Record record : instances) {
