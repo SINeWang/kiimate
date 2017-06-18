@@ -1,6 +1,6 @@
 package com.sinewang.kiimate.status.core.dai.mapper;
 
-import one.kii.kiimate.status.core.dai.AssetDai;
+import one.kii.kiimate.status.core.dai.GlimpsesDai;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,17 +12,17 @@ import java.util.Map;
  * Created by WangYanJiong on 20/05/2017.
  */
 @Mapper
-public interface AssetsMapper {
+public interface GlimpseMapper {
 
-    List<AssetDai.Providers> queryProviders(
+    List<GlimpsesDai.Providers> queryProviders(
             @Param("providerId") String providerId
     );
 
-    List<AssetDai.Subscribers> querySubscribers(
+    List<GlimpsesDai.Subscribers> querySubscribers(
             @Param("subscriberId") String subscriberId
     );
 
-    AssetDai.Assets selectAsset(
+    GlimpsesDai.Glimpse loadGlimpse(
             @Param("subscriberId") String subscriberId,
             @Param("id") Long id);
 

@@ -1,8 +1,8 @@
 package com.sinewang.kiimate.status.core.api;
 
 import one.kii.derid.derid64.Eid64Generator;
-import one.kii.kiimate.status.core.api.SubscribeAssetApi;
-import one.kii.kiimate.status.core.dai.AssetDai;
+import one.kii.kiimate.status.core.api.SubscribeGlimpseApi;
+import one.kii.kiimate.status.core.dai.GlimpsesDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -18,19 +18,19 @@ import java.util.Date;
  * Created by WangYanJiong on 22/05/2017.
  */
 @Component
-public class DefaultSubscribeAssetApi implements SubscribeAssetApi {
+public class DefaultSubscribeGlimpseApi implements SubscribeGlimpseApi {
 
     private static final Eid64Generator idgen = new Eid64Generator(7);
 
 
     @Autowired
-    private AssetDai assetDai;
+    private GlimpsesDai glimpsesDai;
 
     @Override
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
         NotBadRequest.from(form);
 
-        AssetDai.Subscription subscription = ValueMapping.from(AssetDai.Subscription.class, form, context);
+        GlimpsesDai.Subscription subscription = ValueMapping.from(GlimpsesDai.Subscription.class, form, context);
 
         subscription.setSubscriberId(context.getOwnerId());
 
@@ -38,7 +38,7 @@ public class DefaultSubscribeAssetApi implements SubscribeAssetApi {
 
         subscription.setId(idgen.born());
 
-        assetDai.remember(subscription);
+        glimpsesDai.remember(subscription);
 
         return ValueMapping.from(Receipt.class, subscription);
 

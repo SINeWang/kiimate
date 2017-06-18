@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.SubscribeAssetApi;
+import one.kii.kiimate.status.core.api.SubscribeGlimpseApi;
 import one.kii.summer.asdf.api.CommitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
@@ -26,32 +26,32 @@ public class SubscribeAssetCtl extends WriteController {
 
 
     @Autowired
-    private SubscribeAssetApi api;
+    private SubscribeGlimpseApi api;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<SubscribeAssetApi.Receipt> commitForm(
+    public ResponseEntity<SubscribeGlimpseApi.Receipt> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @ModelAttribute SubscribeAssetApi.Form form) {
+            @ModelAttribute SubscribeGlimpseApi.Form form) {
         return commit(requestId, ownerId, operatorId, form);
     }
 
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<SubscribeAssetApi.Receipt> commitJson(
+    public ResponseEntity<SubscribeGlimpseApi.Receipt> commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @RequestBody SubscribeAssetApi.Form form) {
+            @RequestBody SubscribeGlimpseApi.Form form) {
         return commit(requestId, ownerId, operatorId, form);
     }
 
-    private ResponseEntity<SubscribeAssetApi.Receipt> commit(
+    private ResponseEntity<SubscribeGlimpseApi.Receipt> commit(
             String requestId,
             String operatorId,
             String ownerId,
-            SubscribeAssetApi.Form form) {
+            SubscribeGlimpseApi.Form form) {
         WriteContext context = buildContext(requestId, operatorId, ownerId);
         return CommitApiCaller.sync(api, context, form);
     }

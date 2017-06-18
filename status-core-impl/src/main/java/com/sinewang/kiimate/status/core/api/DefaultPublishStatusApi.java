@@ -2,7 +2,7 @@ package com.sinewang.kiimate.status.core.api;
 
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.status.core.api.PublishStatusApi;
-import one.kii.kiimate.status.core.dai.AssetDai;
+import one.kii.kiimate.status.core.dai.GlimpsesDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
@@ -31,7 +31,7 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
     private static final Eid64Generator pubset = new Eid64Generator(6);
 
     @Autowired
-    private AssetDai assetDai;
+    private GlimpsesDai glimpsesDai;
 
     @Autowired
     private InstanceDai instanceDai;
@@ -45,22 +45,22 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(id);
 
-        List<AssetDai.Entry> entries = new ArrayList<>();
+        List<GlimpsesDai.Entry> entries = new ArrayList<>();
 
 
         for (InstanceDai.Record instance : records) {
-            AssetDai.Entry record = new AssetDai.Entry();
+            GlimpsesDai.Entry record = new GlimpsesDai.Entry();
             record.setInsId(instance.getId());
             record.setId(insgen.born());
             entries.add(record);
         }
 
-        AssetDai.Publication record = ValueMapping.from(AssetDai.Publication.class, form, context);
+        GlimpsesDai.Publication record = ValueMapping.from(GlimpsesDai.Publication.class, form, context);
         record.setPubSet(pubset.born());
         record.setBeginTime(new Date());
         record.setModelSubId(form.getId());
 
-        assetDai.remember(record, entries);
+        glimpsesDai.remember(record, entries);
         Receipt receipt = ValueMapping.from(Receipt.class, form, record);
         return NotBadResponse.of(receipt);
     }

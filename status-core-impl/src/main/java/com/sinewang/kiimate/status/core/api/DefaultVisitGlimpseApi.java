@@ -2,7 +2,7 @@ package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.VisitAssetApi;
-import one.kii.kiimate.status.core.dai.AssetDai;
+import one.kii.kiimate.status.core.dai.GlimpsesDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.ValueMapping;
@@ -24,13 +24,13 @@ import java.util.Map;
  */
 
 @Component
-public class DefaultVisitAssetApi implements VisitAssetApi {
+public class DefaultVisitGlimpseApi implements VisitAssetApi {
 
     @Autowired
     private InstanceDai instanceDai;
 
     @Autowired
-    private AssetDai assetDai;
+    private GlimpsesDai glimpsesDai;
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
@@ -42,9 +42,9 @@ public class DefaultVisitAssetApi implements VisitAssetApi {
     public Map<String, Object> visit(ReadContext context, ZoomInById form) throws NotFound, BadRequest, Panic {
 
 
-        AssetDai.Assets assets = assetDai.load(form);
+        GlimpsesDai.Glimpse glimpse = glimpsesDai.load(form);
 
-        ZoomInByName channel = ValueMapping.from(ZoomInByName.class, assets);
+        ZoomInByName channel = ValueMapping.from(ZoomInByName.class, glimpse);
 
         InsideView modelSub = modelSubscriptionDai.loadModelSubByName(channel);
 

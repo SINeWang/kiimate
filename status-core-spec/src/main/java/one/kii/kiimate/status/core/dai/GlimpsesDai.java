@@ -15,11 +15,11 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 27/05/2017.
  */
-public interface AssetDai {
+public interface GlimpsesDai {
 
     List<Providers> queryProviders(ClueId clue) throws BadRequest;
 
-    Assets load(ZoomInById channel) throws Panic;
+    Glimpse load(ZoomInById channel) throws Panic;
 
     @Transactional
     void remember(Subscription subscription) throws BadRequest;
@@ -106,26 +106,7 @@ public interface AssetDai {
     }
 
     @Data
-    class ChannelGroupName {
-
-
-        String ownerId;
-
-
-        String group;
-
-
-        String name;
-
-
-        String stability;
-
-
-        String version;
-    }
-
-    @Data
-    class Assets {
+    class Glimpse {
 
         Long id;
 

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sinewang.kiimate.status.core.dai.mapper.AssetsMapper">
+<mapper namespace="com.sinewang.kiimate.status.core.dai.mapper.GlimpseMapper">
 
-    <resultMap id="Providers" type="one.kii.kiimate.status.core.dai.AssetDai$Providers">
+    <resultMap id="Providers" type="one.kii.kiimate.status.core.dai.GlimpsesDai$Providers">
         <result column="provider_id" property="id"/>
     </resultMap>
-    <resultMap id="Subscribers" type="one.kii.kiimate.status.core.dai.AssetDai$Subscribers">
+    <resultMap id="Subscribers" type="one.kii.kiimate.status.core.dai.GlimpsesDai$Subscribers">
         <result column="subscriber_id" property="id"/>
     </resultMap>
 
 
-    <resultMap id="Assets" type="one.kii.kiimate.status.core.dai.AssetDai$Assets">
+    <resultMap id="Glimpses" type="one.kii.kiimate.status.core.dai.GlimpsesDai$Glimpse">
         <result column="id" property="id"/>
         <result column="subscriber_id" property="subscriberId"/>
         <result column="sub_set" property="set"/>
@@ -48,7 +48,7 @@
         GROUP BY ssub.provider_id
     </select>
 
-    <select id="selectAsset" resultMap="Assets">
+    <select id="loadGlimpse" resultMap="Glimpses">
         SELECT ssub.id, ssub.subscriber_id, ssub.sub_set, ssub.begin_time, ssub.end_time,
         spub.provider_id
         FROM km_s_sub ssub, km_s_pub spub

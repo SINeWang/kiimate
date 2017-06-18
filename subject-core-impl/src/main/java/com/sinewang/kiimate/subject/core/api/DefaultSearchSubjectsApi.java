@@ -3,7 +3,7 @@ package com.sinewang.kiimate.subject.core.api;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.model.core.dai.ExtensionProvidersDai;
-import one.kii.kiimate.status.core.dai.AssetDai;
+import one.kii.kiimate.status.core.dai.GlimpsesDai;
 import one.kii.kiimate.subject.core.api.SearchSubjectsApi;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
@@ -32,7 +32,7 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
     private ModelPublicationDai modelPublicationDai;
 
     @Autowired
-    private AssetDai assetDai;
+    private GlimpsesDai glimpsesDai;
 
     @Override
     public List<Subjects> search(ReadContext context, Form form) throws BadRequest, Panic {
@@ -77,9 +77,9 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
             case ASSET:
                 switch (form.getAccessType()) {
                     case OWNER:
-                        AssetDai.ClueId clue = new AssetDai.ClueId();
+                        GlimpsesDai.ClueId clue = new GlimpsesDai.ClueId();
                         clue.setId(form.getGroup());
-                        List<AssetDai.Providers> subjects = assetDai.queryProviders(clue);
+                        List<GlimpsesDai.Providers> subjects = glimpsesDai.queryProviders(clue);
                         return ValueMapping.from(Subjects.class, subjects);
                 }
             case STATUS:
