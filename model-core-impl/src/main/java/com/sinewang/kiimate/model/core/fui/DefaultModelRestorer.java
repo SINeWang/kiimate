@@ -80,10 +80,11 @@ public class DefaultModelRestorer implements AnModelRestorer {
                 ModelPublicationDai.ChannelSet pubset = new ModelPublicationDai.ChannelSet();
                 pubset.setSet(refPubSet);
                 ModelPublicationDai.Record publication = modelPublicationDai.loadRootPublications(pubset);
-                IntensionDai.ChannelExtensionId channel = new IntensionDai.ChannelExtensionId();
-                channel.setId(publication.getExtId());
-                channel.setBeginTime(publication.getBeginTime());
-                restoreAsFieldDict(channel, map);
+                IntensionDai.ChannelExtensionId refExt = new IntensionDai.ChannelExtensionId();
+                refExt.setBeginTime(publication.getBeginTime());
+                refExt.setEndTime(record.getBeginTime());
+                refExt.setId(publication.getExtId());
+                restoreAsFieldDict(refExt, map);
             } else {
                 map.put(record.getField(), record);
             }

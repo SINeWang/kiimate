@@ -9,14 +9,13 @@ import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import org.springframework.util.MultiValueMap;
 
-import java.util.List;
 import java.util.Map;
 
 
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
-public interface RefreshStatusApi extends CommitApi<RefreshStatusApi.Receipt, WriteContext, RefreshStatusApi.SubIdForm> {
+public interface RefreshInstanceApi extends CommitApi<RefreshInstanceApi.Receipt, WriteContext, RefreshInstanceApi.SubIdForm> {
 
     Receipt commit(WriteContext context, SubIdForm form) throws BadRequest, Conflict, NotFound, Panic;
 
@@ -31,26 +30,7 @@ public interface RefreshStatusApi extends CommitApi<RefreshStatusApi.Receipt, Wr
     class Receipt {
         String id;
         String ownerId;
-        List<Intension> intensions;
         Map<String, Object> map;
     }
 
-
-    @Data
-    class Intension {
-
-        private String id;
-
-        private String field;
-
-        private Boolean single;
-
-        private String structure;
-
-        private String refSet;
-
-        private String visibility;
-
-        private Boolean required;
-    }
 }

@@ -3,7 +3,7 @@ package com.sinewang.kiimate.status.core.fui;
 import com.google.common.base.CaseFormat;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.dai.IntensionDai;
-import one.kii.kiimate.status.core.api.RefreshStatusApi;
+import one.kii.kiimate.status.core.api.RefreshInstanceApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.summer.beans.utils.HashTools;
@@ -30,7 +30,7 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     private static Logger logger = LoggerFactory.getLogger(DefaultInstanceExtractor.class);
 
     @Override
-    public List<InstanceDai.Instance> extract(WriteContext context, RefreshStatusApi.SubIdForm form, Map<String, IntensionDai.Record> fieldDict) {
+    public List<InstanceDai.Instance> extract(WriteContext context, RefreshInstanceApi.SubIdForm form, Map<String, IntensionDai.Record> fieldDict) {
         List<InstanceDai.Instance> instances = new ArrayList<>();
         Date now = new Date();
         Map<String, List<String>> map = form.getMap();

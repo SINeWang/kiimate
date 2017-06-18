@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.RefreshStatusApi;
+import one.kii.kiimate.status.core.api.RefreshInstanceApi;
 import one.kii.summer.asdf.api.CommitApiCaller;
 import one.kii.summer.beans.utils.MultiValueMapTools;
 import one.kii.summer.io.context.ErestHeaders;
@@ -30,7 +30,7 @@ public class RefreshInstanceCtl extends WriteController {
 
 
     @Autowired
-    private RefreshStatusApi api;
+    private RefreshInstanceApi api;
 
     @RequestMapping(value = "/{" + SUB_ID + "}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity commitForm(
@@ -55,14 +55,14 @@ public class RefreshInstanceCtl extends WriteController {
     }
 
 
-    private ResponseEntity<RefreshStatusApi.Receipt> commit(
+    private ResponseEntity<RefreshInstanceApi.Receipt> commit(
             String requestId,
             String operatorId,
             String ownerId,
             String subId,
             MultiValueMap<String, String> map) {
         WriteContext context = buildContext(requestId, ownerId, operatorId);
-        RefreshStatusApi.SubIdForm form = new RefreshStatusApi.SubIdForm();
+        RefreshInstanceApi.SubIdForm form = new RefreshInstanceApi.SubIdForm();
         form.setId(subId);
         form.setMap(map);
         return CommitApiCaller.sync(api, context, form);

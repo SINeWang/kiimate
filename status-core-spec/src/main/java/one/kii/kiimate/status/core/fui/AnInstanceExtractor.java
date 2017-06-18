@@ -1,7 +1,7 @@
 package one.kii.kiimate.status.core.fui;
 
 import one.kii.kiimate.model.core.dai.IntensionDai;
-import one.kii.kiimate.status.core.api.RefreshStatusApi;
+import one.kii.kiimate.status.core.api.RefreshInstanceApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.summer.io.context.WriteContext;
 
@@ -14,7 +14,7 @@ import java.util.Map;
 public interface AnInstanceExtractor {
 
     List<InstanceDai.Instance> extract(WriteContext context,
-                                       RefreshStatusApi.SubIdForm form,
+                                       RefreshInstanceApi.SubIdForm form,
                                        Map<String, IntensionDai.Record> dict);
 
 

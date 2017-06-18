@@ -3,7 +3,7 @@ package com.sinewang.kiimate.status.core.api;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
-import one.kii.kiimate.status.core.api.RefreshStatusApi;
+import one.kii.kiimate.status.core.api.RefreshInstanceApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
@@ -29,9 +29,9 @@ import java.util.Map;
  */
 
 @Component
-public class DefaultRefreshStatusApi implements RefreshStatusApi {
+public class DefaultRefreshInstanceApi implements RefreshInstanceApi {
 
-    private static final Logger logger = LoggerFactory.getLogger(DefaultRefreshStatusApi.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultRefreshInstanceApi.class);
 
     @Autowired
     private InstanceDai instanceDai;
@@ -60,7 +60,7 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
 
         IntensionDai.ChannelExtensionId lastExtension = new IntensionDai.ChannelExtensionId();
         lastExtension.setId(model.getRootId());
-        lastExtension.setBeginTime(model.getBeginTime());
+        lastExtension.setEndTime(model.getBeginTime());
 
         Map<String, IntensionDai.Record> dict = modelRestorer.restoreAsIntensionDict(lastExtension);
 
@@ -82,14 +82,10 @@ public class DefaultRefreshStatusApi implements RefreshStatusApi {
         id.setSubscriberId(context.getOwnerId());
         List<InstanceDai.Record> newRecords = instanceDai.loadInstances(id);
 
-        List<IntensionDai.Record> recordList = intensionDai.loadLast(rootExtension);
-        List<Intension> intensions = ValueMapping.from(Intension.class, recordList);
-
         Map<String, Object> map = instanceTransformer.toTimedValue(newRecords, model);
 
         Receipt receipt = ValueMapping.from(Receipt.class, form, context);
         receipt.setMap(map);
-        receipt.setIntensions(intensions);
 
         return NotBadResponse.of(receipt);
     }

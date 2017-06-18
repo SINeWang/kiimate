@@ -53,7 +53,7 @@ public class DefaultVisitStatusApi implements VisitStatusApi {
         id.setSubscriberId(outside.getProviderId());
 
         InsideView modelPubSet = modelSubscriptionDai.loadModelSubById(id);
-        id.setBeginTime(outside.getBeginTime());
+        id.setEndTime(outside.getBeginTime());
 
         List<InstanceDai.Record> records = instanceDai.loadInstances(id);
 
