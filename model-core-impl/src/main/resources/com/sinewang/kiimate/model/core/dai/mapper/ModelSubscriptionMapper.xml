@@ -86,18 +86,7 @@
         AND msub.end_time IS NULL
     </select>
 
-    <select id="selectModelPubSetByAssetId" resultMap="InsideView">
-        SELECT mext.id, mpub.pub_set, mpub.begin_time, mpub.end_time
-        FROM km_m_pub mpub, km_m_sub msub, km_m_ext mext, km_s_sub ssub, km_s_pub spub
-        WHERE mext.id = mpub.ext_id
-        AND ssub.id = #{subId}
-        AND ssub.sub_set = spub.pub_set
-        AND spub.m_sub_id = msub.id
-        AND msub.sub_set = mpub.pub_set
-        AND ssub.end_time IS NULL
-        GROUP BY mext.id
-    </select>
-    <select id="selectModelPubSetByStatusId" resultMap="InsideView">
+    <select id="selectModelSubById" resultMap="InsideView">
         SELECT msub.id, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.begin_time, msub.end_time,
         mext.id root_ext_id, mpub.pub_set, mpub.provider_id
         FROM km_m_pub mpub, km_m_sub msub, km_m_ext mext
@@ -107,7 +96,7 @@
         AND msub.end_time IS NULL
         GROUP BY mext.id
     </select>
-    <select id="selectModelPubSetByGroupNameTree" resultMap="InsideView">
+    <select id="selectModelSubByName" resultMap="InsideView">
         SELECT msub.id, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.begin_time, msub.end_time,
         mext.id root_ext_id, mpub.pub_set, mpub.provider_id
         FROM km_m_pub mpub, km_m_sub msub, km_m_ext mext
@@ -136,21 +125,6 @@
         WHERE subscriber_id LIKE #{subscriberId_pattern}
         GROUP BY msub.subscriber_id
     </select>
-    <select id="selectSubscriptionByOwnerGroupNameTree" resultMap="Subscription">
-        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id, msub.begin_time, msub.end_time
-        FROM km_m_sub msub
-        WHERE msub.subscriber_id = #{ownerId}
-        AND msub.group = #{group}
-        AND msub.name = #{name}
-        AND msub.tree = #{tree}
-        AND msub.end_time IS NULL
-    </select>
-    <select id="selectBySubId" resultMap="Subscription">
-        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id, msub.begin_time, msub.end_time
-        FROM km_m_sub msub
-        WHERE msub.id = #{id}
-        WHERE msub.subscriber_id = #{subscriberId}
-        AND msub.end_time IS NULL
-    </select>
+    
 
 </mapper>

@@ -39,11 +39,11 @@ public interface ModelSubscriptionMapper {
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 
-    InsideView selectModelPubSetByStatusId(
+    InsideView selectModelSubById(
             @Param("subscriberId") String subscribreId,
             @Param("id") Long subId);
 
-    InsideView selectModelPubSetByGroupNameTree(
+    InsideView selectModelSubByName(
             @Param("subscriberId") String subscribreId,
             @Param("group") String group,
             @Param("name") String name,
