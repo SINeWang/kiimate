@@ -4,12 +4,11 @@ import lombok.Data;
 import one.kii.summer.asdf.api.SearchApi;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.ReadContext;
-import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
-import one.kii.summer.io.exception.Conflict;
-import one.kii.summer.io.exception.NotFound;
+import one.kii.summer.io.exception.Panic;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by WangYanJiong on 19/06/2017.
@@ -17,35 +16,31 @@ import java.util.Date;
 public interface SearchGlimpseApi extends SearchApi<SearchGlimpseApi.Receipt, ReadContext, SearchGlimpseApi.Form> {
 
 
-    Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound;
+    List<Receipt> search(ReadContext context, Form form) throws BadRequest, Panic;
 
     @Data
     class Form {
 
-        private String subSet;
-
         private String group;
-
-        private String name;
-
-        private String tree;
 
     }
 
     @Data
     class Receipt {
 
-        private String id;
+        private String providerId;
 
-        private String subscriberId;
-
-        private String subSet;
+        private String set;
 
         private String group;
 
         private String name;
 
-        private String tree;
+        private String stability;
+
+        private String version;
+
+        private String visibility;
 
         private Date beginTime;
 

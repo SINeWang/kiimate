@@ -9,12 +9,29 @@
         <result column="subscriber_id" property="id"/>
     </resultMap>
 
+    <resultMap id="Publication" type="one.kii.kiimate.status.core.dai.GlimpsesDai$Publication">
+        <result column="pub_set" property="set"/>
+        <result column="provider_id" property="providerId"/>
+        <result column="m_sub_id" property="modelSubId"/>
+        <result column="group" property="group"/>
+        <result column="name" property="name"/>
+        <result column="stability" property="stability"/>
+        <result column="version" property="version"/>
+        <result column="visibility" property="visibility"/>
+        <result column="operator_id" property="operatorId"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
+    </resultMap>
 
     <resultMap id="Glimpses" type="one.kii.kiimate.status.core.dai.GlimpsesDai$Glimpse">
         <result column="id" property="id"/>
         <result column="subscriber_id" property="subscriberId"/>
+        <result column="m_sub_id" property="modelSubId"/>
         <result column="sub_set" property="set"/>
         <result column="provider_id" property="providerId"/>
+        <result column="group" property="group"/>
+        <result column="name" property="name"/>
+        <result column="visibility" property="visibility"/>
         <result column="version" property="version"/>
         <result column="begin_time" property="beginTime"/>
         <result column="end_time" property="endTime"/>
@@ -24,13 +41,13 @@
         INSERT INTO km_s_sub
         (id, subscriber_id, sub_set, operator_id, begin_time)
         VALUES
-        (#{id}, #{subscriberId}, #{subSet}, #{operatorId}, #{beginTime})
+        (#{id}, #{subscriberId}, #{set}, #{operatorId}, #{beginTime})
     </insert>
     <insert id="insertPublication">
         INSERT INTO km_s_pub
         (id, pub_set, provider_id, m_sub_id, ins_id, version, visibility, stability, operator_id, begin_time)
         VALUES
-        (#{id}, #{pubSet}, #{providerId}, #{modelSubId}, #{insId}, #{version}, #{visibility}, #{stability}, #{operatorId}, #{beginTime})
+        (#{id}, #{set}, #{providerId}, #{modelSubId}, #{insId}, #{version}, #{visibility}, #{stability}, #{operatorId}, #{beginTime})
     </insert>
 
     <select id="queryProviders" resultMap="Providers">
@@ -46,6 +63,17 @@
         WHERE ssub.subscriber_id LIKE #{subscriber_id_pattern}
         AND ssub.end_time IS NULL
         GROUP BY ssub.provider_id
+    </select>
+    <select id="queryPublications" resultMap="Publication">
+        <bind name="group_pattern" value="'%' + group + '%'"/>
+        SELECT spub.id, spub.pub_set, spub.provider_id, spub.m_sub_id, spub.version, spub.visibility, spub.stability, spub.operator_id, spub.begin_time, spub.end_time,
+        msub.group, msub.name
+        FROM km_s_pub spub, km_m_sub msub
+        WHERE spub.m_sub_id = msub.id
+        AND spub.provider_id = #{providerId}
+        AND msub.group LIKE #{group_pattern}
+        AND spub.end_time IS NULL
+        GROUP BY spub.pub_set
     </select>
 
     <select id="loadGlimpse" resultMap="Glimpses">

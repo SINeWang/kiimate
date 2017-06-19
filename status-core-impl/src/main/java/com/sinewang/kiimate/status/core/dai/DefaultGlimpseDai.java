@@ -31,7 +31,7 @@ public class DefaultGlimpseDai implements GlimpsesDai {
         glimpseMapper.insertSubscription(
                 subscription.getId(),
                 subscription.getSubscriberId(),
-                subscription.getSubSet(),
+                subscription.getSet(),
                 subscription.getGroup(),
                 subscription.getName(),
                 subscription.getTree(),
@@ -51,7 +51,7 @@ public class DefaultGlimpseDai implements GlimpsesDai {
         for (Entry entry : entries) {
             glimpseMapper.insertPublication(
                     entry.getId(),
-                    publication.getPubSet(),
+                    publication.getSet(),
                     publication.getProviderId(),
                     publication.getModelSubId(),
                     entry.getInsId(),
@@ -62,6 +62,15 @@ public class DefaultGlimpseDai implements GlimpsesDai {
                     publication.getBeginTime()
             );
         }
+    }
+
+    @Override
+    public List<Publication> queryPublications(ClueGroup clue) throws BadRequest, Panic {
+        NotBadRequest.from(clue);
+        List<Publication> list = glimpseMapper.queryPublications(
+                clue.getOwnerId(),
+                clue.getGroup());
+        return NotBadResponse.of(list);
     }
 
 

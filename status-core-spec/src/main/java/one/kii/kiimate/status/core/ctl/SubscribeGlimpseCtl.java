@@ -18,9 +18,9 @@ import static one.kii.kiimate.status.core.ctl.PublishStatusCtl.OWNER_ID;
  */
 
 @RestController
-@RequestMapping("/api/v1/{" + OWNER_ID + "}/subscriptions/assets")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/subscriptions/glimpse")
 @CrossOrigin(origins = "*")
-public class SubscribeAssetCtl extends WriteController {
+public class SubscribeGlimpseCtl extends WriteController {
 
     public static final String OWNER_ID = "owner-id";
 

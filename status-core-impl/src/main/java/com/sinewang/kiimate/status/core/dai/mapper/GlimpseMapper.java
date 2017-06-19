@@ -22,6 +22,11 @@ public interface GlimpseMapper {
             @Param("subscriberId") String subscriberId
     );
 
+    List<GlimpsesDai.Publication> queryPublications(
+            @Param("providerId") String providerId,
+            @Param("group") String group
+    );
+
     GlimpsesDai.Glimpse loadGlimpse(
             @Param("subscriberId") String subscriberId,
             @Param("id") Long id);
@@ -29,7 +34,7 @@ public interface GlimpseMapper {
     void insertSubscription(
             @Param("id") Long id,
             @Param("subscriberId") String subscriberId,
-            @Param("subSet") String subSet,
+            @Param("set") String subSet,
             @Param("group") String group,
             @Param("name") String name,
             @Param("tree") String tree,
@@ -38,7 +43,7 @@ public interface GlimpseMapper {
 
     void insertPublication(
             @Param("id") Long id,
-            @Param("pubSet") Long pubSet,
+            @Param("set") Long pubSet,
             @Param("providerId") String providerId,
             @Param("modelSubId") Long modelSubId,
             @Param("insId") Long insId,

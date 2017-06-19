@@ -56,7 +56,7 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
         }
 
         GlimpsesDai.Publication record = ValueMapping.from(GlimpsesDai.Publication.class, form, context);
-        record.setPubSet(pubset.born());
+        record.setSet(pubset.born());
         record.setBeginTime(new Date());
         record.setModelSubId(form.getId());
 

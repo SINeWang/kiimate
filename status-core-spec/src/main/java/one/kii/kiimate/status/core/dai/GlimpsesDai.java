@@ -27,16 +27,25 @@ public interface GlimpsesDai {
     @Transactional
     void remember(Publication publication, List<Entry> entries) throws Conflict;
 
+
+    List<Publication> queryPublications(ClueGroup clue) throws BadRequest, Panic;
+
     @Data
     class Publication {
 
-        Long pubSet;
+        Long set;
 
         @Unique
         String providerId;
 
         @Unique
         Long modelSubId;
+
+        @Unique
+        String group;
+
+        @Unique
+        String name;
 
         @Unique
         String version;
@@ -70,7 +79,7 @@ public interface GlimpsesDai {
 
         String subscriberId;
 
-        String subSet;
+        String set;
 
         String group;
 
@@ -110,13 +119,23 @@ public interface GlimpsesDai {
 
         Long id;
 
+        String set;
+
         String subscriberId;
 
         String providerId;
 
-        String set;
+        Long modelSubId;
+
+        String group;
+
+        String name;
+
+        String stability;
 
         String version;
+
+        String visibility;
 
         Date beginTime;
 
