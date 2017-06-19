@@ -29,21 +29,6 @@ public interface VisitStatusPublicationApi extends VisitApi<VisitStatusPublicati
     }
 
     @Data
-    class Inside {
-        private String set;
-        private String rootId;
-        private String providerId;
-        private String subscriberId;
-        private String id;
-        private String group;
-        private String name;
-        private String tree;
-        private Date beginTime;
-        @MayHave
-        private Date endTime;
-    }
-
-    @Data
     class Outside {
         private String id;
         private String set;
