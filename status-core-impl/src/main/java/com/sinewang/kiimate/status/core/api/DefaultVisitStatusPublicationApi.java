@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by WangYanJiong on 4/6/17.
+ * Created by WangYanJiong on 19/6/17.
  */
 
 @Component
@@ -28,9 +28,9 @@ public class DefaultVisitStatusPublicationApi implements VisitStatusPublicationA
 
         GlimpsesDai.Publication publication = glimpsesDai.load(form);
 
-        Publication publication1 = ValueMapping.from(Publication.class, publication);
-
-        return NotBadResponse.of(publication1);
+        return NotBadResponse.of(
+                ValueMapping.from(Publication.class, publication)
+        );
     }
 
 }
