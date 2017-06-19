@@ -13,7 +13,7 @@ import java.util.Map;
  * Created by WangYanJiong on 7/6/17.
  */
 
-public interface VisitAssetApi extends VisitApi<Map<String, Object>, ReadContext, ZoomInById> {
+public interface VisitGlimpseApi extends VisitApi<Map<String, Object>, ReadContext, ZoomInById> {
 
 
     Map<String, Object> visit(ReadContext context, ZoomInById form) throws NotFound, BadRequest, Panic;

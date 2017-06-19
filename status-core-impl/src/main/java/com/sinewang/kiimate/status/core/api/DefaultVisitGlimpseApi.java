@@ -1,7 +1,7 @@
 package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.status.core.api.VisitAssetApi;
+import one.kii.kiimate.status.core.api.VisitGlimpseApi;
 import one.kii.kiimate.status.core.dai.GlimpsesDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
@@ -24,7 +24,7 @@ import java.util.Map;
  */
 
 @Component
-public class DefaultVisitGlimpseApi implements VisitAssetApi {
+public class DefaultVisitGlimpseApi implements VisitGlimpseApi {
 
     @Autowired
     private InstanceDai instanceDai;

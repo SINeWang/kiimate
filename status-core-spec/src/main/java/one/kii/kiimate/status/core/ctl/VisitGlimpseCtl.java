@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.VisitAssetApi;
+import one.kii.kiimate.status.core.api.VisitGlimpseApi;
 import one.kii.summer.asdf.api.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
@@ -10,21 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.status.core.ctl.VisitAssetCtl.ASSET_ID;
+import static one.kii.kiimate.status.core.ctl.VisitGlimpseCtl.ASSET_ID;
 import static one.kii.kiimate.status.core.ctl.VisitStatusCtl.PROVIDER_ID;
 
 /**
  * Created by WangYanJiong on 17/06/2017.
  */
 @RestController
-@RequestMapping(value = "/api/v1/{" + PROVIDER_ID + "}/asset/{" + ASSET_ID + "}", method = RequestMethod.GET)
+@RequestMapping(value = "/api/v1/{" + PROVIDER_ID + "}/glimpse/{" + ASSET_ID + "}", method = RequestMethod.GET)
 @CrossOrigin(origins = "*")
-public class VisitAssetCtl extends ReadController {
+public class VisitGlimpseCtl extends ReadController {
 
     public static final String ASSET_ID = "asset-id";
 
     @Autowired
-    private VisitAssetApi api;
+    private VisitGlimpseApi api;
 
     private ResponseEntity<?> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
