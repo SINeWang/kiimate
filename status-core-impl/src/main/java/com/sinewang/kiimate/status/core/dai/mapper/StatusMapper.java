@@ -37,6 +37,7 @@ public interface StatusMapper {
             @Param("name") String name,
             @Param("stability") String stability,
             @Param("version") String version,
+            @Param("beginTime") Date beginTime,
             @Param("endTime") Date endTime
     );
 

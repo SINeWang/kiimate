@@ -42,6 +42,7 @@ public class DefaultStatusDai implements StatusDai {
                 channel.getName(),
                 channel.getStability(),
                 channel.getVersion(),
+                channel.getBeginTime(),
                 channel.getEndTime());
 
         return NotBadResponse.of(statuses);
