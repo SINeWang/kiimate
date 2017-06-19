@@ -74,7 +74,7 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
                         List<ModelSubscriptionDai.Subscribers> subjects = modelSubscriptionDai.querySubscribers(clue);
                         return ValueMapping.from(Subjects.class, subjects);
                 }
-            case ASSET:
+            case GLIMPSE:
                 switch (form.getAccessType()) {
                     case OWNER:
                         GlimpsesDai.ClueId clue = new GlimpsesDai.ClueId();

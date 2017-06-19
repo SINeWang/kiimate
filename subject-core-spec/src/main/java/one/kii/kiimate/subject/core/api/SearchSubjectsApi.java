@@ -18,7 +18,7 @@ public interface SearchSubjectsApi extends SearchApi<SearchSubjectsApi.Subjects,
 
     enum ObjectType {
         UNKNOWN,
-        ASSET,
+        GLIMPSE,
         EXTENSION,
         EVENT,
         INTENSION,
