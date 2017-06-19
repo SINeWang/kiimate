@@ -47,6 +47,14 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
+    public Instance load(ClueModelSubId id) throws Panic{
+        Instance instance = modelSubscriptionMapper.loadInstance(
+                id.getId()
+        );
+        return NotBadResponse.of(instance);
+    }
+
+    @Override
     public InsideView loadModelSubById(ZoomInById channel) throws Panic {
         InsideView record = modelSubscriptionMapper.selectModelSubById(
                 channel.getSubscriberId(),
@@ -68,7 +76,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
 
     @Override
     public OutsideView selectModelBySet(ZoomOutBySet channel) throws Panic {
-        OutsideView record = modelSubscriptionMapper.selectModelBySet(
+        OutsideView record = modelSubscriptionMapper.selectModelPubBySet(
                 channel
         );
         return NotBadResponse.of(record);

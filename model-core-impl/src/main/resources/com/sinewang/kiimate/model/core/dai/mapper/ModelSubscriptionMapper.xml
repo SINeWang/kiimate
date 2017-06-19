@@ -51,6 +51,12 @@
         (#{id}, #{subSet}, #{subscriberId}, #{group}, #{name}, #{tree}, #{operatorId}, #{beginTime})
     </insert>
 
+    <select id="loadInstance" resultMap="Subscription">
+        SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.operator_id, msub.begin_time, msub.end_time
+        FROM km_m_sub msub
+        WHERE msub.id = #{id}
+    </select>
+
     <delete id="deleteById">
         DELETE FROM
         km_m_sub
@@ -109,12 +115,24 @@
         GROUP BY mext.id
     </select>
 
-    <select id="selectModelBySet" resultMap="OutsideView">
+    <select id="selectModelPubBySet" resultMap="OutsideView">
         SELECT mext.id, mpub.pub_set, mpub.provider_id, mext.group, mext.name, mpub.stability, mpub.version, mpub.begin_time, mpub.end_time
         FROM km_m_pub mpub, km_m_ext mext
         WHERE mext.id = mpub.ext_id
         AND mpub.provider_id = #{providerId}
         AND mpub.pub_set = #{set}
+        GROUP BY mext.id
+    </select>
+
+    <select id="selectModelByName" resultMap="OutsideView">
+        SELECT mext.id, mpub.pub_set, mpub.provider_id, mext.group, mext.name, mpub.stability, mpub.version, mpub.begin_time, mpub.end_time
+        FROM km_m_pub mpub, km_m_ext mext
+        WHERE mext.id = mpub.ext_id
+        AND mpub.provider_id = #{providerId}
+        AND mext.group = #{group}
+        AND mext.name = #{name}
+        AND mpub.stability = #{stability}
+        AND mpub.version = #{version}
         GROUP BY mext.id
     </select>
 

@@ -5,6 +5,7 @@ import one.kii.summer.beans.annotations.Unique;
 import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
+import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.zoom.*;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,8 @@ public interface ModelSubscriptionDai {
 
     @Transactional
     void remember(Instance instance) throws Conflict;
+
+    Instance load(ClueModelSubId instance) throws NotFound, Panic;
 
     InsideView loadModelSubById(ZoomInById channel) throws Panic;
 
@@ -38,6 +41,12 @@ public interface ModelSubscriptionDai {
         String ownerId;
         String group;
     }
+
+    @Data
+    class ClueModelSubId {
+        Long id;
+    }
+
 
     @Data
     class ClueSubscriberId {

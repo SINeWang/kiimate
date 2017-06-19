@@ -52,6 +52,9 @@ public interface ModelSubscriptionMapper {
     List<ModelSubscriptionDai.Subscribers> querySubscriberId(
             @Param("subscriberId") String subscriberId);
 
-    OutsideView selectModelBySet(ZoomOutBySet view);
+    OutsideView selectModelPubBySet(ZoomOutBySet zoom);
+
+    ModelSubscriptionDai.Instance loadInstance(
+            @Param("id") Long id);
 
 }
