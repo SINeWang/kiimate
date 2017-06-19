@@ -23,7 +23,7 @@ public class SearchGlimpsesCtl extends ReadController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> exploreModels(
+    public ResponseEntity<?> search(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @RequestParam("q") String query,

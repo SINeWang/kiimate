@@ -23,7 +23,7 @@ public class VisitModelCtl extends ReadController {
     private VisitModelApi api;
 
     @RequestMapping(value = "/{" + PUB_SET + ":.+}")
-    public ResponseEntity<VisitModelApi.Model> exploreModels(
+    public ResponseEntity<VisitModelApi.Model> search(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(PUB_SET) Long set) {

@@ -25,7 +25,7 @@ public class SearchModelsCtl extends ReadController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<SearchModelsApi.Models>> exploreModels(
+    public ResponseEntity<List<SearchModelsApi.Models>> search(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @RequestParam("q") String query) {

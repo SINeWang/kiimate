@@ -8,7 +8,7 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
-import one.kii.summer.zoom.ZoomInById;
+import one.kii.summer.zoom.ZoomOutBySet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
@@ -81,10 +81,10 @@ public class DefaultGlimpseDai implements GlimpsesDai {
     }
 
     @Override
-    public Glimpse load(ZoomInById channel) throws Panic {
-        Glimpse glimpse = glimpseMapper.loadGlimpse(
-                channel.getSubscriberId(),
-                channel.getId());
+    public Publication load(ZoomOutBySet channel) throws Panic {
+        Publication glimpse = glimpseMapper.loadPublication(
+                channel.getProviderId(),
+                channel.getSet());
         return NotBadResponse.of(glimpse);
     }
 

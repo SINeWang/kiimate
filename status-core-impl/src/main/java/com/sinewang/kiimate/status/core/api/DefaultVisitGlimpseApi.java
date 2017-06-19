@@ -13,6 +13,7 @@ import one.kii.summer.io.exception.Panic;
 import one.kii.summer.zoom.InsideView;
 import one.kii.summer.zoom.ZoomInById;
 import one.kii.summer.zoom.ZoomInByName;
+import one.kii.summer.zoom.ZoomOutBySet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,12 +40,11 @@ public class DefaultVisitGlimpseApi implements VisitGlimpseApi {
     private InstanceTransformer instanceTransformer;
 
     @Override
-    public Map<String, Object> visit(ReadContext context, ZoomInById form) throws NotFound, BadRequest, Panic {
+    public Map<String, Object> visit(ReadContext context, ZoomOutBySet form) throws NotFound, BadRequest, Panic {
 
+        GlimpsesDai.Publication publication = glimpsesDai.load(form);
 
-        GlimpsesDai.Glimpse glimpse = glimpsesDai.load(form);
-
-        ZoomInByName channel = ValueMapping.from(ZoomInByName.class, glimpse);
+        ZoomInByName channel = ValueMapping.from(ZoomInByName.class, publication);
 
         InsideView modelSub = modelSubscriptionDai.loadModelSubByName(channel);
 

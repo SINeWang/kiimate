@@ -24,11 +24,9 @@
     </resultMap>
 
     <resultMap id="Glimpses" type="one.kii.kiimate.status.core.dai.GlimpsesDai$Glimpse">
-        <result column="id" property="id"/>
-        <result column="subscriber_id" property="subscriberId"/>
-        <result column="m_sub_id" property="modelSubId"/>
-        <result column="sub_set" property="set"/>
         <result column="provider_id" property="providerId"/>
+        <result column="m_sub_id" property="modelSubId"/>
+        <result column="pub_set" property="set"/>
         <result column="group" property="group"/>
         <result column="name" property="name"/>
         <result column="visibility" property="visibility"/>
@@ -66,7 +64,7 @@
     </select>
     <select id="queryPublications" resultMap="Publication">
         <bind name="group_pattern" value="'%' + group + '%'"/>
-        SELECT spub.id, spub.pub_set, spub.provider_id, spub.m_sub_id, spub.version, spub.visibility, spub.stability, spub.operator_id, spub.begin_time, spub.end_time,
+        SELECT spub.pub_set, spub.provider_id, spub.m_sub_id, spub.version, spub.visibility, spub.stability, spub.operator_id, spub.begin_time, spub.end_time,
         msub.group, msub.name
         FROM km_s_pub spub, km_m_sub msub
         WHERE spub.m_sub_id = msub.id
@@ -76,15 +74,15 @@
         GROUP BY spub.pub_set
     </select>
 
-    <select id="loadGlimpse" resultMap="Glimpses">
-        SELECT ssub.id, ssub.subscriber_id, ssub.sub_set, ssub.begin_time, ssub.end_time,
-        spub.provider_id
-        FROM km_s_sub ssub, km_s_pub spub
-        WHERE spub.pub_set = ssub.sub_set
-        AND ssub.id = #{id}
-        AND ssub.subscriber_id = #{subscriberId}
-        AND ssub.end_time IS NULL
-        GROUP BY ssub.id
+    <select id="loadPublication" resultMap="Publication">
+        SELECT spub.pub_set, spub.provider_id, spub.m_sub_id, spub.version, spub.visibility, spub.stability, spub.operator_id, spub.begin_time, spub.end_time,
+        msub.group, msub.name
+        FROM km_m_sub msub, km_s_pub spub
+        WHERE spub.m_sub_id = msub.id
+        AND spub.pub_set = #{set}
+        AND spub.provider_id = #{providerId}
+        AND spub.end_time IS NULL
+        GROUP BY spub.pub_set
     </select>
     <select id="countByConflictKey" resultType="java.lang.Integer">
         SELECT COUNT(pub_set)

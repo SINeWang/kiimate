@@ -6,6 +6,7 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.zoom.ZoomInById;
+import one.kii.summer.zoom.ZoomOutBySet;
 
 import java.util.Map;
 
@@ -13,9 +14,9 @@ import java.util.Map;
  * Created by WangYanJiong on 7/6/17.
  */
 
-public interface VisitGlimpseApi extends VisitApi<Map<String, Object>, ReadContext, ZoomInById> {
+public interface VisitGlimpseApi extends VisitApi<Map<String, Object>, ReadContext, ZoomOutBySet> {
 
 
-    Map<String, Object> visit(ReadContext context, ZoomInById form) throws NotFound, BadRequest, Panic;
+    Map<String, Object> visit(ReadContext context, ZoomOutBySet form) throws NotFound, BadRequest, Panic;
 
 }

@@ -7,6 +7,7 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.zoom.ZoomInById;
+import one.kii.summer.zoom.ZoomOutBySet;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -19,7 +20,7 @@ public interface GlimpsesDai {
 
     List<Providers> queryProviders(ClueId clue) throws BadRequest;
 
-    Glimpse load(ZoomInById channel) throws Panic;
+    Publication load(ZoomOutBySet channel) throws Panic;
 
     @Transactional
     void remember(Subscription subscription) throws BadRequest;
@@ -117,11 +118,7 @@ public interface GlimpsesDai {
     @Data
     class Glimpse {
 
-        Long id;
-
         String set;
-
-        String subscriberId;
 
         String providerId;
 
