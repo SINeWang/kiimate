@@ -78,7 +78,7 @@ public class DefaultRefreshPartialInstanceApi implements RefreshPartialInstanceA
         id.setSubscriberId(context.getOwnerId());
         List<InstanceDai.Record> newRecords = instanceDai.loadInstances(id);
 
-        Map<String, Object> map = instanceTransformer.toTimedValue(newRecords, model);
+        Map<String, Object> map = instanceTransformer.toFatValue(newRecords, model);
 
         Receipt receipt = ValueMapping.from(Receipt.class, form, context);
         receipt.setMap(map);

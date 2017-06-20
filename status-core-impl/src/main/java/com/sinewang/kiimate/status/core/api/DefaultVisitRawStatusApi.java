@@ -42,9 +42,9 @@ public class DefaultVisitRawStatusApi implements VisitRawStatusApi {
     @Override
     public Map<String, Object> visit(ReadContext context, ZoomOutBySet form) throws NotFound, BadRequest, Panic {
 
-        GlimpsesDai.Glimpse glimpse = glimpsesDai.load(form);
+        GlimpsesDai.Publication publication = glimpsesDai.load(form);
 
-        ZoomInByName channel = ValueMapping.from(ZoomInByName.class, glimpse);
+        ZoomInByName channel = ValueMapping.from(ZoomInByName.class, publication);
 
         InsideView modelSub = modelSubscriptionDai.loadModelSubByName(channel);
 

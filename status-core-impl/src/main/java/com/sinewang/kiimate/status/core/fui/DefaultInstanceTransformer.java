@@ -25,12 +25,12 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     private IntensionDai intensionDai;
 
     @Override
-    public Map<String, Object> toTimedValue(List<InstanceDai.Record> instancesList, InsideView model) throws Panic, BadRequest {
+    public Map<String, Object> toFatValue(List<InstanceDai.Record> instancesList, InsideView model) throws Panic, BadRequest {
         Map<String, List<InstanceDai.Record>> dict = dict(instancesList);
         IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
 
         extension.setSet(model.getSet());
-        return parseTimed(extension, dict);
+        return parseFat(extension, dict);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                 if (record.getRefSet() != null) {
                     IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
                     refPubSet.setSet(record.getRefSet());
-                    Map<String, Object> child = parseTimed(refPubSet, dict);
+                    Map<String, Object> child = parseFat(refPubSet, dict);
                     if (!child.isEmpty()) {
                         addComplexValueToList(result, record, child);
                     }
@@ -90,7 +90,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     }
 
 
-    private Map<String, Object> parseTimed(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Record>> dict) throws Panic, BadRequest {
+    private Map<String, Object> parseFat(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Record>> dict) throws Panic, BadRequest {
         List<IntensionDai.Record> intensions = intensionDai.loadLast(pubSet);
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Record intension : intensions) {
@@ -98,7 +98,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                 if (intension.getRefSet() != null) {
                     IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
                     refPubSet.setSet(intension.getRefSet());
-                    Map<String, Object> child = parseTimed(refPubSet, dict);
+                    Map<String, Object> child = parseFat(refPubSet, dict);
                     if (!child.isEmpty()) {
                         result.put(intension.getField(), child);
                     }
@@ -106,10 +106,14 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                     List<InstanceDai.Record> instances = dict.get(intension.getField());
                     if (instances != null && !instances.isEmpty()) {
                         Object value = dict.get(intension.getField()).get(0).getValue();
+                        Object valueRefId = dict.get(intension.getField()).get(0).getValueRefId();
                         if (value != null) {
-                            TimedValue tv = new TimedValue();
+                            FatValue tv = new FatValue();
                             tv.setValue(value);
                             tv.setTime(dict.get(intension.getField()).get(0).getBeginTime());
+                            if (valueRefId != null) {
+                                tv.setValueRefId(String.valueOf(valueRefId));
+                            }
                             result.put(intension.getField(), tv);
                         }
                     }
@@ -119,7 +123,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                     IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
                     refPubSet.setSet(intension.getRefSet());
 
-                    Map<String, Object> child = parseTimed(refPubSet, dict);
+                    Map<String, Object> child = parseFat(refPubSet, dict);
                     addComplexValueToList(result, intension, child);
                 } else {
                     List<InstanceDai.Record> instances = dict.get(intension.getField());
@@ -127,7 +131,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                         for (InstanceDai.Record instance : instances) {
                             if (instance.getValue() != null) {
                                 Object v = instance.getValue();
-                                TimedValue tv = new TimedValue();
+                                FatValue tv = new FatValue();
                                 tv.setValue(v);
                                 tv.setTime(instance.getBeginTime());
                                 result.computeIfAbsent(instance.getField(), key -> new ArrayList<>());

@@ -36,18 +36,18 @@ public class DefaultVisitGlimpseApi implements VisitGlimpseApi {
     @Override
     public Glimpse visit(ReadContext context, ZoomOutBySet form) throws NotFound, BadRequest, Panic {
 
-        GlimpsesDai.Glimpse glimpse = glimpsesDai.load(form);
+        GlimpsesDai.Publication publication = glimpsesDai.load(form);
 
-        ZoomOutByName statusName = ValueMapping.from(ZoomOutByName.class, glimpse);
+        ZoomOutByName statusName = ValueMapping.from(ZoomOutByName.class, publication);
 
         ModelSubscriptionDai.ClueModelSubId id = new ModelSubscriptionDai.ClueModelSubId();
-        id.setId(glimpse.getModelSubId());
+        id.setId(publication.getModelSubId());
 
         ModelSubscriptionDai.Instance instance = modelSubscriptionDai.load(id);
 
         ZoomOutBySet modelPubSet = new ZoomOutBySet();
         modelPubSet.setSet(instance.getSet());
-        modelPubSet.setProviderId(glimpse.getProviderId());
+        modelPubSet.setProviderId(publication.getProviderId());
 
         OutsideView model = modelSubscriptionDai.selectModelBySet(modelPubSet);
 

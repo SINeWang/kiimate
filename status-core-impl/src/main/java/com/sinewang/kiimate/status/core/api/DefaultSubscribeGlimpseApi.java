@@ -30,17 +30,17 @@ public class DefaultSubscribeGlimpseApi implements SubscribeGlimpseApi {
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound {
         NotBadRequest.from(form);
 
-        GlimpsesDai.Subscription subscription = ValueMapping.from(GlimpsesDai.Subscription.class, form, context);
+        GlimpsesDai.Glimpse glimpse = ValueMapping.from(GlimpsesDai.Glimpse.class, form, context);
 
-        subscription.setSubscriberId(context.getOwnerId());
+        glimpse.setSubscriberId(context.getOwnerId());
 
-        subscription.setBeginTime(new Date());
+        glimpse.setBeginTime(new Date());
 
-        subscription.setId(idgen.born());
+        glimpse.setId(idgen.born());
 
-        glimpsesDai.remember(subscription);
+        glimpsesDai.remember(glimpse);
 
-        return ValueMapping.from(Receipt.class, subscription);
+        return ValueMapping.from(Receipt.class, glimpse);
 
     }
 

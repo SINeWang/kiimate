@@ -64,7 +64,7 @@ public class DefaultVisitFatStatusApi implements VisitFatStatusApi {
 
         List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
 
-        Map<String, Object> map = instanceTransformer.toTimedValue(records, modelPubSet);
+        Map<String, Object> map = instanceTransformer.toFatValue(records, modelPubSet);
         Status status = ValueMapping.from(Status.class, outside, form, modelPubSet);
         status.setMap(map);
         status.setIntensions(intensions);

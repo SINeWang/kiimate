@@ -22,26 +22,23 @@ public interface GlimpseMapper {
             @Param("subscriberId") String subscriberId
     );
 
-    List<GlimpsesDai.Glimpse> queryGlimpses(
+    List<GlimpsesDai.Publication> queryStatusPub(
             @Param("providerId") String providerId,
             @Param("group") String group
     );
 
-    GlimpsesDai.Glimpse loadGlimpse(
+    GlimpsesDai.Publication loadStatusPub(
             @Param("providerId") String providerId,
             @Param("set") Long set);
 
-    void insertSubscription(
+    void insertGlimpse(
             @Param("id") Long id,
             @Param("subscriberId") String subscriberId,
-            @Param("set") String subSet,
-            @Param("group") String group,
-            @Param("name") String name,
-            @Param("tree") String tree,
+            @Param("set") String set,
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
-    void insertGlimpse(
+    void insertPublication(
             @Param("id") Long id,
             @Param("set") Long pubSet,
             @Param("providerId") String providerId,

@@ -35,11 +35,11 @@ public class DefaultSearchGlimpseIntensionsApi implements SearchGlimpseIntension
     @Override
     public List<Intension> search(ReadContext context, ZoomOutBySet form) throws BadRequest, Panic {
 
-        GlimpsesDai.Glimpse glimpse = glimpsesDai.load(form);
+        GlimpsesDai.Publication publication = glimpsesDai.load(form);
 
         ModelSubscriptionDai.ClueModelSubId modelSubId = new ModelSubscriptionDai.ClueModelSubId();
 
-        modelSubId.setId(glimpse.getModelSubId());
+        modelSubId.setId(publication.getModelSubId());
 
         ModelSubscriptionDai.Instance instance;
         try {

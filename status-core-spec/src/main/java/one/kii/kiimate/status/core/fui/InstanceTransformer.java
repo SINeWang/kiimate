@@ -15,14 +15,15 @@ import java.util.Map;
  */
 public interface InstanceTransformer {
 
-    Map<String, Object> toTimedValue(List<InstanceDai.Record> instancesList, InsideView model) throws Panic, BadRequest;
+    Map<String, Object> toFatValue(List<InstanceDai.Record> instancesList, InsideView model) throws Panic, BadRequest;
 
     Map<String, Object> toRawValue(List<InstanceDai.Record> instancesList, InsideView pubSet) throws Panic, BadRequest;
 
     @Data
-    class TimedValue {
+    class FatValue {
         Object value;
         Date time;
+        String valueRefId;
     }
 
 }

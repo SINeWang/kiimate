@@ -26,48 +26,45 @@ public class DefaultGlimpseDai implements GlimpsesDai {
 
 
     @Override
-    public void remember(Subscription subscription) throws BadRequest {
-        NotBadRequest.from(subscription);
-        glimpseMapper.insertSubscription(
-                subscription.getId(),
-                subscription.getSubscriberId(),
-                subscription.getSet(),
-                subscription.getGroup(),
-                subscription.getName(),
-                subscription.getTree(),
-                subscription.getOperatorId(),
-                subscription.getBeginTime()
+    public void remember(Glimpse glimpse) throws BadRequest {
+        NotBadRequest.from(glimpse);
+        glimpseMapper.insertGlimpse(
+                glimpse.getId(),
+                glimpse.getSubscriberId(),
+                glimpse.getSet(),
+                glimpse.getOperatorId(),
+                glimpse.getBeginTime()
         );
     }
 
 
     @Override
-    public void remember(Glimpse glimpse, List<Entry> entries) throws Conflict {
-        MultiValueMap<String, String> map = UniqueFinder.find(glimpse);
+    public void remember(Publication publication, List<Entry> entries) throws Conflict {
+        MultiValueMap<String, String> map = UniqueFinder.find(publication);
         Integer count = glimpseMapper.countByConflictKey(map.toSingleValueMap());
         if (count > 0) {
             throw new Conflict(map.keySet());
         }
         for (Entry entry : entries) {
-            glimpseMapper.insertGlimpse(
+            glimpseMapper.insertPublication(
                     entry.getId(),
-                    glimpse.getSet(),
-                    glimpse.getProviderId(),
-                    glimpse.getModelSubId(),
+                    publication.getSet(),
+                    publication.getProviderId(),
+                    publication.getModelSubId(),
                     entry.getInsId(),
-                    glimpse.getVersion(),
-                    glimpse.getStability(),
-                    glimpse.getVisibility(),
-                    glimpse.getOperatorId(),
-                    glimpse.getBeginTime()
+                    publication.getVersion(),
+                    publication.getStability(),
+                    publication.getVisibility(),
+                    publication.getOperatorId(),
+                    publication.getBeginTime()
             );
         }
     }
 
     @Override
-    public List<Glimpse> queryPublications(ClueGroup clue) throws BadRequest, Panic {
+    public List<Publication> queryPublications(ClueGroup clue) throws BadRequest, Panic {
         NotBadRequest.from(clue);
-        List<Glimpse> list = glimpseMapper.queryGlimpses(
+        List<Publication> list = glimpseMapper.queryStatusPub(
                 clue.getOwnerId(),
                 clue.getGroup());
         return NotBadResponse.of(list);
@@ -81,11 +78,11 @@ public class DefaultGlimpseDai implements GlimpsesDai {
     }
 
     @Override
-    public Glimpse load(ZoomOutBySet channel) throws Panic {
-        Glimpse glimpse = glimpseMapper.loadGlimpse(
+    public Publication load(ZoomOutBySet channel) throws Panic {
+        Publication publication = glimpseMapper.loadStatusPub(
                 channel.getProviderId(),
                 channel.getSet());
-        return NotBadResponse.of(glimpse);
+        return NotBadResponse.of(publication);
     }
 
 }

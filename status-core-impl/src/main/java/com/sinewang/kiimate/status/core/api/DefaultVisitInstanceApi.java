@@ -52,7 +52,7 @@ public class DefaultVisitInstanceApi implements VisitInstanceApi {
         List<IntensionDai.Record> records = intensionDai.loadLast(set);
         List<Intension> intensions = ValueMapping.from(Intension.class, records);
 
-        Map<String, Object> map = instanceTransformer.toTimedValue(instances, model);
+        Map<String, Object> map = instanceTransformer.toFatValue(instances, model);
         instance.setIntensions(intensions);
         instance.setMap(map);
         return NotBadResponse.of(instance);

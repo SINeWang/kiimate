@@ -6,7 +6,6 @@ import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.zoom.ZoomInById;
 import one.kii.summer.zoom.ZoomOutBySet;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,19 +19,19 @@ public interface GlimpsesDai {
 
     List<Providers> queryProviders(ClueId clue) throws BadRequest;
 
-    Glimpse load(ZoomOutBySet channel) throws Panic;
+    Publication load(ZoomOutBySet channel) throws Panic;
 
     @Transactional
-    void remember(Subscription subscription) throws BadRequest;
+    void remember(Glimpse subscription) throws BadRequest;
 
     @Transactional
-    void remember(Glimpse glimpse, List<Entry> entries) throws Conflict;
+    void remember(Publication publication, List<Entry> entries) throws Conflict;
 
 
-    List<Glimpse> queryPublications(ClueGroup clue) throws BadRequest, Panic;
+    List<Publication> queryPublications(ClueGroup clue) throws BadRequest, Panic;
 
     @Data
-    class Glimpse {
+    class Publication {
 
         Long set;
 
@@ -75,22 +74,19 @@ public interface GlimpsesDai {
 
 
     @Data
-    class Subscription {
+    class Glimpse {
         Long id;
 
         String subscriberId;
 
         String set;
 
-        String group;
-
-        String name;
-
-        String tree;
-
         String operatorId;
 
         Date beginTime;
+
+        @MayHave
+        Date endTime;
     }
 
     @Data
