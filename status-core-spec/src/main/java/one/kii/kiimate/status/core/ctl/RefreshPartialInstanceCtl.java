@@ -10,8 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static one.kii.kiimate.status.core.ctl.RefreshEntireInstanceCtl.OWNER_ID;
 
 
@@ -41,7 +39,7 @@ public class RefreshPartialInstanceCtl extends WriteController {
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(SUB_ID) String subId,
             @PathVariable(FIELD) String field,
-            @RequestBody List<RefreshPartialInstanceApi.Value> values) {
+            @RequestBody RefreshPartialInstanceApi.Values values) {
         WriteContext context = buildContext(requestId, ownerId, operatorId);
         RefreshPartialInstanceApi.SubIdForm form = new RefreshPartialInstanceApi.SubIdForm();
         form.setId(subId);

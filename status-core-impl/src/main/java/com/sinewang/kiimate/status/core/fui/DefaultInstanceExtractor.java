@@ -14,10 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -62,29 +59,29 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     public List<InstanceDai.Instance> extract(WriteContext context, RefreshPartialInstanceApi.SubIdForm form, Map<String, IntensionDai.Record> dict) {
         List<InstanceDai.Instance> instances = new ArrayList<>();
         Date now = new Date();
-        List<RefreshPartialInstanceApi.Value> values = form.getValues();
-        for (RefreshPartialInstanceApi.Value value: values) {
-            String dictField = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getField());
-            IntensionDai.Record record = dict.get(dictField);
-            if (record == null) {
-                logger.warn("cannot find field [{}]", form.getField());
-                continue;
-            }
-            Long intId = record.getId();
 
-            String[] vs = cleanUpValues(value.getValues());
-            InstanceDai.Instance instance = ValueMapping.from(InstanceDai.Instance.class, context, form);
-            instance.setId(setgen.born());
-            instance.setExtId(record.getExtId());
-            instance.setIntId(intId);
-            instance.setField(dictField);
-            instance.setValues(vs);
-            instance.setBeginTime(now);
-            instance.setValueRefId(value.getValueRefId());
-            instance.setCommit(HashTools.hashHex(instance));
-            instances.add(instance);
+        RefreshPartialInstanceApi.Values value = form.getValues();
+        String dictField = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getField());
+        IntensionDai.Record record = dict.get(dictField);
+        if (record == null) {
+            logger.warn("cannot find field [{}]", form.getField());
+            return Collections.emptyList();
         }
-        return instances;    }
+        Long intId = record.getId();
+
+        String[] vs = cleanUpValues(value.getValues());
+        InstanceDai.Instance instance = ValueMapping.from(InstanceDai.Instance.class, context, form);
+        instance.setId(setgen.born());
+        instance.setExtId(record.getExtId());
+        instance.setIntId(intId);
+        instance.setField(dictField);
+        instance.setValues(vs);
+        instance.setBeginTime(now);
+        instance.setValueRefId(value.getValueRefId());
+        instance.setCommit(HashTools.hashHex(instance));
+        instances.add(instance);
+        return instances;
+    }
 
 
     private String[] cleanUpValues(String[] values) {

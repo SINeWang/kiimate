@@ -8,7 +8,6 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 
-import java.util.List;
 import java.util.Map;
 
 
@@ -23,11 +22,11 @@ public interface RefreshPartialInstanceApi extends CommitApi<RefreshPartialInsta
     class SubIdForm {
         String id;
         String field;
-        List<Value> values;
+        Values values;
     }
 
     @Data
-    class Value {
+    class Values {
         Boolean reference;
         String[] values;
         String valueRefId;
