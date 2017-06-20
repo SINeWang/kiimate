@@ -21,13 +21,7 @@ public interface SubscribeGlimpseApi extends CommitApi<SubscribeGlimpseApi.Recei
     @Data
     class Form {
 
-        private String subSet;
-
-        private String group;
-
-        private String name;
-
-        private String tree;
+        private String set;
 
     }
 
@@ -38,13 +32,7 @@ public interface SubscribeGlimpseApi extends CommitApi<SubscribeGlimpseApi.Recei
 
         private String subscriberId;
 
-        private String subSet;
-
-        private String group;
-
-        private String name;
-
-        private String tree;
+        private String set;
 
         private Date beginTime;
 

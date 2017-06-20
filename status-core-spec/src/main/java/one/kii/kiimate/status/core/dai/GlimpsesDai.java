@@ -6,6 +6,7 @@ import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.zoom.OutsideView;
 import one.kii.summer.zoom.ZoomOutBySet;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +31,7 @@ public interface GlimpsesDai {
 
     List<Publication> queryPublications(ClueGroup clue) throws BadRequest, Panic;
 
-    List<Glimpse> queryGlimpses(ClueGroup clue) throws BadRequest, Panic;
+    List<OutsideView> queryGlimpses(ClueGroup clue) throws BadRequest, Panic;
 
     @Data
     class Publication {
@@ -79,8 +80,10 @@ public interface GlimpsesDai {
     class Glimpse {
         Long id;
 
+        @Unique
         String subscriberId;
 
+        @Unique
         String set;
 
         String operatorId;

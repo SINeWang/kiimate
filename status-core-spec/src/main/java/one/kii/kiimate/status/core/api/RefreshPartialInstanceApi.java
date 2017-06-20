@@ -27,6 +27,7 @@ public interface RefreshPartialInstanceApi extends CommitApi<RefreshPartialInsta
 
     @Data
     class Values {
+        String field;
         Boolean reference;
         String[] values;
         String valueRefId;

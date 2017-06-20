@@ -39,7 +39,7 @@ public interface PublishStatusApi extends CommitApi<PublishStatusApi.Receipt, Wr
     @EqualsAndHashCode(callSuper = false)
     class Receipt {
 
-        private String pubSet;
+        private String set;
 
         private String providerId;
 

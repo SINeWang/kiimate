@@ -8,6 +8,7 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.summer.zoom.OutsideView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,14 +25,15 @@ public class DefaultSearchGlimpsesApi implements SearchGlimpsesApi {
     private GlimpsesDai glimpsesDai;
 
     @Override
-    public List<Receipt> search(ReadContext context, Form form) throws BadRequest, Panic {
+    public List<Glimpse> search(ReadContext context, Form form) throws BadRequest, Panic {
 
         GlimpsesDai.ClueGroup clue = new GlimpsesDai.ClueGroup();
         clue.setGroup(form.getGroup());
         clue.setOwnerId(context.getOwnerId());
 
-        List<GlimpsesDai.Glimpse> glimpses = glimpsesDai.queryGlimpses(clue);
-        List<Receipt> list = ValueMapping.from(Receipt.class, glimpses);
+        List<OutsideView> glimpses = glimpsesDai.queryGlimpses(clue);
+
+        List<Glimpse> list = ValueMapping.from(Glimpse.class, glimpses);
 
         return NotBadResponse.of(list);
     }

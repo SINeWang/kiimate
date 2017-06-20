@@ -2,6 +2,7 @@ package one.kii.kiimate.status.core.api;
 
 import lombok.Data;
 import one.kii.summer.asdf.api.VisitApi;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
@@ -23,16 +24,27 @@ public interface VisitFatStatusApi extends VisitApi<VisitFatStatusApi.Status, Re
 
     @Data
     class Status {
-        String id;
-        String providerId;
-        String group;
-        String name;
-        String stability;
-        String version;
-        Map<String, Object> map;
-        List<Intension> intensions;
-        Date beginTime;
-        Date endTime;
+        private String id;
+
+        private String set;
+
+        private String providerId;
+
+        private String group;
+
+        private String name;
+
+        private String stability;
+
+        private String version;
+
+        private Map<String, Object> map;
+
+        private List<Intension> intensions;
+
+        private Date beginTime;
+        @MayHave
+        private Date endTime;
     }
 
 

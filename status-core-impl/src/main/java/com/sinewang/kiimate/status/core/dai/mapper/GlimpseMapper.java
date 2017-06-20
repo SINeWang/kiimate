@@ -1,6 +1,7 @@
 package com.sinewang.kiimate.status.core.dai.mapper;
 
 import one.kii.kiimate.status.core.dai.GlimpsesDai;
+import one.kii.summer.zoom.OutsideView;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,7 +28,7 @@ public interface GlimpseMapper {
             @Param("group") String group
     );
 
-    List<GlimpsesDai.Glimpse> queryGlimpses(
+    List<OutsideView> queryGlimpses(
             @Param("subscriberId") String subscriberId,
             @Param("group") String group
     );

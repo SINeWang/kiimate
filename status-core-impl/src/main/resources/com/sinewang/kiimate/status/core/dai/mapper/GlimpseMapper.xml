@@ -9,7 +9,7 @@
         <result column="subscriber_id" property="id"/>
     </resultMap>
 
-    <resultMap id="Glimpse" type="one.kii.kiimate.status.core.dai.GlimpsesDai$Publication">
+    <resultMap id="Publication" type="one.kii.kiimate.status.core.dai.GlimpsesDai$Publication">
         <result column="pub_set" property="set"/>
         <result column="provider_id" property="providerId"/>
         <result column="m_sub_id" property="modelSubId"/>
@@ -19,6 +19,18 @@
         <result column="version" property="version"/>
         <result column="visibility" property="visibility"/>
         <result column="operator_id" property="operatorId"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
+    </resultMap>
+
+    <resultMap id="Glimpse" type="one.kii.summer.zoom.OutsideView">
+        <result column="id" property="id"/>
+        <result column="pub_set" property="set"/>
+        <result column="provider_id" property="providerId"/>
+        <result column="group" property="group"/>
+        <result column="name" property="name"/>
+        <result column="stability" property="stability"/>
+        <result column="version" property="version"/>
         <result column="begin_time" property="beginTime"/>
         <result column="end_time" property="endTime"/>
     </resultMap>
@@ -50,7 +62,7 @@
         AND ssub.end_time IS NULL
         GROUP BY ssub.provider_id
     </select>
-    <select id="queryStatusPub" resultMap="Glimpse">
+    <select id="queryStatusPub" resultMap="Publication">
         <bind name="group_pattern" value="'%' + group + '%'"/>
         SELECT spub.pub_set, spub.provider_id, spub.m_sub_id, spub.version, spub.visibility, spub.stability, spub.operator_id, spub.begin_time, spub.end_time,
         msub.group, msub.name
@@ -63,7 +75,7 @@
     </select>
     <select id="queryGlimpses" resultMap="Glimpse">
         <bind name="group_pattern" value="'%' + group + '%'"/>
-        SELECT ssub.id, ssub.sub_set, ssub.subscriber_id, spub.version, spub.visibility, spub.stability, spub.operator_id, spub.begin_time, spub.end_time,
+        SELECT ssub.id, spub.pub_set, spub.provider_id, spub.version, spub.visibility, spub.stability, spub.operator_id, spub.begin_time, spub.end_time,
         msub.group, msub.name
         FROM km_s_pub spub, km_s_sub ssub, km_m_sub msub
         WHERE spub.pub_set = ssub.sub_set
@@ -71,9 +83,10 @@
         AND ssub.subscriber_id = #{subscriberId}
         AND msub.group LIKE #{group_pattern}
         AND ssub.end_time IS NULL
+        GROUP BY ssub.id
     </select>
 
-    <select id="loadStatusPub" resultMap="Glimpse">
+    <select id="loadStatusPub" resultMap="Publication">
         SELECT spub.pub_set, spub.provider_id, spub.m_sub_id, spub.version, spub.visibility, spub.stability, spub.operator_id, spub.begin_time, spub.end_time,
         msub.group, msub.name
         FROM km_m_sub msub, km_s_pub spub
