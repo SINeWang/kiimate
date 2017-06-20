@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.status.core.ctl.VisitStatusCtl.PROVIDER_ID;
+import static one.kii.kiimate.status.core.ctl.VisitFatStatusCtl.PROVIDER_ID;
 
 
 /**
@@ -19,7 +19,7 @@ import static one.kii.kiimate.status.core.ctl.VisitStatusCtl.PROVIDER_ID;
 @RestController
 @RequestMapping(value = "/api/v1/{" + PROVIDER_ID + "}/status", method = RequestMethod.GET)
 @CrossOrigin(origins = "*")
-public class VisitStatusCtl extends ReadController {
+public class VisitFatStatusCtl extends ReadController {
 
     static final String PROVIDER_ID = "provider_id";
 

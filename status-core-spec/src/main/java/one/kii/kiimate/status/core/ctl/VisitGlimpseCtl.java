@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.status.core.ctl.VisitStatusCtl.PROVIDER_ID;
+import static one.kii.kiimate.status.core.ctl.VisitFatStatusCtl.PROVIDER_ID;
 
 /**
  * Created by WangYanJiong on 17/06/2017.

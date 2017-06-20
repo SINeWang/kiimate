@@ -96,6 +96,17 @@
         AND spub.end_time IS NULL
         GROUP BY spub.pub_set
     </select>
+    <select id="loadGlimpse" resultMap="Publication">
+        SELECT spub.pub_set, spub.provider_id, spub.m_sub_id, spub.version, spub.visibility, spub.stability, spub.operator_id, spub.begin_time, spub.end_time,
+        msub.group, msub.name
+        FROM km_m_sub msub, km_s_pub spub, km_s_sub ssub
+        WHERE spub.m_sub_id = msub.id
+        AND ssub.sub_set = spub.pub_set
+        AND ssub.id = #{id}
+        AND ssub.subscriber_id = #{subscriberId}
+        AND ssub.end_time IS NULL
+        GROUP BY spub.pub_set
+    </select>
     <select id="countByConflictKey" resultType="java.lang.Integer">
         SELECT COUNT(pub_set)
         FROM km_s_pub spub

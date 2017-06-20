@@ -1,12 +1,17 @@
 package com.sinewang.kiimate.status.core.fui;
 
 import one.kii.kiimate.model.core.dai.IntensionDai;
+import one.kii.kiimate.status.core.dai.GlimpsesDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
+import one.kii.kiimate.status.core.dai.StatusDai;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.zoom.InsideView;
+import one.kii.summer.zoom.OutsideView;
+import one.kii.summer.zoom.ZoomInById;
+import one.kii.summer.zoom.ZoomOutByName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +28,40 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
 
     @Autowired
     private IntensionDai intensionDai;
+
+    @Autowired
+    private GlimpsesDai glimpsesDai;
+
+    @Autowired
+    private StatusDai statusDai;
+
+    @Autowired
+    private InstanceDai instanceDai;
+
+    private String getReferenceValue(Long glimpseId, String subscriberId, String field) throws Panic, BadRequest {
+        ZoomInById id = new ZoomInById();
+        id.setId(glimpseId);
+        id.setSubscriberId(subscriberId);
+        GlimpsesDai.Publication publication = glimpsesDai.load(id);
+
+        ZoomOutByName form = ValueMapping.from(ZoomOutByName.class, publication);
+
+        OutsideView statusOutside = statusDai.loadDownstream(form);
+
+        ZoomInById zoomInById = ValueMapping.from(ZoomInById.class, statusOutside);
+        zoomInById.setSubscriberId(statusOutside.getProviderId());
+
+
+        zoomInById.setEndTime(statusOutside.getBeginTime());
+        List<InstanceDai.Record> records = instanceDai.loadInstances(zoomInById);
+
+        for (InstanceDai.Record record : records) {
+            if (record.getField().equals(field)) {
+                return record.getValue();
+            }
+        }
+        return null;
+    }
 
     @Override
     public Map<String, Object> toFatValue(List<InstanceDai.Record> instancesList, InsideView model) throws Panic, BadRequest {
@@ -57,7 +96,13 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                 } else {
                     List<InstanceDai.Record> instances = dict.get(record.getField());
                     if (instances != null && !instances.isEmpty()) {
-                        Object value = dict.get(record.getField()).get(0).getValue();
+                        InstanceDai.Record first = dict.get(record.getField()).get(0);
+                        Object value = first.getValue();
+                        Long valueRefId = first.getValueRefId();
+                        if (valueRefId != null) {
+                            value = getReferenceValue(valueRefId, first.getOwnerId(), String.valueOf(value));
+                        }
+
                         if (value != null) {
                             result.put(record.getField(), value);
                         }

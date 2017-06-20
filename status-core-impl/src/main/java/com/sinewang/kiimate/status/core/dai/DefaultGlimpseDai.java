@@ -9,6 +9,7 @@ import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
 import one.kii.summer.zoom.OutsideView;
+import one.kii.summer.zoom.ZoomInById;
 import one.kii.summer.zoom.ZoomOutBySet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -92,6 +93,14 @@ public class DefaultGlimpseDai implements GlimpsesDai {
         Publication publication = glimpseMapper.loadStatusPub(
                 channel.getProviderId(),
                 channel.getSet());
+        return NotBadResponse.of(publication);
+    }
+
+    @Override
+    public Publication load(ZoomInById channel) throws Panic {
+        Publication publication = glimpseMapper.loadGlimpse(
+                channel.getSubscriberId(),
+                channel.getId());
         return NotBadResponse.of(publication);
     }
 

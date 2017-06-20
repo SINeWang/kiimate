@@ -37,6 +37,10 @@ public interface GlimpseMapper {
             @Param("providerId") String providerId,
             @Param("set") Long set);
 
+    GlimpsesDai.Publication loadGlimpse(
+            @Param("subscriberId") String subscriberId,
+            @Param("id") Long id);
+
     void insertGlimpse(
             @Param("id") Long id,
             @Param("subscriberId") String subscriberId,

@@ -44,7 +44,7 @@ public interface InstanceDai {
         private Long valueSet;
 
         @MayHave
-        private String valueRefId;
+        private Long valueRefId;
 
         @MayHave
         private String valueRefPolicy;
