@@ -1,6 +1,7 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.SearchGlimpseApi;
+import one.kii.kiimate.status.core.api.SearchGlimpsesApi;
+import one.kii.kiimate.status.core.api.SearchStatusesApi;
 import one.kii.summer.asdf.api.SearchApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class SearchGlimpsesCtl extends ReadController {
 
     @Autowired
-    private SearchGlimpseApi api;
+    private SearchGlimpsesApi api;
 
 
     @RequestMapping(method = RequestMethod.GET)
@@ -31,7 +32,7 @@ public class SearchGlimpsesCtl extends ReadController {
 
         ReadContext context = buildContext(requestId, providerId, visitorId);
 
-        SearchGlimpseApi.Form form = new SearchGlimpseApi.Form();
+        SearchGlimpsesApi.Form form = new SearchGlimpsesApi.Form();
 
         form.setGroup(query);
 

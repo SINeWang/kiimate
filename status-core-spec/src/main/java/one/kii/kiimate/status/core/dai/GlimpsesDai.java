@@ -30,6 +30,8 @@ public interface GlimpsesDai {
 
     List<Publication> queryPublications(ClueGroup clue) throws BadRequest, Panic;
 
+    List<Glimpse> queryGlimpses(ClueGroup clue) throws BadRequest, Panic;
+
     @Data
     class Publication {
 

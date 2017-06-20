@@ -1,32 +1,37 @@
 package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.status.core.api.SearchStatusesApi;
-import one.kii.kiimate.status.core.dai.StatusDai;
+import one.kii.kiimate.status.core.dai.GlimpsesDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.zoom.OutsideView;
+import one.kii.summer.io.validator.NotBadResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
- * Created by WangYanJiong on 20/05/2017.
+ * Created by WangYanJiong on 19/06/2017.
  */
 @Component
 public class DefaultSearchStatusesApi implements SearchStatusesApi {
 
+
     @Autowired
-    private StatusDai statusDai;
+    private GlimpsesDai glimpsesDai;
 
     @Override
-    public List<Statuses> search(ReadContext context, QueryForm form) throws BadRequest, Panic {
-        StatusDai.ClueGroup clue = ValueMapping.from(StatusDai.ClueGroup.class, context);
-        clue.setGroup(form.getQuery());
-        List<OutsideView> statuses = statusDai.searchDownstream(clue);
-        return ValueMapping.from(Statuses.class, statuses);
-    }
+    public List<Receipt> search(ReadContext context, Form form) throws BadRequest, Panic {
 
+        GlimpsesDai.ClueGroup clue = new GlimpsesDai.ClueGroup();
+        clue.setGroup(form.getGroup());
+        clue.setOwnerId(context.getOwnerId());
+
+        List<GlimpsesDai.Publication> publications = glimpsesDai.queryPublications(clue);
+        List<Receipt> list = ValueMapping.from(Receipt.class, publications);
+
+        return NotBadResponse.of(list);
+    }
 }

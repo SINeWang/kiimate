@@ -61,6 +61,17 @@
         AND spub.end_time IS NULL
         GROUP BY spub.pub_set
     </select>
+    <select id="queryGlimpses" resultMap="Glimpse">
+        <bind name="group_pattern" value="'%' + group + '%'"/>
+        SELECT ssub.id, ssub.sub_set, ssub.subscriber_id, spub.version, spub.visibility, spub.stability, spub.operator_id, spub.begin_time, spub.end_time,
+        msub.group, msub.name
+        FROM km_s_pub spub, km_s_sub ssub, km_m_sub msub
+        WHERE spub.pub_set = ssub.sub_set
+        AND spub.m_sub_id = msub.id
+        AND ssub.subscriber_id = #{subscriberId}
+        AND msub.group LIKE #{group_pattern}
+        AND ssub.end_time IS NULL
+    </select>
 
     <select id="loadStatusPub" resultMap="Glimpse">
         SELECT spub.pub_set, spub.provider_id, spub.m_sub_id, spub.version, spub.visibility, spub.stability, spub.operator_id, spub.begin_time, spub.end_time,
@@ -82,4 +93,5 @@
         AND spub.stability = #{stability}
         AND spub.end_time IS NULL
     </select>
+
 </mapper>

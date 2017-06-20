@@ -11,8 +11,6 @@ import one.kii.summer.zoom.ZoomOutByName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 /**
  * Created by WangYanJiong on 20/05/2017.
  */
@@ -22,16 +20,6 @@ public class DefaultStatusDai implements StatusDai {
 
     @Autowired
     private StatusMapper statusMapper;
-
-
-    @Override
-    public List<OutsideView> searchDownstream(ClueGroup clue) throws BadRequest, Panic {
-        NotBadRequest.from(clue);
-        List<OutsideView> list = statusMapper.queryStatuses(
-                clue.getOwnerId(),
-                clue.getGroup());
-        return NotBadResponse.of(list);
-    }
 
     @Override
     public OutsideView loadDownstream(ZoomOutByName channel) throws Panic, BadRequest {

@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by WangYanJiong on 20/05/2017.
@@ -26,10 +25,6 @@ public interface StatusMapper {
             @Param("beginTime") Date beginTime
     );
 
-    List<OutsideView> queryStatuses(
-            @Param("ownerId") String ownerId,
-            @Param("group") String group
-    );
 
     OutsideView selectLast(
             @Param("providerId") String providerId,

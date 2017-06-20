@@ -70,6 +70,15 @@ public class DefaultGlimpseDai implements GlimpsesDai {
         return NotBadResponse.of(list);
     }
 
+    @Override
+    public List<Glimpse> queryGlimpses(ClueGroup clue) throws BadRequest, Panic {
+        NotBadRequest.from(clue);
+        List<Glimpse> list = glimpseMapper.queryGlimpses(
+                clue.getOwnerId(),
+                clue.getGroup());
+        return NotBadResponse.of(list);
+    }
+
 
     @Override
     public List<Providers> queryProviders(ClueId clue) throws BadRequest {

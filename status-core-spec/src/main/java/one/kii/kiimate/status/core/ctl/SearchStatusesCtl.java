@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * Created by WangYanJiong on 20/05/2017.
  */
@@ -25,17 +23,18 @@ public class SearchStatusesCtl extends ReadController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<SearchStatusesApi.Statuses>> search(
+    public ResponseEntity<?> search(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @RequestParam("q") String query,
-            @RequestParam("ownerId") String ownerId) {
+            @RequestParam("providerId") String providerId) {
 
-        ReadContext context = buildContext(requestId, ownerId, visitorId);
+        ReadContext context = buildContext(requestId, providerId, visitorId);
 
-        SearchStatusesApi.QueryForm form = new SearchStatusesApi.QueryForm();
+        SearchStatusesApi.Form form = new SearchStatusesApi.Form();
 
-        form.setQuery(query);
+        form.setGroup(query);
+
 
         return SearchApiCaller.sync(api, context, form);
     }

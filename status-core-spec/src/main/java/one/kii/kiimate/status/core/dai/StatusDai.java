@@ -6,15 +6,10 @@ import one.kii.summer.io.exception.Panic;
 import one.kii.summer.zoom.OutsideView;
 import one.kii.summer.zoom.ZoomOutByName;
 
-import java.util.List;
-
 /**
  * Created by WangYanJiong on 19/05/2017.
  */
 public interface StatusDai {
-
-
-    List<OutsideView> searchDownstream(ClueGroup clue) throws BadRequest, Panic;
 
     OutsideView loadDownstream(ZoomOutByName providerXyz) throws Panic, BadRequest;
 

@@ -1,6 +1,7 @@
 package com.sinewang.kiimate.status.core.api;
 
-import one.kii.kiimate.status.core.api.SearchGlimpseApi;
+import one.kii.kiimate.status.core.api.SearchGlimpsesApi;
+import one.kii.kiimate.status.core.api.SearchStatusesApi;
 import one.kii.kiimate.status.core.dai.GlimpsesDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
@@ -16,7 +17,7 @@ import java.util.List;
  * Created by WangYanJiong on 19/06/2017.
  */
 @Component
-public class DefaultSearchGlimpseApi implements SearchGlimpseApi {
+public class DefaultSearchGlimpsesApi implements SearchGlimpsesApi {
 
 
     @Autowired
@@ -29,8 +30,8 @@ public class DefaultSearchGlimpseApi implements SearchGlimpseApi {
         clue.setGroup(form.getGroup());
         clue.setOwnerId(context.getOwnerId());
 
-        List<GlimpsesDai.Publication> glimps = glimpsesDai.queryPublications(clue);
-        List<Receipt> list = ValueMapping.from(Receipt.class, glimps);
+        List<GlimpsesDai.Glimpse> glimpses = glimpsesDai.queryGlimpses(clue);
+        List<Receipt> list = ValueMapping.from(Receipt.class, glimpses);
 
         return NotBadResponse.of(list);
     }

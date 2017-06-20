@@ -27,6 +27,11 @@ public interface GlimpseMapper {
             @Param("group") String group
     );
 
+    List<GlimpsesDai.Glimpse> queryGlimpses(
+            @Param("subscriberId") String subscriberId,
+            @Param("group") String group
+    );
+
     GlimpsesDai.Publication loadStatusPub(
             @Param("providerId") String providerId,
             @Param("set") Long set);

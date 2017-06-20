@@ -11,9 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by WangYanJiong on 19/06/2017.
+ * Created by WangYanJiong on 20/06/2017.
  */
-public interface SearchGlimpseApi extends SearchApi<SearchGlimpseApi.Receipt, ReadContext, SearchGlimpseApi.Form> {
+public interface SearchGlimpsesApi extends SearchApi<SearchGlimpsesApi.Receipt, ReadContext, SearchGlimpsesApi.Form> {
 
 
     List<Receipt> search(ReadContext context, Form form) throws BadRequest, Panic;
@@ -27,6 +27,8 @@ public interface SearchGlimpseApi extends SearchApi<SearchGlimpseApi.Receipt, Re
 
     @Data
     class Receipt {
+
+        private String id;
 
         private String providerId;
 

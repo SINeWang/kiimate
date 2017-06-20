@@ -26,17 +26,7 @@
         AND spub.provider_id = #{providerId}
         AND spub.pub_set = #{pubSet}
     </update>
-    <select id="queryStatuses" resultMap="Statuses">
-        <bind name="group_pattern" value="'%' + group + '%'"/>
-        SELECT msub.id, spub.pub_set, spub.provider_id, spub.stability, spub.version, spub.begin_time, spub.end_time,
-        msub.group, msub.name
-        FROM km_s_pub spub, km_m_sub msub
-        WHERE spub.m_sub_id = msub.id
-        AND spub.provider_id = #{ownerId}
-        AND msub.group LIKE #{group_pattern}
-        AND spub.end_time IS NULL
-        GROUP BY spub.pub_set
-    </select>
+
     <select id="selectLast" resultMap="Statuses">
         SELECT msub.id, spub.pub_set, spub.provider_id, spub.stability, spub.version, spub.begin_time, spub.end_time,
         msub.group, msub.name

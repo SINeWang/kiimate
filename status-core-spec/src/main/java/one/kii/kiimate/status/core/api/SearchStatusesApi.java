@@ -11,39 +11,42 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by WangYanJiong on 20/05/2017.
+ * Created by WangYanJiong on 19/06/2017.
  */
-public interface SearchStatusesApi extends SearchApi<SearchStatusesApi.Statuses, ReadContext, SearchStatusesApi.QueryForm> {
+public interface SearchStatusesApi extends SearchApi<SearchStatusesApi.Receipt, ReadContext, SearchStatusesApi.Form> {
 
 
-    List<Statuses> search(ReadContext context, QueryForm form) throws BadRequest, Panic;
+    List<Receipt> search(ReadContext context, Form form) throws BadRequest, Panic;
 
     @Data
-    class Statuses {
+    class Form {
 
-        String id;
+        private String group;
 
-        Long pubSet;
-
-        String providerId;
-
-        String group;
-
-        String name;
-
-        String stability;
-
-        String version;
-
-        Date beginTime;
-
-        @MayHave
-        Date endTime;
     }
 
     @Data
-    class QueryForm {
-        String query;
+    class Receipt {
+
+        private String providerId;
+
+        private String set;
+
+        private String group;
+
+        private String name;
+
+        private String stability;
+
+        private String version;
+
+        private String visibility;
+
+        private Date beginTime;
+
+        @MayHave
+        private Date endTime;
+
     }
 
 }
