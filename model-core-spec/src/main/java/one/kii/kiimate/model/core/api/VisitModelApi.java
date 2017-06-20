@@ -47,7 +47,7 @@ public interface VisitModelApi extends VisitApi<VisitModelApi.Model, ReadContext
 
         private String structure;
 
-        private Long refSet;
+        private String refSet;
 
         private String visibility;
     }
