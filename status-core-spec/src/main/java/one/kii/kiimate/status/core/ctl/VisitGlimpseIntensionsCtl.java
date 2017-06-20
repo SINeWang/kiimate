@@ -1,7 +1,7 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.VisitGlimpseApi;
-import one.kii.summer.asdf.api.VisitApiCaller;
+import one.kii.kiimate.status.core.api.SearchGlimpseIntensionsApi;
+import one.kii.summer.asdf.api.SearchApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.receiver.ReadController;
@@ -13,19 +13,19 @@ import org.springframework.web.bind.annotation.*;
 import static one.kii.kiimate.status.core.ctl.VisitStatusCtl.PROVIDER_ID;
 
 /**
- * Created by WangYanJiong on 17/06/2017.
+ * Created by WangYanJiong on 20/06/2017.
  */
 @RestController
 @RequestMapping(value = "/api/v1/{" + PROVIDER_ID + "}", method = RequestMethod.GET)
 @CrossOrigin(origins = "*")
-public class VisitGlimpseCtl extends ReadController {
+public class VisitGlimpseIntensionsCtl extends ReadController {
 
     public static final String SET = "glimpses-set";
 
     @Autowired
-    private VisitGlimpseApi api;
+    private SearchGlimpseIntensionsApi api;
 
-    @RequestMapping("/glimpses/{" + SET + "}")
+    @RequestMapping("/glimpses/{" + SET + "}/intensions")
     public ResponseEntity<?> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String subscriberId,
@@ -35,6 +35,6 @@ public class VisitGlimpseCtl extends ReadController {
         ZoomOutBySet zoom = new ZoomOutBySet();
         zoom.setSet(set);
         zoom.setProviderId(providerId);
-        return VisitApiCaller.sync(api, context, zoom);
+        return SearchApiCaller.sync(api, context, zoom);
     }
 }

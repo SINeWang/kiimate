@@ -36,14 +36,14 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     }
 
     @Override
-    public Record loadRootPublications(ChannelSet channel) throws NotFound, Panic {
-        Record record = modelPublicationMapper.selectPublicationsBySet(channel.getSet());
-        return NotBadResponse.of(record);
+    public List<Record> loadPublications(ChannelSet channel) throws NotFound, Panic {
+        List<Record>  records = modelPublicationMapper.selectPublicationsBySet(channel.getSet());
+        return NotBadResponse.of(records);
     }
 
     @Override
     public List<Provider> searchProviders(ClueId clue) {
-        return modelPublicationMapper.selectProvidersByProviderQuery(clue.getId());
+        return modelPublicationMapper.queryProviders(clue.getId());
     }
 
     @Override

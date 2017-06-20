@@ -22,7 +22,7 @@ public interface ModelPublicationDai {
 
     List<PublishedSnapshot> loadSnapshot(ChannelId channel);
 
-    Record loadRootPublications(ChannelSet channel) throws NotFound, Panic;
+    List<Record> loadPublications(ChannelSet channel) throws NotFound, Panic;
 
     List<Provider> searchProviders(ClueId clue);
 

@@ -66,7 +66,7 @@
         WHERE provider_id = #{providerId} AND ext_id = #{extId} AND stability = #{stability} AND version = #{version}
     </delete>
 
-    <select id="selectProvidersByProviderQuery" resultMap="Provider">
+    <select id="queryProviders" resultMap="Provider">
         <bind name="query_pattern" value="'%' + query + '%'"/>
         SELECT DISTINCT(provider_id)
         FROM km_m_pub
@@ -88,8 +88,6 @@
         FROM km_m_pub mpub, km_m_ext mext
         WHERE mpub.ext_id = mext.id
         AND mpub.pub_set = #{set}
-        AND mpub.end_time IS NULL
-        GROUP BY mpub.pub_set
     </select>
     <select id="selectPublishedSnapshotsByExtId" resultMap="PublishedSnapshot">
         SELECT mpub.id, mpub.pub_set, mpub.int_id, mpub.version, mpub.stability, mpub.begin_time

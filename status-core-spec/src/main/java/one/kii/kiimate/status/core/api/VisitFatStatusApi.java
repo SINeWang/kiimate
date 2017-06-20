@@ -16,7 +16,7 @@ import java.util.Map;
  * Created by WangYanJiong on 4/5/17.
  */
 
-public interface VisitStatusApi extends VisitApi<VisitStatusApi.Status, ReadContext, ZoomOutByName> {
+public interface VisitFatStatusApi extends VisitApi<VisitFatStatusApi.Status, ReadContext, ZoomOutByName> {
 
 
     Status visit(ReadContext context, ZoomOutByName form) throws NotFound, BadRequest, Panic;

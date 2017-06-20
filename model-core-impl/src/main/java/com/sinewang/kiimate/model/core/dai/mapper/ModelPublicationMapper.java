@@ -35,11 +35,11 @@ public interface ModelPublicationMapper {
 
     void deletePublicationByProviderId(@Param("providerId") String providerId);
 
-    List<ModelPublicationDai.Provider> selectProvidersByProviderQuery(@Param("query") String query);
+    List<ModelPublicationDai.Provider> queryProviders(@Param("query") String query);
 
     List<ModelPublicationDai.PublishedExtension> selectPublishedExtensionByGroupQuery(@Param("query") String query);
 
     List<ModelPublicationDai.PublishedSnapshot> selectPublishedSnapshotsByExtId(@Param("extId") Long extId);
 
-    ModelPublicationDai.Record selectPublicationsBySet(@Param("set") Long set);
+    List<ModelPublicationDai.Record> selectPublicationsBySet(@Param("set") Long set);
 }

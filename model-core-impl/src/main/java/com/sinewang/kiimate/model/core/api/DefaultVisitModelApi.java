@@ -42,7 +42,8 @@ public class DefaultVisitModelApi implements VisitModelApi {
 
 
         ModelPublicationDai.ChannelSet channelSet = ValueMapping.from(ModelPublicationDai.ChannelSet.class, form);
-        ModelPublicationDai.Record record = modelPublicationDai.loadRootPublications(channelSet);
+        List<ModelPublicationDai.Record> publications = modelPublicationDai.loadPublications(channelSet);
+        ModelPublicationDai.Record record = publications.get(0);
 
         IntensionDai.ChannelExtensionId extensionId = new IntensionDai.ChannelExtensionId();
         extensionId.setBeginTime(null);

@@ -29,8 +29,8 @@ public class DefaultSearchGlimpseApi implements SearchGlimpseApi {
         clue.setGroup(form.getGroup());
         clue.setOwnerId(context.getOwnerId());
 
-        List<GlimpsesDai.Publication> publications = glimpsesDai.queryPublications(clue);
-        List<Receipt> list = ValueMapping.from(Receipt.class, publications);
+        List<GlimpsesDai.Glimpse> glimpses = glimpsesDai.queryPublications(clue);
+        List<Receipt> list = ValueMapping.from(Receipt.class, glimpses);
 
         return NotBadResponse.of(list);
     }

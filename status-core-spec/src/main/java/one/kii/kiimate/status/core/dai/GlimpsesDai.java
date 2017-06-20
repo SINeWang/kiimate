@@ -20,19 +20,19 @@ public interface GlimpsesDai {
 
     List<Providers> queryProviders(ClueId clue) throws BadRequest;
 
-    Publication load(ZoomOutBySet channel) throws Panic;
+    Glimpse load(ZoomOutBySet channel) throws Panic;
 
     @Transactional
     void remember(Subscription subscription) throws BadRequest;
 
     @Transactional
-    void remember(Publication publication, List<Entry> entries) throws Conflict;
+    void remember(Glimpse glimpse, List<Entry> entries) throws Conflict;
 
 
-    List<Publication> queryPublications(ClueGroup clue) throws BadRequest, Panic;
+    List<Glimpse> queryPublications(ClueGroup clue) throws BadRequest, Panic;
 
     @Data
-    class Publication {
+    class Glimpse {
 
         Long set;
 
@@ -113,31 +113,6 @@ public interface GlimpsesDai {
     class ClueGroup {
         String ownerId;
         String group;
-    }
-
-    @Data
-    class Glimpse {
-
-        String set;
-
-        String providerId;
-
-        Long modelSubId;
-
-        String group;
-
-        String name;
-
-        String stability;
-
-        String version;
-
-        String visibility;
-
-        Date beginTime;
-
-        @MayHave
-        Date endTime;
     }
 
 }

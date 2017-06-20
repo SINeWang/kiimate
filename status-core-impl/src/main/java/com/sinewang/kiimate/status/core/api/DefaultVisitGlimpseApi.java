@@ -3,32 +3,26 @@ package com.sinewang.kiimate.status.core.api;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.VisitGlimpseApi;
 import one.kii.kiimate.status.core.dai.GlimpsesDai;
-import one.kii.kiimate.status.core.dai.InstanceDai;
-import one.kii.kiimate.status.core.fui.InstanceTransformer;
+import one.kii.kiimate.status.core.dai.StatusDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.zoom.InsideView;
-import one.kii.summer.zoom.ZoomInById;
-import one.kii.summer.zoom.ZoomInByName;
+import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.summer.zoom.OutsideView;
+import one.kii.summer.zoom.ZoomOutByName;
 import one.kii.summer.zoom.ZoomOutBySet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Map;
-
 /**
- * Created by WangYanJiong on 4/6/17.
+ * Created by WangYanJiong on 19/6/17.
  */
 
 @Component
 public class DefaultVisitGlimpseApi implements VisitGlimpseApi {
 
-    @Autowired
-    private InstanceDai instanceDai;
 
     @Autowired
     private GlimpsesDai glimpsesDai;
@@ -37,22 +31,34 @@ public class DefaultVisitGlimpseApi implements VisitGlimpseApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Autowired
-    private InstanceTransformer instanceTransformer;
+    private StatusDai statusDai;
 
     @Override
-    public Map<String, Object> visit(ReadContext context, ZoomOutBySet form) throws NotFound, BadRequest, Panic {
+    public Glimpse visit(ReadContext context, ZoomOutBySet form) throws NotFound, BadRequest, Panic {
 
-        GlimpsesDai.Publication publication = glimpsesDai.load(form);
+        GlimpsesDai.Glimpse glimpse = glimpsesDai.load(form);
 
-        ZoomInByName channel = ValueMapping.from(ZoomInByName.class, publication);
+        ZoomOutByName statusName = ValueMapping.from(ZoomOutByName.class, glimpse);
 
-        InsideView modelSub = modelSubscriptionDai.loadModelSubByName(channel);
+        ModelSubscriptionDai.ClueModelSubId id = new ModelSubscriptionDai.ClueModelSubId();
+        id.setId(glimpse.getModelSubId());
 
-        ZoomInById instanceChannel = ValueMapping.from(ZoomInById.class, modelSub);
+        ModelSubscriptionDai.Instance instance = modelSubscriptionDai.load(id);
 
-        List<InstanceDai.Record> records = instanceDai.loadInstances(instanceChannel);
+        ZoomOutBySet modelPubSet = new ZoomOutBySet();
+        modelPubSet.setSet(instance.getSet());
+        modelPubSet.setProviderId(glimpse.getProviderId());
 
-        return instanceTransformer.toRawValue(records, modelSub);
+        OutsideView model = modelSubscriptionDai.selectModelBySet(modelPubSet);
+
+        OutsideView status = statusDai.loadDownstream(statusName);
+
+        Glimpse glimpse1 = new Glimpse();
+        Outside model1 = ValueMapping.from(Outside.class, model);
+        Outside status1 = ValueMapping.from(Outside.class, status);
+        glimpse1.setModel(model1);
+        glimpse1.setStatus(status1);
+        return NotBadResponse.of(glimpse1);
     }
 
 }

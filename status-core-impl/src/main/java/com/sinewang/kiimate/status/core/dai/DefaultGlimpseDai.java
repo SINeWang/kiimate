@@ -42,32 +42,32 @@ public class DefaultGlimpseDai implements GlimpsesDai {
 
 
     @Override
-    public void remember(Publication publication, List<Entry> entries) throws Conflict {
-        MultiValueMap<String, String> map = UniqueFinder.find(publication);
+    public void remember(Glimpse glimpse, List<Entry> entries) throws Conflict {
+        MultiValueMap<String, String> map = UniqueFinder.find(glimpse);
         Integer count = glimpseMapper.countByConflictKey(map.toSingleValueMap());
         if (count > 0) {
             throw new Conflict(map.keySet());
         }
         for (Entry entry : entries) {
-            glimpseMapper.insertPublication(
+            glimpseMapper.insertGlimpse(
                     entry.getId(),
-                    publication.getSet(),
-                    publication.getProviderId(),
-                    publication.getModelSubId(),
+                    glimpse.getSet(),
+                    glimpse.getProviderId(),
+                    glimpse.getModelSubId(),
                     entry.getInsId(),
-                    publication.getVersion(),
-                    publication.getStability(),
-                    publication.getVisibility(),
-                    publication.getOperatorId(),
-                    publication.getBeginTime()
+                    glimpse.getVersion(),
+                    glimpse.getStability(),
+                    glimpse.getVisibility(),
+                    glimpse.getOperatorId(),
+                    glimpse.getBeginTime()
             );
         }
     }
 
     @Override
-    public List<Publication> queryPublications(ClueGroup clue) throws BadRequest, Panic {
+    public List<Glimpse> queryPublications(ClueGroup clue) throws BadRequest, Panic {
         NotBadRequest.from(clue);
-        List<Publication> list = glimpseMapper.queryPublications(
+        List<Glimpse> list = glimpseMapper.queryGlimpses(
                 clue.getOwnerId(),
                 clue.getGroup());
         return NotBadResponse.of(list);
@@ -81,8 +81,8 @@ public class DefaultGlimpseDai implements GlimpsesDai {
     }
 
     @Override
-    public Publication load(ZoomOutBySet channel) throws Panic {
-        Publication glimpse = glimpseMapper.loadPublication(
+    public Glimpse load(ZoomOutBySet channel) throws Panic {
+        Glimpse glimpse = glimpseMapper.loadGlimpse(
                 channel.getProviderId(),
                 channel.getSet());
         return NotBadResponse.of(glimpse);
