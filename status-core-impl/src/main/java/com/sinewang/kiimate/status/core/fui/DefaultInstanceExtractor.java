@@ -3,7 +3,8 @@ package com.sinewang.kiimate.status.core.fui;
 import com.google.common.base.CaseFormat;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.dai.IntensionDai;
-import one.kii.kiimate.status.core.api.RefreshInstanceApi;
+import one.kii.kiimate.status.core.api.RefreshEntireInstanceApi;
+import one.kii.kiimate.status.core.api.RefreshPartialInstanceApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.summer.beans.utils.HashTools;
@@ -30,13 +31,13 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     private static Logger logger = LoggerFactory.getLogger(DefaultInstanceExtractor.class);
 
     @Override
-    public List<InstanceDai.Instance> extract(WriteContext context, RefreshInstanceApi.SubIdForm form, Map<String, IntensionDai.Record> fieldDict) {
+    public List<InstanceDai.Instance> extract(WriteContext context, RefreshEntireInstanceApi.SubIdForm form, Map<String, IntensionDai.Record> dict) {
         List<InstanceDai.Instance> instances = new ArrayList<>();
         Date now = new Date();
         Map<String, List<String>> map = form.getMap();
         for (String field : map.keySet()) {
             String dictField = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, field);
-            IntensionDai.Record record = fieldDict.get(dictField);
+            IntensionDai.Record record = dict.get(dictField);
             if (record == null) {
                 logger.warn("cannot find field [{}]", field);
                 continue;
@@ -56,6 +57,35 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
         }
         return instances;
     }
+
+    @Override
+    public List<InstanceDai.Instance> extract(WriteContext context, RefreshPartialInstanceApi.SubIdForm form, Map<String, IntensionDai.Record> dict) {
+        List<InstanceDai.Instance> instances = new ArrayList<>();
+        Date now = new Date();
+        List<RefreshPartialInstanceApi.Value> values = form.getValues();
+        for (RefreshPartialInstanceApi.Value value: values) {
+            String dictField = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getField());
+            IntensionDai.Record record = dict.get(dictField);
+            if (record == null) {
+                logger.warn("cannot find field [{}]", form.getField());
+                continue;
+            }
+            Long intId = record.getId();
+
+            String[] vs = cleanUpValues(value.getValues());
+            InstanceDai.Instance instance = ValueMapping.from(InstanceDai.Instance.class, context, form);
+            instance.setId(setgen.born());
+            instance.setExtId(record.getExtId());
+            instance.setIntId(intId);
+            instance.setField(dictField);
+            instance.setValues(vs);
+            instance.setBeginTime(now);
+            instance.setValueRefId(value.getValueRefId());
+            instance.setCommit(HashTools.hashHex(instance));
+            instances.add(instance);
+        }
+        return instances;    }
+
 
     private String[] cleanUpValues(String[] values) {
         if (values.length == 0) {

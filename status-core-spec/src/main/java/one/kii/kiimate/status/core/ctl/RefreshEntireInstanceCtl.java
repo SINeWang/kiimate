@@ -1,6 +1,6 @@
 package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.status.core.api.RefreshInstanceApi;
+import one.kii.kiimate.status.core.api.RefreshEntireInstanceApi;
 import one.kii.summer.asdf.api.CommitApiCaller;
 import one.kii.summer.beans.utils.MultiValueMapTools;
 import one.kii.summer.io.context.ErestHeaders;
@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.status.core.ctl.RefreshInstanceCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.RefreshEntireInstanceCtl.OWNER_ID;
 
 
 /**
@@ -22,7 +22,7 @@ import static one.kii.kiimate.status.core.ctl.RefreshInstanceCtl.OWNER_ID;
 @RestController
 @RequestMapping(value = "/api/v1/{" + OWNER_ID + "}/instance", method = RequestMethod.PUT)
 @CrossOrigin(origins = "*")
-public class RefreshInstanceCtl extends WriteController {
+public class RefreshEntireInstanceCtl extends WriteController {
 
     static final String OWNER_ID = "owner-id";
 
@@ -30,7 +30,7 @@ public class RefreshInstanceCtl extends WriteController {
 
 
     @Autowired
-    private RefreshInstanceApi api;
+    private RefreshEntireInstanceApi api;
 
     @RequestMapping(value = "/{" + SUB_ID + "}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity commitForm(
@@ -55,14 +55,14 @@ public class RefreshInstanceCtl extends WriteController {
     }
 
 
-    private ResponseEntity<RefreshInstanceApi.Receipt> commit(
+    private ResponseEntity<RefreshEntireInstanceApi.Receipt> commit(
             String requestId,
             String operatorId,
             String ownerId,
             String subId,
             MultiValueMap<String, String> map) {
         WriteContext context = buildContext(requestId, ownerId, operatorId);
-        RefreshInstanceApi.SubIdForm form = new RefreshInstanceApi.SubIdForm();
+        RefreshEntireInstanceApi.SubIdForm form = new RefreshEntireInstanceApi.SubIdForm();
         form.setId(subId);
         form.setMap(map);
         return CommitApiCaller.sync(api, context, form);

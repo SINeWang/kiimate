@@ -3,7 +3,7 @@ package com.sinewang.kiimate.status.core.api;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.model.core.fui.AnModelRestorer;
-import one.kii.kiimate.status.core.api.RefreshInstanceApi;
+import one.kii.kiimate.status.core.api.RefreshPartialInstanceApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
@@ -29,15 +29,12 @@ import java.util.Map;
  */
 
 @Component
-public class DefaultRefreshInstanceApi implements RefreshInstanceApi {
+public class DefaultRefreshPartialInstanceApi implements RefreshPartialInstanceApi {
 
-    private static final Logger logger = LoggerFactory.getLogger(DefaultRefreshInstanceApi.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultRefreshPartialInstanceApi.class);
 
     @Autowired
     private InstanceDai instanceDai;
-
-    @Autowired
-    private AnInstanceExtractor instanceExtractor;
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
@@ -46,7 +43,7 @@ public class DefaultRefreshInstanceApi implements RefreshInstanceApi {
     private AnModelRestorer modelRestorer;
 
     @Autowired
-    private IntensionDai intensionDai;
+    private AnInstanceExtractor instanceExtractor;
 
     @Autowired
     private InstanceTransformer instanceTransformer;
@@ -56,7 +53,6 @@ public class DefaultRefreshInstanceApi implements RefreshInstanceApi {
         ZoomInById channel = ValueMapping.from(ZoomInById.class, context, form);
 
         InsideView model = modelSubscriptionDai.loadModelSubById(channel);
-
 
         IntensionDai.ChannelExtensionId lastExtension = new IntensionDai.ChannelExtensionId();
         lastExtension.setId(model.getRootId());

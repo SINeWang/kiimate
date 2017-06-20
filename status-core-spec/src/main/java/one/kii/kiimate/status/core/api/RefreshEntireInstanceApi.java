@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
-public interface RefreshInstanceApi extends CommitApi<RefreshInstanceApi.Receipt, WriteContext, RefreshInstanceApi.SubIdForm> {
+public interface RefreshEntireInstanceApi extends CommitApi<RefreshEntireInstanceApi.Receipt, WriteContext, RefreshEntireInstanceApi.SubIdForm> {
 
     Receipt commit(WriteContext context, SubIdForm form) throws BadRequest, Conflict, NotFound, Panic;
 
