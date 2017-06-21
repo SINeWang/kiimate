@@ -26,7 +26,6 @@ public interface InstanceMapper {
             @Param("value") String value,
             @Param("valueSet") Long valueSet,
             @Param("valueRefId") Long valueRefId,
-            @Param("valueRefPolicy") String valueRefPolicy,
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
@@ -36,7 +35,7 @@ public interface InstanceMapper {
             @Param("beginTime") Date beginTime,
             @Param("endTime") Date endTime);
 
-    List<InstanceDai.Record> selectLatestValueById(
+    List<InstanceDai.Record> selectLatestRecordById(
             @Param("subId") Long subId,
             @Param("intId") Long intId);
 

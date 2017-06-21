@@ -46,9 +46,6 @@ public interface InstanceDai {
         @MayHave
         private Long valueRefId;
 
-        @MayHave
-        private String valueRefPolicy;
-
         private String operatorId;
 
         private Date beginTime;

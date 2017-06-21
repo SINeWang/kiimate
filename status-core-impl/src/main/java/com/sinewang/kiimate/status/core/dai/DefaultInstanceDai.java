@@ -57,7 +57,7 @@ public class DefaultInstanceDai implements InstanceDai {
                     boolean refresh = false;
                     boolean insert = false;
 
-                    List<Record> latestRecordList = instanceMapper.selectLatestValueById(
+                    List<Record> latestRecordList = instanceMapper.selectLatestRecordById(
                             instance.getSubId(),
                             instance.getIntId());
                     if (latestRecordList.size() == 0) {
@@ -93,7 +93,7 @@ public class DefaultInstanceDai implements InstanceDai {
 
             {
 
-                List<Record> latestRecordList = instanceMapper.selectLatestValueById(
+                List<Record> latestRecordList = instanceMapper.selectLatestRecordById(
                         instance.getSubId(),
                         instance.getIntId());
                 boolean refresh = false;
@@ -168,7 +168,6 @@ public class DefaultInstanceDai implements InstanceDai {
                 record.getValue(),
                 record.getValueSet(),
                 record.getValueRefId(),
-                record.getValueRefPolicy(),
                 record.getOperatorId(),
                 beginTime);
     }
