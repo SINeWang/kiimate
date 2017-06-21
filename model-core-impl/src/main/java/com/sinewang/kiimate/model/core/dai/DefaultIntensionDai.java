@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -64,7 +63,7 @@ public class DefaultIntensionDai implements IntensionDai {
     @Override
     public List<Record> loadLast(ChannelPubSet channel) throws BadRequest, Panic {
         NotBadRequest.from(channel);
-        List<Record> records = intensionMapper.selectLastIntensionBySet(
+        List<Record> records = intensionMapper.selectIntensionsBySet(
                 channel.getSet());
         return NotBadResponse.of(records);
     }

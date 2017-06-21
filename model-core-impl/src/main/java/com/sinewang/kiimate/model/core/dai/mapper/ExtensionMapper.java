@@ -43,16 +43,11 @@ public interface ExtensionMapper {
             @Param("endTime") Date endTime);
 
 
-
     List<ExtensionDai.Record> queryExtensionsByOwnerGroup(
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 
     void revoke(@Param("id") Long id,
                 @Param("endTime") Date endTime);
-
-    void updateEndTimeExtensionById(
-            @Param("extId") Long extId,
-            @Param("endTime") Date endTime);
 
 }

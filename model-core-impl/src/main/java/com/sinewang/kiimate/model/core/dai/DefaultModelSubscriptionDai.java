@@ -85,7 +85,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     @Override
     public List<Instance> querySubscriptions(ClueGroup clue) throws BadRequest, Panic {
         NotBadRequest.from(clue);
-        List<Instance> list = modelSubscriptionMapper.querySubscriptionsByOwnerGroup(
+        List<Instance> list = modelSubscriptionMapper.queryModelSubByName(
                 clue.getOwnerId(),
                 clue.getGroup());
         return NotBadResponse.of(list);
@@ -93,7 +93,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
 
     @Override
     public Integer countModelSubscriptions(Long pubSet) {
-        return modelSubscriptionMapper.countModelSubscriptions(pubSet);
+        return modelSubscriptionMapper.countModelSub(pubSet);
     }
 
     @Override

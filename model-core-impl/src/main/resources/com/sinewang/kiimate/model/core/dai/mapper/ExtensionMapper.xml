@@ -41,12 +41,7 @@
         AND mext.name = #{name}
         AND mext.tree = #{tree}
         AND mext.owner_id = #{ownerId}
-        <if test="beginTime == null">
-            AND mext.end_time IS NULL
-        </if>
-        <if test="beginTime != null">
-            AND mext.end_time = #{endTime}
-        </if>
+        AND mext.end_time IS NULL
     </select>
 
     <select id="selectLastExtensionByName" resultMap="Extension">
@@ -99,16 +94,10 @@
         (#{id}, #{commit}, #{group}, #{name}, #{tree}, #{ownerId}, #{visibility}, #{operatorId}, #{beginTime})
     </insert>
 
-    <update id="updateEndTimeExtensionById">
+    <delete id="revoke">
         UPDATE km_m_ext mext
         SET mext.end_time = #{endTime}
-        WHERE mext.id = #{extId}
-    </update>
-
-    <delete id="revoke">
-        UPDATE km_m_ext
-        SET end_time = #{endTime}
-        WHERE id = #{id}
-        AND end_time IS NULL
+        WHERE mext.id = #{id}
+        AND mext.end_time IS NULL
     </delete>
 </mapper>

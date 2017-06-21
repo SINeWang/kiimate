@@ -32,10 +32,10 @@ public interface ModelSubscriptionMapper {
     void deleteById(
             @Param("id") Long id);
 
-    int countModelSubscriptions(
+    int countModelSub(
             @Param("subSet") Long subSet);
 
-    List<ModelSubscriptionDai.Instance> querySubscriptionsByOwnerGroup(
+    List<ModelSubscriptionDai.Instance> queryModelSubByName(
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 

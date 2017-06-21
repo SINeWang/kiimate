@@ -4,7 +4,7 @@
 
 <mapper namespace="com.sinewang.kiimate.model.core.dai.mapper.IntensionMapper">
 
-    <resultMap id="Intension" type="one.kii.kiimate.model.core.dai.IntensionDai$Record">
+    <resultMap id="Record" type="one.kii.kiimate.model.core.dai.IntensionDai$Record">
         <result column="id" property="id"/>
         <result column="commit" property="commit"/>
         <result column="ext_id" property="extId"/>
@@ -19,15 +19,15 @@
         <result column="end_time" property="endTime"/>
     </resultMap>
 
-    <select id="selectLatestIntensionsByExtId" resultMap="Intension">
+    <select id="selectLatestIntensionsByExtId" resultMap="Record">
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
         FROM km_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.end_time IS NULL
     </select>
 
-    <select id="selectLastIntensionsByExtId" resultMap="Intension">
-        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time,  mint.begin_time, mint.end_time
+    <select id="selectLastIntensionsByExtId" resultMap="Record">
+        SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
         FROM km_m_int mint
         WHERE mint.ext_id = #{extId}
         <if test="beginTime != null and endTime != null">
@@ -51,21 +51,21 @@
         ORDER BY mint.begin_time DESC
     </select>
 
-    <select id="selectLastIntensionBySet" resultMap="Intension">
+    <select id="selectIntensionsBySet" resultMap="Record">
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
         FROM km_m_int mint, km_m_pub mpub
         WHERE mpub.pub_set = #{set}
         AND mint.id = mpub.int_id
     </select>
 
-    <select id="selectLatestIntensionByExtIdField" resultMap="Intension">
+    <select id="selectLatestIntensionByExtIdField" resultMap="Record">
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
         FROM km_m_int mint
         WHERE mint.ext_id = #{extId}
         AND mint.field = #{field}
         AND mint.end_time IS NULL
     </select>
-    <select id="selectIntensionByConflictKey" resultMap="Intension">
+    <select id="selectIntensionByConflictKey" resultMap="Record">
         SELECT mint.id, mint.commit, mint.ext_id, mint.field, mint.is_single, mint.structure, mint.ref_m_pub_set, mint.visibility, mint.is_required, mint.operator_id, mint.begin_time, mint.end_time
         FROM km_m_int mint
         WHERE mint.ext_id = #{extId}

@@ -39,7 +39,7 @@ public interface IntensionMapper {
             @Param("endTime") Date endTime);
 
 
-    List<IntensionDai.Record> selectLastIntensionBySet(
+    List<IntensionDai.Record> selectIntensionsBySet(
             @Param("set") Long set);
 
     IntensionDai.Record selectLatestIntensionByExtIdField(

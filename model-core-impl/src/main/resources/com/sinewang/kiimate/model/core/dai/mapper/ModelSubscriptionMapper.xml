@@ -4,7 +4,7 @@
 
 <mapper namespace="com.sinewang.kiimate.model.core.dai.mapper.ModelSubscriptionMapper">
 
-    <resultMap id="Subscription" type="one.kii.kiimate.model.core.dai.ModelSubscriptionDai$Instance">
+    <resultMap id="Instance" type="one.kii.kiimate.model.core.dai.ModelSubscriptionDai$Instance">
         <result column="id" property="id"/>
         <result column="sub_set" property="set"/>
         <result column="subscriber_id" property="subscriberId"/>
@@ -51,7 +51,7 @@
         (#{id}, #{subSet}, #{subscriberId}, #{group}, #{name}, #{tree}, #{operatorId}, #{beginTime})
     </insert>
 
-    <select id="loadInstance" resultMap="Subscription">
+    <select id="loadInstance" resultMap="Instance">
         SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.operator_id, msub.begin_time, msub.end_time
         FROM km_m_sub msub
         WHERE msub.id = #{id}
@@ -76,14 +76,14 @@
         </if>
     </select>
 
-    <select id="countModelSubscriptions" resultType="int">
+    <select id="countModelSub" resultType="int">
         SELECT count(msub.id)
         FROM km_m_sub msub
         WHERE msub.sub_set = #{subSet}
         AND end_time IS NULL
     </select>
 
-    <select id="querySubscriptionsByOwnerGroup" resultMap="Subscription">
+    <select id="queryModelSubByName" resultMap="Instance">
         <bind name="group_pattern" value="'%' + group + '%'"/>
         SELECT msub.id, msub.sub_set, msub.subscriber_id, msub.`group`, msub.name, msub.tree, msub.operator_id, msub.begin_time, msub.end_time
         FROM km_m_sub msub
@@ -124,7 +124,7 @@
         GROUP BY mext.id
     </select>
 
-    <select id="selectModelByName" resultMap="OutsideView">
+    <select id="selectModelPubByName" resultMap="OutsideView">
         SELECT mext.id, mpub.pub_set, mpub.provider_id, mext.group, mext.name, mpub.stability, mpub.version, mpub.begin_time, mpub.end_time
         FROM km_m_pub mpub, km_m_ext mext
         WHERE mext.id = mpub.ext_id
