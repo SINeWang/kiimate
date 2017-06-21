@@ -107,12 +107,8 @@
         SELECT mext.id, mpub.pub_set, mpub.provider_id, mext.group, mext.name, mpub.stability, mpub.version, mpub.begin_time, mpub.end_time
         FROM km_m_pub mpub, km_m_ext mext
         WHERE mext.id = mpub.ext_id
-        AND mpub.provider_id = #{providerId}
-        AND mext.group = #{group}
-        AND mext.name = #{name}
-        AND mpub.stability = #{stability}
-        AND mpub.version = #{version}
-        GROUP BY mext.id
+        AND mpub.pub_set = #{set}
+        GROUP BY mpub.pub_set
     </select>
 
     <select id="selectPublishedSnapshotsByExtId" resultMap="PublishedSnapshot">
