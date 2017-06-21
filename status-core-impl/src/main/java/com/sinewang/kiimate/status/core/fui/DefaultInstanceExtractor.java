@@ -13,6 +13,7 @@ import one.kii.summer.io.context.WriteContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
 
 import java.util.*;
 
@@ -28,13 +29,13 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     private static Logger logger = LoggerFactory.getLogger(DefaultInstanceExtractor.class);
 
     @Override
-    public List<InstanceDai.Instance> extract(WriteContext context, RefreshEntireInstanceApi.SubIdForm form, Map<String, IntensionDai.Record> dict) {
+    public List<InstanceDai.Instance> extract(WriteContext context, RefreshEntireInstanceApi.SubIdForm form, MultiValueMap<String, IntensionDai.Record> dict) {
         List<InstanceDai.Instance> instances = new ArrayList<>();
         Date now = new Date();
         Map<String, List<String>> map = form.getMap();
         for (String field : map.keySet()) {
             String dictField = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, field);
-            IntensionDai.Record record = dict.get(dictField);
+            IntensionDai.Record record = dict.getFirst(dictField);
             if (record == null) {
                 logger.warn("cannot find field [{}]", field);
                 continue;
@@ -56,13 +57,13 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     }
 
     @Override
-    public List<InstanceDai.Instance> extract(WriteContext context, RefreshPartialInstanceApi.SubIdForm form, Map<String, IntensionDai.Record> dict) {
+    public List<InstanceDai.Instance> extract(WriteContext context, RefreshPartialInstanceApi.SubIdForm form, MultiValueMap<String, IntensionDai.Record> dict) {
         List<InstanceDai.Instance> instances = new ArrayList<>();
         Date now = new Date();
 
         RefreshPartialInstanceApi.Values value = form.getValues();
         String dictField = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getField());
-        IntensionDai.Record record = dict.get(dictField);
+        IntensionDai.Record record = dict.getFirst(dictField);
         if (record == null) {
             logger.warn("cannot find field [{}]", form.getField());
             return Collections.emptyList();
@@ -75,9 +76,9 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
         instance.setExtId(record.getExtId());
         instance.setIntId(intId);
         instance.setField(dictField);
+        instance.setValueRefId(value.getValueRefId());
         instance.setValues(vs);
         instance.setBeginTime(now);
-        instance.setValueRefId(value.getValueRefId());
         instance.setCommit(HashTools.hashHex(instance));
         instances.add(instance);
         return instances;
@@ -85,7 +86,7 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
 
 
     private String[] cleanUpValues(String[] values) {
-        if (values.length == 0) {
+        if (values == null) {
             return null;
         }
         List<String> valueList = new ArrayList<>();

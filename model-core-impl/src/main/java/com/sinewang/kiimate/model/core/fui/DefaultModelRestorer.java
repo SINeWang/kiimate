@@ -8,6 +8,8 @@ import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,29 +70,36 @@ public class DefaultModelRestorer implements AnModelRestorer {
     }
 
 
-    public Map<String, IntensionDai.Record> restoreAsIntensionDict(IntensionDai.ChannelExtensionId extension) throws BadRequest, NotFound, Panic {
-        Map<String, IntensionDai.Record> map = new HashMap<>();
+    public MultiValueMap<String, IntensionDai.Record> restoreAsIntensionDict(IntensionDai.ChannelExtensionId extension) throws BadRequest, NotFound, Panic {
+        MultiValueMap<String, IntensionDai.Record> map = new LinkedMultiValueMap<>();
         restoreAsFieldDict(extension, map);
         return map;
     }
 
-    private void restoreAsFieldDict(IntensionDai.ChannelExtensionId extension, Map<String, IntensionDai.Record> map) throws BadRequest, NotFound, Panic {
+    private void restoreAsFieldDict(IntensionDai.ChannelExtensionId extension, MultiValueMap<String, IntensionDai.Record> map) throws BadRequest, NotFound, Panic {
         List<IntensionDai.Record> records = intensionDai.loadLast(extension);
         for (IntensionDai.Record record : records) {
-            Long refPubSet = record.getRefSet();
-            if (refPubSet != null) {
-                ModelPublicationDai.ChannelSet pubset = new ModelPublicationDai.ChannelSet();
-                pubset.setSet(refPubSet);
-                List<ModelPublicationDai.Record> publications = modelPublicationDai.loadPublications(pubset);
+            Long refSet = record.getRefSet();
+            if (refSet != null) {
+                ModelPublicationDai.ChannelSet set = new ModelPublicationDai.ChannelSet();
+                set.setSet(refSet);
+                List<ModelPublicationDai.Record> publications = modelPublicationDai.loadPublications(set);
 
                 ModelPublicationDai.Record publication = publications.get(0);
                 IntensionDai.ChannelExtensionId refExt = new IntensionDai.ChannelExtensionId();
                 refExt.setBeginTime(publication.getBeginTime());
                 refExt.setEndTime(record.getBeginTime());
                 refExt.setId(publication.getExtId());
-                restoreAsFieldDict(refExt, map);
+
+                MultiValueMap<String, IntensionDai.Record> subMap = restoreAsIntensionDict(refExt);
+                for (String key : subMap.keySet()) {
+                    List<IntensionDai.Record> subRecords = subMap.get(key);
+                    for (IntensionDai.Record subRecord : subRecords) {
+                        map.add(record.getField(), subRecord);
+                    }
+                }
             } else {
-                map.put(record.getField(), record);
+                map.set(record.getField(), record);
             }
         }
     }

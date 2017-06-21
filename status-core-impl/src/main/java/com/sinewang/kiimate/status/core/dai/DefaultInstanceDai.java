@@ -3,6 +3,7 @@ package com.sinewang.kiimate.status.core.dai;
 import com.sinewang.kiimate.status.core.dai.mapper.InstanceMapper;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.status.core.dai.InstanceDai;
+import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
@@ -26,6 +27,8 @@ public class DefaultInstanceDai implements InstanceDai {
 
     private static final Eid64Generator setgen = new Eid64Generator(8);
 
+    private static final String[] EMPTY_VALUE = new String[]{"_"};
+
     @Autowired
     private InstanceMapper instanceMapper;
 
@@ -34,6 +37,14 @@ public class DefaultInstanceDai implements InstanceDai {
         Date now = new Date();
         for (Instance instance : instances) {
             String[] values = instance.getValues();
+            {
+                if (instance.getValueRefId() != null) {
+                    if (values == null) {
+                        values = EMPTY_VALUE;
+                    }
+                }
+            }
+
             {
                 if (values.length == 1) {
                     if (values[0].isEmpty()) {
@@ -72,8 +83,7 @@ public class DefaultInstanceDai implements InstanceDai {
                                 now);
                     }
                     if (insert) {
-                        Record record = new Record();
-                        BeanUtils.copyProperties(instance, record);
+                        Record record = ValueMapping.from(Record.class, instance);
                         record.setValue(values[0]);
                         insertInstance(record, now);
                     }

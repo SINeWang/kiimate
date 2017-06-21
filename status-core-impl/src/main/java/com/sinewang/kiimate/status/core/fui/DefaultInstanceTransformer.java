@@ -140,14 +140,14 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Record intension : intensions) {
             if (intension.getSingle()) {
-                if (intension.getRefSet() != null) {
-                    IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
-                    refPubSet.setSet(intension.getRefSet());
-                    Map<String, Object> child = parseFat(refPubSet, dict);
-                    if (!child.isEmpty()) {
-                        result.put(intension.getField(), child);
-                    }
-                } else {
+//                if (intension.getRefSet() != null) {
+//                    IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
+//                    refPubSet.setSet(intension.getRefSet());
+//                    Map<String, Object> child = parseFat(refPubSet, dict);
+//                    if (!child.isEmpty()) {
+//                        result.put(intension.getField(), child);
+//                    }
+//                } else {
                     List<InstanceDai.Record> instances = dict.get(intension.getField());
                     if (instances != null && !instances.isEmpty()) {
                         Object value = dict.get(intension.getField()).get(0).getValue();
@@ -161,16 +161,16 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                             }
                             result.put(intension.getField(), tv);
                         }
-                    }
+//                    }
                 }
             } else {
-                if (intension.getRefSet() != null) {
-                    IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
-                    refPubSet.setSet(intension.getRefSet());
-
-                    Map<String, Object> child = parseFat(refPubSet, dict);
-                    addComplexValueToList(result, intension, child);
-                } else {
+//                if (intension.getRefSet() != null) {
+//                    IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
+//                    refPubSet.setSet(intension.getRefSet());
+//
+//                    Map<String, Object> child = parseFat(refPubSet, dict);
+//                    addComplexValueToList(result, intension, child);
+//                } else {
                     List<InstanceDai.Record> instances = dict.get(intension.getField());
                     if (instances != null && !instances.isEmpty()) {
                         for (InstanceDai.Record instance : instances) {
@@ -184,7 +184,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                                 values.add(tv);
                             }
                         }
-                    }
+//                    }
                 }
 
             }

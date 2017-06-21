@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.MultiValueMap;
 
 import java.util.List;
 import java.util.Map;
@@ -58,7 +59,7 @@ public class DefaultRefreshPartialInstanceApi implements RefreshPartialInstanceA
         lastExtension.setId(model.getRootId());
         lastExtension.setEndTime(model.getBeginTime());
 
-        Map<String, IntensionDai.Record> dict = modelRestorer.restoreAsIntensionDict(lastExtension);
+        MultiValueMap<String, IntensionDai.Record> dict = modelRestorer.restoreAsIntensionDict(lastExtension);
 
         List<InstanceDai.Instance> instances = instanceExtractor.extract(context, form, dict);
 
