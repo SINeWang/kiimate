@@ -16,7 +16,6 @@ CREATE TABLE `km_i_ins` (
   `value` varchar(255) DEFAULT NULL,
   `value_set` varchar(160) DEFAULT NULL,
   `value_ref_id` varchar(160) DEFAULT NULL,
-  `value_ref_policy` varchar(64) DEFAULT NULL,
   `operator_id` varchar(160) NOT NULL,
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,
