@@ -48,7 +48,7 @@ public class DefaultInstanceDai implements InstanceDai {
             {
                 if (values.length == 1) {
                     if (values[0].isEmpty()) {
-                        instanceMapper.updateInstanceEndTimeBySubIdIntId(
+                        instanceMapper.revokeValue(
                                 instance.getSubId(),
                                 instance.getIntId(),
                                 now);
@@ -57,7 +57,7 @@ public class DefaultInstanceDai implements InstanceDai {
                     boolean refresh = false;
                     boolean insert = false;
 
-                    List<Record> latestRecordList = instanceMapper.selectLatestInstanceBySubIdIntId(
+                    List<Record> latestRecordList = instanceMapper.selectLatestValueById(
                             instance.getSubId(),
                             instance.getIntId());
                     if (latestRecordList.size() == 0) {
@@ -77,7 +77,7 @@ public class DefaultInstanceDai implements InstanceDai {
 
 
                     if (refresh) {
-                        instanceMapper.updateInstanceEndTimeBySubIdIntId(
+                        instanceMapper.revokeValue(
                                 instance.getSubId(),
                                 instance.getIntId(),
                                 now);
@@ -93,7 +93,7 @@ public class DefaultInstanceDai implements InstanceDai {
 
             {
 
-                List<Record> latestRecordList = instanceMapper.selectLatestInstanceBySubIdIntId(
+                List<Record> latestRecordList = instanceMapper.selectLatestValueById(
                         instance.getSubId(),
                         instance.getIntId());
                 boolean refresh = false;
@@ -123,7 +123,7 @@ public class DefaultInstanceDai implements InstanceDai {
                 if (!refresh) {
                     continue;
                 }
-                instanceMapper.updateInstanceEndTimeBySubIdIntId(
+                instanceMapper.revokeValue(
                         instance.getSubId(),
                         instance.getIntId(),
                         now);
@@ -143,7 +143,7 @@ public class DefaultInstanceDai implements InstanceDai {
 
     @Override
     public List<Record> loadInstances(ZoomInById channel) throws Panic {
-        List<Record> records = instanceMapper.selectLastInstancesByStatusId(
+        List<Record> records = instanceMapper.selectLastInstancesById(
                 channel.getSubscriberId(),
                 channel.getId(),
                 channel.getBeginTime(),

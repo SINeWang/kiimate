@@ -81,7 +81,7 @@
         AND mint.end_time IS NULL
     </select>
 
-    <update id="updateLatestIntensionEndTimeById">
+    <update id="revoke">
         UPDATE km_m_int mint
         SET mint.end_time = #{endTime}
         WHERE mint.id = #{id}
@@ -95,7 +95,7 @@
         (#{id}, #{commit}, #{extId}, #{field}, #{single}, #{structure}, #{refSet}, #{visibility}, #{required}, #{operatorId}, #{beginTime})
     </insert>
 
-    <delete id="deleteIntensionsByExtId">
+    <delete id="deleteByExtId">
         DELETE FROM km_m_int
         WHERE ext_id = #{extId}
     </delete>

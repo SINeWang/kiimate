@@ -21,7 +21,7 @@
         <result column="end_time" property="endTime"/>
     </resultMap>
 
-    <select id="selectLastInstancesByStatusId" resultMap="Instance">
+    <select id="selectLastInstancesById" resultMap="Instance">
         SELECT mins.id, mins.commit, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_id, mins.value_ref_policy, mins.operator_id, mins.begin_time, mins.end_time
         FROM km_i_ins mins, km_m_sub msub
         WHERE msub.id = #{subId}
@@ -47,7 +47,7 @@
             ]]>
         </if>
     </select>
-    <select id="selectLatestInstanceBySubIdIntId" resultMap="Instance">
+    <select id="selectLatestValueById" resultMap="Instance">
         SELECT mins.id, mins.commit, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.value_ref_id, mins.value_ref_policy, mins.operator_id, mins.begin_time, mins.end_time
         FROM km_i_ins mins
         WHERE mins.sub_id = #{subId}
@@ -55,10 +55,12 @@
         AND mins.end_time IS NULL
     </select>
 
-    <update id="updateInstanceEndTimeBySubIdIntId">
+    <update id="revokeValue">
         UPDATE km_i_ins mins
         SET mins.end_time = #{endTime}
-        WHERE mins.sub_id = #{subId} AND mins.int_id = #{intId} AND mins.end_time IS NULL
+        WHERE mins.sub_id = #{subId}
+        AND mins.int_id = #{intId}
+        AND mins.end_time IS NULL
     </update>
 
     <insert id="insertInstance">

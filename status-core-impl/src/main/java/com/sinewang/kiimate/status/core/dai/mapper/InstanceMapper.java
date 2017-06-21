@@ -30,17 +30,17 @@ public interface InstanceMapper {
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
-    List<InstanceDai.Record> selectLastInstancesByStatusId(
+    List<InstanceDai.Record> selectLastInstancesById(
             @Param("subscriberId") String subscriberId,
             @Param("subId") Long subId,
             @Param("beginTime") Date beginTime,
             @Param("endTime") Date endTime);
 
-    List<InstanceDai.Record> selectLatestInstanceBySubIdIntId(
+    List<InstanceDai.Record> selectLatestValueById(
             @Param("subId") Long subId,
             @Param("intId") Long intId);
 
-    void updateInstanceEndTimeBySubIdIntId(
+    void revokeValue(
             @Param("subId") Long subId,
             @Param("intId") Long intId,
             @Param("endTime") Date endTime);

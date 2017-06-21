@@ -73,7 +73,7 @@ public class DefaultIntensionDai implements IntensionDai {
     public void forget(ChannelId channel) throws BadRequest {
         NotBadRequest.from(channel);
         Date now = new Date();
-        intensionMapper.updateLatestIntensionEndTimeById(
+        intensionMapper.revoke(
                 channel.getId(),
                 now);
     }

@@ -46,11 +46,11 @@ public interface IntensionMapper {
             Map<String, String> map);
 
 
-    void updateLatestIntensionEndTimeById(
+    void revoke(
             @Param("id") Long id,
             @Param("endTime") Date endTime);
 
-    void deleteIntensionsByExtId(
+    void deleteByExtId(
             @Param("extId") Long extId);
 
 }

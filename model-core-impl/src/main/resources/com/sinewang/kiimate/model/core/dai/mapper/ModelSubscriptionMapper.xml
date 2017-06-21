@@ -90,6 +90,7 @@
         AND msub.end_time IS NULL
         GROUP BY mext.id
     </select>
+
     <select id="selectModelSubByName" resultMap="InsideView">
         SELECT msub.id, msub.subscriber_id, msub.group, msub.name, msub.tree, msub.begin_time, msub.end_time,
         mext.id root_ext_id, mpub.pub_set, mpub.provider_id
