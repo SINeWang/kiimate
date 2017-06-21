@@ -14,7 +14,8 @@ import java.util.Map;
 @Mapper
 public interface ExtensionMapper {
 
-    List<ExtensionDai.Providers> queryProviders(@Param("ownerId") String ownerId);
+    List<ExtensionDai.Providers> queryProviders(
+            @Param("providerId") String providerId);
 
     void insertExtension(
             @Param("id") Long id,

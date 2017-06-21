@@ -22,10 +22,10 @@
     </resultMap>
 
     <select id="queryProviders" resultMap="Providers">
-        <bind name="ownerId_pattern" value="'%' + ownerId + '%'"/>
+        <bind name="providerId_pattern" value="'%' + providerId + '%'"/>
         SELECT DISTINCT(owner_id)
         FROM km_m_ext mext
-        WHERE mext.owner_id LIKE #{ownerId_pattern}
+        WHERE mext.owner_id LIKE #{providerId_pattern}
         AND mext.end_time IS NULL
     </select>
 
