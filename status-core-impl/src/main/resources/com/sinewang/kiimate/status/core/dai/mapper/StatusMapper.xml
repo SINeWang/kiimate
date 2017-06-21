@@ -52,7 +52,7 @@
         <if test="beginTime != null and endTime == null">
             <![CDATA[
             AND spub.begin_time >= #{beginTime}
-            AND ((spub.end_time >= #{beginTime}) OR (spub.end_time IS NULL))
+            AND spub.end_time IS NULL
             ]]>
         </if>
         GROUP BY spub.pub_set

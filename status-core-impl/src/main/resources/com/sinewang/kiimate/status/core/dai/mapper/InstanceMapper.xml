@@ -43,7 +43,7 @@
         <if test="beginTime != null and endTime == null">
             <![CDATA[
             AND mins.begin_time >= #{beginTime}
-            AND ((mins.end_time >= #{beginTime}) OR (mins.end_time IS NULL))
+            AND mins.end_time IS NULL
             ]]>
         </if>
     </select>

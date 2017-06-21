@@ -45,7 +45,7 @@
         <if test="beginTime != null and endTime == null">
             <![CDATA[
             AND mint.begin_time >= #{beginTime}
-            AND ((mint.end_time >= #{beginTime}) OR (mint.end_time IS NULL))
+            AND mint.end_time IS NULL
             ]]>
         </if>
         ORDER BY mint.begin_time DESC
@@ -87,6 +87,7 @@
         UPDATE km_m_int mint
         SET mint.end_time = #{endTime}
         WHERE mint.id = #{id}
+        AND mint.end_time IS NULL
     </update>
 
     <insert id="insertIntension">
