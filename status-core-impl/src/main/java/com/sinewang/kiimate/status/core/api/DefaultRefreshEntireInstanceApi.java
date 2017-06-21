@@ -38,13 +38,13 @@ public class DefaultRefreshEntireInstanceApi implements RefreshEntireInstanceApi
     private InstanceDai instanceDai;
 
     @Autowired
-    private AnInstanceExtractor instanceExtractor;
-
-    @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Autowired
     private AnModelRestoreFui modelRestorer;
+
+    @Autowired
+    private AnInstanceExtractor instanceExtractor;
 
     @Autowired
     private InstanceTransformer instanceTransformer;
@@ -54,7 +54,6 @@ public class DefaultRefreshEntireInstanceApi implements RefreshEntireInstanceApi
         ZoomInById channel = ValueMapping.from(ZoomInById.class, context, form);
 
         InsideView model = modelSubscriptionDai.loadModelSubById(channel);
-
 
         IntensionDai.ChannelExtensionId lastExtension = new IntensionDai.ChannelExtensionId();
         lastExtension.setId(model.getRootId());

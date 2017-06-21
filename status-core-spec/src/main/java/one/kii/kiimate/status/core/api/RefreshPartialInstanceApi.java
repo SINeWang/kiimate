@@ -2,6 +2,7 @@ package one.kii.kiimate.status.core.api;
 
 import lombok.Data;
 import one.kii.summer.asdf.api.CommitApi;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
@@ -20,24 +21,33 @@ public interface RefreshPartialInstanceApi extends CommitApi<RefreshPartialInsta
 
     @Data
     class SubIdForm {
+
         String id;
+
         String field;
+
         Values values;
     }
 
     @Data
     class Values {
-        String field;
+
         Boolean reference;
+
         String[] values;
+
+        @MayHave
         String valueRefId;
     }
 
 
     @Data
     class Receipt {
+
         String id;
+
         String ownerId;
+
         Map<String, Object> map;
     }
 
