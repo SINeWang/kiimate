@@ -17,6 +17,18 @@
         <result column="end_time" property="endTime"/>
     </resultMap>
 
+    <resultMap id="Providers" type="one.kii.kiimate.model.core.dai.ExtensionDai$Providers">
+        <result column="owner_id" property="id"/>
+    </resultMap>
+
+    <select id="queryProviders" resultMap="Providers">
+        <bind name="ownerId_pattern" value="'%' + ownerId + '%'"/>
+        SELECT DISTINCT(owner_id)
+        FROM km_m_ext mext
+        WHERE mext.owner_id LIKE #{ownerId_pattern}
+        AND mext.end_time IS NULL
+    </select>
+
     <select id="selectLastExtensionBySet" resultMap="Extension">
         SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM km_m_ext mext, km_m_pub mpub

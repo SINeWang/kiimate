@@ -31,6 +31,19 @@ public interface ExtensionDai {
 
     void forget(Long id);
 
+
+    List<Providers> queryProviders(ClueId clue);
+
+    @Data
+    class ClueId {
+        String id;
+    }
+
+    @Data
+    class Providers {
+        String id;
+    }
+
     @Data
     class ClueGroup {
 

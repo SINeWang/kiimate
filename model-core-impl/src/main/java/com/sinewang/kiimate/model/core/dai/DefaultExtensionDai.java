@@ -31,6 +31,13 @@ public class DefaultExtensionDai implements ExtensionDai {
     private ExtensionMapper extensionMapper;
 
     @Override
+    public List<Providers> queryProviders(ClueId clue) {
+        return extensionMapper.queryProviders(
+                clue.getId()
+        );
+    }
+
+    @Override
     public Record loadLast(ChannelName channel) throws Panic, BadRequest, NotFound {
         logger.debug("before-loadLast: ChannelName:{}", channel);
         NotBadRequest.from(channel);
