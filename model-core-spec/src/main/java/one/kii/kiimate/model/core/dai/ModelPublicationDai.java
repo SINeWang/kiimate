@@ -7,6 +7,8 @@ import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
+import one.kii.summer.zoom.OutsideView;
+import one.kii.summer.zoom.ZoomOutBySet;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -25,6 +27,8 @@ public interface ModelPublicationDai {
     List<Record> loadPublications(ChannelSet channel) throws NotFound, Panic;
 
     List<Provider> searchProviders(ClueId clue);
+
+    OutsideView selectModelBySet(ZoomOutBySet channel) throws Panic;
 
 
     @Transactional

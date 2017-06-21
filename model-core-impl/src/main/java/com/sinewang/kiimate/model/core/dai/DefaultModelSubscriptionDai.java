@@ -74,13 +74,6 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
         return NotBadResponse.of(record);
     }
 
-    @Override
-    public OutsideView selectModelBySet(ZoomOutBySet channel) throws Panic {
-        OutsideView record = modelSubscriptionMapper.selectModelPubBySet(
-                channel
-        );
-        return NotBadResponse.of(record);
-    }
 
     @Override
     public List<Instance> querySubscriptions(ClueGroup clue) throws BadRequest, Panic {

@@ -36,6 +36,18 @@
         <result column="provider_id" property="id"/>
     </resultMap>
 
+    <resultMap id="OutsideView" type="one.kii.summer.zoom.OutsideView">
+        <result column="id" property="id"/>
+        <result column="pub_set" property="set"/>
+        <result column="provider_id" property="providerId"/>
+        <result column="group" property="group"/>
+        <result column="name" property="name"/>
+        <result column="stability" property="stability"/>
+        <result column="version" property="version"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
+    </resultMap>
+
     <insert id="insertPublication">
         INSERT INTO km_m_pub
         (id, pub_set, provider_id, ext_id, int_id, version, stability, operator_id, begin_time)
@@ -83,12 +95,26 @@
         AND mpub.end_time IS NULL
         GROUP BY mpub.provider_id, mext.group,  mext.name
     </select>
+
     <select id="selectPublicationsBySet" resultMap="Publication">
         SELECT mpub.id, mpub.pub_set, mpub.provider_id, mpub.ext_id, mpub.int_id, mpub.version, mpub.stability, mpub.operator_id, mpub.begin_time
         FROM km_m_pub mpub, km_m_ext mext
         WHERE mpub.ext_id = mext.id
         AND mpub.pub_set = #{set}
     </select>
+
+    <select id="selectModelPubByName" resultMap="OutsideView">
+        SELECT mext.id, mpub.pub_set, mpub.provider_id, mext.group, mext.name, mpub.stability, mpub.version, mpub.begin_time, mpub.end_time
+        FROM km_m_pub mpub, km_m_ext mext
+        WHERE mext.id = mpub.ext_id
+        AND mpub.provider_id = #{providerId}
+        AND mext.group = #{group}
+        AND mext.name = #{name}
+        AND mpub.stability = #{stability}
+        AND mpub.version = #{version}
+        GROUP BY mext.id
+    </select>
+
     <select id="selectPublishedSnapshotsByExtId" resultMap="PublishedSnapshot">
         SELECT mpub.id, mpub.pub_set, mpub.int_id, mpub.version, mpub.stability, mpub.begin_time
         FROM km_m_pub mpub, km_m_ext mext

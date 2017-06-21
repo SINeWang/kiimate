@@ -29,10 +29,6 @@ public interface IntensionMapper {
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
-
-    List<IntensionDai.Record> selectLatestIntensionsByExtId(
-            @Param("extId") Long extId);
-
     List<IntensionDai.Record> selectLastIntensionsByExtId(
             @Param("extId") Long extId,
             @Param("beginTime") Date beginTime,

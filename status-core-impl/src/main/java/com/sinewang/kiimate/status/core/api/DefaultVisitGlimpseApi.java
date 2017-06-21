@@ -1,5 +1,6 @@
 package com.sinewang.kiimate.status.core.api;
 
+import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.status.core.api.VisitGlimpseApi;
 import one.kii.kiimate.status.core.dai.GlimpsesDai;
@@ -31,6 +32,9 @@ public class DefaultVisitGlimpseApi implements VisitGlimpseApi {
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Autowired
+    private ModelPublicationDai modelPublicationDai;
+
+    @Autowired
     private StatusDai statusDai;
 
     @Override
@@ -49,7 +53,7 @@ public class DefaultVisitGlimpseApi implements VisitGlimpseApi {
         modelPubSet.setSet(instance.getSet());
         modelPubSet.setProviderId(publication.getProviderId());
 
-        OutsideView model = modelSubscriptionDai.selectModelBySet(modelPubSet);
+        OutsideView model = modelPublicationDai.selectModelBySet(modelPubSet);
 
         OutsideView status = statusDai.loadDownstream(statusName);
 

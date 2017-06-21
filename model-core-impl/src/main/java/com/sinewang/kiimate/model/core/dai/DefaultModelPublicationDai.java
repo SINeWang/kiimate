@@ -8,6 +8,8 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.summer.zoom.OutsideView;
+import one.kii.summer.zoom.ZoomOutBySet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
@@ -39,6 +41,15 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
     public List<Record> loadPublications(ChannelSet channel) throws NotFound, Panic {
         List<Record>  records = modelPublicationMapper.selectPublicationsBySet(channel.getSet());
         return NotBadResponse.of(records);
+    }
+
+
+    @Override
+    public OutsideView selectModelBySet(ZoomOutBySet channel) throws Panic {
+        OutsideView record = modelPublicationMapper.selectModelPubBySet(
+                channel
+        );
+        return NotBadResponse.of(record);
     }
 
     @Override

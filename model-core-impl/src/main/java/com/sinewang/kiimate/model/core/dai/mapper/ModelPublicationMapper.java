@@ -1,6 +1,8 @@
 package com.sinewang.kiimate.model.core.dai.mapper;
 
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
+import one.kii.summer.zoom.OutsideView;
+import one.kii.summer.zoom.ZoomOutBySet;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -42,4 +44,6 @@ public interface ModelPublicationMapper {
     List<ModelPublicationDai.PublishedSnapshot> selectPublishedSnapshotsByExtId(@Param("extId") Long extId);
 
     List<ModelPublicationDai.Record> selectPublicationsBySet(@Param("set") Long set);
+
+    OutsideView selectModelPubBySet(ZoomOutBySet zoom);
 }

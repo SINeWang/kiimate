@@ -32,18 +32,6 @@
         <result column="tree" property="tree"/>
     </resultMap>
 
-    <resultMap id="OutsideView" type="one.kii.summer.zoom.OutsideView">
-        <result column="id" property="id"/>
-        <result column="pub_set" property="set"/>
-        <result column="provider_id" property="providerId"/>
-        <result column="group" property="group"/>
-        <result column="name" property="name"/>
-        <result column="stability" property="stability"/>
-        <result column="version" property="version"/>
-        <result column="begin_time" property="beginTime"/>
-        <result column="end_time" property="endTime"/>
-    </resultMap>
-
     <insert id="insertSubscription">
         INSERT INTO km_m_sub
         (id, sub_set, subscriber_id, `group`, `name`, `tree`, operator_id, begin_time)
@@ -112,27 +100,6 @@
         AND msub.name = #{name}
         AND msub.tree = #{tree}
         AND msub.end_time IS NULL
-        GROUP BY mext.id
-    </select>
-
-    <select id="selectModelPubBySet" resultMap="OutsideView">
-        SELECT mext.id, mpub.pub_set, mpub.provider_id, mext.group, mext.name, mpub.stability, mpub.version, mpub.begin_time, mpub.end_time
-        FROM km_m_pub mpub, km_m_ext mext
-        WHERE mext.id = mpub.ext_id
-        AND mpub.provider_id = #{providerId}
-        AND mpub.pub_set = #{set}
-        GROUP BY mext.id
-    </select>
-
-    <select id="selectModelPubByName" resultMap="OutsideView">
-        SELECT mext.id, mpub.pub_set, mpub.provider_id, mext.group, mext.name, mpub.stability, mpub.version, mpub.begin_time, mpub.end_time
-        FROM km_m_pub mpub, km_m_ext mext
-        WHERE mext.id = mpub.ext_id
-        AND mpub.provider_id = #{providerId}
-        AND mext.group = #{group}
-        AND mext.name = #{name}
-        AND mpub.stability = #{stability}
-        AND mpub.version = #{version}
         GROUP BY mext.id
     </select>
 

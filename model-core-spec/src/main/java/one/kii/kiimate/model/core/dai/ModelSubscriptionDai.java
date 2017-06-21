@@ -7,7 +7,9 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.zoom.*;
+import one.kii.summer.zoom.InsideView;
+import one.kii.summer.zoom.ZoomInById;
+import one.kii.summer.zoom.ZoomInByName;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -27,8 +29,6 @@ public interface ModelSubscriptionDai {
     InsideView loadModelSubById(ZoomInById channel) throws Panic;
 
     InsideView loadModelSubByName(ZoomInByName channel) throws Panic;
-
-    OutsideView selectModelBySet(ZoomOutBySet channel) throws Panic;
 
     List<Instance> querySubscriptions(ClueGroup clue) throws BadRequest, Panic;
 

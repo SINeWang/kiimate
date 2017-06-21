@@ -1,7 +1,6 @@
 package com.sinewang.kiimate.model.core.api;
 
 import one.kii.kiimate.model.core.api.VisitModelApi;
-import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
@@ -31,9 +30,6 @@ public class DefaultVisitModelApi implements VisitModelApi {
     private ModelPublicationDai modelPublicationDai;
 
     @Autowired
-    private ExtensionDai extensionDai;
-
-    @Autowired
     private IntensionDai intensionDai;
 
 
@@ -59,7 +55,7 @@ public class DefaultVisitModelApi implements VisitModelApi {
         set.setProviderId(record.getProviderId());
         set.setSet(form.getSet());
 
-        OutsideView downInsight = modelSubscriptionDai.selectModelBySet(set);
+        OutsideView downInsight = modelPublicationDai.selectModelBySet(set);
         VisitModelApi.Model model = ValueMapping.from(VisitModelApi.Model.class, downInsight, record);
 
         model.setSubscriptions(subscriptions);
