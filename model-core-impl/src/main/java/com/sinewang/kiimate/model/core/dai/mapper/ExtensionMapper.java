@@ -28,9 +28,8 @@ public interface ExtensionMapper {
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
-    ExtensionDai.Record selectLastExtensionBySet(
-            @Param("set") Long set,
-            @Param("endTime") Date endTime);
+    ExtensionDai.Record selectExtensionBySet(
+            @Param("set") Long set);
 
     ExtensionDai.Record selectLastExtensionById(
             @Param("id") Long id,

@@ -29,22 +29,11 @@
         AND mext.end_time IS NULL
     </select>
 
-    <select id="selectLastExtensionBySet" resultMap="Extension">
+    <select id="selectExtensionBySet" resultMap="Extension">
         SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id
         FROM km_m_ext mext, km_m_pub mpub
         WHERE mpub.pub_set = #{set}
         AND mpub.ext_id = mext.id
-        <if test="endTime == null">
-            AND mext.end_time IS NULL
-        </if>
-        <if test="endTime != null">
-            <![CDATA[
-            AND mext.end_time >= #{endTime}
-            ORDER BY mext.begin_time DESC
-            LIMIT 0, 1
-            ]]>
-        </if>
-        GROUP BY mext.id
     </select>
     <select id="selectExtensionByConflictFactor" resultMap="Extension">
         SELECT mext.id, mext.commit, mext.group, mext.name, mext.tree, mext.owner_id, mext.visibility, mext.begin_time, mext.end_time, mext.operator_id

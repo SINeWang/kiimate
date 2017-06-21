@@ -68,10 +68,6 @@ public interface ExtensionDai {
     class ChannelSet {
         @Unique
         Long set;
-
-        @MayHave
-        @Unique
-        Date endTime;
     }
 
     @Data

@@ -74,9 +74,8 @@ public class DefaultExtensionDai implements ExtensionDai {
         logger.debug("before-loadLast: ChannelSet:{}", channel);
         NotBadRequest.from(channel);
 
-        Record record = extensionMapper.selectLastExtensionBySet(
-                channel.getSet(),
-                channel.getEndTime());
+        Record record = extensionMapper.selectExtensionBySet(
+                channel.getSet());
         logger.debug("after-loadLast: Record:{}", record);
 
         return NotBadResponse.of(record);
