@@ -2,7 +2,7 @@ package com.sinewang.kiimate.model.core.api;
 
 import one.kii.kiimate.model.core.api.DeclareExtensionApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
-import one.kii.kiimate.model.core.fui.AnExtensionExtractor;
+import one.kii.kiimate.model.core.fui.AnExtensionExtractFui;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -25,7 +25,7 @@ public class DefaultDeclareExtensionApi implements DeclareExtensionApi {
     private ExtensionDai extensionDai;
 
     @Autowired
-    private AnExtensionExtractor extensionExtractor;
+    private AnExtensionExtractFui extensionExtractor;
 
     @Override
     public CommitReceipt commit(WriteContext context, CommitForm form) throws BadRequest, Conflict, NotFound, Panic {

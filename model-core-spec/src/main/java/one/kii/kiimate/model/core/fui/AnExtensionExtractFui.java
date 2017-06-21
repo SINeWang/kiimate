@@ -10,7 +10,7 @@ import one.kii.summer.io.exception.Panic;
 /**
  * Created by WangYanJiong on 3/23/17.
  */
-public interface AnExtensionExtractor {
+public interface AnExtensionExtractFui {
 
 
     ExtensionDai.Record extract(WriteContext context,

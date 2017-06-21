@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by WangYanJiong on 3/23/17.
  */
-public interface AnPublicationExtractor {
+public interface AnModelPubExtractFui {
 
     List<ModelPublicationDai.Record> extract(
             WriteContext context,

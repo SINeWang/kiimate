@@ -2,7 +2,7 @@ package com.sinewang.kiimate.model.core.api;
 
 import one.kii.kiimate.model.core.api.SubscribeModelsApi;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.model.core.fui.AnStatusExtractor;
+import one.kii.kiimate.model.core.fui.AnModelSubExtractFui;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 public class DefaultSubscribeModelsApi implements SubscribeModelsApi {
 
     @Autowired
-    private AnStatusExtractor subscribeModelExtractor;
+    private AnModelSubExtractFui subscribeModelExtractor;
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;

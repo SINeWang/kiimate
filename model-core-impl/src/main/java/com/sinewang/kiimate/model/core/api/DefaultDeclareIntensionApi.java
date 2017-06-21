@@ -2,8 +2,8 @@ package com.sinewang.kiimate.model.core.api;
 
 import one.kii.kiimate.model.core.api.DeclareIntensionApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
-import one.kii.kiimate.model.core.fui.AnIntensionExtractor;
-import one.kii.kiimate.model.core.fui.AnModelRestorer;
+import one.kii.kiimate.model.core.fui.AnIntensionExtractFui;
+import one.kii.kiimate.model.core.fui.AnModelRestoreFui;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -27,14 +27,14 @@ public class DefaultDeclareIntensionApi implements DeclareIntensionApi {
     private IntensionDai intensionDai;
 
     @Autowired
-    private AnIntensionExtractor anIntensionExtractor;
+    private AnIntensionExtractFui anIntensionExtractFui;
 
     @Autowired
-    private AnModelRestorer modelRestorer;
+    private AnModelRestoreFui modelRestorer;
 
     @Override
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic {
-        IntensionDai.Record record = anIntensionExtractor.extract(context, form);
+        IntensionDai.Record record = anIntensionExtractFui.extract(context, form);
 
         intensionDai.remember(record);
 

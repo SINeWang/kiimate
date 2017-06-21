@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 08/04/2017.
  */
-public interface AnModelRestorer {
+public interface AnModelRestoreFui {
 
     Map<String, Object> restoreAsMetaData(IntensionDai.ChannelExtensionId channel) throws BadRequest, NotFound, Panic;
 

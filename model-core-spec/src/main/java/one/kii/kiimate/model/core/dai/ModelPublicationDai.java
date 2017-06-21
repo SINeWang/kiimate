@@ -108,8 +108,11 @@ public interface ModelPublicationDai {
     @Data
     class PublishedSnapshot {
         Long set;
+
         String stability;
+
         String version;
+
         Date beginTime;
     }
 

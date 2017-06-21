@@ -3,7 +3,7 @@ package com.sinewang.kiimate.model.core.api;
 import one.kii.kiimate.model.core.api.VisitExtensionApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.dai.IntensionDai;
-import one.kii.kiimate.model.core.fui.AnModelRestorer;
+import one.kii.kiimate.model.core.fui.AnModelRestoreFui;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -23,7 +23,7 @@ import java.util.List;
 public class DefaultVisitExtensionApi implements VisitExtensionApi {
 
     @Autowired
-    private AnModelRestorer modelRestorer;
+    private AnModelRestoreFui modelRestorer;
 
     @Autowired
     private ExtensionDai extensionDai;

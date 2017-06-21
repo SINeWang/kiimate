@@ -4,7 +4,7 @@ import com.google.common.base.CaseFormat;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.api.SubscribeModelsApi;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.model.core.fui.AnStatusExtractor;
+import one.kii.kiimate.model.core.fui.AnModelSubExtractFui;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Panic;
@@ -18,7 +18,7 @@ import java.util.Date;
  */
 
 @Component
-public class DefaultStatusExtrator implements AnStatusExtractor {
+public class DefaultModelSubExtractFui implements AnModelSubExtractFui {
 
     private static final Eid64Generator idgen = new Eid64Generator(6);
 

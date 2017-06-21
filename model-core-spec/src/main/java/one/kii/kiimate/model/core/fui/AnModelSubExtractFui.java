@@ -9,7 +9,7 @@ import one.kii.summer.io.exception.Panic;
  * Created by WangYanJiong on 4/6/17.
  */
 
-public interface AnStatusExtractor {
+public interface AnModelSubExtractFui {
 
     ModelSubscriptionDai.Instance extract(SubscribeModelsApi.Form form, WriteContext context) throws Panic;
 

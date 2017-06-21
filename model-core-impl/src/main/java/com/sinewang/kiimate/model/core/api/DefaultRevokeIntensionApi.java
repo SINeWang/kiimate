@@ -2,7 +2,7 @@ package com.sinewang.kiimate.model.core.api;
 
 import one.kii.kiimate.model.core.api.RevokeIntensionApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
-import one.kii.kiimate.model.core.fui.AnModelRestorer;
+import one.kii.kiimate.model.core.fui.AnModelRestoreFui;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -25,7 +25,7 @@ public class DefaultRevokeIntensionApi implements RevokeIntensionApi {
     private IntensionDai intensionDai;
 
     @Autowired
-    private AnModelRestorer modelRestorer;
+    private AnModelRestoreFui modelRestorer;
 
     @Override
     public Receipt commit(WriteContext context, Form form) throws BadRequest, Conflict, NotFound, Panic {

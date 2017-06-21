@@ -2,7 +2,7 @@ package com.sinewang.kiimate.status.core.api;
 
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.model.core.fui.AnModelRestorer;
+import one.kii.kiimate.model.core.fui.AnModelRestoreFui;
 import one.kii.kiimate.status.core.api.RefreshPartialInstanceApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
@@ -41,7 +41,7 @@ public class DefaultRefreshPartialInstanceApi implements RefreshPartialInstanceA
     private ModelSubscriptionDai modelSubscriptionDai;
 
     @Autowired
-    private AnModelRestorer modelRestorer;
+    private AnModelRestoreFui modelRestorer;
 
     @Autowired
     private AnInstanceExtractor instanceExtractor;

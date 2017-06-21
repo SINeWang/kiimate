@@ -2,7 +2,7 @@ package com.sinewang.kiimate.model.core.fui;
 
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
-import one.kii.kiimate.model.core.fui.AnModelRestorer;
+import one.kii.kiimate.model.core.fui.AnModelRestoreFui;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
@@ -21,7 +21,7 @@ import java.util.Map;
  */
 
 @Component
-public class DefaultModelRestorer implements AnModelRestorer {
+public class DefaultModelRestoreFui implements AnModelRestoreFui {
 
 
     @Autowired

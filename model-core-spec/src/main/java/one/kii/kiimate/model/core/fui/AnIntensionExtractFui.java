@@ -10,7 +10,7 @@ import one.kii.summer.io.exception.Panic;
 /**
  * Created by WangYanJiong on 3/23/17.
  */
-public interface AnIntensionExtractor {
+public interface AnIntensionExtractFui {
 
     IntensionDai.Record extract(WriteContext context, DeclareIntensionApi.Form form) throws NotFound, Panic, BadRequest;
 

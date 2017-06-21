@@ -4,7 +4,7 @@ import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
-import one.kii.kiimate.model.core.fui.AnPublicationExtractor;
+import one.kii.kiimate.model.core.fui.AnModelPubExtractFui;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -26,7 +26,7 @@ public class DefaultPublishModelApi implements PublishModelApi {
 
     private static final Eid64Generator setgen = new Eid64Generator(3);
     @Autowired
-    private AnPublicationExtractor publicationExtractor;
+    private AnModelPubExtractFui publicationExtractor;
     @Autowired
     private IntensionDai intensionDai;
     @Autowired
