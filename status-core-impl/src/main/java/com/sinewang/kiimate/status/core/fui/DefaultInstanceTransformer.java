@@ -98,7 +98,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                     if (instances != null && !instances.isEmpty()) {
                         InstanceDai.Record first = dict.get(record.getField()).get(0);
                         Object value = first.getValue();
-                        Long valueRefId = first.getValueRefId();
+                        Long valueRefId = first.getGlimpseId();
                         if (valueRefId != null) {
                             value = getReferenceValue(valueRefId, first.getOwnerId(), String.valueOf(value));
                         }
@@ -143,7 +143,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                 List<InstanceDai.Record> instances = dict.get(intension.getField());
                 if (instances != null && !instances.isEmpty()) {
                     Object value = dict.get(intension.getField()).get(0).getValue();
-                    Object valueRefId = dict.get(intension.getField()).get(0).getValueRefId();
+                    Object valueRefId = dict.get(intension.getField()).get(0).getGlimpseId();
                     if (value != null) {
                         FatValue tv = new FatValue();
                         tv.setValue(value);

@@ -15,7 +15,7 @@ CREATE TABLE `km_i_ins` (
   `field` varchar(64) NOT NULL,
   `value` varchar(255) DEFAULT NULL,
   `value_set` varchar(160) DEFAULT NULL,
-  `s_sub_id` varchar(160) DEFAULT NULL,
+  `glimpse_id` varchar(160) DEFAULT NULL,
   `operator_id` varchar(160) NOT NULL,
   `begin_time` datetime NOT NULL,
   `end_time` datetime DEFAULT NULL,

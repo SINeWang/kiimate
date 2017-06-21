@@ -38,7 +38,7 @@ public class DefaultInstanceDai implements InstanceDai {
         for (Instance instance : instances) {
             String[] values = instance.getValues();
             {
-                if (instance.getValueRefId() != null) {
+                if (instance.getGlimpseId() != null) {
                     if (values == null) {
                         values = EMPTY_VALUE;
                     }
@@ -167,7 +167,7 @@ public class DefaultInstanceDai implements InstanceDai {
                 record.getField(),
                 record.getValue(),
                 record.getValueSet(),
-                record.getValueRefId(),
+                record.getGlimpseId(),
                 record.getOperatorId(),
                 beginTime);
     }

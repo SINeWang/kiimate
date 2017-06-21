@@ -37,7 +37,7 @@ public interface RefreshPartialInstanceApi extends CommitApi<RefreshPartialInsta
         String[] values;
 
         @MayHave
-        String valueRefId;
+        String glimpseId;
     }
 
 

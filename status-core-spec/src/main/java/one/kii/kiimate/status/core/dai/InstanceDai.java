@@ -44,7 +44,7 @@ public interface InstanceDai {
         private Long valueSet;
 
         @MayHave
-        private Long valueRefId;
+        private Long glimpseId;
 
         private String operatorId;
 
@@ -84,10 +84,7 @@ public interface InstanceDai {
         private Long valueSet;
 
         @Commit
-        private String valueRefPolicy;
-
-        @Commit
-        private String valueRefId;
+        private String glimpseId;
 
         @Commit
         private String operatorId;
