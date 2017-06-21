@@ -140,51 +140,36 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Record intension : intensions) {
             if (intension.getSingle()) {
-//                if (intension.getRefSet() != null) {
-//                    IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
-//                    refPubSet.setSet(intension.getRefSet());
-//                    Map<String, Object> child = parseFat(refPubSet, dict);
-//                    if (!child.isEmpty()) {
-//                        result.put(intension.getField(), child);
-//                    }
-//                } else {
-                    List<InstanceDai.Record> instances = dict.get(intension.getField());
-                    if (instances != null && !instances.isEmpty()) {
-                        Object value = dict.get(intension.getField()).get(0).getValue();
-                        Object valueRefId = dict.get(intension.getField()).get(0).getValueRefId();
-                        if (value != null) {
-                            FatValue tv = new FatValue();
-                            tv.setValue(value);
-                            tv.setTime(dict.get(intension.getField()).get(0).getBeginTime());
-                            if (valueRefId != null) {
-                                tv.setValueRefId(String.valueOf(valueRefId));
-                            }
-                            result.put(intension.getField(), tv);
+                List<InstanceDai.Record> instances = dict.get(intension.getField());
+                if (instances != null && !instances.isEmpty()) {
+                    Object value = dict.get(intension.getField()).get(0).getValue();
+                    Object valueRefId = dict.get(intension.getField()).get(0).getValueRefId();
+                    if (value != null) {
+                        FatValue tv = new FatValue();
+                        tv.setValue(value);
+                        tv.setTime(dict.get(intension.getField()).get(0).getBeginTime());
+                        if (valueRefId != null) {
+                            tv.setValueRefId(String.valueOf(valueRefId));
                         }
-//                    }
+                        result.put(intension.getField(), tv);
+                    }
+
                 }
             } else {
-//                if (intension.getRefSet() != null) {
-//                    IntensionDai.ChannelPubSet refPubSet = new IntensionDai.ChannelPubSet();
-//                    refPubSet.setSet(intension.getRefSet());
-//
-//                    Map<String, Object> child = parseFat(refPubSet, dict);
-//                    addComplexValueToList(result, intension, child);
-//                } else {
-                    List<InstanceDai.Record> instances = dict.get(intension.getField());
-                    if (instances != null && !instances.isEmpty()) {
-                        for (InstanceDai.Record instance : instances) {
-                            if (instance.getValue() != null) {
-                                Object v = instance.getValue();
-                                FatValue tv = new FatValue();
-                                tv.setValue(v);
-                                tv.setTime(instance.getBeginTime());
-                                result.computeIfAbsent(instance.getField(), key -> new ArrayList<>());
-                                List values = (List) result.get(intension.getField());
-                                values.add(tv);
-                            }
+                List<InstanceDai.Record> instances = dict.get(intension.getField());
+                if (instances != null && !instances.isEmpty()) {
+                    for (InstanceDai.Record instance : instances) {
+                        if (instance.getValue() != null) {
+                            Object v = instance.getValue();
+                            FatValue tv = new FatValue();
+                            tv.setValue(v);
+                            tv.setTime(instance.getBeginTime());
+                            result.computeIfAbsent(instance.getField(), key -> new ArrayList<>());
+                            List values = (List) result.get(intension.getField());
+                            values.add(tv);
                         }
-//                    }
+                    }
+
                 }
 
             }
