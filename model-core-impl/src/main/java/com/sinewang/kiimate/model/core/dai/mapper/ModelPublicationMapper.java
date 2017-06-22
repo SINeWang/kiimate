@@ -16,7 +16,7 @@ import java.util.Map;
 @Mapper
 public interface ModelPublicationMapper {
 
-    void insertPublication(
+    void insertRecord(
             @Param("id") Long id,
             @Param("pubSet") Long pubSet,
             @Param("providerId") String providerId,

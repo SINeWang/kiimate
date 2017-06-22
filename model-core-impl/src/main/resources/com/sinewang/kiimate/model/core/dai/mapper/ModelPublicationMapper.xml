@@ -48,7 +48,7 @@
         <result column="end_time" property="endTime"/>
     </resultMap>
 
-    <insert id="insertPublication">
+    <insert id="insertRecord">
         INSERT INTO km_m_pub
         (id, pub_set, provider_id, ext_id, int_id, version, stability, operator_id, begin_time)
         VALUES

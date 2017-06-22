@@ -65,7 +65,7 @@ public class DefaultModelPublicationDai implements ModelPublicationDai {
             throw new Conflict(map.keySet());
         }
         for (Record record : records) {
-            modelPublicationMapper.insertPublication(
+            modelPublicationMapper.insertRecord(
                     record.getId(),
                     record.getSet(),
                     record.getProviderId(),
