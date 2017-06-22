@@ -1,7 +1,7 @@
-package one.kii.kiimate.model.core.fui;
+package one.kii.kiimate.status.core.fui;
 
-import one.kii.kiimate.model.core.api.SubscribeModelsApi;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
+import one.kii.kiimate.status.core.api.DeclareInstanceApi;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Panic;
 
@@ -11,6 +11,5 @@ import one.kii.summer.io.exception.Panic;
 
 public interface AnModelSubExtractFui {
 
-    ModelSubscriptionDai.Instance extract(SubscribeModelsApi.Form form, WriteContext context) throws Panic;
-
+    ModelSubscriptionDai.Instance extract(DeclareInstanceApi.Form form, WriteContext context) throws Panic;
 }

@@ -1,4 +1,4 @@
-package one.kii.kiimate.model.core.api;
+package one.kii.kiimate.status.core.api;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,7 +11,7 @@ import one.kii.summer.io.exception.Panic;
  * Created by WangYanJiong on 4/6/17.
  */
 
-public interface SubscribeModelsApi extends CommitApi<SubscribeModelsApi.Receipt, WriteContext, SubscribeModelsApi.Form> {
+public interface DeclareInstanceApi extends CommitApi<DeclareInstanceApi.Receipt, WriteContext, DeclareInstanceApi.Form> {
 
     String TREE_MASTER = "master";
 

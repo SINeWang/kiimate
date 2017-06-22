@@ -1,6 +1,6 @@
-package one.kii.kiimate.model.core.ctl;
+package one.kii.kiimate.status.core.ctl;
 
-import one.kii.kiimate.model.core.api.SubscribeModelsApi;
+import one.kii.kiimate.status.core.api.DeclareInstanceApi;
 import one.kii.summer.asdf.api.CommitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.WriteContext;
@@ -10,29 +10,29 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static one.kii.kiimate.model.core.ctl.SubscribeModelCtl.OWNER_ID;
+import static one.kii.kiimate.status.core.ctl.DeclareInstanceCtl.OWNER_ID;
 
 /**
- * Created by WangYanJiong on 4/13/17.
+ * Created by WangYanJiong on 21/6/17.
  */
 
 @RestController
-@RequestMapping("/api/v1/{" + OWNER_ID + "}/subscriptions/models")
+@RequestMapping("/api/v1/{" + OWNER_ID + "}/instances")
 @CrossOrigin(origins = "*")
-public class SubscribeModelCtl extends WriteController {
+public class DeclareInstanceCtl extends WriteController {
 
     public static final String OWNER_ID = "owner-id";
 
 
     @Autowired
-    private SubscribeModelsApi api;
+    private DeclareInstanceApi api;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<?> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @ModelAttribute SubscribeModelsApi.Form form) {
+            @ModelAttribute DeclareInstanceApi.Form form) {
         return commit(requestId, operatorId, ownerId, form);
     }
 
@@ -41,7 +41,7 @@ public class SubscribeModelCtl extends WriteController {
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
-            @RequestBody SubscribeModelsApi.Form form) {
+            @RequestBody DeclareInstanceApi.Form form) {
         return commit(requestId, operatorId, ownerId, form);
     }
 
@@ -49,7 +49,7 @@ public class SubscribeModelCtl extends WriteController {
             String requestId,
             String operatorId,
             String ownerId,
-            SubscribeModelsApi.Form form) {
+            DeclareInstanceApi.Form form) {
         WriteContext context = buildContext(requestId, ownerId, operatorId);
 
         return CommitApiCaller.sync(api, context, form);

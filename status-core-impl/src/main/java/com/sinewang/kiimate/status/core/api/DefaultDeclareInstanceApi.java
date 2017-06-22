@@ -1,8 +1,8 @@
-package com.sinewang.kiimate.model.core.api;
+package com.sinewang.kiimate.status.core.api;
 
-import one.kii.kiimate.model.core.api.SubscribeModelsApi;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.model.core.fui.AnModelSubExtractFui;
+import one.kii.kiimate.status.core.api.DeclareInstanceApi;
+import one.kii.kiimate.status.core.fui.AnModelSubExtractFui;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Conflict;
@@ -18,10 +18,10 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class DefaultSubscribeModelsApi implements SubscribeModelsApi {
+public class DefaultDeclareInstanceApi implements DeclareInstanceApi {
 
     @Autowired
-    private AnModelSubExtractFui subscribeModelExtractor;
+    private AnModelSubExtractFui modelSubExtractFui;
 
     @Autowired
     private ModelSubscriptionDai modelSubscriptionDai;
@@ -30,7 +30,7 @@ public class DefaultSubscribeModelsApi implements SubscribeModelsApi {
     public Receipt commit(WriteContext context, Form form) throws Conflict, Panic {
 
 
-        ModelSubscriptionDai.Instance instance = subscribeModelExtractor.extract(form, context);
+        ModelSubscriptionDai.Instance instance = modelSubExtractFui.extract(form, context);
 
         try {
             modelSubscriptionDai.remember(instance);

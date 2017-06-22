@@ -1,10 +1,10 @@
-package com.sinewang.kiimate.model.core.fui;
+package com.sinewang.kiimate.status.core.fui;
 
 import com.google.common.base.CaseFormat;
 import one.kii.derid.derid64.Eid64Generator;
-import one.kii.kiimate.model.core.api.SubscribeModelsApi;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
-import one.kii.kiimate.model.core.fui.AnModelSubExtractFui;
+import one.kii.kiimate.status.core.api.DeclareInstanceApi;
+import one.kii.kiimate.status.core.fui.AnModelSubExtractFui;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Panic;
@@ -23,7 +23,7 @@ public class DefaultModelSubExtractFui implements AnModelSubExtractFui {
     private static final Eid64Generator idgen = new Eid64Generator(6);
 
     @Override
-    public ModelSubscriptionDai.Instance extract(SubscribeModelsApi.Form form, WriteContext context) throws Panic {
+    public ModelSubscriptionDai.Instance extract(DeclareInstanceApi.Form form, WriteContext context) throws Panic {
         form.setGroup(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getGroup()));
 
         ModelSubscriptionDai.Instance instance = ValueMapping.from(ModelSubscriptionDai.Instance.class, form);
