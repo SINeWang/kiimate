@@ -23,7 +23,7 @@ public interface InstanceTransformer {
     class FatValue {
         Object value;
         Date time;
-        String valueRefId;
+        String glimpseId;
     }
 
 }

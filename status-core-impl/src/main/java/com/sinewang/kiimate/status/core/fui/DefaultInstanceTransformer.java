@@ -143,13 +143,13 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                 List<InstanceDai.Record> instances = dict.get(intension.getField());
                 if (instances != null && !instances.isEmpty()) {
                     Object value = dict.get(intension.getField()).get(0).getValue();
-                    Object valueRefId = dict.get(intension.getField()).get(0).getGlimpseId();
+                    Object glimpseId = dict.get(intension.getField()).get(0).getGlimpseId();
                     if (value != null) {
                         FatValue tv = new FatValue();
                         tv.setValue(value);
                         tv.setTime(dict.get(intension.getField()).get(0).getBeginTime());
-                        if (valueRefId != null) {
-                            tv.setValueRefId(String.valueOf(valueRefId));
+                        if (glimpseId != null) {
+                            tv.setGlimpseId(String.valueOf(glimpseId));
                         }
                         result.put(intension.getField(), tv);
                     }
