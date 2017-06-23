@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Created by WangYanJiong on 26/03/2017.
  */
-public interface RefreshPartialInstanceApi extends CommitApi<RefreshPartialInstanceApi.Receipt, WriteContext, RefreshPartialInstanceApi.SubIdForm> {
+public interface RefreshPartialValueApi extends CommitApi<RefreshPartialValueApi.Receipt, WriteContext, RefreshPartialValueApi.SubIdForm> {
 
     Receipt commit(WriteContext context, SubIdForm form) throws BadRequest, Conflict, NotFound, Panic;
 

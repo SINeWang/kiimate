@@ -21,22 +21,22 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @BootstrapWith(SpringBootTestContextBootstrapper.class)
 @ComponentScan("com.sinewang")
-@SpringBootTest(classes = {TestRefreshStatusSpi.class})
+@SpringBootTest(classes = {TestRefreshEntireValueSpi.class})
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class TestRefreshStatusSpi {
+public class TestRefreshEntireValueSpi {
 
 
     @Autowired
-    private RefreshStatusSpi refreshStatusSpi;
+    private RefreshEntireValueSpi refreshEntireValueSpi;
 
     @Test
     public void testIdForm() {
-        RefreshStatusSpi.IdForm<Token2> form = new RefreshStatusSpi.IdForm<>();
+        RefreshEntireValueSpi.IdForm<Token2> form = new RefreshEntireValueSpi.IdForm<>();
         form.setId(2507760519997292545L);
         form.setOwnerId("wangyj");
         form.setObject(new Token2());
         try {
-            refreshStatusSpi.commit(form);
+            refreshEntireValueSpi.commit(form);
         } catch (Panic | Forbidden | BadRequest | NotFound | Conflict oops) {
             oops.printStackTrace();
         }

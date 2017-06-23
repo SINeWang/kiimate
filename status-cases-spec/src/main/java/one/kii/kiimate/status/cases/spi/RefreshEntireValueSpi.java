@@ -6,7 +6,7 @@ import one.kii.summer.io.exception.*;
 /**
  * Created by WangYanJiong on 4/7/17.
  */
-public interface RefreshStatusSpi {
+public interface RefreshEntireValueSpi {
 
 
     <T> void commit(IdForm<T> form) throws Panic, Conflict, BadRequest, NotFound, Forbidden;

@@ -3,7 +3,7 @@ package com.sinewang.kiimate.status.core.api;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
 import one.kii.kiimate.model.core.fui.AnModelRestoreFui;
-import one.kii.kiimate.status.core.api.RefreshEntireInstanceApi;
+import one.kii.kiimate.status.core.api.RefreshEntireValueApi;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.kiimate.status.core.fui.InstanceTransformer;
@@ -30,9 +30,9 @@ import java.util.Map;
  */
 
 @Component
-public class DefaultRefreshEntireInstanceApi implements RefreshEntireInstanceApi {
+public class DefaultRefreshEntireValueApi implements RefreshEntireValueApi {
 
-    private static final Logger logger = LoggerFactory.getLogger(DefaultRefreshEntireInstanceApi.class);
+    private static final Logger logger = LoggerFactory.getLogger(DefaultRefreshEntireValueApi.class);
 
     @Autowired
     private InstanceDai instanceDai;

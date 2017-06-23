@@ -1,6 +1,6 @@
 package com.sinewang.kiimate.status.cases.spi;
 
-import one.kii.kiimate.status.cases.spi.RefreshStatusSpi;
+import one.kii.kiimate.status.cases.spi.RefreshEntireValueSpi;
 import one.kii.summer.io.exception.*;
 import one.kii.summer.io.sender.ErestPut;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,9 +16,9 @@ import java.util.List;
  * Created by WangYanJiong on 7/4/17.
  */
 @Component
-public class DefaultRefreshStatusSpi implements RefreshStatusSpi {
+public class DefaultRefreshEntireValueSpi implements RefreshEntireValueSpi {
 
-    private static String URI_SUB_ID = "/{ownerId}/instance/{sub-id}";
+    private static String URI_SUB_ID = "/{ownerId}/value/{sub-id}";
 
     @Value("${kiimate.url}")
     private String url;
