@@ -14,11 +14,11 @@ import java.util.List;
  */
 public interface AnInstanceExtractor {
 
-    List<InstanceDai.Instance> extract(WriteContext context,
-                                       RefreshEntireValueApi.SubIdForm form,
-                                       MultiValueMap<String, IntensionDai.Record> dict);
+    List<InstanceDai.Value> extract(WriteContext context,
+                                    RefreshEntireValueApi.SubIdForm form,
+                                    MultiValueMap<String, IntensionDai.Record> dict);
 
-    List<InstanceDai.Instance> extract(WriteContext context,
-                                       RefreshPartialValueApi.SubIdForm form,
-                                       MultiValueMap<String, IntensionDai.Record> dict);
+    List<InstanceDai.Value> extract(WriteContext context,
+                                    RefreshPartialValueApi.SubIdForm form,
+                                    MultiValueMap<String, IntensionDai.Record> dict);
 }

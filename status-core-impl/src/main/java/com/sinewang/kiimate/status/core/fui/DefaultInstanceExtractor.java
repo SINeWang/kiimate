@@ -29,8 +29,8 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
     private static Logger logger = LoggerFactory.getLogger(DefaultInstanceExtractor.class);
 
     @Override
-    public List<InstanceDai.Instance> extract(WriteContext context, RefreshEntireValueApi.SubIdForm form, MultiValueMap<String, IntensionDai.Record> dict) {
-        List<InstanceDai.Instance> instances = new ArrayList<>();
+    public List<InstanceDai.Value> extract(WriteContext context, RefreshEntireValueApi.SubIdForm form, MultiValueMap<String, IntensionDai.Record> dict) {
+        List<InstanceDai.Value> instances = new ArrayList<>();
         Date now = new Date();
         Map<String, List<String>> map = form.getMap();
         for (String field : map.keySet()) {
@@ -43,22 +43,22 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
             Long intId = record.getId();
 
             String[] values = cleanUpValues(map.get(field).toArray(new String[0]));
-            InstanceDai.Instance instance = ValueMapping.from(InstanceDai.Instance.class, context, form);
-            instance.setId(setgen.born());
-            instance.setExtId(record.getExtId());
-            instance.setIntId(intId);
-            instance.setField(dictField);
-            instance.setValues(values);
-            instance.setBeginTime(now);
-            instance.setCommit(HashTools.hashHex(instance));
-            instances.add(instance);
+            InstanceDai.Value value = ValueMapping.from(InstanceDai.Value.class, context, form);
+            value.setId(setgen.born());
+            value.setExtId(record.getExtId());
+            value.setIntId(intId);
+            value.setField(dictField);
+            value.setValues(values);
+            value.setBeginTime(now);
+            value.setCommit(HashTools.hashHex(value));
+            instances.add(value);
         }
         return instances;
     }
 
     @Override
-    public List<InstanceDai.Instance> extract(WriteContext context, RefreshPartialValueApi.SubIdForm form, MultiValueMap<String, IntensionDai.Record> dict) {
-        List<InstanceDai.Instance> instances = new ArrayList<>();
+    public List<InstanceDai.Value> extract(WriteContext context, RefreshPartialValueApi.SubIdForm form, MultiValueMap<String, IntensionDai.Record> dict) {
+        List<InstanceDai.Value> values = new ArrayList<>();
         Date now = new Date();
 
         RefreshPartialValueApi.Values value = form.getValues();
@@ -71,7 +71,7 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
         Long intId = record.getId();
 
         String[] vs = cleanUpValues(value.getValues());
-        InstanceDai.Instance instance = ValueMapping.from(InstanceDai.Instance.class, context, form);
+        InstanceDai.Value instance = ValueMapping.from(InstanceDai.Value.class, context, form);
         instance.setId(setgen.born());
         instance.setExtId(record.getExtId());
         instance.setIntId(intId);
@@ -80,8 +80,8 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
         instance.setValues(vs);
         instance.setBeginTime(now);
         instance.setCommit(HashTools.hashHex(instance));
-        instances.add(instance);
-        return instances;
+        values.add(instance);
+        return values;
     }
 
 

@@ -33,9 +33,9 @@ public class DefaultInstanceDai implements InstanceDai {
     private InstanceMapper instanceMapper;
 
     @Override
-    public void remember(List<Instance> instances) throws Conflict {
+    public void remember(List<Value> instances) throws Conflict {
         Date now = new Date();
-        for (Instance instance : instances) {
+        for (Value instance : instances) {
             String[] values = instance.getValues();
             {
                 if (instance.getGlimpseId() != null) {

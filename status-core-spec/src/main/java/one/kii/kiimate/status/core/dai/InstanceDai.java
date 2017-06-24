@@ -17,7 +17,7 @@ import java.util.List;
 public interface InstanceDai {
 
     @Transactional
-    void remember(List<Instance> instances) throws Conflict;
+    void remember(List<Value> values) throws Conflict;
 
     List<Record> loadInstances(ZoomInById channel) throws Panic;
 
@@ -56,7 +56,7 @@ public interface InstanceDai {
     }
 
     @Data
-    class Instance {
+    class Value {
 
         private Long id;
 

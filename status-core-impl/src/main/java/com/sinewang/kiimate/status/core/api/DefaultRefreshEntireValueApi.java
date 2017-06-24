@@ -61,12 +61,12 @@ public class DefaultRefreshEntireValueApi implements RefreshEntireValueApi {
 
         MultiValueMap<String, IntensionDai.Record> dict = modelRestorer.restoreAsIntensionDict(lastExtension);
 
-        List<InstanceDai.Instance> instances = instanceExtractor.extract(context, form, dict);
+        List<InstanceDai.Value> values = instanceExtractor.extract(context, form, dict);
 
-        for (InstanceDai.Instance instance : instances) {
-            instance.setSubId(channel.getId());
+        for (InstanceDai.Value value : values) {
+            value.setSubId(channel.getId());
         }
-        instanceDai.remember(instances);
+        instanceDai.remember(values);
 
 
         IntensionDai.ChannelExtensionId rootExtension = ValueMapping.from(IntensionDai.ChannelExtensionId.class, model);
