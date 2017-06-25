@@ -12,7 +12,7 @@ plugins {
 
 ext {
     deridVersion = '0.1.1'
-    guavaVersion = '21.0'
+    guavaVersion = '22.0'
     jacksondatabindVersion = '2.8.8'
     junitVersion = '4.12'
     lombokVersion = '1.16.16'
@@ -21,7 +21,7 @@ ext {
     servletApiVersion = '3.1.0'
     springBootVersion = '1.5.3.RELEASE'
     springFrameworkVersion = '4.3.8.RELEASE'
-    summerVersion = '0.5.26'
+    summerVersion = '0.5.27'
 }
 
 scmVersion {
