@@ -53,19 +53,20 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
 
 
         zoomInById.setEndTime(statusOutside.getBeginTime());
-        List<InstanceDai.Record> records = instanceDai.loadInstances(zoomInById);
+        List<InstanceDai.Value> values = instanceDai.loadInstances(zoomInById);
 
-        for (InstanceDai.Record record : records) {
+        for (InstanceDai.Value record : values) {
             if (record.getField().equals(field)) {
-                return record.getValue();
+                if (record.getValues().length == 1)
+                    return record.getValues()[0];
             }
         }
         return null;
     }
 
     @Override
-    public Map<String, Object> toFatValue(List<InstanceDai.Record> instancesList, InsideView model) throws Panic, BadRequest {
-        Map<String, List<InstanceDai.Record>> dict = dict(instancesList);
+    public Map<String, Object> toFatValue(List<InstanceDai.Value> values, InsideView model) throws Panic, BadRequest {
+        Map<String, InstanceDai.Value> dict = dict(values);
         IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
 
         extension.setSet(model.getSet());
@@ -73,15 +74,15 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     }
 
     @Override
-    public Map<String, Object> toRawValue(List<InstanceDai.Record> instancesList, InsideView model) throws Panic, BadRequest {
-        Map<String, List<InstanceDai.Record>> dict = dict(instancesList);
+    public Map<String, Object> toRawValue(List<InstanceDai.Value> values, InsideView model) throws Panic, BadRequest {
+        Map<String, InstanceDai.Value> dict = dict(values);
         IntensionDai.ChannelPubSet extension = ValueMapping.from(IntensionDai.ChannelPubSet.class, model);
 
         extension.setSet(model.getSet());
         return parseRaw(extension, dict);
     }
 
-    private Map<String, Object> parseRaw(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Record>> dict) throws Panic, BadRequest {
+    private Map<String, Object> parseRaw(IntensionDai.ChannelPubSet pubSet, Map<String, InstanceDai.Value> dict) throws Panic, BadRequest {
         List<IntensionDai.Record> records = intensionDai.loadLast(pubSet);
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Record record : records) {
@@ -94,13 +95,12 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                         result.put(record.getField(), child);
                     }
                 } else {
-                    List<InstanceDai.Record> instances = dict.get(record.getField());
-                    if (instances != null && !instances.isEmpty()) {
-                        InstanceDai.Record first = dict.get(record.getField()).get(0);
-                        Object value = first.getValue();
-                        Long valueRefId = first.getGlimpseId();
+                    InstanceDai.Value instanceValue = dict.get(record.getField());
+                    if (instanceValue != null && instanceValue.getValues().length > 0) {
+                        Object value = instanceValue.getValues()[0];
+                        Long valueRefId = instanceValue.getGlimpseId();
                         if (valueRefId != null) {
-                            value = getReferenceValue(valueRefId, first.getOwnerId(), String.valueOf(value));
+                            value = getReferenceValue(valueRefId, instanceValue.getOwnerId(), String.valueOf(value));
                         }
 
                         if (value != null) {
@@ -117,37 +117,35 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                         addComplexValueToList(result, record, child);
                     }
                 } else {
-                    List<InstanceDai.Record> instances = dict.get(record.getField());
-                    if (instances != null && !instances.isEmpty()) {
-                        for (InstanceDai.Record instance : instances) {
-                            if (instance.getValue() != null) {
-                                result.computeIfAbsent(instance.getField(), key -> new ArrayList<>());
-                                List values = (List) result.get(record.getField());
-                                values.add(instance.getValue());
-                            }
+                    InstanceDai.Value instanceValue = dict.get(record.getField());
+                    if (instanceValue != null && instanceValue.getValues().length > 0) {
+                        result.computeIfAbsent(instanceValue.getField(), key -> new ArrayList<>());
+                        List values = (List) result.get(record.getField());
+                        for (String v : instanceValue.getValues()) {
+                            values.add(v);
                         }
                     }
-                }
 
+                }
             }
         }
         return result;
     }
 
 
-    private Map<String, Object> parseFat(IntensionDai.ChannelPubSet pubSet, Map<String, List<InstanceDai.Record>> dict) throws Panic, BadRequest {
+    private Map<String, Object> parseFat(IntensionDai.ChannelPubSet pubSet, Map<String, InstanceDai.Value> dict) throws Panic, BadRequest {
         List<IntensionDai.Record> intensions = intensionDai.loadLast(pubSet);
         Map<String, Object> result = new HashMap<>();
         for (IntensionDai.Record intension : intensions) {
             if (intension.getSingle()) {
-                List<InstanceDai.Record> instances = dict.get(intension.getField());
-                if (instances != null && !instances.isEmpty()) {
-                    Object value = dict.get(intension.getField()).get(0).getValue();
-                    Object glimpseId = dict.get(intension.getField()).get(0).getGlimpseId();
+                InstanceDai.Value instances = dict.get(intension.getField());
+                if (instances != null && instances.getValues().length > 0) {
+                    Object value = dict.get(intension.getField()).getValues()[0];
+                    Object glimpseId = dict.get(intension.getField()).getGlimpseId();
                     if (value != null) {
                         FatValue tv = new FatValue();
                         tv.setValue(value);
-                        tv.setTime(dict.get(intension.getField()).get(0).getBeginTime());
+                        tv.setTime(dict.get(intension.getField()).getBeginTime());
                         if (glimpseId != null) {
                             tv.setGlimpseId(String.valueOf(glimpseId));
                         }
@@ -156,22 +154,13 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
 
                 }
             } else {
-                List<InstanceDai.Record> instances = dict.get(intension.getField());
-                if (instances != null && !instances.isEmpty()) {
-                    for (InstanceDai.Record instance : instances) {
-                        if (instance.getValue() != null) {
-                            Object v = instance.getValue();
-                            FatValue tv = new FatValue();
-                            tv.setValue(v);
-                            tv.setTime(instance.getBeginTime());
-                            result.computeIfAbsent(instance.getField(), key -> new ArrayList<>());
-                            List values = (List) result.get(intension.getField());
-                            values.add(tv);
-                        }
-                    }
-
+                InstanceDai.Value instances = dict.get(intension.getField());
+                if (instances != null && instances.getValues().length > 0) {
+                    FatValue tv = new FatValue();
+                    tv.setTime(instances.getBeginTime());
+                    tv.setValue(instances.getValues());
+                    result.put(instances.getField(), tv);
                 }
-
             }
         }
         return result;
@@ -186,18 +175,10 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
         }
     }
 
-    private Map<String, List<InstanceDai.Record>> dict(List<InstanceDai.Record> records) {
-        Map<String, List<InstanceDai.Record>> dict = new HashMap<>();
-        for (InstanceDai.Record record : records) {
-            if (record.getValueSet() == null) {
-                List<InstanceDai.Record> values = new ArrayList<>();
-                values.add(record);
-                dict.put(record.getField(), values);
-            } else {
-                dict.computeIfAbsent(record.getField(), key -> new ArrayList<>());
-                List<InstanceDai.Record> values = dict.get(record.getField());
-                values.add(record);
-            }
+    private Map<String, InstanceDai.Value> dict(List<InstanceDai.Value> values) {
+        Map<String, InstanceDai.Value> dict = new HashMap<>();
+        for (InstanceDai.Value value : values) {
+            dict.put(value.getField(), value);
         }
         return dict;
     }

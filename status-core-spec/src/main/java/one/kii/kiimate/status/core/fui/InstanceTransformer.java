@@ -15,9 +15,9 @@ import java.util.Map;
  */
 public interface InstanceTransformer {
 
-    Map<String, Object> toFatValue(List<InstanceDai.Record> instancesList, InsideView model) throws Panic, BadRequest;
+    Map<String, Object> toFatValue(List<InstanceDai.Value> values, InsideView model) throws Panic, BadRequest;
 
-    Map<String, Object> toRawValue(List<InstanceDai.Record> instancesList, InsideView pubSet) throws Panic, BadRequest;
+    Map<String, Object> toRawValue(List<InstanceDai.Value> values, InsideView pubSet) throws Panic, BadRequest;
 
     @Data
     class FatValue {

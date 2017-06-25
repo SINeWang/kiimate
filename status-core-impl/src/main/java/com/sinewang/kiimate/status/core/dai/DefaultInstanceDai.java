@@ -1,9 +1,12 @@
 package com.sinewang.kiimate.status.core.dai;
 
+import com.google.common.collect.ObjectArrays;
 import com.sinewang.kiimate.status.core.dai.mapper.InstanceMapper;
+import lombok.Data;
 import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.summer.beans.utils.ValueMapping;
+import one.kii.summer.io.annotations.MayHave;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
@@ -12,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -140,18 +144,37 @@ public class DefaultInstanceDai implements InstanceDai {
         }
     }
 
-
     @Override
-    public List<Record> loadInstances(ZoomInById channel) throws Panic {
+    public List<Value> loadInstances(ZoomInById channel) throws Panic {
         List<Record> records = instanceMapper.selectLastInstancesById(
                 channel.getSubscriberId(),
                 channel.getId(),
                 channel.getBeginTime(),
                 channel.getEndTime()
         );
-        return NotBadResponse.of(records);
-    }
+        List<Value> values = new ArrayList<>();
+        for (Record record : records) {
+            if (record.getGlimpseId() == null) {
+                Value v = ValueMapping.from(Value.class, record);
+                v.setValues(new String[]{record.getValue()});
+                values.add(v);
+                continue;
+            } else {
+                for (Value value : values) {
+                    if (value.getField().equals(records)) {
+                        String[] vs = ObjectArrays.concat(value.getValues(), record.getValue());
+                        value.setValues(vs);
+                        continue;
+                    }
+                }
+                Value v = ValueMapping.from(Value.class, record);
+                v.setValues(new String[]{record.getValue()});
+                values.add(v);
+            }
+        }
 
+        return NotBadResponse.of(values);
+    }
 
     private void insertInstance(Record record, Date beginTime) {
         if (record.getValue().isEmpty()) {
@@ -170,5 +193,39 @@ public class DefaultInstanceDai implements InstanceDai {
                 record.getGlimpseId(),
                 record.getOperatorId(),
                 beginTime);
+    }
+
+    @Data
+    public static class Record {
+
+        private Long id;
+
+        private String commit;
+
+        private String ownerId;
+
+        private Long subId;
+
+        private Long extId;
+
+        private Long intId;
+
+        private String field;
+
+        private String value;
+
+        @MayHave
+        private Long valueSet;
+
+        @MayHave
+        private Long glimpseId;
+
+        private String operatorId;
+
+        private Date beginTime;
+
+        @MayHave
+        private Date endTime;
+
     }
 }

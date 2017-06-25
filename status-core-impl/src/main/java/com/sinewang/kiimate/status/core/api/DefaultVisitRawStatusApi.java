@@ -49,9 +49,9 @@ public class DefaultVisitRawStatusApi implements VisitRawStatusApi {
         InsideView modelInside = modelSubscriptionDai.loadModelSubById(zoomInById);
 
         zoomInById.setEndTime(statusOutside.getBeginTime());
-        List<InstanceDai.Record> records = instanceDai.loadInstances(zoomInById);
+        List<InstanceDai.Value> values = instanceDai.loadInstances(zoomInById);
 
-        return instanceTransformer.toRawValue(records, modelInside);
+        return instanceTransformer.toRawValue(values, modelInside);
     }
 
 }

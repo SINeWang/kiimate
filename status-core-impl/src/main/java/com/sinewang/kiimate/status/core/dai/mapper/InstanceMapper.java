@@ -1,5 +1,6 @@
 package com.sinewang.kiimate.status.core.dai.mapper;
 
+import com.sinewang.kiimate.status.core.dai.DefaultInstanceDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -29,13 +30,13 @@ public interface InstanceMapper {
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
-    List<InstanceDai.Record> selectLastInstancesById(
+    List<DefaultInstanceDai.Record> selectLastInstancesById(
             @Param("subscriberId") String subscriberId,
             @Param("subId") Long subId,
             @Param("beginTime") Date beginTime,
             @Param("endTime") Date endTime);
 
-    List<InstanceDai.Record> selectLatestRecordById(
+    List<DefaultInstanceDai.Record> selectLatestRecordById(
             @Param("subId") Long subId,
             @Param("intId") Long intId);
 

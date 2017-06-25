@@ -55,7 +55,7 @@ public class DefaultVisitFatStatusApi implements VisitFatStatusApi {
         InsideView modelPubSet = modelSubscriptionDai.loadModelSubById(id);
         id.setEndTime(outside.getBeginTime());
 
-        List<InstanceDai.Record> records = instanceDai.loadInstances(id);
+        List<InstanceDai.Value> values = instanceDai.loadInstances(id);
 
         IntensionDai.ChannelPubSet pubSet = ValueMapping.from(IntensionDai.ChannelPubSet.class, modelPubSet);
         pubSet.setSet(modelPubSet.getSet());
@@ -64,7 +64,7 @@ public class DefaultVisitFatStatusApi implements VisitFatStatusApi {
 
         List<Intension> intensions = ValueMapping.from(Intension.class, intensionList);
 
-        Map<String, Object> map = instanceTransformer.toFatValue(records, modelPubSet);
+        Map<String, Object> map = instanceTransformer.toFatValue(values, modelPubSet);
         Status status = ValueMapping.from(Status.class, outside, form, modelPubSet);
         status.setMap(map);
         status.setIntensions(intensions);

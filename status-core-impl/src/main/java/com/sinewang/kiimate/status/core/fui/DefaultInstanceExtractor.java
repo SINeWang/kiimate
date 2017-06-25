@@ -76,7 +76,9 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
         instance.setExtId(record.getExtId());
         instance.setIntId(intId);
         instance.setField(dictField);
-        instance.setGlimpseId(value.getGlimpseId());
+        if (value.getGlimpseId() != null) {
+            instance.setGlimpseId(Long.valueOf(value.getGlimpseId()));
+        }
         instance.setValues(vs);
         instance.setBeginTime(now);
         instance.setCommit(HashTools.hashHex(instance));

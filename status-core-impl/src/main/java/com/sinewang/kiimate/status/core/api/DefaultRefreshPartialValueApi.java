@@ -77,9 +77,9 @@ public class DefaultRefreshPartialValueApi implements RefreshPartialValueApi {
 
         ZoomInById id = ValueMapping.from(ZoomInById.class, channel);
         id.setSubscriberId(context.getOwnerId());
-        List<InstanceDai.Record> newRecords = instanceDai.loadInstances(id);
+        List<InstanceDai.Value> newValues = instanceDai.loadInstances(id);
 
-        Map<String, Object> map = instanceTransformer.toFatValue(newRecords, model);
+        Map<String, Object> map = instanceTransformer.toFatValue(newValues, model);
 
         Receipt receipt = ValueMapping.from(Receipt.class, form, context);
         receipt.setMap(map);

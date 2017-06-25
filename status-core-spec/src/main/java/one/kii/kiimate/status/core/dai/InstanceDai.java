@@ -19,41 +19,7 @@ public interface InstanceDai {
     @Transactional
     void remember(List<Value> values) throws Conflict;
 
-    List<Record> loadInstances(ZoomInById channel) throws Panic;
-
-    @Data
-    class Record {
-
-        private Long id;
-
-        private String commit;
-
-        private String ownerId;
-
-        private Long subId;
-
-        private Long extId;
-
-        private Long intId;
-
-        private String field;
-
-        private String value;
-
-        @MayHave
-        private Long valueSet;
-
-        @MayHave
-        private Long glimpseId;
-
-        private String operatorId;
-
-        private Date beginTime;
-
-        @MayHave
-        private Date endTime;
-
-    }
+    List<Value> loadInstances(ZoomInById channel) throws Panic;
 
     @Data
     class Value {
@@ -80,11 +46,13 @@ public interface InstanceDai {
         @Commit
         private String[] values;
 
+        @MayHave
         @Commit
         private Long valueSet;
 
+        @MayHave
         @Commit
-        private String glimpseId;
+        private Long glimpseId;
 
         @Commit
         private String operatorId;

@@ -4,7 +4,7 @@
 
 <mapper namespace="com.sinewang.kiimate.status.core.dai.mapper.InstanceMapper">
 
-    <resultMap id="Record" type="one.kii.kiimate.status.core.dai.InstanceDai$Record">
+    <resultMap id="Record" type="com.sinewang.kiimate.status.core.dai.DefaultInstanceDai$Record">
         <result column="id" property="id"/>
         <result column="commit" property="commit"/>
         <result column="owner_id" property="ownerId"/>

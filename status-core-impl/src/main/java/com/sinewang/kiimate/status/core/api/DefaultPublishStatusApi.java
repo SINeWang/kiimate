@@ -43,14 +43,14 @@ public class DefaultPublishStatusApi implements PublishStatusApi {
         ZoomInById id = ValueMapping.from(ZoomInById.class, form);
         id.setSubscriberId(form.getProviderId());
 
-        List<InstanceDai.Record> records = instanceDai.loadInstances(id);
+        List<InstanceDai.Value> values = instanceDai.loadInstances(id);
 
         List<GlimpsesDai.Entry> entries = new ArrayList<>();
 
 
-        for (InstanceDai.Record instance : records) {
+        for (InstanceDai.Value value : values) {
             GlimpsesDai.Entry record = new GlimpsesDai.Entry();
-            record.setInsId(instance.getId());
+            record.setInsId(value.getId());
             record.setId(insgen.born());
             entries.add(record);
         }

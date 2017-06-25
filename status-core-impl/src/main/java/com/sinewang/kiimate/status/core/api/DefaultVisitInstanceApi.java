@@ -40,7 +40,7 @@ public class DefaultVisitInstanceApi implements VisitInstanceApi {
     @Override
     public Instance visit(ReadContext context, ZoomInById form) throws BadRequest, NotFound, Panic {
 
-        List<InstanceDai.Record> instances = instanceDai.loadInstances(form);
+        List<InstanceDai.Value> values = instanceDai.loadInstances(form);
         ZoomInById statusId = ValueMapping.from(ZoomInById.class, context, form);
 
         InsideView model = modelSubscriptionDai.loadModelSubById(statusId);
@@ -52,7 +52,7 @@ public class DefaultVisitInstanceApi implements VisitInstanceApi {
         List<IntensionDai.Record> records = intensionDai.loadLast(set);
         List<Intension> intensions = ValueMapping.from(Intension.class, records);
 
-        Map<String, Object> map = instanceTransformer.toFatValue(instances, model);
+        Map<String, Object> map = instanceTransformer.toFatValue(values, model);
         instance.setIntensions(intensions);
         instance.setMap(map);
         return NotBadResponse.of(instance);
