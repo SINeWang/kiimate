@@ -46,7 +46,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
 
         ZoomOutByName form = ValueMapping.from(ZoomOutByName.class, publication);
 
-        OutsideView statusOutside = statusDai.loadDownstream(form);
+        OutsideView statusOutside = statusDai.load(form);
 
         ZoomInById zoomInById = ValueMapping.from(ZoomInById.class, statusOutside);
         zoomInById.setSubscriberId(statusOutside.getProviderId());

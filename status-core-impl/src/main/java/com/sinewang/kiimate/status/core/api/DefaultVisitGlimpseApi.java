@@ -55,7 +55,7 @@ public class DefaultVisitGlimpseApi implements VisitGlimpseApi {
 
         OutsideView model = modelPublicationDai.selectModelBySet(modelPubSet);
 
-        OutsideView status = statusDai.loadDownstream(statusName);
+        OutsideView status = statusDai.load(statusName);
 
         Glimpse glimpse1 = new Glimpse();
         Outside model1 = ValueMapping.from(Outside.class, model);

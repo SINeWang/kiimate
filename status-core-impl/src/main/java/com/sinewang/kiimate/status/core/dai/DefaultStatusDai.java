@@ -22,7 +22,7 @@ public class DefaultStatusDai implements StatusDai {
     private StatusMapper statusMapper;
 
     @Override
-    public OutsideView loadDownstream(ZoomOutByName channel) throws Panic, BadRequest {
+    public OutsideView load(ZoomOutByName channel) throws Panic, BadRequest {
         NotBadRequest.from(channel);
         OutsideView statuses = statusMapper.selectLast(
                 channel.getProviderId(),

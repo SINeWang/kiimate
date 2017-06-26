@@ -11,7 +11,7 @@ import one.kii.summer.zoom.ZoomOutByName;
  */
 public interface StatusDai {
 
-    OutsideView loadDownstream(ZoomOutByName providerXyz) throws Panic, BadRequest;
+    OutsideView load(ZoomOutByName name) throws Panic, BadRequest;
 
     @Data
     class ClueGroup {

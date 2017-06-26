@@ -47,7 +47,7 @@ public class DefaultVisitFatStatusApi implements VisitFatStatusApi {
     public Status visit(ReadContext context, ZoomOutByName form) throws NotFound, BadRequest, Panic {
 
 
-        OutsideView outside = statusDai.loadDownstream(form);
+        OutsideView outside = statusDai.load(form);
 
         ZoomInById id = ValueMapping.from(ZoomInById.class, outside);
         id.setSubscriberId(outside.getProviderId());

@@ -42,7 +42,7 @@ public class DefaultVisitRawStatusApi implements VisitRawStatusApi {
     @Override
     public Map<String, Object> visit(ReadContext context, ZoomOutByName form) throws NotFound, BadRequest, Panic {
 
-        OutsideView statusOutside = statusDai.loadDownstream(form);
+        OutsideView statusOutside = statusDai.load(form);
 
         ZoomInById zoomInById = ValueMapping.from(ZoomInById.class, statusOutside);
         zoomInById.setSubscriberId(statusOutside.getProviderId());

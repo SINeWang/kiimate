@@ -13,20 +13,6 @@
         <result column="end_time" property="endTime"/>
     </resultMap>
 
-    <insert id="insertStatus">
-        INSERT INTO km_s_pub
-        (id, pub_set, provider_id, m_sub_id, ins_id, version, visibility, stability, operator_id, begin_time)
-        VALUES
-        (#{id}, #{pubSet}, #{providerId}, #{modelSubId}, #{insId}, #{version}, #{visibility}, #{stability}, #{operatorId}, #{beginTime})
-    </insert>
-    <update id="revokeStatus">
-        UPDATE km_s_pub spub
-        SET spub.end_time = #{endTime}
-        WHERE spub.end_time IS NULL
-        AND spub.provider_id = #{providerId}
-        AND spub.pub_set = #{pubSet}
-    </update>
-
     <select id="selectLast" resultMap="Statuses">
         SELECT msub.id, spub.pub_set, spub.provider_id, spub.stability, spub.version, spub.begin_time, spub.end_time,
         msub.group, msub.name
@@ -57,4 +43,5 @@
         </if>
         GROUP BY spub.pub_set
     </select>
+
 </mapper>
