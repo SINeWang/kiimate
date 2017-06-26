@@ -42,7 +42,7 @@ public interface PublishModelApi extends CommitApi<PublishModelApi.Receipt, Writ
 
         List<Intension> intensions;
 
-        private String pubSet;
+        private String set;
 
         private String providerId;
 

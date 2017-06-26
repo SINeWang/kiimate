@@ -4,6 +4,7 @@ import one.kii.kiimate.model.core.api.VisitModelApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
 import one.kii.kiimate.model.core.dai.ModelSubscriptionDai;
+import one.kii.summer.beans.utils.UniqueFinder;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
@@ -39,6 +40,9 @@ public class DefaultVisitModelApi implements VisitModelApi {
 
         ModelPublicationDai.ChannelSet channelSet = ValueMapping.from(ModelPublicationDai.ChannelSet.class, form);
         List<ModelPublicationDai.Record> publications = modelPublicationDai.loadPublications(channelSet);
+        if(publications.isEmpty()){
+            throw new NotFound(UniqueFinder.find(channelSet));
+        }
         ModelPublicationDai.Record record = publications.get(0);
 
         IntensionDai.ChannelExtensionId extensionId = new IntensionDai.ChannelExtensionId();
