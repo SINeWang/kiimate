@@ -17,7 +17,7 @@ public class DefaultSubscribeModelsSpi implements SubscribeModelsSpi {
 
     private static Logger logger = LoggerFactory.getLogger(DefaultSubscribeModelsSpi.class);
 
-    private static String URI = "/{subscriberId}/subscriptions/models";
+    private static String URI = "/{subscriberId}/instances";
 
     @Value("${kiimate.url}")
     private String url;
