@@ -6,19 +6,19 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
-import one.kii.summer.zoom.ZoomInByName;
+import one.kii.summer.zoom.ZoomInById;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by WangYanJiong on 4/5/17.
+ * Created by WangYanJiong on 27/6/17.
  */
 
-public interface VisitExtensionApi extends VisitApi<VisitExtensionApi.Receipt, ReadContext, ZoomInByName> {
+public interface VisitExtensionByIdApi extends VisitApi<VisitExtensionByIdApi.Receipt, ReadContext, ZoomInById> {
 
 
-    Receipt visit(ReadContext context, ZoomInByName form) throws BadRequest, NotFound, Panic;
+    Receipt visit(ReadContext context, ZoomInById form) throws BadRequest, NotFound, Panic;
 
 
     @Data
