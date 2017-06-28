@@ -84,7 +84,7 @@ public class DefaultSearchSubjectsApi implements SearchSubjectsApi {
                 }
             case STATUS:
                 switch (form.getAccessType()) {
-                    case OWNER:
+                    case PROVIDER:
                         ModelSubscriptionDai.ClueSubscriberId clue = new ModelSubscriptionDai.ClueSubscriberId();
                         clue.setId(form.getGroup());
                         List<ModelSubscriptionDai.Subscribers> subjects = modelSubscriptionDai.querySubscribers(clue);

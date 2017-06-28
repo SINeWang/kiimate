@@ -40,7 +40,7 @@ public interface ModelSubscriptionMapper {
             @Param("group") String group);
 
     InsideView selectModelSubById(
-            @Param("subscriberId") String subscribreId,
+            @Param("subscriberId") String subscriberId,
             @Param("id") Long subId);
 
     InsideView selectModelSubByName(
