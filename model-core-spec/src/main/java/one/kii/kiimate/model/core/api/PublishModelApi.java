@@ -27,7 +27,7 @@ public interface PublishModelApi extends CommitApi<PublishModelApi.Receipt, Writ
         private String providerId;
 
         @Unique
-        private Long extId;
+        private String extId;
 
         @Unique
         private String stability;

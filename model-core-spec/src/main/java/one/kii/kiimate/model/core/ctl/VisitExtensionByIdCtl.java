@@ -31,7 +31,7 @@ public class VisitExtensionByIdCtl extends ReadController {
     public ResponseEntity<VisitExtensionByIdApi.Receipt> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
-            @PathVariable(ID) Long id) {
+            @PathVariable(ID) String id) {
 
         ReadContext context = buildContext(requestId, null, visitorId);
 

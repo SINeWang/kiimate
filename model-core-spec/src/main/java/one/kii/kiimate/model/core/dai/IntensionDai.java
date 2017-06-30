@@ -30,13 +30,13 @@ public interface IntensionDai {
 
     @Data
     class ChannelId {
-        Long id;
+        String id;
     }
 
     @Data
     class ChannelExtensionId {
 
-        Long id;
+        String id;
 
         @MayHave
         Date beginTime;
@@ -48,7 +48,7 @@ public interface IntensionDai {
     @Data
     class ChannelPubSet {
 
-        Long set;
+        String set;
 
     }
 
@@ -56,13 +56,13 @@ public interface IntensionDai {
     @Data
     class Record {
 
-        private Long id;
+        private String id;
 
         private String commit;
 
         @Unique
         @Commit
-        private Long extId;
+        private String extId;
 
         @Unique
         @Commit
@@ -79,7 +79,7 @@ public interface IntensionDai {
         @Unique
         @Commit
         @MayHave
-        private Long refSet;
+        private String refSet;
 
         @Unique
         @Commit

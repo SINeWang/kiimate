@@ -34,7 +34,7 @@ public class DefaultExtensionExtractFui implements AnExtensionExtractFui {
         form.setVisibility(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getVisibility()));
         ExtensionDai.Record record = ValueMapping.from(ExtensionDai.Record.class, form, context);
         hash(record);
-        record.setId(idgen.born());
+        record.setId(String.valueOf(idgen.born()));
         return NotBadResponse.of(record);
     }
 

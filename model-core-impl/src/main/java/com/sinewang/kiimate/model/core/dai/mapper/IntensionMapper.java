@@ -17,29 +17,29 @@ public interface IntensionMapper {
 
 
     void insertIntension(
-            @Param("id") Long id,
+            @Param("id") String id,
             @Param("commit") String commit,
-            @Param("extId") Long extId,
+            @Param("extId") String extId,
             @Param("field") String field,
             @Param("single") Boolean single,
             @Param("structure") String structure,
-            @Param("refSet") Long refSet,
+            @Param("refSet") String refSet,
             @Param("visibility") String visibility,
             @Param("required") Boolean required,
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
     List<IntensionDai.Record> selectLastIntensionsByExtId(
-            @Param("extId") Long extId,
+            @Param("extId") String extId,
             @Param("beginTime") Date beginTime,
             @Param("endTime") Date endTime);
 
 
     List<IntensionDai.Record> selectIntensionsBySet(
-            @Param("set") Long set);
+            @Param("set") String set);
 
     IntensionDai.Record selectLatestIntensionByExtIdField(
-            @Param("extId") Long extId,
+            @Param("extId") String extId,
             @Param("field") String field);
 
     IntensionDai.Record selectIntensionByConflictKey(
@@ -47,7 +47,7 @@ public interface IntensionMapper {
 
 
     void revoke(
-            @Param("id") Long id,
+            @Param("id") String id,
             @Param("endTime") Date endTime);
 
     void deleteByExtId(

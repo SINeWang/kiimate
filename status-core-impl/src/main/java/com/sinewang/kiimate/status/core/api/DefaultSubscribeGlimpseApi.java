@@ -36,7 +36,7 @@ public class DefaultSubscribeGlimpseApi implements SubscribeGlimpseApi {
 
         glimpse.setBeginTime(new Date());
 
-        glimpse.setId(idgen.born());
+        glimpse.setId(String.valueOf(idgen.born())) ;
 
         glimpsesDai.remember(glimpse);
 

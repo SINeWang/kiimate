@@ -42,12 +42,12 @@ public interface ModelPublicationDai {
     @Data
     class ChannelSet {
 
-        Long set;
+        String set;
     }
 
     @Data
     class ChannelId {
-        Long id;
+        String id;
     }
 
     @Data
@@ -62,18 +62,18 @@ public interface ModelPublicationDai {
 
     @Data
     class Record {
-        Long id;
+        String id;
 
-        Long set;
+        String set;
 
         @Unique
         String providerId;
 
         @Unique
-        Long extId;
+        String extId;
 
         @Unique
-        Long intId;
+        String intId;
 
         @Unique
         String version;
@@ -92,7 +92,7 @@ public interface ModelPublicationDai {
 
     @Data
     class PublishedExtension {
-        Long id;
+        String id;
 
         String providerId;
 
@@ -107,7 +107,7 @@ public interface ModelPublicationDai {
 
     @Data
     class PublishedSnapshot {
-        Long set;
+        String set;
 
         String stability;
 

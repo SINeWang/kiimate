@@ -34,7 +34,7 @@ public interface ModelSubscriptionDai {
 
     List<Subscribers> querySubscribers(ClueSubscriberId clue) throws Panic;
 
-    Integer countModelSubscriptions(Long pubSet);
+    Integer countModelSubscriptions(String pubSet);
 
     @Data
     class ClueGroup {
@@ -44,7 +44,7 @@ public interface ModelSubscriptionDai {
 
     @Data
     class ClueModelSubId {
-        Long id;
+        String id;
     }
 
 
@@ -63,10 +63,10 @@ public interface ModelSubscriptionDai {
     @Data
     class Instance {
 
-        private Long id;
+        private String id;
 
         @Unique
-        private Long set;
+        private String set;
 
         @Unique
         private String subscriberId;

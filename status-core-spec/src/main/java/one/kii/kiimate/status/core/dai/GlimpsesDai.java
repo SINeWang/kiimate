@@ -39,13 +39,13 @@ public interface GlimpsesDai {
     @Data
     class Publication {
 
-        Long set;
+        String set;
 
         @Unique
         String providerId;
 
         @Unique
-        Long modelSubId;
+        String modelSubId;
 
         @Unique
         String group;
@@ -73,15 +73,15 @@ public interface GlimpsesDai {
     @Data
     class Entry {
 
-        Long id;
+        String id;
 
-        Long insId;
+        String insId;
     }
 
 
     @Data
     class Glimpse {
-        Long id;
+        String id;
 
         @Unique
         String subscriberId;

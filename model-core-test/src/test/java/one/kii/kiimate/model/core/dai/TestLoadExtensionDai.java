@@ -59,16 +59,16 @@ public class TestLoadExtensionDai {
     @Test
     public void testLoadById() throws BadRequest, Panic, Conflict, NotFound {
         Long id1 = ID.addAndGet(1);
-        normalRecord.setId(id1);
+        normalRecord.setId(String.valueOf(id1));
         normalRecord.setBeginTime(new Date());
         dai.remember(normalRecord);
         ExtensionDai.ChannelId id = new ExtensionDai.ChannelId();
-        id.setId(id1);
+        id.setId(String.valueOf(id1));
         ExtensionDai.Record record;
         record = dai.loadLast(id);
         Assert.assertNotNull(record);
 
-        dai.forget(id1);
+        dai.forget(String.valueOf(id1));
         try {
             dai.loadLast(id);
         } catch (NotFound notFound) {
@@ -79,7 +79,7 @@ public class TestLoadExtensionDai {
     @Test
     public void testLoadByName() throws BadRequest, Panic, Conflict, NotFound {
         Long id1 = ID.addAndGet(2);
-        normalRecord.setId(id1);
+        normalRecord.setId(String.valueOf(id1));
         normalRecord.setBeginTime(new Date());
         dai.remember(normalRecord);
         ExtensionDai.ChannelName name = new ExtensionDai.ChannelName();
@@ -92,7 +92,7 @@ public class TestLoadExtensionDai {
         record = dai.loadLast(name);
         Assert.assertNotNull(record);
 
-        dai.forget(id1);
+        dai.forget(String.valueOf(id1));
         try {
             dai.loadLast(name);
         } catch (NotFound notFound) {

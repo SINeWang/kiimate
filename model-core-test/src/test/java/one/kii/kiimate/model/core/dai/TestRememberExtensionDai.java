@@ -45,7 +45,7 @@ public class TestRememberExtensionDai {
         badRequestRecord.setEndTime(null);
         badRequestRecord.setGroup("testGroup");
         badRequestRecord.setName("testName");
-        badRequestRecord.setId(idgen.born());
+        badRequestRecord.setId(String.valueOf(idgen.born()));
         badRequestRecord.setOperatorId("testOperator");
         badRequestRecord.setVisibility("testVisibility");
         badRequestRecord.setOwnerId("testOwner");

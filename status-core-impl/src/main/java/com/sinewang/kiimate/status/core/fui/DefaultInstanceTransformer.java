@@ -38,7 +38,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
     @Autowired
     private InstanceDai instanceDai;
 
-    private String getReferenceValue(Long glimpseId, String subscriberId, String field) throws Panic, BadRequest {
+    private String getReferenceValue(String glimpseId, String subscriberId, String field) throws Panic, BadRequest {
         ZoomInById id = new ZoomInById();
         id.setId(glimpseId);
         id.setSubscriberId(subscriberId);
@@ -98,7 +98,7 @@ public class DefaultInstanceTransformer implements InstanceTransformer {
                     InstanceDai.Value instanceValue = dict.get(record.getField());
                     if (instanceValue != null && instanceValue.getValues().length > 0) {
                         Object value = instanceValue.getValues()[0];
-                        Long valueRefId = instanceValue.getGlimpseId();
+                        String valueRefId = instanceValue.getGlimpseId();
                         if (valueRefId != null) {
                             value = getReferenceValue(valueRefId, instanceValue.getOwnerId(), String.valueOf(value));
                         }

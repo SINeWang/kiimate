@@ -20,8 +20,8 @@ public interface ModelSubscriptionMapper {
     int countByConflictKeys(Map<String, String> map);
 
     void insertSubscription(
-            @Param("id") Long id,
-            @Param("subSet") Long subSet,
+            @Param("id") String id,
+            @Param("subSet") String subSet,
             @Param("subscriberId") String subscriberId,
             @Param("group") String group,
             @Param("name") String name,
@@ -30,10 +30,10 @@ public interface ModelSubscriptionMapper {
             @Param("beginTime") Date beginTime);
 
     void deleteById(
-            @Param("id") Long id);
+            @Param("id") String id);
 
     int countModelSub(
-            @Param("subSet") Long subSet);
+            @Param("subSet") String subSet);
 
     List<ModelSubscriptionDai.Instance> queryModelSubByName(
             @Param("ownerId") String ownerId,
@@ -41,7 +41,7 @@ public interface ModelSubscriptionMapper {
 
     InsideView selectModelSubById(
             @Param("subscriberId") String subscriberId,
-            @Param("id") Long subId);
+            @Param("id") String subId);
 
     InsideView selectModelSubByName(
             @Param("subscriberId") String subscribreId,
@@ -53,6 +53,6 @@ public interface ModelSubscriptionMapper {
             @Param("subscriberId") String subscriberId);
 
     ModelSubscriptionDai.Instance loadInstance(
-            @Param("id") Long id);
+            @Param("id") String id);
 
 }

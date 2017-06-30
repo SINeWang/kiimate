@@ -18,7 +18,7 @@ public interface ExtensionMapper {
             @Param("providerId") String providerId);
 
     void insertExtension(
-            @Param("id") Long id,
+            @Param("id") String id,
             @Param("commit") String commit,
             @Param("ownerId") String ownerId,
             @Param("group") String group,
@@ -29,10 +29,10 @@ public interface ExtensionMapper {
             @Param("beginTime") Date beginTime);
 
     ExtensionDai.Record selectExtensionBySet(
-            @Param("set") Long set);
+            @Param("set") String set);
 
     ExtensionDai.Record selectLastExtensionById(
-            @Param("id") Long id,
+            @Param("id") String id,
             @Param("endTime") Date endTime);
 
     ExtensionDai.Record selectExtensionByConflictFactor(Map<String, String> map);
@@ -49,7 +49,7 @@ public interface ExtensionMapper {
             @Param("ownerId") String ownerId,
             @Param("group") String group);
 
-    void revoke(@Param("id") Long id,
+    void revoke(@Param("id") String id,
                 @Param("endTime") Date endTime);
 
 }

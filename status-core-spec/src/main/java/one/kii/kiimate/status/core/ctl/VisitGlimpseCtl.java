@@ -30,7 +30,7 @@ public class VisitGlimpseCtl extends ReadController {
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String subscriberId,
             @PathVariable(PROVIDER_ID) String providerId,
-            @PathVariable(SET) Long set) {
+            @PathVariable(SET) String set) {
         ReadContext context = buildContext(requestId, providerId, subscriberId);
         ZoomOutBySet zoom = new ZoomOutBySet();
         zoom.setSet(set);

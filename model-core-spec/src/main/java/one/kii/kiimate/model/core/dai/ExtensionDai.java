@@ -29,7 +29,7 @@ public interface ExtensionDai {
     @Transactional
     void remember(Record record) throws Conflict, BadRequest;
 
-    void forget(Long id);
+    void forget(String id);
 
 
     List<Providers> queryProviders(ClueId clue);
@@ -57,7 +57,7 @@ public interface ExtensionDai {
     class ChannelId {
 
         @Unique
-        Long id;
+        String id;
 
         @Unique
         @MayHave
@@ -67,7 +67,7 @@ public interface ExtensionDai {
     @Data
     class ChannelSet {
         @Unique
-        Long set;
+        String set;
     }
 
     @Data
@@ -93,7 +93,7 @@ public interface ExtensionDai {
     @Data
     class Record {
 
-        private Long id;
+        private String id;
 
         private String commit;
 

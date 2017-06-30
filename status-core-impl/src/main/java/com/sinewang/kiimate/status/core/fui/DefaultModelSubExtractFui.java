@@ -30,7 +30,7 @@ public class DefaultModelSubExtractFui implements AnModelSubExtractFui {
         instance.setSubscriberId(context.getOwnerId());
         instance.setOperatorId(context.getOperatorId());
 
-        instance.setId(idgen.born());
+        instance.setId(String.valueOf(idgen.born()));
         instance.setBeginTime(new Date());
         return NotBadResponse.of(instance);
     }

@@ -24,7 +24,7 @@ public interface InstanceDai {
     @Data
     class Value {
 
-        private Long id;
+        private String id;
 
         private String commit;
 
@@ -32,13 +32,13 @@ public interface InstanceDai {
         private String ownerId;
 
         @Commit
-        private Long subId;
+        private String subId;
 
         @Commit
-        private Long extId;
+        private String extId;
 
         @Commit
-        private Long intId;
+        private String intId;
 
         @Commit
         private String field;
@@ -48,11 +48,11 @@ public interface InstanceDai {
 
         @MayHave
         @Commit
-        private Long valueSet;
+        private String valueSet;
 
         @MayHave
         @Commit
-        private Long glimpseId;
+        private String glimpseId;
 
         @Commit
         private String operatorId;

@@ -54,6 +54,6 @@ public interface VisitModelApi extends VisitApi<VisitModelApi.Model, ReadContext
 
     @Data
     class VisitModelForm {
-        private Long set;
+        private String set;
     }
 }

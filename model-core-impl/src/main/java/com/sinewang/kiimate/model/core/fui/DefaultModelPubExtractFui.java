@@ -32,7 +32,7 @@ public class DefaultModelPubExtractFui implements AnModelPubExtractFui {
         for (IntensionDai.Record record : instances) {
             ModelPublicationDai.Record publication = ValueMapping.from(ModelPublicationDai.Record.class, pubSet, record, form);
             publication.setIntId(record.getId());
-            publication.setId(idgen.born());
+            publication.setId(String.valueOf(idgen.born()));
             publication.setBeginTime(now);
             NotBadResponse.of(publication);
             publications.add(publication);

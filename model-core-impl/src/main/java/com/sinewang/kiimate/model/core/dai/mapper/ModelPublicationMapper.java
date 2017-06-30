@@ -17,11 +17,11 @@ import java.util.Map;
 public interface ModelPublicationMapper {
 
     void insertRecord(
-            @Param("id") Long id,
-            @Param("pubSet") Long pubSet,
+            @Param("id") String id,
+            @Param("pubSet") String pubSet,
             @Param("providerId") String providerId,
-            @Param("extId") Long extId,
-            @Param("intId") Long intId,
+            @Param("extId") String extId,
+            @Param("intId") String intId,
             @Param("version") String version,
             @Param("stability") String stability,
             @Param("operatorId") String operatorId,
@@ -31,7 +31,7 @@ public interface ModelPublicationMapper {
 
     void deletePublicationByProviderIdExtIdPubVersion(
             @Param("providerId") String providerId,
-            @Param("extId") Long extId,
+            @Param("extId") String extId,
             @Param("stability") String stability,
             @Param("version") String version);
 
@@ -41,9 +41,9 @@ public interface ModelPublicationMapper {
 
     List<ModelPublicationDai.PublishedExtension> selectPublishedExtensionByGroupQuery(@Param("query") String query);
 
-    List<ModelPublicationDai.PublishedSnapshot> selectPublishedSnapshotsByExtId(@Param("extId") Long extId);
+    List<ModelPublicationDai.PublishedSnapshot> selectPublishedSnapshotsByExtId(@Param("extId") String extId);
 
-    List<ModelPublicationDai.Record> selectPublicationsBySet(@Param("set") Long set);
+    List<ModelPublicationDai.Record> selectPublicationsBySet(@Param("set") String set);
 
     OutsideView selectModelPubBySet(ZoomOutBySet zoom);
 }

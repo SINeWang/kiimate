@@ -121,7 +121,7 @@ public class DefaultExtensionDai implements ExtensionDai {
     }
 
     @Override
-    public void forget(Long id) {
+    public void forget(String id) {
         logger.debug("before-forget: Id:{}", id);
         extensionMapper.revoke(
                 id,

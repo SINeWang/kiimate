@@ -25,7 +25,7 @@ public interface DeclareIntensionApi extends CommitApi<DeclareIntensionApi.Recei
     @EqualsAndHashCode(callSuper = false)
     class Form {
 
-        private Long extId;
+        private String extId;
 
         private String field;
 

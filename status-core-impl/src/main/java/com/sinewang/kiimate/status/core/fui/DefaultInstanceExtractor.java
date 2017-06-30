@@ -40,11 +40,11 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
                 logger.warn("cannot find field [{}]", field);
                 continue;
             }
-            Long intId = record.getId();
+            String intId = record.getId();
 
             String[] values = cleanUpValues(map.get(field).toArray(new String[0]));
             InstanceDai.Value value = ValueMapping.from(InstanceDai.Value.class, context, form);
-            value.setId(setgen.born());
+            value.setId(String.valueOf(setgen.born()));
             value.setExtId(record.getExtId());
             value.setIntId(intId);
             value.setField(dictField);
@@ -68,16 +68,16 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
             logger.warn("cannot find field [{}]", form.getField());
             return Collections.emptyList();
         }
-        Long intId = record.getId();
+        String intId = record.getId();
 
         String[] vs = cleanUpValues(value.getValues());
         InstanceDai.Value instance = ValueMapping.from(InstanceDai.Value.class, context, form);
-        instance.setId(setgen.born());
+        instance.setId(String.valueOf(setgen.born()));
         instance.setExtId(record.getExtId());
         instance.setIntId(intId);
         instance.setField(dictField);
         if (value.getGlimpseId() != null) {
-            instance.setGlimpseId(Long.valueOf(value.getGlimpseId()));
+            instance.setGlimpseId(value.getGlimpseId());
         }
         instance.setValues(vs);
         instance.setBeginTime(now);

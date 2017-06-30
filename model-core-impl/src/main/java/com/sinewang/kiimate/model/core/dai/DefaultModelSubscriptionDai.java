@@ -8,7 +8,9 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
-import one.kii.summer.zoom.*;
+import one.kii.summer.zoom.InsideView;
+import one.kii.summer.zoom.ZoomInById;
+import one.kii.summer.zoom.ZoomInByName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
@@ -47,7 +49,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public Instance load(ClueModelSubId id) throws Panic{
+    public Instance load(ClueModelSubId id) throws Panic {
         Instance instance = modelSubscriptionMapper.loadInstance(
                 id.getId()
         );
@@ -85,7 +87,7 @@ public class DefaultModelSubscriptionDai implements ModelSubscriptionDai {
     }
 
     @Override
-    public Integer countModelSubscriptions(Long pubSet) {
+    public Integer countModelSubscriptions(String pubSet) {
         return modelSubscriptionMapper.countModelSub(pubSet);
     }
 

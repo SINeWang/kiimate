@@ -34,7 +34,7 @@ public class DefaultIntensionExtractFui implements AnIntensionExtractFui {
 
         IntensionDai.Record record = ValueMapping.from(IntensionDai.Record.class, context, form);
 
-        record.setId(idgen.born());
+        record.setId(String.valueOf(idgen.born()));
         record.setCommit(HashTools.hashHex(record));
         record.setBeginTime(new Date());
         return NotBadResponse.of(record);

@@ -131,13 +131,13 @@ public class DefaultInstanceDai implements InstanceDai {
                         instance.getSubId(),
                         instance.getIntId(),
                         now);
-                long set = setgen.born();
+                String set = String.valueOf(setgen.born());
                 for (String value : values) {
                     Record record = new Record();
                     BeanUtils.copyProperties(instance, record, "id");
                     record.setValueSet(set);
                     record.setValue(value);
-                    record.setId(idgen.born());
+                    record.setId(String.valueOf(idgen.born()));
                     insertInstance(record, now);
                 }
             }
@@ -198,27 +198,27 @@ public class DefaultInstanceDai implements InstanceDai {
     @Data
     public static class Record {
 
-        private Long id;
+        private String id;
 
         private String commit;
 
         private String ownerId;
 
-        private Long subId;
+        private String subId;
 
-        private Long extId;
+        private String extId;
 
-        private Long intId;
+        private String intId;
 
         private String field;
 
         private String value;
 
         @MayHave
-        private Long valueSet;
+        private String valueSet;
 
         @MayHave
-        private Long glimpseId;
+        private String glimpseId;
 
         private String operatorId;
 

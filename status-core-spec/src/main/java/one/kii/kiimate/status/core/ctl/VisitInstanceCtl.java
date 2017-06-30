@@ -33,7 +33,7 @@ public class VisitInstanceCtl extends ReadController {
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(SUBSCRIBER_ID) String subscriberId,
-            @PathVariable(ID) Long id) {
+            @PathVariable(ID) String id) {
 
         ReadContext context = buildContext(requestId, subscriberId, visitorId);
 

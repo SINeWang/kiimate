@@ -35,25 +35,25 @@ public interface GlimpseMapper {
 
     GlimpsesDai.Publication loadStatusPub(
             @Param("providerId") String providerId,
-            @Param("set") Long set);
+            @Param("set") String set);
 
     GlimpsesDai.Publication loadGlimpse(
             @Param("subscriberId") String subscriberId,
-            @Param("id") Long id);
+            @Param("id") String id);
 
     void insertGlimpse(
-            @Param("id") Long id,
+            @Param("id") String id,
             @Param("subscriberId") String subscriberId,
             @Param("set") String set,
             @Param("operatorId") String operatorId,
             @Param("beginTime") Date beginTime);
 
     void insertPublication(
-            @Param("id") Long id,
-            @Param("set") Long pubSet,
+            @Param("id") String id,
+            @Param("set") String pubSet,
             @Param("providerId") String providerId,
-            @Param("modelSubId") Long modelSubId,
-            @Param("insId") Long insId,
+            @Param("modelSubId") String modelSubId,
+            @Param("insId") String insId,
             @Param("version") String version,
             @Param("stability") String stability,
             @Param("visibility") String visibility,

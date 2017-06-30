@@ -26,9 +26,9 @@ public interface RevokeIntensionApi extends CommitApi<RevokeIntensionApi.Receipt
 
         String ownerId;
 
-        Long extId;
+        String extId;
 
-        Long id;
+        String id;
     }
 
     @Data
