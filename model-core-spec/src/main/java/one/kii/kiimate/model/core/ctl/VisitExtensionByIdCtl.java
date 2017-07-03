@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*")
 public class VisitExtensionByIdCtl extends ReadController {
 
-    static final String PROVIDER_ID = "owner-id";
-
     static final String ID = "id";
 
     @Autowired
