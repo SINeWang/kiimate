@@ -45,6 +45,11 @@
             AND mins.end_time IS NULL
             ]]>
         </if>
+        <if test="beginTime == null and endTime == null">
+            <![CDATA[
+            AND mins.end_time IS NULL
+            ]]>
+        </if>
     </select>
     <select id="selectLatestRecordById" resultMap="Record">
         SELECT mins.id, mins.commit, mins.owner_id, mins.sub_id, mins.ext_id, mins.int_id, mins.field, mins.value ,mins.value_set, mins.glimpse_id, mins.operator_id, mins.begin_time, mins.end_time
