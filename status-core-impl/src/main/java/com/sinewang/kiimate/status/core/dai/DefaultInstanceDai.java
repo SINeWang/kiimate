@@ -154,22 +154,25 @@ public class DefaultInstanceDai implements InstanceDai {
         );
         List<Value> values = new ArrayList<>();
         for (Record record : records) {
-            if (record.getGlimpseId() == null) {
+            if (record.getValueSet() == null) {
                 Value v = ValueMapping.from(Value.class, record);
                 v.setValues(new String[]{record.getValue()});
                 values.add(v);
                 continue;
             } else {
+                boolean match = false;
                 for (Value value : values) {
-                    if (value.getField().equals(records)) {
+                    if (value.getField().equals(record.getField())) {
                         String[] vs = ObjectArrays.concat(value.getValues(), record.getValue());
                         value.setValues(vs);
-                        continue;
+                        match = true;
                     }
                 }
-                Value v = ValueMapping.from(Value.class, record);
-                v.setValues(new String[]{record.getValue()});
-                values.add(v);
+                if (!match) {
+                    Value v = ValueMapping.from(Value.class, record);
+                    v.setValues(new String[]{record.getValue()});
+                    values.add(v);
+                }
             }
         }
 

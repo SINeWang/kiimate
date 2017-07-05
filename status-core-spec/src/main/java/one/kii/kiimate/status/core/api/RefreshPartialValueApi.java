@@ -32,8 +32,6 @@ public interface RefreshPartialValueApi extends CommitApi<RefreshPartialValueApi
     @Data
     class Value {
 
-        Boolean reference;
-
         String value;
 
         @MayHave
