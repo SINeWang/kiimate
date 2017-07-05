@@ -26,15 +26,15 @@ public interface RefreshPartialValueApi extends CommitApi<RefreshPartialValueApi
 
         String field;
 
-        Values values;
+        Value[] values;
     }
 
     @Data
-    class Values {
+    class Value {
 
         Boolean reference;
 
-        String[] values;
+        String value;
 
         @MayHave
         String glimpseId;

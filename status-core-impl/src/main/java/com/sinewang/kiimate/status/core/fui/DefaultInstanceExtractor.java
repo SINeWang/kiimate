@@ -42,7 +42,7 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
             }
             String intId = record.getId();
 
-            String[] values = cleanUpValues(map.get(field).toArray(new String[0]));
+            String[] values = cleanUpValues(map.get(field).toArray(new RefreshPartialValueApi.Value[0]));
             InstanceDai.Value value = ValueMapping.from(InstanceDai.Value.class, context, form);
             value.setId(String.valueOf(setgen.born()));
             value.setExtId(record.getExtId());
@@ -61,7 +61,6 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
         List<InstanceDai.Value> values = new ArrayList<>();
         Date now = new Date();
 
-        RefreshPartialValueApi.Values value = form.getValues();
         String dictField = CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, form.getField());
         IntensionDai.Record record = dict.getFirst(dictField);
         if (record == null) {
@@ -70,37 +69,39 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
         }
         String intId = record.getId();
 
-        String[] vs = cleanUpValues(value.getValues());
-        InstanceDai.Value instance = ValueMapping.from(InstanceDai.Value.class, context, form);
-        instance.setId(String.valueOf(setgen.born()));
-        instance.setExtId(record.getExtId());
-        instance.setIntId(intId);
-        instance.setField(dictField);
-        if (value.getGlimpseId() != null) {
-            instance.setGlimpseId(value.getGlimpseId());
+        String[] vs = cleanUpValues(form.getValues());
+        for (RefreshPartialValueApi.Value value : form.getValues()) {
+            InstanceDai.Value instance = ValueMapping.from(InstanceDai.Value.class, context, form);
+            instance.setId(String.valueOf(setgen.born()));
+            instance.setExtId(record.getExtId());
+            instance.setIntId(intId);
+            instance.setField(dictField);
+            if (value.getGlimpseId() != null) {
+                instance.setGlimpseId(value.getGlimpseId());
+            }
+            instance.setValues(vs);
+            instance.setBeginTime(now);
+            instance.setCommit(HashTools.hashHex(instance));
+            values.add(instance);
         }
-        instance.setValues(vs);
-        instance.setBeginTime(now);
-        instance.setCommit(HashTools.hashHex(instance));
-        values.add(instance);
         return values;
     }
 
 
-    private String[] cleanUpValues(String[] values) {
+    private String[] cleanUpValues(RefreshPartialValueApi.Value[] values) {
         if (values == null) {
             return null;
         }
         List<String> valueList = new ArrayList<>();
         boolean empty = false;
-        for (String value : values) {
+        for (RefreshPartialValueApi.Value value : values) {
             if (value == null) {
                 continue;
-            } else if (value.trim().length() == 0) {
+            } else if (value.getValue().trim().length() == 0) {
                 empty = true;
                 continue;
             }
-            valueList.add(value);
+            valueList.add(value.getValue());
         }
         if (empty && valueList.size() == 0) {
             valueList.add("");

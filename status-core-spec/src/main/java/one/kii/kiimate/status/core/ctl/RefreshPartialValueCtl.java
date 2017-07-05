@@ -39,7 +39,7 @@ public class RefreshPartialValueCtl extends WriteController {
             @PathVariable(OWNER_ID) String ownerId,
             @PathVariable(SUB_ID) String subId,
             @PathVariable(FIELD) String field,
-            @RequestBody RefreshPartialValueApi.Values values) {
+            @RequestBody RefreshPartialValueApi.Value[] values) {
         WriteContext context = buildContext(requestId, ownerId, operatorId);
         RefreshPartialValueApi.SubIdForm form = new RefreshPartialValueApi.SubIdForm();
         form.setId(subId);
