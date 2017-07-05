@@ -5,8 +5,8 @@ buildscript {
 }
 
 plugins {
-    id 'pl.allegro.tech.build.axion-release' version '1.6.0'
-    id 'org.springframework.boot' version '1.5.3.RELEASE' apply false
+    id 'pl.allegro.tech.build.axion-release' version '1.7.0'
+    id 'org.springframework.boot' version '1.5.4.RELEASE' apply false
     id 'idea'
 }
 
@@ -20,7 +20,7 @@ ext {
     mysqlConnectorVersion = '5.1.41'
     servletApiVersion = '3.1.0'
     springBootVersion = '1.5.3.RELEASE'
-    springFrameworkVersion = '4.3.8.RELEASE'
+    springFrameworkVersion = '4.3.9.RELEASE'
     summerVersion = '0.5.28'
 }
 
