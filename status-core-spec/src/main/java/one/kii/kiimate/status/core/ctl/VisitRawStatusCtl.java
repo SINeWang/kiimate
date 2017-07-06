@@ -7,6 +7,7 @@ import one.kii.summer.io.context.ReadContext;
 import one.kii.summer.io.receiver.ReadController;
 import one.kii.summer.zoom.ZoomOutByName;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class VisitRawStatusCtl extends ReadController {
     @Autowired
     private VisitRawStatusApi api;
 
-    @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}", produces = "application/json")
+    @RequestMapping(value = "/{" + GROUP + "}/{" + NAME + "}/{" + STABILITY + "}/{" + VERSION + ":.+}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
