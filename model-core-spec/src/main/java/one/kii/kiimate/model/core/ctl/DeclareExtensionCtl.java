@@ -33,7 +33,7 @@ public class DeclareExtensionCtl extends WriteController {
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @ModelAttribute DeclareExtensionApi.CommitForm form) {
-        return commit(requestId, operatorId, ownerId, form);
+        return commit(requestId, ownerId, operatorId, form);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -42,15 +42,15 @@ public class DeclareExtensionCtl extends WriteController {
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
             @RequestBody DeclareExtensionApi.CommitForm form) {
-        return commit(requestId, operatorId, ownerId, form);
+        return commit(requestId, ownerId, operatorId, form);
     }
 
     private ResponseEntity<DeclareExtensionApi.CommitReceipt> commit(
             String requestId,
-            String operatorId,
             String ownerId,
+            String operatorId,
             DeclareExtensionApi.CommitForm form) {
-        WriteContext context = buildContext(requestId, operatorId, ownerId);
+        WriteContext context = buildContext(requestId, ownerId, operatorId);
         return CommitApiCaller.sync(api, context, form);
     }
 
