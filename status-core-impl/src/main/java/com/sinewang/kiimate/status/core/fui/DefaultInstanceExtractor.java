@@ -97,7 +97,7 @@ public class DefaultInstanceExtractor implements AnInstanceExtractor {
         for (RefreshPartialValueApi.Value value : values) {
             if (value == null) {
                 continue;
-            } else if (value.getValue().trim().length() == 0) {
+            } else if (value.getValue() == null || value.getValue().trim().length() == 0) {
                 empty = true;
                 continue;
             }

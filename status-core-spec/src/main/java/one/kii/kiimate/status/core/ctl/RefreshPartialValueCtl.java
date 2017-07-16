@@ -32,7 +32,7 @@ public class RefreshPartialValueCtl extends WriteController {
     private RefreshPartialValueApi api;
 
 
-    @RequestMapping(value = "/{" + SUB_ID + "}/fields/{" + FIELD + "}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/{" + SUB_ID + "}/fields/{" + FIELD + ":.+}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
