@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import static one.kii.KiiMate.IMPL_PACKAGE;
+import static one.kii.KiiMate.SPEC_PACKAGE;
+
 /**
  * Created by WangYanJiong on 05/05/2017.
  */
@@ -13,16 +16,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan({
-        "com.sinewang.kiimate.subject.core",
-        "one.kii.kiimate.subject.core",
-        "com.sinewang.kiimate.model.core",
-        "one.kii.kiimate.model.core",
-        "com.sinewang.kiimate.status.core",
-        "one.kii.kiimate.status.core"})
+        SPEC_PACKAGE,
+        IMPL_PACKAGE
+})
 @MapperScan({
-        "com.sinewang.kiimate.model.core",
-        "com.sinewang.kiimate.status.core"})
+        IMPL_PACKAGE
+})
 public class KiiMate {
+
+
+    public final static String SPEC_PACKAGE = "one.kiimate";
+
+    public final static String IMPL_PACKAGE = "com.sinewang";
+
     public static void main(String[] args) {
         SpringApplication.run(KiiMate.class, args);
     }
