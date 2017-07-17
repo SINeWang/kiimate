@@ -32,7 +32,7 @@ public class PublishStatusCtl extends WriteController {
     private PublishStatusApi api;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<PublishStatusApi.Receipt> commitForm(
+    public ResponseEntity<?> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -43,7 +43,7 @@ public class PublishStatusCtl extends WriteController {
 
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<PublishStatusApi.Receipt> commitJson(
+    public ResponseEntity<?> commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -52,7 +52,7 @@ public class PublishStatusCtl extends WriteController {
         return commit(requestId, operatorId, ownerId, statusId, form);
     }
 
-    private ResponseEntity<PublishStatusApi.Receipt> commit(
+    private ResponseEntity<?> commit(
             String requestId,
             String operatorId,
             String ownerId,

@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static one.kii.kiimate.subject.core.ctl.SearchSubjectsCtl.ACCESS_TYPE;
 import static one.kii.kiimate.subject.core.ctl.SearchSubjectsCtl.OBJECT_TYPE;
 
@@ -30,7 +28,7 @@ public class SearchSubjectsCtl extends ReadController {
     private SearchSubjectsApi api;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<SearchSubjectsApi.Subjects>> search(
+    public ResponseEntity<?> search(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OBJECT_TYPE) String objectType,

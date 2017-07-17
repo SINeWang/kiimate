@@ -30,7 +30,7 @@ public class SubscribeGlimpseCtl extends WriteController {
     private SubscribeGlimpseApi api;
 
     @RequestMapping(method = POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<SubscribeGlimpseApi.Receipt> commitForm(
+    public ResponseEntity<?> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -40,7 +40,7 @@ public class SubscribeGlimpseCtl extends WriteController {
 
 
     @RequestMapping(method = POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<SubscribeGlimpseApi.Receipt> commitJson(
+    public ResponseEntity<?> commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -48,7 +48,7 @@ public class SubscribeGlimpseCtl extends WriteController {
         return commit(requestId, ownerId, operatorId, form);
     }
 
-    private ResponseEntity<SubscribeGlimpseApi.Receipt> commit(
+    private ResponseEntity<?> commit(
             String requestId,
             String ownerId,
             String operatorId,

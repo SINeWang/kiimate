@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static one.kii.kiimate.status.core.ctl.SearchInstancesCtl.OWNER_ID;
 
 /**
@@ -28,7 +26,7 @@ public class SearchInstancesCtl extends ReadController {
     private SearchInstancesApi api;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<SearchInstancesApi.Instance>> search(
+    public ResponseEntity<?> search(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,

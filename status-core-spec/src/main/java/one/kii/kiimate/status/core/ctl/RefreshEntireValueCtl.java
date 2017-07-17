@@ -55,7 +55,7 @@ public class RefreshEntireValueCtl extends WriteController {
     }
 
 
-    private ResponseEntity<RefreshEntireValueApi.Receipt> commit(
+    private ResponseEntity<?> commit(
             String requestId,
             String operatorId,
             String ownerId,
