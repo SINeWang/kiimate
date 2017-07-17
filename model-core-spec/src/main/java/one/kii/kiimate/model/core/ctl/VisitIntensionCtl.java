@@ -4,8 +4,6 @@ import one.kii.kiimate.model.core.api.VisitIntensionsApi;
 import one.kii.summer.asdf.api.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
 import one.kii.summer.io.context.ReadContext;
-import one.kii.summer.io.exception.NotFound;
-import one.kii.summer.io.receiver.ErestResponse;
 import one.kii.summer.io.receiver.ReadController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +31,7 @@ public class VisitIntensionCtl extends ReadController {
     private VisitIntensionsApi api;
 
     @RequestMapping(value = "/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitIntensionsApi.Receipt> visit3(
+    public ResponseEntity<?> visit3(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -44,7 +42,7 @@ public class VisitIntensionCtl extends ReadController {
     }
 
     @RequestMapping(value = "/{group}/{name:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitIntensionsApi.Receipt> visit2(
+    public ResponseEntity<?> visit2(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -54,7 +52,7 @@ public class VisitIntensionCtl extends ReadController {
     }
 
     @RequestMapping(value = "/{group:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitIntensionsApi.Receipt> visit1(
+    public ResponseEntity<?> visit1(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -62,7 +60,7 @@ public class VisitIntensionCtl extends ReadController {
         return visit(requestId, ownerId, visitorId, group, NAME_ROOT, TREE_MASTER);
     }
 
-    private ResponseEntity<VisitIntensionsApi.Receipt> visit(
+    private ResponseEntity<?> visit(
             String requestId,
             String ownerId,
             String visitorId,

@@ -26,7 +26,7 @@ public class VisitExtensionByIdCtl extends ReadController {
 
 
     @RequestMapping(value = "/{" + ID + "}", method = RequestMethod.GET)
-    public ResponseEntity<VisitExtensionByIdApi.Receipt> visit(
+    public ResponseEntity<?> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(ID) String id) {

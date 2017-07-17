@@ -30,7 +30,7 @@ public class PublishModelCtl extends WriteController {
     private PublishModelApi api;
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<PublishModelApi.Receipt> commitForm(
+    public ResponseEntity<?> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -41,7 +41,7 @@ public class PublishModelCtl extends WriteController {
 
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<PublishModelApi.Receipt> commitJson(
+    public ResponseEntity<?> commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -50,7 +50,7 @@ public class PublishModelCtl extends WriteController {
         return commit(requestId, operatorId, ownerId, publication, form);
     }
 
-    private ResponseEntity<PublishModelApi.Receipt> commit(
+    private ResponseEntity<?> commit(
             String requestId,
             String operatorId,
             String ownerId,

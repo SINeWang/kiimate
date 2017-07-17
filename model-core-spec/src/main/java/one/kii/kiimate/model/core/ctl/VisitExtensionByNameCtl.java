@@ -31,7 +31,7 @@ public class VisitExtensionByNameCtl extends ReadController {
     private VisitExtensionByNameApi api;
 
     @RequestMapping(value = "/{group}/{name}/{tree:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitExtensionByNameApi.Receipt> visit(
+    public ResponseEntity<?> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(PROVIDER_ID) String ownerId,
@@ -49,7 +49,7 @@ public class VisitExtensionByNameCtl extends ReadController {
 
 
     @RequestMapping(value = "/{group}/{name:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitExtensionByNameApi.Receipt> visit(
+    public ResponseEntity<?> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(PROVIDER_ID) String ownerId,
@@ -68,7 +68,7 @@ public class VisitExtensionByNameCtl extends ReadController {
     }
 
     @RequestMapping(value = "/{group:.+}", method = RequestMethod.GET)
-    public ResponseEntity<VisitExtensionByNameApi.Receipt> visit(
+    public ResponseEntity<?> visit(
             @RequestHeader(value = ErestHeaders.REQUEST_ID, required = false) String requestId,
             @RequestHeader(ErestHeaders.VISITOR_ID) String visitorId,
             @PathVariable(PROVIDER_ID) String ownerId,

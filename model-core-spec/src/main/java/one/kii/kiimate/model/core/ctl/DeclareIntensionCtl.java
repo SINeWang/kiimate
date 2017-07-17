@@ -28,7 +28,7 @@ public class DeclareIntensionCtl extends WriteController {
 
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<DeclareIntensionApi.Receipt> commitForm(
+    public ResponseEntity<?> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -38,7 +38,7 @@ public class DeclareIntensionCtl extends WriteController {
 
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<DeclareIntensionApi.Receipt> commitJson(
+    public ResponseEntity<?> commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -47,7 +47,7 @@ public class DeclareIntensionCtl extends WriteController {
     }
 
 
-    private ResponseEntity<DeclareIntensionApi.Receipt> commit(
+    private ResponseEntity<?> commit(
             String requestId,
             String ownerId,
             String operatorId,

@@ -33,7 +33,7 @@ public class RevokeIntensionCtl extends WriteController {
 
 
     @RequestMapping(method = RequestMethod.PATCH)
-    public ResponseEntity<RevokeIntensionApi.Receipt> commit(
+    public ResponseEntity<?> commit(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
