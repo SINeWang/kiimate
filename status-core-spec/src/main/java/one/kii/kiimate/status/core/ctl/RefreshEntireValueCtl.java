@@ -33,7 +33,7 @@ public class RefreshEntireValueCtl extends WriteController {
     private RefreshEntireValueApi api;
 
     @RequestMapping(value = "/{" + SUB_ID + "}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity commitForm(
+    public ResponseEntity<?> commitForm(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
@@ -44,7 +44,7 @@ public class RefreshEntireValueCtl extends WriteController {
 
 
     @RequestMapping(value = "/{" + SUB_ID + "}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity commitJson(
+    public ResponseEntity<?> commitJson(
             @RequestHeader(ErestHeaders.REQUEST_ID) String requestId,
             @RequestHeader(ErestHeaders.OPERATOR_ID) String operatorId,
             @PathVariable(OWNER_ID) String ownerId,
