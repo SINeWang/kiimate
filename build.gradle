@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-    id 'pl.allegro.tech.build.axion-release' version '1.7.0'
+    id 'pl.allegro.tech.build.axion-release' version '1.7.1'
     id 'org.springframework.boot' version '1.5.4.RELEASE' apply false
     id 'idea'
 }
