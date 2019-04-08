@@ -6,8 +6,6 @@ Be the best **Mate** of **Knowledge Integration & Innovation**
 
 ![KiiMate Concept Model](kiimate.png)
 
-* Sharing and Managing your Knowledge like `Git` with RESTful API
-
 ## Basic Knowledge
 
 ### Related Concepts
@@ -16,7 +14,7 @@ Be the best **Mate** of **Knowledge Integration & Innovation**
 
 * Model, Instance, Data, Entity, etc.
 
-* Cloud Computing's Provider & Subscriber
+* Publish & Subscribe model
 
 ### Technologies
 
@@ -24,7 +22,7 @@ Be the best **Mate** of **Knowledge Integration & Innovation**
 
 * RESTful API
 
-* Depends on [Summer](https://github.com/sinewang/summer)
+* Dependencies [Summer](https://github.com/sinewang/summer)
 
 ## See Also
 
