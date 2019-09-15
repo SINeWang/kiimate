@@ -5,7 +5,7 @@ buildscript {
 }
 
 plugins {
-    id 'pl.allegro.tech.build.axion-release' version '1.10.1' apply false
+    id 'pl.allegro.tech.build.axion-release' version '1.10.1'
     id 'org.springframework.boot' version '2.1.8.RELEASE' apply false
 //    id 'gradle-maven-publish-auth' apply false
     id 'jacoco'
@@ -34,9 +34,10 @@ ext {
 }
 
 
-
 allprojects {
-    group = 'one.kii.kiimate'
+    scmVersion.tag.prefix = 'kiimate'
+    project.version = scmVersion.version
+    group 'one.kii.kiimate'
     repositories {
         maven {
             if ("${ENV_MAVEN_PUBLIC_URL}" != 'null') {
@@ -52,13 +53,7 @@ allprojects {
 subprojects {
     apply plugin: 'java'
     apply plugin: 'maven-publish'
-
     apply plugin: 'io.spring.dependency-management'
-    apply plugin: 'pl.allegro.tech.build.axion-release'
-
-    project.version = scmVersion.version
-
-
 
     scmVersion {
         tag {
@@ -73,7 +68,6 @@ subprojects {
             }
         }
     }
-
 
 
     sourceCompatibility = 1.8
