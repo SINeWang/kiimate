@@ -1,6 +1,5 @@
 package com.sinewang.kiimate.model.core.api;
 
-import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
@@ -12,6 +11,7 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.txdid.txd64.T1Did64Generator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +24,7 @@ import java.util.List;
 @Component
 public class DefaultPublishModelApi implements PublishModelApi {
 
-    private static final Eid64Generator setgen = new Eid64Generator(3);
+    private static final T1Did64Generator setgen = new T1Did64Generator(3);
     @Autowired
     private AnModelPubExtractFui publicationExtractor;
     @Autowired

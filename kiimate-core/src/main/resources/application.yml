@@ -2,17 +2,13 @@ spring:
   profiles: common
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://10.10.10.44:33307/metamate?autoReconnect=true
-    username: root
-    password: 2fJicd{{4qvJZin
 server:
   port: 9090
 ---
 spring:
   profiles: dev
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://mysql.sinewang.com/kiimate?autoReconnect=true
+    url: jdbc:mysql://mini.sinewang.com/kiimate?autoReconnect=true
     username: root
     password: wave
 logging:

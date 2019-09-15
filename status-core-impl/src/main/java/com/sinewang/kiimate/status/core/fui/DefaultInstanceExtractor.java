@@ -1,7 +1,6 @@
 package com.sinewang.kiimate.status.core.fui;
 
 import com.google.common.base.CaseFormat;
-import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.status.core.api.RefreshEntireValueApi;
 import one.kii.kiimate.status.core.api.RefreshPartialValueApi;
@@ -10,6 +9,7 @@ import one.kii.kiimate.status.core.fui.AnInstanceExtractor;
 import one.kii.summer.beans.utils.HashTools;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
+import one.kii.txdid.txd64.T1Did64Generator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ import java.util.*;
 @Component
 public class DefaultInstanceExtractor implements AnInstanceExtractor {
 
-    private static final Eid64Generator setgen = new Eid64Generator(4);
+    private static final T1Did64Generator setgen = new T1Did64Generator(4);
     private static Logger logger = LoggerFactory.getLogger(DefaultInstanceExtractor.class);
 
     @Override

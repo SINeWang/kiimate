@@ -1,6 +1,7 @@
 */build/*
 .idea/
 classes/
+*/out/*
 
 # Created by https://www.gitignore.io/api/gradle,macos,intellij,intellij+iml
 

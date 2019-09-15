@@ -1,10 +1,3 @@
-buildscript {
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
-apply plugin: 'org.springframework.boot'
-
 dependencies {
     compile project(":subject-core-spec")
     compile project(":subject-core-impl")
@@ -13,12 +6,12 @@ dependencies {
     compile project(":status-core-spec")
     compile project(":status-core-impl")
 
-    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
+    compile("org.springframework.boot:spring-boot-starter:${v_spring_boot}")
+    compile("org.springframework.boot:spring-boot-starter-web:${v_spring_boot}") {
         exclude module: "spring-boot-starter-tomcat"
     }
-    compile("org.springframework.boot:spring-boot-starter-jetty:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-jetty:${v_spring_boot}")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${v_spring_boot}")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:${v_spring_boot}")
 }
 

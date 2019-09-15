@@ -5,6 +5,3 @@ dependencies {
     testCompile project(":model-core-impl").sourceSets.main.output
 
 }
-bootRepackage {
-    enabled = false
-}

@@ -1,5 +1,6 @@
 package one.kii.kiimate.model.core.ctl;
 
+import lombok.val;
 import one.kii.kiimate.model.core.api.VisitIntensionsApi;
 import one.kii.summer.asdf.api.VisitApiCaller;
 import one.kii.summer.io.context.ErestHeaders;
@@ -69,7 +70,7 @@ public class VisitIntensionCtl extends ReadController {
             String tree) {
         ReadContext context = buildContext(requestId, ownerId, visitorId);
 
-        VisitIntensionsApi.Form form = new VisitIntensionsApi.Form();
+        val form = new VisitIntensionsApi.Form();
         form.setGroup(group);
         form.setName(name);
         form.setTree(tree);

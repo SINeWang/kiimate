@@ -1,7 +1,6 @@
 package com.sinewang.kiimate.model.core.fui;
 
 import com.google.common.base.CaseFormat;
-import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.api.DeclareExtensionApi;
 import one.kii.kiimate.model.core.dai.ExtensionDai;
 import one.kii.kiimate.model.core.fui.AnExtensionExtractFui;
@@ -12,6 +11,7 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.txdid.txd64.T1Did64Generator;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -23,7 +23,7 @@ import java.util.Date;
 @Component
 public class DefaultExtensionExtractFui implements AnExtensionExtractFui {
 
-    private static final Eid64Generator idgen = new Eid64Generator(0);
+    private static final T1Did64Generator idgen = new T1Did64Generator(0);
 
     @Override
     public ExtensionDai.Record extract(WriteContext context, DeclareExtensionApi.CommitForm form) throws BadRequest, Panic {

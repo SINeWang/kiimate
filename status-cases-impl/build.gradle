@@ -1,7 +1,3 @@
 dependencies {
     compile project(":status-cases-spec")
 }
-
-bootRepackage {
-    enabled = false
-}

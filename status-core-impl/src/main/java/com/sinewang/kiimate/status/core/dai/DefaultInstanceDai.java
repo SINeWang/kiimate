@@ -3,7 +3,6 @@ package com.sinewang.kiimate.status.core.dai;
 import com.google.common.collect.ObjectArrays;
 import com.sinewang.kiimate.status.core.dai.mapper.InstanceMapper;
 import lombok.Data;
-import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.status.core.dai.InstanceDai;
 import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.annotations.MayHave;
@@ -11,6 +10,7 @@ import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
 import one.kii.summer.zoom.ZoomInById;
+import one.kii.txdid.txd64.T1Did64Generator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,9 +27,9 @@ import java.util.List;
 @Component
 public class DefaultInstanceDai implements InstanceDai {
 
-    private static final Eid64Generator idgen = new Eid64Generator(7);
+    private static final T1Did64Generator idgen = new T1Did64Generator(7);
 
-    private static final Eid64Generator setgen = new Eid64Generator(8);
+    private static final T1Did64Generator setgen = new T1Did64Generator(8);
 
     private static final String[] EMPTY_VALUE = new String[]{"_"};
 

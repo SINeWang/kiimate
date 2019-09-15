@@ -1,7 +1,7 @@
 package com.sinewang.kiimate.model.core.fui;
 
 import com.google.common.base.CaseFormat;
-import one.kii.derid.derid64.Eid64Generator;
+
 import one.kii.kiimate.model.core.api.DeclareIntensionApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.fui.AnIntensionExtractFui;
@@ -13,6 +13,7 @@ import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadRequest;
 import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.txdid.txd64.T1Did64Generator;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -24,7 +25,7 @@ import java.util.Date;
 @Component
 public class DefaultIntensionExtractFui implements AnIntensionExtractFui {
 
-    private static final Eid64Generator idgen = new Eid64Generator(1);
+    private static final T1Did64Generator idgen = new T1Did64Generator(1);
 
     @Override
     public IntensionDai.Record extract(WriteContext context, DeclareIntensionApi.Form form) throws NotFound, Panic, BadRequest {

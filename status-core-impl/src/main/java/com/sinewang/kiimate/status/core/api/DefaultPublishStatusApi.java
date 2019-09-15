@@ -1,6 +1,5 @@
 package com.sinewang.kiimate.status.core.api;
 
-import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.status.core.api.PublishStatusApi;
 import one.kii.kiimate.status.core.dai.GlimpsesDai;
 import one.kii.kiimate.status.core.dai.InstanceDai;
@@ -12,6 +11,7 @@ import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
 import one.kii.summer.zoom.ZoomInById;
+import one.kii.txdid.txd64.T1Did64Generator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,10 +25,10 @@ import java.util.List;
 @Component
 public class DefaultPublishStatusApi implements PublishStatusApi {
 
-    private static final Eid64Generator insgen = new Eid64Generator(5);
+    private static final T1Did64Generator insgen = new T1Did64Generator(5);
 
 
-    private static final Eid64Generator pubset = new Eid64Generator(6);
+    private static final T1Did64Generator pubset = new T1Did64Generator(6);
 
     @Autowired
     private GlimpsesDai glimpsesDai;

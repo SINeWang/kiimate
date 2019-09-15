@@ -1,6 +1,5 @@
 package com.sinewang.kiimate.status.core.api;
 
-import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.status.core.api.SubscribeGlimpseApi;
 import one.kii.kiimate.status.core.dai.GlimpsesDai;
 import one.kii.summer.beans.utils.ValueMapping;
@@ -9,6 +8,7 @@ import one.kii.summer.io.exception.BadRequest;
 import one.kii.summer.io.exception.Conflict;
 import one.kii.summer.io.exception.NotFound;
 import one.kii.summer.io.validator.NotBadRequest;
+import one.kii.txdid.txd64.T1Did64Generator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,7 @@ import java.util.Date;
 @Component
 public class DefaultSubscribeGlimpseApi implements SubscribeGlimpseApi {
 
-    private static final Eid64Generator idgen = new Eid64Generator(7);
+    private static final T1Did64Generator idgen = new T1Did64Generator(7);
 
 
     @Autowired
@@ -36,7 +36,7 @@ public class DefaultSubscribeGlimpseApi implements SubscribeGlimpseApi {
 
         glimpse.setBeginTime(new Date());
 
-        glimpse.setId(String.valueOf(idgen.born())) ;
+        glimpse.setId(String.valueOf(idgen.born()));
 
         glimpsesDai.remember(glimpse);
 

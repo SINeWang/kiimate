@@ -4,6 +4,3 @@ dependencies {
     testCompile project(":model-cases-test").sourceSets.test.output
 
 }
-bootRepackage {
-    enabled = false
-}

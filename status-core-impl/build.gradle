@@ -4,7 +4,3 @@ dependencies {
     compile project(":model-core-spec")
 
 }
-
-bootRepackage {
-    enabled = false
-}

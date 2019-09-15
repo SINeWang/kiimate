@@ -6,6 +6,3 @@ dependencies {
     testCompile project(":subject-core-test").sourceSets.test.output
 
 }
-bootRepackage {
-    enabled = false
-}

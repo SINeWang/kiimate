@@ -1,6 +1,5 @@
 package com.sinewang.kiimate.model.core.fui;
 
-import one.kii.derid.derid64.Eid64Generator;
 import one.kii.kiimate.model.core.api.PublishModelApi;
 import one.kii.kiimate.model.core.dai.IntensionDai;
 import one.kii.kiimate.model.core.dai.ModelPublicationDai;
@@ -9,6 +8,7 @@ import one.kii.summer.beans.utils.ValueMapping;
 import one.kii.summer.io.context.WriteContext;
 import one.kii.summer.io.exception.Panic;
 import one.kii.summer.io.validator.NotBadResponse;
+import one.kii.txdid.txd64.T1Did64Generator;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.List;
 @Component
 public class DefaultModelPubExtractFui implements AnModelPubExtractFui {
 
-    private static final Eid64Generator idgen = new Eid64Generator(2);
+    private static final T1Did64Generator idgen = new T1Did64Generator(2);
 
 
     @Override
