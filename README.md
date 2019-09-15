@@ -22,7 +22,15 @@ Be the best **Mate** of **Knowledge Integration & Innovation**
 
 * RESTful API
 
-* Dependencies [Summer](https://github.com/sinewang/summer)
+* Dependencies [summer](https://github.com/sinewang/summer)
+
+* Dependencies [txdid-java](https://github.com/SINeWang/txdid-java)
+
+### How to develop / debug
+
+* Start with VM Options `-Dspring.profiles.active=common,dev`
+
+* Create data base with DDL `kiimate-core/src/main/sql/kiimate.ddl.sql`
 
 ## See Also
 
