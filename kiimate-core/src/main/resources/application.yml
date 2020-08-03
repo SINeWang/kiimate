@@ -8,7 +8,7 @@ server:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://mini.sinewang.com/kiimate?autoReconnect=true
+    url: jdbc:mysql://hp-mini.sinewang.com/kiimate?autoReconnect=true
     username: root
     password: wave
 logging:
