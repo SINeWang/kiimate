@@ -5,8 +5,8 @@ buildscript {
 }
 
 plugins {
-    id 'pl.allegro.tech.build.axion-release' version '1.10.1'
-    id 'org.springframework.boot' version '2.1.8.RELEASE' apply false
+    id 'pl.allegro.tech.build.axion-release' version '1.12.0'
+    id 'org.springframework.boot' version '2.3.2.RELEASE' apply false
 //    id 'gradle-maven-publish-auth' apply false
     id 'jacoco'
     id 'idea'
@@ -21,8 +21,8 @@ ext {
     v_mybatis_spring_boot_starter = "2.1.0"
     v_mysql_connection = '5.1.41'
     v_servlet_api = '3.1.0'
-    v_spring_boot = '2.1.8.RELEASE'
-    v_spring_framework = '5.1.9.RELEASE'
+    v_spring_boot = '2.3.2.RELEASE'
+    v_spring_framework = '5.2.8.RELEASE'
     v_summer_beans = '0.7.9'
     v_summer_io = '0.8.3'
     v_summer_zoom = '0.7.0'
